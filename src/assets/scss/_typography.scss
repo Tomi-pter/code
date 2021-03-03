@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'Axiforma';
+    src: url('../font/Axiforma_Regular.otf');
+}
+
+* {
+    font-family: 'Axiforma' !important;
+}
+
+h1, h2, h3, h4 {
+    font-style: normal;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 60px;
+    line-height: 100px;
+}
+h2 {
+    font-size: 50px;
+    line-height: 83px;
+}
+h3 {
+    font-size: 40px;
+    line-height: 40px;
+}
+h4 {
+    font-size: 30px;
+    line-height: 49px;
+}
+h5 {
+    font-style: normal;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 41px;
+}
+p {
+    font-style: normal;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 40px;
+}

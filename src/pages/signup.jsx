@@ -1,9 +1,9 @@
 import React from 'react';
-import { Header } from '../../components/partials/header';
-import { Footer } from '../../components/partials/footer';
-import SignupImage from '../../assets/img/signup-img.png';
+import { Header } from '../components/partials/header';
+import { Footer } from '../components/partials/footer';
+import SignupImage from '../assets/img/signup-img.png';
 
-import MultiStepForm from "./multi-step-form";
+import MultiStepForm from "../components/signup/multi-step-form";
 
 export const SignUp = () => {
   return (

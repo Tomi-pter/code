@@ -1,12 +1,22 @@
-import React from "react";
+import React, {useState, useEffect, useCallback} from "react";
 
-import Input from "../../components/shared/input";
+import Input from "../shared/input";
 import NextIcon from "../../assets/icon/next-white.svg";
 
 const Basic = ({ setForm, formData, navigation }) => {
   const { firstName, lastName, email, phone } = formData;
-
   const { next } = navigation;
+  const [isDisabled, setDisabled] = useState(true);
+
+  const validation = useCallback(() => {
+    const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const phoneCheck = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(phone);
+    firstName && lastName && email && phone && emailCheck && phoneCheck ? setDisabled(false) : setDisabled(true);
+  }, [firstName, lastName, email, phone])
+
+  useEffect(() => {
+    validation();
+  }, [validation])
 
   return (
     <div className="form">
@@ -40,7 +50,7 @@ const Basic = ({ setForm, formData, navigation }) => {
             onChange={setForm}
         />
       <div className="d-flex align-items-center justify-content-end nav basic-nav">
-        <button className="next" onClick={next}><span>Next Step</span> <img src={NextIcon} alt="" /></button>
+        <button className="next" onClick={next} disabled={isDisabled} ><span>Next Step</span> <img src={NextIcon} alt="" /></button>
       </div>
     </div>
   );

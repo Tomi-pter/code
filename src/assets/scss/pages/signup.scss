@@ -73,6 +73,9 @@
         height: 57px;
         background: #16CFB0;
         color: #FFFFFF;
+        &:disabled {
+            background: #F0F0F0;
+        }
     }
     .prev {
         width: 221px;

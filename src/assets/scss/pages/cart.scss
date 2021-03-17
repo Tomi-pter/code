@@ -1,0 +1,138 @@
+.cart-page {
+  .section-title {
+    font-family: 'Axiforma Bold';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 35px;
+    line-height: 58px;
+    color: #4f4f4f;
+  }
+  .row-wrapper {
+    padding: 0 40px;
+  }
+  .card {
+    min-height: 479px;
+    &.product-card {
+      filter: drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.07));
+      border-radius: 10px;
+      .product-wrapper {
+        position: relative;
+        &::before {
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          background: linear-gradient(180deg, #21e8de 0%, #0098ff 100%);
+          border-top-right-radius: 204.171px;
+          border-bottom-right-radius: 204.171px;
+          width: 100%;
+          max-width: 582px;
+          min-height: 360px;
+          margin-top: 40px;
+          content: "";
+        }
+        .product-image {
+          z-index: 2;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          min-height: 356.39px;
+        }
+      }
+      .product-desc-wrapper {
+        display: flex;
+        align-items: left;
+        justify-content: center;
+        flex-direction: column;
+        text-align: left;
+        .product-name,
+        .variant-text {
+          font-family: 'Axiforma Bold';
+          font-style: normal;
+          font-weight: bold;
+          font-size: 35px;
+          line-height: 58px;
+          color: #4f4f4f;
+        }
+        .price-text {
+          font-family: 'Axiforma Bold';
+          font-style: normal;
+          font-weight: bold;
+          font-size: 50px;
+          line-height: 83px;
+          color: #4f4f4f;
+        }
+        .quantity-text {
+          font-family: 'Axiforma Bold';
+          font-style: normal;
+          font-weight: 800;
+          font-size: 40px;
+          line-height: 67px;
+          color: #4f4f4f2c;
+        }
+      }
+    }
+    &.order-card {
+      padding: 40px;
+      min-height: 640px;
+      .order-title {
+        font-family: 'Axiforma Bold';
+        font-style: normal;
+        font-weight: 800;
+        font-size: 35px;
+        line-height: 58px;
+        color: #4f4f4f;
+      }
+      .subtotal-text,
+      .shipping-text {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 25px;
+        line-height: 40px;
+        color: #4f4f4f;
+        margin-bottom: 20px;
+      }
+      .shipping-desc {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 17px;
+        line-height: 27px;
+        color: #4f4f4f;
+      }
+      .total-text {
+        font-family: 'Axiforma Bold';
+        font-style: normal;
+        font-weight: 800;
+        font-size: 35px;
+        line-height: 58px;
+        color: #4f4f4f;
+      }
+      .total-price-text {
+        font-family: 'Axiforma Bold';
+        font-style: normal;
+        font-weight: 800;
+        font-size: 35px;
+        line-height: 58px;
+        color: #4f4f4f;
+      }
+      .button-wrapper {
+        background: #16cfb0;
+        border-radius: 10px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 33px;
+        text-align: center;
+        color: #ffffff;
+        padding: 23.5px 38.5px;
+        &:hover {
+          background: linear-gradient(180deg, #21e8de 0%, #0098ff 100%);
+          border: 0;
+        }
+      }
+    }
+  }
+  .shipping-details-wrapper{
+      margin-bottom: 120px;
+  }
+}

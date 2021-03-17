@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header } from '../components/partials/header';
-import { Footer } from '../components/partials/footer';
+import { Header } from '../components/partials/Header';
+import { Footer } from '../components/partials/Footer';
 import SignupImage from '../assets/img/signup-img.png';
 
 import MultiStepForm from "../components/signup/multi-step-form";

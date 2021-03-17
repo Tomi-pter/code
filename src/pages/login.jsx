@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header } from '../components/partials/header';
-import { Footer } from '../components/partials/footer';
+import { Header } from '../components/partials/Header';
+import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";
 
 export const Login = () => {

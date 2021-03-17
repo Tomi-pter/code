@@ -1,44 +1,93 @@
 .header {
-    border: none;
+  border: none;
 }
-.footer {
-    height: 200px;
-    background: #0098FF;
-    a {
+.headerNav__wrapper {
+  border: none;
+  background: #f6f9fe;
+  margin-bottom: 92px;
+  filter: drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.07));
+  .logo {
+    min-width: 203px;
+  }
+  .navbar-nav {
+    li {
+      a {
         font-style: normal;
         font-weight: normal;
-        font-size: 15px;
-        line-height: 24px;
-        color: #FFFFFF;
+        font-size: 20px;
+        line-height: 32px;
+        color: #000000;
+      }
     }
+  }
+  .cart-icon__wrapper {
+    position: relative;
+    width: 100%;
+    display: block;
+    .cart-bubble {
+      content: "";
+      min-width: 25px;
+      min-height: 25px;
+      background: #fc4a4a;
+      position: absolute;
+      top: 0;
+      right: -10px;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-style: normal;
+      font-weight: normal;
+      font-size: 15px;
+      line-height: 24px;
+      color: #ffffff;
+    }
+    .cart-icon {
+      width: 100%;
+      min-width: 36px;
+      min-height: 36px;
+    }
+  }
+}
+.footer {
+  height: 200px;
+  background: #0098ff;
+  a {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 24px;
+    color: #ffffff;
+  }
 }
 @include mediaQueries(mobile) {
-    .header {
-        .logo {
-            width: 110px;
-            height: 33.59px;
-        }
+  .header {
+    .logo {
+      width: 110px;
+      height: 33.59px;
     }
-    .footer .container {
-        div:first-child {
-            display: block !important;
-            text-align: center;
-            .logo {
-                width: 120px;
-                height: 36.64px;
-            }
-        }
-        div:last-child {
-            margin-top: 30px;
-            justify-content: space-evenly !important;
-            a {
-                padding: 0;
-                font-size: 11px;
-                line-height: 17px;
-            }
-            img {
-                max-width: 25px;
-            }
-        }
+  }
+  .footer .container {
+    div:first-child {
+      display: block !important;
+      text-align: center;
+      .logo {
+        width: 120px;
+        height: 36.64px;
+      }
     }
+    div:last-child {
+      margin-top: 30px;
+      justify-content: space-evenly !important;
+      a {
+        padding: 0;
+        font-size: 11px;
+        line-height: 17px;
+      }
+      img {
+        max-width: 25px;
+      }
+    }
+  }
 }

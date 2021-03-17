@@ -1,6 +1,6 @@
 .cart-page {
   .section-title {
-    font-family: 'Axiforma Bold';
+    font-family: "Axiforma Bold";
     font-style: normal;
     font-weight: 800;
     font-size: 35px;
@@ -47,7 +47,7 @@
         text-align: left;
         .product-name,
         .variant-text {
-          font-family: 'Axiforma Bold';
+          font-family: "Axiforma Bold";
           font-style: normal;
           font-weight: bold;
           font-size: 35px;
@@ -55,7 +55,7 @@
           color: #4f4f4f;
         }
         .price-text {
-          font-family: 'Axiforma Bold';
+          font-family: "Axiforma Bold";
           font-style: normal;
           font-weight: bold;
           font-size: 50px;
@@ -63,7 +63,7 @@
           color: #4f4f4f;
         }
         .quantity-text {
-          font-family: 'Axiforma Bold';
+          font-family: "Axiforma Bold";
           font-style: normal;
           font-weight: 800;
           font-size: 40px;
@@ -76,7 +76,7 @@
       padding: 40px;
       min-height: 640px;
       .order-title {
-        font-family: 'Axiforma Bold';
+        font-family: "Axiforma Bold";
         font-style: normal;
         font-weight: 800;
         font-size: 35px;
@@ -100,7 +100,7 @@
         color: #4f4f4f;
       }
       .total-text {
-        font-family: 'Axiforma Bold';
+        font-family: "Axiforma Bold";
         font-style: normal;
         font-weight: 800;
         font-size: 35px;
@@ -108,7 +108,7 @@
         color: #4f4f4f;
       }
       .total-price-text {
-        font-family: 'Axiforma Bold';
+        font-family: "Axiforma Bold";
         font-style: normal;
         font-weight: 800;
         font-size: 35px;
@@ -132,7 +132,33 @@
       }
     }
   }
-  .shipping-details-wrapper{
-      margin-bottom: 120px;
+  .shipping-details-wrapper {
+    margin-bottom: 120px;
+    .customer-name {
+      font-family: "Axiforma Bold";
+      font-style: normal;
+      font-weight: 800;
+      font-size: 30px;
+      line-height: 50px;
+      color: #4f4f4f;
+      display: flex;
+      align-items: center;
+      flex: 0;
+    }
+    .addressDefault {
+      background: #c4c4c4;
+      border-radius: 13px;
+      color: #fff;
+      font-size: 18px;
+      line-height: 29px;
+      color: #f2f2f2;
+      padding: 5px 17px;
+      margin-left: 25px;
+    }
+    .customer-address,
+    .customer-phone,
+    .customer-email {
+      color: #4f4f4f;
+    }
   }
 }

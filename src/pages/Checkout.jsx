@@ -1,11 +1,12 @@
 import React from 'react';
-import { Header } from '../components/partials/header';
-import { Footer } from '../components/partials/footer';
+import { HeaderNav } from '../components/partials/HeaderNav';
+import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";
 
 export const Checkout = () => {
     return (
         <>
+            <HeaderNav />
             <div className="cart-page">
                 <div className="container-fluid">
                     <div className="row row-wrapper">
@@ -99,7 +100,10 @@ export const Checkout = () => {
                                                     <span className="mr-3"><img src={require("../assets/img/mdi_account.svg")} /></span>
                                                 </div>
                                                 <div>
-                                                    <p className="mb-0" style={{ maxWidth: "210px" }}>John Doe</p>
+                                                    <p className="customer-name mb-0" style={{ maxWidth: "210px" }}>John Doe</p>
+                                                </div>
+                                                <div>
+                                                    <span className="addressDefault">Default</span>
                                                 </div>
                                             </div>
                                             <div className="d-flex align-items-start">
@@ -107,7 +111,7 @@ export const Checkout = () => {
                                                     <span className="mr-3"><img src={require("../assets/img/mdi_map-marker.svg")} /></span>
                                                 </div>
                                                 <div>
-                                                    <p className="mb-0" style={{ maxWidth: "210px" }}>74 Williams St. Laurel, MD 20707</p>
+                                                    <p className="customer-address mb-0" style={{ maxWidth: "210px" }}>74 Williams St. Laurel, MD 20707</p>
                                                 </div>
                                             </div>
                                             <div className="d-flex align-items-start">
@@ -115,7 +119,7 @@ export const Checkout = () => {
                                                     <span className="mr-3"><img src={require("../assets/img/mdi_phone.svg")} /></span>
                                                 </div>
                                                 <div>
-                                                    <p className="mb-0">123456789</p>
+                                                    <p className="customer-phone mb-0">123456789</p>
                                                 </div>
                                             </div>
                                             <div className="d-flex align-items-start">
@@ -123,7 +127,7 @@ export const Checkout = () => {
                                                     <span className="mr-3"><img src={require("../assets/img/mdi_email.svg")} /></span>
                                                 </div>
                                                 <div>
-                                                    <p className="mb-0" >johndoe@gmail.com</p>
+                                                    <p className="customer-email mb-0" >johndoe@gmail.com</p>
                                                 </div>
                                             </div>
                                         </div>

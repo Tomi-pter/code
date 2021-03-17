@@ -1,11 +1,12 @@
 import React from 'react';
-import { Header } from '../components/partials/header';
-import { Footer } from '../components/partials/footer';
+import { HeaderNav } from '../components/partials/HeaderNav';
+import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";
 
 export const Cart = () => {
     return (
         <>
+            <HeaderNav />
             <div className="cart-page">
                 <div className="container-fluid">
                     <div className="row row-wrapper">

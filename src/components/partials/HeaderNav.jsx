@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { SearchOutlined } from '@ant-design/icons';
 import Logo from '../../assets/img/logo.svg';
 
 export const HeaderNav = () => {
@@ -19,8 +20,14 @@ export const HeaderNav = () => {
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Products
-                            </a>
+                                Products
+                                </a>
+                                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a className="dropdown-item" href="#">Product 1</a>
+                                    <a className="dropdown-item" href="#">Product 2</a>
+                                    <div className="dropdown-divider"></div>
+                                    <a className="dropdown-item" href="#">Product 3</a>
+                                </div>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Contact Us</a>
@@ -29,14 +36,12 @@ export const HeaderNav = () => {
                     </div>
                     <div>
                         <div className="d-flex align-items-center ">
-                            <form className="form-inline ml-4 mr-4">
-                                <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="Search" />
-                                    <div className="input-group-append">
-                                        <button className="btn btn-secondary" type="button">
-                                            <i className="fa fa-search"></i>
-                                        </button>
-                                    </div>
+                            <form className="form-inline ml-5 mr-4">
+                                <div class="input-group searchWrapper">
+                                    <input class="form-control border-right-0 border-top-0 border-left-0" placeholder="Search Medicine ..." />
+                                    <span class="input-group-append">
+                                        <button class="btn border-left-0 border-right-0 border-top-0" type="button"><SearchOutlined /></button>
+                                    </span>
                                 </div>
                             </form>
                             <div>

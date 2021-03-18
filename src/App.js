@@ -4,10 +4,11 @@ import { Login } from './pages/Login';
 import { SignUp } from './pages/Signup';
 import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
+import { Payment } from './pages/Payment';
 
 import './App.scss';
 import './assets/scss/theme.scss';
-
+import 'antd/dist/antd.css'
 function App() {
   return (
     <div className='App'>
@@ -16,6 +17,7 @@ function App() {
         <Route exact path='/register' component={SignUp} />
         <Route exact path='/cart' component={Cart} />
         <Route exact path='/checkout' component={Checkout} />
+        <Route exact path='/payment' component={Payment} />
       </BrowserRouter>
     </div>
   );

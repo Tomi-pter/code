@@ -3,15 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.5.0",
     "@shopify/draggable": "^1.0.0-beta.8",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "antd": "^4.14.0",
     "autosize": "^4.0.2",
     "bootstrap": "^4.5.1",
     "chart.js": "^2.9.3",
     "dropzone": "^5.7.0",
     "flatpickr": "^4.6.3",
+    "formik": "^2.2.6",
     "highlightjs": "^9.16.2",
     "jquery": "^3.4.1",
     "jquery-mask-plugin": "^1.14.16",
@@ -24,10 +27,12 @@
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.8",
     "react-hooks-helper": "^1.6.0",
+    "react-payment-inputs": "^1.1.7",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "save": "^2.4.0",
-    "select2": "^4.0.13"
+    "select2": "^4.0.13",
+    "styled-components": "^5.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

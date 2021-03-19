@@ -1,0 +1,48 @@
+.errorPage {
+    background-image: url("../../../img/Payment/payment-bg.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;
+  .section-container {
+    height: 70vh;
+    .errorMessage {
+      .error-heading-text {
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 800;
+        font-size: 217.526px;
+        line-height: 362px;
+        color: #0098ff;
+        margin-bottom: 0;
+      }
+      .error-subheading-text {
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 800;
+        font-size: 35px;
+        line-height: 58px;
+
+        /* Blue 2 */
+
+        color: #0098ff;
+      }
+    }
+    .buttonWrapper {
+        margin-top: 40px;
+        .primaryButton {
+          background: #16cfb0;
+          border-radius: 10px;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 33px;
+          text-align: center;
+          color: #ffffff;
+          padding: 23px 38px;
+          min-height: 80px;
+        }
+      }
+  }
+}

@@ -14,6 +14,8 @@
 @import './pages/signup';
 @import './pages/cart';
 @import './pages/payment';
+@import './pages/paymentConfirmation';
+@import './pages/error/404.scss';
 
 body{
     background-color: #f6f9fe !important;

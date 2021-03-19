@@ -110,10 +110,10 @@ export const Cart = () => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-md-7">
+                                    <div className="col-md-6">
                                         <p className="total-text">Total</p>
                                     </div>
-                                    <div className="col-md-5 text-right">
+                                    <div className="col-md-6 text-right">
                                         <p className="mb-0 total-price-text">$320.00</p>
                                     </div>
                                 </div>

@@ -5,7 +5,8 @@ import { SignUp } from './pages/Signup';
 import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Payment } from './pages/Payment';
-
+import { PaymentConfirmation } from './pages/PaymentConfirmation';
+import { ErrorPage } from './pages/error/404page';
 import './App.scss';
 import './assets/scss/theme.scss';
 import 'antd/dist/antd.css'
@@ -18,6 +19,8 @@ function App() {
         <Route exact path='/cart' component={Cart} />
         <Route exact path='/checkout' component={Checkout} />
         <Route exact path='/payment' component={Payment} />
+        <Route exact path='/payment-confirmation' component={PaymentConfirmation} />
+        <Route path='*' exact={true} component={ErrorPage} />
       </BrowserRouter>
     </div>
   );

@@ -1,0 +1,82 @@
+.payment-confirmation {
+  background-image: url("../../img/Payment/payment-bg.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  .section-container {
+    max-width: 880px;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    .thankyouWrapper {
+      .thankyou-card {
+        text-align: center;
+        background: #0098ff;
+        border-radius: 10px;
+        padding: 40px 0;
+        margin-bottom: 120px;
+        .card-title {
+          font-family: "Axiforma Bold";
+          font-style: normal;
+          font-weight: 800;
+          font-size: 35px;
+          line-height: 58px;
+          color: #f2f2f2;
+        }
+        .imageWrapper {
+          img {
+            min-width: 101px;
+            min-height: 101px;
+          }
+        }
+        .thankyou-text {
+          font-family: "Axiforma Bold";
+          font-style: normal;
+          font-weight: 800;
+          font-size: 100px;
+          line-height: 167px;
+          color: #f2f2f2;
+          margin-bottom: 0;
+        }
+        .purchase-text {
+          font-family: "Axiforma Bold";
+          font-style: normal;
+          font-weight: 800;
+          font-size: 35px;
+          line-height: 58px;
+          color: #f2f2f2;
+        }
+      }
+    }
+    .buttonWrapper {
+      .secondaryButton {
+        background: #ffffff;
+        border: 1px solid #21e8de;
+        box-sizing: border-box;
+        border-radius: 10px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 33px;
+        text-align: center;
+        color: #21e8de;
+        padding: 23px 38px;
+        min-height: 80px;
+      }
+      .primaryButton {
+        background: #16cfb0;
+        border-radius: 10px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 33px;
+        text-align: center;
+        color: #ffffff;
+        padding: 23px 38px;
+        min-height: 80px;
+      }
+    }
+  }
+}

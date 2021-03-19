@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
 import Logo from '../../assets/img/logo.svg';
 
@@ -8,9 +8,9 @@ export const HeaderNav = () => {
         <nav className="navbar headerNav__wrapper">
             <div className="row align-items-center">
                 <div className="col-md-3">
-                    <NavLink className='nav-link' to='/'>
+                    <Link className='nav-link' to='/'>
                         <img className="logo" src={Logo} width="203" height="62" alt="" />
-                    </NavLink>
+                    </Link>
                 </div>
                 <div className="col-md-8 d-flex justify-content-end align-items-center">
                     <div>
@@ -45,10 +45,10 @@ export const HeaderNav = () => {
                                 </div>
                             </form>
                             <div>
-                                <NavLink className='cart-icon__wrapper' to='/'>
+                                <Link className='cart-icon__wrapper' to='/'>
                                     <img className="cart-icon" src={require('../../assets/img/cart.svg')} width="203" height="62" alt="" />
                                     <span className="cart-bubble">3</span>
-                                </NavLink>
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ import SignupImage from '../assets/img/signup-img.png';
 
 import MultiStepForm from "../components/signup/multi-step-form";
 
-export const SignUp = () => {
+export const SignUpContainer = () => {
   return (
     <>
         <Header />

@@ -5,7 +5,7 @@ import { Radio } from 'antd';
 import GooglePay from '../assets/img/Payment/Google_Pay.svg';
 import ApplePay from '../assets/img/Payment/Apple_Pay.svg';
 import { CreditCardOptions } from '../components/pages/payment/CreditCardOptions'
-export const Payment = () => {
+export const PaymentContainer = () => {
 
     const [value, setValue] = useState("credit_card");
 

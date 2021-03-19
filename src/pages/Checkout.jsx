@@ -3,7 +3,7 @@ import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";
 
-export const Checkout = () => {
+export const CheckoutContainer = () => {
     return (
         <>
             <HeaderNav />

@@ -4,7 +4,7 @@ import { Footer } from '../components/partials/Footer';
 import PaymentConfirmedImg from '../assets/img/Payment/default-check-icon.svg'
 import { Link } from "react-router-dom";
 
-export const PaymentConfirmation = () => {
+export const PaymentConfirmationContainer = () => {
     return (
         <>
             <HeaderNav />

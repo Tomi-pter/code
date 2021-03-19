@@ -3,7 +3,7 @@ import { HeaderNav } from '../../components/partials/HeaderNav';
 import { Footer } from '../../components/partials/Footer';
 import { Link } from "react-router-dom";
 
-export const ErrorPage = () => {
+export const ErrorPageContainer = () => {
     return (
         <>
             <HeaderNav />

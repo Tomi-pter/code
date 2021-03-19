@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import LogoWhite from '../../assets/img/logo-white.svg';
 import Facebook from '../../assets/icon/facebook.svg';
 import Google from '../../assets/icon/google.svg';
@@ -12,9 +11,7 @@ export const Footer = () => {
     <div className="container-fluid d-flex align-items-center footer">
         <div className="container">
             <div className="d-flex justify-content-between align-items-center">
-                <NavLink className='nav-link' to='/'>
                     <img className="logo" src={LogoWhite} width="203" height="62" alt="logo-white" />
-                </NavLink>
                 <div className="d-flex justify-content-around align-items-center">
                     <a className='nav-link' href='/'>
                         <img src={Facebook} alt="facebook" />

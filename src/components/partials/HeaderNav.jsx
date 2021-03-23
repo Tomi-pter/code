@@ -1,26 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, Burger } from '@ant-design/icons';
 import Logo from '../../assets/img/logo.svg';
 
 export const HeaderNav = () => {
     return (
         <nav className="navbar headerNav__wrapper">
             <div className="row align-items-center">
-                <div className="col-md-3">
+                <div className="col-md-3 d-flex align-items-center flex-wrap">
                     <Link className='nav-link' to='/'>
                         <img className="logo" src={Logo} width="203" height="62" alt="" />
                     </Link>
+                    <div class="dropdown">
+                        <button class="navbar-toggler" type="button" id="dropdownMenuButton" data-toggle="dropdown" data-target="#dropdownMenuButton" aria-expanded="false" >
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
                 </div>
                 <div className="col-md-8 d-flex justify-content-end align-items-center">
-                    <div>
+
+                    <div className="collapse">
                         <ul className="navbar-nav d-flex flex-row justify-content-end">
                             <li className="nav-item active">
                                 <a className="nav-link" href="#">About Us </a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Products
+                                    Products
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a className="dropdown-item" href="#">Product 1</a>
@@ -34,7 +45,7 @@ export const HeaderNav = () => {
                             </li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="collapse">
                         <div className="d-flex align-items-center ">
                             <form className="form-inline ml-5 mr-4">
                                 <div class="input-group searchWrapper">

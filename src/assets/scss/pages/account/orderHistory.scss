@@ -1,0 +1,85 @@
+#orderHistory {
+  .filterRow {
+    button {
+      font-style: normal;
+      font-weight: 800;
+      font-size: 22px;
+      line-height: 37px;
+      color: #333333;
+      border: 0;
+      display: flex;
+      align-items: center;
+      box-shadow: none;
+      .countBadge {
+        background: #c4c4c4;
+        border-radius: 13px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 29px;
+        color: #f2f2f2;
+        min-height: 23.52px;
+        min-width: 38px;
+        margin-left: 5px;
+      }
+    }
+  }
+  .orderDetails {
+    background: #eaeaea;
+    margin-top: 59px;
+    padding: 40px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 32px;
+    color: #4f4f4f;
+    .orderNumber {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 25px;
+      line-height: 40px;
+      color: #4f4f4f;
+    }
+    .orderDate {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 32px;
+      color: #4f4f4f;
+    }
+    .orderTotal {
+      font-family: "Axiforma Bold";
+      font-style: normal;
+      font-weight: 800;
+      font-size: 25px;
+      line-height: 42px;
+      color: #4f4f4f;
+    }
+    .orderStatus {
+      background: #c4c4c4;
+      border-radius: 13px;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 29px;
+      color: #f2f2f2;
+      text-align: center;
+    }
+    .product-name,
+    .variant-text {
+      font-family: "Axiforma Bold";
+      font-style: normal;
+      font-weight: 800;
+      font-size: 21px;
+      line-height: 35px;
+      color: #4f4f4f;
+    }
+    .quantity-text {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20px;
+      line-height: 32px;
+      color: #4f4f4f;
+    }
+  }
+}

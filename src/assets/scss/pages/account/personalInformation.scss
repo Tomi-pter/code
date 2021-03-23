@@ -1,0 +1,121 @@
+.personalInformationWrapper {
+  padding: 0 100px 40px 100px;
+  .section-title {
+    font-family: "Axiforma Bold";
+    font-style: normal;
+    font-weight: 800;
+    font-size: 35px;
+    line-height: 58px;
+    color: #4f4f4f;
+  }
+  .account-tabs {
+    background: #fff;
+    filter: drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.07));
+    border-radius: 10px;
+    li {
+      .nav-link {
+        padding: 40px 20px;
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 800;
+        font-size: 28px;
+        line-height: 47px;
+        color: #4f4f4f;
+        cursor: pointer;
+        &.active {
+          background: rgba($color: #21e8de, $alpha: 0.1);
+          border: 0;
+        }
+      }
+    }
+  }
+  .tab-content {
+    background: #fff;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.07);
+    border-radius: 5px;
+    padding: 40px;
+    .info-section {
+      margin-bottom: 110px;
+      .customerName {
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 800;
+        font-size: 35px;
+        line-height: 58px;
+        color: #4f4f4f;
+      }
+      .changeProfile {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 29px;
+        color: #4f4f4f;
+      }
+    }
+    .account-section {
+      .wrapper-title {
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 800;
+        font-size: 30px;
+        line-height: 50px;
+        color: #4f4f4f;
+      }
+      .account-info,
+      .shipping-info {
+        margin-bottom: 60px;
+      }
+      input {
+        font-family: "Axiforma";
+        background: #f0f0f0;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 25px;
+        line-height: 40px;
+        color: #4f4f4f;
+        padding: 5px 15px;
+        border: 0;
+      }
+      .cards-title {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 29px;
+        color: #4f4f4f;
+      }
+      .creditCardRow {
+        &.active-card {
+          .default-badge {
+            background: #c4c4c4;
+            border-radius: 13px;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 29px;
+            color: #f2f2f2;
+            padding: 2px 20px;
+            margin-left: 11px;
+          }
+        }
+
+        .cardItem {
+          background: #f0f0f0;
+          max-width: 400px;
+          width: 100%;
+          padding: 10px 20px;
+
+          img {
+            max-width: 36px;
+            width: 100%;
+          }
+        }
+      }
+      .addCard {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 25px;
+        line-height: 40px;
+        color: #4f4f4f;
+      }
+    }
+  }
+}

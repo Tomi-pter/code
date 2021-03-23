@@ -15,8 +15,10 @@
 @import './pages/cart';
 @import './pages/payment';
 @import './pages/paymentConfirmation';
-@import './pages/error/404.scss';
+@import './pages/error/404';
 
+@import './pages/account/personalInformation';
+@import './pages/account/orderHistory';
 body{
     background-color: #f6f9fe !important;
 }

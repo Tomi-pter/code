@@ -16,6 +16,10 @@
         line-height: 362px;
         color: #0098ff;
         margin-bottom: 0;
+        @include mediaQueries(mobile) {
+          font-size: 117.526px;
+          text-align: center;
+        }
       }
       .error-subheading-text {
         font-family: "Axiforma Bold";
@@ -27,6 +31,10 @@
         /* Blue 2 */
 
         color: #0098ff;
+        @include mediaQueries(mobile) {
+          font-size: 32px;
+          text-align: center;
+        }
       }
     }
     .buttonWrapper {

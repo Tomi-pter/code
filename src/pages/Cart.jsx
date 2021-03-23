@@ -93,27 +93,27 @@ export const CartContainer = () => {
                             <div className="card order-card position-relative">
                                 <h1 className="order-title">Order Summary</h1>
                                 <div className="row align-items-start" style={{ flex: "0" }}>
-                                    <div className="col-md-8">
+                                    <div className="col-8">
                                         <p className="subtotal-text">Subtotal (3 items)</p>
                                     </div>
-                                    <div className="col-md-4 text-right">
+                                    <div className="col-4 text-right">
                                         <p className="mb-0 price-text">$300.00</p>
                                     </div>
                                 </div>
                                 <div className="row" >
-                                    <div className="col-md-8">
+                                    <div className="col-8">
                                         <p className="mb-0 shipping-text">Shipping Fee</p>
                                         <p className="mb-0 shipping-desc">Add $xx for free shipping</p>
                                     </div>
-                                    <div className="col-md-4 text-right">
+                                    <div className="col-4 text-right">
                                         <p className="mb-0 price-text">$20.00</p>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <p className="total-text">Total</p>
+                                <div className="row d-flex align-items-center">
+                                    <div className="col-4">
+                                        <p className="mb-0 total-text">Total</p>
                                     </div>
-                                    <div className="col-md-6 text-right">
+                                    <div className="col-8 text-right">
                                         <p className="mb-0 total-price-text">$320.00</p>
                                     </div>
                                 </div>

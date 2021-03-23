@@ -2,29 +2,35 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, Burger } from '@ant-design/icons';
 import Logo from '../../assets/img/logo.svg';
-
+import BurgerIcon from '../../assets/img/Mobile/burger-icon.svg';
+import CartMobile from '../../assets/img/Mobile/cart-mobile.svg';
 export const HeaderNav = () => {
     return (
         <nav className="navbar headerNav__wrapper">
             <div className="row align-items-center">
                 <div className="col-md-3 d-flex align-items-center flex-wrap">
-                    <Link className='nav-link' to='/'>
+                    <Link className='nav-link flex-fill' to='/'>
                         <img className="logo" src={Logo} width="203" height="62" alt="" />
                     </Link>
-                    <div class="dropdown">
-                        <button class="navbar-toggler" type="button" id="dropdownMenuButton" data-toggle="dropdown" data-target="#dropdownMenuButton" aria-expanded="false" >
-                            <span class="navbar-toggler-icon"></span>
+                    <div className="cartWrapper d-block d-sm-none mr-3">
+                        <Link to="/cart">
+                            <img src={CartMobile} />
+                        </Link>
+                    </div>
+                    <div class="btn-group d-block d-sm-none">
+                        <button type="button" class="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                            <img src={BurgerIcon} />
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                            <button class="dropdown-item" type="button">Action</button>
+                            <button class="dropdown-item" type="button">Another action</button>
+                            <button class="dropdown-item" type="button">Something else here</button>
                         </div>
                     </div>
                 </div>
                 <div className="col-md-8 d-flex justify-content-end align-items-center">
 
-                    <div className="collapse">
+                    <div className="d-none d-sm-block">
                         <ul className="navbar-nav d-flex flex-row justify-content-end">
                             <li className="nav-item active">
                                 <a className="nav-link" href="#">About Us </a>
@@ -45,7 +51,7 @@ export const HeaderNav = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className="collapse">
+                    <div className="d-none d-sm-block">
                         <div className="d-flex align-items-center ">
                             <form className="form-inline ml-5 mr-4">
                                 <div class="input-group searchWrapper">

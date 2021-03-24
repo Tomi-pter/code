@@ -9,6 +9,7 @@ import { ErrorPageContainer } from "./pages/error/404page";
 import { PersonalInformationContainer } from "./pages/account/PersonalInformation";
 import Search from "./pages/Search";
 import Shop from "./pages/Shop";
+import Product from "./pages/Product";
 export default ({ childProps }) => (
   <BrowserRouter basename="/">
     <Switch>
@@ -19,6 +20,7 @@ export default ({ childProps }) => (
       <Route path="/payment" component={PaymentContainer} />
       <Route path="/search" component={Search} />
       <Route path="/shop" component={Shop} />
+      <Route path="/product" component={Product} />
       <Route
         path="/payment-confirmation"
         component={PaymentConfirmationContainer}

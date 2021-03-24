@@ -20,7 +20,7 @@
       border-radius: 10px;
       padding: 40px;
       @include mediaQueries(mobile) {
-        padding: 0 15px;
+        padding: 20px 15px;
       }
       .card-title {
         font-style: normal;
@@ -28,6 +28,10 @@
         font-size: 35px;
         line-height: 58px;
         color: #4f4f4f;
+        @include mediaQueries(mobile) {
+          font-size: 25px;
+          line-height: 41px;
+        }
       }
       .payment-option {
         min-height: 156px;
@@ -36,7 +40,7 @@
         border: 5px solid #71d3f4 !important;
         box-sizing: border-box;
         border-radius: 20px;
-        margin: 0 auto;
+        margin: 0 auto 20px auto;
         &.ant-radio-button-wrapper-checked {
           color: #000;
           background: rgba(113, 211, 244, 0.2);
@@ -59,6 +63,10 @@
         }
         .payment-icon {
           min-height: 72px;
+          @include mediaQueries(mobile) {
+            min-height: 30px;
+            height: 30px;
+          }
         }
       }
       .paymentContainer {
@@ -74,8 +82,21 @@
           @include mediaQueries(mobile) {
             padding: 40px 22px;
           }
+          .delete-icon {
+            @include mediaQueries(mobile) {
+              max-width: 22px;
+            }
+          }
           .creditCard-icon {
             font-size: 60px;
+            @include mediaQueries(pad) {
+              font-size: 40px;
+              margin-bottom: 25px;
+            }
+            @include mediaQueries(mobile) {
+              font-size: 30px;
+              margin-bottom: 25px;
+            }
           }
           .creditCard-Name {
             border: 0;
@@ -85,6 +106,10 @@
             font-size: 30px;
             color: #4f4f4f;
             width: 100%;
+           
+            @include mediaQueries(mobile) {
+              font-size: 22px;
+            }
           }
           .creditCard-Number {
             border: 0;
@@ -94,6 +119,14 @@
             line-height: 40px;
             color: #4f4f4f;
             width: 100%;
+            @include mediaQueries(pad) {
+              font-size: 18px;
+              margin-bottom: 10px;
+            }
+            @include mediaQueries(mobile) {
+              font-size: 18px;
+              margin-bottom: 10px;
+            }
           }
           #expiryDate {
             background: #ffffff;
@@ -109,6 +142,16 @@
             color: #4f4f4f;
             opacity: 0.6;
             padding: 0 18px;
+            @include mediaQueries(pad) {
+              height: 35px;
+              font-size: 18px;
+              margin-bottom: 0;
+            }
+            @include mediaQueries(mobile) {
+              height: 35px;
+              font-size: 16px;
+              margin-bottom: 0;
+            }
           }
           #cvc {
             background: #ffffff;
@@ -123,6 +166,26 @@
             color: #4f4f4f;
             opacity: 0.6;
             padding: 0 18px;
+            @include mediaQueries(pad) {
+              height: 35px;
+              font-size: 18px;
+              margin-bottom: 0;
+              margin-left: 10px;
+            }
+            @include mediaQueries(mobile) {
+              height: 25px;
+              font-size: 16px;
+              margin-bottom: 0;
+              margin-left: 10px;
+            }
+          }
+          .defaultCardIcon {
+            @include mediaQueries(pad) {
+              margin-top: 20px;
+            }
+            @include mediaQueries(mobile) {
+              margin-top: 20px;
+            }
           }
         }
         .addCardInfo {
@@ -133,6 +196,9 @@
           line-height: 40px;
           color: #4f4f4f;
           border: 0;
+          @include mediaQueries(mobile) {
+            font-size: 18px;
+          }
         }
       }
       .placeOrder {
@@ -154,28 +220,39 @@
       padding: 20px;
       background: #0098ff;
       min-height: 361px;
+      @include mediaQueries(mobile) {
+        min-height: 161px;
+      }
       .card-title {
-        font-family: 'Axiforma Bold';
+        font-family: "Axiforma Bold";
         font-style: normal;
         font-weight: 800;
         font-size: 35px;
         line-height: 58px;
         color: #f2f2f2;
+        @include mediaQueries(mobile) {
+          font-size: 25px;
+          line-height: 41px;
+        }
       }
       .price-text {
-        font-family: 'Axiforma Bold';
+        font-family: "Axiforma Bold";
         font-style: normal;
         font-weight: 800;
         font-size: 5.25rem;
         line-height: 167px;
         color: #f2f2f2;
+        @include mediaQueries(mobile) {
+          font-size: 3.25rem;
+          line-height: 2;
+        }
       }
       .currency-text {
-        font-family: 'Axiforma Bold';
+        font-family: "Axiforma Bold";
         font-style: normal;
         font-weight: 800;
         font-size: 35px;
-        color: #F2F2F2;
+        color: #f2f2f2;
       }
     }
   }

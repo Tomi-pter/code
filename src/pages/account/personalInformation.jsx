@@ -27,7 +27,7 @@ export const PersonalInformationContainer = () => {
             <div className="personalInformationWrapper">
                 <div className="container-fluid">
                     <div className="row row-wrapper">
-                        <div className="col-md-4">
+                        <div className="col-lg-4 mb-5">
                             <h1 className="section-title">Account</h1>
                             <ul class="nav nav-tabs d-block account-tabs" id="accountTab" role="tablist">
                                 <li class="">
@@ -41,7 +41,7 @@ export const PersonalInformationContainer = () => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="col-md-8">
+                        <div className="col-lg-8">
                             <h1 className="section-title">Personal Information</h1>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="personalInformation" role="tabpanel">
@@ -56,19 +56,19 @@ export const PersonalInformationContainer = () => {
                                             </div>
                                             <div>
                                                 <a>
-                                                    <img src={EditIcon} />
+                                                    <img className="editIcon" src={EditIcon} />
                                                 </a>
                                             </div>
                                         </div>
                                         <div className="account-section">
                                             <form>
                                                 <div className="account-info row">
-                                                    <div className="col-md-12">
+                                                    <div className="col-lg-12">
                                                         <h1 className="wrapper-title">
                                                             Account Information
                                                     </h1>
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    <div className="col-lg-6">
                                                         <div class="form-group d-flex flex-column">
                                                             <label htmlFor="first_name">First Name</label>
                                                             <input
@@ -78,7 +78,7 @@ export const PersonalInformationContainer = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    <div className="col-lg-6">
                                                         <div class="form-group d-flex flex-column">
                                                             <label htmlFor="last_name">Last Name</label>
                                                             <input
@@ -88,7 +88,7 @@ export const PersonalInformationContainer = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    <div className="col-lg-6">
                                                         <div class="form-group d-flex flex-column">
                                                             <label htmlFor="email">E-mail Address</label>
                                                             <input
@@ -98,7 +98,7 @@ export const PersonalInformationContainer = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    <div className="col-lg-6">
                                                         <div class="form-group d-flex flex-column">
                                                             <label htmlFor="email">Mobile Number</label>
                                                             <input
@@ -110,12 +110,12 @@ export const PersonalInformationContainer = () => {
                                                     </div>
                                                 </div>
                                                 <div className="shipping-info row">
-                                                    <div className="col-md-12">
+                                                    <div className="col-lg-12">
                                                         <h1 className="wrapper-title">
                                                             Shipping Address
                                                     </h1>
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    <div className="col-lg-6">
                                                         <div class="form-group d-flex flex-column">
                                                             <label htmlFor="address">Address</label>
                                                             <input
@@ -125,7 +125,7 @@ export const PersonalInformationContainer = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    <div className="col-lg-6">
                                                         <div class="form-group d-flex flex-column">
                                                             <label htmlFor="city">City</label>
                                                             <input
@@ -135,7 +135,7 @@ export const PersonalInformationContainer = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    <div className="col-lg-6">
                                                         <div class="form-group d-flex flex-column">
                                                             <label htmlFor="state">State</label>
                                                             <input
@@ -145,7 +145,7 @@ export const PersonalInformationContainer = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-6">
+                                                    <div className="col-lg-6">
                                                         <div class="form-group d-flex flex-column">
                                                             <label htmlFor="postal">Postal Code</label>
                                                             <input
@@ -157,7 +157,7 @@ export const PersonalInformationContainer = () => {
                                                     </div>
                                                 </div>
                                                 <div className="row">
-                                                    <div className="col-md-12">
+                                                    <div className="col-lg-12">
                                                         <h1 className="wrapper-title">
                                                             Payment Information
                                                     </h1>
@@ -199,7 +199,7 @@ export const PersonalInformationContainer = () => {
                                     </div>
                                 </div>
                                 <div class="tab-pane" id="orderHistory" role="tabpanel">
-                                    <div className="filterRow col-md-12">
+                                    <div className="filterRow col-lg-12">
                                         <div className="d-flex align-items-center ">
                                             <div>
                                                 <Button>All</Button>
@@ -234,10 +234,10 @@ export const PersonalInformationContainer = () => {
                                             </div>
                                         </div>
                                         <div className="row d-flex align-items-center">
-                                            <div className="col-md-3 text-center">
+                                            <div className="col-lg-3 text-center">
                                                 <img src={ProductPlaceholder} />
                                             </div>
-                                            <div className="col-md-5">
+                                            <div className="col-lg-5">
                                                 <p className="product-name mb-0">
                                                     Colesevelam 625mg Tabs 180ct
                                                  </p>
@@ -246,16 +246,16 @@ export const PersonalInformationContainer = () => {
                                                 </p>
                                                 <p className="quantity-text">Quantity: 5</p>
                                             </div>
-                                            <div className="col-md-4">
+                                            <div className="col-lg-4">
                                                 Get by <br />
                                                 March 17 -20, 2021
                                             </div>
                                         </div>
                                         <div className="row d-flex align-items-center">
-                                            <div className="col-md-3 text-center">
+                                            <div className="col-lg-3 text-center">
                                                 <img src={ProductPlaceholder} />
                                             </div>
-                                            <div className="col-md-5">
+                                            <div className="col-lg-5">
                                                 <p className="product-name mb-0">
                                                     Colesevelam 625mg Tabs 180ct
                                                  </p>
@@ -264,7 +264,7 @@ export const PersonalInformationContainer = () => {
                                                 </p>
                                                 <p className="quantity-text">Quantity: 5</p>
                                             </div>
-                                            <div className="col-md-4">
+                                            <div className="col-lg-4">
                                                 Get by <br />
                                                 March 17 -20, 2021
                                             </div>
@@ -286,10 +286,10 @@ export const PersonalInformationContainer = () => {
                                             </div>
                                         </div>
                                         <div className="row d-flex align-items-center">
-                                            <div className="col-md-3 text-center">
+                                            <div className="col-lg-3 text-center">
                                                 <img src={ProductPlaceholder} />
                                             </div>
-                                            <div className="col-md-5">
+                                            <div className="col-lg-5">
                                                 <p className="product-name mb-0">
                                                     Colesevelam 625mg Tabs 180ct
                                                  </p>
@@ -298,7 +298,7 @@ export const PersonalInformationContainer = () => {
                                                 </p>
                                                 <p className="quantity-text">Quantity: 5</p>
                                             </div>
-                                            <div className="col-md-4">
+                                            <div className="col-lg-4">
                                                 Delivered on  <br />
                                                 March 12, 2021
                                             </div>

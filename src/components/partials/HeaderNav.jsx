@@ -12,7 +12,7 @@ export const HeaderNav = () => {
                     <Link className='nav-link flex-fill' to='/'>
                         <img className="logo" src={Logo} width="203" height="62" alt="" />
                     </Link>
-                    <div className="cartWrapper d-block d-sm-none mr-3">
+                    <div className="cartWrapper d-block d-sm-none d-lg-none d-xl-none mr-3">
                         <Link to="/cart">
                             <img src={CartMobile} />
                         </Link>
@@ -29,8 +29,22 @@ export const HeaderNav = () => {
                     </div>
                 </div>
                 <div className="col-md-8 d-flex justify-content-end align-items-center">
-
-                    <div className="d-none d-sm-block">
+                    <div className="cartWrapper d-none d-sm-block d-lg-none d-xl-none mr-3">
+                        <Link to="/cart">
+                            <img src={CartMobile} />
+                        </Link>
+                    </div>
+                    <div class="btn-group d-none d-sm-block d-lg-none d-xl-none">
+                        <button type="button" class="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                            <img src={BurgerIcon} />
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                            <button class="dropdown-item" type="button">Action</button>
+                            <button class="dropdown-item" type="button">Another action</button>
+                            <button class="dropdown-item" type="button">Something else here</button>
+                        </div>
+                    </div>
+                    <div className="d-none d-lg-block d-xl-block">
                         <ul className="navbar-nav d-flex flex-row justify-content-end">
                             <li className="nav-item active">
                                 <a className="nav-link" href="#">About Us </a>
@@ -51,7 +65,7 @@ export const HeaderNav = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className="d-none d-sm-block">
+                    <div className="d-none d-lg-block d-xl-block">
                         <div className="d-flex align-items-center ">
                             <form className="form-inline ml-5 mr-4">
                                 <div class="input-group searchWrapper">

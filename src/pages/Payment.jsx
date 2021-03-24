@@ -39,19 +39,19 @@ export const PaymentContainer = () => {
                         </div>
                     </div>
                     <div className="row row-wrapper">
-                        <div className="col-md-8">
+                        <div className="col-lg-8">
                             <div className="card payment-card position-relative">
                                 <div className="row row-wrapper">
-                                    <div className="col-md-12">
+                                    <div className="col-lg-12">
                                         <h2 className="card-title">Payment Methods</h2>
-                                        <Radio.Group className="radioButtonWrapper col-md-12" buttonStyle="solid" onChange={(e) => selectedPaymentMethod(e.target.value)} value={value}>
+                                        <Radio.Group className="radioButtonWrapper col-lg-12" buttonStyle="solid" onChange={(e) => selectedPaymentMethod(e.target.value)} value={value}>
                                             <div className="row text-center justify-content-center justify-content-md-center">
                                                 {paymentInfo.map((item, index) => (
-                                                    <div className="col-md-4 text-center">
+                                                    <div className="col-lg-4 text-center mb-5">
                                                         <Radio.Button
                                                             key={index}
                                                             value={item.value}
-                                                            className="col-md-12 d-flex align-items-center justify-content-center payment-option"
+                                                            className="col-lg-12 d-flex align-items-center justify-content-center payment-option"
                                                         >
                                                             {item.name}
                                                         </Radio.Button>
@@ -60,16 +60,16 @@ export const PaymentContainer = () => {
                                             </div>
                                         </Radio.Group>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-lg-12">
                                         <CreditCardOptions value={value} />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-lg-4">
                             <div className="card total-card position-relative">
                                 <div className="row row-wrapper">
-                                    <div className="col-md-12">
+                                    <div className="col-lg-12">
                                         <h2 className="card-title">Total Amount</h2>
                                         <h1 className="price-text">320.00 <span className="currency-text">USD</span></h1>
                                     </div>

@@ -1,5 +1,8 @@
 .personalInformationWrapper {
   padding: 0 100px 40px 100px;
+  @include mediaQueries(mobile) {
+    padding: 0 15px 20px 15px;
+  }
   .section-title {
     font-family: "Axiforma Bold";
     font-style: normal;
@@ -7,6 +10,9 @@
     font-size: 35px;
     line-height: 58px;
     color: #4f4f4f;
+    @include mediaQueries(mobile) {
+      font-size: 25px;
+    }
   }
   .account-tabs {
     background: #fff;
@@ -26,6 +32,10 @@
           background: rgba($color: #21e8de, $alpha: 0.1);
           border: 0;
         }
+        @include mediaQueries(mobile) {
+          font-size: 18px;
+          padding: 20px 15px;
+        }
       }
     }
   }
@@ -36,6 +46,14 @@
     padding: 40px;
     .info-section {
       margin-bottom: 110px;
+      @include mediaQueries(mobile) {
+        margin-bottom: 50px;
+      }
+      .profilePic {
+        @include mediaQueries(mobile) {
+          max-width: 50px;
+        }
+      }
       .customerName {
         font-family: "Axiforma Bold";
         font-style: normal;
@@ -43,6 +61,10 @@
         font-size: 35px;
         line-height: 58px;
         color: #4f4f4f;
+        @include mediaQueries(mobile) {
+          font-size: 22px;
+          line-height: 36px;
+        }
       }
       .changeProfile {
         font-style: normal;
@@ -50,6 +72,12 @@
         font-size: 18px;
         line-height: 29px;
         color: #4f4f4f;
+        @include mediaQueries(mobile) {
+          font-size: 12px;
+        }
+      }
+      .editIcon {
+        max-width: 25px;
       }
     }
     .account-section {
@@ -60,6 +88,9 @@
         font-size: 30px;
         line-height: 50px;
         color: #4f4f4f;
+        @include mediaQueries(mobile) {
+          font-size: 22px;
+        }
       }
       .account-info,
       .shipping-info {
@@ -75,6 +106,9 @@
         color: #4f4f4f;
         padding: 5px 15px;
         border: 0;
+        @include mediaQueries(mobile) {
+          font-size: 16px;
+        }
       }
       .cards-title {
         font-style: normal;
@@ -94,6 +128,11 @@
             color: #f2f2f2;
             padding: 2px 20px;
             margin-left: 11px;
+            @include mediaQueries(mobile) {
+              font-size: 12px;
+              padding: 0px 12px;
+              line-height: 24px;
+            }
           }
         }
 
@@ -102,6 +141,11 @@
           max-width: 400px;
           width: 100%;
           padding: 10px 20px;
+          @include mediaQueries(mobile) {
+            p {
+              font-size: 14px;
+            }
+          }
 
           img {
             max-width: 36px;
@@ -115,6 +159,9 @@
         font-size: 25px;
         line-height: 40px;
         color: #4f4f4f;
+        @include mediaQueries(mobile) {
+          font-size: 18px;
+        }
       }
     }
   }

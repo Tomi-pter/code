@@ -15,7 +15,7 @@ export const CheckoutContainer = () => {
                         </div>
                     </div>
                     <div className="row row-wrapper">
-                        <div className="col-md-8">
+                        <div className="col-lg-8">
                             <div className="card product-card position-relative">
                                 <div className="row ">
                                     <div className="position-absolute" style={{ right: "0" }}>
@@ -23,10 +23,10 @@ export const CheckoutContainer = () => {
                                             <img className="delete-icon mr-4 mt-4" src={require("../assets/img/delete_icon.svg")} />
                                         </a>
                                     </div>
-                                    <div className="col-md-5 product-wrapper">
+                                    <div className="col-lg-5 product-wrapper">
                                         <img className="product-image" src={require("../assets/img/product-placeholder.svg")} />
                                     </div>
-                                    <div className="col-md-6 offset-md-1 product-desc-wrapper">
+                                    <div className="col-lg-6 offset-md-1 product-desc-wrapper">
                                         <p className="product-name mb-0">
                                             Colesevelam 625mg Tabs 180ct
                                         </p>
@@ -47,10 +47,10 @@ export const CheckoutContainer = () => {
                                             <img className="delete-icon mr-4 mt-4" src={require("../assets/img/delete_icon.svg")} />
                                         </a>
                                     </div>
-                                    <div className="col-md-5 product-wrapper">
+                                    <div className="col-lg-5 product-wrapper">
                                         <img className="product-image" src={require("../assets/img/product-placeholder.svg")} />
                                     </div>
-                                    <div className="col-md-6 offset-md-1 product-desc-wrapper">
+                                    <div className="col-lg-6 offset-md-1 product-desc-wrapper">
                                         <p className="product-name mb-0">
                                             Colesevelam 625mg Tabs 180ct
                                         </p>
@@ -71,10 +71,10 @@ export const CheckoutContainer = () => {
                                             <img className="delete-icon mr-4 mt-4" src={require("../assets/img/delete_icon.svg")} />
                                         </a>
                                     </div>
-                                    <div className="col-md-5 product-wrapper">
+                                    <div className="col-lg-5 product-wrapper">
                                         <img className="product-image" src={require("../assets/img/product-placeholder.svg")} />
                                     </div>
-                                    <div className="col-md-6 offset-md-1 product-desc-wrapper">
+                                    <div className="col-lg-6 offset-md-1 product-desc-wrapper">
                                         <p className="product-name mb-0">
                                             Colesevelam 625mg Tabs 180ct
                                         </p>
@@ -89,12 +89,12 @@ export const CheckoutContainer = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-lg-4">
                             <div className="card order-card position-relative">
                                 <div className="shipping-details-wrapper">
                                     <h1 className="order-title">Shipping and Billing</h1>
                                     <div className="row align-items-start" style={{ flex: "0" }}>
-                                        <div className="col-md-12">
+                                        <div className="col-lg-12">
                                             <div className="d-flex align-items-center">
                                                 <div>
                                                     <span className="mr-3"><img src={require("../assets/img/mdi_account.svg")} /></span>

@@ -96,10 +96,10 @@ export const CreditCardOptions = (props) => {
                                                                                         <img className="delete-icon mr-4 mt-4" src={require("../../../assets/img/delete_icon.svg")} />
                                                                                     </a>
                                                                                 </div>
-                                                                                <div className="col-md-2">
+                                                                                <div className="col-lg-2">
                                                                                     <svg className="creditCard-icon" {...getCardImageProps({ images })} />
                                                                                 </div>
-                                                                                <div className="col-md-5 d-flex flex-column">
+                                                                                <div className="col-lg-5 d-flex flex-column">
                                                                                     <div>
                                                                                         <Field className="cardName">
                                                                                             {({ field }) => (
@@ -115,7 +115,7 @@ export const CreditCardOptions = (props) => {
                                                                                         </Field>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div className="col-md-3  d-flex flex-column text-center">
+                                                                                <div className="col-lg-3 d-flex flex-row flex-lg-column text-center">
                                                                                     <Field className="expiryDate" name="expiryDate">
                                                                                         {({ field }) => (
                                                                                             <input {...getExpiryDateProps({ onBlur: field.onBlur, onChange: field.onChange })} />
@@ -125,8 +125,8 @@ export const CreditCardOptions = (props) => {
                                                                                         {({ field }) => <input {...getCVCProps({ onBlur: field.onBlur, onChange: field.onChange })} />}
                                                                                     </Field>
                                                                                 </div>
-                                                                                <div className="col-md-2 text-center">
-                                                                                    <img src={DefaultCard} />
+                                                                                <div className="col-lg-2 text-center">
+                                                                                    <img className="defaultCardIcon" src={DefaultCard} />
                                                                                 </div>
                                                                             </div>
                                                                         ))}

@@ -6,8 +6,9 @@
 // Custom Mixin
 @import 'mixin';
 
-// Partials
-@import 'partials';
+// Components
+@import './components/partials';
+@import './components/products';
 
 // Pages
 @import './pages/login';
@@ -16,6 +17,8 @@
 @import './pages/payment';
 @import './pages/paymentConfirmation';
 @import './pages/error/404';
+@import './pages/search';
+@import './pages/shop';
 
 @import './pages/account/personalInformation';
 @import './pages/account/orderHistory';

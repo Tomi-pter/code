@@ -91,7 +91,7 @@
           line-height: 58px;
           color: #4f4f4f;
           @include mediaQueries(mobile) {
-            font-size: 20px;
+            font-size: 18px;
             line-height: 33px;
             padding: 10px 15px;
           }
@@ -184,6 +184,10 @@
         font-size: 35px;
         line-height: 58px;
         color: #4f4f4f;
+        @include mediaQueries(mobile) {
+          font-size: 25px;
+          line-height: 48px;
+        }
       }
       .button-wrapper {
         background: #16cfb0;
@@ -215,7 +219,7 @@
       align-items: center;
       flex: 0;
       @include mediaQueries(mobile) {
-        font-size: 20px;
+        font-size: 18px;
       }
     }
     .addressDefault {
@@ -236,7 +240,7 @@
     .customer-email {
       color: #4f4f4f;
       @include mediaQueries(mobile) {
-        font-size: 20px;
+        font-size: 18px;
       }
     }
   }

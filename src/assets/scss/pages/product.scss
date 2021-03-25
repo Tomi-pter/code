@@ -1,124 +1,165 @@
 .product-page {
-    min-height: 100vh;
-    background: #FFFFFF;
-    padding: 50px 100px 80px 100px;
-    .content {
-        .card {
-            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.07);
-            border-radius: 5px;
-            padding: 80px;
-        }
-        .name {
-            font-style: normal;
-            font-weight: bold;
-            font-size: 35px;
-            line-height: 58px;
-            color: #4F4F4F;
-            margin-bottom: 5px;
-        }
-        .price {
-            font-style: normal;
-            font-weight: bold;
-            font-size: 50px;
-            line-height: 83px;
-            color: #4F4F4F;
-            margin: 0;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        p, li {
-            font-style: normal;
-            font-weight: normal;
-            font-size: 25px;
-            line-height: 40px;
-            color: #4F4F4F;
-            margin-bottom: 20px;
-        }
-        .img-container {
-            margin: 0 auto 44px auto;
-            img {
-                width: 100%;
-                object-fit: cover;
-            }
-        }
-        .pharma-product {
-            .img-container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background: url('../../img/pharma-bg.png') no-repeat center;
-                background-size: cover;
-                border-radius: 10px;
-                padding: 70px 90px;
-            }
-        }
-        .vet-product, .medsurg-product  {
-            .img-container {
-                display: flex;
-                align-items: flex-end;
-                justify-content: center;
-                background: url('../../img/vet-bg.png') no-repeat top;
-                background-size: 320px 320px;
-                position: relative;
-                padding: 140px 90px 0 90px;
-            }
-        }
-        .medsurg-product .img-container {
-            background: url('../../img/medsurg-bg.png') no-repeat top;
-            background-size: 320px 320px;
-        }
-        .qty-container {
-            width: 281px;
-            border: 1px solid #BDBDBD;
-            box-sizing: border-box;
-            border-radius: 10px;
-            padding: 15px 0;
-            font-style: normal;
-            font-weight: 500;
-            color: #4F4F4F;
-            margin-top: 37px;
-            margin-bottom: 40px;
-            button {
-                width: 80px;
-                height: 50px;
-                font-size: 50px;
-                line-height: 80px;
-                background: none;
-                border: 0;
-                outline: 0;
-                padding: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            span {
-                width: 120px;
-                height: 50px;
-                border-left: 1px solid #BDBDBD;
-                border-right: 1px solid #BDBDBD;
-                font-size: 40px;
-                line-height: 64px;
-                margin: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-        }
-        .cart-btn {
-            width: 230px;
-            height: 80px;
-            background: #16CFB0;
-            border-radius: 10px;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 20px;
-            line-height: 33px;
-            text-align: center;
-            color: #FFFFFF;
-            border: 0;
-            outline: 0;
-        }
+  min-height: 100vh;
+  background: #ffffff;
+  padding: 50px 100px 80px 100px;
+  @include mediaQueries(mobile) {
+    padding: 0;
+  }
+  .content {
+    .card {
+      box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.07);
+      border-radius: 5px;
+      padding: 80px;
+      @include mediaQueries(mobile) {
+        padding: 40px;
+      }
     }
+    .name {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 35px;
+      line-height: 58px;
+      color: #4f4f4f;
+      margin-bottom: 5px;
+      @include mediaQueries(mobile) {
+        font-size: 20px;
+        line-height: 33px;
+        margin-bottom: 16px;
+      }
+    }
+    .price {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 50px;
+      line-height: 83px;
+      color: #4f4f4f;
+      margin: 0;
+      @include mediaQueries(mobile) {
+        font-size: 25px;
+        line-height: 41px;
+        margin-bottom: 43px;
+      }
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    p,
+    li {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 25px;
+      line-height: 40px;
+      color: #4f4f4f;
+      margin-bottom: 20px;
+      @include mediaQueries(mobile) {
+        font-size: 18px;
+        line-height: 29px;
+      }
+    }
+    .img-container {
+      margin: 0 auto 44px auto;
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .pharma-product {
+      .img-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url("../../img/pharma-bg.png") no-repeat center;
+        background-size: cover;
+        border-radius: 10px;
+        padding: 70px 90px;
+      }
+    }
+    .vet-product,
+    .medsurg-product {
+      .img-container {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        background: url("../../img/vet-bg.png") no-repeat top;
+        background-size: 320px 320px;
+        position: relative;
+        padding: 140px 90px 0 90px;
+        @include mediaQueries(mobile) {
+          background-size: 200px 200px;
+          padding: 30px 60px;
+        }
+      }
+    }
+    .medsurg-product .img-container {
+      background: url("../../img/medsurg-bg.png") no-repeat top;
+      background-size: 320px 320px;
+      @include mediaQueries(mobile) {
+        background-size: 200px 200px;
+      }
+    }
+    .qty-container {
+      width: 281px;
+      border: 1px solid #bdbdbd;
+      box-sizing: border-box;
+      border-radius: 10px;
+      padding: 15px 0;
+      font-style: normal;
+      font-weight: 500;
+      color: #4f4f4f;
+      margin-top: 37px;
+      margin-bottom: 40px;
+      @include mediaQueries(mobile) {
+        width: 181px;
+      }
+      button {
+        width: 80px;
+        height: 50px;
+        font-size: 50px;
+        line-height: 80px;
+        background: none;
+        border: 0;
+        outline: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include mediaQueries(mobile) {
+            font-size: 25px;
+          }
+      }
+      span {
+        width: 120px;
+        height: 50px;
+        border-left: 1px solid #bdbdbd;
+        border-right: 1px solid #bdbdbd;
+        font-size: 40px;
+        line-height: 64px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include mediaQueries(mobile) {
+          font-size: 25px;
+        }
+      }
+    }
+    .cart-btn {
+      width: 230px;
+      height: 80px;
+      background: #16cfb0;
+      border-radius: 10px;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 33px;
+      text-align: center;
+      color: #ffffff;
+      border: 0;
+      outline: 0;
+      @include mediaQueries(mobile) {
+        width: 100%;
+      }
+    }
+  }
 }

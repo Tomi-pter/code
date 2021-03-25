@@ -15,7 +15,7 @@ export const CartContainer = () => {
                         </div>
                     </div>
                     <div className="row row-wrapper">
-                        <div className="col-lg-8">
+                        <div className="col-lg-8 product-column">
                             <div className="card product-card position-relative">
                                 <div className="row ">
                                     <div className="position-absolute" style={{ right: "0" }}>
@@ -89,7 +89,7 @@ export const CartContainer = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-4">
+                        <div className="col-lg-4  order-column">
                             <div className="card order-card position-relative">
                                 <h1 className="order-title">Order Summary</h1>
                                 <div className="row align-items-start" style={{ flex: "0" }}>

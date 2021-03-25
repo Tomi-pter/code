@@ -1,12 +1,12 @@
 .errorPage {
-    background-image: url("../../../img/Payment/payment-bg.svg");
+  background-image: url("../../../img/Payment/payment-bg.svg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   width: 100%;
   min-height: 100vh;
+  padding: 90px 0;
   .section-container {
-    height: 70vh;
     .errorMessage {
       .error-heading-text {
         font-family: "Axiforma Bold";
@@ -27,9 +27,6 @@
         font-weight: 800;
         font-size: 35px;
         line-height: 58px;
-
-        /* Blue 2 */
-
         color: #0098ff;
         @include mediaQueries(mobile) {
           font-size: 32px;

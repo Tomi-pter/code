@@ -6,7 +6,7 @@ import BurgerIcon from '../../assets/img/Mobile/burger-icon.svg';
 import CartMobile from '../../assets/img/Mobile/cart-mobile.svg';
 export const HeaderNav = () => {
     return (
-        <nav className="navbar headerNav__wrapper">
+        <nav className="navbar headerNav__wrapper sticky-top">
             <div className="row align-items-center">
                 <div className="col-md-3 d-flex align-items-center flex-wrap">
                     <Link className='nav-link flex-fill' to='/'>

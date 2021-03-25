@@ -1,8 +1,12 @@
 .personalInformationWrapper {
-  padding: 0 100px 40px 100px;
+  padding: 92px 100px 92px 100px;
+  @include mediaQueries(padpro) {
+    padding: 92px 50px 92px 50px;
+  }
   @include mediaQueries(mobile) {
     padding: 0 15px 20px 15px;
   }
+  
   .section-title {
     font-family: "Axiforma Bold";
     font-style: normal;

@@ -1,4 +1,5 @@
 .cart-page {
+  padding: 90px 0;
   .section-title {
     font-family: "Axiforma Bold";
     font-style: normal;
@@ -11,6 +12,12 @@
     padding: 0 40px;
     @include mediaQueries(mobile) {
       padding: 0 15px;
+    }
+  }
+  @include mediaQueries(padpro) {
+    .product-column, .order-column{
+      max-width: 100%;
+      flex: 0 0 100%;
     }
   }
   .card {
@@ -50,6 +57,13 @@
           right: 0;
           bottom: 0;
           min-height: 356.39px;
+          @include mediaQueries(padpro) {
+            height: 255px;
+            left: 50%;
+            top: 50%;
+            min-height: 200px;
+            transform: translate(-50%, -50%);
+          }
           @include mediaQueries(pad) {
             left: 50%;
             transform: translate(-50%, 0);

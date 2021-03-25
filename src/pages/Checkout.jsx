@@ -15,7 +15,7 @@ export const CheckoutContainer = () => {
                         </div>
                     </div>
                     <div className="row row-wrapper">
-                        <div className="col-lg-8">
+                        <div className="col-lg-8 product-column">
                             <div className="card product-card position-relative">
                                 <div className="row ">
                                     <div className="position-absolute" style={{ right: "0" }}>
@@ -89,7 +89,7 @@ export const CheckoutContainer = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 order-column">
                             <div className="card order-card position-relative">
                                 <div className="shipping-details-wrapper">
                                     <h1 className="order-title">Shipping and Billing</h1>
@@ -143,7 +143,7 @@ export const CheckoutContainer = () => {
                                             <p className="mb-0 price-text">$300.00</p>
                                         </div>
                                     </div>
-                                    <div className="row" >
+                                    <div className="row mb-5" >
                                         <div className="col-8">
                                             <p className="mb-0 shipping-text">Shipping Fee</p>
                                             <p className="mb-0 shipping-desc">Add $xx for free shipping</p>
@@ -152,7 +152,7 @@ export const CheckoutContainer = () => {
                                             <p className="mb-0 price-text">$20.00</p>
                                         </div>
                                     </div>
-                                    <div className="row d-flex align-items-center">
+                                    <div className="row mb-5 d-flex align-items-center">
                                         <div className="col-4">
                                             <p className="mb-0 total-text">Total</p>
                                         </div>

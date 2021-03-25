@@ -6,7 +6,7 @@ import { CheckoutContainer } from "./pages/Checkout";
 import { PaymentContainer } from "./pages/Payment";
 import { PaymentConfirmationContainer } from "./pages/PaymentConfirmation";
 import { ErrorPageContainer } from "./pages/error/404page";
-import { PersonalInformationContainer } from "./pages/account/PersonalInformation";
+import { PersonalInformationContainer } from "./pages/account/PersonalInformationPage";
 import Search from "./pages/Search";
 import Shop from "./pages/Shop";
 import Product from "./pages/Product";

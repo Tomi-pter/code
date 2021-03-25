@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { SignUpContainer } from "./pages/Signup";
+import { SignUpContainer } from "./pages/SignupPage";
 import { CartContainer } from "./pages/Cart";
 import { CheckoutContainer } from "./pages/Checkout";
 import { PaymentContainer } from "./pages/Payment";

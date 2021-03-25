@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Routes from "./Routes"
-import { LoginContainer } from "./pages/Login";
+import { LoginContainer } from "./pages/LoginPage";
 import "./App.scss";
 import "./assets/scss/theme.scss";
 import "antd/dist/antd.css";

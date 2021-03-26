@@ -9,17 +9,23 @@ import LogOut from '../../assets/img/Account/mdi_logout-variant.svg';
 
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
-import MasterCardIcon from '../../assets/img/Payment/master-card-logo.svg'
-
-import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg'
+import MasterCardIcon from '../../assets/img/Payment/master-card-logo.svg';
+import useToken from '../../components/pages/useToken';
+import { LoginContainer } from "../LoginPage";
+import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 export const PersonalInformationContainer = () => {
+    const { token, setToken } = useToken();
+    
     const history = useHistory()
     const handleLogout = () => {
         sessionStorage.clear();
         sleep(1000).then(
             () => history.push('/')
         )
+    }
+    if (!token) {
+        return <LoginContainer setToken={setToken} />;
     }
     return (
         <>

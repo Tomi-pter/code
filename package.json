@@ -12,6 +12,7 @@
     "autosize": "^4.0.2",
     "bootstrap": "^4.5.1",
     "chart.js": "^2.9.3",
+    "concurrently": "^6.0.0",
     "dropzone": "^5.7.0",
     "flatpickr": "^4.6.3",
     "formik": "^2.2.6",
@@ -36,7 +37,8 @@
     "styled-components": "^5.2.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"react-scripts start\" \"node server.js\" ",
+    "dev": "concurrently \"react-scripts start\" \"node server.js\" ",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -68,7 +68,7 @@ export default props => {
                     <div className="container-fluid d-flex p-0 shop-category">
                         <div className="filter-col">
                             <h3>Categories</h3>
-                            <div class=" accordion">
+                            <div class="category-accordion accordion">
                                 <div className="accordion-item">
                                     <button className="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#accordion1" aria-expanded="false">
                                         For Pharmacies (677)

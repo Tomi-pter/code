@@ -8,10 +8,12 @@ export const HeaderNav = () => {
     return (
         <nav className="navbar headerNav__wrapper sticky-top">
             <div className="row col-12 align-items-center">
-                <div className="col-md-3 d-flex align-items-center flex-wrap">
-                    <Link className='nav-link flex-fill' to='/'>
-                        <img className="logo" src={Logo} width="203" height="62" alt="" />
-                    </Link>
+                <div className="col-md-3 d-flex flex-row align-items-center flex-wrap">
+                    <div className=" flex-fill">
+                        <Link className='nav-link' to='/'>
+                            <img className="logo" src={Logo} width="203" height="62" alt="" />
+                        </Link>
+                    </div>
                     <div className="cartWrapper d-block d-sm-none d-lg-none d-xl-none mr-3">
                         <Link to="/cart">
                             <img src={CartMobile} />

@@ -4,6 +4,7 @@
       &.search-wrapper {
         flex-direction: column;
       }
+      
     }
     .search-for {
       font-style: normal;
@@ -29,6 +30,9 @@
       line-height: 32px;
       color: #000000;
       margin: 0;
+      @include mediaQueries(mobile) {
+        display: none;
+      }
     }
     .filter-view-container {
       margin-left: 20px;
@@ -41,6 +45,9 @@
     }
     .sort-by {
       margin-right: 40px;
+      @include mediaQueries(mobile) {
+        flex: 1;
+      }
     }
     label {
       font-style: normal;
@@ -50,6 +57,11 @@
       color: #000000;
       margin-bottom: 0;
       margin-right: 20px;
+      @include mediaQueries(mobile) {
+        label{
+          font-size: 18px;
+        }
+      }
     }
     .dropdown-toggle {
       width: 138px;
@@ -148,9 +160,9 @@
                 color: #ffffff;
               }
             }
-            .price{
-                display: block;
-                text-align: right;
+            .price {
+              display: block;
+              text-align: right;
             }
           }
         }
@@ -170,6 +182,7 @@
           display: none;
           @include mediaQueries(mobile) {
             display: block;
+            width: 100%;
             .mobile-list-header {
               @include mediaQueries(mobile) {
                 display: flex;

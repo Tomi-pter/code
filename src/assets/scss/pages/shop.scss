@@ -1,4 +1,9 @@
 .shop-page {
+    .shop-category{
+        @include mediaQueries(mobile) {
+            display: block !important;
+        }
+    }
     .filter-col {
         min-height: 100vh;
         background: #FFFFFF;
@@ -11,6 +16,7 @@
             color: #000000;
             margin-bottom: 20px;
         }
+        
         .accordion-item {
             margin-bottom: 23px;
         }

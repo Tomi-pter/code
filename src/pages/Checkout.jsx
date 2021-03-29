@@ -153,10 +153,10 @@ export const CheckoutContainer = () => {
                                         </div>
                                     </div>
                                     <div className="row mb-5 d-flex align-items-center">
-                                        <div className="col-4">
+                                        <div className="col-5">
                                             <p className="mb-0 total-text">Total</p>
                                         </div>
-                                        <div className="col-8 text-right">
+                                        <div className="col-7 text-right">
                                             <p className="mb-0 total-price-text">$320.00</p>
                                         </div>
                                     </div>

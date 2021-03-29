@@ -100,7 +100,7 @@ export const CartContainer = () => {
                                         <p className="mb-0 price-text">$300.00</p>
                                     </div>
                                 </div>
-                                <div className="row" >
+                                <div className="row" style={{ flex: "1" }}>
                                     <div className="col-8">
                                         <p className="mb-0 shipping-text">Shipping Fee</p>
                                         <p className="mb-0 shipping-desc">Add $xx for free shipping</p>
@@ -110,10 +110,10 @@ export const CartContainer = () => {
                                     </div>
                                 </div>
                                 <div className="row d-flex align-items-center">
-                                    <div className="col-4">
+                                    <div className="col-5">
                                         <p className="mb-0 total-text">Total</p>
                                     </div>
-                                    <div className="col-8 text-right">
+                                    <div className="col-7 text-right">
                                         <p className="mb-0 total-price-text">$320.00</p>
                                     </div>
                                 </div>

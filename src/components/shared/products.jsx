@@ -64,19 +64,19 @@ export const Products = ({ page, products, view, setView }) => {
                 <div className="row">
                     {
                         products.map((product) => (
-                            <div key={`key-${product.id}`} className={(view === "list" ? " col-12" : "col-md-4")}>
+                            <div key={`key-${product.id}`} className={(view === "list" ? " col-12" : "col-12 col-md-6 col-lg-4")}>
                                 <div
                                     className={"product" + (product.category === "pharmacies" ? " pharma-product" : product.category === "vetirinary" ? " vet-product" : " medsurg-product")}
                                 >
                                     <div className="mobile-wrapper">
                                         <div className={"mobile-list-header " + (view === "list" ? " d-flex" : "d-none")}>
                                             <div className="product-image-head"></div>
-                                            <div>
+                                            <div className="header-name-wrapper">
                                                 <p className="flex-fill list-header-name">
                                                     Name
                                                 </p>
                                             </div>
-                                            <div>
+                                            <div className="header-price-wrapper">
                                                 <p className="list-header-price">
                                                     Price
                                                 </p>
@@ -122,7 +122,7 @@ export const Products = ({ page, products, view, setView }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>

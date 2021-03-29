@@ -4,7 +4,11 @@
 .headerNav__wrapper {
   border: none;
   background: #f6f9fe;
+  min-height: 148px;
   filter: drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.07));
+  @include mediaQueries(mobile) {
+    padding: 0;
+  }
   .navbar-nav .dropdown-menu {
       position: absolute;
   }

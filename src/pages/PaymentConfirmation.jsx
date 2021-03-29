@@ -27,9 +27,9 @@ export const PaymentConfirmationContainer = () => {
                                 </Link>
                                 </div>
                                 <div>
-                                    <Link to="" className="primaryButton">
+                                    <a href="https://premierpharma.wpengine.com/" className="primaryButton">
                                         Back to browse
-                                </Link>
+                                </a>
                                 </div>
                             </div>
                         </div>

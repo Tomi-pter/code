@@ -17,7 +17,7 @@ export default props => {
                                     <img src={ImageProduct} alt="" />
                                 </div>
                                 {/* Start Mobile */}
-                                <div className="d-block d-sm-none">
+                                <div className="d-block d-lg-none">
                                     <h3 className="name">Colesevelam 625mg Tabs 180ct Brand: Welchol</h3>
                                     <h2 className="price">$ 999.99</h2>
                                 </div>
@@ -34,7 +34,7 @@ export default props => {
                                     <li>PPU: Lorem Ipsum</li>
                                 </ul>
                                 {/* Start Mobile */}
-                                <div className="d-block d-sm-none">
+                                <div className="d-block d-lg-none">
                                     <div className="d-flex align-items-center justify-container-center qty-container">
                                         <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
                                         <span>{quantity}</span>
@@ -45,7 +45,7 @@ export default props => {
                                 {/* End Mobile */}
                             </div>
                         </div>
-                        <div className="col d-none d-sm-block">
+                        <div className="col d-none d-lg-block">
                             <div className="card">
                                 <h3 className="name">Colesevelam 625mg Tabs 180ct Brand: Welchol</h3>
                                 <h2 className="price">$ 999.99</h2>

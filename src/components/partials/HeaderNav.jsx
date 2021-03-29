@@ -10,27 +10,29 @@ export const HeaderNav = () => {
             <div className="row col-12 align-items-center">
                 <div className="col-md-3 d-flex flex-row align-items-center flex-wrap">
                     <div className=" flex-fill">
-                        <Link className='nav-link' to='/'>
+                        <a href="https://premierpharma.wpengine.com/"  className='nav-link'>
                             <img className="logo" src={Logo} width="203" height="62" alt="" />
-                        </Link>
+                        </a>
                     </div>
-                    <div className="cartWrapper d-block d-sm-none d-lg-none d-xl-none mr-3">
-                        <Link to="/cart">
-                            <img src={CartMobile} />
-                        </Link>
-                    </div>
-                    <div class="btn-group d-block d-sm-none">
-                        <button type="button" class="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                            <img src={BurgerIcon} />
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                            <button class="dropdown-item" type="button">Action</button>
-                            <button class="dropdown-item" type="button">Another action</button>
-                            <button class="dropdown-item" type="button">Something else here</button>
+                    <div className="d-flex align-items-center justify-content-center">
+                        <div className="cartWrapper d-block d-sm-none d-lg-none d-xl-none mr-3">
+                            <a href="/cart">
+                                <img src={CartMobile} />
+                            </a>
+                        </div>
+                        <div class="btn-group d-block d-sm-none">
+                            <button type="button" class="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                <img src={BurgerIcon} />
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                <button class="dropdown-item" type="button">Action</button>
+                                <button class="dropdown-item" type="button">Another action</button>
+                                <button class="dropdown-item" type="button">Something else here</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-8 d-flex justify-content-end align-items-center">
+                <div className="col-md-9 d-flex justify-content-end align-items-center">
                     <div className="cartWrapper d-none d-sm-block d-lg-none d-xl-none mr-3">
                         <Link to="/cart">
                             <img src={CartMobile} />
@@ -49,21 +51,19 @@ export const HeaderNav = () => {
                     <div className="d-none d-lg-block d-xl-block">
                         <ul className="navbar-nav d-flex flex-row justify-content-end">
                             <li className="nav-item active">
-                                <a className="nav-link" href="#">About Us </a>
+                                <a className="nav-link" href="http://premierpharma.wpengine.com/about-us/">About Us </a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Products
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a className="dropdown-item" href="#">Product 1</a>
-                                    <a className="dropdown-item" href="#">Product 2</a>
-                                    <div className="dropdown-divider"></div>
-                                    <a className="dropdown-item" href="#">Product 3</a>
+                                    <a className="dropdown-item" href="#">For Pharmacies</a>
+                                    <a className="dropdown-item" href="#">For Animal Care</a>
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Contact Us</a>
+                                <a className="nav-link" href="http://premierpharma.wpengine.com/contact-us/">Contact Us</a>
                             </li>
                         </ul>
                     </div>
@@ -78,10 +78,10 @@ export const HeaderNav = () => {
                                 </div>
                             </form>
                             <div>
-                                <Link className='cart-icon__wrapper' to='/'>
+                                <a className='cart-icon__wrapper' href='/cart'>
                                     <img className="cart-icon" src={require('../../assets/img/cart.svg')} width="203" height="62" alt="" />
                                     <span className="cart-bubble">3</span>
-                                </Link>
+                                </a>
                             </div>
                         </div>
                     </div>

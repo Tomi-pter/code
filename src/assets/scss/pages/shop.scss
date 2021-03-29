@@ -1,10 +1,25 @@
 .shop-page {
+  @include mediaQueries(mobile) {
+      background: #FFF;
+    }
   .shop-category {
+     @include mediaQueries(padpro) {
+      display: block !important;
+    }
+    @include mediaQueries(pad) {
+      display: block !important;
+    }
     @include mediaQueries(mobile) {
       display: block !important;
     }
   }
   .category-accordion {
+    @include mediaQueries(padpro) {
+      display: none;
+    }
+    @include mediaQueries(pad) {
+      display: none;
+    }
     @include mediaQueries(mobile) {
       display: none;
     }
@@ -13,9 +28,31 @@
     min-height: 100vh;
     background: #ffffff;
     padding: 93px 20px;
+    @include mediaQueries(padpro) {
+      padding: 20px 15px;
+      min-height: auto;
+      display: block; 
+      .select-category {
+        background: #f0f0f0;
+        border-radius: 14.5px;
+      }
+    }
+    @include mediaQueries(pad) {
+      padding: 20px 15px;
+      min-height: auto;
+      .select-category {
+        background: #f0f0f0;
+        border-radius: 14.5px;
+      }
+    }
     @include mediaQueries(mobile) {
       padding: 20px 15px;
       min-height: auto;
+      .select-category {
+        background: #f0f0f0;
+        border-radius: 14.5px;
+        max-width: 152px;
+      }
     }
     h3 {
       font-style: normal;
@@ -24,6 +61,10 @@
       line-height: 67px;
       color: #000000;
       margin-bottom: 20px;
+      @include mediaQueries(pad) {
+        font-size: 25px;
+        line-height: 41px;
+      }
       @include mediaQueries(mobile) {
         font-size: 25px;
         line-height: 41px;
@@ -91,7 +132,16 @@
   .products-col {
     flex: auto;
     padding: 93px 50px;
+    @include mediaQueries(padpro) {
+      background: #FFF;
+      padding: 40px 15px;
+    }
+    @include mediaQueries(pad) {
+      background: #FFF;
+      padding: 20px 15px;
+    }
     @include mediaQueries(mobile) {
+      background: #FFF;
       padding: 20px 15px;
     }
     .content-container {
@@ -109,6 +159,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+     
       @include mediaQueries(mobile) {
         background: url("../../img/Mobile/categories/collection-mobile-banner.svg")
           no-repeat center;
@@ -122,6 +173,10 @@
         text-align: center;
         color: #4f4f4f;
         margin-bottom: 10px;
+        @include mediaQueries(pad) {
+          font-size: 25px;
+          line-height: 41px;
+        }
         @include mediaQueries(mobile) {
           font-size: 25px;
           line-height: 41px;
@@ -141,6 +196,9 @@
     }
     .content {
       padding: 45px 50px;
+       @include mediaQueries(pad) {
+        padding: 20px 15px;
+      }
       @include mediaQueries(mobile) {
         padding: 20px 15px;
       }

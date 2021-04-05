@@ -24,9 +24,9 @@ export const PersonalInformationContainer = () => {
             () => history.push('/')
         )
     }
-    if (!token) {
-        return <LoginContainer setToken={setToken} />;
-    }
+    // if (!token) {
+    //     return <LoginContainer setToken={setToken} />;
+    // }
     return (
         <>
             <HeaderNav />
@@ -158,6 +158,15 @@ export const PersonalInformationContainer = () => {
                                                                 name="postal"
                                                                 type="number"
                                                                 placeholder="20707"
+                                                            />
+                                                        </div>
+                                                    </div><div className="col-lg-6">
+                                                        <div class="form-group d-flex flex-column">
+                                                            <label htmlFor="company">Company Name</label>
+                                                            <input
+                                                                name="company"
+                                                                type="number"
+                                                                placeholder="Company Name"
                                                             />
                                                         </div>
                                                     </div>

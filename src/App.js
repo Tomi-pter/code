@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import Routes from "./Routes"
+import Routes from "./Routes";
 
 import "./App.scss";
 import "./assets/scss/theme.scss";
 import "antd/dist/antd.css";
+import { ProductProvider } from "./context";
 
-const App = ( pageProps ) => {
-  
+const App = (pageProps) => {
   return (
-    <div className="App">
-      <Routes childProps={pageProps} />
-    </div>
+    <ProductProvider>
+      <div className="App">
+        <Routes childProps={pageProps} />
+      </div>
+    </ProductProvider>
   );
 };
 

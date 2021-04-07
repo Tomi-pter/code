@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { Products } from '../components/shared/products';
+import Product from './Product';
+import { ProductConsumer } from '../context';
 
 export default props => {
     const [view, setView] = useState('grid');
@@ -136,9 +138,43 @@ export default props => {
                                 <p>Short dated</p>
                             </div>
                             <div className="content">
-                                {
-                                    setDisplay()
-                                }
+                                <div className="products-container">
+                                    <div className={"products" + (view === "list" ? " list-view" : "")}>
+                                        <div className="list-header">
+                                            <div className="no-container">
+                                                <p>Item #</p>
+                                                <p>NDC</p>
+                                            </div>
+                                            <div className="name-container">
+                                                <p>Name</p>
+                                                <p>(Compare To)</p>
+                                            </div>
+                                            <p className="company">Manufacturer</p>
+                                            <p className="size">Size</p>
+                                            <p className="strength">Strength</p>
+                                            <div className="price-container">
+                                                <p>Price</p>
+                                                <p>(PPU)</p>
+                                            </div>
+                                            <p className="buy-container">Buy</p>
+                                            <div className="incart">
+                                                <p>In</p>
+                                                <p>Cart</p>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            
+                                            <ProductConsumer>
+                                                {(value) => {
+                                                    return value.products.map(product => {
+                                                        return <Product key={product.id} product={product} />
+                                                    });
+                                                }}
+                                            </ProductConsumer>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,8 @@ import { PersonalInformationContainer } from "./pages/account/PersonalInformatio
 import Search from "./pages/Search";
 import Shop from "./pages/Shop";
 import Product from "./pages/Product";
+import Details from "./pages/ProductDetails";
+
 export default ({ childProps }) => (
   <BrowserRouter basename="/">
     <Switch>
@@ -21,6 +23,8 @@ export default ({ childProps }) => (
       <Route path="/search" component={Search} />
       <Route path="/shop" component={Shop} />
       <Route path="/product" component={Product} />
+      <Route path="/details" component={Details}></Route>
+
       <Route
         path="/payment-confirmation"
         component={PaymentConfirmationContainer}

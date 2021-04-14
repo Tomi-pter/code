@@ -152,7 +152,7 @@
     .content-category {
       height: 280px;
       background: url("../../img/shop-bg.png") no-repeat center;
-      background-size: 100% 280px;
+      background-size: cover;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       display: flex;
@@ -195,7 +195,7 @@
       }
     }
     .content {
-      padding: 45px 50px;
+      padding: 25px 50px;
        @include mediaQueries(pad) {
         padding: 20px 15px;
       }

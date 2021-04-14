@@ -1,5 +1,6 @@
 import React from 'react'
-
+import Product from '../../pages/Product'
+import { ProductConsumer } from '../../context';
 export const Products = ({ page, products, view, setView }) => {
     return (
         <div className="products-container">
@@ -60,75 +61,16 @@ export const Products = ({ page, products, view, setView }) => {
                         <p>Cart</p>
                     </div>
                 </div>
-
                 <div className="row">
-                    {
-                        products.map((product) => (
-                            <div key={`key-${product.id}`} className={(view === "list" ? " col-12" : "col-12 col-md-6 col-lg-4")}>
-                                <div
-                                    className={"product" + (product.category === "pharmacies" ? " pharma-product" : product.category === "vetirinary" ? " vet-product" : " medsurg-product")}
-                                >
-                                    <div className="mobile-wrapper">
-                                        <div className={"mobile-list-header " + (view === "list" ? " d-flex" : "d-none")}>
-                                            <div className="product-image-head"></div>
-                                            <div className="header-name-wrapper">
-                                                <p className="flex-fill list-header-name">
-                                                    Name
-                                                </p>
-                                            </div>
-                                            <div className="header-price-wrapper">
-                                                <p className="list-header-price">
-                                                    Price
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={"product-details-container"}>
-                                        <div className="img-container">
-                                            <div>
-                                                <img src={require(`../../assets/img/${product.img}`)} alt="" />
-                                            </div>
-                                        </div>
-                                        <div className="details-container">
-                                            <div className="no-container for-list">
-                                                <p className="item-no">{product.item_no}</p>
-                                                <p className="ndc">{product.ndc}</p>
-                                            </div>
-                                            <div className="name-container">
-                                                <p className="name">{product.name}</p>
-                                                <p className="compare for-list">({product.compare_to})</p>
-                                            </div>
-                                            <p className="company for-list">{product.company}</p>
-                                            <p className="size for-list">{product.size}</p>
-                                            <p className="strength for-list">{product.strength}</p>
-                                            <div className="price-container">
-                                                <p className="price">${product.price}</p>
-                                                <p className="ppu for-list">({product.ppu})</p>
-                                            </div>
-                                            <div className="buy-container">
-                                                <input className="qty for-list" type="number" min="1" placeholder="1" />
-                                                <button className="cart-btn"></button>
-                                            </div>
-                                            <p className="incart for-list">1</p>
-                                        </div>
-                                        <div className={(view === "list" ? " d-block" : "d-none")}>
-                                            <div className="price-wrapper">
-                                                <div className="flex-fill">
-                                                    <p className="price">${product.price}</p>
-                                                    <p className="ppu">({product.ppu})</p>
-                                                </div>
-                                                <div className="buy-container">
-                                                    <button className="cart-btn"></button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    }
+                    <ProductConsumer>
+                        {(value) => {
+                            return value.products.map(product => {
+                                return <Product view={view} key={product.id} product={product} />
+                            });
+                        }}
+                    </ProductConsumer>
                 </div>
+
             </div>
         </div>
     )

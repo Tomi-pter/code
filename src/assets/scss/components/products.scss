@@ -1,5 +1,7 @@
 .products-container {
   .top-details {
+    padding: 0 40px;
+    margin-bottom: 40px;
     @include mediaQueries(padpro) {
       display: block !important;
     }
@@ -13,6 +15,7 @@
     }
     .search-for {
       font-style: normal;
+      font-family: 'Axiforma Bold';
       font-weight: bold;
       font-size: 40px;
       line-height: 67px;
@@ -36,6 +39,7 @@
       }
     }
     .total-products {
+      font-family: 'Axiforma Bold';
       font-style: normal;
       font-weight: normal;
       font-size: 20px;
@@ -74,7 +78,8 @@
     }
     label {
       font-style: normal;
-      font-weight: bold;
+      font-family: 'Axiforma Bold';
+      font-weight: normal;
       font-size: 25px;
       line-height: 41px;
       color: #000000;
@@ -97,6 +102,7 @@
       background: #f0f0f0;
       border: 0;
       outline: 0;
+      font-family: 'Axiforma Bold';
       font-style: normal;
       font-weight: normal;
       font-size: 20px;
@@ -150,7 +156,6 @@
     }
   }
   .products {
-    margin-top: 80px;
     @include mediaQueries(padpro) {
       margin-top: 40px;
     }
@@ -680,7 +685,7 @@
     .details-container {
       background: #d3f2fc;
       border-radius: 10px;
-      padding: 150px 35px 20px 35px;
+      padding: 150px 27px 20px 27px;
       position: relative;
     }
   }

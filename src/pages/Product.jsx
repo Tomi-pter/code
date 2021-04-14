@@ -22,7 +22,6 @@ export default class Product extends Component {
             inCart
         } = this.props.product
         return (
-
             <ProductConsumer>
                 {value => (
                     <div key={`key-${id}`} className={(view === "list" ? " col-12" : "col-12 col-md-6 col-lg-4")}>

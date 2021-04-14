@@ -86,6 +86,11 @@ export const HeaderNav = () => {
                             </div>
                         </div>
                     </div>
+                    <div className="d-none d-lg-block d-xl-block">
+                        <Link className="login-button" to="login">
+                            Login
+                        </Link>
+                    </div>
                 </div>
             </div>
         </nav>

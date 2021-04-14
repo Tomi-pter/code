@@ -10,7 +10,7 @@ export const SignUpContainer = () => {
     <>
         <Header />
         <div className="container-fluid signup">
-            <div className="container">
+            <div className="signup-wrapper">
                <div className="card mb-0">
                   <div className="d-flex">
                     <div className="form-container">

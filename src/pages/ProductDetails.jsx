@@ -4,6 +4,7 @@ import { Footer } from '../components/partials/Footer';
 import ImageProduct from '../assets/img/product-sample.png';
 import { ProductConsumer } from '../context';
 import { Link } from 'react-router-dom';
+import { ButtonContainer } from './../components/Button';
 export default props => {
     const [quantity, setQuantity] = useState(1);
     return (
@@ -71,7 +72,17 @@ export default props => {
                                                 <span>{quantity}</span>
                                                 <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                                             </div>
-                                            <button className="cart-btn">Add to cart</button>
+                                            <ButtonContainer
+                                                className="cart-btn"
+                                                cart
+                                                disabled={inCart ? true : false}
+                                                onClick={() => {
+                                                    value.addToCart(id);
+                                                    value.openModal(id);
+                                                }}
+                                            >
+                                                {inCart ? "in cart" : "add to cart"}
+                                            </ButtonContainer>
                                         </div>
                                     </div>
                                 </div>

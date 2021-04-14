@@ -1,91 +1,132 @@
 .login {
-    background: url('../../img/login-bg.png') no-repeat left;
-    background-size: 40% 100%;
-    .container {
-        min-height: calc(100vh - 200px);
-        padding: 150px 12px;
+  background: url("../../img/login-bg.png") no-repeat left;
+  background-size: 40% 100%;
+  padding-bottom: 169px;
+  min-height: 100vh;
+  // .container {
+  //     min-height: calc(100vh - 200px);
+  //     padding: 150px 12px;
+  // }
+  position: relative;
+  .card {
+    max-width: 1000px;
+    width: 100%;
+    min-height: 654px;
+    margin: 179px 200px 0 auto;
+    // transform: translate(25%, 0%);
+    @include mediaQueries(mobile) {
+      margin: 179px 0;
+      min-height: calc(100vh - 200px);
+      transform: translate(0%, 0%);
     }
+    // margin: auto;
+    // position: absolute;
+    // top: 18%;
+    // left: 37%;
+  }
+  .card-body {
+    padding: 100px 150px;
+  }
+  h3 {
+    font-size: 37.1591px;
+    line-height: 62px;
+    color: #000000;
+    margin-bottom: 8px;
+  }
+  h4 {
+    font-size: 27.8693px;
+    line-height: 46px;
+    color: #0098ff;
+    margin: 0;
+  }
+  form {
+    margin-top: 85px;
+  }
+  input {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 0;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 27.8693px;
+    line-height: 44px;
+    color: #000000;
+    max-width: 645.64px;
+    margin: 0 auto;
+    min-height: 59px;
+    &::placeholder {
+      color: #828282;
+      font-weight: bold;
+    }
+  }
+  button {
+    width: 187.65px;
+    height: 52.95px;
+    background: #16cfb0;
+    border-radius: 2.78693px;
+    font-family: "Axiforma Bold";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18.5795px;
+    line-height: 30px;
+    color: #ffffff;
+
+    &:hover {
+      color: #ffffff;
+      background: darken($color: #16cfb0, $amount: 2);
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  .signup-container {
+    max-width: 645.64px;
+    margin: 40px auto 0 auto;
+    .signup-text {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 20.87px;
+      line-height: 33px;
+      color: #828282;
+      a {
+        font-family: "Axiforma Bold";
+        color: #828282;
+      }
+    }
+  }
+
+  @include mediaQueries(mobile) {
+    background-size: 100% 100%;
     .card {
-        width: 80%;
+      width: 100%;
     }
     .card-body {
-        padding: 50px 100px;
-    }
-    h3 {
-        font-size: 37.1591px;
-        line-height: 62px;
-        color: #000000;
-        margin: 0;
-    }
-    h4 {
-        font-size: 27.8693px;
-        line-height: 46px;
-        color: #0098FF;
-        margin: 0;
+      padding: 40px 20px;
     }
     form {
-        margin-top: 50px;
+      text-align: center !important;
+    }
+    h3 {
+      font-weight: 600;
+      font-size: 25px;
+      line-height: 41px;
+    }
+    h4 {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 29px;
     }
     input {
-        background: #F0F0F0;
-        border: none;
-        border-radius: 0;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 27.8693px;
-        line-height: 44px;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 29px;
     }
     button {
-        width: 187.65px;
-        height: 52.95px;
-        background: #16CFB0;
-        border-radius: 2.78693px;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 18.5795px;
-        line-height: 30px;
-        color: #FFFFFF;
-
-        &:hover {
-            color: #FFFFFF;
-            background: darken($color: #16CFB0, $amount: 2);
-        }
-        &:focus {
-            box-shadow: none;
-        }
+      border-radius: 10px;
+      font-size: 20px;
+      line-height: 33px;
+      margin-top: 10px;
+      margin: 0 auto;
     }
-    @include mediaQueries(mobile) {
-        background-size: 100% 100%;
-        .card {
-            width: 100%;
-        }
-        .card-body {
-            padding: 40px 20px;
-        }
-        form {
-            text-align: center !important;
-        }
-        h3 {
-            font-weight: 600;
-            font-size: 25px;
-            line-height: 41px;
-        }
-        h4 {
-            font-weight: normal;
-            font-size: 18px;
-            line-height: 29px;
-        }
-        input {
-            font-weight: normal;
-            font-size: 18px;
-            line-height: 29px;
-        }
-        button {
-            width: 80%;
-            border-radius: 10px;
-            font-size: 20px;
-            line-height: 33px;
-            margin-top: 10px;
-        }
-    }
+  }
 }

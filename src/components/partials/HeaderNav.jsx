@@ -4,14 +4,15 @@ import { SearchOutlined, Burger } from '@ant-design/icons';
 import Logo from '../../assets/img/logo.svg';
 import BurgerIcon from '../../assets/img/Mobile/burger-icon.svg';
 import CartMobile from '../../assets/img/Mobile/cart-mobile.svg';
+import PPLogo from '../../assets/img/pp-logo.svg'
 export const HeaderNav = () => {
     return (
         <nav className="navbar headerNav__wrapper sticky-top">
             <div className="row col-12 align-items-center">
                 <div className="col-md-3 d-flex flex-row align-items-center flex-wrap">
-                    <div className=" flex-fill">
+                    <div className="logo-container flex-fill">
                         <a href="https://premierpharma.wpengine.com/"  className='nav-link'>
-                            <img className="logo" src={Logo} width="203" height="62" alt="" />
+                            <img className="logo" src={PPLogo}  alt="" />
                         </a>
                     </div>
                     <div className="d-flex align-items-center justify-content-center">
@@ -48,7 +49,7 @@ export const HeaderNav = () => {
                             <button class="dropdown-item" type="button">Something else here</button>
                         </div>
                     </div>
-                    <div className="d-none d-lg-block d-xl-block">
+                    <div className="d-none d-lg-block d-xl-block mr-5">
                         <ul className="navbar-nav d-flex flex-row justify-content-end">
                             <li className="nav-item active">
                                 <a className="nav-link" href="http://premierpharma.wpengine.com/about-us/">About Us </a>

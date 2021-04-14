@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import Input from "../shared/input";
 import NextIcon from "../../assets/icon/next-white.svg";
@@ -20,35 +20,37 @@ const Basic = ({ setForm, formData, navigation }) => {
 
   return (
     <div className="form">
-        <h4>Basic Information</h4>
+      <h4>Basic Information</h4>
+      <div className="">
         <Input
-            label="First Name"
-            name="firstName"
-            type ="text"
-            value={firstName}
-            onChange={setForm}
-        />
-        <Input
-            label="Last Name"
-            name="lastName"
-            type ="text"
-            value={lastName}
-            onChange={setForm}
+          label="First Name"
+          name="firstName"
+          type="text"
+          value={firstName}
+          onChange={setForm}
         />
         <Input
-            label="Email"
-            name = "email"
-            type ="email"
-            value={email}
-            onChange={setForm}
+          label="Last Name"
+          name="lastName"
+          type="text"
+          value={lastName}
+          onChange={setForm}
         />
-         <Input
-            label="Phone number"
-            name = "phone"
-            type ="text"
-            value={phone}
-            onChange={setForm}
+        <Input
+          label="Email"
+          name="email"
+          type="email"
+          value={email}
+          onChange={setForm}
         />
+        <Input
+          label="Phone number"
+          name="phone"
+          type="text"
+          value={phone}
+          onChange={setForm}
+        />
+      </div>
       <div className="d-flex align-items-center justify-content-end nav basic-nav">
         <button className="next" onClick={next} disabled={isDisabled} ><span>Next Step</span> <img src={NextIcon} alt="" /></button>
       </div>

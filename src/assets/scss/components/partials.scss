@@ -1,6 +1,9 @@
 .header {
   border: none;
 }
+.fixed-top{
+  padding: 40px;
+}
 .headerNav__wrapper {
   border: none;
   background: #f6f9fe;
@@ -15,13 +18,7 @@
   .dropdown:hover>.dropdown-menu {
     display: block;
   }
-  .logo {
-    min-width: 203px;
-    @include mediaQueries(mobile) {
-      min-width: 110px;
-      width: 110px;
-    }
-  }
+  
   .navbar-nav {
     li {
       a {

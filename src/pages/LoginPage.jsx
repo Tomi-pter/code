@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Link} from "react-router-dom"
 import { Header } from '../components/partials/Header';
 import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";
@@ -30,7 +31,7 @@ export const LoginContainer = ({ setToken }) => {
         <>
             <Header />
             <div className="container-fluid login">
-                <div className="container d-flex align-items-center justify-content-end">
+                <div className="d-flex align-items-center justify-content-center">
                     <div className="card mb-0">
                         <div className="card-body">
                             <h3 className="text-center">Log in</h3>
@@ -52,7 +53,16 @@ export const LoginContainer = ({ setToken }) => {
                                 // value={}
                                 // onChange={}
                                 />
-                                <button type="submit" className="btn">Log in</button>
+                                <div className="signup-container d-flex align-items-center justify-content-center justify-content-md-between">
+                                    <div className="d-none d-sm-block">
+                                        <span className="signup-text">
+                                            Don’t have an account? <Link to="/register">SIGN UP</Link>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <button type="submit" className="btn submit-button">Submit</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

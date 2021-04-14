@@ -27,7 +27,7 @@
   .filter-col {
     min-height: 100vh;
     background: #ffffff;
-    padding: 93px 20px;
+    padding: 93px 80px;
     @include mediaQueries(padpro) {
       padding: 20px 15px;
       min-height: auto;
@@ -131,7 +131,7 @@
   }
   .products-col {
     flex: auto;
-    padding: 93px 50px;
+    padding: 93px 80px;
     @include mediaQueries(padpro) {
       background: #FFF;
       padding: 40px 15px;

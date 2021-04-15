@@ -23,55 +23,7 @@ export const CartContainer = () => {
                                             <img className="delete-icon mr-4 mt-4" src={require("../assets/img/delete_icon.svg")} />
                                         </a>
                                     </div>
-                                    <div className="col-lg-5 product-wrapper">
-                                        <img className="product-image" src={require("../assets/img/product-placeholder.svg")} />
-                                    </div>
-                                    <div className="col-lg-6 offset-md-1 product-desc-wrapper">
-                                        <p className="product-name mb-0">
-                                            Colesevelam 625mg Tabs 180ct
-                                        </p>
-                                        <p className="variant-text mb-0">
-                                            Brand: Welchol
-                                        </p>
-                                        <p className="price-text mb-0">
-                                            $ 999.99
-                                        </p>
-                                        <p className="quantity-text">x1</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card product-card position-relative">
-                                <div className="row ">
-                                    <div className="position-absolute" style={{ right: "0" }}>
-                                        <a>
-                                            <img className="delete-icon mr-4 mt-4" src={require("../assets/img/delete_icon.svg")} />
-                                        </a>
-                                    </div>
-                                    <div className="col-lg-5 product-wrapper">
-                                        <img className="product-image" src={require("../assets/img/product-placeholder.svg")} />
-                                    </div>
-                                    <div className="col-lg-6 offset-md-1 product-desc-wrapper">
-                                        <p className="product-name mb-0">
-                                            Colesevelam 625mg Tabs 180ct
-                                        </p>
-                                        <p className="variant-text mb-0">
-                                            Brand: Welchol
-                                        </p>
-                                        <p className="price-text mb-0">
-                                            $ 999.99
-                                        </p>
-                                        <p className="quantity-text">x1</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card product-card position-relative">
-                                <div className="row ">
-                                    <div className="position-absolute" style={{ right: "0" }}>
-                                        <a>
-                                            <img className="delete-icon mr-4 mt-4" src={require("../assets/img/delete_icon.svg")} />
-                                        </a>
-                                    </div>
-                                    <div className="col-lg-5 product-wrapper">
+                                    <div className="col-lg-4 product-wrapper">
                                         <img className="product-image" src={require("../assets/img/product-placeholder.svg")} />
                                     </div>
                                     <div className="col-lg-6 offset-md-1 product-desc-wrapper">

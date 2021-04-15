@@ -1,11 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { SearchOutlined, Burger } from '@ant-design/icons';
 import Logo from '../../assets/img/logo.svg';
 import BurgerIcon from '../../assets/img/Mobile/burger-icon.svg';
 import CartMobile from '../../assets/img/Mobile/cart-mobile.svg';
 import PPLogo from '../../assets/img/pp-logo.svg'
+import decode from 'jwt-decode';
+import { useSelector } from 'react-redux';
+
 export const HeaderNav = () => {
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const location = useLocation();
+    const checkState = useSelector((state) => state);
+
+    console.log(checkState);
+
+    useEffect(() => {
+        const token = user?.token;
+    
+        if (token) {
+          const decodedToken = decode(token);
+    
+          if (decodedToken.exp * 1000 < new Date().getTime()) setUser(null);
+        }
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location]);
+
     return (
         <nav className="navbar headerNav__wrapper sticky-top">
             <div className="row col-12 align-items-center">
@@ -21,14 +41,14 @@ export const HeaderNav = () => {
                                 <img src={CartMobile} />
                             </a>
                         </div>
-                        <div class="btn-group d-block d-sm-none">
-                            <button type="button" class="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                        <div className="btn-group d-block d-sm-none">
+                            <button type="button" className="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                                 <img src={BurgerIcon} />
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                <button class="dropdown-item" type="button">Action</button>
-                                <button class="dropdown-item" type="button">Another action</button>
-                                <button class="dropdown-item" type="button">Something else here</button>
+                            <div className="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                                <button className="dropdown-item" type="button">Action</button>
+                                <button className="dropdown-item" type="button">Another action</button>
+                                <button className="dropdown-item" type="button">Something else here</button>
                             </div>
                         </div>
                     </div>
@@ -39,14 +59,14 @@ export const HeaderNav = () => {
                             <img src={CartMobile} />
                         </Link>
                     </div>
-                    <div class="btn-group d-none d-sm-block d-lg-none d-xl-none">
-                        <button type="button" class="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                    <div className="btn-group d-none d-sm-block d-lg-none d-xl-none">
+                        <button type="button" className="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                             <img src={BurgerIcon} />
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                            <button class="dropdown-item" type="button">Action</button>
-                            <button class="dropdown-item" type="button">Another action</button>
-                            <button class="dropdown-item" type="button">Something else here</button>
+                        <div className="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
+                            <button className="dropdown-item" type="button">Action</button>
+                            <button className="dropdown-item" type="button">Another action</button>
+                            <button className="dropdown-item" type="button">Something else here</button>
                         </div>
                     </div>
                     <div className="d-none d-lg-block d-xl-block mr-5">
@@ -71,26 +91,34 @@ export const HeaderNav = () => {
                     <div className="d-none d-lg-block d-xl-block">
                         <div className="d-flex align-items-center ">
                             <form className="form-inline ml-5 mr-4">
-                                <div class="input-group searchWrapper">
-                                    <input class="form-control border-right-0 border-top-0 border-left-0" placeholder="Search Medicine ..." />
-                                    <span class="input-group-append">
-                                        <button class="btn border-left-0 border-right-0 border-top-0" type="button"><SearchOutlined /></button>
+                                <div className="input-group searchWrapper">
+                                    <input className="form-control border-right-0 border-top-0 border-left-0" placeholder="Search Medicine ..." />
+                                    <span className="input-group-append">
+                                        <button className="btn border-left-0 border-right-0 border-top-0" type="button"><SearchOutlined /></button>
                                     </span>
                                 </div>
                             </form>
-                            <div>
-                                <a className='cart-icon__wrapper' href='/cart'>
-                                    <img className="cart-icon" src={require('../../assets/img/cart.svg')} width="203" height="62" alt="" />
-                                    <span className="cart-bubble">3</span>
-                                </a>
-                            </div>
+                            {user && 
+                                <div>
+                                    <a className='cart-icon__wrapper' href='/cart'>
+                                        <img className="cart-icon" src={require('../../assets/img/cart.svg')} width="203" height="62" alt="" />
+                                        <span className="cart-bubble">3</span>
+                                    </a>
+                                </div>
+                            }
                         </div>
                     </div>
-                    <div className="d-none d-lg-block d-xl-block">
-                        <Link className="login-button" to="login">
-                            Login
-                        </Link>
-                    </div>
+                    {user ? 
+                        <a className='' href='/account'>
+                            Account
+                        </a>
+                    :
+                        <div className="d-none d-lg-block d-xl-block">
+                            <Link className="login-button" to="login">
+                                Login
+                            </Link>
+                        </div>
+                    }
                 </div>
             </div>
         </nav>

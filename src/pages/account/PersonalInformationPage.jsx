@@ -1,32 +1,27 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import { HeaderNav } from '../../components/partials/HeaderNav';
 import { Footer } from '../../components/partials/Footer';
 import AccountUser from '../../assets/img/Account/user-icon.svg';
 import CartIcon from '../../assets/img/Account/mdi_cart.svg';
 import LogOut from '../../assets/img/Account/mdi_logout-variant.svg';
-
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
 import MasterCardIcon from '../../assets/img/Payment/master-card-logo.svg';
-import useToken from '../../components/pages/useToken';
-import { LoginContainer } from "../LoginPage";
 import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+import { useDispatch } from 'react-redux';
+import * as actionType from '../../constants/actionTypes';
+
 export const PersonalInformationContainer = () => {
-    const { token, setToken } = useToken();
-    
-    const history = useHistory()
-    const handleLogout = () => {
-        sessionStorage.clear();
-        sleep(1000).then(
-            () => history.push('/')
-        )
-    }
-    // if (!token) {
-    //     return <LoginContainer setToken={setToken} />;
-    // }
+    const dispatch = useDispatch();
+
+    const logout = () => {
+        dispatch({ type: actionType.LOGOUT });
+        window.location.href = 'https://premierpharma.wpengine.com/'; 
+        return null;
+    };
+
     return (
         <>
             <HeaderNav />
@@ -43,7 +38,7 @@ export const PersonalInformationContainer = () => {
                                     <a class="nav-link" data-toggle="tab" href="#orderHistory" role="tab" aria-controls="orderHistory"><span className="mr-3"><img src={CartIcon} /></span>Order History</a>
                                 </li>
                                 <li class="">
-                                    <a class="nav-link" onClick={() => handleLogout()} ><span className="mr-3"><img src={LogOut} /></span>Log Out</a>
+                                    <a class="nav-link" onClick={logout} ><span className="mr-3"><img src={LogOut} /></span>Log Out</a>
                                 </li>
                             </ul>
                         </div>

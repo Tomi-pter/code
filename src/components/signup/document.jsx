@@ -1,12 +1,16 @@
 import React, {useState} from "react";
-
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Input from "../shared/input";
 import PrevIcon from "../../assets/icon/prev-green.svg";
+import { signUp } from "../../actions/auth";
 
 const Document = ({  setForm, formData, navigation }) => {
   const { documents } = formData;
   const { previous } = navigation;
   const [isDisabled, setDisabled] = useState(true);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const onFileUpload = async (e) => {
     e.preventDefault();
@@ -35,7 +39,7 @@ const Document = ({  setForm, formData, navigation }) => {
   }
 
   const submit = () => {
-    console.log(formData);
+    dispatch(signUp(formData, history));
   }
 
   return (

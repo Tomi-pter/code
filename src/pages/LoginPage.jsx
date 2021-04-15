@@ -1,32 +1,26 @@
 import React, { useState } from 'react';
-import {Link} from "react-router-dom"
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../actions/auth';
+import { Link } from "react-router-dom";
 import { Header } from '../components/partials/Header';
 import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";
-import PropTypes from 'prop-types';
 
-async function loginUser(credentials) {
-    return fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-        .then(data => data.json())
-}
+const initialState = { email: '', password: '' };
 
-export const LoginContainer = ({ setToken }) => {
+export const LoginContainer = () => {
+    const [formData, setFormData] = useState(initialState);
+    const history = useHistory();
+    const dispatch = useDispatch();
+    
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = await loginUser({
-            username,
-            password
-        });
-        setToken(token);
+        dispatch(logIn(formData, history));
     }
-    const [username, setUserName] = useState();
-    const [password, setPassword] = useState();
+
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+   
     return (
         <>
             <Header />
@@ -39,19 +33,15 @@ export const LoginContainer = ({ setToken }) => {
                             <form className="text-right" onSubmit={handleSubmit}>
                                 <Input
                                     label="Username"
-                                    name="username"
-                                    type="text"
-                                    onChange={e => setUserName(e.target.value)}
-                                // value={}
-                                // onChange={}
+                                    name="email"
+                                    type="email"
+                                    onChange={handleChange}
                                 />
                                 <Input
                                     label="Password"
                                     name="password"
                                     type="password"
-                                    onChange={e => setPassword(e.target.value)}
-                                // value={}
-                                // onChange={}
+                                    onChange={handleChange}
                                 />
                                 <div className="signup-container d-flex align-items-center justify-content-center justify-content-md-between">
                                     <div className="d-none d-sm-block">
@@ -72,6 +62,3 @@ export const LoginContainer = ({ setToken }) => {
         </>
     );
 };
-LoginContainer.propTypes = {
-    setToken: PropTypes.func.isRequired
-}

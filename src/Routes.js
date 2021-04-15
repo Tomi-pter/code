@@ -10,6 +10,7 @@ import { PersonalInformationContainer } from "./pages/account/PersonalInformatio
 import { LoginContainer } from "./pages/LoginPage";
 import Search from "./pages/Search";
 import Shop from "./pages/Shop";
+import TestShop from "./pages/TestShop";
 import Product from "./pages/Product";
 import Details from "./pages/ProductDetails";
 import Cart from "./components/pages/cart/Cart";
@@ -28,6 +29,7 @@ export default ({ childProps }) => (
       <Route path="/register" component={SignUpContainer} />
       <Route path="/search" component={Search} />
       <Route path="/shop" component={Shop} />
+      <Route path="/test-shop" component={TestShop} />
       <Route path="/product" component={Product} />
       <Route path="/details" component={Details} />
       <ProtectedRoutes path="/account" component={PersonalInformationContainer} />

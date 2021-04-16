@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://premierpharmastaging-env.eba-n2wzj3tj.us-west-2.elasticbeanstalk.com/' });
+const API = axios.create({ baseURL: 'https://premierpharmastaging.outliant.com/' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {

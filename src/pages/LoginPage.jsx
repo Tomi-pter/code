@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../actions/auth';
@@ -7,19 +7,34 @@ import { Header } from '../components/partials/Header';
 import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";
 
+import { useSelector } from 'react-redux';
+
 const initialState = { email: '', password: '' };
 
 export const LoginContainer = () => {
+    const auth = useSelector((state) => state.auth);
     const [formData, setFormData] = useState(initialState);
+    const [isDisabled, setIsDisabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
     
     const handleSubmit = async e => {
         e.preventDefault();
+        setIsLoading(true);
         dispatch(logIn(formData, history));
     }
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    useEffect(()=>{
+        const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+        emailCheck && formData.password != '' ? setIsDisabled(null) : setIsDisabled(true);
+    },[formData]);
+
+    useEffect(()=>{
+        setIsLoading(auth.Loading);
+    },[auth]);
    
     return (
         <>
@@ -28,20 +43,25 @@ export const LoginContainer = () => {
                 <div className="d-flex align-items-center justify-content-center">
                     <div className="card mb-0">
                         <div className="card-body">
-                            <h3 className="text-center">Log in</h3>
-                            <h4 className="text-center">Lorem Ipsum</h4>
                             <form className="text-right" onSubmit={handleSubmit}>
+                                <h3 className="text-center">Log in</h3>
+                                <h4 className="text-center">Lorem Ipsum</h4>
+                                <p className={"text-center error "+(auth.authData?.message ? "alert-danger" : "")}>
+                                    {auth.authData?.message}
+                                </p>
                                 <Input
                                     label="Username"
                                     name="email"
                                     type="email"
                                     onChange={handleChange}
+                                    required
                                 />
                                 <Input
                                     label="Password"
                                     name="password"
                                     type="password"
                                     onChange={handleChange}
+                                    required
                                 />
                                 <div className="signup-container d-flex align-items-center justify-content-center justify-content-md-between">
                                     <div className="d-none d-sm-block">
@@ -50,7 +70,17 @@ export const LoginContainer = () => {
                                         </span>
                                     </div>
                                     <div>
-                                        <button type="submit" className="btn submit-button">Submit</button>
+                                        <button type="submit" className="btn submit-button" disabled={isDisabled}>
+                                            {isLoading ?
+                                                <div className="spinner-border text-light" role="status">
+                                                    <span className="sr-only">Loading...</span>
+                                                </div>
+                                                :
+                                                <>
+                                                    Submit
+                                                </>
+                                            }
+                                        </button>
                                     </div>
                                 </div>
                             </form>

@@ -24,7 +24,8 @@
     flex: auto;
   }
   .form {
-    min-height: 455px;
+    // min-height: 455px;
+    min-height: 525px;
     display: flex;
     flex-direction: column;
   }
@@ -40,6 +41,9 @@
     color: #0098ff;
     margin: 0;
     margin-bottom: 24px;
+  }
+  .error {
+    min-height: 40px;
   }
   .form-group{
       margin-bottom: 40px;
@@ -137,5 +141,12 @@
     .prev span {
       display: none;
     }
+  }
+}
+
+.account-verification-container {
+  min-height: 100vh;
+  .error {
+    min-height: 40px;
   }
 }

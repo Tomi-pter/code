@@ -15,6 +15,7 @@ import Product from "./pages/Product";
 import Details from "./pages/ProductDetails";
 import Cart from "./components/pages/cart/Cart";
 import Modal from "./pages/Modal";
+import AccountVerification from "./pages/AccountVerification";
 
 import { ProtectedRoutes } from './components/protectedRoutes';
 
@@ -27,6 +28,7 @@ export default ({ childProps }) => (
       }}/>
       <Route path="/login" component={LoginContainer} />
       <Route path="/register" component={SignUpContainer} />
+      <Route path="/account-verification" component={AccountVerification} />
       <Route path="/search" component={Search} />
       <Route path="/shop" component={Shop} />
       <Route path="/test-shop" component={TestShop} />

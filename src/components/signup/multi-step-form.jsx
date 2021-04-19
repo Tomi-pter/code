@@ -3,24 +3,26 @@ import { useForm, useStep } from "react-hooks-helper";
 
 import Basic from "./basic";
 import Address from "./address";
-import Document from "./document";
+// import Document from "./document";
+import Account from "./account";
 
 const steps = [
   { id: "basic" },
   { id: "address" },
-  { id: "document" }
+  { id: "account" }
 ];
 
 const defaultData = {
-  firstName: "",
-  lastName: "",
+  givenName: "",
+  familyName: "",
   email: "",
-  phone: "",
+  password: "",
+  phoneNumber: "",
   address: "",
+  company: "",
   city: "",
   state: "",
-  zip: "",
-  documents: []
+  postalCode: ""
 };
 
 const MultiStepForm = ({ images }) => {
@@ -35,8 +37,8 @@ const MultiStepForm = ({ images }) => {
       return <Basic {...props} />;
     case "address":
       return <Address {...props} />;
-    case "document":
-      return <Document {...props} />;
+    case "account":
+      return <Account {...props} />;
     default:
       return null;
   }

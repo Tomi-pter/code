@@ -4,15 +4,14 @@ import Input from "../shared/input";
 import NextIcon from "../../assets/icon/next-white.svg";
 
 const Basic = ({ setForm, formData, navigation }) => {
-  const { firstName, lastName, email, phone } = formData;
+  const { givenName, familyName, phoneNumber, company } = formData;
   const { next } = navigation;
   const [isDisabled, setDisabled] = useState(true);
 
   const validation = useCallback(() => {
-    const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const phoneCheck = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(phone);
-    firstName && lastName && email && phone && emailCheck && phoneCheck ? setDisabled(false) : setDisabled(true);
-  }, [firstName, lastName, email, phone])
+    const phoneCheck = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(phoneNumber);
+    givenName && familyName && company && phoneNumber && phoneCheck ? setDisabled(false) : setDisabled(true);
+  }, [givenName, familyName, phoneNumber, company])
 
   useEffect(() => {
     validation();
@@ -24,31 +23,31 @@ const Basic = ({ setForm, formData, navigation }) => {
       <div className="">
         <Input
           label="First Name"
-          name="firstName"
+          name="givenName"
           type="text"
-          value={firstName}
+          value={givenName}
           onChange={setForm}
         />
         <Input
           label="Last Name"
-          name="lastName"
+          name="familyName"
           type="text"
-          value={lastName}
-          onChange={setForm}
-        />
-        <Input
-          label="Email"
-          name="email"
-          type="email"
-          value={email}
+          value={familyName}
           onChange={setForm}
         />
         <Input
           label="Phone number"
-          name="phone"
+          name="phoneNumber"
           type="text"
-          value={phone}
+          value={phoneNumber}
           onChange={setForm}
+        />
+        <Input 
+          label="Company" 
+          name="company" 
+          type="text" 
+          value={company} 
+          onChange={setForm} 
         />
       </div>
       <div className="d-flex align-items-center justify-content-end nav basic-nav">

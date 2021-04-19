@@ -37,12 +37,19 @@
     font-size: 27.8693px;
     line-height: 46px;
     color: #0098ff;
-    margin: 0;
+    margin-bottom: 25px;
+  }
+  .error {
+    min-height: 40px;
   }
   form {
-    margin-top: 85px;
+    max-width: 645.64px;
+    margin: 0 auto;
+    // margin-top: 35px;
   }
   input {
+    width: 100%;
+    min-height: 59px;
     background: #f0f0f0;
     border: none;
     border-radius: 0;
@@ -51,9 +58,8 @@
     font-size: 27.8693px;
     line-height: 44px;
     color: #000000;
-    max-width: 645.64px;
-    margin: 0 auto;
-    min-height: 59px;
+    // max-width: 645.64px;
+    // margin: 0 auto;
     &::placeholder {
       color: #828282;
       font-weight: bold;
@@ -77,6 +83,10 @@
     }
     &:focus {
       box-shadow: none;
+    }
+    &:disabled {
+      background-color: #cccccc;
+      color: #666666;
     }
   }
   .signup-container {

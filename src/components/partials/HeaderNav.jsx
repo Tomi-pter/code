@@ -6,14 +6,10 @@ import BurgerIcon from '../../assets/img/Mobile/burger-icon.svg';
 import CartMobile from '../../assets/img/Mobile/cart-mobile.svg';
 import PPLogo from '../../assets/img/pp-logo.svg'
 import decode from 'jwt-decode';
-import { useSelector } from 'react-redux';
 
 export const HeaderNav = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const location = useLocation();
-    const checkState = useSelector((state) => state);
-
-    console.log(checkState);
 
     useEffect(() => {
         const token = user?.token;

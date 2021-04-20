@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../actions/auth';
-import { Link } from "react-router-dom";
 import { Header } from '../components/partials/Header';
 import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";

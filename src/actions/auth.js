@@ -19,9 +19,9 @@ export const logIn = (formData, router) => async (dispatch) => {
 
 export const logOut = (email, router) => async (dispatch) => {
   try {
-    // const { data } = await api.logOut(email);
+    const { data } = await api.logOut(email);
 
-    dispatch({ type: LOGOUT });
+    dispatch({ type: LOGOUT, data });
 
     router.push('/');
   } catch (error) {

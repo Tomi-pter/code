@@ -1,66 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { Products } from '../components/shared/products';
 
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getProducts } from '../actions/products';
 
 export default props => {
+    const dispatch = useDispatch();
+    const products = useSelector((state) => state.products);
     const [view, setView] = useState('grid');
-    const [products, setProducts] = useState([
-        {
-            id: "1A",
-            item_no: "129384",
-            ndc: "6238-1838-01",
-            name: `Vitamin D3 2000iu 250ct Vitamin D3 50mcg (2000IU) 250 Softgels`,
-            compare_to: "Synthroid/Unithroid/Levox",
-            img: 'product-sample.png',
-            company: "Amneal Pharm.",
-            size: "100",
-            strength: "50mcg",
-            price: "25.89",
-            ppu: ".259",
-            category: "pharmacies"
-        },
-        {
-            id: "2B",
-            item_no: "129384",
-            ndc: "6238-1838-01",
-            name: `Vitamin D3 2000iu 250ct Vitamin D3 50mcg (2000IU) 250 Softgels`,
-            compare_to: "Synthroid/Unithroid/Levox",
-            img: 'product-sample.png',
-            company: "Amneal Pharm.",
-            size: "100",
-            strength: "50mcg",
-            price: "25.89",
-            ppu: ".259",
-            category: "vetirinary"
-        },
-        {
-            id: "3C",
-            item_no: "129384",
-            ndc: "6238-1838-01",
-            name: `Vitamin D3 2000iu 250ct Vitamin D3 50mcg (2000IU) 250 Softgels`,
-            compare_to: "Synthroid/Unithroid/Levox",
-            img: 'product-sample.png',
-            company: "Amneal Pharm.",
-            size: "100",
-            strength: "50mcg",
-            price: "25.89",
-            ppu: ".259",
-            category: "surgical"
-        }
-    ]);
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedSubCategory, setSelectedSubCategory] = useState('');
+    // const [products, setProducts] = useState([
+    //     {
+    //         id: "1A",
+    //         item_no: "129384",
+    //         ndc: "6238-1838-01",
+    //         name: `Vitamin D3 2000iu 250ct Vitamin D3 50mcg (2000IU) 250 Softgels`,
+    //         compare_to: "Synthroid/Unithroid/Levox",
+    //         img: 'product-sample.png',
+    //         company: "Amneal Pharm.",
+    //         size: "100",
+    //         strength: "50mcg",
+    //         price: "25.89",
+    //         ppu: ".259",
+    //         category: "pharmacies"
+    //     },
+    //     {
+    //         id: "2B",
+    //         item_no: "129384",
+    //         ndc: "6238-1838-01",
+    //         name: `Vitamin D3 2000iu 250ct Vitamin D3 50mcg (2000IU) 250 Softgels`,
+    //         compare_to: "Synthroid/Unithroid/Levox",
+    //         img: 'product-sample.png',
+    //         company: "Amneal Pharm.",
+    //         size: "100",
+    //         strength: "50mcg",
+    //         price: "25.89",
+    //         ppu: ".259",
+    //         category: "vetirinary"
+    //     },
+    //     {
+    //         id: "3C",
+    //         item_no: "129384",
+    //         ndc: "6238-1838-01",
+    //         name: `Vitamin D3 2000iu 250ct Vitamin D3 50mcg (2000IU) 250 Softgels`,
+    //         compare_to: "Synthroid/Unithroid/Levox",
+    //         img: 'product-sample.png',
+    //         company: "Amneal Pharm.",
+    //         size: "100",
+    //         strength: "50mcg",
+    //         price: "25.89",
+    //         ppu: ".259",
+    //         category: "surgical"
+    //     }
+    // ]);
 
-    const setDisplay = () => {
-        return (
-            <Products
-                page="shop"
-                view={view}
-                setView={setView}
-                products={products}
-            />
-        )
-    }
+    useEffect(() => {
+        dispatch(getProducts());
+    }, [dispatch]);
 
     return (
         <>
@@ -70,13 +70,12 @@ export default props => {
                     <div className="filter-col">
                         <h3>Categories</h3>
                         <div className="d-block d-lg-none">
-                            <select class="select-category form-control" id="categoryType">
+                            <select className="select-category form-control" id="categoryType">
                                 <option>For Animal Health</option>
                                 <option>For Pharmacies</option>
                             </select>
-
                         </div>
-                        <div class="category-accordion accordion">
+                        <div className="category-accordion accordion">
                             <div className="accordion-item">
                                 <button className="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#accordion1" aria-expanded="false">
                                     For Pharmacies (677)
@@ -139,7 +138,12 @@ export default props => {
                             <div className="content">
                                 <div className="products-container">
                                     <div className={"products" + (view === "list" ? " list-view" : "")}>
-                                        {setDisplay()}
+                                        <Products
+                                            page="shop"
+                                            view={view}
+                                            setView={setView}
+                                            products={products}
+                                        />
                                     </div>
                                 </div>
                             </div>

@@ -13,7 +13,6 @@ import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-// import * as actionType from '../../constants/actionTypes';
 import { logOut } from '../../actions/auth';
 import { getAccount } from '../../actions/account';
 

@@ -1,6 +1,7 @@
-import React from 'react'
-import Product from '../../pages/Product'
-import { ProductConsumer } from '../../context';
+import React from 'react';
+import { Product } from './product';
+// import Product from '../../pages/Product'
+// import { ProductConsumer } from '../../context';
 export const Products = ({ page, products, view, setView }) => {
     return (
         <div className="products-container">
@@ -13,15 +14,15 @@ export const Products = ({ page, products, view, setView }) => {
                 <div className="d-flex align-items-center filter-view-container">
                     <div className="d-flex align-items-center sort-by">
                         <label className="sort-label">Sort by:</label>
-                        <div class="dropdown">
-                            <button class="dropdown-toggle" type="button" id="sortByDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div className="dropdown">
+                            <button className="dropdown-toggle" type="button" id="sortByDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Strength
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="sortByDropdown">
-                                <a class="dropdown-item" href="#">Default</a>
-                                <a class="dropdown-item" href="#">Size</a>
-                                <a class="dropdown-item" href="#">Strength</a>
-                                <a class="dropdown-item" href="#">Price</a>
+                            <div className="dropdown-menu" aria-labelledby="sortByDropdown">
+                                <a className="dropdown-item" href="#">Default</a>
+                                <a className="dropdown-item" href="#">Size</a>
+                                <a className="dropdown-item" href="#">Strength</a>
+                                <a className="dropdown-item" href="#">Price</a>
                             </div>
                         </div>
                     </div>
@@ -62,13 +63,22 @@ export const Products = ({ page, products, view, setView }) => {
                     </div>
                 </div>
                 <div className="row">
-                    <ProductConsumer>
+                    {/* <ProductConsumer>
                         {(value) => {
                             return value.products.map(product => {
                                 return <Product view={view} key={product.id} product={product} />
                             });
                         }}
-                    </ProductConsumer>
+                    </ProductConsumer> */}
+                    {   
+                        products.map(product => (
+                            <Product 
+                                view={view} 
+                                key={product.id} 
+                                product={product} 
+                            />
+                        ))
+                    }
                 </div>
 
             </div>

@@ -9,3 +9,6 @@ export const GETACCOUNT = 'GETACCOUNT';
 
 // Products
 export const GETPRODUCTS = 'GETPRODUCTS';
+
+// Cart
+export const UPDATECART = 'UPDATECART';

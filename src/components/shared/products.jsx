@@ -1,8 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product } from './product';
-// import Product from '../../pages/Product'
-// import { ProductConsumer } from '../../context';
+import { useDispatch } from 'react-redux';
+import { getCart, addCart } from '../../actions/cart';
+import { useSelector } from 'react-redux';
+
 export const Products = ({ page, products, view, setView }) => {
+    const cart = useSelector((state) => state.cart);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [quantity, setQuantity] = useState(1);
+    const dispatch = useDispatch();
+
+    const handleAddCart = (product) => {
+        setSelectedProduct(product);
+        setIsLoading(true);
+        dispatch(addCart(product, quantity));
+    }
+
+    useEffect(()=>{
+        dispatch(getCart());
+    },[dispatch]);
+
+    useEffect(()=>{
+        setTimeout(() => {
+            setQuantity(1);
+            setSelectedProduct(null);
+            setIsLoading(false);
+        }, 1000);
+    },[cart]);
+
     return (
         <div className="products-container">
             <div className={(page === "search" ? "d-flex justify-content-between top-details align-items-start search-wrapper" : "d-flex justify-content-between top-details align-items-center")}>
@@ -73,9 +99,15 @@ export const Products = ({ page, products, view, setView }) => {
                     {   
                         products.map(product => (
                             <Product 
-                                view={view} 
-                                key={product.id} 
-                                product={product} 
+                                view={view}
+                                key={product.id}
+                                product={product}
+                                addCart={handleAddCart}
+                                setSelectedProduct={setSelectedProduct}
+                                selectedProduct={selectedProduct}
+                                isLoading={isLoading}
+                                quantity={quantity}
+                                setQuantity={setQuantity}
                             />
                         ))
                     }

@@ -32,7 +32,7 @@ export const LoginContainer = () => {
     },[formData]);
 
     useEffect(()=>{
-        setIsLoading(auth.Loading);
+        setIsLoading(false);
     },[auth]);
    
     return (

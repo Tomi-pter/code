@@ -40,8 +40,8 @@ export default props => {
         if (!auth.authData?.email && !auth.authData?.user?.username) {
             history.push('/login')
         }
-        setIsLoading(auth.Loading);
-        setResendLoading(auth.Loading);
+        setIsLoading(false);
+        setResendLoading(false);
     },[auth]);
 
     return (

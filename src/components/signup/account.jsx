@@ -32,7 +32,7 @@ const Document = ({  setForm, formData, navigation }) => {
     }, [validation]);
 
     useEffect(()=>{
-        setIsLoading(auth.Loading);
+        setIsLoading(false);
     },[auth]);
 
     return (

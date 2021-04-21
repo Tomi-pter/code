@@ -7,9 +7,17 @@ import CartMobile from '../../assets/img/Mobile/cart-mobile.svg';
 import PPLogo from '../../assets/img/pp-logo.svg'
 import decode from 'jwt-decode';
 
+import { useSelector } from 'react-redux';
+
 export const HeaderNav = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const cart = useSelector((state) => state.cart);
     const location = useLocation();
+
+    const totalItems = () => { 
+        const total = cart.cartData.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
+        return total;
+    }
 
     useEffect(() => {
         const token = user?.token;
@@ -33,9 +41,9 @@ export const HeaderNav = () => {
                     </div>
                     <div className="d-flex align-items-center justify-content-center">
                         <div className="cartWrapper d-block d-sm-none d-lg-none d-xl-none mr-3">
-                            <a href="/cart">
+                            <Link to="/cart">
                                 <img src={CartMobile} />
-                            </a>
+                            </Link>
                         </div>
                         <div className="btn-group d-block d-sm-none">
                             <button type="button" className="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
@@ -96,18 +104,18 @@ export const HeaderNav = () => {
                             </form>
                             {user && 
                                 <div>
-                                    <a className='cart-icon__wrapper' href='/cart'>
+                                    <Link className='cart-icon__wrapper' to='/cart'>
                                         <img className="cart-icon" src={require('../../assets/img/cart.svg')} width="203" height="62" alt="" />
-                                        <span className="cart-bubble">3</span>
-                                    </a>
+                                        <span className="cart-bubble">{ totalItems() }</span>
+                                    </Link>
                                 </div>
                             }
                         </div>
                     </div>
                     {user ? 
-                        <a className='' href='/account'>
+                        <Link className='' to='/account'>
                             Account
-                        </a>
+                        </Link>
                     :
                         <div className="d-none d-lg-block d-xl-block">
                             <Link className="login-button" to="login">

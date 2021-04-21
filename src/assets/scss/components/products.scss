@@ -567,6 +567,19 @@
             font-size: 18px;
             color: #ffffff;
           }
+          &.adding {
+            display: flex !important; 
+            align-items: center;
+            justify-content: center;
+            .spinner-border {
+              margin: 0;
+              width: 20px;
+              height: 20px;
+            }
+            &:before {
+              display: none !important;
+            }
+          }
           @include mediaQueries(padpro) {
             display: none;
           }
@@ -663,6 +676,9 @@
       position: absolute;
       bottom: 20px;
       right: 35px;
+      &.adding {
+        background: #16cfb0;
+      }
     }
   }
   .pharma-product {

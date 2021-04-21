@@ -17,3 +17,19 @@ export const resendCode = (email) => API.post(`/user/${email}/resend-verificatio
 export const getAccount = (email) => API.get(`/user/${email}`);
 
 export const getProducts = () => API.get('/products');
+
+export const getCart = () => JSON.parse(localStorage.getItem('cart'));
+export const addCart = (product, quantity) => {
+  const cart = JSON.parse(localStorage.getItem('cart'));
+  const newItem = {productId: product.id, productName: product.description, price: product.purchasePrice, quantity};
+  const index = cart.findIndex(item => item.productId === product.id);
+  index !== -1 ? cart[index].quantity += quantity : cart.push(newItem);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  return cart;
+};
+export const removeCart = (id) => {
+  const cart = JSON.parse(localStorage.getItem('cart'));
+  const newCart = cart.filter(item => item.productId !== id);
+  localStorage.setItem('cart', JSON.stringify(newCart));
+  return newCart;
+};

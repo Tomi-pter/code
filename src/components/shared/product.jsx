@@ -1,9 +1,13 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import ProductImage from '../../assets/img/product-sample.png';
 
-export const Product = ({ view, product }) => {
-    console.log(product);
+export const Product = ({ view, product, addCart, setSelectedProduct, selectedProduct, isLoading, quantity, setQuantity }) => {
+
+    const handleChange = (e) => {
+        setSelectedProduct(product);
+        setQuantity(e.target.value);
+    };
+    
     return (
         <div className={(view === "list" ? " col-12" : "col-12 col-md-6 col-lg-4")}>
             <div
@@ -47,23 +51,38 @@ export const Product = ({ view, product }) => {
                             {/* <p className="ppu for-list">({ppu})</p> */}
                         </div>
                         <div className="buy-container">
-                            <input className="qty for-list" type="number" min="1" placeholder="1" />
-                            <button className="cart-btn"></button>
+                            <input className="qty for-list" type="number" min="1" placeholder="1" value={selectedProduct === product ? quantity : 1} onChange={handleChange} />
+                            <button className={"cart-btn " + (selectedProduct === product && isLoading ? 'adding' : '')} onClick={() => addCart(product)}>
+                                {(selectedProduct === product && isLoading) ?
+                                    <div className="spinner-border text-light" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                    :
+                                    <></>
+                                }
+                            </button>
                         </div>
                         <p className="incart for-list">1</p>
                     </div>
-                    <div className={(view === "list" ? " d-block" : "d-none")}>
+                    {/* <div className={(view === "list " ? "d-block" : "d-none")}>
                         <div className="price-wrapper">
                             <div className="flex-fill">
                                 <p className="price">${product.purchasePrice}</p>
-                                {/* <p className="ppu">({ppu})</p> */}
+                                <p className="ppu">({ppu})</p>
                             </div>
                             <div className="buy-container">
-                                <button className="cart-btn"></button>
+                                <button className={"cart-btn " + (selectedProduct === product && isLoading ? 'adding' : '')} onClick={() => addCart(product)}>
+                                    {(selectedProduct === product && isLoading) ?
+                                        <div className="spinner-border text-light" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div>
+                                        :
+                                        <></>
+                                    }
+                                </button>
                             </div>
                         </div>
-                    </div>
-
+                    </div> */}
                 </div>
             </div>
         </div>

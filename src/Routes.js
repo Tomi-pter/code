@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { SignUpContainer } from "./pages/SignupPage";
-import { CartContainer } from "./pages/Cart";
+// import { CartContainer } from "./pages/Cart";
 import { CheckoutContainer } from "./pages/Checkout";
 import { PaymentContainer } from "./pages/Payment";
 import { PaymentConfirmationContainer } from "./pages/PaymentConfirmation";
@@ -13,7 +13,8 @@ import Shop from "./pages/Shop";
 import TestShop from "./pages/TestShop";
 import Product from "./pages/Product";
 import Details from "./pages/ProductDetails";
-import Cart from "./components/pages/cart/Cart";
+// import Cart from "./components/pages/cart/Cart";
+import {CartContainer} from "./pages/Cart";
 import Modal from "./pages/Modal";
 import AccountVerification from "./pages/AccountVerification";
 
@@ -38,7 +39,7 @@ export default ({ childProps }) => (
       <ProtectedRoutes path="/checkout" component={CheckoutContainer} />
       <ProtectedRoutes path="/payment" component={PaymentContainer} />
       {/* <Route path="/cart" component={CartContainer} /> */}
-      <ProtectedRoutes path="/cart" component={Cart} />
+      <ProtectedRoutes path="/cart" component={CartContainer} />
       <ProtectedRoutes path="/payment-confirmation" component={PaymentConfirmationContainer} />
       <Route component={ErrorPageContainer} />
     </Switch>

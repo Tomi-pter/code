@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { Products } from '../components/shared/products';
@@ -8,15 +9,37 @@ import { useDispatch } from 'react-redux';
 import { getProducts } from '../actions/products';
 
 export default props => {
-    const dispatch = useDispatch();
     const products = useSelector((state) => state.products);
     const [view, setView] = useState('grid');
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedSubCategory, setSelectedSubCategory] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const query = new URLSearchParams(props.location.search);
+    const [queryCategory, setQueryCategory] = useState(query.get('category') || "");
+    const [category, setCategory] =  useState(queryCategory || "Pharmacy");
+    const [subCategory, setSubCategory] =  useState("Short-dated");
+    const location = useLocation();
+    const dispatch = useDispatch();
+
+    const changeCategory = (cat) => {
+        if (queryCategory !== "") window.history.replaceState({}, document.title, "/" + "shop");
+        setQueryCategory("");
+        setCategory(cat);
+    }
 
     useEffect(() => {
-        dispatch(getProducts());
-    }, [dispatch]);
+        setIsLoading(true);
+        dispatch(getProducts(null, category, subCategory));
+    }, [dispatch, category, subCategory]);
+
+    useEffect(() => {
+        setIsLoading(false);
+    }, [products]);
+
+    useEffect(() => {
+        const cat = query.get('category')
+        setQueryCategory(cat);
+        setCategory(cat)
+    }, [location]);
+
 
     return (
         <>
@@ -31,55 +54,62 @@ export default props => {
                                 <option>For Pharmacies</option>
                             </select>
                         </div>
-                        <div className="category-accordion accordion">
+                        <div className="category-accordion accordion" id="categoryAccordion">
                             <div className="accordion-item">
-                                <button className="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#accordion1" aria-expanded="false">
-                                    For Pharmacies (677)
-                                    </button>
-                                <div id="accordion1" className="accordion-body accordion-collapse collapse">
+                                <button 
+                                    className={"accordion-button " + (queryCategory === "Pharmacy" ? "" : "collapsed")} 
+                                    type="button" 
+                                    data-toggle="collapse" 
+                                    data-target="#accordion1" 
+                                    aria-expanded="false"
+                                    onClick={()=>changeCategory("Pharmacy")}
+                                >
+                                    For Pharmacies
+                                </button>
+                                <div id="accordion1" className={"accordion-body accordion-collapse collapse " + (queryCategory === "Pharmacy" ? "show" : "")} data-parent="#categoryAccordion">
                                     <ul>
-                                        <li className="active">Short dated (10)</li>
-                                        <li>Branded Drugs (9)</li>
-                                        <li>Deals (5)</li>
-                                        <li>PPE Supplies (15)</li>
-                                        <li>Injectables (18)</li>
-                                        <li>COVID-19 (4)</li>
-                                        <li>OTC (3)</li>
-                                        <li>Diabetes (8)</li>
+                                        <li className={subCategory === "Short-dated" ? "active" : ""} onClick={()=>setSubCategory("Short-dated")}>Short dated</li>
+                                        <li className={subCategory === "Branded Drugs" ? "active" : ""} onClick={()=>setSubCategory("Branded Drugs")}>Branded Drugs</li>
+                                        <li className={subCategory === "Deal" ? "active" : ""} onClick={()=>setSubCategory("Deal")}>Deal</li>
+                                        <li className={subCategory === "PPE Supplies" ? "active" : ""} onClick={()=>setSubCategory("PPE Supplies")}>PPE Supplies</li>
+                                        <li className={subCategory === "Injectables" ? "active" : ""} onClick={()=>setSubCategory("Injectables")}>Injectables</li>
+                                        <li className={subCategory === "COVID-19" ? "active" : ""} onClick={()=>setSubCategory("COVID-19")}>COVID-19</li>
+                                        <li className={subCategory === "OTC" ? "active" : ""} onClick={()=>setSubCategory("OTC")}>OTC</li>
+                                        <li className={subCategory === "Diabetes" ? "active" : ""} onClick={()=>setSubCategory("Diabetes")}>Diabetes</li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="accordion-item">
-                                <button className="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#accordion2" aria-expanded="false">
-                                    For Animal Care (250)
-                                    </button>
-                                <div id="accordion2" className="accordion-body accordion-collapse collapse">
+                                <button className={"accordion-button " + (queryCategory === "Animal Care" ? "" : "collapsed")} type="button" data-toggle="collapse" data-target="#accordion2" aria-expanded="false" onClick={()=>changeCategory("Animal Care")}>
+                                    For Animal Care
+                                </button>
+                                <div id="accordion2" className={"accordion-body accordion-collapse collapse " + (queryCategory === "Animal Care" ? "show" : "")} data-parent="#categoryAccordion">
                                     <ul>
-                                        <li className="active">Short dated (10)</li>
-                                        <li>Branded Drugs (9)</li>
-                                        <li>Deals (5)</li>
-                                        <li>PPE Supplies (15)</li>
-                                        <li>Injectables (18)</li>
-                                        <li>COVID-19 (4)</li>
-                                        <li>OTC (3)</li>
-                                        <li>Diabetes (8)</li>
+                                        <li className={subCategory === "Short-dated" ? "active" : ""} onClick={()=>setSubCategory("Short-dated")}>Short dated</li>
+                                        <li className={subCategory === "Branded Drugs" ? "active" : ""} onClick={()=>setSubCategory("Branded Drugs")}>Branded Drugs</li>
+                                        <li className={subCategory === "Deal" ? "active" : ""} onClick={()=>setSubCategory("Deal")}>Deal</li>
+                                        <li className={subCategory === "PPE Supplies" ? "active" : ""} onClick={()=>setSubCategory("PPE Supplies")}>PPE Supplies</li>
+                                        <li className={subCategory === "Injectables" ? "active" : ""} onClick={()=>setSubCategory("Injectables")}>Injectables</li>
+                                        <li className={subCategory === "COVID-19" ? "active" : ""} onClick={()=>setSubCategory("COVID-19")}>COVID-19</li>
+                                        <li className={subCategory === "OTC" ? "active" : ""} onClick={()=>setSubCategory("OTC")}>OTC</li>
+                                        <li className={subCategory === "Diabetes" ? "active" : ""} onClick={()=>setSubCategory("Diabetes")}>Diabetes</li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="accordion-item">
-                                <button className="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#accordion3" aria-expanded="false">
-                                    For Medical/Surgical Products (80)
-                                    </button>
-                                <div id="accordion3" className="accordion-body accordion-collapse collapse">
+                                <button className={"accordion-button " + (queryCategory === "Medical" ? "" : "collapsed")} type="button" data-toggle="collapse" data-target="#accordion3" aria-expanded="false" onClick={()=>changeCategory("Medical")}>
+                                    For Medical/Surgical Products
+                                </button>
+                                <div id="accordion3" className={"accordion-body accordion-collapse collapse " + (queryCategory === "Medical" ? "show" : "")} data-parent="#categoryAccordion">
                                     <ul>
-                                        <li className="active">Short dated (10)</li>
-                                        <li>Branded Drugs (9)</li>
-                                        <li>Deals (5)</li>
-                                        <li>PPE Supplies (15)</li>
-                                        <li>Injectables (18)</li>
-                                        <li>COVID-19 (4)</li>
-                                        <li>OTC (3)</li>
-                                        <li>Diabetes (8)</li>
+                                        <li className={subCategory === "Short-dated" ? "active" : ""} onClick={()=>setSubCategory("Short-dated")}>Short dated</li>
+                                        <li className={subCategory === "Branded Drugs" ? "active" : ""} onClick={()=>setSubCategory("Branded Drugs")}>Branded Drugs</li>
+                                        <li className={subCategory === "Deal" ? "active" : ""} onClick={()=>setSubCategory("Deal")}>Deal</li>
+                                        <li className={subCategory === "PPE Supplies" ? "active" : ""} onClick={()=>setSubCategory("PPE Supplies")}>PPE Supplies</li>
+                                        <li className={subCategory === "Injectables" ? "active" : ""} onClick={()=>setSubCategory("Injectables")}>Injectables</li>
+                                        <li className={subCategory === "COVID-19" ? "active" : ""} onClick={()=>setSubCategory("COVID-19")}>COVID-19</li>
+                                        <li className={subCategory === "OTC" ? "active" : ""} onClick={()=>setSubCategory("OTC")}>OTC</li>
+                                        <li className={subCategory === "Diabetes" ? "active" : ""} onClick={()=>setSubCategory("Diabetes")}>Diabetes</li>
                                     </ul>
                                 </div>
                             </div>
@@ -88,18 +118,26 @@ export default props => {
                     <div className="products-col">
                         <div className="content-container">
                             <div className="content-category">
-                                <h3>For Animal Health</h3>
-                                <p>Short dated</p>
+                                <h3>For {category === "Pharmacy" ? "Pharmacies" : category === "Animal Care" ? "Animal Health" : "Medical/Surgical Products"}</h3>
+                                <p>{subCategory}</p>
                             </div>
                             <div className="content">
                                 <div className="products-container">
                                     <div className={"products" + (view === "list" ? " list-view" : "")}>
-                                        <Products
-                                            page="shop"
-                                            view={view}
-                                            setView={setView}
-                                            products={products}
-                                        />
+                                        {isLoading ? 
+                                            <div className="spinner-container d-flex align-items-center justify-content-center">
+                                                <div className="spinner-border text-primary" role="status">
+                                                    <span className="sr-only">Loading...</span>
+                                                </div>
+                                            </div>
+                                            :
+                                            <Products
+                                                page="shop"
+                                                view={view}
+                                                setView={setView}
+                                                products={products}
+                                            />
+                                        }
                                     </div>
                                 </div>
                             </div>

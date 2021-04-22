@@ -12,7 +12,7 @@ export const Footer = () => {
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center">
                     <a href="http://premierpharma.wpengine.com/">
-                        <img className="logo" src={LogoWhite} width="203" height="62" alt="logo-white" />
+                        <img className="logo" src={LogoWhite} width="152.25" height="46.49" alt="logo-white" />
                     </a>
                     <div className="d-flex justify-content-around align-items-center">
                         <a className='nav-link' href='/'>
@@ -32,16 +32,16 @@ export const Footer = () => {
                         </a>
                     </div>
                 </div>
-                <div className="d-flex justify-content-center align-items-center">
+                <div className="d-flex justify-content-center align-items-center bottom-nav">
                     <a className='nav-link' href='https://premierpharma.wpengine.com/privacy-policy/'>
                         Privacy Policy
-            </a>
+                    </a>
                     <a className='nav-link' href='https://premierpharma.wpengine.com/terms-conditions/'>
                         Terms and Conditions
-            </a>
+                    </a>
                     <a className='nav-link' href='http://premierpharma.wpengine.com/about-us/'>
                         About Us
-            </a>
+                    </a>
                 </div>
             </div>
         </div>

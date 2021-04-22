@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getCart, addCart } from '../../actions/cart';
 import { useSelector } from 'react-redux';
 
-export const Products = ({ page, products, view, setView }) => {
+export const Products = ({ page, products, view, setView, name }) => {
     const cart = useSelector((state) => state.cart);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +33,7 @@ export const Products = ({ page, products, view, setView }) => {
         <div className="products-container">
             <div className={(page === "search" ? "d-flex justify-content-between top-details align-items-start search-wrapper" : "d-flex justify-content-between top-details align-items-center")}>
                 {page === "search" ?
-                    <h3 className="search-for">Search Results for “Lorem Ipsum”</h3>
+                    <h3 className="search-for">Search Results for {name}</h3>
                     :
                     <p className="total-products">Showing 1 - 9 of 10 products</p>
                 }

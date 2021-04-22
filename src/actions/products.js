@@ -2,9 +2,9 @@ import { GETPRODUCTS } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (name, category, subCategory) => async (dispatch) => {
   try {
-    const { data } = await api.getProducts();
+    const { data } = await api.getProducts(name, category, subCategory);
 
     dispatch({ type: GETPRODUCTS, payload: data });
   } catch (error) {

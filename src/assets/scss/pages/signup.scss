@@ -1,52 +1,48 @@
 .signup {
-  .container {
-    min-height: calc(100vh - 200px);
-    padding-top: 150px;
-    padding-bottom: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .signup-wrapper {
-    max-width: 1520px;
-    margin: 194px auto;
+  min-height: calc(100vh - 155px);
+  padding: 135px 0 78px 0;
+  .card {
+    width: 100%;
+    min-height: 528px;
   }
   .signup-img {
     width: 38%;
     border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
-  }
-  .card {
-    width: 100%;
+    object-fit: cover;
   }
   .form-container {
-    padding: 40px;
+    padding: 30px;
     flex: auto;
   }
   .form {
-    // min-height: 455px;
-    min-height: 525px;
+    min-height: 410px;
     display: flex;
     flex-direction: column;
   }
   h3 {
-    font-size: 37.1591px;
-    line-height: 62px;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 50px;
     color: #000000;
-    margin: 0;
+    margin-bottom: 12px;
   }
   h4 {
-    font-size: 27.8693px;
-    line-height: 46px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 36px;
     color: #0098ff;
-    margin: 0;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
   }
   .error {
-    min-height: 40px;
+    min-height: 22px;
+    background: none;
+    color: #e63757;
   }
   .form-group{
-      margin-bottom: 40px;
+      margin-bottom: 30px;
   }
   input,
   select {
@@ -55,24 +51,27 @@
     border-radius: 0;
     font-style: normal;
     font-weight: normal;
-    font-size: 27.8693px;
-    line-height: 44px;
+    font-size: 20px;
+    line-height: 32px;
     color: #000000;
-    min-height: 59px;
+    height: 44.25px;
     &::placeholder {
       color: #828282;
       font-weight: bold;
     }
   }
   select:invalid {
-    color: #95aac9;
+    color: #828282;
+    font-weight: bold;
   }
   button {
+    width: 170px;
+    height: 42.75px;
     border-radius: 3px;
     font-style: normal;
     font-weight: 600;
-    font-size: 20px;
-    // line-height: 33px;
+    font-size: 15px;
+    line-height: 24px;
     border: none;
   }
   .nav {
@@ -86,9 +85,7 @@
     padding: 0 20px;
   }
   .next,
-  .submit {
-    width: 202px;
-    height: 57px;
+  .submit {    
     background: #16cfb0;
     color: #ffffff;
     &:disabled {
@@ -96,27 +93,26 @@
     }
   }
   .prev {
-    width: 221px;
-    height: 57px;
     background: transparent;
     border: 3px solid #16cfb0;
     box-sizing: border-box;
     color: #16cfb0;
   }
   @include mediaQueries(pad) {
-    background: url("../../img/signup-mobile-img.png") no-repeat top;
-    background-size: 100%;
-    .container {
-      padding-top: 850px;
+    .nav {
+      justify-content: space-between !important;
     }
-    .signup-img {
-      display: none;
+    .next {
+      margin-left: auto;
+    }
+    .prev {
+      margin-right: 10px !important;
     }
   }
   @include mediaQueries(mobile) {
     background: url("../../img/signup-mobile-img.png") no-repeat top;
     .container {
-      padding-top: 450px;
+      padding-top: 300px;
     }
     .signup-img {
       display: none;
@@ -130,13 +126,22 @@
     .basic-nav {
       justify-content: center !important;
     }
-    .next,
-    .prev {
+    button {
+      height: 57px;
+      font-size: 20px;
+      line-height: 33px;
       border-radius: 10px;
+    }
+    .next {
       margin: 0 !important;
     }
     .prev {
-      width: max-content;
+      width: 100px;
+      flex: auto;
+      margin-right: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .prev span {
       display: none;

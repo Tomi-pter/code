@@ -16,7 +16,7 @@ export const verifyAccount = (formData) => API.post(`/user/${formData.email}/ver
 export const resendCode = (email) => API.post(`/user/${email}/resend-verification`);
 export const getAccount = (email) => API.get(`/user/${email}`);
 
-export const getProducts = () => API.get('/products');
+export const getProducts = (name, category, subCategory) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : ''));
 
 export const getCart = () => JSON.parse(localStorage.getItem('cart'));
 export const addCart = (product, quantity) => {

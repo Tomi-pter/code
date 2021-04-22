@@ -9,8 +9,8 @@ export const SignUpContainer = () => {
   return (
     <>
         <Header />
-        <div className="container-fluid signup">
-            <div className="signup-wrapper">
+        <div className="container-fluid d-flex align-items-center signup">
+            <div className="container signup-wrapper">
                <div className="card mb-0">
                   <div className="d-flex">
                     <div className="form-container">

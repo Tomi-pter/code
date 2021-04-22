@@ -1,4 +1,11 @@
 .products-container {
+  .spinner-container {
+    min-height: 500px;
+    .spinner-border {
+      width: 100px;
+      height: 100px;
+    }
+  }
   .top-details {
     padding: 0 40px;
     margin-bottom: 40px;

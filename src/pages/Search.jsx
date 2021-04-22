@@ -1,73 +1,49 @@
-import React, {useState} from 'react'
+import React,  {useState, useEffect} from 'react';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { Products } from '../components/shared/products';
 
-export default props => {
-    const [view, setView] = useState('grid');
-    const [products, setProducts] = useState([
-        {
-            id: "1A",
-            item_no: "129384",
-            ndc: "6238-1838-01",
-            name: `Vitamin D3 2000iu 250ct Vitamin D3 50mcg (2000IU) 250 Softgels`,
-            compare_to: "Synthroid/Unithroid/Levox",
-            img: 'product-sample.png',
-            company: "Amneal Pharm.",
-            size: "100",
-            strength: "50mcg",
-            price: "25.89",
-            ppu: ".259",
-            category: "pharmacies"
-        },
-        {
-            id: "2B",
-            item_no: "129384",
-            ndc: "6238-1838-01",
-            name: `Vitamin D3 2000iu 250ct Vitamin D3 50mcg (2000IU) 250 Softgels`,
-            compare_to: "Synthroid/Unithroid/Levox",
-            img: 'product-sample.png',
-            company: "Amneal Pharm.",
-            size: "100",
-            strength: "50mcg",
-            price: "25.89",
-            ppu: ".259",
-            category: "vetirinary"
-        },
-        {
-            id: "3C",
-            item_no: "129384",
-            ndc: "6238-1838-01",
-            name: `Vitamin D3 2000iu 250ct Vitamin D3 50mcg (2000IU) 250 Softgels`,
-            compare_to: "Synthroid/Unithroid/Levox",
-            img: 'product-sample.png',
-            company: "Amneal Pharm.",
-            size: "100",
-            strength: "50mcg",
-            price: "25.89",
-            ppu: ".259",
-            category: "surgical"
-        }
-    ]);
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getProducts } from '../actions/products';
 
-    const setDisplay = () => {
-        return (
-            <Products
-                page="search"
-                view={view}
-                setView={setView}
-                products={products}
-            />
-        )
-    }
+export default props => {
+    const products = useSelector((state) => state.products);
+    const [view, setView] = useState('grid');
+    const [isLoading, setIsLoading] = useState(true);
+    const query = new URLSearchParams(props.location.search);
+    const name =  query.get('name') || "";
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setIsLoading(true);
+        dispatch(getProducts(name, null, null));
+    }, [dispatch, name]);
+
+    useEffect(() => {
+        setIsLoading(false);
+    }, [products]);
 
     return (
         <>
             <HeaderNav />
             <div className="search-page">
                 <div className="container-fluid content">
-                    {
-                        setDisplay()
+                    {isLoading ? 
+                        <div className="spinner-container d-flex align-items-center justify-content-center">
+                            <div className="spinner-border text-primary" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        :
+                        <Products
+                            page="search"
+                            view={view}
+                            setView={setView}
+                            products={products}
+                            name={name}
+                        />
                     }
                 </div>
             </div>

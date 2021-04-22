@@ -1,82 +1,70 @@
 .login {
   background: url("../../img/login-bg.png") no-repeat left;
-  background-size: 40% 100%;
-  padding-bottom: 169px;
-  min-height: 100vh;
-  // .container {
-  //     min-height: calc(100vh - 200px);
-  //     padding: 150px 12px;
-  // }
-  position: relative;
-  .card {
-    max-width: 1000px;
-    width: 100%;
-    min-height: 654px;
-    margin: 179px 200px 0 auto;
-    // transform: translate(25%, 0%);
-    @include mediaQueries(mobile) {
-      margin: 179px 0;
-      min-height: calc(100vh - 200px);
-      transform: translate(0%, 0%);
-    }
-    // margin: auto;
-    // position: absolute;
-    // top: 18%;
-    // left: 37%;
-  }
+  background-size: 42% 100%;
+  padding: 135px 0 126px 0;
+  min-height: calc(100vh - 155px);
   .card-body {
-    padding: 100px 150px;
+    padding: 0;
+    width: 765px;
+    min-height: 490px;
   }
   h3 {
-    font-size: 37.1591px;
-    line-height: 62px;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 27px;
+    line-height: 45px;
+    text-align: center;
     color: #000000;
-    margin-bottom: 8px;
+    margin-bottom: 11px;
   }
   h4 {
-    font-size: 27.8693px;
-    line-height: 46px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 33px;
     color: #0098ff;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
   }
   .error {
-    min-height: 40px;
+    min-height: 22px;
+    margin-bottom: 10px;
+    background: none;
+    color: #e63757;
   }
   form {
-    max-width: 645.64px;
-    margin: 0 auto;
-    // margin-top: 35px;
+    width: 484.23px;
   }
   input {
     width: 100%;
-    min-height: 59px;
+    height: 41px;
     background: #f0f0f0;
     border: none;
     border-radius: 0;
     font-style: normal;
     font-weight: normal;
-    font-size: 27.8693px;
-    line-height: 44px;
+    font-size: 20px;
+    line-height: 32px;
     color: #000000;
-    // max-width: 645.64px;
-    // margin: 0 auto;
     &::placeholder {
       color: #828282;
       font-weight: bold;
     }
   }
   button {
-    width: 187.65px;
-    height: 52.95px;
+    width: 140.74px;
+    height: 39.71px;
     background: #16cfb0;
     border-radius: 2.78693px;
-    font-family: "Axiforma Bold";
     font-style: normal;
     font-weight: 600;
-    font-size: 18.5795px;
-    line-height: 30px;
+    font-size: 13.9347px;
+    line-height: 23px;
+    text-align: center;
     color: #ffffff;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     &:hover {
       color: #ffffff;
       background: darken($color: #16cfb0, $amount: 2);
@@ -88,6 +76,10 @@
       background-color: #cccccc;
       color: #666666;
     }
+    .spinner-border {
+      width: 30px;
+      height: 30px;
+    }
   }
   .signup-container {
     max-width: 645.64px;
@@ -95,8 +87,8 @@
     .signup-text {
       font-style: normal;
       font-weight: normal;
-      font-size: 20.87px;
-      line-height: 33px;
+      font-size: 16px;
+      line-height: 25px;
       color: #828282;
       a {
         font-family: "Axiforma Bold";
@@ -104,17 +96,28 @@
       }
     }
   }
-
-  @include mediaQueries(mobile) {
-    background-size: 100% 100%;
-    .card {
+  @include mediaQueries(padpro) {
+    background-size: 50% 100%;
+  }
+  @include mediaQueries(pad) {
+    background-size: cover;
+    .card, .card-body {
       width: 100%;
     }
-    .card-body {
-      padding: 40px 20px;
+  }
+  @include mediaQueries(mobile) {
+    background-size: 100% 100%;
+    padding: 99px 16px;
+    min-height: calc(100vh - 207px);
+    .container {
+      padding: 0;
     }
-    form {
-      text-align: center !important;
+    .card, .card-body, form {
+      width: 100%;
+      min-height: unset;
+    }
+    .card-body {
+      padding: 40px 24px;
     }
     h3 {
       font-weight: 600;
@@ -127,16 +130,20 @@
       line-height: 29px;
     }
     input {
+      width: 100%;
       font-weight: normal;
       font-size: 18px;
       line-height: 29px;
     }
     button {
+      width: 80%;
+      height: 57px;
       border-radius: 10px;
       font-size: 20px;
       line-height: 33px;
-      margin-top: 10px;
-      margin: 0 auto;
+    }
+    .signup-container {
+      justify-content: center !important;
     }
   }
 }

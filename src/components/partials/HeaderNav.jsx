@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { SearchOutlined, Burger } from '@ant-design/icons';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+// import { SearchOutlined, Burger } from '@ant-design/icons';
 import Logo from '../../assets/img/logo.svg';
-import BurgerIcon from '../../assets/img/Mobile/burger-icon.svg';
-import CartMobile from '../../assets/img/Mobile/cart-mobile.svg';
-import PPLogo from '../../assets/img/pp-logo.svg'
+import Cart from '../../assets/icon/cart-green.svg';
+import Account from '../../assets/icon/account.svg';
+import BurgerMenu from '../../assets/icon/burger-menu.svg';
+// import BurgerIcon from '../../assets/img/Mobile/burger-icon.svg';
+// import CartMobile from '../../assets/img/Mobile/cart-mobile.svg';
+// import PPLogo from '../../assets/img/pp-logo.svg'
 import decode from 'jwt-decode';
 
 import { useSelector } from 'react-redux';
@@ -12,12 +15,21 @@ import { useSelector } from 'react-redux';
 export const HeaderNav = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const cart = useSelector((state) => state.cart);
+    const history = useHistory();
     const location = useLocation();
+    const [formData, setFormData] = useState({});
 
     const totalItems = () => { 
         const total = cart.cartData.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
         return total;
     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        history.push(`/search?name=${formData.name}`);
+    }
+
+    const handleChange = (e) => setFormData({ [e.target.name]: e.target.value });
 
     useEffect(() => {
         const token = user?.token;
@@ -31,98 +43,56 @@ export const HeaderNav = () => {
     }, [location]);
 
     return (
-        <nav className="navbar headerNav__wrapper sticky-top">
-            <div className="row col-12 align-items-center">
-                <div className="col-md-3 d-flex flex-row align-items-center flex-wrap">
-                    <div className="logo-container flex-fill">
-                        <a href="https://premierpharma.wpengine.com/"  className='nav-link'>
-                            <img className="logo" src={PPLogo}  alt="" />
-                        </a>
-                    </div>
-                    <div className="d-flex align-items-center justify-content-center">
-                        <div className="cartWrapper d-block d-sm-none d-lg-none d-xl-none mr-3">
-                            <Link to="/cart">
-                                <img src={CartMobile} />
-                            </Link>
-                        </div>
-                        <div className="btn-group d-block d-sm-none">
-                            <button type="button" className="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                                <img src={BurgerIcon} />
-                            </button>
-                            <div className="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                                <button className="dropdown-item" type="button">Action</button>
-                                <button className="dropdown-item" type="button">Another action</button>
-                                <button className="dropdown-item" type="button">Something else here</button>
-                            </div>
-                        </div>
+        <nav className="navbar sticky-top d-flex align-items-center header main">
+            <a href="http://premierpharma.wpengine.com/">
+                <img className="logo" src={Logo} width="152.25" height="46.49" alt="" />
+            </a>
+            <div className="d-flex align-items-center justify-content-end right-col">
+                <Link className="desktop-link" to="">About Us</Link>
+                <div className="desktop-link dropdown">
+                    <a className="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Products
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <Link className="dropdown-item" href="#!" to="/shop?category=Pharmacy">For Pharmacies</Link>
+                        <Link className="dropdown-item" href="#!" to="/shop?category=Animal Care">For Animal Care</Link>
+                        <Link className="dropdown-item" href="#!" to="/shop?category=Medical">For Medical/Surgical Products</Link>
                     </div>
                 </div>
-                <div className="col-md-9 d-flex justify-content-end align-items-center">
-                    <div className="cartWrapper d-none d-sm-block d-lg-none d-xl-none mr-3">
-                        <Link to="/cart">
-                            <img src={CartMobile} />
+                <Link className="desktop-link" to="">Contact Us</Link>
+                <div className="search-container">
+                    <form onSubmit={handleSubmit}>
+                        <input name="name" placeholder="Search Medicine..." onChange={handleChange} />
+                    </form>
+                </div>
+                {user ? 
+                    <>
+                        <Link to="/cart" className="cart-btn">
+                            <img src={Cart} alt="" width="27.5" height="27.5" />
+                            <div className="count">{ totalItems() }</div>
                         </Link>
-                    </div>
-                    <div className="btn-group d-none d-sm-block d-lg-none d-xl-none">
-                        <button type="button" className="navbar-toggler" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                            <img src={BurgerIcon} />
-                        </button>
-                        <div className="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-                            <button className="dropdown-item" type="button">Action</button>
-                            <button className="dropdown-item" type="button">Another action</button>
-                            <button className="dropdown-item" type="button">Something else here</button>
-                        </div>
-                    </div>
-                    <div className="d-none d-lg-block d-xl-block mr-5">
-                        <ul className="navbar-nav d-flex flex-row justify-content-end">
-                            <li className="nav-item active">
-                                <a className="nav-link" href="http://premierpharma.wpengine.com/about-us/">About Us </a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Products
-                                </a>
-                                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a className="dropdown-item" href="#">For Pharmacies</a>
-                                    <a className="dropdown-item" href="#">For Animal Care</a>
-                                </div>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="http://premierpharma.wpengine.com/contact-us/">Contact Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="d-none d-lg-block d-xl-block">
-                        <div className="d-flex align-items-center ">
-                            <form className="form-inline ml-5 mr-4">
-                                <div className="input-group searchWrapper">
-                                    <input className="form-control border-right-0 border-top-0 border-left-0" placeholder="Search Medicine ..." />
-                                    <span className="input-group-append">
-                                        <button className="btn border-left-0 border-right-0 border-top-0" type="button"><SearchOutlined /></button>
-                                    </span>
-                                </div>
-                            </form>
-                            {user && 
-                                <div>
-                                    <Link className='cart-icon__wrapper' to='/cart'>
-                                        <img className="cart-icon" src={require('../../assets/img/cart.svg')} width="203" height="62" alt="" />
-                                        <span className="cart-bubble">{ totalItems() }</span>
-                                    </Link>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    {user ? 
-                        <Link className='' to='/account'>
-                            Account
+                        <Link to="/account" className="account-btn">
+                            <img src={Account} alt="" />
                         </Link>
+                    </>
                     :
-                        <div className="d-none d-lg-block d-xl-block">
-                            <Link className="login-button" to="login">
-                                Login
-                            </Link>
-                        </div>
-                    }
+                    <Link to="/login" className="login-btn">
+                        Login
+                    </Link>
+                }
+                <div className="dropdown burger-btn">
+                    <a className="dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src={BurgerMenu} alt="" />
+                    </a>
+                    <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <Link className="dropdown-item" href="#!" to="">About Us</Link>
+                        <ul>Products
+                            <li><Link className="dropdown-item" href="#!" to="/shop?category=Pharmacy">For Pharmacies</Link></li>
+                            <li><Link className="dropdown-item" href="#!" to="/shop?category=Animal Care">For Animal Care</Link></li>
+                            <li><Link className="dropdown-item" href="#!" to="/shop?category=Medical">For Medical/Surgical Products</Link></li>
+                        </ul>
+                        <Link className="dropdown-item" href="#!" to="">Contact Us</Link>
+                    </div>
                 </div>
             </div>
         </nav>

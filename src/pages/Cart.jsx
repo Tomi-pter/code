@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";
@@ -28,7 +29,8 @@ export const CartContainer = () => {
     }
 
     useEffect(()=>{
-        dispatch(getCart());
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(getCart(user?.email));
     },[dispatch]);
 
     return (
@@ -49,7 +51,7 @@ export const CartContainer = () => {
                                     <div key={`key`+ cartItem.productId} className="card product-card position-relative">
                                         <div className="row ">
                                             <div className="position-absolute" style={{ right: "0" }}>
-                                                <a href="#!" onClick={()=>dispatch(removeCart(cartItem.productId))}>
+                                                <a href="#!" onClick={()=>dispatch(removeCart(parseInt(cartItem.productId)))}>
                                                     <img className="delete-icon mr-4 mt-4" src={require("../assets/img/delete_icon.svg")} />
                                                 </a>
                                             </div>
@@ -102,7 +104,7 @@ export const CartContainer = () => {
                                     </div>
                                 </div>
                                 <div className="row justify-content-end" style={{ flex: "0" }}>
-                                    <button type="submit" className="btn button-wrapper">Proceed to Checkout</button>
+                                    <Link to={'/checkout'} className="btn button-wrapper">Proceed to Checkout</Link>
                                 </div>
                             </div>
                         </div>

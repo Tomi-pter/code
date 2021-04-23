@@ -2,35 +2,35 @@ import { UPDATECART } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
-export const getCart = () => async (dispatch) => {
+export const getCart = (email) => async (dispatch) => {
   try {
-    const data = await api.getCart();
+    const { data } = await api.getCart(email);
 
-    dispatch({ type: UPDATECART, payload: data });
+    dispatch({ type: UPDATECART, payload: data.items });
 
   } catch (error) {
     console.log(error.message);
   }
 };
 
-export const addCart = (product, qty) => async (dispatch) => {
+export const addCart = (email, product) => async (dispatch) => {
     try {
         
-      const data = await api.addCart(product, qty);
+      const { data } = await api.addCart(email, product);
 
-      dispatch({ type: UPDATECART, payload: data });
+      dispatch({ type: UPDATECART, payload: data.items });
   
     } catch (error) {
       console.log(error.message);
     }
 };
 
-export const removeCart = (id) => async (dispatch) => {
+export const removeCart = (productId) => async (dispatch) => {
     try {
         
-      const data = await api.removeCart(id);
+      const { data } = await api.removeCart(productId);
 
-      dispatch({ type: UPDATECART, payload: data });
+      dispatch({ type: UPDATECART, payload: data.items });
   
     } catch (error) {
       console.log(error.message);

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { SignUpContainer } from "./pages/SignupPage";
-// import { CartContainer } from "./pages/Cart";
 import { CheckoutContainer } from "./pages/Checkout";
 import { PaymentContainer } from "./pages/Payment";
 import { PaymentConfirmationContainer } from "./pages/PaymentConfirmation";
@@ -11,11 +10,8 @@ import { LoginContainer } from "./pages/LoginPage";
 import Search from "./pages/Search";
 import Shop from "./pages/Shop";
 import TestShop from "./pages/TestShop";
-import Product from "./pages/Product";
 import Details from "./pages/ProductDetails";
-// import Cart from "./components/pages/cart/Cart";
 import {CartContainer} from "./pages/Cart";
-import Modal from "./pages/Modal";
 import AccountVerification from "./pages/AccountVerification";
 
 import { ProtectedRoutes } from './components/protectedRoutes';
@@ -33,16 +29,13 @@ export default ({ childProps }) => (
       <Route path="/search" component={Search} />
       <Route path="/shop" component={Shop} />
       <Route path="/test-shop" component={TestShop} />
-      <Route path="/product" component={Product} />
       <Route path="/details" component={Details} />
       <ProtectedRoutes path="/account" component={PersonalInformationContainer} />
       <ProtectedRoutes path="/checkout" component={CheckoutContainer} />
       <ProtectedRoutes path="/payment" component={PaymentContainer} />
-      {/* <Route path="/cart" component={CartContainer} /> */}
       <ProtectedRoutes path="/cart" component={CartContainer} />
       <ProtectedRoutes path="/payment-confirmation" component={PaymentConfirmationContainer} />
       <Route component={ErrorPageContainer} />
     </Switch>
-    <Modal />
   </BrowserRouter>
 );

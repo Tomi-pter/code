@@ -3,16 +3,13 @@ import Routes from "./Routes";
 
 import "./App.scss";
 import "./assets/scss/theme.scss";
-import "antd/dist/antd.css";
-import { ProductProvider } from "./context";
+// import "antd/dist/antd.css";
 
 const App = (pageProps) => {
   return (
-    <ProductProvider>
       <div className="App">
         <Routes childProps={pageProps} />
       </div>
-    </ProductProvider>
   );
 };
 

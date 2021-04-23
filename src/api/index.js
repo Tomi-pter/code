@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({ baseURL: 'https://premierpharmastaging.outliant.com/' });
+const user = JSON.parse(localStorage.getItem('profile'));
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
@@ -18,18 +19,6 @@ export const getAccount = (email) => API.get(`/user/${email}`);
 
 export const getProducts = (name, category, subCategory) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : ''));
 
-export const getCart = () => JSON.parse(localStorage.getItem('cart'));
-export const addCart = (product, quantity) => {
-  const cart = JSON.parse(localStorage.getItem('cart'));
-  const newItem = {productId: product.id, productName: product.description, price: product.purchasePrice, quantity};
-  const index = cart.findIndex(item => item.productId === product.id);
-  index !== -1 ? cart[index].quantity += quantity : cart.push(newItem);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  return cart;
-};
-export const removeCart = (id) => {
-  const cart = JSON.parse(localStorage.getItem('cart'));
-  const newCart = cart.filter(item => item.productId !== id);
-  localStorage.setItem('cart', JSON.stringify(newCart));
-  return newCart;
-};
+export const getCart = (email) => API.get(`/cart/${email}`);
+export const addCart = (email, product) => API.post(`/cart/${email}/add`, product);
+export const removeCart = (productId) => API.post(`/cart/${user?.email}/remove`, {productId});

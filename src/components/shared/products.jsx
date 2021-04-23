@@ -12,13 +12,23 @@ export const Products = ({ page, products, view, setView, name }) => {
     const dispatch = useDispatch();
 
     const handleAddCart = (product) => {
+        const user = JSON.parse(localStorage.getItem('profile'));
+        const newProduct = {
+            "product": {
+                "productId": parseInt(product.id),
+                "productName": product.name,
+                "price": parseFloat(product.purchasePrice),
+                quantity
+            }
+        }
         setSelectedProduct(product);
         setIsLoading(true);
-        dispatch(addCart(product, quantity));
+        dispatch(addCart(user?.email, newProduct));
     }
 
     useEffect(()=>{
-        dispatch(getCart());
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(getCart(user?.email));
     },[dispatch]);
 
     useEffect(()=>{

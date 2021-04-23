@@ -18,7 +18,7 @@ export const Product = ({ view, product, addCart, setSelectedProduct, selectedPr
                         <div className="product-image-head"></div>
                         <div className="header-name-wrapper">
                             <p className="flex-fill list-header-name">
-                                {product.description}
+                                {product.name}
                             </p>
                         </div>
                         <div className="header-price-wrapper">

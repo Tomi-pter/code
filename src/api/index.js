@@ -18,6 +18,7 @@ export const resendCode = (email) => API.post(`/user/${email}/resend-verificatio
 export const getAccount = (email) => API.get(`/user/${email}`);
 
 export const getProducts = (name, category, subCategory) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : ''));
+export const getProduct = (id) => API.get(`/products/${id}`);
 
 export const getCart = (email) => API.get(`/cart/${email}`);
 export const addCart = (email, product) => API.post(`/cart/${email}/add`, product);

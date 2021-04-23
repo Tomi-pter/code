@@ -11,12 +11,15 @@ import BurgerMenu from '../../assets/icon/burger-menu.svg';
 import decode from 'jwt-decode';
 
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getCart } from '../../actions/cart';
 
 export const HeaderNav = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const cart = useSelector((state) => state.cart);
     const history = useHistory();
     const location = useLocation();
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({});
 
     const totalItems = () => { 
@@ -40,6 +43,7 @@ export const HeaderNav = () => {
           if (decodedToken.exp * 1000 < new Date().getTime()) setUser(null);
         }
         setUser(JSON.parse(localStorage.getItem('profile')));
+        dispatch(getCart(user?.email));
     }, [location]);
 
     return (

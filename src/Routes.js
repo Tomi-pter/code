@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { SignUpContainer } from "./pages/SignupPage";
 import { CheckoutContainer } from "./pages/Checkout";
 import { PaymentContainer } from "./pages/Payment";
@@ -10,8 +10,8 @@ import { LoginContainer } from "./pages/LoginPage";
 import Search from "./pages/Search";
 import Shop from "./pages/Shop";
 import TestShop from "./pages/TestShop";
-import Details from "./pages/ProductDetails";
-import {CartContainer} from "./pages/Cart";
+import Product from "./pages/ProductDetails";
+import { CartContainer } from "./pages/Cart";
 import AccountVerification from "./pages/AccountVerification";
 
 import { ProtectedRoutes } from './components/protectedRoutes';
@@ -29,7 +29,10 @@ export default ({ childProps }) => (
       <Route path="/search" component={Search} />
       <Route path="/shop" component={Shop} />
       <Route path="/test-shop" component={TestShop} />
-      <Route path="/details" component={Details} />
+      <Route exact path="/product">
+        <Redirect to="/shop" />
+      </Route>
+      <Route path="/product/:id" component={Product} />
       <ProtectedRoutes path="/account" component={PersonalInformationContainer} />
       <ProtectedRoutes path="/checkout" component={CheckoutContainer} />
       <ProtectedRoutes path="/payment" component={PaymentContainer} />

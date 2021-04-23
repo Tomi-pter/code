@@ -6,7 +6,6 @@ const authReducer = (state = { authData: null }, action) => {
 
       if (action?.data?.success && action?.data?.accessToken) {
         localStorage.setItem('profile', JSON.stringify({ ...action?.data }));
-        localStorage.setItem('cart', JSON.stringify([]));
       }
 
       return { ...state, authData: action.data };

@@ -25,10 +25,10 @@ export const addCart = (email, product) => async (dispatch) => {
     }
 };
 
-export const removeCart = (productId) => async (dispatch) => {
+export const removeCart = (email, productId) => async (dispatch) => {
     try {
         
-      const { data } = await api.removeCart(productId);
+      const { data } = await api.removeCart(email, productId);
 
       dispatch({ type: UPDATECART, payload: data.items });
   

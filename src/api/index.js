@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({ baseURL: 'https://premierpharmastaging.outliant.com/' });
-const user = JSON.parse(localStorage.getItem('profile'));
+// const user = JSON.parse(localStorage.getItem('profile'));
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
@@ -22,4 +22,9 @@ export const getProduct = (id) => API.get(`/products/${id}`);
 
 export const getCart = (email) => API.get(`/cart/${email}`);
 export const addCart = (email, product) => API.post(`/cart/${email}/add`, product);
-export const removeCart = (productId) => API.post(`/cart/${user?.email}/remove`, {productId});
+export const removeCart = (email, productId) => API.post(`/cart/${email}/remove`, {productId});
+
+export const getPaymentMethods = (username) => API.get(`/cards/${username}`);
+export const addPaymentMethod = (username, paymentMethod) => API.post(`/cards/${username}/add-payment-method`, paymentMethod);
+
+export const payment = (username, formData) => API.post(`/${username}/payment`, formData);

@@ -35,11 +35,11 @@ export const HeaderNav = () => {
     const handleChange = (e) => setFormData({ [e.target.name]: e.target.value });
 
     useEffect(() => {
-        const token = user?.token;
+        const token = user?.accessToken;
     
         if (token) {
           const decodedToken = decode(token);
-    
+
           if (decodedToken.exp * 1000 < new Date().getTime()) setUser(null);
         }
         setUser(JSON.parse(localStorage.getItem('profile')));

@@ -39,7 +39,7 @@ export const OrderSummary = ({ cart, page, shipping }) => {
                     <p className="mb-0 price-text">${shipping}</p>
                 </div>
             </div>
-           <DiscountForm />
+            {page === 'checkout' && <DiscountForm />}
             <div className="row d-flex align-items-center">
                 <div className="col-5">
                     <p className="mb-0 total-text">Total</p>

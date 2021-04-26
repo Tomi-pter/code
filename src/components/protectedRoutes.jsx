@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-import * as actionType from '../constants/actionTypes';
+import { logOut } from '../actions/auth';
 
 export const ProtectedRoutes = ({ component: Component, path, ...rest }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -11,19 +11,15 @@ export const ProtectedRoutes = ({ component: Component, path, ...rest }) => {
     const history = useHistory();
 
     const logout = () => {
-        dispatch({ type: actionType.LOGOUT });
-    
-        history.push('/auth');
-    
+        dispatch(logOut(user?.email, history));
         setUser(null);
     };
     
     useEffect(() => {
-        const token = user?.token;
+        const token = user?.accessToken;
     
         if (token) {
           const decodedToken = decode(token);
-    
           if (decodedToken.exp * 1000 < new Date().getTime()) logout();
         }
     

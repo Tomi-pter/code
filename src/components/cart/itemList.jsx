@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { removeCart } from '../../actions/cart';
 
 export const ItemList = ({ cart }) => {
+    const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
 
     return (
@@ -14,7 +15,7 @@ export const ItemList = ({ cart }) => {
                     <div key={`key`+ cartItem.productId} className="card product-card position-relative">
                         <div className="row ">
                             <div className="position-absolute" style={{ right: "0" }}>
-                                <a href="#!" onClick={()=>dispatch(removeCart(parseInt(cartItem.productId)))}>
+                                <a href="#!" onClick={()=>dispatch(removeCart(user?.email, parseInt(cartItem.productId)))}>
                                     <img className="delete-icon mr-4 mt-4" src={require("../../assets/img/delete_icon.svg")} />
                                 </a>
                             </div>

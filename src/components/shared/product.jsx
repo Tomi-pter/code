@@ -1,7 +1,13 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import ProductImage from '../../assets/img/product-sample.png';
 
 export const Product = ({ view, product, addCart, setSelectedProduct, selectedProduct, isLoading, quantity, setQuantity }) => {
+    const history = useHistory();
+
+    const viewProduct = (id) => {
+        history.push(`/product/${id}`);
+    }
 
     const handleChange = (e) => {
         setSelectedProduct(product);
@@ -39,7 +45,7 @@ export const Product = ({ view, product, addCart, setSelectedProduct, selectedPr
                             <p className="item-no">{product.num}</p>
                             <p className="ndc">{product.ndc}</p>
                         </div>
-                        <div className="name-container">
+                        <div className="name-container" onClick={()=>viewProduct(product.id)}>
                             <p className="name">{product.description}</p>
                             {/* <p className="compare for-list">({compare_to})</p> */}
                         </div>

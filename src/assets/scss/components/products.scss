@@ -147,17 +147,17 @@
       border-radius: 5px;
     }
     .grid-btn {
-      background: url("../../icon/grid.svg") no-repeat center;
+      background: url('../../icon/grid.svg') no-repeat center;
       margin-right: 10px;
       &.active {
-        background: url("../../icon/grid-active.svg") no-repeat center;
+        background: url('../../icon/grid-active.svg') no-repeat center;
         background-color: #d3f1fc;
       }
     }
     .list-btn {
-      background: url("../../icon/list.svg") no-repeat center;
+      background: url('../../icon/list.svg') no-repeat center;
       &.active {
-        background: url("../../icon/list-active.svg") no-repeat center;
+        background: url('../../icon/list-active.svg') no-repeat center;
         background-color: #d3f1fc;
       }
     }
@@ -205,7 +205,7 @@
               border-radius: 5px;
               position: static;
               &:before {
-                content: "Add";
+                content: 'Add';
                 font-style: normal;
                 font-weight: normal;
                 font-size: 18px;
@@ -230,7 +230,7 @@
               border-radius: 5px;
               position: static;
               &:before {
-                content: "Add";
+                content: 'Add';
                 font-style: normal;
                 font-weight: normal;
                 font-size: 18px;
@@ -255,7 +255,7 @@
               border-radius: 5px;
               position: static;
               &:before {
-                content: "Add";
+                content: 'Add';
                 font-style: normal;
                 font-weight: normal;
                 font-size: 18px;
@@ -331,11 +331,11 @@
                 width: 68%;
               }
               .list-header-name {
-                font-family: "Axiforma Bold";
+                font-family: 'Axiforma Bold';
               }
               .list-header-price {
                 min-width: 65px;
-                font-family: "Axiforma Bold";
+                font-family: 'Axiforma Bold';
               }
             }
           }
@@ -348,22 +348,22 @@
               justify-content: space-around;
               width: 100%;
               .header-name-wrapper {
-                  max-width: 100%;
-                  width: 100%;
+                max-width: 100%;
+                width: 100%;
               }
               .header-price-wrapper {
-                  max-width: 100%;
+                max-width: 100%;
               }
               .product-image-head {
                 max-width: 100%;
                 width: 50%;
               }
               .list-header-name {
-                font-family: "Axiforma Bold";
+                font-family: 'Axiforma Bold';
               }
               .list-header-price {
                 min-width: 65px;
-                font-family: "Axiforma Bold";
+                font-family: 'Axiforma Bold';
               }
             }
           }
@@ -380,11 +380,11 @@
               }
               .list-header-name {
                 min-width: 155px;
-                font-family: "Axiforma Bold";
+                font-family: 'Axiforma Bold';
               }
               .list-header-price {
                 min-width: 65px;
-                font-family: "Axiforma Bold";
+                font-family: 'Axiforma Bold';
               }
             }
           }
@@ -568,14 +568,14 @@
           border-radius: 5px;
           position: static;
           &:before {
-            content: "Add";
+            content: 'Add';
             font-style: normal;
             font-weight: normal;
             font-size: 18px;
             color: #ffffff;
           }
           &.adding {
-            display: flex !important; 
+            display: flex !important;
             align-items: center;
             justify-content: center;
             .spinner-border {
@@ -669,21 +669,21 @@
       color: #000000;
       margin: 0;
       min-height: 48px;
-      padding-right: 79px;
+      // padding-right: 79px;
       display: flex;
       align-items: center;
     }
     .cart-btn {
       width: 79px;
       height: 48px;
-      background: url("../../icon/cart.svg") no-repeat center;
+      background: url('../../icon/cart.svg') no-repeat center;
       background-color: #16cfb0;
       border-radius: 7.5px;
       border: 0;
       outline: 0;
-      position: absolute;
-      bottom: 20px;
-      right: 35px;
+      // position: absolute;
+      // bottom: 20px;
+      // right: 35px;
       &.adding {
         background: #16cfb0;
       }
@@ -695,23 +695,24 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: url("../../img/pharma-bg.png") no-repeat center;
-      background-size: cover;
+      background: url('../../img/vet-bg.png') no-repeat center;
+      background-size: contain;
       border-radius: 10px;
-      padding: 24px 29px 21px 29px;
+      padding: 92px 29px 21px 29px;
       margin: 0 auto -130px auto;
       position: relative;
       z-index: 1;
       img {
         width: 100%;
         object-fit: cover;
+        margin-bottom: -25px;
       }
     }
     .details-container {
-      background: #d3f2fc;
-      border-radius: 10px;
+      // background: #d3f2fc;
+      // border-radius: 10px;
       padding: 150px 27px 20px 27px;
-      position: relative;
+      // position: relative;
     }
   }
   .vet-product,
@@ -720,7 +721,7 @@
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      background: url("../../img/vet-bg.png") no-repeat top;
+      background: url('../../img/vet-bg.png') no-repeat top;
       background-size: contain;
       position: relative;
       margin-bottom: 25px;
@@ -739,7 +740,7 @@
     }
   }
   .medsurg-product .img-container {
-    background: url("../../img/medsurg-bg.png") no-repeat top;
+    // background: url('../../img/medsurg-bg.png') no-repeat top;
     background-size: contain;
   }
 }

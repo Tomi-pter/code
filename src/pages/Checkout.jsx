@@ -22,59 +22,16 @@ export const CheckoutContainer = () => {
     return (
         <>
             <HeaderNav />
-            <div className="cart-page">
-                <div className="container-fluid">
-                    <div className="row row-wrapper">
-                        <div chlassName="col-12">
-                            <h1 className="section-title">Place Order</h1>
-                        </div>
+                <div className="container-fluid d-flex align-items-start cart-page">
+                    <div className="cart-items">
+                        <h1 className="title">Place Order</h1>
+                        <ItemList cart={cart} />
                     </div>
-                    <div className="row row-wrapper">
-                        <div className="col-lg-8 product-column">
-                            <ItemList cart={cart} />
-                        </div>
-                        <div className="col-lg-4 order-column">
-                            <div className="card order-card position-relative">
-                                <div className="shipping-details-wrapper">
-                                   <Info />
-                                </div>
-                                <div className="order-summary-wrapper">
-                                    <OrderSummary cart={cart} page={'checkout'} shipping={shipping} />
-                                    {/* <h1 className="order-title">Order Summary</h1>
-                                    <div className="row align-items-start" style={{ flex: "0" }}>
-                                        <div className="col-8">
-                                            <p className="subtotal-text">Subtotal (3 items)</p>
-                                        </div>
-                                        <div className="col-4 text-right">
-                                            <p className="mb-0 price-text">$300.00</p>
-                                        </div>
-                                    </div>
-                                    <div className="row mb-5" >
-                                        <div className="col-8">
-                                            <p className="mb-0 shipping-text">Shipping Fee</p>
-                                            <p className="mb-0 shipping-desc">Add $xx for free shipping</p>
-                                        </div>
-                                        <div className="col-4 text-right">
-                                            <p className="mb-0 price-text">$20.00</p>
-                                        </div>
-                                    </div>
-                                    <div className="row mb-5 d-flex align-items-center">
-                                        <div className="col-5">
-                                            <p className="mb-0 total-text">Total</p>
-                                        </div>
-                                        <div className="col-7 text-right">
-                                            <p className="mb-0 total-price-text">$320.00</p>
-                                        </div>
-                                    </div>
-                                    <div className="row justify-content-end" style={{ flex: "0" }}>
-                                        <button type="submit" className="btn button-wrapper">Place Order</button>
-                                    </div> */}
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <Info />
+                        <OrderSummary cart={cart} page={'checkout'} shipping={shipping} />
                     </div>
                 </div>
-            </div>
             <Footer />
         </>
     );

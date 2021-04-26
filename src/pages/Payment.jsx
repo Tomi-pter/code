@@ -13,21 +13,21 @@ import images from 'react-payment-inputs/images';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import {
-  CardElement,
-  useStripe,
-  useElements
-} from '@stripe/react-stripe-js';
+// import {
+//   CardElement,
+//   useStripe,
+//   useElements
+// } from '@stripe/react-stripe-js';
 
 import { getPaymentMethods, addPaymentMethod } from '../actions/paymentMethods';
 import { useHistory } from 'react-router';
 import { payment } from '../actions/payment';
 
-const useOptions = () => {
-    const options = {hidePostalCode: true}
+// const useOptions = () => {
+//     const options = {hidePostalCode: true}
   
-    return options;
-  };
+//     return options;
+//   };
 
 export const PaymentContainer = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -42,8 +42,7 @@ export const PaymentContainer = () => {
         getCardImageProps,
         getCardNumberProps,
         getExpiryDateProps,
-        getCVCProps,
-        meta
+        getCVCProps
       } = usePaymentInputs();
 
     // const [value, setValue] = useState("credit_card");
@@ -69,7 +68,7 @@ export const PaymentContainer = () => {
     //     console.log(value);
     // }
 
-    const stripe = useStripe();
+    // const stripe = useStripe();
     console.log(images);
 //   const elements = useElements();
 //   const options = useOptions();
@@ -157,7 +156,7 @@ export const PaymentContainer = () => {
                                                 <input {...getCVCProps({onChange: handleChange})} />
                                             </PaymentInputsWrapper>
 
-                                            <button onClick={handleSubmit} disabled={!stripe}>
+                                            <button onClick={handleSubmit}>
                                                     ADD
                                             </button>
 

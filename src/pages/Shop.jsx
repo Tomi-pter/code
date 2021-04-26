@@ -13,7 +13,7 @@ export default props => {
     const [view, setView] = useState('grid');
     const [isLoading, setIsLoading] = useState(true);
     const query = new URLSearchParams(props.location.search);
-    const [queryCategory, setQueryCategory] = useState(query.get('category') || "Pharmacy");
+    const [queryCategory, setQueryCategory] = useState('')
     const [category, setCategory] =  useState(queryCategory);
     const [subCategory, setSubCategory] =  useState("Short-dated");
     const location = useLocation();
@@ -27,7 +27,8 @@ export default props => {
 
     useEffect(() => {
         setIsLoading(true);
-        dispatch(getProducts(null, category, subCategory));
+        const finalCategory = category ? category : 'Pharmacy';
+        dispatch(getProducts(null, finalCategory, subCategory));
     }, [dispatch, category, subCategory]);
 
     useEffect(() => {
@@ -35,9 +36,9 @@ export default props => {
     }, [products]);
 
     useEffect(() => {
-        const cat = query.get('category')
+        const cat = query.get('category') || 'Pharmacy';
         setQueryCategory(cat);
-        setCategory(cat)
+        setCategory(cat);
     }, [location]);
 
 
@@ -69,7 +70,7 @@ export default props => {
                                 <div id="accordion1" className={"accordion-body accordion-collapse collapse " + (queryCategory === "Pharmacy" ? "show" : "")} data-parent="#categoryAccordion">
                                     <ul>
                                         <li className={subCategory === "Short-dated" ? "active" : ""} onClick={()=>setSubCategory("Short-dated")}>Short dated</li>
-                                        <li className={subCategory === "Branded Drugs" ? "active" : ""} onClick={()=>setSubCategory("Branded Drugs")}>Branded Drugs</li>
+                                        <li className={subCategory === "Branded Drug" ? "active" : ""} onClick={()=>setSubCategory("Branded Drug")}>Branded Drugs</li>
                                         <li className={subCategory === "Deal" ? "active" : ""} onClick={()=>setSubCategory("Deal")}>Deal</li>
                                         <li className={subCategory === "PPE Supplies" ? "active" : ""} onClick={()=>setSubCategory("PPE Supplies")}>PPE Supplies</li>
                                         <li className={subCategory === "Injectables" ? "active" : ""} onClick={()=>setSubCategory("Injectables")}>Injectables</li>
@@ -86,7 +87,7 @@ export default props => {
                                 <div id="accordion2" className={"accordion-body accordion-collapse collapse " + (queryCategory === "Animal Care" ? "show" : "")} data-parent="#categoryAccordion">
                                     <ul>
                                         <li className={subCategory === "Short-dated" ? "active" : ""} onClick={()=>setSubCategory("Short-dated")}>Short dated</li>
-                                        <li className={subCategory === "Branded Drugs" ? "active" : ""} onClick={()=>setSubCategory("Branded Drugs")}>Branded Drugs</li>
+                                        <li className={subCategory === "Branded Drug" ? "active" : ""} onClick={()=>setSubCategory("Branded Drug")}>Branded Drugs</li>
                                         <li className={subCategory === "Deal" ? "active" : ""} onClick={()=>setSubCategory("Deal")}>Deal</li>
                                         <li className={subCategory === "PPE Supplies" ? "active" : ""} onClick={()=>setSubCategory("PPE Supplies")}>PPE Supplies</li>
                                         <li className={subCategory === "Injectables" ? "active" : ""} onClick={()=>setSubCategory("Injectables")}>Injectables</li>
@@ -103,7 +104,7 @@ export default props => {
                                 <div id="accordion3" className={"accordion-body accordion-collapse collapse " + (queryCategory === "Medical" ? "show" : "")} data-parent="#categoryAccordion">
                                     <ul>
                                         <li className={subCategory === "Short-dated" ? "active" : ""} onClick={()=>setSubCategory("Short-dated")}>Short dated</li>
-                                        <li className={subCategory === "Branded Drugs" ? "active" : ""} onClick={()=>setSubCategory("Branded Drugs")}>Branded Drugs</li>
+                                        <li className={subCategory === "Branded Drug" ? "active" : ""} onClick={()=>setSubCategory("Branded Drug")}>Branded Drugs</li>
                                         <li className={subCategory === "Deal" ? "active" : ""} onClick={()=>setSubCategory("Deal")}>Deal</li>
                                         <li className={subCategory === "PPE Supplies" ? "active" : ""} onClick={()=>setSubCategory("PPE Supplies")}>PPE Supplies</li>
                                         <li className={subCategory === "Injectables" ? "active" : ""} onClick={()=>setSubCategory("Injectables")}>Injectables</li>

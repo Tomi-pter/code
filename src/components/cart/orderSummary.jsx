@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DiscountForm from './discount';
+import DiscountForm from './discountForm';
 
 export const OrderSummary = ({ cart, page, shipping }) => {
 
@@ -20,45 +20,39 @@ export const OrderSummary = ({ cart, page, shipping }) => {
     }
 
     return (
-        <div>
-            <h1 className="order-title">Order Summary</h1>
-            <div className="row align-items-start" style={{ flex: "0" }}>
-                <div className="col-8">
-                    <p className="subtotal-text">Subtotal ({ totalItems() } items)</p>
-                </div>
-                <div className="col-4 text-right">
-                    <p className="mb-0 price-text">${ subTotal() }</p>
-                </div>
-            </div>
-            <div className="row" style={{ flex: "1" }}>
-                <div className="col-8">
-                    <p className="mb-0 shipping-text">Shipping Fee</p>
-                    <p className="mb-0 shipping-desc">Add $xx for free shipping</p>
-                </div>
-                <div className="col-4 text-right">
-                    <p className="mb-0 price-text">${shipping}</p>
-                </div>
-            </div>
+        <div className="order-summary">
+            <h1 className="title">Order Summary</h1>
+            <ul className="summary-list">
+                <li>
+                    <div>
+                        <p>Subtotal ({ totalItems() } items)</p>
+                    </div>
+                    <p>${ subTotal() }</p>
+                </li>
+                <li>
+                    <div>
+                        <p>Shipping Fee</p>
+                        <span>Add $xx for free shipping</span>
+                    </div>
+                    <p>${ subTotal() }</p>
+                </li>
+            </ul>
             {page === 'checkout' && <DiscountForm />}
-            <div className="row d-flex align-items-center">
-                <div className="col-5">
-                    <p className="mb-0 total-text">Total</p>
-                </div>
-                <div className="col-7 text-right">
-                    <p className="mb-0 total-price-text">${ total() }</p>
-                </div>
+            <div className="d-flex align-items-center justify-content-between total">
+                <span>Total</span>
+                <span>${ total() }</span>
             </div>
-            <div className="row justify-content-end" style={{ flex: "0" }}>
-            {
-                page === 'cart' ?
-                    <Link to={'/checkout'} className="btn button-wrapper">
-                        Proceed to Checkout
-                    </Link>
-                    :
-                    <Link to={'/payment'} className="btn button-wrapper">
-                        Place Order
-                    </Link>
-             }
+            <div className="d-flex justify-content-end">
+            {   
+                cart?.cartData.length > 0 ? 
+                <Link to={page === 'cart' ? '/checkout' : '/payment'} className="btn proceed-btn">
+                    {page === 'cart' ? 'Proceed to Checkout' : 'Place Order' }
+                </Link>
+                :
+                <Link to="/" onClick={ (event) => event.preventDefault() } className="btn proceed-btn disabled">
+                    {page === 'cart' ? 'Proceed to Checkout' : 'Place Order' }
+                </Link>
+            }
             </div>
         </div>
     )

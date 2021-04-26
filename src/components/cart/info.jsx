@@ -14,47 +14,27 @@ export default props => {
     },[dispatch]);
 
     return (
-        <div>
-            <h1 className="order-title">Shipping and Billing</h1>
-            <div className="row align-items-start" style={{ flex: "0" }}>
-            <div className="col-lg-12 shipping-container">
-                <div className="d-flex align-items-center name-wrapper">
-                    <div>
-                        <span className="mr-3"><img src={require("../../assets/img/mdi_account.svg")} /></span>
-                    </div>
-                    <div>
-                        <p className="customer-name mb-0" style={{ maxWidth: "210px" }}>{account.accountData?.given_name + ' ' + account.accountData?.family_name}</p>
-                    </div>
-                    <div>
-                        <span className="addressDefault">Default</span>
-                    </div>
-                </div>
-                <div className="d-flex align-items-start address-wrapper">
-                    <div>
-                        <span className="mr-3"><img src={require("../../assets/img/mdi_map-marker.svg")} /></span>
-                    </div>
-                    <div>
-                        <p className="customer-address mb-0" style={{ maxWidth: "210px" }}>{account.accountData?.address}</p>
-                    </div>
-                </div>
-                <div className="d-flex align-items-start mobile-wrapper">
-                    <div>
-                        <span className="mr-3"><img src={require("../../assets/img/mdi_phone.svg")} /></span>
-                    </div>
-                    <div>
-                        <p className="customer-phone mb-0">{account.accountData?.phone_number}</p>
-                    </div>
-                </div>
-                <div className="d-flex align-items-start email-wrapper">
-                    <div>
-                        <span className="mr-3"><img src={require("../../assets/img/mdi_email.svg")} /></span>
-                    </div>
-                    <div>
-                        <p className="customer-email mb-0" >{account.accountData?.email}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div className="customer-info">
+            <h1 className="title">Shipping and Billing</h1>
+            <ul className="info-list">
+                <li>
+                    <img src={require("../../assets/img/mdi_account.svg")} alt="" />
+                    <span className="name">{account.accountData?.given_name + ' ' + account.accountData?.family_name}</span>
+                    <span className="default">Default</span>
+                </li>
+                <li>
+                    <img src={require("../../assets/img/mdi_map-marker.svg")} alt="" />
+                    <span>{account.accountData?.address}</span>
+                </li>
+                <li>
+                    <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
+                    <span>{account.accountData?.phone_number}</span>
+                </li>
+                <li>
+                    <img src={require("../../assets/img/mdi_email.svg")} alt="" />
+                    <span>{account.accountData?.email}</span>
+                </li>
+            </ul>
         </div>
     )
 }

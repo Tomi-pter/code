@@ -1,274 +1,500 @@
 .cart-page {
-  padding: 90px 0;
-  .section-title {
-    font-family: "Axiforma Bold";
+  padding: 69px 30px 0 30px;
+  min-height: calc(100vh - 266px);
+  .title {
     font-style: normal;
     font-weight: 800;
-    font-size: 35px;
-    line-height: 58px;
-    color: #4f4f4f;
+    font-size: 26.25px;
+    line-height: 44px;
+    color: #4F4F4F;
+    margin-bottom: 17px;
   }
-  .row-wrapper {
-    padding: 5px 30px;
-    @include mediaQueries(mobile) {
-      padding: 0 15px;
+  .cart-items {
+    flex: auto;
+    margin-right: 30px;
+    .cart-empty {
+      min-height: 400px;
     }
-  }
-  .product-column {
-    max-width: 64%;
-  }
-  .order-column {
-    max-width: 36%;
-    width: 100%;
-    flex: 1;
-  }
-  @include mediaQueries(padpro) {
-    .product-column,
-    .order-column {
-      max-width: 100%;
-      flex: 0 0 100%;
+    .product {
+      background: #FFFFFF;
+      box-shadow: 0px 7.5px 30px rgba(0, 0, 0, 0.07);
+      border-radius: 3.75px;
+      padding: 30px 38px 10px 0;
+      margin-bottom: 30px;
     }
-  }
-  .card {
-    min-height: 479px;
-    &.product-card {
-      filter: drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.07));
-      border-radius: 10px;
-      .delete-icon {
-        margin: 40px 40px;
-        @include mediaQueries(mobile) {
-          max-width: 22px;
-        }
-      }
-      .product-wrapper {
-        position: relative;
-        margin-bottom: 40px;
-        margin-top: 40px;
-        margin-right: 60px;
-        &::before {
-          z-index: 1;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          background: linear-gradient(180deg, #21e8de 0%, #0098ff 100%);
-          border-top-right-radius: 204.171px;
-          border-bottom-right-radius: 204.171px;
-          width: 100%;
-          max-width: 582px;
-          min-height: 360px;
-          content: "";
-          @include mediaQueries(mobile) {
-            min-height: 200px;
-          }
-        }
-        .product-image {
-          z-index: 2;
-          position: absolute;
-          right: 0;
-          bottom: 0;
-          min-height: 356.39px;
-          @include mediaQueries(padpro) {
-            height: 255px;
-            left: 50%;
-            top: 50%;
-            min-height: 200px;
-            transform: translate(-50%, -50%);
-          }
-          @include mediaQueries(pad) {
-            left: 50%;
-            transform: translate(-50%, 0);
-          }
-          @include mediaQueries(mobile) {
-            width: 200px;
-            left: 20%;
-            min-height: auto;
-          }
-        }
-      }
-      .product-desc-wrapper {
-        display: flex;
-        align-items: left;
-        justify-content: center;
-        flex-direction: column;
-        text-align: left;
-        margin-top: 30px;
-        .product-name,
-        .variant-text {
-          font-family: "Axiforma Bold";
-          font-style: normal;
-          font-weight: bold;
-          font-size: 35px;
-          line-height: 58px;
-          color: #4f4f4f;
-          @include mediaQueries(mobile) {
-            font-size: 18px;
-            line-height: 33px;
-            padding: 10px 15px;
-          }
-        }
-        .price-text {
-          font-family: "Axiforma Bold";
-          font-style: normal;
-          font-weight: bold;
-          font-size: 50px;
-          line-height: 83px;
-          color: #4f4f4f;
-          @include mediaQueries(mobile) {
-            padding: 5px 15px;
-            font-size: 25px;
-            line-height: 41px;
-          }
-        }
-        .quantity-text {
-          font-family: "Axiforma Bold";
-          font-style: normal;
-          font-weight: 800;
-          font-size: 40px;
-          line-height: 67px;
-          color: #4f4f4f2c;
-          @include mediaQueries(mobile) {
-            padding: 10px 15px;
-            font-size: 25px;
-            line-height: 41px;
-          }
-        }
+    .product .img-container {
+      height: 270px;
+      background: linear-gradient(180deg, #21E8DE 0%, #0098FF 100%);
+      border-top-right-radius: 153.128px;
+      border-bottom-right-radius: 153.128px;
+      padding: 50px 36px 0px 100px;
+      margin-right: 53px;
+      margin-bottom: 48.29px;
+      img {
+        width: 156.88px;
+        height: 270px;
+        object-fit: cover;
       }
     }
-    &.order-card {
-      padding: 40px;
-      min-height: 640px;
-      .order-title {
-        font-family: "Axiforma Bold";
+    .product .info-container {
+      flex: auto;
+    }
+    .action-container {
+      margin-bottom: 24px;
+    }
+    .delete-btn img {
+      width: 20px;
+      height: 22.5px;
+    }
+    .details-container {
+      .product-name, .variant, .price, .quantity {
+        margin-bottom: 0;
+      }
+      .product-name, .variant {
         font-style: normal;
         font-weight: 800;
-        font-size: 35px;
-        line-height: 58px;
-        color: #4f4f4f;
-        margin-top: 10px;
-        @include mediaQueries(mobile) {
-          font-size: 22px;
-          line-height: 38px;
-        }
+        font-size: 26px;
+        line-height: 43px;
+        color: #4F4F4F;
       }
-      .subtotal-text,
-      .shipping-text {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 25px;
-        line-height: 40px;
-        color: #4f4f4f;
-        margin-bottom: 20px;
-        @include mediaQueries(mobile) {
-          font-size: 16px;
-          line-height: 24px;
-        }
-      }
-      .price-text {
-        @include mediaQueries(mobile) {
-          font-size: 16px;
-          line-height: 24px;
-        }
-      }
-      .shipping-desc {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 17px;
-        line-height: 27px;
-        color: #4f4f4f;
-      }
-      .total-text {
-        font-family: "Axiforma Bold";
+      .price {
         font-style: normal;
         font-weight: 800;
-        font-size: 35px;
-        line-height: 58px;
-        color: #4f4f4f;
-        @include mediaQueries(mobile) {
-          font-size: 22px;
-          line-height: 38px;
-        }
+        font-size: 37px;
+        line-height: 62px;
+        color: #4F4F4F;
       }
-      .total-price-text {
-        font-family: "Axiforma Bold";
-        font-style: normal;
-        font-weight: 800;
-        font-size: 35px;
-        line-height: 58px;
-        color: #4f4f4f;
-        @include mediaQueries(mobile) {
-          font-size: 25px;
-          line-height: 48px;
-        }
-      }
-      .button-wrapper {
-        max-width: 298px;
-        width: 100%;
-        background: #16cfb0;
-        border-radius: 10px;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 33px;
-        text-align: center;
-        color: #ffffff;
-        padding: 23.5px 38.5px;
-        &:hover {
-          background: linear-gradient(180deg, #21e8de 0%, #0098ff 100%);
-          border: 0;
-        }
-      }
-    }
-  }
-  .shipping-details-wrapper {
-    margin-bottom: 120px;
-    .shipping-container{
-      margin-top: 20px;
-      margin-left: 15px;
-    }
-    .name-wrapper{
-      .customer-name {
-        font-family: "Axiforma Bold";
+      .quantity {
         font-style: normal;
         font-weight: 800;
         font-size: 30px;
         line-height: 50px;
-        color: #4f4f4f;
-        display: flex;
-        align-items: center;
-        flex: 0;
-        @include mediaQueries(mobile) {
-          font-size: 18px;
-        }
-      }
-      .addressDefault {
-        background: #c4c4c4;
-        border-radius: 13px;
-        color: #fff;
-        font-size: 18px;
-        line-height: 29px;
-        color: #f2f2f2;
-        padding: 5px 17px;
-        margin-left: 25px;
-        @include mediaQueries(mobile) {
-          font-size: 10px;
-        }
-      }
-    }
-
-    .address-wrapper{
-      margin-bottom: 20px;
-      
-    }
-    .mobile-wrapper{
-      margin-bottom: 20px;
-    }
-    .customer-address,
-    .customer-phone,
-    .customer-email {
-      color: #4f4f4f;
-      @include mediaQueries(mobile) {
-        font-size: 18px;
+        color: #4F4F4F;
+        opacity: 0.5;
       }
     }
   }
+  .customer-info, .order-summary {
+    width: 480px;
+    background: #FFFFFF;
+    padding: 30px;
+  }
+  .customer-info {
+    padding-bottom: 60px;
+    .info-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 29px;
+      color: #4F4F4F;
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    li img {
+      margin-right: 25px;
+    }
+    li .name {
+      font-weight: 800;
+      font-size: 22px;
+      line-height: 37px;
+    }
+    li .default {
+      width: 76.5px;
+      height: 19.5px;
+      background: #C4C4C4;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13.5px;
+      line-height: 21px;
+      color: #F2F2F2;
+      border-radius: 9.75px;
+      margin-left: 18px;
+      text-align: center;
+    }
+  }
+  .discount-container {
+    margin-bottom: 30px;
+    label {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18.75px;
+      line-height: 30px;
+      color: #4F4F4F;
+      margin-bottom: 12px;
+    }
+    .input-container {
+      width: 100%;
+      position: relative;
+      border: 1.5px solid #E0E0E0;
+      box-sizing: border-box;
+      border-radius: 7.5px;
+      height: 39.75px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      margin-bottom: 9px;
+    }
+    .input-container input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      &:focus ~ button {
+        display: block;
+      }
+    }
+    button {
+      display: none;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18.75px;
+      line-height: 30px;
+      color: #16CFB0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+    }
+    .icon-container {
+      min-width: 21px;
+      img {
+        margin: 0 auto;
+      }
+    }
+    .msg {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13.5px;
+      line-height: 21px;
+      &.success {
+        color: #16CFB0;
+      }
+      &.error {
+        color: #EA001B;
+      }
+    }
+  }
+  .order-summary {
+    margin-bottom: 30px;
+    .summary-list {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 30px;
+      li {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 29px;
+        color: #4F4F4F;
+        margin-bottom: 15px;
+      }
+      li p {
+        margin-bottom: 0;
+      }
+      li span {
+        font-size: 12px;
+        line-height: 19px;
+        margin-top: 15px;
+      }
+    }
+    .total {
+      font-style: normal;
+      font-weight: 800;
+      font-size: 26px;
+      line-height: 43px;
+      color: #4F4F4F;
+    }
+  }
+  .proceed-btn {
+    width: 223.5px;
+    min-height: 60px;
+    background: #16CFB0;
+    border-radius: 7.5px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 24px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    &.disabled {
+      background-color: #cccccc;
+      color: #666666;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  // .row-wrapper {
+  //   padding: 5px 30px;
+  //   @include mediaQueries(mobile) {
+  //     padding: 0 15px;
+  //   }
+  // }
+  // .product-column {
+  //   max-width: 64%;
+  // }
+  // .order-column {
+  //   max-width: 36%;
+  //   width: 100%;
+  //   flex: 1;
+  // }
+  // @include mediaQueries(padpro) {
+  //   .product-column,
+  //   .order-column {
+  //     max-width: 100%;
+  //     flex: 0 0 100%;
+  //   }
+  // }
+  // .card {
+  //   min-height: 479px;
+  //   &.product-card {
+  //     filter: drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.07));
+  //     border-radius: 10px;
+  //     .delete-icon {
+  //       margin: 40px 40px;
+  //       @include mediaQueries(mobile) {
+  //         max-width: 22px;
+  //       }
+  //     }
+  //     .product-wrapper {
+  //       position: relative;
+  //       margin-bottom: 40px;
+  //       margin-top: 40px;
+  //       margin-right: 60px;
+  //       &::before {
+  //         z-index: 1;
+  //         display: flex;
+  //         align-items: center;
+  //         justify-content: flex-end;
+  //         background: linear-gradient(180deg, #21e8de 0%, #0098ff 100%);
+  //         border-top-right-radius: 204.171px;
+  //         border-bottom-right-radius: 204.171px;
+  //         width: 100%;
+  //         max-width: 582px;
+  //         min-height: 360px;
+  //         content: "";
+  //         @include mediaQueries(mobile) {
+  //           min-height: 200px;
+  //         }
+  //       }
+  //       .product-image {
+  //         z-index: 2;
+  //         position: absolute;
+  //         right: 0;
+  //         bottom: 0;
+  //         min-height: 356.39px;
+  //         @include mediaQueries(padpro) {
+  //           height: 255px;
+  //           left: 50%;
+  //           top: 50%;
+  //           min-height: 200px;
+  //           transform: translate(-50%, -50%);
+  //         }
+  //         @include mediaQueries(pad) {
+  //           left: 50%;
+  //           transform: translate(-50%, 0);
+  //         }
+  //         @include mediaQueries(mobile) {
+  //           width: 200px;
+  //           left: 20%;
+  //           min-height: auto;
+  //         }
+  //       }
+  //     }
+  //     .product-desc-wrapper {
+  //       display: flex;
+  //       align-items: left;
+  //       justify-content: center;
+  //       flex-direction: column;
+  //       text-align: left;
+  //       margin-top: 30px;
+  //       .product-name,
+  //       .variant-text {
+  //         font-family: "Axiforma Bold";
+  //         font-style: normal;
+  //         font-weight: bold;
+  //         font-size: 35px;
+  //         line-height: 58px;
+  //         color: #4f4f4f;
+  //         @include mediaQueries(mobile) {
+  //           font-size: 18px;
+  //           line-height: 33px;
+  //           padding: 10px 15px;
+  //         }
+  //       }
+  //       .price-text {
+  //         font-family: "Axiforma Bold";
+  //         font-style: normal;
+  //         font-weight: bold;
+  //         font-size: 50px;
+  //         line-height: 83px;
+  //         color: #4f4f4f;
+  //         @include mediaQueries(mobile) {
+  //           padding: 5px 15px;
+  //           font-size: 25px;
+  //           line-height: 41px;
+  //         }
+  //       }
+  //       .quantity-text {
+  //         font-family: "Axiforma Bold";
+  //         font-style: normal;
+  //         font-weight: 800;
+  //         font-size: 40px;
+  //         line-height: 67px;
+  //         color: #4f4f4f2c;
+  //         @include mediaQueries(mobile) {
+  //           padding: 10px 15px;
+  //           font-size: 25px;
+  //           line-height: 41px;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   &.order-card {
+  //     padding: 40px;
+  //     min-height: 640px;
+  //     .order-title {
+  //       font-family: "Axiforma Bold";
+  //       font-style: normal;
+  //       font-weight: 800;
+  //       font-size: 35px;
+  //       line-height: 58px;
+  //       color: #4f4f4f;
+  //       margin-top: 10px;
+  //       @include mediaQueries(mobile) {
+  //         font-size: 22px;
+  //         line-height: 38px;
+  //       }
+  //     }
+  //     .subtotal-text,
+  //     .shipping-text {
+  //       font-style: normal;
+  //       font-weight: normal;
+  //       font-size: 25px;
+  //       line-height: 40px;
+  //       color: #4f4f4f;
+  //       margin-bottom: 20px;
+  //       @include mediaQueries(mobile) {
+  //         font-size: 16px;
+  //         line-height: 24px;
+  //       }
+  //     }
+  //     .price-text {
+  //       @include mediaQueries(mobile) {
+  //         font-size: 16px;
+  //         line-height: 24px;
+  //       }
+  //     }
+  //     .shipping-desc {
+  //       font-style: normal;
+  //       font-weight: normal;
+  //       font-size: 17px;
+  //       line-height: 27px;
+  //       color: #4f4f4f;
+  //     }
+  //     .total-text {
+  //       font-family: "Axiforma Bold";
+  //       font-style: normal;
+  //       font-weight: 800;
+  //       font-size: 35px;
+  //       line-height: 58px;
+  //       color: #4f4f4f;
+  //       @include mediaQueries(mobile) {
+  //         font-size: 22px;
+  //         line-height: 38px;
+  //       }
+  //     }
+  //     .total-price-text {
+  //       font-family: "Axiforma Bold";
+  //       font-style: normal;
+  //       font-weight: 800;
+  //       font-size: 35px;
+  //       line-height: 58px;
+  //       color: #4f4f4f;
+  //       @include mediaQueries(mobile) {
+  //         font-size: 25px;
+  //         line-height: 48px;
+  //       }
+  //     }
+  //     .button-wrapper {
+  //       max-width: 298px;
+  //       width: 100%;
+  //       background: #16cfb0;
+  //       border-radius: 10px;
+  //       font-style: normal;
+  //       font-weight: 600;
+  //       font-size: 20px;
+  //       line-height: 33px;
+  //       text-align: center;
+  //       color: #ffffff;
+  //       padding: 23.5px 38.5px;
+  //       &:hover {
+  //         background: linear-gradient(180deg, #21e8de 0%, #0098ff 100%);
+  //         border: 0;
+  //       }
+  //     }
+  //   }
+  // }
+  // .shipping-details-wrapper {
+  //   margin-bottom: 120px;
+  //   .shipping-container{
+  //     margin-top: 20px;
+  //     margin-left: 15px;
+  //   }
+  //   .name-wrapper{
+  //     .customer-name {
+  //       font-family: "Axiforma Bold";
+  //       font-style: normal;
+  //       font-weight: 800;
+  //       font-size: 30px;
+  //       line-height: 50px;
+  //       color: #4f4f4f;
+  //       display: flex;
+  //       align-items: center;
+  //       flex: 0;
+  //       @include mediaQueries(mobile) {
+  //         font-size: 18px;
+  //       }
+  //     }
+  //     .addressDefault {
+  //       background: #c4c4c4;
+  //       border-radius: 13px;
+  //       color: #fff;
+  //       font-size: 18px;
+  //       line-height: 29px;
+  //       color: #f2f2f2;
+  //       padding: 5px 17px;
+  //       margin-left: 25px;
+  //       @include mediaQueries(mobile) {
+  //         font-size: 10px;
+  //       }
+  //     }
+  //   }
+
+  //   .address-wrapper{
+  //     margin-bottom: 20px;
+      
+  //   }
+  //   .mobile-wrapper{
+  //     margin-bottom: 20px;
+  //   }
+  //   .customer-address,
+  //   .customer-phone,
+  //   .customer-email {
+  //     color: #4f4f4f;
+  //     @include mediaQueries(mobile) {
+  //       font-size: 18px;
+  //     }
+  //   }
+  // }
 }

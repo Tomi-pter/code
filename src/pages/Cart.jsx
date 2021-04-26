@@ -21,25 +21,13 @@ export const CartContainer = () => {
     return (
         <>
             <HeaderNav />
-            <div className="cart-page">
-                <div className="container-fluid">
-                    <div className="row row-wrapper">
-                        <div className="col-12">
-                            <h1 className="section-title">My Cart</h1>
-                        </div>
+                <div className="container-fluid d-flex align-items-start cart-page">
+                    <div className="cart-items">
+                        <h1 className="title">My Cart</h1>
+                        <ItemList cart={cart} />
                     </div>
-                    <div className="row row-wrapper">
-                        <div className="col-lg-8 product-column">
-                            <ItemList cart={cart} />
-                        </div>
-                        <div className="col-lg-4  order-column">
-                            <div className="card order-card position-relative">
-                                <OrderSummary cart={cart} page={'cart'} shipping={shipping} />
-                            </div>
-                        </div>
-                    </div>
+                    <OrderSummary cart={cart} page={'cart'} shipping={shipping} />
                 </div>
-            </div>
             <Footer />
         </>
     );

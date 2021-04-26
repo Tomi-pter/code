@@ -9,30 +9,32 @@ export const ItemList = ({ cart }) => {
 
     return (
         <div>
-            { cart.cartData.length === 0 && <div>Your Cart is Empty</div> }
+            { cart.cartData.length === 0 && 
+                <div className="d-flex align-items-center justify-content-center cart-empty">Your Cart is Empty</div> 
+            }
             {
                 cart.cartData.map(cartItem => (
-                    <div key={`key`+ cartItem.productId} className="card product-card position-relative">
-                        <div className="row ">
-                            <div className="position-absolute" style={{ right: "0" }}>
-                                <a href="#!" onClick={()=>dispatch(removeCart(user?.email, parseInt(cartItem.productId)))}>
-                                    <img className="delete-icon mr-4 mt-4" src={require("../../assets/img/delete_icon.svg")} />
+                    <div key={`key`+ cartItem.productId} className="product d-flex align-items-start">
+                        <div className="img-container">
+                            <img className="product-image" src={require("../../assets/img/product-sample2.png")} />
+                        </div>
+                        <div className="info-container">
+                            <div className="d-flex justify-content-end action-container">
+                                <a className="delete-btn" href="#!" onClick={()=>dispatch(removeCart(user?.email, parseInt(cartItem.productId)))}>
+                                    <img src={require("../../assets/img/delete_icon.svg")} />
                                 </a>
                             </div>
-                            <div className="col-lg-4 product-wrapper">
-                                <img className="product-image" src={require("../../assets/img/product-placeholder.svg")} />
-                            </div>
-                            <div className="col-lg-6 offset-md-1 product-desc-wrapper">
-                                <p className="product-name mb-0">
+                            <div className="details-container">
+                                <p className="product-name">
                                     {cartItem.productName}
                                 </p>
-                                <p className="variant-text mb-0">
+                                <p className="variant">
                                     Brand: Welchol
                                 </p>
-                                <p className="price-text mb-0">
+                                <p className="price">
                                     {cartItem.price}
                                 </p>
-                                <p className="quantity-text">x{cartItem.quantity}</p>
+                                <p className="quantity">x{cartItem.quantity}</p>
                             </div>
                         </div>
                     </div>

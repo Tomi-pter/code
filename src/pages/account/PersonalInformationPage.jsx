@@ -1,13 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button } from 'antd';
 import { HeaderNav } from '../../components/partials/HeaderNav';
 import { Footer } from '../../components/partials/Footer';
+import { Cards } from '../../components/account/cards';
 import AccountUser from '../../assets/img/Account/user-icon.svg';
 import CartIcon from '../../assets/img/Account/mdi_cart.svg';
 import LogOutIcon from '../../assets/img/Account/mdi_logout-variant.svg';
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
-import MasterCardIcon from '../../assets/img/Payment/master-card-logo.svg';
+// import MasterCardIcon from '../../assets/img/Payment/master-card-logo.svg';
 import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
 
 import { useHistory } from 'react-router-dom';
@@ -18,6 +19,7 @@ import { getAccount } from '../../actions/account';
 
 export const PersonalInformationContainer = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
+    const [selectedCard, setSelectedCard] = useState('');
     const dispatch = useDispatch();
     const account = useSelector((state) => state.account);
     const history = useHistory();
@@ -189,7 +191,8 @@ export const PersonalInformationContainer = () => {
                                                         <h1 className="wrapper-title">
                                                             Payment Information
                                                     </h1>
-                                                        <div className="cardsWrapper">
+                                                    <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+                                                        {/* <div className="cardsWrapper">
                                                             <p className="cards-title">
                                                                 Cards
                                                             </p>
@@ -219,7 +222,7 @@ export const PersonalInformationContainer = () => {
                                                                 </div>
                                                             </div>
                                                             <a className="addCard">+ Add new card</a>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 </div>
                                             </form>

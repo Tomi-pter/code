@@ -12,6 +12,8 @@ export const GETPRODUCTS = 'GETPRODUCTS';
 
 // Cart
 export const UPDATECART = 'UPDATECART';
+export const CHECKOUTCART = 'CHECKOUTCART';
+export const SETDISCOUNT = 'SETDISCOUNT';
 
 export const UPDATEPAYMENTMETHODS = 'UPDATEPAYMENTMETHODS';
 export const PAYMENT = 'PAYMENT';

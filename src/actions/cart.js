@@ -1,4 +1,4 @@
-import { UPDATECART } from '../constants/actionTypes';
+import { UPDATECART, CHECKOUTCART, SETDISCOUNT } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -35,4 +35,27 @@ export const removeCart = (email, productId) => async (dispatch) => {
     } catch (error) {
       console.log(error.message);
     }
+};
+
+export const discount = (discountCode) => async (dispatch) => {
+  try {
+    const { data } = await api.discount(discountCode);
+
+    dispatch({ type: SETDISCOUNT, payload: data });
+    
+  } catch (error) {
+    const data = {'valid': false, 'error': true};
+
+    dispatch({ type: SETDISCOUNT, payload: data  });
+  }
+};
+
+export const checkout = (checkoutDetail, router) => async (dispatch) => {
+  try {
+
+    dispatch({ type: CHECKOUTCART, payload: checkoutDetail });
+    router.push('/payment');
+  } catch (error) {
+    console.log(error.message);
+  }
 };

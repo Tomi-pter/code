@@ -15,7 +15,7 @@ export const PaymentConfirmationContainer = () => {
                             <div className="thankyou-card card">
                                 <h1 className="card-title">Payment Complete</h1>
                                 <div className="imageWrapper">
-                                    <img src={PaymentConfirmedImg} />
+                                    <img src={PaymentConfirmedImg} alt="" />
                                 </div>
                                 <h1 className="thankyou-text">Thank You</h1>
                                 <p className="purchase-text">for your purchase</p>

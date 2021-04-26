@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import  { ItemList } from '../components/cart/itemList';
@@ -10,7 +10,6 @@ import { getCart } from '../actions/cart';
 
 export const CartContainer = () => {
     const cart = useSelector((state) => state.cart);
-    const [shipping, setShipping] = useState(20);
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -26,7 +25,7 @@ export const CartContainer = () => {
                         <h1 className="title">My Cart</h1>
                         <ItemList cart={cart} />
                     </div>
-                    <OrderSummary cart={cart} page={'cart'} shipping={shipping} />
+                    <OrderSummary cart={cart} page={'cart'} />
                 </div>
             <Footer />
         </>

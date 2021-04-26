@@ -16,12 +16,12 @@ export const ItemList = ({ cart }) => {
                 cart.cartData.map(cartItem => (
                     <div key={`key`+ cartItem.productId} className="product d-flex align-items-start">
                         <div className="img-container">
-                            <img className="product-image" src={require("../../assets/img/product-sample2.png")} />
+                            <img className="product-image" src={require("../../assets/img/product-sample2.png")} alt="" />
                         </div>
                         <div className="info-container">
                             <div className="d-flex justify-content-end action-container">
                                 <a className="delete-btn" href="#!" onClick={()=>dispatch(removeCart(user?.email, parseInt(cartItem.productId)))}>
-                                    <img src={require("../../assets/img/delete_icon.svg")} />
+                                    <img src={require("../../assets/img/delete_icon.svg")} alt="" />
                                 </a>
                             </div>
                             <div className="details-container">

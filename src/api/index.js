@@ -23,6 +23,7 @@ export const getProduct = (id) => API.get(`/products/${id}`);
 export const getCart = (email) => API.get(`/cart/${email}`);
 export const addCart = (email, product) => API.post(`/cart/${email}/add`, product);
 export const removeCart = (email, productId) => API.post(`/cart/${email}/remove`, {productId});
+export const discount = (discountCode) => API.get(`/coupons?code=${discountCode}`);
 
 export const getPaymentMethods = (username) => API.get(`/cards/${username}`);
 export const addPaymentMethod = (username, paymentMethod) => API.post(`/cards/${username}/add-payment-method`, paymentMethod);

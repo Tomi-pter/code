@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux';
 import { getAccount } from '../../actions/account';
 
 export default props => {
-    const user = JSON.parse(localStorage.getItem('profile'));
     const dispatch = useDispatch();
     const account = useSelector((state) => state.account);
 
     useEffect(()=>{
+        const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAccount(user?.email));
     },[dispatch]);
 

@@ -152,6 +152,7 @@
           left: 0;
         }
         button {
+          min-width: 110px;
           min-height: 54px;
           background: #16CFB0;
           border-radius: 7.5px;
@@ -179,6 +180,12 @@
         outline: 0;
         background: transparent;
         text-transform: uppercase !important;
+      }
+      .add-error {
+        min-height: 22px;
+        margin-bottom: 10px;
+        background: none;
+        color: #e63757;
       }
     }
     .proceed-btn {

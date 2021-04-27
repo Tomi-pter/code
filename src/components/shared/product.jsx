@@ -1,6 +1,9 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import ProductImage from '../../assets/img/product-sample.png'
+import HeartImg from '../../assets/img/heart.svg'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 export const Product = ({
   view,
@@ -11,8 +14,10 @@ export const Product = ({
   isLoading,
   quantity,
   setQuantity,
+  shopFont,
 }) => {
   const history = useHistory()
+  const auth = localStorage.getItem('profile')
 
   const viewProduct = (id) => {
     history.push(`/product/${id}`)
@@ -57,6 +62,8 @@ export const Product = ({
             </div>
           </div>
           <div className="details-container">
+            <img className="for-list pr-4" src={HeartImg} />
+
             <div className="no-container for-list">
               <p className="item-no">{product.num}</p>
               <p className="ndc">{product.ndc}</p>
@@ -64,9 +71,17 @@ export const Product = ({
             <div
               className="name-container"
               onClick={() => viewProduct(product.id)}
-              style={{ minHeight: '12vh' }}
+              style={{
+                minHeight: view === 'list' || shopFont ? '0px' : '12vh',
+              }}
             >
-              <p className="name">{product.description}</p>
+              {shopFont ? (
+                <p style={{ fontSize: '11.4183px !important' }}>
+                  {product.description}
+                </p>
+              ) : (
+                <p className="name">{product.description}</p>
+              )}
               {/* <p className="compare for-list">({compare_to})</p> */}
             </div>
             <p className="company for-list">
@@ -75,39 +90,76 @@ export const Product = ({
             <p className="size for-list">
               {product.customFields[6].value || '100'}
             </p>
-            <p className="strength for-list">
+            {/* <p className="strength for-list">
               {product.customFields[9].value || '100'}
-            </p>
-            <div className="price-container d-flex justify-content-between">
-              <p className="price mr-2">${product.purchasePrice}</p>
+            </p> */}
+            <div className="price-container">
+              <p className="price">
+                {auth && shopFont ? (
+                  <span
+                    style={{
+                      // fontWeight: 'bold',
+                      fontSize: '17.1275px',
+                      lineHeight: '19px',
+                      color: 'black',
+                    }}
+                  >
+                    <Link
+                      to="/login"
+                      style={{
+                        fontWeight: '800',
+                        fontSize: '18px',
+                        lineHeight: '26px',
+                        color: 'black',
+                        textDecoration: 'underline',
+                      }}
+                    >
+                      Login
+                    </Link>
+                    <br />
+                    for price
+                  </span>
+                ) : auth ? (
+                  <span style={{ fontSize: '12.3295px' }}>
+                    <Link
+                      to="/login"
+                      style={{ textDecoration: 'underline', color: 'black' }}
+                    >
+                      Login
+                    </Link>{' '}
+                    for Price
+                  </span>
+                ) : (
+                  product.purchasePrice
+                )}
+              </p>
               {/* <p className="ppu for-list">({ppu})</p> */}
-              <div className="buy-container">
-                <input
-                  className="qty for-list"
-                  type="number"
-                  min="1"
-                  placeholder="1"
-                  value={selectedProduct === product ? quantity : 1}
-                  onChange={handleChange}
-                />
-                <button
-                  className={
-                    'cart-btn ' +
-                    (selectedProduct === product && isLoading ? 'adding' : '')
-                  }
-                  onClick={() => addCart(product)}
-                >
-                  {selectedProduct === product && isLoading ? (
-                    <div className="spinner-border text-light" role="status">
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </button>
-              </div>
             </div>
-
+            <div className="buy-container d-flex">
+              <input
+                className="qty for-list mr-2"
+                type="number"
+                min="1"
+                placeholder="1"
+                value={selectedProduct === product ? quantity : 1}
+                onChange={handleChange}
+              />
+              <button
+                className={
+                  'cart-btn ' +
+                  (selectedProduct === product && isLoading ? 'adding' : '')
+                }
+                onClick={() => addCart(product)}
+              >
+                {selectedProduct === product && isLoading ? (
+                  <div className="spinner-border text-light" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </button>
+            </div>
             <p className="incart for-list">1</p>
           </div>
           {/* <div className={(view === "list " ? "d-block" : "d-none")}>

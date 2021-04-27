@@ -23,12 +23,12 @@ export const Products = ({ page, products, view, setView, name, shopFont }) => {
     }
     setSelectedProduct(product)
     setIsLoading(true)
-    dispatch(addCart(user?.email, newProduct))
+    dispatch(addCart(user?.username, newProduct))
   }
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('profile'))
-    dispatch(getCart(user?.email))
+    dispatch(getCart(user?.username))
   }, [dispatch])
 
   useEffect(() => {

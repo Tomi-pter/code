@@ -11,7 +11,7 @@ export const ProtectedRoutes = ({ component: Component, path, ...rest }) => {
     const history = useHistory();
 
     const logout = () => {
-        dispatch(logOut(user?.email, history));
+        dispatch(logOut(user?.username, history));
         setUser(null);
     };
     

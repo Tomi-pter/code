@@ -17,5 +17,6 @@ export const SETDISCOUNT = 'SETDISCOUNT';
 
 export const UPDATECARDS = 'UPDATECARDS';
 export const ERRORCARD = 'ERRORCARD';
+export const DEFAULTCARD = 'DEFAULTCARD';
 
 export const PAYMENT = 'PAYMENT';

@@ -10,7 +10,7 @@ export default props => {
 
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(getAccount(user?.email));
+        dispatch(getAccount(user?.username));
     },[dispatch]);
 
     return (

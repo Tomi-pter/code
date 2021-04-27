@@ -43,13 +43,15 @@
       }
     }
     li:first-child {
-      border-radius: 7.5px 7.5px 0px 0px;
+      a {
+        border-radius: 7.5px 7.5px 0px 0px;
+      }
       img {
         max-width: 15px;
         margin-right: 35px;
       }
     }
-    li:last-child {
+    li:last-child a {
       border-radius: 0px 0px 7.5px 7.5px;
     }
     li a.active {

@@ -1,4 +1,4 @@
-import { UPDATECARDS, ERRORCARD } from '../constants/actionTypes';
+import { UPDATECARDS, ERRORCARD, DEFAULTCARD } from '../constants/actionTypes';
 
 const cardsReducer = (state = { cardsData: [] }, action) => {
   switch (action.type) {
@@ -7,7 +7,11 @@ const cardsReducer = (state = { cardsData: [] }, action) => {
       return { ...state, cardsData: action.payload.data, cardError: null };
     case ERRORCARD: 
 
-      return { ...state, cardError: action.payload }
+      return { ...state, cardError: action.payload };
+    
+    case DEFAULTCARD:
+
+      return { ...state, customerData: action.payload };
     default:
       return state;
   }

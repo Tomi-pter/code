@@ -43,7 +43,7 @@ export const HeaderNav = () => {
           if (decodedToken.exp * 1000 < new Date().getTime()) setUser(null);
         }
         setUser(JSON.parse(localStorage.getItem('profile')));
-        dispatch(getCart(user?.email));
+        dispatch(getCart(user?.username));
     }, [location]);
 
     return (

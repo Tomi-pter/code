@@ -2,9 +2,9 @@ import { UPDATECART, CHECKOUTCART, SETDISCOUNT } from '../constants/actionTypes'
 
 import * as api from '../api/index.js';
 
-export const getCart = (email) => async (dispatch) => {
+export const getCart = (username) => async (dispatch) => {
   try {
-    const { data } = await api.getCart(email);
+    const { data } = await api.getCart(username);
 
     dispatch({ type: UPDATECART, payload: data.items });
 
@@ -13,10 +13,10 @@ export const getCart = (email) => async (dispatch) => {
   }
 };
 
-export const addCart = (email, product) => async (dispatch) => {
+export const addCart = (username, product) => async (dispatch) => {
     try {
         
-      const { data } = await api.addCart(email, product);
+      const { data } = await api.addCart(username, product);
 
       dispatch({ type: UPDATECART, payload: data.items });
   
@@ -25,10 +25,10 @@ export const addCart = (email, product) => async (dispatch) => {
     }
 };
 
-export const removeCart = (email, productId) => async (dispatch) => {
+export const removeCart = (username, productId) => async (dispatch) => {
     try {
         
-      const { data } = await api.removeCart(email, productId);
+      const { data } = await api.removeCart(username, productId);
 
       dispatch({ type: UPDATECART, payload: data.items });
   

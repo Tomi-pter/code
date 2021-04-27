@@ -16,7 +16,8 @@ export const OrderSummary = ({ cart, page }) => {
     const shippingCounter = subTotal >= 100 ? 0 : (100 - subTotal);
     const discount = discountDetail?.percent_off / 100;
     const total = cart.cartData.length > 0 ? (parseFloat(subTotal) + shipping) : 0;
-    const finalTotal = discount ? total - (total * discount) : total;
+    // const finalTotal = discount ? total - (total * discount) : total;
+    const finalTotal = discount ? (Math.round((total * 100) * discount) / 100) : total;
 
     const handleCheckout = () => {
         const checkoutDetail = {

@@ -24,11 +24,12 @@ export const PersonalInformationContainer = () => {
     const history = useHistory();
 
     const handleLogout = () => {
-        dispatch(logOut(user?.email, history));
+        dispatch(logOut(user?.username, history));
     };
 
     useEffect(()=>{
-        dispatch(getAccount(user?.email));
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(getAccount(user?.username));
     },[dispatch]);
 
     return (
@@ -55,7 +56,7 @@ export const PersonalInformationContainer = () => {
                                         <PersonalInfo account={account} />
                                         <h2 className="sub-title">Payment Information</h2>
                                         <label>Cards</label>
-                                        <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+                                        <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='account' />
                                     </div>
                                 </div>
                                 <div id="order-history" className="tab-pane fade">

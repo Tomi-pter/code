@@ -20,7 +20,7 @@ export const ItemList = ({ cart }) => {
                         </div>
                         <div className="info-container">
                             <div className="d-flex justify-content-end action-container">
-                                <a className="delete-btn" href="#!" onClick={()=>dispatch(removeCart(user?.email, parseInt(cartItem.productId)))}>
+                                <a className="delete-btn" href="#!" onClick={()=>dispatch(removeCart(user?.username, parseInt(cartItem.productId)))}>
                                     <img src={require("../../assets/img/delete_icon.svg")} alt="" />
                                 </a>
                             </div>

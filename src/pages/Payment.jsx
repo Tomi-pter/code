@@ -15,15 +15,18 @@ import { getCart } from '../actions/cart';
 export const PaymentContainer = () => {
     const cart = useSelector((state) => state.cart);    
     const [selectedCard, setSelectedCard] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
 
     const handlePayment = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
-        const amount = (parseFloat(cart?.checkoutDetail?.finalTotal) * 100);
+        // const amount = (parseFloat(cart?.checkoutDetail?.finalTotal) * 100);
+        const amount = cart?.checkoutDetail?.total;
         const body = {
-            discountCode: cart?.discountDetail?.id,
+            code: cart?.discountDetail?.id,
             paymentMethodId: selectedCard,
             amount
         }
@@ -55,7 +58,7 @@ export const PaymentContainer = () => {
                         </ul>
                         <div className="tab-content">
                             <div id="card" className="tab-pane fade in active show">
-                                <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
+                                <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
                             </div>
                             <div id="google" className="tab-pane fade">
                                 <h3>GOOGLE PAY</h3>
@@ -64,7 +67,17 @@ export const PaymentContainer = () => {
                                 <h3>APPLE PAY</h3>
                             </div>
                         </div>
-                        <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>Place Order</button>
+                        <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>
+                            {isLoading ?
+                                <div className="spinner-border text-light" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                                :
+                                <>
+                                   Place Order
+                                </>
+                            }
+                        </button>
                     </div>
                 </div>
                 <div className="total-container">

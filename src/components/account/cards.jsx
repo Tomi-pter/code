@@ -5,9 +5,9 @@ import images from 'react-payment-inputs/images';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import { getCards, addCard } from '../../actions/cards';
+import { getCards, addCard, getDefaultCard, setDefaultCard } from '../../actions/cards';
 
-export const Cards = ({ selectedCard, setSelectedCard }) => {
+export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     const [formData, setFormData] = useState({});
     const cards = useSelector((state) => state.cards);
     const [stateAddCard, setStateAddCard] = useState(false);
@@ -17,6 +17,11 @@ export const Cards = ({ selectedCard, setSelectedCard }) => {
     const setCard = (cardType) => {
         if (cardType === 'visa') return '4242';
         if (cardType === 'mastercard') return '5555';
+    }
+
+    const handleSetDefault = (id) => {
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(setDefaultCard(user?.username,id));
     }
 
     const handleSubmit = async (e) => {
@@ -40,10 +45,11 @@ export const Cards = ({ selectedCard, setSelectedCard }) => {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getCards(user?.username));
+        dispatch(getDefaultCard(user?.username));
     }, [dispatch]);
 
     useEffect(() => {
-        setSelectedCard(cards?.cardsData[0]?.id);
+        setSelectedCard(cards?.customerData?.invoice_settings.default_payment_method);
         setIsLoading(false);
     }, [cards]);
 
@@ -55,7 +61,7 @@ export const Cards = ({ selectedCard, setSelectedCard }) => {
                         <div 
                             key={`key-${card.id}`} 
                             className={"d-flex flex-row align-items-center justify-content-between card " + (selectedCard === card.id ? "active" : "")}
-                            onClick={()=>setSelectedCard(card.id)}
+                            onClick={()=>page === 'payment' ? setSelectedCard(card.id) : handleSetDefault(card.id)}
                         >
                             <div className="d-flex card-info">
                                 <PaymentInputsContainer>

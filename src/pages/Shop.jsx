@@ -12,16 +12,15 @@ export default (props) => {
   const products = useSelector((state) => state.products)
   const [view, setView] = useState('grid')
   const [isLoading, setIsLoading] = useState(true)
-  const query = new URLSearchParams(props.location.search)
+  // const query = new URLSearchParams(props.location.search)
   const [queryCategory, setQueryCategory] = useState('')
-  const [category, setCategory] = useState(queryCategory)
+  const [category, setCategory] = useState('')
   const [subCategory, setSubCategory] = useState('Short-dated')
   const location = useLocation()
   const dispatch = useDispatch()
 
   const changeCategory = (cat) => {
-    if (queryCategory !== '')
-      window.history.replaceState({}, document.title, '/' + 'shop')
+    if (queryCategory !== '') window.history.replaceState({}, document.title, '/' + 'shop')
     setQueryCategory('')
     setCategory(cat)
   }
@@ -37,6 +36,7 @@ export default (props) => {
   }, [products])
 
   useEffect(() => {
+    const query = new URLSearchParams(props.location.search)
     const cat = query.get('category') || 'Pharmacy'
     setQueryCategory(cat)
     setCategory(cat)

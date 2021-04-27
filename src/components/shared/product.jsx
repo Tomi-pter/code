@@ -95,7 +95,7 @@ export const Product = ({
             </p> */}
             <div className="price-container">
               <p className="price">
-                {auth && shopFont ? (
+                {!auth && shopFont ? (
                   <span
                     style={{
                       // fontWeight: 'bold',
@@ -119,7 +119,7 @@ export const Product = ({
                     <br />
                     for price
                   </span>
-                ) : auth ? (
+                ) : !auth ? (
                   <span style={{ fontSize: '12.3295px' }}>
                     <Link
                       to="/login"
@@ -130,7 +130,7 @@ export const Product = ({
                     for Price
                   </span>
                 ) : (
-                  product.purchasePrice
+                  <>$ {product.purchasePrice}</>
                 )}
               </p>
               {/* <p className="ppu for-list">({ppu})</p> */}

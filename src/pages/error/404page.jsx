@@ -7,23 +7,12 @@ export const ErrorPageContainer = () => {
     return (
         <>
             <HeaderNav />
-            <div className="errorPage">
-                <div className="container-fluid">
-                    <div className="section-container position-relative d-flex flex-column align-items-center justify-content-around">
-                        <div className="errorMessage flex-fill">
-                            <h1 className="error-heading-text">404</h1>
-                            <p className="error-subheading-text">Something went wrong</p>
-                        </div>
-                        <div className="buttonWrapper d-flex align-items-center justify-content-around">
-                                <div>
-                                    <a href="https://premierpharma.wpengine.com/" className="primaryButton">
-                                        Back to browse
-                                    </a>
-                                </div>
-                            </div>
-
-                    </div>
-                </div>
+            <div className="d-flex flex-column align-items-center justify-content-center errorPage">
+                <h1 className="error-heading-text">404</h1>
+                <p className="error-subheading-text">Something went wrong</p>
+                <Link to="/shop" className="primaryButton">
+                    Back to browse
+                </Link>
             </div>
             <Footer />
         </>

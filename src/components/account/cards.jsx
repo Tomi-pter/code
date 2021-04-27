@@ -97,7 +97,7 @@ export const Cards = ({ selectedCard, setSelectedCard }) => {
                         </PaymentInputsContainer>
                     </div>
                     :
-                    <button className="add-btn" onClick={()=>setAddCard(true)}>+ ADD NEW CARD</button>
+                    <button className="add-btn" onClick={()=>setAddCard(true)}>+ Add new card</button>
                 }
             </div>
         </>

@@ -3,51 +3,35 @@
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 266px);
   padding: 90px 0;
-  .section-container {
-    .errorMessage {
-      .error-heading-text {
-        font-family: "Axiforma Bold";
-        font-style: normal;
-        font-weight: 800;
-        font-size: 217.526px;
-        line-height: 362px;
-        color: #0098ff;
-        margin-bottom: 0;
-        @include mediaQueries(mobile) {
-          font-size: 117.526px;
-          text-align: center;
-        }
-      }
-      .error-subheading-text {
-        font-family: "Axiforma Bold";
-        font-style: normal;
-        font-weight: 800;
-        font-size: 35px;
-        line-height: 58px;
-        color: #0098ff;
-        @include mediaQueries(mobile) {
-          font-size: 32px;
-          text-align: center;
-        }
-      }
-    }
-    .buttonWrapper {
-        margin-top: 40px;
-        .primaryButton {
-          background: #16cfb0;
-          border-radius: 10px;
-          font-style: normal;
-          font-weight: 600;
-          font-size: 20px;
-          line-height: 33px;
-          text-align: center;
-          color: #ffffff;
-          padding: 23px 38px;
-          min-height: 80px;
-        }
-      }
+  h1, p {
+    font-style: normal;
+    font-weight: 800;
+    color: #0098FF;
+    margin-bottom: 0;
+  }
+  h1 {
+    font-size: 165px;
+    line-height: 275px;
+  }
+  p {
+    font-size: 26px;
+    line-height: 43px;
+  }
+  .primaryButton {
+    width: 223.5px;
+    height: 60px;
+    background: #16CFB0;
+    border-radius: 7.5px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 24px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 135px;
   }
 }

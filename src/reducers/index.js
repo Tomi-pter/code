@@ -4,7 +4,7 @@ import auth from './auth';
 import account from './account';
 import products from './products';
 import cart from './cart';
-import paymentMethods from './paymentMethods';
+import cards from './cards';
 import payment from './payment';
 
-export const reducers = combineReducers({ auth, account, products, cart, paymentMethods, payment });
+export const reducers = combineReducers({ auth, account, products, cart, cards, payment });

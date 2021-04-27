@@ -5,12 +5,13 @@ import images from 'react-payment-inputs/images';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import { getPaymentMethods, addPaymentMethod } from '../../actions/paymentMethods';
+import { getCards, addCard } from '../../actions/cards';
 
 export const Cards = ({ selectedCard, setSelectedCard }) => {
     const [formData, setFormData] = useState({});
-    const cards = useSelector((state) => state.paymentMethods);
-    const [addCard, setAddCard] = useState(false);
+    const cards = useSelector((state) => state.cards);
+    const [stateAddCard, setStateAddCard] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
 
     const setCard = (cardType) => {
@@ -20,8 +21,9 @@ export const Cards = ({ selectedCard, setSelectedCard }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(addPaymentMethod(user?.username, formData));
+        dispatch(addCard(user?.username, formData));
     };
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,18 +39,19 @@ export const Cards = ({ selectedCard, setSelectedCard }) => {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(getPaymentMethods(user?.username));
+        dispatch(getCards(user?.username));
     }, [dispatch]);
 
     useEffect(() => {
-        setSelectedCard(cards[0]?.id);
+        setSelectedCard(cards?.cardsData[0]?.id);
+        setIsLoading(false);
     }, [cards]);
 
     return (
         <>
             <div className="card-list">
                 {
-                    cards.map((card, index) => (
+                    cards?.cardsData?.map((card, index) => (
                         <div 
                             key={`key-${card.id}`} 
                             className={"d-flex flex-row align-items-center justify-content-between card " + (selectedCard === card.id ? "active" : "")}
@@ -76,7 +79,7 @@ export const Cards = ({ selectedCard, setSelectedCard }) => {
                 }
             </div>
             <div className="add-card-container">
-                { addCard ? 
+                { stateAddCard ? 
                     <div className="card">
                         <PaymentInputsContainer>
                             {({ meta, getCardNumberProps, getCardImageProps, getExpiryDateProps, getCVCProps }) => (
@@ -90,15 +93,26 @@ export const Cards = ({ selectedCard, setSelectedCard }) => {
                                         </div>
                                         {meta.isTouched && meta.error && <span className="error">{meta.error}</span>}
                                     </div>
-                                    <button disabled={meta.isTouched && !meta.error ? false : true} onClick={handleSubmit}>Add Card</button>
-                                    <a href="#!" onClick={()=>setAddCard(false)}>Cancel</a>
+                                    <button disabled={meta.isTouched && !meta.error ? false : true} onClick={handleSubmit}>
+                                        {isLoading ?
+                                            <div className="spinner-border text-light" role="status">
+                                                <span className="sr-only">Loading...</span>
+                                            </div>
+                                            :
+                                            <>
+                                                Add Card
+                                            </>
+                                        }
+                                    </button>
+                                    <a href="#!" onClick={()=>setStateAddCard(false)}>Cancel</a>
                                 </div>
                             )}
                         </PaymentInputsContainer>
                     </div>
                     :
-                    <button className="add-btn" onClick={()=>setAddCard(true)}>+ Add new card</button>
+                    <button className="add-btn" onClick={()=>setStateAddCard(true)}>+ Add new card</button>
                 }
+                <p className="add-error">{cards.cardError && stateAddCard ? cards.cardError : ''}</p>
             </div>
         </>
     )

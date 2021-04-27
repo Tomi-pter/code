@@ -25,7 +25,7 @@ export const addCart = (email, product) => API.post(`/cart/${email}/add`, produc
 export const removeCart = (email, productId) => API.post(`/cart/${email}/remove`, {productId});
 export const discount = (discountCode) => API.get(`/coupons?code=${discountCode}`);
 
-export const getPaymentMethods = (username) => API.get(`/cards/${username}`);
-export const addPaymentMethod = (username, paymentMethod) => API.post(`/cards/${username}/add-payment-method`, paymentMethod);
+export const getCards = (username) => API.get(`/cards/${username}`);
+export const addCard = (username, paymentMethod) => API.post(`/cards/${username}/add-payment-method`, paymentMethod);
 
 export const payment = (username, formData) => API.post(`/${username}/payment`, formData);

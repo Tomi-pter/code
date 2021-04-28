@@ -6,6 +6,7 @@ export const RESEND = 'RESEND';
 
 // Account
 export const GETACCOUNT = 'GETACCOUNT';
+export const GETORDERS = 'GETORDERS';
 
 // Products
 export const GETPRODUCTS = 'GETPRODUCTS';

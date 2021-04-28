@@ -11,12 +11,13 @@ API.interceptors.request.use((req) => {
 });
 
 export const logIn = (formData) => API.post('/login', formData);
-export const logOut = (username) => API.post(`/user/${username}/logout`);
 export const signUp = (formData) => API.post('/signup', formData);
 export const verifyAccount = (formData) => API.post(`/user/${formData.email}/verify?code=${formData.code}`);
 export const resendCode = (email) => API.post(`/user/${email}/resend-verification`);
 
+export const logOut = (username) => API.post(`/user/${username}/logout`);
 export const getAccount = (username) => API.get(`/user/${username}`);
+export const getOrders = (username) => API.get(`/${username}/orders`);
 
 export const getProducts = (name, category, subCategory) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);

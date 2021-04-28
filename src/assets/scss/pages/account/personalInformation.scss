@@ -264,6 +264,8 @@
         font-weight: 800;
         font-size: 18px;
         line-height: 30px;
+        min-width: 40%;
+        text-align: right;
       }
       .status {
         height: 17.64px;
@@ -286,9 +288,15 @@
         font-size: 15px;
         line-height: 24px;
       }
+      .item {
+        margin-bottom: 20px;
+      }
       .item-info {
         flex: auto;
         padding: 0 25px;
+      }
+      .item-info-end {
+        min-width: 131px;
       }
     }
   }

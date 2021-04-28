@@ -34,6 +34,11 @@ export const HeaderNav = () => {
 
     const handleChange = (e) => setFormData({ [e.target.name]: e.target.value });
 
+    const sendWPData = () => {
+        var cartIFrame = document.getElementById('hidden-iframe');
+        cartIFrame.contentWindow.postMessage(user, 'http://premierpharma.wpengine.com/account');
+    }
+
     useEffect(() => {
         const token = user?.accessToken;
     
@@ -48,6 +53,7 @@ export const HeaderNav = () => {
 
     return (
         <nav className="navbar sticky-top d-flex align-items-center header main">
+            <iframe id="hidden-iframe" src="http://premierpharma.wpengine.com" height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe>
             <a href="http://premierpharma.wpengine.com/">
                 <img className="logo" src={Logo} width="152.25" height="46.49" alt="" />
             </a>

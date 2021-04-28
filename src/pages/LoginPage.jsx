@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../actions/auth';
 import { Header } from '../components/partials/Header';
 import { Footer } from '../components/partials/Footer';
 import Input from "../components/shared/input";
+import decode from 'jwt-decode';
 
 import { useSelector } from 'react-redux';
 
@@ -16,6 +17,7 @@ export const LoginContainer = () => {
     const [isDisabled, setIsDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory();
+    const location = useLocation();
     const dispatch = useDispatch();
     
     const handleSubmit = async e => {
@@ -34,6 +36,18 @@ export const LoginContainer = () => {
     useEffect(()=>{
         setIsLoading(false);
     },[auth]);
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('profile'));
+        const token = user?.accessToken;
+    
+        if (token) {
+          const decodedToken = decode(token);
+
+          if (decodedToken.exp * 1000 > new Date().getTime()) history.push("/account");
+        }
+
+    }, [location]);
    
     return (
         <>

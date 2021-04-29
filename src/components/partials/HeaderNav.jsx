@@ -23,7 +23,7 @@ export const HeaderNav = () => {
     const [formData, setFormData] = useState({});
 
     const totalItems = () => { 
-        const total = cart.cartData.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
+        const total = cart?.cartData?.length > 0 ? cart?.cartData?.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
         return total;
     }
 

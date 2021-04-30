@@ -2,8 +2,8 @@ import React, { useState, useEffect} from 'react';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { Cards } from '../components/account/cards';
-import GooglePay from '../assets/img/Payment/Google_Pay.svg';
-import ApplePay from '../assets/img/Payment/Apple_Pay.svg';
+// import GooglePay from '../assets/img/Payment/Google_Pay.svg';
+// import ApplePay from '../assets/img/Payment/Apple_Pay.svg';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -47,16 +47,16 @@ export const PaymentContainer = () => {
         <>
             <HeaderNav />
             <div className="container-fluid d-flex align-items-start payment-page">
-                <div className="methods-container">
+                <div className="cards-container">
                     <h1 className="title">Payment</h1>
-                    <div className="methods">
-                        <h1 className="title">Payment Methods</h1>
-                        <ul className="nav nav-tabs">
+                    <div className="cards">
+                        {/* <h1 className="title">Payment Methods</h1> */}
+                        {/* <ul className="nav nav-tabs">
                             <li><a data-toggle="tab" href="#card" className="active">Credit Card</a></li>
                             <li><a data-toggle="tab" href="#google"><img className="payment-icon" src={GooglePay} alt="" /></a></li>
                             <li><a data-toggle="tab" href="#apple"><img className="payment-icon" src={ApplePay} alt="" /></a></li>
-                        </ul>
-                        <div className="tab-content">
+                        </ul> */}
+                        {/* <div className="tab-content">
                             <div id="card" className="tab-pane fade in active show">
                                 <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
                             </div>
@@ -66,7 +66,8 @@ export const PaymentContainer = () => {
                             <div id="apple" className="tab-pane fade">
                                 <h3>APPLE PAY</h3>
                             </div>
-                        </div>
+                        </div> */}
+                        <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
                         <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>
                             {isLoading ?
                                 <div className="spinner-border text-light" role="status">

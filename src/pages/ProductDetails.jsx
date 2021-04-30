@@ -13,25 +13,24 @@ export default props => {
     const products = useSelector((state) => state.products);
     const [isLoading, setIsLoading] = useState(false);
     const [quantity, setQuantity] = useState(1);
-    const id = props.match.params.id;
     const product = products[0];
     const dispatch = useDispatch();
 
     const handleAddCart = () => {
-        // const user = JSON.parse(localStorage.getItem('profile'));
         const newProduct = {
-            "product": {
-                "productId": parseInt(product.id),
-                "productName": product.name,
-                "price": parseFloat(product.purchasePrice),
+            product: {
+                productId: parseInt(product.id),
+                productName: product.name,
+                price: parseFloat(product.purchasePrice),
                 quantity
             }
         }
         setIsLoading(true);
-        dispatch(addCart(user?.email, newProduct));
+        dispatch(addCart(user?.username, newProduct));
     }
 
     useEffect(() => {
+        const id = props.match.params.id;
         dispatch(getProduct(id));
     }, [dispatch]);
 

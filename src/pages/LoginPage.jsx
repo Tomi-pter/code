@@ -30,7 +30,7 @@ export const LoginContainer = () => {
 
     useEffect(()=>{
         const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
-        emailCheck && formData.password != '' ? setIsDisabled(null) : setIsDisabled(true);
+        emailCheck && formData.password !== '' ? setIsDisabled(null) : setIsDisabled(true);
     },[formData]);
 
     useEffect(()=>{

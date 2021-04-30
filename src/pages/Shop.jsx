@@ -12,15 +12,10 @@ export default (props) => {
   const products = useSelector((state) => state.products)
   const [view, setView] = useState('grid')
   const [isLoading, setIsLoading] = useState(true)
-  const [category, setCategory] = useState('')
+  const [category, setCategory] = useState('Pharmacy')
   const [subCategory, setSubCategory] = useState('')
   const location = useLocation()
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    setIsLoading(true)
-    dispatch(getProducts(null, category, subCategory))
-  }, [dispatch, category, subCategory])
 
   useEffect(() => {
     setIsLoading(false)
@@ -41,6 +36,12 @@ export default (props) => {
       pharmaBtn.click()
     }
   }, [location])
+
+  useEffect(() => {
+    setIsLoading(true)
+    dispatch(getProducts(null, category, subCategory))
+  }, [dispatch, category, subCategory])
+
 
   return (
     <>

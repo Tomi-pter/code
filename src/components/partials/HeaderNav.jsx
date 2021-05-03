@@ -21,11 +21,7 @@ export const HeaderNav = () => {
     const location = useLocation();
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({});
-
-    const totalItems = () => { 
-        const total = cart?.cartData?.length > 0 ? cart?.cartData?.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
-        return total;
-    }
+    const itemCount = cart.cartData.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -79,7 +75,7 @@ export const HeaderNav = () => {
                     <>
                         <Link to="/cart" className="cart-btn">
                             <img src={Cart} alt="" width="27.5" height="27.5" />
-                            <div className="count">{ totalItems() }</div>
+                            <div className="count">{ itemCount }</div>
                         </Link>
                         <Link to="/account" className="account-btn">
                             <img src={Account} alt="" />

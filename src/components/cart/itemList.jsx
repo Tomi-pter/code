@@ -1,11 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { removeCart } from '../../actions/cart';
+import { updateCart, removeCart } from '../../actions/cart';
 
-export const ItemList = ({ cart }) => {
+export const ItemList = ({ cart, page }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
+
+    const handleQtyUpdate = (item, action) => {
+        if (!selectedItem || item.productId !== selectedItem.productId) {
+            setSelectedItem(item);
+            action === 'add' ? setQuantity(item.quantity + 1) : item.quantity === 1 ? setQuantity(1) : setQuantity(item.quantity - 1)
+        } else {
+            action === 'add' ? setQuantity(quantity + 1) : quantity === 1 ? setQuantity(1) : setQuantity(quantity - 1)
+        }
+    }
+
+    const handleQtyInput = (e, item) => {
+        const value = parseInt(e.target.value)
+        if (!selectedItem || item.productId !== selectedItem.productId) {
+            setSelectedItem(item);
+        }
+        value < 1 ? setQuantity(1) :  setQuantity(value)
+    }
+
+    const handleUpdate = () => {
+        setIsLoading(true);
+        const product = {
+            productId: selectedItem.productId,
+            quantity
+        }
+        dispatch(updateCart(user?.username, product));
+    }
+
+    const handleDelete = (item) => {
+        setSelectedItem(item);
+        setIsLoading(true);
+        dispatch(removeCart(user?.username, parseInt(item.productId)));
+    }
+
+    useEffect(()=>{
+        setIsLoading(false);
+        setSelectedItem(null);
+        setQuantity(1);
+    },[cart]);
 
     return (
         <div>
@@ -15,15 +56,25 @@ export const ItemList = ({ cart }) => {
             {
                 cart.cartData.map(cartItem => (
                     <div key={`key`+ cartItem.productId} className="product d-flex align-items-start">
+                        {isLoading && selectedItem === cartItem &&
+                            <div className="loader-container">
+                                <div className="spinner-border text-light" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        }
                         <div className="img-container">
                             <img className="product-image" src={require("../../assets/img/product-sample2.png")} alt="" />
                         </div>
                         <div className="info-container">
-                            <div className="d-flex justify-content-end action-container">
-                                <a className="delete-btn" href="#!" onClick={()=>dispatch(removeCart(user?.username, parseInt(cartItem.productId)))}>
-                                    <img src={require("../../assets/img/delete_icon.svg")} alt="" />
-                                </a>
-                            </div>
+                            {
+                                page === 'cart' && 
+                                <div className="d-flex justify-content-end action-container">
+                                    <a className="delete-btn" href="#!" onClick={()=>handleDelete(cartItem)}>
+                                        <img src={require("../../assets/img/delete_icon.svg")} alt="" />
+                                    </a>
+                                </div>
+                            }
                             <div className="details-container">
                                 <p className="product-name">
                                     {cartItem.productName}
@@ -34,7 +85,19 @@ export const ItemList = ({ cart }) => {
                                 <p className="price">
                                     {cartItem.price}
                                 </p>
-                                <p className="quantity">x{cartItem.quantity}</p>
+                                {
+                                    page === 'cart' ? 
+                                    <div className="d-flex align-items-center justify-container-center">
+                                        <div className="d-flex align-items-center justify-container-center qty-container">
+                                            <button className="minus-btn" onClick={()=>handleQtyUpdate(cartItem, 'minus')}>-</button>
+                                            <input type="number" value={selectedItem?.productId === cartItem.productId ? quantity : cartItem.quantity} onChange={(e)=>handleQtyInput(e, cartItem)} />
+                                            <button className="plus-btn" onClick={()=>handleQtyUpdate(cartItem, 'add')}>+</button>
+                                        </div>
+                                        {selectedItem?.productId === cartItem.productId && <button className="update-btn" onClick={handleUpdate}>Update</button>}
+                                    </div>
+                                    :
+                                    <p className="quantity">x{cartItem.quantity}</p>
+                                }
                             </div>
                         </div>
                     </div>

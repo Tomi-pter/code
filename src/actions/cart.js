@@ -25,6 +25,18 @@ export const addCart = (username, product) => async (dispatch) => {
     }
 };
 
+export const updateCart = (username, product) => async (dispatch) => {
+  try {
+      
+    const { data } = await api.updateCart(username, product);
+
+    dispatch({ type: UPDATECART, payload: data.items });
+
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const removeCart = (username, productId) => async (dispatch) => {
     try {
         

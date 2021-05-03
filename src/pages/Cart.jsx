@@ -23,7 +23,7 @@ export const CartContainer = () => {
                 <div className="container-fluid d-flex align-items-start cart-page">
                     <div className="cart-items">
                         <h1 className="title">My Cart</h1>
-                        <ItemList cart={cart} />
+                        <ItemList cart={cart} page={'cart'} />
                     </div>
                     <OrderSummary cart={cart} page={'cart'} />
                 </div>

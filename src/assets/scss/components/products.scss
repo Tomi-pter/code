@@ -653,6 +653,9 @@
     width: 239px;
     max-width: 100%;
     margin: 0 auto 30px auto;
+    .name-container {
+      cursor: pointer !important;
+    }
     .name {
       font-style: normal;
       font-weight: bold;
@@ -660,7 +663,6 @@
       line-height: 26px;
       color: #000000;
       margin-bottom: 5px;
-      cursor: pointer;
     }
     .price {
       font-style: normal;

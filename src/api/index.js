@@ -24,6 +24,7 @@ export const getProduct = (id) => API.get(`/products/${id}`);
 
 export const getCart = (username) => API.get(`/cart/${username}`);
 export const addCart = (username, product) => API.post(`/cart/${username}/add`, product);
+export const updateCart = (username, product) => API.put(`/cart/${username}/update`, product);
 export const removeCart = (username, productId) => API.post(`/cart/${username}/remove`, {productId});
 export const discount = (discountCode) => API.get(`/coupons?code=${discountCode}`);
 

@@ -16,6 +16,11 @@ export default props => {
     const product = products[0];
     const dispatch = useDispatch();
 
+    const incart = () => {
+        const incartCheck = cart?.cartData?.filter(item => item.productId === parseInt(product.id));
+        return incartCheck[0] ? incartCheck[0].quantity : 0;
+    }
+
     const handleAddCart = () => {
         const newProduct = {
             product: {
@@ -88,18 +93,22 @@ export default props => {
                                         <h2 className="price">${product?.purchasePrice}</h2>
                                         <div className="d-flex align-items-center justify-container-center qty-container">
                                             <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
-                                            <span>{quantity}</span>
+                                            {/* <span>{quantity}</span> */}
+                                            <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
                                             <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                                         </div>
-                                        <button className="cart-btn" onClick={()=>handleAddCart()}>
-                                            {isLoading ?
-                                                <div className="spinner-border text-light" role="status">
-                                                    <span className="sr-only">Loading...</span>
-                                                </div>
-                                                :
-                                                <>Add to cart</>
-                                            }
-                                        </button>
+                                        <div className="d-flex align-items-center">
+                                            <button className="cart-btn" onClick={()=>handleAddCart()}>
+                                                {isLoading ?
+                                                    <div className="spinner-border text-light" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                    :
+                                                    <>Add to cart</>
+                                                }
+                                            </button>
+                                            {incart() > 0 && !isLoading && <span className="ml-5">{incart()} in cart</span>}
+                                        </div>
                                     </>
                                     :
                                     <div className="logout-state"><Link to="/login">Login</Link>  for price</div>

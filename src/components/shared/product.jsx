@@ -1,8 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import ProductImage from '../../assets/img/product-sample.png'
-import HeartImg from '../../assets/img/heart.svg'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 export const Product = ({
@@ -15,9 +13,15 @@ export const Product = ({
   quantity,
   setQuantity,
   shopFont,
+  cart
 }) => {
-  const history = useHistory()
   const auth = localStorage.getItem('profile')
+  const history = useHistory()
+
+  const incart = () => {
+    const incartCheck = cart?.cartData?.filter(item => item.productId === parseInt(product.id));
+    return incartCheck[0] ? incartCheck[0].quantity : 0;
+  }
 
   const viewProduct = (id) => {
     history.push(`/product/${id}`)
@@ -25,7 +29,7 @@ export const Product = ({
 
   const handleChange = (e) => {
     setSelectedProduct(product)
-    setQuantity(e.target.value)
+    setQuantity(parseInt(e.target.value))
   }
 
   return (
@@ -62,7 +66,7 @@ export const Product = ({
             </div>
           </div>
           <div className="details-container">
-            <img className="for-list pr-4" src={HeartImg} />
+            {/* <img className="for-list pr-4" src={HeartImg} /> */}
 
             <div className="no-container for-list">
               <p className="item-no">{product.num}</p>
@@ -160,7 +164,7 @@ export const Product = ({
                 )}
               </button>
             </div>
-            <p className="incart for-list">1</p>
+            <p className="incart for-list">{incart()}</p>
           </div>
           {/* <div className={(view === "list " ? "d-block" : "d-none")}>
                         <div className="price-wrapper">

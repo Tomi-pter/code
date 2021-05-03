@@ -142,6 +142,7 @@ export const Products = ({ page, products, view, setView, name, shopFont }) => {
               isLoading={isLoading}
               quantity={quantity}
               setQuantity={setQuantity}
+              cart={cart}
             />
           ))}
         </div>

@@ -12,14 +12,10 @@ export default (props) => {
   const products = useSelector((state) => state.products)
   const [view, setView] = useState('grid')
   const [isLoading, setIsLoading] = useState(true)
-  const [category, setCategory] = useState('Pharmacy')
+  const [category, setCategory] = useState('')
   const [subCategory, setSubCategory] = useState('')
   const location = useLocation()
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    setIsLoading(false)
-  }, [products])
 
   useEffect(() => {
     const pharmaBtn = document.getElementById("pharmacy-accordion-btn")
@@ -31,16 +27,20 @@ export default (props) => {
       if (cat === "Pharmacy" && pharmaBtn.className.split(' ').length === 2) pharmaBtn.click()
       if (cat === "Animal Care" && animalBtn.className.split(' ').length === 2) animalBtn.click()
       if (cat === "Medical" && medicalBtn.className.split(' ').length === 2) medicalBtn.click()
-      window.history.replaceState({}, document.title, '/' + 'shop')
     } else {
       pharmaBtn.click()
     }
+    window.history.replaceState({}, document.title, '/' + 'shop')
   }, [location])
 
   useEffect(() => {
     setIsLoading(true)
-    dispatch(getProducts(null, category, subCategory))
+    if (category) dispatch(getProducts(null, category, subCategory))
   }, [dispatch, category, subCategory])
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [products])
 
 
   return (

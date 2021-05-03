@@ -13,7 +13,7 @@ export const DiscountForm = ({  discountCode, setDiscountCode, setDiscountDetail
 
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(getCart(user?.email));
+        dispatch(getCart(user?.username));
     },[dispatch]);
 
     useEffect(()=>{

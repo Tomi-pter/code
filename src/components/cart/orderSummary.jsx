@@ -12,7 +12,7 @@ export const OrderSummary = ({ cart, page }) => {
     const history = useHistory();
     const itemCount = cart.cartData.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
     const subTotal = cart.cartData.length > 0 ? (cart.cartData.map(item => parseFloat(item.price) * item.quantity).reduce((prev, next) => prev + next)).toFixed(2) : 0;
-    const shipping = subTotal >= 100 ? 0 : 20;
+    const shipping = subTotal >= 100 ? 0 : (Math.round((subTotal * 100) * (15 / 100)) / 100);
     const shippingCounter = subTotal >= 100 ? 0 : (100 - subTotal);
     const discount = discountDetail?.percent_off / 100;
     const total = cart.cartData.length > 0 ? (parseFloat(subTotal) + shipping) : 0;

@@ -5,11 +5,13 @@ import Basic from "./basic";
 import Address from "./address";
 // import Document from "./document";
 import Account from "./account";
+import Verification from "./verification";
 
 const steps = [
   { id: "basic" },
   { id: "address" },
-  { id: "account" }
+  { id: "account" },
+  { id: "verification" }
 ];
 
 const defaultData = {
@@ -17,12 +19,14 @@ const defaultData = {
   familyName: "",
   email: "",
   password: "",
+  confirm_password: "",
   phoneNumber: "",
   address: "",
   company: "",
   city: "",
   state: "",
-  postalCode: ""
+  postalCode: "",
+  code: ""
 };
 
 const MultiStepForm = ({ images }) => {
@@ -39,6 +43,8 @@ const MultiStepForm = ({ images }) => {
       return <Address {...props} />;
     case "account":
       return <Account {...props} />;
+    case "verification":
+      return <Verification {...props} />;
     default:
       return null;
   }

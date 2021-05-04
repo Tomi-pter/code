@@ -1,4 +1,4 @@
-import { UPDATECARDS, ERRORCARD, DEFAULTCARD } from '../constants/actionTypes';
+import { UPDATECARDS, ADDCARD, ERRORCARD, DEFAULTCARD } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -42,8 +42,8 @@ export const addCard = (username, paymentMethod) => async (dispatch) => {
     try {
         
       const { data } = await api.addCard(username, paymentMethod);
-      console.log(data);
-      dispatch({ type: UPDATECARDS, payload: data });
+
+      dispatch({ type: ADDCARD, payload: data });
     } catch (error) {
       console.log(error.message);
 

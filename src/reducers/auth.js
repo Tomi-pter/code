@@ -10,10 +10,6 @@ const authReducer = (state = { authData: null }, action) => {
 
       return { ...state, authData: action.data };
     case actionType.VERIFY:
-      
-      if (action?.data.success) {
-        return { ...state, authData: null, verifyData: null };
-      }
 
       return { ...state, verifyData: action.data };
     case actionType.RESEND:

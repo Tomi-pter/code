@@ -13,7 +13,7 @@ export const logIn = (formData, router) => async (dispatch) => {
 
     dispatch({ type: AUTH, data });
 
-    if (data?.accountStatus === "UNCONFIRMED") router.push('/account-verification');
+    // if (data?.accountStatus === "UNCONFIRMED") router.push('/account-verification');
   }
 };
 
@@ -35,7 +35,7 @@ export const signUp = (formData, router) => async (dispatch) => {
 
     dispatch({ type: AUTH, data });
 
-    router.push('/account-verification');
+    // router.push('/account-verification');
   } catch (error) {
     const data = error.response.data;
 
@@ -47,10 +47,21 @@ export const verifyAccount = (formData, router) => async (dispatch) => {
   try {
 
     const { data } = await api.verifyAccount(formData);
+    if (data.success) dispatch(logIn(formData, router));
+    // if (data.data.success) logIn(formData, router);
 
-    dispatch({ type: VERIFY, data });
+    // if (data.data.success) {
+    //   const { data } = await api.logIn(formData);
 
-    router.push('/login');
+    //   dispatch({ type: AUTH, data });
+
+    //   router.push('/account');
+    // }
+
+    // console.log(data);
+    // dispatch({ type: VERIFY, data });
+
+    // router.push('/account');
   } catch (error) {
     const data = error.response.data;
 

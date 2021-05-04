@@ -5,8 +5,8 @@ import * as api from '../api/index.js';
 export const getCart = (username) => async (dispatch) => {
   try {
     const { data } = await api.getCart(username);
-
-    dispatch({ type: UPDATECART, payload: data.items });
+    
+    dispatch({ type: UPDATECART, payload: data.items || [] });
 
   } catch (error) {
     console.log(error.message);

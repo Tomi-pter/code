@@ -21,7 +21,7 @@ export const HeaderNav = () => {
     const location = useLocation();
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({});
-    const itemCount = cart.cartData.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
+    const itemCount = cart.cartData?.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
 
     const handleSubmit = (e) => {
         e.preventDefault()

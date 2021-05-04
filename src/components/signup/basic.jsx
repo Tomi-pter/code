@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
+import {formatPhoneNumberIntl, isPossiblePhoneNumber} from 'react-phone-number-input'
+import InputContact from 'react-phone-number-input/input'
 
 import Input from "../shared/input";
 import NextIcon from "../../assets/icon/next-white.svg";
@@ -8,8 +10,18 @@ const Basic = ({ setForm, formData, navigation }) => {
   const { next } = navigation;
   const [isDisabled, setDisabled] = useState(true);
 
+  const contactChange = (value) => {
+    setForm({
+      target: {
+        name: 'phoneNumber',
+        value: value
+      }
+    })
+  }
+
   const validation = useCallback(() => {
-    const phoneCheck = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(phoneNumber);
+    // const phoneCheck = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(phoneNumber);
+    const phoneCheck = formatPhoneNumberIntl(phoneNumber) && isPossiblePhoneNumber(phoneNumber) ? true : false;
     givenName && familyName && company && phoneNumber && phoneCheck ? setDisabled(false) : setDisabled(true);
   }, [givenName, familyName, phoneNumber, company])
 
@@ -35,13 +47,16 @@ const Basic = ({ setForm, formData, navigation }) => {
           value={familyName}
           onChange={setForm}
         />
-        <Input
-          label="Phone number"
-          name="phoneNumber"
-          type="text"
-          value={phoneNumber}
-          onChange={setForm}
-        />
+        <div className="form-group">
+          <InputContact
+            country="US"
+            international
+            withCountryCallingCode
+            value={phoneNumber}
+            onChange={contactChange}
+            className="form-control"
+          />
+        </div>
         <Input 
           label="Company" 
           name="company" 

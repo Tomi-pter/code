@@ -12,7 +12,7 @@ import Shop from "./pages/Shop";
 import TestShop from "./pages/TestShop";
 import Product from "./pages/ProductDetails";
 import { CartContainer } from "./pages/Cart";
-import AccountVerification from "./pages/AccountVerification";
+// import AccountVerification from "./pages/AccountVerification";
 
 import { ProtectedRoutes } from './components/protectedRoutes';
 
@@ -25,7 +25,7 @@ export default ({ childProps }) => (
       }}/>
       <Route path="/login" component={LoginContainer} />
       <Route path="/register" component={SignUpContainer} />
-      <Route path="/account-verification" component={AccountVerification} />
+      {/* <Route path="/account-verification" component={AccountVerification} /> */}
       <Route path="/search" component={Search} />
       <Route path="/shop" component={Shop} />
       <Route path="/test-shop" component={TestShop} />

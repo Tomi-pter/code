@@ -1,7 +1,7 @@
 import React from "react";
 
 const Input = ({ label, children, type, ...otherProps }) => (
-  <div>
+  <>
     {type === "checkbox" || type === "radio" ? (
       <>
         <div className="form-group">
@@ -19,7 +19,7 @@ const Input = ({ label, children, type, ...otherProps }) => (
         </div>
       </>
     )}
-  </div>
+  </>
 );
 
 export default Input;

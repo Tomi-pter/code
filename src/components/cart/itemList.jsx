@@ -50,11 +50,11 @@ export const ItemList = ({ cart, page }) => {
 
     return (
         <div>
-            { cart.cartData.length === 0 && 
+            { !cart.cartData || cart.cartData?.length <= 0 &&
                 <div className="d-flex align-items-center justify-content-center cart-empty">Your Cart is Empty</div> 
             }
             {
-                cart.cartData.map(cartItem => (
+                cart.cartData?.map(cartItem => (
                     <div key={`key`+ cartItem.productId} className="product d-flex align-items-start">
                         {isLoading && selectedItem === cartItem &&
                             <div className="loader-container">

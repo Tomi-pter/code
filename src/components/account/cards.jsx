@@ -44,8 +44,8 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(getCards(user?.username));
         dispatch(getDefaultCard(user?.username));
+        dispatch(getCards(user?.username));
     }, [dispatch]);
 
     useEffect(() => {
@@ -57,9 +57,9 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
         <>
             <div className="card-list">
                 {
-                    cards?.cardsData?.map((card, index) => (
+                    cards.cardsData?.map((card, index) => (
                         <div 
-                            key={`key-${card.id}`} 
+                            key={`key-${index}`} 
                             className={"d-flex flex-row align-items-center justify-content-between card " + (selectedCard === card.id ? "active" : "")}
                             onClick={()=>page === 'payment' ? setSelectedCard(card.id) : handleSetDefault(card.id)}
                         >

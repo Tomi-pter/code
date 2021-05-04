@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'antd';
 import { HeaderNav } from '../../components/partials/HeaderNav';
 import { Footer } from '../../components/partials/Footer';
@@ -19,20 +19,20 @@ import { getAccount, getOrders } from '../../actions/account';
 
 export const PersonalInformationContainer = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
+    const [disable, setDisable] = useState(true);
     const [selectedCard, setSelectedCard] = useState('');
+    const [accountData, setAccountData] = useState('');
     const dispatch = useDispatch();
     const account = useSelector((state) => state.account);
     const history = useHistory();
-
     const handleLogout = () => {
         dispatch(logOut(user?.username, history));
     };
-
-    useEffect(()=>{
+    useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAccount(user?.username));
         dispatch(getOrders(user?.username));
-    },[dispatch]);
+    }, [dispatch]);
 
     return (
         <>
@@ -55,10 +55,11 @@ export const PersonalInformationContainer = () => {
                                 <div id="personal-info" className="tab-pane fade in active show">
                                     <h1 className="title">Personal Information</h1>
                                     <div className="card">
-                                        <PersonalInfo account={account} />
+                                        <PersonalInfo disable={disable} setDisable={setDisable} account={account} accountData={accountData} setAccountData={setAccountData} />
                                         <h2 className="sub-title">Payment Information</h2>
                                         <label>Cards</label>
-                                        <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='account' />
+                                        <Cards disable={disable} selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='account' />
+                                        
                                     </div>
                                 </div>
                                 <div id="order-history" className="tab-pane fade">
@@ -69,6 +70,7 @@ export const PersonalInformationContainer = () => {
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

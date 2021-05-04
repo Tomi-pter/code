@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 import { getCards, addCard, getDefaultCard, setDefaultCard } from '../../actions/cards';
 
-export const Cards = ({ selectedCard, setSelectedCard, page }) => {
+export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
     const [formData, setFormData] = useState({});
     const cards = useSelector((state) => state.cards);
     const [stateAddCard, setStateAddCard] = useState(false);
@@ -116,7 +116,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                         </PaymentInputsContainer>
                     </div>
                     :
-                    <button className="add-btn" onClick={()=>setStateAddCard(true)}>+ Add new card</button>
+                    <button className="add-btn" onClick={()=>setStateAddCard(true)} disabled={disable}>+ Add new card</button>
                 }
                 <p className="add-error">{cards.cardError && stateAddCard ? cards.cardError : ''}</p>
             </div>

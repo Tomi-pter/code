@@ -19,6 +19,9 @@ export const logOut = (username) => API.post(`/user/${username}/logout`);
 export const getAccount = (username) => API.get(`/user/${username}`);
 export const getOrders = (username) => API.get(`/${username}/orders`);
 
+// EDIT ACCOUNT
+export const putAccount = (username, accountData) => API.put(`/user/${username}`, accountData);
+
 export const getProducts = (name, category, subCategory) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);
 
@@ -33,4 +36,8 @@ export const addCard = (username, paymentMethod) => API.post(`/cards/${username}
 export const getDefaultCard = (username) => API.get(`/customer/${username}`);
 export const setDefaultCard = (username, body) => API.put(`/cards/${username}/default-payment-method`, body);
 
-export const payment = (username, formData) => API.post(`/${username}/payment`, formData);
+export const payment = (username, formData) => API.post(`/user/${username}/payment`, formData);
+
+// UPLOAD AVATAR 
+export const getAvatar = (username) => API.get(`/${username}/photo`);
+export const postAvatar = (username, image) => API.post(`/user/${username}/photo`, image);

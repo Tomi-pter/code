@@ -1,8 +1,52 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAvatar, postAvatar, putAccount } from '../../actions/account';
 
-export const PersonalInfo = ({ account }) => {
+export const PersonalInfo = ({ account, disable, setDisable }) => {
+    const user = JSON.parse(localStorage.getItem('profile'));
+
+    const [image, setImage] = useState("");
+    const [initialData, setInitialData] = useState("");
+    const [formData, updateFormData] = useState('');
+    const handleChange = (e) => {
+        e.preventDefault()
+        updateFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        dispatch(putAccount(user?.username, formData))
+    };
+    const inputFile = useRef(null);
+    const dispatch = useDispatch();
+    
+    const avatar = useSelector((state) => state.avatar);
+    const handleFileUpload = e => {
+        const { files } = e.target;
+        const saveAvatar = new FormData();
+        if (files && files.length) {
+            const filename = files[0].name;
+            var parts = filename.split(".");
+            const fileType = parts[parts.length - 1];
+            for (const file of files) {
+                saveAvatar.append('file[]', file, file.name);
+            }
+            setImage(saveAvatar);
+            console.log(saveAvatar);
+            dispatch(postAvatar(user?.username, saveAvatar));
+        }
+    };
+    const toggleEdit = () => {
+        setDisable(!disable);
+        console.log(disable);
+    }
+    const onButtonClick = () => {
+        inputFile.current.click();
+    };
 
     return (
         <>
@@ -11,34 +55,46 @@ export const PersonalInfo = ({ account }) => {
                     <img className="profilePic mr-4" src={ProfilePic} alt="" />
                     <div>
                         <p className="mb-0 name"> {account.accountData?.given_name + ' ' + account.accountData?.family_name} </p>
-                        <a href="#!" className="change-btn">Change Profile Photo</a>
+                        <input
+                            style={{ display: "none" }}
+                            // accept=".zip,.rar"
+                            ref={inputFile}
+                            onChange={handleFileUpload}
+                            type="file"
+                            accept="image/*"
+                        />
+                        <div className="change-btn" onClick={onButtonClick}>
+                            Change Profile Photo
+                        </div>
                     </div>
                 </div>
-                <a href="#!" className="edit-btn">
-                    <img src={EditIcon} alt="" />
-                </a>
+                <div className="edit-wrapper" onClick={toggleEdit}>
+                    <img className="edit-icon" src={EditIcon} alt="" />
+                </div>
             </div>
             <h2 className="sub-title">Account Information</h2>
             <div className="row">
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
-                        <label htmlFor="first_name">First Name</label>
+                        <label htmlFor="given_name">First Name</label>
                         <input
-                            name="first_name"
+                            defaultValue={account.accountData?.given_name || ''}
+                            name="given_name"
                             type="text"
-                            value={account.accountData?.given_name || ''}
-                            disabled
+                            disabled={disable}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
-                        <label htmlFor="last_name">Last Name</label>
+                        <label htmlFor="family_name">Last Name</label>
                         <input
-                            name="last_name"
+                            name="family_name"
                             type="text"
-                            value={account.accountData?.family_name || ''}
-                            disabled
+                            defaultValue={account.accountData?.family_name || ''}
+                            disabled={disable}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -48,19 +104,21 @@ export const PersonalInfo = ({ account }) => {
                         <input
                             name="email"
                             type="email"
-                            value={account.accountData?.email || ''}
-                            disabled
+                            defaultValue={account.accountData?.email || ''}
+                            disabled={disable}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
-                        <label htmlFor="email">Mobile Number</label>
+                        <label htmlFor="phone_number">Mobile Number</label>
                         <input
                             name="phone_number"
                             type="text"
-                            value={account.accountData?.phone_number || ''}
-                            disabled
+                            defaultValue={account.accountData?.phone_number || ''}
+                            disabled={disable}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -70,8 +128,9 @@ export const PersonalInfo = ({ account }) => {
                         <input
                             name="company"
                             type="text"
-                            value={account.accountData?.['custom:company'] || ''}
-                            disabled
+                            defaultValue={account.accountData?.['custom:company'] || ''}
+                            disabled={disable}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -84,8 +143,9 @@ export const PersonalInfo = ({ account }) => {
                         <input
                             name="address"
                             type="text"
-                            value={account.accountData?.address || ''}
-                            disabled
+                            defaultValue={account.accountData?.address || ''}
+                            disabled={disable}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -95,8 +155,9 @@ export const PersonalInfo = ({ account }) => {
                         <input
                             name="city"
                             type="text"
-                            value={account.accountData?.['custom:city'] || ''}
-                            disabled
+                            defaultValue={account.accountData?.['custom:city'] || ''}
+                            disabled={disable}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
@@ -106,22 +167,27 @@ export const PersonalInfo = ({ account }) => {
                         <input
                             name="state"
                             type="text"
-                            value={account.accountData?.['custom:state'] || ''}
-                            disabled
+                            defaultValue={account.accountData?.['custom:state'] || ''}
+                            disabled={disable}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
-                        <label htmlFor="postal">Postal Code</label>
+                        <label htmlFor="postal_code">Postal Code</label>
                         <input
-                            name="postal"
+                            name="postal_code"
                             type="text"
-                            value={account.accountData?.['custom:postal_code'] || ''}
-                            disabled
+                            defaultValue={account.accountData?.['custom:postal_code'] || ''}
+                            disabled={disable}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
+            </div>
+            <div className="row">
+                <button onClick={handleSubmit}>Save</button>
             </div>
         </>
     )

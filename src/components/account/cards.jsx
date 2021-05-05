@@ -87,7 +87,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                         <div className="d-flex">
                                             <svg {...getCardImageProps({ images })} />
                                             <div>
-                                                <p className="name">{card.billing_details.name}</p>
+                                                <p className="name">{card.billing_details.name || 'John Doe'}</p>
                                                 <input {...getCardNumberProps()} value={`${setCard(card.card.brand)}`} id={`card-${index}`} readOnly />
                                                 <span className="card-number">*****************{card.card.last4}</span>
                                             </div>

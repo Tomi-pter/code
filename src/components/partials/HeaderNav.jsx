@@ -1,14 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
-// import { SearchOutlined, Burger } from '@ant-design/icons';
 import { ShippingCounter } from '../../components/shared/shippingCounter';
 import Logo from '../../assets/img/logo.svg';
 import Cart from '../../assets/icon/cart-green.svg';
 import Account from '../../assets/icon/account.svg';
 import BurgerMenu from '../../assets/icon/burger-menu.svg';
-// import BurgerIcon from '../../assets/img/Mobile/burger-icon.svg';
-// import CartMobile from '../../assets/img/Mobile/cart-mobile.svg';
-// import PPLogo from '../../assets/img/pp-logo.svg'
 import decode from 'jwt-decode';
 
 import { useSelector } from 'react-redux';
@@ -50,7 +46,7 @@ export const HeaderNav = () => {
 
     return (
         <nav className="sticky-top">
-            <ShippingCounter cart={cart} />
+            <ShippingCounter cart={cart} path={location.pathname} />
             <div className="navbar d-flex align-items-center header main">
                 <iframe id="hidden-iframe" src="http://premierpharma.wpengine.com" height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe>
                 <a href="http://premierpharma.wpengine.com/">

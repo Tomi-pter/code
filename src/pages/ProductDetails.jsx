@@ -91,10 +91,12 @@ export default props => {
                                 <h3 className="name">{product?.name || product?.description}</h3>
                                 { user ? 
                                     <>
-                                        <h2 className="price">${product?.purchasePrice}</h2>
+                                        <div className="d-flex align-items-center justify-container-center">
+                                            <h2 className="price">${product?.purchasePrice}</h2> 
+                                            {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
+                                        </div>
                                         <div className="d-flex align-items-center justify-container-center qty-container">
                                             <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
-                                            {/* <span>{quantity}</span> */}
                                             <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
                                             <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                                         </div>
@@ -108,7 +110,6 @@ export default props => {
                                                     <>Add to cart</>
                                                 }
                                             </button>
-                                            {incart() > 0 && !isLoading && <span className="ml-5">{incart()} in cart</span>}
                                         </div>
                                     </>
                                     :

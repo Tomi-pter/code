@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { discount, getCart } from '../../actions/cart';
 
-export const DiscountForm = ({  discountCode, setDiscountCode, setDiscountDetail }) => {
+export const DiscountForm = ({  discountCode, setDiscountCode, setDiscountDetail, discountAmount }) => {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
@@ -21,16 +21,18 @@ export const DiscountForm = ({  discountCode, setDiscountCode, setDiscountDetail
         if(cart?.discountDetail?.id) setDiscountCode(cart?.discountDetail?.id);
     },[cart]);
 
+    console.log(cart?.discountDetail);
+
     return (
         <div className="discount-container">
             <label>Discount Code</label>
             <div className="input-container">
-                <input type="text" placeholder="Code" value={discountCode} onChange={(e) => setDiscountCode(e.target.value)}  />
+                <input type="password" placeholder="Code" value={discountCode} onChange={(e) => setDiscountCode(e.target.value)}  />
                 <button onClick={handleSubmit}>Apply</button>
                 <div className="icon-container">
                     {cart?.discountDetail && 
                         <>
-                            { cart?.discountDetail.valid ? 
+                            { cart?.discountDetail?.valid ? 
                                 <img src={require("../../assets/icon/check-green.svg")} alt="" /> 
                                 :
                                 <img src={require("../../assets/icon/x-red.svg")} alt="" />
@@ -41,8 +43,14 @@ export const DiscountForm = ({  discountCode, setDiscountCode, setDiscountDetail
             </div>
             {cart?.discountDetail && 
                 <>
-                    { cart?.discountDetail.valid ? 
-                        <span className="msg success">Code Accepted!</span>
+                    { cart?.discountDetail?.valid ? 
+                        <>
+                            <span className="msg success">Code Accepted!</span>
+                            <div className="d-flex align-items-center justify-content-between discount-value">
+                                <span>Discount ({cart?.discountDetail?.percent_off}%)</span>
+                                <span>-${discountAmount}</span>
+                            </div>
+                        </>
                         :
                         <span className="msg error">The code entered is invalid</span>
                     }

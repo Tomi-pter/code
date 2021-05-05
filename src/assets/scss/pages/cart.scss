@@ -181,7 +181,7 @@
     li .default {
       width: 76.5px;
       height: 19.5px;
-      background: #C4C4C4;
+      background: #16CFB0;
       font-style: normal;
       font-weight: normal;
       font-size: 13.5px;
@@ -250,6 +250,14 @@
       &.error {
         color: #EA001B;
       }
+    }
+    .discount-value span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 29px;
+      color: #4F4F4F;
+      margin-top: 8px;
     }
   }
   .order-summary {

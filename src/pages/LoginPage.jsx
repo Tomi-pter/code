@@ -20,8 +20,6 @@ export const LoginContainer = () => {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
-
-    console.log(auth);
     
     const handleSubmit = async e => {
         e.preventDefault();

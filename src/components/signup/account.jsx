@@ -21,7 +21,7 @@ const Account = ({  setForm, formData, navigation }) => {
     const checkPasswordLenght = password.length >= 8 ? true : false;
     const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(password);
     const checkNumber = /^(?=.*[0-9])/.test(password);
-    const checkCharacter = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(password);
+    const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(password);
     
     const submit = () => {
         setIsLoading(true);
@@ -31,7 +31,7 @@ const Account = ({  setForm, formData, navigation }) => {
 
     const validation = useCallback(() => {
         const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~])[A-Za-z\d `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]{8,}$/.test(password);
+        const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~])[A-Za-z\d `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]{8,}$/.test(password);
         const passwordConfirm = password === confirm_password ? true : false;
         email && password && emailCheck && passwordCheck && passwordConfirm ? setDisabled(false) : setDisabled(true);
     }, [email, password, confirm_password])

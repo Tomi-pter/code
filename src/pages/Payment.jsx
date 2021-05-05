@@ -46,45 +46,47 @@ export const PaymentContainer = () => {
     return (
         <>
             <HeaderNav />
-            <div className="container-fluid d-flex align-items-start payment-page">
-                <div className="cards-container">
-                    <h1 className="title">Payment</h1>
-                    <div className="cards">
-                        {/* <h1 className="title">Payment Methods</h1> */}
-                        {/* <ul className="nav nav-tabs">
-                            <li><a data-toggle="tab" href="#card" className="active">Credit Card</a></li>
-                            <li><a data-toggle="tab" href="#google"><img className="payment-icon" src={GooglePay} alt="" /></a></li>
-                            <li><a data-toggle="tab" href="#apple"><img className="payment-icon" src={ApplePay} alt="" /></a></li>
-                        </ul> */}
-                        {/* <div className="tab-content">
-                            <div id="card" className="tab-pane fade in active show">
-                                <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
-                            </div>
-                            <div id="google" className="tab-pane fade">
-                                <h3>GOOGLE PAY</h3>
-                            </div>
-                            <div id="apple" className="tab-pane fade">
-                                <h3>APPLE PAY</h3>
-                            </div>
-                        </div> */}
-                        <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
-                        <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>
-                            {isLoading ?
-                                <div className="spinner-border text-light" role="status">
-                                    <span className="sr-only">Loading...</span>
+            <div className="container-fluid payment-page">
+                <h1 className="title">Payment</h1>
+                <div className="d-flex align-items-start">
+                    <div className="cards-container">
+                        <div className="cards">
+                            {/* <h1 className="title">Payment Methods</h1> */}
+                            {/* <ul className="nav nav-tabs">
+                                <li><a data-toggle="tab" href="#card" className="active">Credit Card</a></li>
+                                <li><a data-toggle="tab" href="#google"><img className="payment-icon" src={GooglePay} alt="" /></a></li>
+                                <li><a data-toggle="tab" href="#apple"><img className="payment-icon" src={ApplePay} alt="" /></a></li>
+                            </ul> */}
+                            {/* <div className="tab-content">
+                                <div id="card" className="tab-pane fade in active show">
+                                    <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
                                 </div>
-                                :
-                                <>
-                                   Place Order
-                                </>
-                            }
-                        </button>
+                                <div id="google" className="tab-pane fade">
+                                    <h3>GOOGLE PAY</h3>
+                                </div>
+                                <div id="apple" className="tab-pane fade">
+                                    <h3>APPLE PAY</h3>
+                                </div>
+                            </div> */}
+                            <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
+                            <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>
+                                {isLoading ?
+                                    <div className="spinner-border text-light" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                    :
+                                    <>
+                                    Place Order
+                                    </>
+                                }
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div className="total-container">
-                    <h1 className="title">Total Amount</h1>
-                    <div className="d-flex align-items-center justify-content-center amount">
-                        {cart?.checkoutDetail?.finalTotal} <span> USD</span>
+                    <div className="total-container">
+                        <h1 className="title">Total Amount</h1>
+                        <div className="d-flex align-items-center justify-content-center amount">
+                            {cart?.checkoutDetail?.finalTotal} <span> USD</span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -27,14 +27,17 @@ export const CheckoutContainer = () => {
     return (
         <>
             <HeaderNav />
-                <div className="container-fluid d-flex align-items-start cart-page">
-                    <div className="cart-items">
-                        <h1 className="title">Place Order</h1>
-                        <ItemList cart={cart} page={'checkout'} />
-                    </div>
-                    <div>
-                        <Info />
-                        <OrderSummary cart={cart} page={'checkout'} />
+                <div className="container-fluid cart-page">
+                    <h1 className="title">Place Order</h1>
+                    <div className=" d-flex align-items-start">
+                        <div className="cart-items">
+                            
+                            <ItemList cart={cart} page={'checkout'} />
+                        </div>
+                        <div>
+                            <Info />
+                            <OrderSummary cart={cart} page={'checkout'} />
+                        </div>
                     </div>
                 </div>
             <Footer />

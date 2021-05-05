@@ -43,15 +43,19 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     };
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(getDefaultCard(user?.username));
-        dispatch(getCards(user?.username));
-    }, [dispatch]);
-
-    useEffect(() => {
         setSelectedCard(cards?.customerData?.invoice_settings.default_payment_method);
         setIsLoading(false);
+        setStateAddCard(false);
+        setFormData({});
     }, [cards]);
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(getCards(user?.username));
+        dispatch(getDefaultCard(user?.username));
+    }, [dispatch]);
+
+    console.log(cards);
 
     return (
         <>

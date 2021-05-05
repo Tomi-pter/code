@@ -93,7 +93,7 @@ export const ItemList = ({ cart, page }) => {
                                             <input type="number" value={selectedItem?.productId === cartItem.productId ? quantity : cartItem.quantity} onChange={(e)=>handleQtyInput(e, cartItem)} />
                                             <button className="plus-btn" onClick={()=>handleQtyUpdate(cartItem, 'add')}>+</button>
                                         </div>
-                                        {selectedItem?.productId === cartItem.productId && <button className="update-btn" onClick={handleUpdate}>Update</button>}
+                                        {selectedItem?.productId === cartItem.productId && !isLoading && <button className="update-btn" onClick={handleUpdate}>Update</button>}
                                     </div>
                                     :
                                     <p className="quantity">x{cartItem.quantity}</p>

@@ -5,7 +5,7 @@ import * as api from '../api/index.js';
 export const getCards = (username) => async (dispatch) => {
   try {
     const { data } = await api.getCards(username);
-
+    
     dispatch({ type: UPDATECARDS, payload: data });
 
   } catch (error) {

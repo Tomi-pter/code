@@ -6,8 +6,9 @@ const cardsReducer = (state = { cardsData: [] }, action) => {
 
       return { ...state, cardsData: action.payload.data, cardError: null };
     case ADDCARD: 
+      state.cardsData.push(action.payload)
 
-      return { ...state, addedCard: action.payload.data, cardError: null };
+      return { ...state, cardError: null };
     case ERRORCARD: 
 
       return { ...state, cardError: action.payload };

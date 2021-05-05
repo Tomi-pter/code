@@ -20,12 +20,14 @@ export const CartContainer = () => {
     return (
         <>
             <HeaderNav />
-                <div className="container-fluid d-flex align-items-start cart-page">
-                    <div className="cart-items">
-                        <h1 className="title">My Cart</h1>
-                        <ItemList cart={cart} page={'cart'} />
+                <div className="container-fluid cart-page">
+                    <h1 className="title">My Cart</h1>
+                    <div className="d-flex align-items-start">
+                        <div className="cart-items">
+                            <ItemList cart={cart} page={'cart'} />
+                        </div>
+                        <OrderSummary cart={cart} page={'cart'} />
                     </div>
-                    <OrderSummary cart={cart} page={'cart'} />
                 </div>
             <Footer />
         </>

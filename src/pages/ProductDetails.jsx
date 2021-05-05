@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getProduct } from '../actions/products';
 import { addCart } from '../actions/cart';
+
 export default props => {
     const user = JSON.parse(localStorage.getItem('profile'));
     const cart = useSelector((state) => state.cart);

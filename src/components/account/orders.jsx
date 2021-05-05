@@ -22,6 +22,9 @@ export const OrdersHistory = ({ account }) => {
                 <li>Canceled <div className="count">1</div></li>
             </ul>
             <div className="orders">
+                { (!account?.accountOrders || account?.accountOrders?.length <= 0) &&
+                    <div className="d-flex align-items-center justify-content-center orders-empty">No Order History</div>
+                }
                 {
                     account?.accountOrders?.map((order, index) => (
                         <div key={`key-${index}`} className="order">

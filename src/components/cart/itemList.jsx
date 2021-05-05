@@ -13,9 +13,9 @@ export const ItemList = ({ cart, page }) => {
     const handleQtyUpdate = (item, action) => {
         if (!selectedItem || item.productId !== selectedItem.productId) {
             setSelectedItem(item);
-            action === 'add' ? setQuantity(item.quantity + 1) : item.quantity === 1 ? setQuantity(1) : setQuantity(item.quantity - 1)
+            action === 'add' ? setQuantity(item.quantity + 1) : item.quantity === 1 ? handleDelete(item) : setQuantity(item.quantity - 1)
         } else {
-            action === 'add' ? setQuantity(quantity + 1) : quantity === 1 ? setQuantity(1) : setQuantity(quantity - 1)
+            action === 'add' ? setQuantity(quantity + 1) : quantity === 1 ? handleDelete(item) : setQuantity(quantity - 1)
         }
     }
 
@@ -24,7 +24,7 @@ export const ItemList = ({ cart, page }) => {
         if (!selectedItem || item.productId !== selectedItem.productId) {
             setSelectedItem(item);
         }
-        value < 1 ? setQuantity(1) :  setQuantity(value)
+        value < 1 ? handleDelete(item) :  setQuantity(value)
     }
 
     const handleUpdate = () => {
@@ -50,7 +50,7 @@ export const ItemList = ({ cart, page }) => {
 
     return (
         <div>
-            { !cart.cartData || cart.cartData?.length <= 0 &&
+            { (!cart.cartData || cart.cartData?.length <= 0) &&
                 <div className="d-flex align-items-center justify-content-center cart-empty">Your Cart is Empty</div> 
             }
             {

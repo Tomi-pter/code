@@ -15,8 +15,24 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     const dispatch = useDispatch();
 
     const setCard = (cardType) => {
-        if (cardType === 'visa') return '4242';
-        if (cardType === 'mastercard') return '5555';
+        switch (cardType) {
+            case 'visa':
+                return '4242';
+            case 'mastercard':
+                return '5555';
+            case 'discover':
+                return '6011';
+            case 'amex':
+                return '3784';
+            case 'unionpay':
+                return '6200';
+            case 'diners':
+                return '3056';
+            case 'jcb':
+                return '3566';
+            default:
+                return '';
+        }
     }
 
     const handleSetDefault = (id) => {
@@ -54,8 +70,6 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
         dispatch(getCards(user?.username));
         dispatch(getDefaultCard(user?.username));
     }, [dispatch]);
-
-    console.log(cards);
 
     return (
         <>

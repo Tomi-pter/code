@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 // import { SearchOutlined, Burger } from '@ant-design/icons';
+import { ShippingCounter } from '../../components/shared/shippingCounter';
 import Logo from '../../assets/img/logo.svg';
 import Cart from '../../assets/icon/cart-green.svg';
 import Account from '../../assets/icon/account.svg';
@@ -48,12 +49,14 @@ export const HeaderNav = () => {
     }, [location]);
 
     return (
-        <nav className="navbar sticky-top d-flex align-items-center header main">
-            <iframe id="hidden-iframe" src="http://premierpharma.wpengine.com" height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe>
-            <a href="http://premierpharma.wpengine.com/">
-                <img className="logo" src={Logo} width="152.25" height="46.49" alt="" />
-            </a>
-            <div className="d-flex align-items-center justify-content-end right-col">
+        <nav className="sticky-top">
+            <ShippingCounter cart={cart} />
+            <div className="navbar d-flex align-items-center header main">
+                <iframe id="hidden-iframe" src="http://premierpharma.wpengine.com" height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe>
+                <a href="http://premierpharma.wpengine.com/">
+                    <img className="logo" src={Logo} width="152.25" height="46.49" alt="" />
+                </a>
+                <div className="d-flex align-items-center justify-content-end right-col">
                 <Link className="desktop-link" to="">About Us</Link>
                 <div className="desktop-link dropdown">
                     <a className="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -100,6 +103,7 @@ export const HeaderNav = () => {
                         <Link className="dropdown-item" href="#!" to="">Contact Us</Link>
                     </div>
                 </div>
+            </div>
             </div>
         </nav>
     );

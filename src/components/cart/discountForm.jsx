@@ -21,8 +21,6 @@ export const DiscountForm = ({  discountCode, setDiscountCode, setDiscountDetail
         if(cart?.discountDetail?.id) setDiscountCode(cart?.discountDetail?.id);
     },[cart]);
 
-    console.log(cart?.discountDetail);
-
     return (
         <div className="discount-container">
             <label>Discount Code</label>

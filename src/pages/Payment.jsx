@@ -24,7 +24,7 @@ export const PaymentContainer = () => {
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
         // const amount = (parseFloat(cart?.checkoutDetail?.finalTotal) * 100);
-        const amount = cart?.checkoutDetail?.total;
+        const amount = parseInt(cart?.checkoutDetail?.total);
         const body = {
             code: cart?.discountDetail?.id,
             paymentMethodId: selectedCard,

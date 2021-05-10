@@ -27,6 +27,7 @@ export const PersonalInformationContainer = () => {
     const history = useHistory();
     const handleLogout = () => {
         dispatch(logOut(user?.username, history));
+        localStorage.removeItem('profile');
     };
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));

@@ -4,7 +4,7 @@ import EditIcon from '../../assets/img/Account/edit-icon.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAvatar, postAvatar, putAccount } from '../../actions/account';
 
-export const PersonalInfo = ({ account, disable, setDisable }) => {
+export const Addresses = ({ account }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
 
     const [image, setImage] = useState("");
@@ -59,10 +59,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         }
         return window.btoa(binary);
     };
-    const toggleEdit = () => {
-        setDisable(!disable);
-        console.log(disable);
-    }
+
     const onButtonClick = () => {
         inputFile.current.click();
     };
@@ -75,107 +72,57 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
 
     return (
         <>
-            <div className="d-flex align-items-center justify-content-between profile-container">
-                <div className="d-flex align-items-center">
-                    <div className="avatar-wrapper position-relative">
-                        {avatarLoading ? (
-                            <div id="loading-circle-container">
-                                <div className="avatar-loader ">
-                                </div>
-                                <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(account.avatarData?.Body?.data)}`} />
-                            </div>
-                        ) : (
-                                account.avatarData?.Body?.data.length > 0 ?
-                                    <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(account.avatarData?.Body?.data)}`} />
-                                    : <img className="profilePic mr-4" src={ProfilePic} alt="" />
-                            )}
-                    </div>
-                    <div>
-                        <p className="mb-0 name"> {account.accountData?.given_name + ' ' + account.accountData?.family_name} </p>
-                        <input
-                            style={{ display: "none" }}
-                            // accept=".zip,.rar"
-                            ref={inputFile}
-                            onChange={handleFileUpload}
-                            type="file"
-                            accept="image/*"
-                        />
-                        <div className="change-btn" onClick={onButtonClick}>
-                            Change Profile Photo
-                        </div>
-                    </div>
-                </div>
-                <div className="edit-wrapper" onClick={toggleEdit}>
-                    <img className="edit-icon" src={EditIcon} alt="" />
-                </div>
-            </div>
-            <h2 className="sub-title">Account Information</h2>
+            <h2 className="sub-title">Shipping Address</h2>
             <div className="row">
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
-                        <label htmlFor="given_name">First Name</label>
+                        <label htmlFor="address">Address</label>
                         <input
-                            defaultValue={account.accountData?.given_name || ''}
-                            name="given_name"
+                            name="address"
                             type="text"
-                            disabled={disable}
+                            defaultValue={account.accountData?.address || ''}
+                            
                             onChange={handleChange}
                         />
                     </div>
                 </div>
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
-                        <label htmlFor="family_name">Last Name</label>
+                        <label htmlFor="city">City</label>
                         <input
-                            name="family_name"
+                            name="city"
                             type="text"
-                            defaultValue={account.accountData?.family_name || ''}
-                            disabled={disable}
+                            defaultValue={account.accountData?.['custom:city'] || ''}
+                            
                             onChange={handleChange}
                         />
                     </div>
                 </div>
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
-                        <label htmlFor="email">E-mail Address</label>
+                        <label htmlFor="state">State</label>
                         <input
-                            name="email"
-                            type="email"
-                            defaultValue={account.accountData?.email || ''}
-                            disabled={disable}
+                            name="state"
+                            type="text"
+                            defaultValue={account.accountData?.['custom:state'] || ''}
+                            
                             onChange={handleChange}
                         />
                     </div>
                 </div>
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
-                        <label htmlFor="phone_number">Mobile Number</label>
+                        <label htmlFor="postal_code">Postal Code</label>
                         <input
-                            name="phone_number"
+                            name="postal_code"
                             type="text"
-                            defaultValue={account.accountData?.phone_number || ''}
-                            disabled={disable}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="form-group d-flex flex-column">
-                        <label htmlFor="company">Company Name</label>
-                        <input
-                            name="company"
-                            type="text"
-                            defaultValue={account.accountData?.['custom:company'] || ''}
-                            disabled={disable}
+                            defaultValue={account.accountData?.['custom:postal_code'] || ''}
+                            
                             onChange={handleChange}
                         />
                     </div>
                 </div>
             </div>
-            
-            {/* <div className="row">
-                <button onClick={handleSubmit}>Save</button>
-            </div> */}
         </>
     )
 }

@@ -27,7 +27,6 @@ export const PersonalInformationContainer = () => {
     const history = useHistory();
     const handleLogout = () => {
         dispatch(logOut(user?.username, history));
-        localStorage.removeItem('profile');
         var cartIFrame = document.getElementById('hidden-iframe');
         cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
     };

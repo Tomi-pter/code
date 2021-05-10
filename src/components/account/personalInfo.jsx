@@ -24,7 +24,6 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     };
     const inputFile = useRef(null);
     const dispatch = useDispatch();
-    const avatar = useSelector((state) => state);
     const handleFileUpload = e => {
         setAvatarLoading(true);
         const { files } = e.target;
@@ -72,7 +71,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         if (account.avatarData?.Body?.data.length > 0) {
             setImage(account.avatarData?.Body?.data);
         }
-    }, [dispatch, account]);
+    }, [account]);
 
     return (
         <>
@@ -83,11 +82,11 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                             <div id="loading-circle-container">
                                 <div className="avatar-loader ">
                                 </div>
-                                <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(image)}`} />
+                                <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(account.avatarData?.Body?.data)}`} />
                             </div>
                         ) : (
                                 account.avatarData?.Body?.data.length > 0 ?
-                                    <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(image)}`} />
+                                    <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(account.avatarData?.Body?.data)}`} />
                                     : <img className="profilePic mr-4" src={ProfilePic} alt="" />
                             )}
                     </div>

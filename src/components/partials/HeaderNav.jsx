@@ -29,7 +29,7 @@ export const HeaderNav = () => {
 
     const sendWPData = () => {
         var cartIFrame = document.getElementById('hidden-iframe');
-        cartIFrame.contentWindow.postMessage(user, 'http://premierpharma.wpengine.com');
+        cartIFrame.contentWindow.postMessage(user, 'https://premierpharma.wpengine.com');
     }
 
     useEffect(() => {
@@ -48,8 +48,8 @@ export const HeaderNav = () => {
         <nav className="sticky-top">
             <ShippingCounter cart={cart} path={location.pathname} />
             <div className="navbar d-flex align-items-center header main">
-                <iframe id="hidden-iframe" src="http://premierpharma.wpengine.com" height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe>
-                <a href="http://premierpharma.wpengine.com/">
+                <iframe id="hidden-iframe" src="https://premierpharma.wpengine.com" height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe>
+                <a href="https://premierpharma.wpengine.com/">
                     <img className="logo" src={Logo} width="152.25" height="46.49" alt="" />
                 </a>
                 <div className="d-flex align-items-center justify-content-end right-col">

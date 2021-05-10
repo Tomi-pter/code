@@ -29,7 +29,7 @@ export const HeaderNav = () => {
 
     const sendWPData = () => {
         var cartIFrame = document.getElementById('hidden-iframe');
-        cartIFrame.contentWindow.postMessage(user, 'http://premierpharma.wpengine.com/account');
+        cartIFrame.contentWindow.postMessage(user, 'http://premierpharma.wpengine.com');
     }
 
     useEffect(() => {

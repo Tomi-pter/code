@@ -10,6 +10,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     const [image, setImage] = useState("");
     const [initialData, setInitialData] = useState("");
     const [formData, updateFormData] = useState('');
+    const [avatarLoading, setAvatarLoading] = useState(false);
     const handleChange = (e) => {
         e.preventDefault()
         updateFormData({
@@ -23,22 +24,41 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     };
     const inputFile = useRef(null);
     const dispatch = useDispatch();
-    
-    const avatar = useSelector((state) => state.avatar);
+    const avatar = useSelector((state) => state);
     const handleFileUpload = e => {
+        setAvatarLoading(true);
         const { files } = e.target;
         const saveAvatar = new FormData();
+        let xhr = new XMLHttpRequest();
         if (files && files.length) {
             const filename = files[0].name;
             var parts = filename.split(".");
             const fileType = parts[parts.length - 1];
-            for (const file of files) {
-                saveAvatar.append('file[]', file, file.name);
-            }
-            setImage(saveAvatar);
-            console.log(saveAvatar);
-            dispatch(postAvatar(user?.username, saveAvatar));
+            saveAvatar.append('file', files[0], filename);
+            xhr.upload.onprogress = function (e) {
+                if (e.lengthComputable) {
+                    var percentComplete = (e.loaded / e.total) * 100;
+                    console.log(percentComplete);
+                    if (percentComplete == 100) {
+                        setAvatarLoading(false);
+                    }
+                }
+            };
+            xhr.timeout = 5000;
+            xhr.open("POST", 'https://premierpharmastaging.outliant.com/user/' + user?.username + '/photo');
+            xhr.send(saveAvatar);
         }
+
+
+    };
+    const encodeData = (buffer) => {
+        let binary = '';
+        let bytes = new Uint8Array(buffer);
+        let len = bytes.byteLength;
+        for (let i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
     };
     const toggleEdit = () => {
         setDisable(!disable);
@@ -47,12 +67,30 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     const onButtonClick = () => {
         inputFile.current.click();
     };
+    useEffect(() => {
+        dispatch(getAvatar(user?.username));
+        if (account.avatarData?.Body?.data.length > 0) {
+            setImage(account.avatarData?.Body?.data);
+        }
+    }, [dispatch, account]);
 
     return (
         <>
             <div className="d-flex align-items-center justify-content-between profile-container">
                 <div className="d-flex align-items-center">
-                    <img className="profilePic mr-4" src={ProfilePic} alt="" />
+                    <div className="avatar-wrapper position-relative">
+                        {avatarLoading ? (
+                            <div id="loading-circle-container">
+                                <div className="avatar-loader ">
+                                </div>
+                                <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(image)}`} />
+                            </div>
+                        ) : (
+                                account.avatarData?.Body?.data.length > 0 ?
+                                    <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(image)}`} />
+                                    : <img className="profilePic mr-4" src={ProfilePic} alt="" />
+                            )}
+                    </div>
                     <div>
                         <p className="mb-0 name"> {account.accountData?.given_name + ' ' + account.accountData?.family_name} </p>
                         <input
@@ -186,9 +224,9 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                     </div>
                 </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
                 <button onClick={handleSubmit}>Save</button>
-            </div>
+            </div> */}
         </>
     )
 }

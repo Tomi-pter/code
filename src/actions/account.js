@@ -35,9 +35,9 @@ export const getOrders = (username) => async (dispatch) => {
 
 // Avatar
 
-export const getAvatar = (username, image) => async (dispatch) => {
+export const getAvatar = (username) => async (dispatch) => {
   try {
-    const { data } = await api.getAvatar(username, image);
+    const { data } = await api.getAvatar(username);
 
     dispatch({ type: GETAVATAR,  data });
 

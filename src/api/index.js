@@ -39,5 +39,5 @@ export const setDefaultCard = (username, body) => API.put(`/cards/${username}/de
 export const payment = (username, formData) => API.post(`/user/${username}/payment`, formData);
 
 // UPLOAD AVATAR 
-export const getAvatar = (username) => API.get(`/${username}/photo`);
+export const getAvatar = (username) => API.get(`/user/${username}/photo`);
 export const postAvatar = (username, image) => API.post(`/user/${username}/photo`, image);

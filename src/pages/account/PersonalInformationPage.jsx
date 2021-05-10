@@ -29,7 +29,7 @@ export const PersonalInformationContainer = () => {
         dispatch(logOut(user?.username, history));
         localStorage.removeItem('profile');
         var cartIFrame = document.getElementById('hidden-iframe');
-        cartIFrame.contentWindow.postMessage('', 'https://premierpharma.wpengine.com');
+        cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
     };
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));

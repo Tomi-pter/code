@@ -58,8 +58,15 @@
       background: rgba(33, 232, 222, 0.1);
     }
   }
+
   .information {
     flex: auto;
+    .edit-wrapper{
+      cursor: pointer;
+      &:hover{
+        opacity: .8;
+      }
+    }
     .tab-pane > .card {
       padding: 60px;
     }
@@ -79,6 +86,10 @@
       font-size: 13px;
       line-height: 21px;
       color: #4F4F4F;
+      cursor: pointer;
+      &:hover{
+        opacity: .8;
+      }
     }
     .form-group {
       margin-bottom: 22px;
@@ -93,7 +104,6 @@
     }
     input {
       height: 30px;
-      background: #F0F0F0;
       border: 0;
       outline: 0;
       font-style: normal;
@@ -101,6 +111,11 @@
       font-size: 18px;
       line-height: 29px;
       color: #4F4F4F;
+      border: 1px solid #4F4F4F;
+      &:disabled{
+        background: #F0F0F0;
+        border: 0;
+      }
     }
     .card-list .card {
       border: none;

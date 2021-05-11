@@ -21,13 +21,51 @@
   .side-nav {
     min-width: 360px;
     margin-right: 30px;
+    .accordion-item {
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+      height: auto;
+      max-height: 9999px;
+    }
+    .accordion-item.collapsed {
+      max-height: 0;
+      transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+    }
+
+    .accordion-title {
+      position: relative;
+      .caret {
+        transition: all 0.3s ease;
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        margin-right: 20px;
+        margin-top: 15px;
+        min-width: 11.67px;
+        min-height: 7px;
+        background: url(/static/media/accordion-collapsed.87be3745.svg)
+          no-repeat center;
+        background-size: contain;
+      }
+      &.open {
+        .caret {
+          transform: rotate(180deg);
+        }
+      }
+   
+    }
+
+    .accordion-content {
+      padding: 1em 1.5em;
+    }
+
     .card {
       background: #ffffff;
       border-radius: 7.5px;
     }
     li.primary-nav {
       .primary-link {
-        font-family: 'Axiforma Bold';
+        font-family: "Axiforma Bold";
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -60,7 +98,7 @@
       border-radius: 0px 0px 7.5px 7.5px;
     }
     li.primary-nav .primary-link.active {
-      background: rgba($color: #21E8DE, $alpha: .1);
+      background: rgba($color: #21e8de, $alpha: 0.1);
     }
     .sub-nav {
       padding-left: 40px;
@@ -73,7 +111,7 @@
           font-size: 15px;
           line-height: 24px;
           color: #4f4f4f;
-          &.active{
+          &.active {
             font-weight: bold;
           }
           &:hover {

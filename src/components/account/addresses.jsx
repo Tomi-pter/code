@@ -8,7 +8,6 @@ export const Addresses = ({ account }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
 
     const [image, setImage] = useState("");
-    const [initialData, setInitialData] = useState("");
     const [formData, updateFormData] = useState('');
     const [avatarLoading, setAvatarLoading] = useState(false);
     const handleChange = (e) => {
@@ -81,7 +80,6 @@ export const Addresses = ({ account }) => {
                             name="address"
                             type="text"
                             defaultValue={account.accountData?.address || ''}
-                            
                             onChange={handleChange}
                         />
                     </div>
@@ -93,7 +91,6 @@ export const Addresses = ({ account }) => {
                             name="city"
                             type="text"
                             defaultValue={account.accountData?.['custom:city'] || ''}
-                            
                             onChange={handleChange}
                         />
                     </div>
@@ -105,7 +102,7 @@ export const Addresses = ({ account }) => {
                             name="state"
                             type="text"
                             defaultValue={account.accountData?.['custom:state'] || ''}
-                            
+
                             onChange={handleChange}
                         />
                     </div>
@@ -117,7 +114,7 @@ export const Addresses = ({ account }) => {
                             name="postal_code"
                             type="text"
                             defaultValue={account.accountData?.['custom:postal_code'] || ''}
-                            
+
                             onChange={handleChange}
                         />
                     </div>

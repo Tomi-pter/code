@@ -24,6 +24,7 @@ export const PersonalInformationContainer = () => {
     const [disable, setDisable] = useState(true);
     const [selectedCard, setSelectedCard] = useState('');
     const [accountData, setAccountData] = useState('');
+    const [isOpen, setOpen] = useState(false);
     const dispatch = useDispatch();
     const account = useSelector((state) => state.account);
     const history = useHistory();
@@ -47,9 +48,33 @@ export const PersonalInformationContainer = () => {
                         <div className="side-nav">
                             <h1 className="title">Account</h1>
                             <div className="card">
+
                                 <ul className="nav nav-tabs flex-column" id="pills-tab" role="tablist">
                                     <li className="primary-nav">
-                                        <a data-toggle="tab" href="#personal-profile" className="flex-column align-items-start primary-link active">
+                                            <a
+                                                data-toggle="tab" href="#personal-profile"
+                                                className={`accordion-title flex-column align-items-start primary-link active ${isOpen ? "open" : ""}` }
+                                            >
+                                                <span>
+                                                    <img src={AccountUser} alt="" />Personal Information <span className="caret" onClick={() => setOpen(!isOpen)}></span>
+                                                </span>
+                                                <span className={`accordion-item  ${!isOpen ? "collapsed" : ""}`}>
+                                                    <span className="accordion-content">
+                                                        <ul className="sub-nav nav flex-column mb-3" id="pills-tab-1" role="tablist">
+                                                            <li>
+                                                                <a className="active" id="pills-home-tab-1" data-toggle="pill" href="#my-profile" role="tab" aria-controls="pills-home-1" aria-selected="true">My Profile</a>
+                                                            </li>
+                                                            <li>
+                                                                <a className="" id="pills-home-tab-2" data-toggle="pill" href="#my-addresses" role="tab" aria-controls="pills-home-2" aria-selected="false">My Address Book</a>
+                                                            </li>
+                                                            <li >
+                                                                <a className="" id="pills-home-tab-3" data-toggle="pill" href="#payment-options" role="tab" aria-controls="pills-home-3" aria-selected="false">Payment Options</a>
+                                                            </li>
+                                                        </ul>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        {/* <a data-toggle="tab" href="#personal-profile" className="flex-column align-items-start primary-link active">
                                             <span>
                                                 <img src={AccountUser} alt="" />Personal Information
                                             </span>
@@ -66,7 +91,7 @@ export const PersonalInformationContainer = () => {
                                                     </li>
                                                 </ul>
                                             </span>
-                                        </a>
+                                        </a> */}
                                     </li>
                                     <li className="primary-nav">
                                         <a data-toggle="tab" href="#order-history" className="primary-link ">
@@ -89,7 +114,7 @@ export const PersonalInformationContainer = () => {
                                             <PersonalInfo disable={disable} setDisable={setDisable} account={account} accountData={accountData} setAccountData={setAccountData} />
                                         </div>
                                         <div className="tab-pane fade show" id="my-addresses" role="tabpanel" aria-labelledby="pills-home-2">
-                                            <Addresses account={account} accountData={accountData} setAccountData={setAccountData}  />
+                                            <Addresses account={account} accountData={accountData} setAccountData={setAccountData} />
                                         </div>
                                         <div className="tab-pane fade show" id="payment-options" role="tabpanel" aria-labelledby="pills-home-3">
                                             <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='account' />

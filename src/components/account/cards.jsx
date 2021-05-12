@@ -45,6 +45,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(addCard(user?.username, formData));
+        console.log(formData);
     };
     const removeCreditCard = (card) => {
         const user = JSON.parse(localStorage.getItem('profile'));
@@ -146,7 +147,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
                                                         <div className="row inputs-container">
                                                             <div className="col-12 form-group">
                                                                 <label for="cardHolderName">Cardholder Name</label>
-                                                                <input type="text" className="form-control" id="cardHolderName" name="cardholderName" placeholder="John Doe" />
+                                                                <input type="text" className="form-control" id="cardHolderName" name="cardholderName" onChange={handleChange} placeholder="John Doe" />
                                                             </div>
                                                         </div>
                                                         <div className="row">

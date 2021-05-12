@@ -448,7 +448,7 @@
             td {
               .fullName {
                 max-width: 89px;
-                p{
+                p {
                   margin-bottom: 5px;
                 }
                 .defaultText {
@@ -469,8 +469,8 @@
               .mobileNumber {
                 max-width: 147px;
               }
-              .edit-wrapper{
-                img{
+              .edit-wrapper {
+                img {
                   max-width: 24px;
                   min-height: 24px;
                 }
@@ -521,7 +521,7 @@
           tr {
             td {
               .cardNumber {
-                p{
+                p {
                   margin-bottom: 5px;
                 }
                 .defaultText {
@@ -536,9 +536,9 @@
                   text-align: center;
                 }
               }
-              .delete-wrapper{
+              .delete-wrapper {
                 cursor: pointer;
-                img{
+                img {
                   max-width: 24px;
                   min-height: 24px;
                 }
@@ -567,6 +567,67 @@
             #71d3f4 103.82%
           );
           border-radius: 7.50055px;
+        }
+      }
+    }
+    #addCardModal {
+      .card {
+        background: #fff;
+        border: 0;
+        box-shadow: none;
+      }
+      input {
+        background: #f0f0f0;
+        border-radius: 0;
+        border: 0;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 29px;
+        color: #4F4F4F;
+      }
+      .error{
+        color: #ed4337;
+      }
+      .button-wrapper {
+        margin-top: 66px;
+        .addCardButton {
+          background: #16cfb0;
+          border-radius: 7.5px;
+          min-width: 127px;
+          min-height: 36px;
+          border: 0;
+          font-family: "Axiforma Bold";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 24px;
+          text-align: center;
+          color: #ffffff;
+          margin-left: 20px;
+          &:hover {
+            background: linear-gradient(
+              266.19deg,
+              #16cfb0 -15.44%,
+              #71d3f4 103.82%
+            );
+            border-radius: 7.50055px;
+          }
+        }
+        .cancelCardButton {
+          background: transparent;
+          border: 2px solid #16cfb0;
+          box-sizing: border-box;
+          border-radius: 7.5px;
+          min-width: 127px;
+          min-height: 36px;
+          font-family: "Axiforma Bold";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 24px;
+          text-align: center;
+          color: #16cfb0;
         }
       }
     }

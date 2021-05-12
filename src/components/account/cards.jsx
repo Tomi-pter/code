@@ -140,7 +140,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
                                     <div className="card">
                                         <PaymentInputsContainer>
                                             {({ meta, getCardNumberProps, getCardImageProps, getExpiryDateProps, getCVCProps }) => (
-                                                <div className="d-flex align-items-center justify-content-between">
+                                                <div >
                                                     {/* <svg {...getCardImageProps({ images })} /> */}
                                                     <div className="form-container">
                                                         <div className="row inputs-container">
@@ -152,34 +152,38 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
                                                         <div className="row">
                                                             <div className="col">
                                                                 <label for="cardNumber">Card Number</label>
-                                                                <input className="col-12" className="form-control"  id="cardNumber" {...getCardNumberProps({ onChange: handleChange })} autoFocus />
+                                                                <input className="col-12" className="form-control" id="cardNumber" {...getCardNumberProps({ onChange: handleChange })} autoFocus />
                                                             </div>
                                                             <div className="col-md-auto">
                                                                 <label for="expiry">Valid Thru</label>
-                                                                <input className="col-12" className="form-control"  id="expiry" {...getExpiryDateProps({ onChange: handleExpireDateChange })} />
+                                                                <input className="col-12" className="form-control" id="expiry" {...getExpiryDateProps({ onChange: handleExpireDateChange })} />
                                                             </div>
                                                             <div className="col col-lg-2">
-                                                            <label for="cvv">CVV</label>
+                                                                <label for="cvv">CVV</label>
                                                                 <input className="col-12" className="form-control"   {...getCVCProps({ onChange: handleChange })} />
                                                             </div>
                                                         </div>
                                                         {meta.isTouched && meta.error && <span className="error">{meta.error}</span>}
                                                     </div>
-                                                    {/* <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                        Cancel
-                                                     </button>
-                                                    <button disabled={meta.isTouched && !meta.error ? false : true} onClick={handleSubmit}>
-                                                        {isLoading ?
-                                                            <div className="spinner-border text-light" role="status">
-                                                                <span className="sr-only">Loading...</span>
-                                                            </div>
-                                                            :
-                                                            <>
-                                                                Add Card
+                                                    <div className="button-wrapper d-flex align-items-center justify-content-end">
+                                                        <button className="cancelCardButton close" data-dismiss="modal" aria-label="Close">
+                                                            Cancel
+                                                        </button>
+                                                        <button className="addCardButton" disabled={meta.isTouched && !meta.error ? false : true} onClick={handleSubmit}>
+                                                            {isLoading ?
+                                                                <div className="spinner-border text-light" role="status">
+                                                                    <span className="sr-only">Loading...</span>
+                                                                </div>
+                                                                :
+                                                                <>
+                                                                    Add Card
                                                         </>
-                                                        }
-                                                    </button> */}
+                                                            }
+                                                        </button>
+                                                    </div>
                                                 </div>
+
+
                                             )}
                                         </PaymentInputsContainer>
                                     </div>

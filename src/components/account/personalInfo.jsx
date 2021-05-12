@@ -6,7 +6,6 @@ import { getAvatar, postAvatar, putAccount } from '../../actions/account';
 
 export const PersonalInfo = ({ account, disable, setDisable }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
-
     const [image, setImage] = useState("");
     const [initialData, setInitialData] = useState("");
     const [formData, updateFormData] = useState('');
@@ -63,14 +62,14 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         setDisable(!disable);
         console.log(disable);
     }
+    const toggleCancel = () => {
+        setDisable(!disable);
+    }
     const onButtonClick = () => {
         inputFile.current.click();
     };
     useEffect(() => {
         dispatch(getAvatar(user?.username));
-        if (account.avatarData?.Body?.data.length > 0) {
-            setImage(account.avatarData?.Body?.data);
-        }
     }, [account]);
 
     return (
@@ -94,7 +93,6 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                         <p className="mb-0 name"> {account.accountData?.given_name + ' ' + account.accountData?.family_name} </p>
                         <input
                             style={{ display: "none" }}
-                            // accept=".zip,.rar"
                             ref={inputFile}
                             onChange={handleFileUpload}
                             type="file"
@@ -172,10 +170,16 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                     </div>
                 </div>
             </div>
-            
-            {/* <div className="row">
-                <button onClick={handleSubmit}>Save</button>
-            </div> */}
+            {!disable ?
+                <div className="row  align-items-center justify-content-end">
+                    <div>
+                        <button className="cancelButton" onClick={toggleCancel}>Cancel</button>
+                    </div>
+                    <div>
+                        <button className="saveButton" onClick={handleSubmit}>Save</button>
+                    </div>
+                </div> : ''
+            }
         </>
     )
 }

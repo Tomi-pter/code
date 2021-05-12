@@ -5,74 +5,53 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAvatar, postAvatar, putAccount } from '../../actions/account';
 
 export const Addresses = ({ account }) => {
-    const user = JSON.parse(localStorage.getItem('profile'));
-
-    const [image, setImage] = useState("");
-    const [formData, updateFormData] = useState('');
-    const [avatarLoading, setAvatarLoading] = useState(false);
-    const handleChange = (e) => {
-        e.preventDefault()
-        updateFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
-    };
-
-    const handleSubmit = (e) => {
-        dispatch(putAccount(user?.username, formData))
-    };
-    const inputFile = useRef(null);
-    const dispatch = useDispatch();
-    const handleFileUpload = e => {
-        setAvatarLoading(true);
-        const { files } = e.target;
-        const saveAvatar = new FormData();
-        let xhr = new XMLHttpRequest();
-        if (files && files.length) {
-            const filename = files[0].name;
-            var parts = filename.split(".");
-            const fileType = parts[parts.length - 1];
-            saveAvatar.append('file', files[0], filename);
-            xhr.upload.onprogress = function (e) {
-                if (e.lengthComputable) {
-                    var percentComplete = (e.loaded / e.total) * 100;
-                    console.log(percentComplete);
-                    if (percentComplete == 100) {
-                        setAvatarLoading(false);
-                    }
-                }
-            };
-            xhr.timeout = 5000;
-            xhr.open("POST", 'https://premierpharmastaging.outliant.com/user/' + user?.username + '/photo');
-            xhr.send(saveAvatar);
-        }
-
-
-    };
-    const encodeData = (buffer) => {
-        let binary = '';
-        let bytes = new Uint8Array(buffer);
-        let len = bytes.byteLength;
-        for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return window.btoa(binary);
-    };
-
-    const onButtonClick = () => {
-        inputFile.current.click();
-    };
-    useEffect(() => {
-        dispatch(getAvatar(user?.username));
-        if (account.avatarData?.Body?.data.length > 0) {
-            setImage(account.avatarData?.Body?.data);
-        }
-    }, [account]);
-
     return (
         <>
-            <h2 className="sub-title">Shipping Address</h2>
-            <div className="row">
+            <div className="addressesWrapper">
+                <h2 className="sub-title">My Address Book</h2>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">Shipping Address</th>
+                                <th scope="col">Mobile Number</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr >
+                                <td scope="row">
+                                    <div className="fullName">
+                                        <p>{account.accountData?.given_name + ' ' + account.accountData?.family_name}</p>
+                                        <div className="defaultText"><span>Default</span></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className="address">
+                                        {account.accountData?.address}
+                                </div>
+                                </td>
+                                <td>
+                                    <div className="mobileNumber">
+                                    {account.accountData?.phone_number}
+                                </div>
+                                </td>
+                                <td>
+                                    <div className="edit-wrapper">
+                                        <img className="edit-icon" src={EditIcon} alt="" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="col-12 d-flex align-items-center justify-content-end">
+                    <div>
+                        <button className="addAddressButton">+ Add New Address</button>
+                    </div>
+                </div>
+                {/* <div className="row">
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
                         <label htmlFor="address">Address</label>
@@ -119,6 +98,7 @@ export const Addresses = ({ account }) => {
                         />
                     </div>
                 </div>
+            </div> */}
             </div>
         </>
     )

@@ -12,6 +12,7 @@ export const GETORDERS = 'GETORDERS';
 // Avatar
 export const GETAVATAR = 'GETAVATAR';
 export const POSTAVATAR = 'POSTAVATAR';
+export const ERRORAVATAR = 'ERRORAVATAR';
 
 // Products
 export const GETPRODUCTS = 'GETPRODUCTS';
@@ -25,5 +26,6 @@ export const UPDATECARDS = 'UPDATECARDS';
 export const ADDCARD = 'ADDCARD';
 export const ERRORCARD = 'ERRORCARD';
 export const DEFAULTCARD = 'DEFAULTCARD';
+export const REMOVECARD = 'REMOVECARD';
 
 export const PAYMENT = 'PAYMENT';

@@ -1,4 +1,4 @@
-import { UPDATECARDS, ADDCARD, ERRORCARD, DEFAULTCARD } from '../constants/actionTypes';
+import { UPDATECARDS, ADDCARD, ERRORCARD, DEFAULTCARD, REMOVECARD } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -51,4 +51,14 @@ export const addCard = (username, paymentMethod) => async (dispatch) => {
       
       dispatch({ type: ERRORCARD, payload: data });
     }
+};
+
+export const removeCard = (username, paymentMethod) => async (dispatch) => {
+  try {
+    const { data } = await api.removeCard(username, paymentMethod);
+    dispatch({ type: REMOVECARD, payload: data });
+  } catch (error) {
+    const data = error.response.data;
+    dispatch({ type: ERRORCARD, payload: data });
+  }
 };

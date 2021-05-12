@@ -15,7 +15,6 @@
     font-size: 22px;
     line-height: 37px;
     color: #4f4f4f;
-    margin-top: 30px;
     margin-bottom: 15px;
   }
   .side-nav {
@@ -52,11 +51,6 @@
           transform: rotate(180deg);
         }
       }
-   
-    }
-
-    .accordion-content {
-      padding: 1em 1.5em;
     }
 
     .card {
@@ -131,7 +125,7 @@
       }
     }
     .tab-pane > .card {
-      padding: 60px;
+      padding: 36px 60px 60px 60px;
     }
     .profile-container {
       margin-bottom: 50px;
@@ -160,6 +154,7 @@
         opacity: 0.8;
       }
     }
+
     .form-group {
       margin-bottom: 22px;
     }
@@ -393,6 +388,186 @@
       }
       .item-info-end {
         min-width: 131px;
+      }
+    }
+    .saveButton {
+      background: #16cfb0;
+      border-radius: 7.5px;
+      min-width: 127px;
+      min-height: 36px;
+      border: 0;
+      font-family: "Axiforma Bold";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 24px;
+      text-align: center;
+      color: #ffffff;
+      margin-left: 20px;
+      &:hover {
+        background: linear-gradient(
+          266.19deg,
+          #16cfb0 -15.44%,
+          #71d3f4 103.82%
+        );
+        border-radius: 7.50055px;
+      }
+    }
+    .cancelButton {
+      background: transparent;
+      border: 2px solid #16cfb0;
+      box-sizing: border-box;
+      border-radius: 7.5px;
+      min-width: 127px;
+      min-height: 36px;
+      font-family: "Axiforma Bold";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 24px;
+      text-align: center;
+      color: #16cfb0;
+    }
+    .addressesWrapper {
+      .table {
+        thead {
+          th {
+            background: #e9fdfc;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 24px;
+            color: #828282;
+            text-transform: none;
+            letter-spacing: 0;
+            text-align: left;
+          }
+        }
+        tbody {
+          tr {
+            td {
+              .fullName {
+                max-width: 89px;
+                p{
+                  margin-bottom: 5px;
+                }
+                .defaultText {
+                  background: #16cfb0;
+                  border-radius: 9.75px;
+                  max-width: 76px;
+                  font-style: normal;
+                  font-weight: normal;
+                  font-size: 13.5px;
+                  line-height: 21px;
+                  color: #f2f2f2;
+                  text-align: center;
+                }
+              }
+              .address {
+                max-width: 155px;
+              }
+              .mobileNumber {
+                max-width: 147px;
+              }
+              .edit-wrapper{
+                img{
+                  max-width: 24px;
+                  min-height: 24px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .addAddressButton {
+        background: #16cfb0;
+        border-radius: 7.5px;
+        min-width: 174px;
+        min-height: 36px;
+        border: 0;
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 24px;
+        text-align: center;
+        color: #ffffff;
+        &:hover {
+          background: linear-gradient(
+            266.19deg,
+            #16cfb0 -15.44%,
+            #71d3f4 103.82%
+          );
+          border-radius: 7.50055px;
+        }
+      }
+    }
+    .cardWrapper {
+      .table {
+        thead {
+          th {
+            background: #e9fdfc;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 24px;
+            color: #828282;
+            text-transform: none;
+            letter-spacing: 0;
+            text-align: left;
+          }
+        }
+        tbody {
+          tr {
+            td {
+              .cardNumber {
+                p{
+                  margin-bottom: 5px;
+                }
+                .defaultText {
+                  background: #16cfb0;
+                  border-radius: 9.75px;
+                  max-width: 76px;
+                  font-style: normal;
+                  font-weight: normal;
+                  font-size: 13.5px;
+                  line-height: 21px;
+                  color: #f2f2f2;
+                  text-align: center;
+                }
+              }
+              .delete-wrapper{
+                cursor: pointer;
+                img{
+                  max-width: 24px;
+                  min-height: 24px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .addCardButton {
+        background: #16cfb0;
+        border-radius: 7.5px;
+        min-width: 174px;
+        min-height: 36px;
+        border: 0;
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 24px;
+        text-align: center;
+        color: #ffffff;
+        &:hover {
+          background: linear-gradient(
+            266.19deg,
+            #16cfb0 -15.44%,
+            #71d3f4 103.82%
+          );
+          border-radius: 7.50055px;
+        }
       }
     }
   }

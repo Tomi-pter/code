@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import { Button } from 'antd';
 import { HeaderNav } from '../../components/partials/HeaderNav';
 import { Footer } from '../../components/partials/Footer';
@@ -9,6 +10,7 @@ import { Cards } from '../../components/account/cards';
 import AccountUser from '../../assets/img/Account/user-icon.svg';
 import CartIcon from '../../assets/img/Account/mdi_cart.svg';
 import LogOutIcon from '../../assets/img/Account/mdi_logout-variant.svg';
+import SecurityIcon from '../../assets/img/Account/security.svg';
 // import MasterCardIcon from '../../assets/img/Payment/master-card-logo.svg';
 import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
 
@@ -17,7 +19,6 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../actions/auth';
 import { getAccount, getOrders } from '../../actions/account';
-import { Link } from 'react-feather';
 
 export const PersonalInformationContainer = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -48,54 +49,40 @@ export const PersonalInformationContainer = () => {
                         <div className="side-nav">
                             <h1 className="title">Account</h1>
                             <div className="card">
-
                                 <ul className="nav nav-tabs flex-column" id="pills-tab" role="tablist">
                                     <li className="primary-nav">
-                                            <a
-                                                data-toggle="tab" href="#personal-profile"
-                                                className={`accordion-title flex-column align-items-start primary-link active ${isOpen ? "open" : ""}` }
-                                            >
-                                                <span>
-                                                    <img src={AccountUser} alt="" />Personal Information <span className="caret" onClick={() => setOpen(!isOpen)}></span>
-                                                </span>
-                                                <span className={`accordion-item  ${!isOpen ? "collapsed" : ""}`}>
-                                                    <span className="accordion-content">
-                                                        <ul className="sub-nav nav flex-column mb-3" id="pills-tab-1" role="tablist">
-                                                            <li>
-                                                                <a className="active" id="pills-home-tab-1" data-toggle="pill" href="#my-profile" role="tab" aria-controls="pills-home-1" aria-selected="true">My Profile</a>
-                                                            </li>
-                                                            <li>
-                                                                <a className="" id="pills-home-tab-2" data-toggle="pill" href="#my-addresses" role="tab" aria-controls="pills-home-2" aria-selected="false">My Address Book</a>
-                                                            </li>
-                                                            <li >
-                                                                <a className="" id="pills-home-tab-3" data-toggle="pill" href="#payment-options" role="tab" aria-controls="pills-home-3" aria-selected="false">Payment Options</a>
-                                                            </li>
-                                                        </ul>
-                                                    </span>
-                                                </span>
-                                            </a>
-                                        {/* <a data-toggle="tab" href="#personal-profile" className="flex-column align-items-start primary-link active">
+                                        <a
+                                            data-toggle="tab" href="#personal-profile"
+                                            className={`accordion-title flex-column align-items-start primary-link active ${isOpen ? "open" : ""}`}
+                                        >
                                             <span>
-                                                <img src={AccountUser} alt="" />Personal Information
+                                                <img src={AccountUser} alt="" />Personal Information <span className="caret" onClick={() => setOpen(!isOpen)}></span>
                                             </span>
-                                            <span>
-                                                <ul className="sub-nav nav flex-column mb-3" id="pills-tab-1" role="tablist">
-                                                    <li>
-                                                        <a className="active" id="pills-home-tab-1" data-toggle="pill" href="#my-profile" role="tab" aria-controls="pills-home-1" aria-selected="true">My Profile</a>
-                                                    </li>
-                                                    <li>
-                                                        <a className="" id="pills-home-tab-2" data-toggle="pill" href="#my-addresses" role="tab" aria-controls="pills-home-2" aria-selected="false">My Address Book</a>
-                                                    </li>
-                                                    <li >
-                                                        <a className="" id="pills-home-tab-3" data-toggle="pill" href="#payment-options" role="tab" aria-controls="pills-home-3" aria-selected="false">Payment Options</a>
-                                                    </li>
-                                                </ul>
+                                            <span className={`accordion-item  ${!isOpen ? "collapsed" : ""}`}>
+                                                <span className="accordion-content">
+                                                    <ul className="sub-nav nav flex-column mb-3" id="pills-tab-1" role="tablist">
+                                                        <li>
+                                                            <a className="active" data-toggle="pill" href="#my-profile" role="tab" aria-controls="pills-home-1" aria-selected="true">My Profile</a>
+                                                        </li>
+                                                        <li>
+                                                            <a className="" data-toggle="pill" href="#my-addresses" role="tab" aria-controls="pills-home-2" aria-selected="false">My Address Book</a>
+                                                        </li>
+                                                        <li >
+                                                            <a className="" data-toggle="pill" href="#payment-options" role="tab" aria-controls="pills-home-3" aria-selected="false">Payment Options</a>
+                                                        </li>
+                                                    </ul>
+                                                </span>
                                             </span>
-                                        </a> */}
+                                        </a>
                                     </li>
                                     <li className="primary-nav">
                                         <a data-toggle="tab" href="#order-history" className="primary-link ">
                                             <img src={CartIcon} alt="" />Order History
+                                        </a>
+                                    </li>
+                                    <li className="primary-nav">
+                                        <a data-toggle="tab" href="#security" className="primary-link ">
+                                            <img src={SecurityIcon} alt="" />Security
                                         </a>
                                     </li>
                                     <li className="primary-nav">
@@ -127,58 +114,6 @@ export const PersonalInformationContainer = () => {
                                         <OrdersHistory account={account} />
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        {/* <div className="side-nav">
-                            <h1 className="title">Account</h1>
-                            <div className="card">
-                                <ul className="nav nav-tabs flex-column">
-                                    <li>
-                                        <a data-toggle="tab" href="#my-profile" className="active">
-                                            <img src={AccountUser} alt="" />Personal Information
-                                        </a>
-                                        <ul className="sub-nav">
-                                            <li>
-                                                <a href="#my-profile">
-                                                    My Profile
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#address-book">
-                                                    My Address Book
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#payment-options">
-                                                    Payment Options
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#order-history">
-                                            <img src={CartIcon} alt="" />Order History
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-toggle="tab" href="#!" onClick={handleLogout} >
-                                            <img src={LogOutIcon} alt="" />Log Out</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> */}
-                        {/* <div className="information">
-                            <div className="tab-content">
-                                <div id="personal-info" className="tab-pane fade in active show">
-                                    <h1 className="title">Personal Information</h1>
-                                    <div className="card">
-                                        <PersonalInfo disable={disable} setDisable={setDisable} account={account} accountData={accountData} setAccountData={setAccountData} />
-                                        <h2 className="sub-title">Payment Information</h2>
-                                        <label>Cards</label>
-                                        <Cards disable={disable} selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='account' />
-                                    </div>
-                                </div>
                                 <div id="order-history" className="tab-pane fade">
                                     <h1 className="title">Order History</h1>
                                     <div className="card">
@@ -186,8 +121,7 @@ export const PersonalInformationContainer = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div> */}
-
+                        </div>
                     </div>
                 </div>
             </div>

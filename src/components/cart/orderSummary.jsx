@@ -61,7 +61,7 @@ export const OrderSummary = ({ cart, page }) => {
                 <span>Total</span>
                 <span>${ finalTotal }</span>
             </div>
-            <div className="d-flex justify-content-end">
+            <div className="d-flex justify-content-between actions-container">
             {   page === 'cart' ? 
                     cart.cartData?.length > 0 ? 
                     <Link to="checkout" className="btn proceed-btn">
@@ -72,7 +72,10 @@ export const OrderSummary = ({ cart, page }) => {
                         {page === 'cart' ? 'Proceed to Checkout' : 'Place Order' }
                     </Link>
                 :
-                <button className="proceed-btn" onClick={handleCheckout}>Place Order</button>
+                <>
+                    <Link to={(page === 'checkout' ? "cart" : "checkout")} className="btn back-btn">{"< Cart"}</Link>
+                    <button className="proceed-btn" onClick={handleCheckout}>Place Order</button>
+                </>
             }
             </div>
         </div>

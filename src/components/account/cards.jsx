@@ -90,6 +90,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
                                 <th scope="col">Card Number</th>
                                 <th scope="col">Expiry Date</th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -118,6 +119,10 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
                                             </div>
                                         </td>
                                         <td>
+                                            <span className="default">Default</span>
+                                            <button className="default-btn">Make Default</button>
+                                        </td>
+                                        <td>
                                             <a className="delete-wrapper" onClick={() => removeCreditCard(card)}>
                                                 <img className="delete-icon" src={DeleteIcon} alt="" />
                                             </a>
@@ -138,7 +143,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
                         <div className="modal-content">
                             <div className="modal-body">
                                 <h2 className="sub-title">Add New Card</h2>
-                                {stateAddCard ?
+                                {/* {stateAddCard ? */}
                                     <div className="card">
                                         <PaymentInputsContainer>
                                             {({ meta, getCardNumberProps, getCardImageProps, getExpiryDateProps, getCVCProps }) => (
@@ -189,9 +194,9 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
                                             )}
                                         </PaymentInputsContainer>
                                     </div>
-                                    : ''
-                                    // <button className="add-btn" onClick={() => setStateAddCard(true)} >+ Add new card</button>
-                                }
+                                   
+                                    {/* <button className="add-btn" onClick={() => setStateAddCard(true)} >+ Add new card</button> */}
+                                {/* } */}
                                 <p className="add-error">{cards.cardError && stateAddCard ? cards.cardError : ''}</p>
                             </div>
                         </div>

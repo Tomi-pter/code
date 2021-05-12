@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -8,6 +8,11 @@ import Edit from '../../assets/icon/pencil.svg';
 export default props => {
     const dispatch = useDispatch();
     const account = useSelector((state) => state.account);
+    const [selectedShipping, setSelectedShipping] = useState(null);
+    const [checked, setChecked] = useState(true);
+    const [selectedBilling, setSelectedBilling] = useState(checked ? selectedShipping : null);
+    
+    console.log(account.accountData);
 
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('profile'));
@@ -131,8 +136,8 @@ export default props => {
                     </div>
                 </div>
                 <div className="checkbox-container">
-                    <input type="checkbox" id="sameAddress" name="sameAddress" value="true" />
-                    <label for="sameAddress">Same as shipping address</label>
+                    <input type="checkbox" id="sameAddress" name="sameAddress" defaultValue={checked} onChange={() => setChecked(!checked)} />
+                    <label htmlFor="sameAddress">Same as shipping address</label>
                 </div>
                 <ul className="info-list">
                     <li>

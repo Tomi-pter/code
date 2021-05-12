@@ -38,7 +38,7 @@ export const removeCard = (username, paymentMethod) => API.post(`/cards/${userna
 export const getDefaultCard = (username) => API.get(`/customer/${username}`);
 export const setDefaultCard = (username, body) => API.put(`/cards/${username}/default-payment-method`, body);
 
-export const payment = (username, formData) => API.post(`/user/${username}/payment`, formData);
+export const payment = (username, formData) => API.post(`/${username}/payment`, formData);
 
 // UPLOAD AVATAR 
 export const getAvatar = (username) => API.get(`/user/${username}/photo`);

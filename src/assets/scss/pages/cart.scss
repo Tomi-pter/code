@@ -165,7 +165,7 @@
       border-radius: 10px;
       padding: 49px 35px;
       position: absolute;
-      top: 60px;
+      top: 45px;
       left: 0;
       right: 0;
       z-index: 2;
@@ -462,22 +462,33 @@
       color: #4F4F4F;
     }
   }
-  .proceed-btn {
+  .actions-container {
+    margin-top: 56px;
+  }
+  .back-btn, .proceed-btn {
     width: 223.5px;
     min-height: 60px;
-    background: #16CFB0;
     border-radius: 7.5px;
     font-style: normal;
     font-weight: 600;
     font-size: 15px;
     line-height: 24px;
-    color: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
-    border: 0;
     outline: 0;
+    box-sizing: border-box;
+  }
+  .back-btn {
+    color: #16CFB0;
+    border: 2px solid #16CFB0;
+    margin-right: 30px;
+  }
+  .proceed-btn {
+    color: #FFFFFF;
+    background: #16CFB0;
+    border: 0;
+    margin-left: auto;
     &.disabled {
       background-color: #cccccc;
       color: #666666;

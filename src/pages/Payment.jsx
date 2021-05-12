@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { payment } from '../actions/payment';
 import { getCart } from '../actions/cart';
+import { Link } from 'react-router-dom';
 
 export const PaymentContainer = () => {
     const cart = useSelector((state) => state.cart);    
@@ -69,23 +70,26 @@ export const PaymentContainer = () => {
                                 </div>
                             </div> */}
                             <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
-                            <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>
-                                {isLoading ?
-                                    <div className="spinner-border text-light" role="status">
-                                        <span className="sr-only">Loading...</span>
-                                    </div>
-                                    :
-                                    <>
-                                    Place Order
-                                    </>
-                                }
-                            </button>
+                            <div className="d-flex align-items-center justify-content-end actions-container">
+                                <Link to="checkout" className="btn back-btn">{"< Cart"}</Link>
+                                <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>
+                                    {isLoading ?
+                                        <div className="spinner-border text-light" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div>
+                                        :
+                                        <>
+                                        Place Order
+                                        </>
+                                    }
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div className="total-container">
                         <h1 className="title">Total Amount</h1>
-                        <div className="d-flex align-items-center justify-content-center amount">
-                            {cart?.checkoutDetail?.finalTotal} <span> USD</span>
+                        <div className="d-flex align-items-end justify-content-center">
+                            <p className="amount">{cart?.checkoutDetail?.finalTotal} <span> USD</span></p>
                         </div>
                     </div>
                 </div>

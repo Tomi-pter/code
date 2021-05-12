@@ -29,7 +29,7 @@ export default props => {
         <>
             <HeaderNav />
             <div className="search-page">
-                <div className="container-fluid content">
+                <div className="container-fluid">
                     {isLoading ? 
                         <div className="spinner-container d-flex align-items-center justify-content-center">
                             <div className="spinner-border text-primary" role="status">

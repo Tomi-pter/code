@@ -12,11 +12,11 @@ export const ShippingCounter = ({ cart, path }) => {
             <div className="counter-container">
                 <p>Add ${shippingCounter} more for FREE SHIPPING</p>
                 <div className="d-flex align-items-center justify-content-between progress-container">
-                    <span>$0</span>
+                    <span className="d-none d-md-block">$0</span>
                     <div className="progress">
                         <div className="percent" style={{width: `${percentage}%`}}></div>
                     </div>
-                    <span>$150</span>
+                    <span className="d-none d-md-block">$150</span>
                 </div>
             </div>
         </div>

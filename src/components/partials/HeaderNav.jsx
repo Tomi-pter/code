@@ -59,9 +59,9 @@ export const HeaderNav = () => {
                         Products
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <Link className="dropdown-item" href="#!" to="/shop?category=Pharmacy">For Pharmacies</Link>
-                        <Link className="dropdown-item" href="#!" to="/shop?category=Animal Care">For Animal Care</Link>
-                        <Link className="dropdown-item" href="#!" to="/shop?category=Medical">For Medical/Surgical Products</Link>
+                        <Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">For Pharmacies</Link>
+                        <Link className="dropdown-item" href="#!" to="/shop?category=Animal Health AND Medical Supplies">For Animal Care</Link>
+                        <Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">For Medical/Surgical Products</Link>
                     </div>
                 </div>
                 <Link className="desktop-link" to="">Contact Us</Link>

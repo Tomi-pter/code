@@ -37,9 +37,9 @@ export const Product = ({
       <div
         className={
           'product ' +
-          (product.category === 'Pharmacy'
+          (product.category === 'Pharmaceuticals'
             ? 'pharma-product'
-            : product.category === 'Animal Care'
+            : product.category === 'Animal Health AND Medical Supplies'
             ? 'vet-product'
             : 'medsurg-product')
         }
@@ -50,12 +50,12 @@ export const Product = ({
               'mobile-list-header ' + (view === 'list' ? ' d-flex' : 'd-none')
             }
           >
-            <div className="product-image-head"></div>
+            {/* <div className="product-image-head"></div> */}
             <div className="header-name-wrapper">
-              <p className="flex-fill list-header-name">{product.name}</p>
+          <p className="flex-fill list-header-name">{product.name}</p>
             </div>
             <div className="header-price-wrapper">
-              <p className="list-header-price">{product.purchasePrice}</p>
+              <p className="list-header-price">$ {product.purchasePrice}</p>
             </div>
           </div>
         </div>
@@ -84,15 +84,15 @@ export const Product = ({
                   {product.description}
                 </p>
               ) : (
-                <p className="name">{product.description}</p>
+               <p className="name">{product.description}</p>
               )}
               {/* <p className="compare for-list">({compare_to})</p> */}
             </div>
             <p className="company for-list">
-              {product.customFields[3].value || 'Amneal Pharm.'}
+              {product.customFields[3] ? product.customFields[3].value : 'Amneal Pharm'}
             </p>
             <p className="size for-list">
-              {product.customFields[6].value || '100'}
+              {product.customFields[6] ? product.customFields[6].value: '100'}
             </p>
             {/* <p className="strength for-list">
               {product.customFields[9].value || '100'}
@@ -100,29 +100,15 @@ export const Product = ({
             <div className="price-container">
               <p className="price">
                 {!auth && shopFont ? (
-                  <span
-                    style={{
-                      // fontWeight: 'bold',
-                      fontSize: '17.1275px',
-                      lineHeight: '19px',
-                      color: 'black',
-                    }}
-                  >
-                    <Link
-                      to="/login"
-                      style={{
-                        fontWeight: '800',
-                        fontSize: '18px',
-                        lineHeight: '26px',
-                        color: 'black',
-                        textDecoration: 'underline',
-                      }}
-                    >
-                      Login
-                    </Link>
-                    <br />
-                    for price
-                  </span>
+                <span style={{ fontSize: '12.3295px' }}>
+                <Link 
+                  to="/login"
+                  style={{ textDecoration: 'underline', color: 'black' }}
+                >
+                  Login
+                </Link>{' '}
+                for Price
+              </span>
                 ) : !auth ? (
                   <span style={{ fontSize: '12.3295px' }}>
                     <Link
@@ -139,6 +125,7 @@ export const Product = ({
               </p>
               {/* <p className="ppu for-list">({ppu})</p> */}
             </div>
+            {auth ? (
             <div className="buy-container d-flex">
               <input
                 className="qty for-list mr-2"
@@ -163,8 +150,22 @@ export const Product = ({
                   <></>
                 )}
               </button>
-            </div>
-            <p className="incart for-list">{incart()}</p>
+            
+              </div>
+           ) : (
+              <>
+               <span style={{ fontSize: '12.3295px' }} className="to-buy">
+                    <Link
+                      to="/login"
+                      style={{ textDecoration: 'underline', color: 'black' }}
+                    >
+                      Login
+                    </Link>{' '}
+                    to Buy
+                  </span>
+              </>
+            )}
+            <p className={'incart' + (auth ? ' for-list' : ' d-none')} >{incart()}</p>
           </div>
           {/* <div className={(view === "list " ? "d-block" : "d-none")}>
                         <div className="price-wrapper">

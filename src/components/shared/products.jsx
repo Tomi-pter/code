@@ -10,7 +10,7 @@ export const Products = ({ page, products, view, setView, name, shopFont }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
-
+  const user = JSON.parse(localStorage.getItem('profile'))
   const handleAddCart = (product) => {
     const user = JSON.parse(localStorage.getItem('profile'))
     const newProduct = {
@@ -49,7 +49,7 @@ export const Products = ({ page, products, view, setView, name, shopFont }) => {
         }
       >
         {page === 'search' ? (
-          <h3 className="search-for">Search Results for {name}</h3>
+          <h3 className="search-for">Search Results for <q>{name}</q></h3>
         ) : (
           <p className="total-products">Showing 1 - 9 of 10 products</p>
         )}
@@ -58,14 +58,14 @@ export const Products = ({ page, products, view, setView, name, shopFont }) => {
             <label className="sort-label">Sort by:</label>
             <div className="dropdown">
               <button
-                className="dropdown-toggle"
+                className="dropdown-toggle "
                 type="button"
                 id="sortByDropdown"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Strength
+                Size
               </button>
               <div className="dropdown-menu" aria-labelledby="sortByDropdown">
                 <a className="dropdown-item" href="#">
@@ -98,7 +98,7 @@ export const Products = ({ page, products, view, setView, name, shopFont }) => {
       </div>
       <div className={'products' + (view === 'list' ? ' list-view' : '')}>
         <div className="list-header">
-          <p>Fav.</p>
+          {/* <p>Fav.</p> */}
 
           <div className="no-container">
             <p>Item #</p>
@@ -116,7 +116,7 @@ export const Products = ({ page, products, view, setView, name, shopFont }) => {
             <p>(PPU)</p>
           </div>
           {/* <p className="buy-container"> */}
-          <p style={{ minWidth: '145px' }}>Buy</p>
+          <p className="buy" style={ !user ? { minWidth: '85px'} : { minWidth: '145px'}}>Buy</p>
           <div className="incart">
             <p>In</p>
             <p>Cart</p>

@@ -24,9 +24,9 @@ export default (props) => {
     const query = new URLSearchParams(props.location.search)
     const cat = query.get('category')
     if (cat) {
-      if (cat === "Pharmacy" && pharmaBtn.className.split(' ').length === 2) pharmaBtn.click()
-      if (cat === "Animal Care" && animalBtn.className.split(' ').length === 2) animalBtn.click()
-      if (cat === "Medical" && medicalBtn.className.split(' ').length === 2) medicalBtn.click()
+      if (cat === "Pharmaceuticals" && pharmaBtn.className.split(' ').length === 2) pharmaBtn.click()
+      if (cat === "Animal Health AND Medical Supplies" && animalBtn.className.split(' ').length === 2) animalBtn.click()
+      if (cat === "Medical Supplies" && medicalBtn.className.split(' ').length === 2) medicalBtn.click()
     } else {
       pharmaBtn.click()
     }
@@ -50,7 +50,7 @@ export default (props) => {
         <div className="container-fluid d-flex p-0 shop-category">
           <div className="filter-col">
             <h3>Categories</h3>
-            <div className="d-block d-lg-none">
+            <div className="product-category">
               <select
                 className="select-category form-control"
                 id="categoryType"
@@ -71,7 +71,7 @@ export default (props) => {
                   data-toggle="collapse"
                   data-target="#accordion1"
                   aria-expanded="false"
-                  onClick={() => setCategory('Pharmacy')}
+                  onClick={() => setCategory('Pharmaceuticals')}
                 >
                   For Pharmacies
                 </button>
@@ -140,7 +140,7 @@ export default (props) => {
                   data-toggle="collapse"
                   data-target="#accordion2"
                   aria-expanded="false"
-                  onClick={() => setCategory('Animal Care')}
+                  onClick={() => setCategory('Animal Health AND Medical Supplies')}
                 >
                   For Animal Care
                 </button>
@@ -209,7 +209,7 @@ export default (props) => {
                   data-toggle="collapse"
                   data-target="#accordion3"
                   aria-expanded="false"
-                  onClick={() => setCategory('Medical')}
+                  onClick={() => setCategory('Medical Supplies')}
                 >
                   For Medical/Surgical Products
                 </button>
@@ -277,9 +277,9 @@ export default (props) => {
               <div className="content-category">
                 <h3>
                   For{' '}
-                  {category === 'Pharmacy'
+                  {category === 'Pharmaceuticals'
                     ? 'Pharmacies'
-                    : category === 'Animal Care'
+                    : category === 'Animal Health AND Medical Supplies'
                     ? 'Animal Health'
                     : 'Medical/Surgical Products'}
                 </h3>

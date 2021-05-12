@@ -584,9 +584,9 @@
         font-weight: normal;
         font-size: 18px;
         line-height: 29px;
-        color: #4F4F4F;
+        color: #4f4f4f;
       }
-      .error{
+      .error {
         color: #ed4337;
       }
       .button-wrapper {
@@ -628,6 +628,103 @@
           line-height: 24px;
           text-align: center;
           color: #16cfb0;
+        }
+      }
+    }
+    // changePasswordWrapper
+    .changePasswordWrapper {
+      .password-wrapper {
+        max-width: 626.25px;
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 74px;
+
+        .changePasswordButton {
+          background: #16cfb0;
+          border-radius: 7.5px;
+          min-width: 163px;
+          min-height: 36px;
+          border: 0;
+          font-family: "Axiforma Bold";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 24px;
+          text-align: center;
+          color: #ffffff;
+          margin-left: 20px;
+          &:hover {
+            background: linear-gradient(
+              266.19deg,
+              #16cfb0 -15.44%,
+              #71d3f4 103.82%
+            );
+            border-radius: 7.50055px;
+          }
+        }
+      }
+      .emailDesc {
+        margin-bottom: 45px;
+      }
+      .email-input {
+        margin-bottom: 61px;
+        input {
+          background: #f0f0f0;
+          border-radius: 0;
+          border: 0;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 29px;
+          color: #4f4f4f;
+        }
+      }
+      .emailSubmitWrapper {
+        .continueButton {
+          background: #16cfb0;
+          border-radius: 7.5px;
+          max-width: 100%;
+          width: 100%;
+          min-height: 36px;
+          border: 0;
+          font-family: "Axiforma Bold";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 24px;
+          text-align: center;
+          color: #ffffff;
+          &:hover {
+            background: linear-gradient(
+              266.19deg,
+              #16cfb0 -15.44%,
+              #71d3f4 103.82%
+            );
+            border-radius: 7.50055px;
+          }
+        }
+      }
+      .checkEmail-container {
+        .emailIcon {
+          margin-bottom: 32px;
+        }
+        h2 {
+          margin-bottom: 15px;
+        }
+      }
+    }
+    .modal {
+      .modal-dialog {
+        max-width: 745px;
+        width: 100%;
+        margin: 0 auto;
+        .modal-content {
+          min-height: 481px;
+          width: 100%;
+          padding: 60px;
+          .modal-body {
+           
+          }
         }
       }
     }

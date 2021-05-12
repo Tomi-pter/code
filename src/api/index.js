@@ -12,6 +12,8 @@ API.interceptors.request.use((req) => {
 
 export const logIn = (formData) => API.post('/login', formData);
 export const signUp = (formData) => API.post('/signup', formData);
+export const changePassword = (username, formData) => API.put(`/user/${username}/change-password`, formData);
+
 export const verifyAccount = (formData) => API.post(`/user/${formData.email}/verify?code=${formData.code}`);
 export const resendCode = (email) => API.post(`/user/${email}/resend-verification`);
 
@@ -21,6 +23,8 @@ export const getOrders = (username) => API.get(`/${username}/orders`);
 
 // EDIT ACCOUNT
 export const putAccount = (username, accountData) => API.put(`/user/${username}`, accountData);
+
+
 
 export const getProducts = (name, category, subCategory) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);

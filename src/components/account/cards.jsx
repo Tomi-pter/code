@@ -139,7 +139,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
                     </div>
                 </div>
                 <div className="modal fade" id="addCardModal" tabindex="-1" role="dialog" aria-labelledby="addCardModal" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-body">
                                 <h2 className="sub-title">Add New Card</h2>

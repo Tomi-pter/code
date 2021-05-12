@@ -39,6 +39,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                     console.log(percentComplete);
                     if (percentComplete == 100) {
                         setAvatarLoading(false);
+                        dispatch(getAvatar(user?.username))
                     }
                 }
             };
@@ -46,7 +47,6 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
             xhr.open("POST", 'https://premierpharmastaging.outliant.com/user/' + user?.username + '/photo');
             xhr.send(saveAvatar);
         }
-
 
     };
     const encodeData = (buffer) => {
@@ -69,7 +69,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         inputFile.current.click();
     };
     useEffect(() => {
-        dispatch(getAvatar(user?.username));
+        // dispatch(getAvatar(user?.username));
     }, [account]);
 
     return (

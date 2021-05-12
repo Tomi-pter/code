@@ -8,6 +8,7 @@ export const RESEND = 'RESEND';
 export const GETACCOUNT = 'GETACCOUNT';
 export const PUTACCOUNT = 'PUTACCOUNT';
 export const GETORDERS = 'GETORDERS';
+export const CHANGEPASSWORD = 'CHANGEPASSWORD';
 
 // Avatar
 export const GETAVATAR = 'GETAVATAR';

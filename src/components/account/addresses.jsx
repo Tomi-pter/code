@@ -51,54 +51,6 @@ export const Addresses = ({ account }) => {
                         <button className="addAddressButton">+ Add New Address</button>
                     </div>
                 </div>
-                {/* <div className="row">
-                <div className="col-lg-6">
-                    <div className="form-group d-flex flex-column">
-                        <label htmlFor="address">Address</label>
-                        <input
-                            name="address"
-                            type="text"
-                            defaultValue={account.accountData?.address || ''}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="form-group d-flex flex-column">
-                        <label htmlFor="city">City</label>
-                        <input
-                            name="city"
-                            type="text"
-                            defaultValue={account.accountData?.['custom:city'] || ''}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="form-group d-flex flex-column">
-                        <label htmlFor="state">State</label>
-                        <input
-                            name="state"
-                            type="text"
-                            defaultValue={account.accountData?.['custom:state'] || ''}
-
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="form-group d-flex flex-column">
-                        <label htmlFor="postal_code">Postal Code</label>
-                        <input
-                            name="postal_code"
-                            type="text"
-                            defaultValue={account.accountData?.['custom:postal_code'] || ''}
-
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-            </div> */}
             </div>
         </>
     )

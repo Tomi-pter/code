@@ -5,6 +5,7 @@ import {
   POSTAVATAR,
   ERRORAVATAR,
   PUTACCOUNT,
+  CHANGEPASSWORD,
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
@@ -55,6 +56,16 @@ export const postAvatar = (username, image) => async (dispatch) => {
   try {
     const { data } = await api.postAvatar(username, image);
     dispatch({ type: POSTAVATAR, data });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const changePassword = (username, formData) => async (dispatch) => {
+  try {
+    const { data } = await api.changePassword(username, formData);
+    dispatch({ type: CHANGEPASSWORD, data });
     console.log(data);
   } catch (error) {
     console.log(error);

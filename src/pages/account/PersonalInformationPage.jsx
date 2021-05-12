@@ -7,6 +7,7 @@ import { PersonalInfo } from '../../components/account/personalInfo';
 import { Addresses } from '../../components/account/addresses';
 import { OrdersHistory } from '../../components/account/orders';
 import { Cards } from '../../components/account/cards';
+import { Changepassword } from '../../components/account/changePassword';
 import AccountUser from '../../assets/img/Account/user-icon.svg';
 import CartIcon from '../../assets/img/Account/mdi_cart.svg';
 import LogOutIcon from '../../assets/img/Account/mdi_logout-variant.svg';
@@ -114,10 +115,10 @@ export const PersonalInformationContainer = () => {
                                         <OrdersHistory account={account} />
                                     </div>
                                 </div>
-                                <div id="order-history" className="tab-pane fade">
-                                    <h1 className="title">Order History</h1>
+                                <div id="security" className="tab-pane fade">
+                                    <h1 className="title">Security</h1>
                                     <div className="card">
-                                        <OrdersHistory account={account} />
+                                        <Changepassword account={account} />
                                     </div>
                                 </div>
                             </div>

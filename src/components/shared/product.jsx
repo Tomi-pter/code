@@ -54,7 +54,7 @@ export const Product = ({
             <div className="header-name-wrapper">
           <p className="flex-fill list-header-name">{product.name}</p>
             </div>
-            <div className="header-price-wrapper">
+            <div className={'header-price-wrapper' + (auth ? ' d-block' : ' d-none')}>
               <p className="list-header-price">$ {product.purchasePrice}</p>
             </div>
           </div>

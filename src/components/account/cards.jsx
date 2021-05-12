@@ -95,7 +95,8 @@ export const Cards = ({ selectedCard, setSelectedCard, page, disable }) => {
                         <tbody>
                             {
                                 cards.cardsData?.map((card, index) => (
-                                    <tr key={`key-${index}`} onClick={() => page === 'payment' ? setSelectedCard(card.id) : handleSetDefault(card.id)}>
+                                    // <tr key={`key-${index}`} onClick={() => page === 'payment' ? setSelectedCard(card.id) : handleSetDefault(card.id)}>
+                                    <tr key={`key-${index}`} >
                                         <td>
                                             <PaymentInputsContainer>
                                                 {({ getCardNumberProps, getCardImageProps, getExpiryDateProps }) => (

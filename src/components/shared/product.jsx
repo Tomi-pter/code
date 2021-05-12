@@ -13,7 +13,9 @@ export const Product = ({
   quantity,
   setQuantity,
   shopFont,
-  cart
+  cart,
+  category,
+  subCategory
 }) => {
   const auth = localStorage.getItem('profile')
   const history = useHistory()
@@ -31,15 +33,15 @@ export const Product = ({
     setSelectedProduct(product)
     setQuantity(parseInt(e.target.value))
   }
-
+console.log(category);
   return (
     <div className={view === 'list' ? ' col-12' : 'col-12 col-md-6 col-lg-4'}>
       <div
         className={
           'product ' +
-          (product.category === 'Pharmaceuticals'
+          (category === 'Pharmaceuticals'
             ? 'pharma-product'
-            : product.category === 'Animal Health AND Medical Supplies'
+            : category === 'Animal Health AND Medical Supplies'
             ? 'vet-product'
             : 'medsurg-product')
         }

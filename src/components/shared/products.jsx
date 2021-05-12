@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { getCart, addCart } from '../../actions/cart'
 import { useSelector } from 'react-redux'
 
-export const Products = ({ page, products, view, setView, name, shopFont }) => {
+export const Products = ({ page, products, view, setView, name, shopFont, category, subCategory }) => {
   const cart = useSelector((state) => state.cart)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -143,6 +143,8 @@ export const Products = ({ page, products, view, setView, name, shopFont }) => {
               quantity={quantity}
               setQuantity={setQuantity}
               cart={cart}
+              category={category}
+              subCategory={subCategory}
             />
           ))}
         </div>

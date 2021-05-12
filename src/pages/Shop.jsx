@@ -308,6 +308,8 @@ export default (props) => {
                         view={view}
                         setView={setView}
                         products={products}
+                        category={category}
+                        subCategory={subCategory}
                       />
                     )}
                   </div>

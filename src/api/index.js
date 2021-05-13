@@ -24,7 +24,7 @@ export const getOrders = (username) => API.get(`/${username}/orders`);
 // EDIT ACCOUNT
 export const putAccount = (username, accountData) => API.put(`/user/${username}`, accountData);
 
-export const getProducts = (name, category, subCategory, sortBy) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : '') + (sortBy ? `&sortBy=${sortBy}` : ''));
+export const getProducts = (name, category, subCategory, sortBy, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : '') + (sortBy ? `&sortBy=${sortBy}` : '') + (page ? `&page=${page}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);
 
 export const getCart = (username) => API.get(`/cart/${username}`);

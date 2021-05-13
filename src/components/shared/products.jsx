@@ -4,12 +4,14 @@ import { useDispatch } from 'react-redux'
 import { getCart, addCart } from '../../actions/cart'
 import { useSelector } from 'react-redux'
 import { getProducts } from '../../actions/products'
+import ReactPaginate from 'react-paginate';
 
 export const Products = ({ page, products, view, setView, name, shopFont, category, subCategory }) => {
   const cart = useSelector((state) => state.cart)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [sortBy, setSortBy] = useState(null)
+  const [pageNumber, setPageNumber] = useState(1)
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
@@ -27,11 +29,19 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     setIsLoading(true)
     dispatch(addCart(user?.username, newProduct))
   }
-
+  const handlePageClick = (data) => {
+    setIsLoading(true)
+    var increment = data.selected + 1;
+    setPageNumber(increment);
+   
+    console.log(data.selected);
+    dispatch(getProducts(null, category, subCategory, sortBy, pageNumber))
+  };
   useEffect(() => {
     setIsLoading(true)
-    if (sortBy != null) dispatch(getProducts(null, category, subCategory, sortBy))
-  }, [dispatch, category, subCategory, sortBy])
+    dispatch(getProducts(null, category, subCategory, sortBy, pageNumber))
+
+  }, [dispatch, category, subCategory, sortBy, pageNumber])
 
 
   useEffect(() => {
@@ -59,7 +69,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
         {page === 'search' ? (
           <h3 className="search-for">Search Results for <q>{name}</q></h3>
         ) : (
-          <p className="total-products">Showing 1 - 9 of 10 products</p>
+          <p className="total-products">Showing 1 - 10 of 1600 products</p>
         )}
         <div className="d-flex align-items-center filter-view-container">
           <div className="d-flex align-items-center sort-by">
@@ -75,12 +85,12 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
               >
                 {sortBy === null || sortBy === "" ? (
                   <> Default </>
-                )  : (
+                ) : (
                   <>{sortBy}</>
                 )}
               </button>
               <div className="dropdown-menu" aria-labelledby="sortByDropdown">
-                <a className="dropdown-item"   onClick={() => setSortBy('')}>
+                <a className="dropdown-item" onClick={() => setSortBy('')}>
                   Default
                 </a>
                 {/* <a className="dropdown-item"  onClick={() => setSortBy('size')}>
@@ -89,7 +99,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
                 <a className="dropdown-item"  onClick={() => setSortBy('strength')}>
                   Strength
                 </a> */}
-                <a className="dropdown-item"  onClick={() => setSortBy('price')}>
+                <a className="dropdown-item" onClick={() => setSortBy('price')}>
                   Price
                 </a>
               </div>
@@ -128,7 +138,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
             <p>(PPU)</p>
           </div>
           {/* <p className="buy-container"> */}
-          <p className="buy" style={ !user ? { minWidth: '85px'} : { minWidth: '145px'}}>Buy</p>
+          <p className="buy" style={!user ? { minWidth: '85px' } : { minWidth: '145px' }}>Buy</p>
           <div className="incart">
             <p>In</p>
             <p>Cart</p>
@@ -161,6 +171,20 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
             />
           ))}
         </div>
+      </div>
+      <div className="pagination-products">
+        <ReactPaginate
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={160}
+          onPageChange={handlePageClick}
+          containerClassName={'pagination'}
+          activeClassName={'active'}
+          initialPage={0}
+       
+        />
       </div>
     </div>
   )

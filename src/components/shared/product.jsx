@@ -15,7 +15,8 @@ export const Product = ({
   shopFont,
   cart,
   category,
-  subCategory
+  subCategory,
+  sortBy
 }) => {
   const auth = localStorage.getItem('profile')
   const history = useHistory()

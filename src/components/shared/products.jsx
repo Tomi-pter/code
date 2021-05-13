@@ -3,11 +3,13 @@ import { Product } from './product'
 import { useDispatch } from 'react-redux'
 import { getCart, addCart } from '../../actions/cart'
 import { useSelector } from 'react-redux'
+import { getProducts } from '../../actions/products'
 
 export const Products = ({ page, products, view, setView, name, shopFont, category, subCategory }) => {
   const cart = useSelector((state) => state.cart)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [sortBy, setSortBy] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
@@ -27,6 +29,12 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
   }
 
   useEffect(() => {
+    setIsLoading(true)
+    if (sortBy != null) dispatch(getProducts(null, category, subCategory, sortBy))
+  }, [dispatch, category, subCategory, sortBy])
+
+
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem('profile'))
     dispatch(getCart(user?.username))
   }, [dispatch])
@@ -38,7 +46,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
       setIsLoading(false)
     }, 1000)
   }, [cart])
-
+  console.log(sortBy);
   return (
     <div className="products-container">
       <div
@@ -65,19 +73,23 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Size
+                {sortBy === null || sortBy === "" ? (
+                  <> Default </>
+                )  : (
+                  <>{sortBy}</>
+                )}
               </button>
               <div className="dropdown-menu" aria-labelledby="sortByDropdown">
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item"   onClick={() => setSortBy('')}>
                   Default
                 </a>
-                <a className="dropdown-item" href="#">
+                {/* <a className="dropdown-item"  onClick={() => setSortBy('size')}>
                   Size
                 </a>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item"  onClick={() => setSortBy('strength')}>
                   Strength
-                </a>
-                <a className="dropdown-item" href="#">
+                </a> */}
+                <a className="dropdown-item"  onClick={() => setSortBy('price')}>
                   Price
                 </a>
               </div>
@@ -145,6 +157,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
               cart={cart}
               category={category}
               subCategory={subCategory}
+              sortBy={sortBy}
             />
           ))}
         </div>

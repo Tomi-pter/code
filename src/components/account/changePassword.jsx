@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hooks-helper";
 import { Modal } from 'react-bootstrap';
@@ -11,6 +12,7 @@ const defaultData = {
     newPassword: "",
 };
 export const Changepassword = () => {
+    let history = useHistory();
     const user = JSON.parse(localStorage.getItem('profile'));
     const [emailPass, setEmaillPass] = useState(false);
     const [formData, setForm] = useForm(defaultData);
@@ -42,6 +44,7 @@ export const Changepassword = () => {
     }
     const resetSession = () => {
         localStorage.removeItem('profile')
+        history.push('/');
     }
     useEffect(() => {
         if (changePass.success) {
@@ -68,7 +71,7 @@ export const Changepassword = () => {
                         </button>
                     </div>
                 </div>
-                <Modal id="changePasswordModal" className="modalWrapper" show={showModal} onHide={handleClose}>
+                <Modal id="changePasswordModal" className="modalWrapper" show={showModal} onHide={handleClose} backdrop="static">
                     <Modal.Body>
                         {emailPass ?
                             <div className="checkEmail-container d-flex align-items-center justify-content-center">

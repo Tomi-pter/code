@@ -26,7 +26,7 @@ export const PersonalInformationContainer = () => {
     const [disable, setDisable] = useState(true);
     const [selectedCard, setSelectedCard] = useState('');
     const [accountData, setAccountData] = useState('');
-    const [isOpen, setOpen] = useState(false);
+    const [isOpen, setOpen] = useState(true);
     const dispatch = useDispatch();
     const account = useSelector((state) => state.account);
     const history = useHistory();

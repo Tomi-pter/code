@@ -21,8 +21,11 @@ export const logOut = (username) => API.post(`/user/${username}/logout`);
 export const getAccount = (username) => API.get(`/user/${username}`);
 export const getOrders = (username) => API.get(`/${username}/orders`);
 
-// EDIT ACCOUNT
+// Edit account
 export const putAccount = (username, accountData) => API.put(`/user/${username}`, accountData);
+export const addAddresses = (username, formData) => API.post(`/user/${username}/addresses`, formData); 
+export const getAllAddresses = (username) => API.get(`/user/${username}/addresses`); 
+export const getAddressesById = (username, id) => API.get(`/user/${username}/addresses/${id}`); 
 
 export const getProducts = (name, category, subCategory, sortBy, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : '') + (sortBy ? `&sortBy=${sortBy}` : '') + (page ? `&page=${page}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);

@@ -9,7 +9,9 @@ export const GETACCOUNT = 'GETACCOUNT';
 export const PUTACCOUNT = 'PUTACCOUNT';
 export const GETORDERS = 'GETORDERS';
 export const CHANGEPASSWORD = 'CHANGEPASSWORD';
-
+export const GETADDRESSES = 'GETADDRESSES';
+export const POSTADDRESSES = 'POSTADDRESSES';
+export const GETADDRESSESBYID = 'GETADDRESSESBYID';
 // Avatar
 export const GETAVATAR = 'GETAVATAR';
 export const POSTAVATAR = 'POSTAVATAR';

@@ -6,6 +6,9 @@ import { Modal } from 'react-bootstrap';
 import Input from "../shared/input";
 import PasswordChangeIcon from '../../assets/img/Account/password-change.svg';
 import { changePassword } from '../../actions/account';
+import CheckGreen from '../../assets/icon/check-lgreen.svg';
+import XGray from '../../assets/icon/x-gray.svg';
+
 
 const defaultData = {
     oldPassword: "",
@@ -20,17 +23,23 @@ export const Changepassword = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [errorMess, setErrorOldPass] = useState("");
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
     const changePass = useSelector((state) => state.account.changePassword);
+    const errorOldPass = useSelector((state) => state.account.errorOldPass);
     const { oldPassword, newPassword } = formData;
+    const checkPasswordLenght = newPassword.length >= 8 ? true : false;
+    const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(newPassword);
+    const checkNumber = /^(?=.*[0-9])/.test(newPassword);
+    const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(newPassword);
     const dispatch = useDispatch();
     // const passwordRequest = () => {
     //     setEmaillPass(true);
     // }
     const validation = useCallback(() => {
         const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~])[A-Za-z\d `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]{8,}$/.test(newPassword);
-        passwordCheck ? setDisabled(false) : setDisabled(true);
+        oldPassword && newPassword && passwordCheck ? setDisabled(false) : setDisabled(true);
     }, [oldPassword, newPassword])
     const submit = () => {
         setIsLoading(true);
@@ -39,8 +48,11 @@ export const Changepassword = () => {
         if (changePass.success == true) {
             setEmaillPass(true);
             console.log('emailPass', emailPass)
+        } else {
+            setEmaillPass(false);
+            setIsLoading(false);
+            setErrorOldPass('Invalid Old Password');
         }
-        console.log('changePass', changePass.success);
     }
     const resetSession = () => {
         localStorage.removeItem('profile')
@@ -96,6 +108,8 @@ export const Changepassword = () => {
                                             value={oldPassword}
                                             onChange={setForm}
                                         />
+                                        <p className={"password-validation "}>{errorMess ? errorMess : ''}</p>
+
                                     </div>
                                     <div className="password-input form-group">
                                         <label htmlFor="confirmNewPassword">New Password</label>
@@ -106,6 +120,11 @@ export const Changepassword = () => {
                                             value={newPassword}
                                             onChange={setForm}
                                         />
+                                        <p className={"password-validation " + (checkPasswordLenght ? 'valid' : '')}>{checkPasswordLenght ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use 8 or more characters</p>
+                                        <p className={"password-validation " + (checkLetters ? 'valid' : '')}>{checkLetters ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use upper and lower case letters</p>
+                                        <p className={"password-validation " + (checkNumber ? 'valid' : '')}>{checkNumber ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use a number (e.g. 1234)</p>
+                                        <p className={"password-validation " + (checkCharacter ? 'valid' : '')}>{checkCharacter ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use a symbol (e.g. !@#$)</p>
+
                                     </div>
                                 </div>
                                 <div className="d-flex align-items-center justify-content-end nav">

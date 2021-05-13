@@ -735,6 +735,9 @@
     max-width: 745px;
     width: 100%;
     margin: 0 auto;
+    display: flex !important;
+    align-items: center !important;
+    height: 100%;
     .modal-content {
       min-height: 481px;
       width: 100%;
@@ -764,6 +767,25 @@
           min-height: 42px;
         }
       }
+    }
+  }
+  .password-validation {
+    margin-bottom: 5px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: #bdbdbd;
+    display: flex;
+    align-items: center;
+    &.valid {
+      color: #37b34a;
+    }
+    img {
+      margin-right: 8px;
+    }
+    &:last-of-type {
+      margin-bottom: 10px;
     }
   }
   .changePasswordButton {

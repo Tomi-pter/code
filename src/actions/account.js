@@ -6,6 +6,7 @@ import {
   ERRORAVATAR,
   PUTACCOUNT,
   CHANGEPASSWORD,
+  ERROROLDPASS,
   POSTADDRESSES,
   GETADDRESSES,
   GETADDRESSESBYID,
@@ -72,7 +73,12 @@ export const changePassword = (username, formData) => async (dispatch) => {
     const { data } = await api.changePassword(username, formData);
     dispatch({ type: CHANGEPASSWORD, data });
   } catch (error) {
-    console.log(error);
+    const { data } = await api.changePassword(username, formData);
+    if (error.response && error.response.data !== undefined) {
+      const { errorData } = error.response.data;
+      dispatch({ type: ERROROLDPASS, errorData });
+
+    }
   }
 };
 

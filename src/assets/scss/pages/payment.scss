@@ -101,10 +101,6 @@
       color: #FFFFFF;
       background: #16CFB0;
       border: 0;
-      &:disabled, &:disabled:hover {
-        background-color: #cccccc;
-        color: #666666;
-      }
       &:focus {
         box-shadow: none;
       }
@@ -114,6 +110,10 @@
         #16cfb0 -15.44%,
         #71d3f4 103.82%
         );
+      }
+      &:disabled, &:disabled:hover {
+        background: #cccccc;
+        color: #666666;
       }
     }
   }

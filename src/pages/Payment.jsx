@@ -21,8 +21,7 @@ export const PaymentContainer = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const handlePayment = async (e) => {
-        e.preventDefault();
+    const handleCardPayment = () => {
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
         const accountData = account?.accountData;
@@ -38,6 +37,10 @@ export const PaymentContainer = () => {
             accountData
         }
         dispatch(payment(user?.username, body, history));
+    }
+
+    const handleTermPayment = () => {
+        console.log('Payment by Term');
     }
 
     useEffect(()=>{
@@ -80,7 +83,7 @@ export const PaymentContainer = () => {
                             </div>
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"< Cart"}</Link>
-                                <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' && selectedMethod === "card" ? true : null}>
+                                <button className="btn proceed-btn" onClick={()=>selectedMethod === "card" ? handleCardPayment() : handleTermPayment()} disabled={selectedCard === '' && selectedMethod === "card" ? true : null}>
                                     {isLoading ?
                                         <div className="spinner-border text-light" role="status">
                                             <span className="sr-only">Loading...</span>

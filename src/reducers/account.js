@@ -31,7 +31,7 @@ const accountReducer = (state = initialState, action) => {
       return { ...state, addressesData: action.data };
     case actionType.POSTADDRESSES:
       state.addressesData.push(action.data);
-      return state;
+      return { ...state, addAddressSuccess: true};
     case actionType.GETADDRESSESBYID:
       return { ...state, addressesData: action.data };
     default:

@@ -1,11 +1,78 @@
-import React, {useEffect, useState} from 'react';
-
+import React, {useEffect, useCallback, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getAccount, getAllAddresses } from '../../actions/account';
+import { getAccount, getAllAddresses, addAddresses } from '../../actions/account';
 import Edit from '../../assets/icon/pencil.svg';
+import Input from '../shared/input';
+import Dropdown from '../shared/dropdown';
+import InputContact from 'react-phone-number-input/input';
+import { formatPhoneNumberIntl, isPossiblePhoneNumber } from 'react-phone-number-input'
 
-const initialState = {details: {address: "", city: "", country: "", email: "", familyName: "", givenName: "", mobileNumber: "", postalCode: "", state: ""}};
+const initialFormData = {
+    givenName: "",
+    familyName: "",
+    email: "",
+    mobileNumber: "",
+    address: "",
+    company: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: ""
+};
+const states = [
+    ["AL", "Alabama"],
+    ["AK", "Alaska"],
+    ["AZ", "Arizona"],
+    ["AR", "Arkansas"],
+    ["CA", "California"],
+    ["CO", "Colorado"],
+    ["CT", "Connecticut"],
+    ["DE", "Delaware"],
+    ["DC", "District of Columbia"],
+    ["FL", "Florida"],
+    ["GA", "Georgia"],
+    ["HI", "Hawaii"],
+    ["ID", "Idaho"],
+    ["IL", "Illinois"],
+    ["IN", "Indiana"],
+    ["IA", "Iowa"],
+    ["KS", "Kansas"],
+    ["KY", "Kentucky"],
+    ["LA", "Louisiana"],
+    ["ME", "Maine"],
+    ["MD", "Maryland"],
+    ["MA", "Massachusetts"],
+    ["MI", "Michigan"],
+    ["MN", "Minnesota"],
+    ["MS", "Mississippi"],
+    ["MO", "Missouri"],
+    ["MT", "Montana"],
+    ["NE", "Nebraska"],
+    ["NV", "Nevada"],
+    ["NH", "New Hampshire"],
+    ["NJ", "New Jersey"],
+    ["NM", "New Mexico"],
+    ["NY", "New York"],
+    ["NC", "North Carolina"],
+    ["ND", "North Dakota"],
+    ["OH", "Ohio"],
+    ["OK", "Oklahoma"],
+    ["OR", "Oregon"],
+    ["PA", "Pennsylvania"],
+    ["RI", "Rhode Island"],
+    ["SC", "South Carolina"],
+    ["SD", "South Dakota"],
+    ["TN", "Tennessee"],
+    ["TX", "Texas"],
+    ["UT", "Utah"],
+    ["VT", "Vermont"],
+    ["VA", "Virginia"],
+    ["WA", "Washington"],
+    ["WV", "West Virginia"],
+    ["WI", "Wisconsin"],
+    ["WY", "Wyoming"]
+];
 
 export const CheckoutInfo = ({selectedShipping, setSelectedShipping, selectedBilling, setSelectedBilling}) => {
     const dispatch = useDispatch();
@@ -14,6 +81,9 @@ export const CheckoutInfo = ({selectedShipping, setSelectedShipping, selectedBil
     const [selectBilling, setSelectBilling] = useState(null);
     const [checked, setChecked] = useState(true);
     const [defaultAddress, setDefaultAddress] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [formData, setFormData] = useState(initialFormData);
+    const [isDisabled, setDisabled] = useState(true);
 
     const handleChecked = () => {
         setChecked(!checked);
@@ -40,6 +110,28 @@ export const CheckoutInfo = ({selectedShipping, setSelectedShipping, selectedBil
             document.getElementById("billingBtn").click();
         }
     }
+
+    const handleSubmit = () => {
+        setIsLoading(true);
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(addAddresses(user?.username, formData));
+    }
+
+    const handleAddAddress = () => {
+        setFormData(initialFormData);
+    }
+
+    const contactChange = (value) => {
+        setFormData({ ...formData, 'mobileNumber': value});
+    }
+
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const validation = useCallback(() => {
+        const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+        const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
+        formData.email && formData.mobileNumber && phoneCheck && emailCheck && formData.givenName && formData.familyName && formData.address && formData.city && formData.state && formData.postalCode && formData.country ? setDisabled(false) : setDisabled(true);
+    }, [formData])
     
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('profile'));
@@ -53,7 +145,13 @@ export const CheckoutInfo = ({selectedShipping, setSelectedShipping, selectedBil
         setSelectedBilling(selectedShipping);
         setSelectBilling(selectedShipping);
         setSelectShipping(selectedShipping);
+        setIsLoading(false);
+        document.getElementById('closeModal').click();
     },[account]);
+
+    useEffect(() => {
+        validation();
+    }, [validation])
 
     return (
         <>
@@ -86,7 +184,7 @@ export const CheckoutInfo = ({selectedShipping, setSelectedShipping, selectedBil
                                     ))
                                 }
                             </ul>
-                            <button className="add-btn">+ Add New Address</button>
+                            <button className="add-btn" data-toggle="modal" data-target="#addAddressModal" onClick={() => handleAddAddress()}>+ Add New Address</button>
                             <div className="d-flex align-items-center justify-content-between">
                                 <button className="cancel-btn" onClick={()=>{document.getElementById("shippingBtn").click()}}>Cancel</button>
                                 <button className="save-btn" onClick={()=>handleSelect('shipping', selectShipping)}>Save</button>
@@ -145,7 +243,7 @@ export const CheckoutInfo = ({selectedShipping, setSelectedShipping, selectedBil
                                     ))
                                 }
                             </ul>
-                            <button className="add-btn">+ Add New Address</button>
+                            <button className="add-btn" data-toggle="modal" data-target="#addAddressModal" onClick={() => handleAddAddress()}>+ Add New Address</button>
                             <div className="d-flex align-items-center justify-content-between">
                                 <button className="cancel-btn">Cancel</button>
                                 <button className="save-btn" onClick={()=>handleSelect('billing', selectBilling)}>Save</button>
@@ -178,6 +276,140 @@ export const CheckoutInfo = ({selectedShipping, setSelectedShipping, selectedBil
                         </li>
                     </ul>
                 }
+            </div>
+            <div className="modal fade" id="addAddressModal" tabIndex="-1" role="dialog" aria-labelledby="addAddressModal" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <h2 className="sub-title">Add New Address</h2>
+                            <div className="row">
+                                <div className="col">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="givenName">First Name</label>
+                                        <Input
+                                            label="First Name"
+                                            name="givenName"
+                                            type="text"
+                                            value={formData.givenName}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="familyName">Last Name</label>
+                                        <Input
+                                            label="Last Name"
+                                            name="familyName"
+                                            type="text"
+                                            value={formData.familyName}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col">
+                                    <label htmlFor="email">Email</label>
+                                    <Input
+                                        label="Email"
+                                        name="email"
+                                        type="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="col">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="address">Phone Number</label>
+                                        <InputContact
+                                            country="US"
+                                            international
+                                            withCountryCallingCode
+                                            value={formData.mobileNumber}
+                                            className="form-control"
+                                            onChange={contactChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="address">Address</label>
+                                        <Input
+                                            label="Address"
+                                            name="address"
+                                            type="text"
+                                            value={formData.address}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="city">City</label>
+                                        <Input
+                                            label="City"
+                                            name="city"
+                                            type="text"
+                                            value={formData.city}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="state">State</label>
+                                        <Dropdown label="State" name="state" value={formData.state} options={states} onChange={handleChange} />
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="postalCode">Postal Code</label>
+                                        <Input
+                                            label="Postal"
+                                            name="postalCode"
+                                            type="text"
+                                            value={formData.postalCode}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="country">Country</label>
+                                        <Input
+                                            label="Country"
+                                            name="country"
+                                            type="text"
+                                            value={formData.country}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="button-wrapper d-flex align-items-center justify-content-end">
+                                <button className="cancelCardButton close" data-dismiss="modal" id="closeModal" aria-label="Close">
+                                    Cancel
+                                </button>
+                                <button className={"addCardButton " + (isLoading ? 'loading' : '')} onClick={handleSubmit}  disabled={isDisabled && !isLoading}>
+                                    {isLoading ?
+                                        <div className="spinner-border text-light" role="status">
+                                            <span className="sr-only">Loading...</span>
+                                        </div>
+                                        :
+                                        <>
+                                            Add
+                                        </>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     )

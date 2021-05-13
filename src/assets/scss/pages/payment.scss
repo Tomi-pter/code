@@ -101,7 +101,7 @@
       color: #FFFFFF;
       background: #16CFB0;
       border: 0;
-      &.disabled {
+      &:disabled, &:disabled:hover {
         background-color: #cccccc;
         color: #666666;
       }

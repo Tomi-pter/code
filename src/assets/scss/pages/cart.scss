@@ -147,6 +147,13 @@
       justify-content: center;
       border: 0;
       outline: 0;
+      &:hover {
+        background: linear-gradient(
+          266.19deg,
+          #16cfb0 -15.44%,
+          #71d3f4 103.82%
+        );
+      }
     }
   }
   .customer-info, .order-summary {
@@ -503,7 +510,7 @@
     background: #16CFB0;
     border: 0;
     margin-left: auto;
-    &.disabled {
+    &.disabled, &.disabled:focus {
       background-color: #cccccc;
       color: #666666;
     }
@@ -517,5 +524,83 @@
         #71d3f4 103.82%
       );
     }
+  }
+  #addAddressModal {
+      // .card {
+      //     background: #fff;
+      //     border: 0;
+      //     box-shadow: none;
+      // }
+      input, select {
+          background: #f0f0f0;
+          border-radius: 0;
+          border: 0;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 29px;
+          color: #4f4f4f;
+      }
+      .error {
+          min-height: 22px;
+          color: #ed4337;
+      }
+      .add-error {
+          min-height: 22px;
+          margin-bottom: 10px;
+          background: none;
+          color: #ed4337;
+      }
+      .button-wrapper {
+          margin-top: 66px;
+          .addCardButton, .cancelCardButton {
+              font-family: "Axiforma Bold";
+              font-style: normal;
+              font-weight: 600;
+              font-size: 15px;
+              line-height: 24px;
+              text-align: center;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+          }
+          .addCardButton {
+              background: #16cfb0;
+              border-radius: 7.5px;
+              min-width: 127px;
+              min-height: 36px;
+              border: 0;
+              color: #ffffff;
+              margin-left: 20px;
+              &:hover {
+                  background: linear-gradient(
+                  266.19deg,
+                  #16cfb0 -15.44%,
+                  #71d3f4 103.82%
+                  );
+                  border-radius: 7.50055px;
+              }
+              .spinner-border {
+                  width: 30px;
+                  height: 30px;
+              }
+              &:disabled, &:disabled:hover {
+                  background: #f0f0f0;
+              }
+              &.loading:disabled, &.loading:disabled:hover {
+                  background: #16cfb0;
+              }
+          }
+          .cancelCardButton {
+              background: transparent;
+              border: 2px solid #16cfb0;
+              box-sizing: border-box;
+              border-radius: 7.5px;
+              min-width: 127px;
+              min-height: 36px;
+              color: #16cfb0;
+              opacity: 1;
+          }
+      }
   }
 }

@@ -15,6 +15,9 @@
             li {
                 display: inline;
                 margin-right: 20px;
+                @include mediaQueries(mobile) {
+                    margin-right: 5px;
+                }
                 a {
                     font-size: 13px;
                     padding: 7px 15px;
@@ -32,6 +35,9 @@
                 position: absolute;
                 left: 0;
                 margin-right: 0px;
+                @include mediaQueries(mobile) {
+                    display: none;
+                }
                 a {
                     &::before {
                         content: "<";
@@ -43,6 +49,9 @@
                 position: absolute;
                 right: 0;
                 margin-right: 0px;
+                @include mediaQueries(mobile) {
+                    display: none;
+                }
                 a {
                     &::after {
                         content: ">";
@@ -121,7 +130,7 @@
             }
         }
         .sort-by {
-            margin-right: 40px;
+            margin-right: 25px;
             flex: 1;
             @include mediaQueries(pad) {
                 flex: 1;

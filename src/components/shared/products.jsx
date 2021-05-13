@@ -138,8 +138,8 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
             <p>(PPU)</p>
           </div>
           {/* <p className="buy-container"> */}
-          <p className="buy" style={!user ? { minWidth: '85px' } : { minWidth: '145px' }}>Buy</p>
-          <div className="incart">
+          <p className="buy" style={!user ? { minWidth: '90px' } : { minWidth: '145px' }}>Buy</p>
+          <div className={'incart' + (!user ? ' d-none' : ' d-block')}>
             <p>In</p>
             <p>Cart</p>
           </div>

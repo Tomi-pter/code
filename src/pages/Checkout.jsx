@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import  { ItemList } from '../components/cart/itemList';
 import  { OrderSummary } from '../components/cart/orderSummary';
-import  Info from '../components/cart/info';
+import  { CheckoutInfo } from '../components/cart/info';
 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -12,6 +12,8 @@ import { useHistory } from 'react-router';
 
 export const CheckoutContainer = () => {
     const cart = useSelector((state) => state.cart);
+    const [selectedShipping, setSelectedShipping] = useState(null);
+    const [selectedBilling, setSelectedBilling] = useState(null);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -35,8 +37,18 @@ export const CheckoutContainer = () => {
                             <ItemList cart={cart} page={'checkout'} />
                         </div>
                         <div>
-                            <Info />
-                            <OrderSummary cart={cart} page={'checkout'} />
+                            <CheckoutInfo 
+                                selectedShipping={selectedShipping} 
+                                setSelectedShipping={setSelectedShipping}
+                                selectedBilling={selectedBilling} 
+                                setSelectedBilling={setSelectedBilling} 
+                            />
+                            <OrderSummary 
+                                selectedShipping={selectedShipping} 
+                                selectedBilling={selectedBilling} 
+                                cart={cart} 
+                                page={'checkout'} 
+                            />
                         </div>
                     </div>
                 </div>

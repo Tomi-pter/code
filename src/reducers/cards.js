@@ -1,4 +1,4 @@
-import { UPDATECARDS, ADDCARD, ERRORCARD, DEFAULTCARD } from '../constants/actionTypes';
+import { UPDATECARDS, ADDCARD, REMOVECARD, ERRORCARD, DEFAULTCARD } from '../constants/actionTypes';
 
 const cardsReducer = (state = { cardsData: [] }, action) => {
   switch (action.type) {
@@ -9,6 +9,10 @@ const cardsReducer = (state = { cardsData: [] }, action) => {
       state.cardsData.push(action.payload)
 
       return { ...state, cardError: null };
+    case REMOVECARD:
+      const newCardsData = state.cardsData.filter((card) => card.id !== action.payload.id)
+
+      return { ...state, cardsData: newCardsData, cardError: null };
     case ERRORCARD: 
 
       return { ...state, cardError: action.payload };

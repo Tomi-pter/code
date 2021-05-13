@@ -14,6 +14,10 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     const cards = useSelector((state) => state.cards);
     const [stateAddCard, setStateAddCard] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedDefaultCard, setSelectedDefaultCard] = useState('');
+    const [selectedDeleteCard, setSelectedDeleteCard] = useState('');
+    const [isDefaultLoading, setIsDefaultLoading] = useState(false);
+    const [isDeleteLoading, setIsDeleteLoading] = useState(false);
     const dispatch = useDispatch();
 
     const setCard = (cardType) => {
@@ -43,7 +47,8 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     }
 
     const handleSetDefault = (id) => {
-        setIsLoading(true);
+        setSelectedDefaultCard(id);
+        setIsDefaultLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(setDefaultCard(user?.username, id));
     }
@@ -56,12 +61,12 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     };
 
     const removeCreditCard = (id) => {
-        setIsLoading(true);
+        setSelectedDeleteCard(id);
+        setIsDeleteLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(removeCard(user?.username, {
             "paymentMethodId": id
         }));
-        dispatch(getCards(user?.username));
     };
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -79,9 +84,11 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
         const defaultCard = cards?.customerData?.invoice_settings.default_payment_method;
         if (defaultCard) setSelectedCard(cards?.customerData?.invoice_settings.default_payment_method);
         setIsLoading(false);
+        setIsDeleteLoading(false);
         if (!cards.cardError) {
             setStateAddCard(false);
             setFormData(initialState);
+            document.getElementById("modalClose").click();
         }
     }, [cards]);
 
@@ -169,7 +176,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                 <span className="default">Default</span>
                                             :
                                             <button className="default-btn" onClick={()=>handleSetDefault(card.id)}>
-                                                {isLoading ?
+                                                {isDefaultLoading && selectedDefaultCard === card.id ?
                                                     <div className="spinner-border text-light" role="status">
                                                         <span className="sr-only">Loading...</span>
                                                     </div>
@@ -182,9 +189,15 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                         }
                                     </td>
                                     <td>
-                                        <a className="delete-wrapper" onClick={() => removeCreditCard(card.id)}>
-                                            <img className="delete-icon" src={DeleteIcon} alt="" />
-                                        </a>
+                                        {isDeleteLoading && selectedDeleteCard === card.id ?
+                                            <div className="spinner-border text-danger delete-spinner" role="status">
+                                                <span className="sr-only">Loading...</span>
+                                            </div>
+                                            :
+                                            <a className="delete-wrapper" onClick={() => removeCreditCard(card.id)}>
+                                                <img className="delete-icon" src={DeleteIcon} alt="" />
+                                            </a>
+                                        }
                                     </td>
                                 </tr>
                             ))
@@ -231,10 +244,10 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                             </div>
                                             <p className="add-error">{cards.cardError && stateAddCard ? cards.cardError : ''}</p>
                                             <div className="button-wrapper d-flex align-items-center justify-content-end">
-                                                <button className="cancelCardButton close" data-dismiss="modal" aria-label="Close">
+                                                <button className="cancelCardButton close" id="modalClose" data-dismiss="modal" aria-label="Close">
                                                     Cancel
                                                 </button>
-                                                <button className="addCardButton close" disabled={(!meta.isTouched || meta.isTouched) && !meta.error ? false : true} onClick={handleSubmit}>
+                                                <button className={"addCardButton " + (isLoading ? "loading" : "")} disabled={(!meta.isTouched || meta.isTouched ) && !meta.error && formData.cardholderName !== "" && !isLoading ? false : true} onClick={handleSubmit}>
                                                     {isLoading ?
                                                         <div className="spinner-border text-light" role="status">
                                                             <span className="sr-only">Loading...</span>

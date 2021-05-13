@@ -63,6 +63,10 @@
                         margin-bottom: 5px;
                     }
                 }
+                .spinner-border.delete-spinner {
+                    width: 20px;
+                    height: 20px;
+                }
                 .delete-wrapper {
                     cursor: pointer;
                     img {
@@ -184,6 +188,12 @@
                     width: 30px;
                     height: 30px;
                 }
+                &:disabled, &:disabled:hover {
+                    background: #f0f0f0;
+                }
+                &.loading:disabled, &.loading:disabled:hover {
+                    background: #16cfb0;
+                }
             }
             .cancelCardButton {
                 background: transparent;
@@ -193,6 +203,7 @@
                 min-width: 127px;
                 min-height: 36px;
                 color: #16cfb0;
+                opacity: 1;
             }
         }
     }

@@ -2,8 +2,6 @@ import React, { useState, useEffect} from 'react';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { Cards } from '../components/account/cards';
-// import GooglePay from '../assets/img/Payment/Google_Pay.svg';
-// import ApplePay from '../assets/img/Payment/Apple_Pay.svg';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -11,10 +9,12 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { payment } from '../actions/payment';
 import { getCart } from '../actions/cart';
+import { getAccount } from '../actions/account';
 import { Link } from 'react-router-dom';
 
 export const PaymentContainer = () => {
-    const cart = useSelector((state) => state.cart);    
+    const cart = useSelector((state) => state.cart); 
+    const account = useSelector((state) => state.account);   
     const [selectedCard, setSelectedCard] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
@@ -24,12 +24,17 @@ export const PaymentContainer = () => {
         e.preventDefault();
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
-        // const amount = (parseFloat(cart?.checkoutDetail?.finalTotal) * 100);
+        const accountData = account?.accountData;
         const amount = parseInt(cart?.checkoutDetail?.total);
+        const billingAddress = cart?.checkoutDetail?.selectedBilling;
+        const shippingAddress = cart?.checkoutDetail?.selectedShipping;
         const body = {
             code: cart?.discountDetail?.id,
             paymentMethodId: selectedCard,
-            amount
+            amount,
+            billingAddress,
+            shippingAddress,
+            accountData
         }
         dispatch(payment(user?.username, body, history));
     }
@@ -37,11 +42,14 @@ export const PaymentContainer = () => {
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getCart(user?.username));
+        dispatch(getAccount(user?.username));
     },[dispatch]);
 
     useEffect(()=>{
         if (!cart?.checkoutDetail) history.push("/checkout");
     },[cart]);
+
+    console.log(account);
 
     return (
         <>
@@ -71,7 +79,6 @@ export const PaymentContainer = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/* <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' /> */}
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"< Cart"}</Link>
                                 <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>

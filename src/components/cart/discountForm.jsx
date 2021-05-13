@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { discount, getCart } from '../../actions/cart';
 
-export const DiscountForm = ({  discountCode, setDiscountCode, setDiscountDetail, discountAmount }) => {
+export const DiscountForm = ({  discountCode, setDiscountCode, discountAmount }) => {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ export const DiscountForm = ({  discountCode, setDiscountCode, setDiscountDetail
     },[dispatch]);
 
     useEffect(()=>{
-        setDiscountDetail(cart?.discountDetail);  
+        // setDiscountDetail(cart?.discountDetail);  
         if(cart?.discountDetail?.id) setDiscountCode(cart?.discountDetail?.id);
     },[cart]);
 

@@ -5,9 +5,8 @@ import { DiscountForm } from './discountForm';
 
 import { checkout } from '../../actions/cart';
 
-export const OrderSummary = ({ cart, page }) => {
+export const OrderSummary = ({ selectedShipping, selectedBilling, cart, page }) => {
     const [discountCode, setDiscountCode] = useState('');
-    const [discountDetail, setDiscountDetail] = useState(null);
     const dispatch = useDispatch();
     const history = useHistory();
     const itemCount = cart.cartData?.length > 0 ? cart.cartData?.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
@@ -26,7 +25,9 @@ export const OrderSummary = ({ cart, page }) => {
         const checkoutDetail = {
             finalTotal,
             total,
-            discountCode
+            discountCode,
+            selectedShipping,
+            selectedBilling
         }
         dispatch(checkout(checkoutDetail, history));
     }
@@ -53,7 +54,6 @@ export const OrderSummary = ({ cart, page }) => {
                 <DiscountForm 
                     discountCode={discountCode} 
                     setDiscountCode={setDiscountCode} 
-                    setDiscountDetail={setDiscountDetail} 
                     discountAmount={discountAmount}
                 />
             }

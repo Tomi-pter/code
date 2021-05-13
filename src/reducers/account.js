@@ -5,6 +5,7 @@ const initialState = {
   accountOrders: [],
   avatarData: [],
   addressesData: [],
+  changePassword: []
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -16,7 +17,7 @@ const accountReducer = (state = initialState, action) => {
     case actionType.PUTACCOUNT:
       return { ...state, accountData: action.data };
     case actionType.CHANGEPASSWORD:
-      return { ...state, accountData: action.data };
+      return { ...state, changePassword: action.data };
     case actionType.POSTAVATAR:
       return { ...state, avatarData: action.data };
     case actionType.GETAVATAR:

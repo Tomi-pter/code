@@ -110,10 +110,11 @@ export const Addresses = ({ account }) => {
     const handleSubmit = () => {
         setIsLoading(true);
         setSubmitted(true);
-        setShowModal(false);
         dispatch(addAddresses(user?.username, formData));
         dispatch(getAllAddresses(user?.username));
-        console.log(formData);
+        sleep(1500).then(() => {
+            setShowModal(false);
+        })
     }
     const removeAddress = (id) => {
         const user = JSON.parse(localStorage.getItem('profile'));

@@ -9,6 +9,7 @@ import {
   POSTADDRESSES,
   GETADDRESSES,
   GETADDRESSESBYID,
+  DELETEADDRESSESBYID,
   
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
@@ -101,6 +102,16 @@ export const addAddresses = (username, formData) => async (dispatch) => {
   try {
     const { data } = await api.addAddresses(username, formData);
     dispatch({ type: POSTADDRESSES, data });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteAddressesById = (username, id) => async (dispatch) => {
+  try {
+    const { data } = await api.deleteAddressesById(username, id);
+    dispatch({ type: DELETEADDRESSESBYID, data });
     console.log(data);
   } catch (error) {
     console.log(error);

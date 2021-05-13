@@ -4,13 +4,18 @@ import { useForm } from "react-hooks-helper";
 
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
+import DeleteIcon from '../../assets/img/Account/delete-icon.svg';
 import { addAddresses, getAllAddresses, getAddressesById } from '../../actions/account';
 import Input from '../shared/input';
 import Dropdown from "../shared/dropdown";
 
+import {formatPhoneNumberIntl, isPossiblePhoneNumber} from 'react-phone-number-input'
+import InputContact from 'react-phone-number-input/input';
+
 const defaultData = {
     givenName: "",
     familyName: "",
+    email: "",
     phoneNumber: "",
     address: "",
     company: "",
@@ -78,12 +83,23 @@ export const Addresses = ({ account }) => {
     const [isDisabled, setDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    const { givenName, familyName, address, city, state, postalCode, country } = formData;
+    const { email, phoneNumber, givenName, familyName, address, city, state, postalCode, country } = formData;
     const dispatch = useDispatch();
     const addresses = useSelector((state) => state.account.addressesData);
     const validation = useCallback(() => {
-        givenName && familyName && address && city && state && postalCode && country ? setDisabled(false) : setDisabled(true);
-    }, [givenName, familyName, address, city, state, postalCode, country])
+        const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        const phoneCheck = formatPhoneNumberIntl(phoneNumber) && isPossiblePhoneNumber(phoneNumber) ? true : false;
+        email && phoneNumber && phoneCheck && emailCheck && givenName && familyName && address && city && state && postalCode && country ? setDisabled(false) : setDisabled(true);
+    }, [email, phoneNumber, givenName, familyName, address, city, state, postalCode, country])
+
+    const contactChange = (value) => {
+        setForm({
+          target: {
+            name: 'phoneNumber',
+            value: value
+          }
+        })
+      }
     const handleSubmit = () => {
         setIsLoading(true);
         setSubmitted(true);
@@ -91,7 +107,7 @@ export const Addresses = ({ account }) => {
         dispatch(getAllAddresses(user?.username));
         console.log(formData);
     }
-    
+
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAllAddresses(user?.username));
@@ -160,8 +176,20 @@ export const Addresses = ({ account }) => {
                                 <h2 className="sub-title">Add New Address</h2>
                                 <div className="row">
                                     <div className="col">
+                                        <label htmlFor="email">Email</label>
+                                        <Input
+                                            label="Email"
+                                            name="email"
+                                            type="email"
+                                            value={email}
+                                            onChange={setForm}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
                                         <div className="password-input form-group">
-                                            <label htmlFor="confirmNewPassword">First Name</label>
+                                            <label htmlFor="givenName">First Name</label>
                                             <Input
                                                 label="First Name"
                                                 name="givenName"
@@ -173,7 +201,7 @@ export const Addresses = ({ account }) => {
                                     </div>
                                     <div className="col">
                                         <div className="password-input form-group">
-                                            <label htmlFor="confirmNewPassword">Last Name</label>
+                                            <label htmlFor="familyName">Last Name</label>
                                             <Input
                                                 label="Last Name"
                                                 name="familyName"
@@ -187,7 +215,22 @@ export const Addresses = ({ account }) => {
                                 <div className="row">
                                     <div className="col">
                                         <div className="password-input form-group">
-                                            <label htmlFor="confirmNewPassword">Address</label>
+                                            <label htmlFor="address">Phone Number</label>
+                                            <InputContact
+                                                country="US"
+                                                international
+                                                withCountryCallingCode
+                                                value={phoneNumber}
+                                                onChange={contactChange}
+                                                className="form-control"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="password-input form-group">
+                                            <label htmlFor="address">Address</label>
                                             <Input
                                                 label="Address"
                                                 name="address"
@@ -201,7 +244,7 @@ export const Addresses = ({ account }) => {
                                 <div className="row">
                                     <div className="col">
                                         <div className="password-input form-group">
-                                            <label htmlFor="confirmNewPassword">City</label>
+                                            <label htmlFor="city">City</label>
                                             <Input
                                                 label="City"
                                                 name="city"
@@ -213,15 +256,15 @@ export const Addresses = ({ account }) => {
                                     </div>
                                     <div className="col">
                                         <div className="password-input form-group">
-                                            <label htmlFor="confirmNewPassword">State</label>
+                                            <label htmlFor="state">State</label>
                                             <Dropdown label="State" name="state" value={state} options={states} onChange={setForm} />
                                         </div>
                                     </div>
-                                    <div className="col">
+                                    <div className="col col-md-2">
                                         <div className="password-input form-group">
-                                            <label htmlFor="confirmNewPassword">Postal Code</label>
+                                            <label htmlFor="postalCode">Postal Code</label>
                                             <Input
-                                                label="Postal Code"
+                                                label="Postal"
                                                 name="postalCode"
                                                 type="text"
                                                 value={postalCode}
@@ -231,7 +274,7 @@ export const Addresses = ({ account }) => {
                                     </div>
                                     <div className="col">
                                         <div className="password-input form-group">
-                                            <label htmlFor="confirmNewPassword">Country</label>
+                                            <label htmlFor="country">Country</label>
                                             <Input
                                                 label="Country"
                                                 name="country"

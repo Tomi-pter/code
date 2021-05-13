@@ -545,126 +545,126 @@
         }
       }
     }
-    .cardWrapper {
-      .table {
-        thead {
-          th {
-            background: #e9fdfc;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 15px;
-            line-height: 24px;
-            color: #828282;
-            text-transform: none;
-            letter-spacing: 0;
-            text-align: left;
-          }
-        }
-        tbody {
-          tr {
-            td {
-              .cardNumber {
-                p {
-                  margin-bottom: 5px;
-                }
-                .defaultText {
-                  background: #16cfb0;
-                  border-radius: 9.75px;
-                  max-width: 76px;
-                  font-style: normal;
-                  font-weight: normal;
-                  font-size: 13.5px;
-                  line-height: 21px;
-                  color: #f2f2f2;
-                  text-align: center;
-                }
-              }
-              .delete-wrapper {
-                cursor: pointer;
-                img {
-                  max-width: 24px;
-                  min-height: 24px;
-                }
-              }
-            }
-          }
-        }
-      }
-      .addCardButton {
-        background: #16cfb0;
-        border-radius: 7.5px;
-        min-width: 174px;
-        min-height: 36px;
-        border: 0;
-        font-family: "Axiforma Bold";
-        font-style: normal;
-        font-weight: 600;
-        font-size: 15px;
-        line-height: 24px;
-        text-align: center;
-        color: #ffffff;
-        &:hover {
-          background: linear-gradient(
-            266.19deg,
-            #16cfb0 -15.44%,
-            #71d3f4 103.82%
-          );
-          border-radius: 7.50055px;
-        }
-      }
-    }
-    #addCardModal {
-      .card {
-        background: #fff;
-        border: 0;
-        box-shadow: none;
-      }
+    // .cardWrapper {
+    //   .table {
+    //     thead {
+    //       th {
+    //         background: #e9fdfc;
+    //         font-style: normal;
+    //         font-weight: normal;
+    //         font-size: 15px;
+    //         line-height: 24px;
+    //         color: #828282;
+    //         text-transform: none;
+    //         letter-spacing: 0;
+    //         text-align: left;
+    //       }
+    //     }
+    //     tbody {
+    //       tr {
+    //         td {
+    //           .cardNumber {
+    //             p {
+    //               margin-bottom: 5px;
+    //             }
+    //             .defaultText {
+    //               background: #16cfb0;
+    //               border-radius: 9.75px;
+    //               max-width: 76px;
+    //               font-style: normal;
+    //               font-weight: normal;
+    //               font-size: 13.5px;
+    //               line-height: 21px;
+    //               color: #f2f2f2;
+    //               text-align: center;
+    //             }
+    //           }
+    //           .delete-wrapper {
+    //             cursor: pointer;
+    //             img {
+    //               max-width: 24px;
+    //               min-height: 24px;
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    //   .addCardButton {
+    //     background: #16cfb0;
+    //     border-radius: 7.5px;
+    //     min-width: 174px;
+    //     min-height: 36px;
+    //     border: 0;
+    //     font-family: "Axiforma Bold";
+    //     font-style: normal;
+    //     font-weight: 600;
+    //     font-size: 15px;
+    //     line-height: 24px;
+    //     text-align: center;
+    //     color: #ffffff;
+    //     &:hover {
+    //       background: linear-gradient(
+    //         266.19deg,
+    //         #16cfb0 -15.44%,
+    //         #71d3f4 103.82%
+    //       );
+    //       border-radius: 7.50055px;
+    //     }
+    //   }
+    // }
+    // #addCardModal {
+    //   .card {
+    //     background: #fff;
+    //     border: 0;
+    //     box-shadow: none;
+    //   }
       
-      .error {
-        color: #ed4337;
-      }
-      .button-wrapper {
-        margin-top: 66px;
-        .addCardButton {
-          background: #16cfb0;
-          border-radius: 7.5px;
-          min-width: 127px;
-          min-height: 36px;
-          border: 0;
-          font-family: "Axiforma Bold";
-          font-style: normal;
-          font-weight: 600;
-          font-size: 15px;
-          line-height: 24px;
-          text-align: center;
-          color: #ffffff;
-          margin-left: 20px;
-          &:hover {
-            background: linear-gradient(
-              266.19deg,
-              #16cfb0 -15.44%,
-              #71d3f4 103.82%
-            );
-            border-radius: 7.50055px;
-          }
-        }
-        .cancelCardButton {
-          background: transparent;
-          border: 2px solid #16cfb0;
-          box-sizing: border-box;
-          border-radius: 7.5px;
-          min-width: 127px;
-          min-height: 36px;
-          font-family: "Axiforma Bold";
-          font-style: normal;
-          font-weight: 600;
-          font-size: 15px;
-          line-height: 24px;
-          text-align: center;
-          color: #16cfb0;
-        }
-      }
-    }
+    //   .error {
+    //     color: #ed4337;
+    //   }
+    //   .button-wrapper {
+    //     margin-top: 66px;
+    //     .addCardButton {
+    //       background: #16cfb0;
+    //       border-radius: 7.5px;
+    //       min-width: 127px;
+    //       min-height: 36px;
+    //       border: 0;
+    //       font-family: "Axiforma Bold";
+    //       font-style: normal;
+    //       font-weight: 600;
+    //       font-size: 15px;
+    //       line-height: 24px;
+    //       text-align: center;
+    //       color: #ffffff;
+    //       margin-left: 20px;
+    //       &:hover {
+    //         background: linear-gradient(
+    //           266.19deg,
+    //           #16cfb0 -15.44%,
+    //           #71d3f4 103.82%
+    //         );
+    //         border-radius: 7.50055px;
+    //       }
+    //     }
+    //     .cancelCardButton {
+    //       background: transparent;
+    //       border: 2px solid #16cfb0;
+    //       box-sizing: border-box;
+    //       border-radius: 7.5px;
+    //       min-width: 127px;
+    //       min-height: 36px;
+    //       font-family: "Axiforma Bold";
+    //       font-style: normal;
+    //       font-weight: 600;
+    //       font-size: 15px;
+    //       line-height: 24px;
+    //       text-align: center;
+    //       color: #16cfb0;
+    //     }
+    //   }
+    // }
     // changePasswordWrapper
     .changePasswordWrapper {
       .password-wrapper {

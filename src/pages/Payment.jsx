@@ -43,33 +43,35 @@ export const PaymentContainer = () => {
         if (!cart?.checkoutDetail) history.push("/checkout");
     },[cart]);
 
-
     return (
         <>
             <HeaderNav />
             <div className="container-fluid payment-page">
                 <h1 className="title">Payment</h1>
                 <div className="d-flex align-items-start">
-                    <div className="cards-container">
-                        <div className="cards">
-                            {/* <h1 className="title">Payment Methods</h1> */}
-                            {/* <ul className="nav nav-tabs">
+                    <div className="payments-container">
+                        <div className="payments">
+                            <h1 className="title">Payment Methods</h1>
+                            <ul className="nav nav-tabs">
                                 <li><a data-toggle="tab" href="#card" className="active">Credit Card</a></li>
-                                <li><a data-toggle="tab" href="#google"><img className="payment-icon" src={GooglePay} alt="" /></a></li>
-                                <li><a data-toggle="tab" href="#apple"><img className="payment-icon" src={ApplePay} alt="" /></a></li>
-                            </ul> */}
-                            {/* <div className="tab-content">
+                                <li><a data-toggle="tab" href="#terms">Pay by Terms</a></li>
+                            </ul>
+                            <div className="tab-content">
                                 <div id="card" className="tab-pane fade in active show">
                                     <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
                                 </div>
-                                <div id="google" className="tab-pane fade">
-                                    <h3>GOOGLE PAY</h3>
+                                <div id="terms" className="tab-pane fade">
+                                    <div className="d-flex align-items-center justify-content-between terms-copy">
+                                        <div className="mr-5">
+                                            <h2>REMINDER</h2>
+                                            <p>By selecting payment by terms you agree that ...... it will take within 24 hours to confirm your eligibility to use this as a payment option. </p>
+                                            <p>We will send an email to update the status of your order.</p>
+                                        </div>
+                                        <img src={require("../assets/icon/card-active.svg")} alt="" />
+                                    </div>
                                 </div>
-                                <div id="apple" className="tab-pane fade">
-                                    <h3>APPLE PAY</h3>
-                                </div>
-                            </div> */}
-                            <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
+                            </div>
+                            {/* <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' /> */}
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"< Cart"}</Link>
                                 <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>

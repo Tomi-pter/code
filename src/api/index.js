@@ -27,7 +27,7 @@ export const getAllAddresses = (username) => API.get(`/user/${username}/addresse
 export const getAddressesById = (username, id) => API.get(`/user/${username}/addresses/${id}`); 
 export const deleteAddressesById = (username, id) => API.delete(`/user/${username}/addresses/${id}`); 
 
-export const getProducts = (name, category, subCategory, sortBy) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : '') + (sortBy ? `&sortBy=${sortBy}` : ''));
+export const getProducts = (name, category, subCategory, sortBy, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : '') + (sortBy ? `&sortBy=${sortBy}` : '') + (page ? `&page=${page}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);
 
 export const getCart = (username) => API.get(`/cart/${username}`);

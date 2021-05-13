@@ -9,96 +9,73 @@
     color: #4F4F4F;
     margin-bottom: 17px;
   }
-  .cards-container {
+  .payments-container {
     flex: auto;
     margin-right: 30px;
     // .title {
     //   margin-bottom: 25px;
     // }
-    .cards {
-      background: #FFFFFF;
+    .payments {
+      background: hsl(0, 0%, 100%);
       box-shadow: 0px 7.5px 30px rgba(0, 0, 0, 0.07);
       border-radius: 3.75px;
       padding: 40px 50px 28px 50px;
     }
-    // .nav-tabs {
-    //   border-bottom: 0;
-    //   margin-bottom: 69px;
-    //   display: flex;
-    //   align-items: center;
-    //   justify-content: space-around;
-    // }
-    // .nav-tabs li {
-    //   background: rgba(113, 211, 244, 0.2);
-    //   border: 3.75px solid #71D3F4;
-    //   box-sizing: border-box;
-    //   border-radius: 15px;
-    //   a {
-    //     width: 209px;
-    //     height: 117px;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     padding: 30px;
-    //     position: relative;
-    //     font-style: normal;
-    //     font-weight: normal;
-    //     font-size: 18.75px;
-    //     line-height: 30px;
-    //     color: #4F4F4F;
-    //     &.active::after {
-    //       position: absolute;
-    //       content: '';
-    //       width: 39.75px;
-    //       height: 39.75px;
-    //       top: -20px;
-    //       right: -20px;
-    //       background: url('../../icon/method-active.svg') no-repeat center;
-    //     }
-    //   }
-    //   img {
-    //     max-width: 136px;
-    //   }
-    // }
-    .card-list {
-      .card {
-        background: #FFFFFF;
-        border: 1.5px solid #E0E0E0;
-        box-sizing: border-box;
-        border-radius: 7.5px;
-        padding: 12px 69px;
-        cursor: pointer;
-        &.active {
-          padding: 54px 69px;
-          border-color: #37B34A;
-        }
-      }
-      svg {
-        width: 67.5px;
-        height: 67.5px;
-        margin-right: 60px;
-      }
-      .name {
-        font-style: normal;
-        font-weight: 800;
-        font-size: 22.5px;
-        line-height: 37px;
-        color: #4F4F4F;
-        margin-bottom: 0;
-      }
-      input {
-        display: none;
-      }
-      .card-number {
+    .nav-tabs {
+      border-bottom: 0;
+      margin-bottom: 69px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .nav-tabs li {
+      border: 3.75px solid #71D3F4;
+      box-sizing: border-box;
+      border-radius: 15px;
+      margin-right: 70px; 
+      a {
+        width: 209px;
+        height: 117px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        position: relative;
         font-style: normal;
         font-weight: normal;
         font-size: 18.75px;
         line-height: 30px;
         color: #4F4F4F;
+        &.active {
+          background: rgba(113, 211, 244, 0.2);
+          color: #000000;
+        }
+        &.active::after {
+          position: absolute;
+          content: '';
+          width: 39.75px;
+          height: 39.75px;
+          top: -20px;
+          right: -20px;
+          background: url('../../icon/method-active.svg') no-repeat center;
+        }
       }
-      .card .img-container {
-        width: 39.75px;
-        height: 39.75px;
+      img {
+        max-width: 136px;
+      }
+    }
+    
+    .terms-copy {
+      border: 1.5px solid #37B34A;
+      box-sizing: border-box;
+      border-radius: 7.5px;
+      padding: 40px 40px 80px 40px;
+      p {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 29px;
+        color: #000000;
       }
     }
     // .add-card-container {
@@ -247,6 +224,7 @@
   }
   .total-container {
     width: 480px;
+    min-width: 480px;
     background: #0098FF;
     border-radius: 7.5px;
     padding: 30px 30px 30px 50px;

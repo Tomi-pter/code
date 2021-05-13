@@ -6,6 +6,52 @@
             height: 100px;
         }
     }
+    .pagination-products {
+        margin-top: 38px;
+        ul {
+            display: block;
+            text-align: center;
+            position: relative;
+            li {
+                display: inline;
+                margin-right: 20px;
+                a {
+                    font-size: 13px;
+                    padding: 7px 15px;
+                    border-radius: 5px;
+                    font-weight: bold;
+                }
+                &.active {
+                    a {
+                        background: #16cfb0;
+                        color: #fff;
+                    }
+                }
+            }
+            .previous {
+                position: absolute;
+                left: 0;
+                margin-right: 0px;
+                a {
+                    &::before {
+                        content: "<";
+                        margin-right: 5px;
+                    }
+                }
+            }
+            .next {
+                position: absolute;
+                right: 0;
+                margin-right: 0px;
+                a {
+                    &::after {
+                        content: ">";
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+    }
     .top-details {
         padding: 0 40px;
         margin-bottom: 40px;
@@ -50,8 +96,8 @@
             font-family: "Axiforma Bold";
             font-style: normal;
             font-weight: normal;
-            font-size: 20px;
-            line-height: 32px;
+            font-size: 15px;
+            line-height: 24px;
             color: #000000;
             margin: 0;
             @include mediaQueries(pad) {
@@ -747,7 +793,7 @@
         width: 239px;
         max-width: 100%;
         margin: 0 auto 30px auto;
-        @include mediaQueries (mobile) {
+        @include mediaQueries(mobile) {
             width: 100%;
         }
         .to-buy {
@@ -757,7 +803,7 @@
             cursor: pointer !important;
         }
         .name {
-            font-family: 'Axiforma Bold';
+            font-family: "Axiforma Bold";
             font-size: 13px;
             line-height: 26px;
             color: #000000;

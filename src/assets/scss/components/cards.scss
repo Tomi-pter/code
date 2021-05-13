@@ -1,0 +1,199 @@
+.cardWrapper {
+    .card-list {
+        .card {
+          background: #FFFFFF;
+          border: 1.5px solid #E0E0E0;
+          box-sizing: border-box;
+          border-radius: 7.5px;
+          padding: 12px 69px;
+          cursor: pointer;
+          &.active {
+            padding: 54px 69px;
+            border-color: #37B34A;
+          }
+        }
+        svg {
+          width: 67.5px;
+          height: 67.5px;
+          margin-right: 60px;
+        }
+        .name {
+          font-style: normal;
+          font-weight: 800;
+          font-size: 22.5px;
+          line-height: 37px;
+          color: #4F4F4F;
+          margin-bottom: 0;
+        }
+        input {
+          display: none;
+        }
+        .card-number {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18.75px;
+          line-height: 30px;
+          color: #4F4F4F;
+        }
+        .card .img-container {
+          width: 39.75px;
+          height: 39.75px;
+        }
+        .add-card {
+          color: #16CFB0;
+          border-color: #16CFB0;
+        }
+    }
+    .card-table {
+        .table {
+            th {
+                background: #e9fdfc;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 24px;
+                color: #828282;
+                text-transform: none;
+                letter-spacing: 0;
+                text-align: left;
+            }
+            td {
+                .cardNumber {
+                    p {
+                        margin-bottom: 5px;
+                    }
+                }
+                .delete-wrapper {
+                    cursor: pointer;
+                    img {
+                    max-width: 24px;
+                    min-height: 24px;
+                    }
+                }
+                .default, .default-btn {
+                    width: 121px;
+                    min-width: 121px;
+                    height: 27px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 13.5px;
+                    line-height: 21px;
+                    text-align: center;
+                }
+                .default {
+                    background: #16CFB0;
+                    color: #F2F2F2;
+                    border-radius: 9.75px;
+                    padding: 0 10px;
+                }
+                .default-btn {
+                    color: #16CFB0;
+                    border: 1.5px solid #16CFB0;
+                    background: transparent;
+                    padding: 0 10px;
+                    .spinner-border {
+                        width: 20px;
+                        height: 20px;
+                        color: #16CFB0 !important;
+                    }
+                }
+            }
+        }
+        .addCardButton {
+            background: #16cfb0;
+            border-radius: 7.5px;
+            min-width: 174px;
+            min-height: 36px;
+            border: 0;
+            font-family: "Axiforma Bold";
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 24px;
+            text-align: center;
+            color: #ffffff;
+            &:not(:disabled):hover {
+                background: linear-gradient(
+                    266.19deg,
+                    #16cfb0 -15.44%,
+                    #71d3f4 103.82%
+                );
+                border-radius: 7.50055px;
+            }
+        }
+    }
+    #addCardModal {
+        .card {
+            background: #fff;
+            border: 0;
+            box-shadow: none;
+        }
+        input {
+            background: #f0f0f0;
+            border-radius: 0;
+            border: 0;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 29px;
+            color: #4f4f4f;
+        }
+        .error {
+            min-height: 22px;
+            color: #ed4337;
+        }
+        .add-error {
+            min-height: 22px;
+            margin-bottom: 10px;
+            background: none;
+            color: #ed4337;
+        }
+        .button-wrapper {
+            margin-top: 66px;
+            .addCardButton, .cancelCardButton {
+                font-family: "Axiforma Bold";
+                font-style: normal;
+                font-weight: 600;
+                font-size: 15px;
+                line-height: 24px;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .addCardButton {
+                background: #16cfb0;
+                border-radius: 7.5px;
+                min-width: 127px;
+                min-height: 36px;
+                border: 0;
+                color: #ffffff;
+                margin-left: 20px;
+                &:hover {
+                    background: linear-gradient(
+                    266.19deg,
+                    #16cfb0 -15.44%,
+                    #71d3f4 103.82%
+                    );
+                    border-radius: 7.50055px;
+                }
+                .spinner-border {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+            .cancelCardButton {
+                background: transparent;
+                border: 2px solid #16cfb0;
+                box-sizing: border-box;
+                border-radius: 7.5px;
+                min-width: 127px;
+                min-height: 36px;
+                color: #16cfb0;
+            }
+        }
+    }
+}

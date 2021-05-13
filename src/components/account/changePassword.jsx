@@ -1,8 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hooks-helper";
+import { Modal } from 'react-bootstrap';
 import Input from "../shared/input";
-import CheckEmailIcon from '../../assets/img/Account/check-email.svg';
+import PasswordChangeIcon from '../../assets/img/Account/password-change.svg';
 import { changePassword } from '../../actions/account';
 
 const defaultData = {
@@ -10,12 +12,17 @@ const defaultData = {
     newPassword: "",
 };
 export const Changepassword = () => {
+    let history = useHistory();
     const user = JSON.parse(localStorage.getItem('profile'));
     const [emailPass, setEmaillPass] = useState(false);
     const [formData, setForm] = useForm(defaultData);
     const [isDisabled, setDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const handleClose = () => setShowModal(false);
+    const handleShow = () => setShowModal(true);
+    const changePass = useSelector((state) => state.account.changePassword);
     const { oldPassword, newPassword } = formData;
     const dispatch = useDispatch();
     // const passwordRequest = () => {
@@ -29,8 +36,24 @@ export const Changepassword = () => {
         setIsLoading(true);
         setSubmitted(true);
         dispatch(changePassword(user?.username, formData));
-        console.log(formData);
+        if (changePass.success == true) {
+            setEmaillPass(true);
+            console.log('emailPass', emailPass)
+        }
+        console.log('changePass', changePass.success);
     }
+    const resetSession = () => {
+        localStorage.removeItem('profile')
+        history.push('/');
+    }
+    useEffect(() => {
+        if (changePass.success) {
+            setEmaillPass(true);
+            console.log('emailPass', emailPass)
+        }
+        console.log('useEffect', changePass.success);
+
+    }, [changePass]);
     useEffect(() => {
         validation();
     }, [validation]);
@@ -43,15 +66,25 @@ export const Changepassword = () => {
                         Password
                     </div>
                     <div>
-                        <button className="changePasswordButton" data-toggle="modal" data-target="#changePasswordModal">
+                        <button className="changePasswordButton" onClick={() => setShowModal(true)}>
                             Change Password
                         </button>
                     </div>
                 </div>
-                <div className="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal" aria-hidden="true">
-                    <div className="modal-dialog modal-dialog-centered" role="document">
-                        <div className="modal-content">
-                            <div className="modal-body">
+                <Modal id="changePasswordModal" className="modalWrapper" show={showModal} onHide={handleClose} backdrop="static">
+                    <Modal.Body>
+                        {emailPass ?
+                            <div className="checkEmail-container d-flex align-items-center justify-content-center">
+                                <div className="contentWrapper text-center">
+                                    <img className="emailIcon" src={PasswordChangeIcon} />
+                                    <h2>Password successfully updated</h2>
+                                    <div className="emailSubmitWrapper">
+                                        <button className="continueButton" onClick={resetSession}>Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                            :
+                            <div>
                                 <div>
                                     <h2 className="sub-title">Enter New Password</h2>
                                     <div className="password-input form-group">
@@ -76,7 +109,7 @@ export const Changepassword = () => {
                                     </div>
                                 </div>
                                 <div className="d-flex align-items-center justify-content-end nav">
-                                    <button className="submit" onClick={submit} disabled={isDisabled}>
+                                    <button className="changePasswordButton" onClick={submit} disabled={isDisabled}>
                                         {isLoading ?
                                             <div className="spinner-border text-light" role="status">
                                                 <span className="sr-only">Loading...</span>
@@ -88,32 +121,11 @@ export const Changepassword = () => {
                                         }
                                     </button>
                                 </div>
-                                {/* request change password */}
-                                {/* {emailPass ?
-                                    <div className="checkEmail-container d-flex align-items-center justify-content-center">
-                                        <div className="contentWrapper text-center">
-                                            <img className="emailIcon" src={CheckEmailIcon} />
-                                            <h2>Please check your email</h2>
-                                            <p>Instructions to reset your password was sent to your email. </p>
-                                        </div>
-                                    </div>
-                                    :
-                                    <div>
-                                        <h2 className="sub-title">Change Password</h2>
-                                        <p className="emailDesc">Enter the email address associated with your account and we’ll send you a link to reset your password.</p>
-                                        <div className="email-input form-group">
-                                            <label htmlFor="email">Email</label>
-                                            <input className="form-control" id="email" type="email" name="email" placeholder="Email" />
-                                        </div>
-                                        <div className="emailSubmitWrapper">
-                                            <button className="continueButton" onClick={passwordRequest}>Continue</button>
-                                        </div>
-                                    </div>
-                                } */}
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        }
+
+                    </Modal.Body>
+                </Modal>
             </div>
         </>
     )

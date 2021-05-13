@@ -727,14 +727,6 @@
           }
         }
       }
-      .checkEmail-container {
-        .emailIcon {
-          margin-bottom: 32px;
-        }
-        h2 {
-          margin-bottom: 15px;
-        }
-      }
     }
   }
 }
@@ -751,6 +743,14 @@
 
       .modal-body {
         padding: 0;
+        .checkEmail-container {
+          .emailIcon {
+            margin-bottom: 32px;
+          }
+          h2 {
+            margin-bottom: 15px;
+          }
+        }
         input,
         select {
           background: #f0f0f0;
@@ -764,6 +764,44 @@
           min-height: 42px;
         }
       }
+    }
+  }
+  .changePasswordButton {
+    background: #16cfb0;
+    border-radius: 7.5px;
+    min-width: 163px;
+    min-height: 36px;
+    border: 0;
+    font-family: "Axiforma Bold";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+    margin-left: 20px;
+    &:hover {
+      background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
+      border-radius: 7.50055px;
+    }
+  }
+  .continueButton {
+    background: #16cfb0;
+    border-radius: 7.5px;
+    max-width: 100%;
+    width: 100%;
+    min-height: 36px;
+    border: 0;
+    font-family: "Axiforma Bold";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 24px;
+    text-align: center;
+    color: #ffffff;
+    &:hover {
+      background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
+      border-radius: 7.50055px;
     }
   }
   .saveAddressesButton {

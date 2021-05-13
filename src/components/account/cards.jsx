@@ -61,6 +61,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
         dispatch(removeCard(user?.username, {
             "paymentMethodId": id
         }));
+        dispatch(getCards(user?.username));
     };
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });

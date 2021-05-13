@@ -16,10 +16,18 @@
         }
     }
     @else if $deviceType==custom-shop {
-        @media screen and (min-width: 1366px) and (max-width: 1630px) {
+        @media screen and (max-width: 1400px) {
             @content;
         }
-        @media screen and (min-device-width: 1366px) and (max-device-width: 1630px) {
+        @media screen and (max-device-width: 1400px) {
+            @content;
+        }
+    }
+    @else if $deviceType==custom-shop-container {
+        @media screen and (max-width: 1510px) {
+            @content;
+        }
+        @media screen and (max-device-width: 1400px) {
             @content;
         }
     }

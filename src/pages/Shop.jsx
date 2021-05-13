@@ -14,6 +14,7 @@ export default (props) => {
   const [isLoading, setIsLoading] = useState(true)
   const [category, setCategory] = useState('')
   const [subCategory, setSubCategory] = useState('')
+  const [dummySub, setDummySub] = useState('')
   const location = useLocation()
   const dispatch = useDispatch()
 
@@ -35,8 +36,8 @@ export default (props) => {
 
   useEffect(() => {
     setIsLoading(true)
-    if (category) dispatch(getProducts(null, category, subCategory))
-  }, [dispatch, category, subCategory])
+    if (category) dispatch(getProducts(null, category, dummySub))
+  }, [dispatch, category, dummySub])
 
   useEffect(() => {
     setIsLoading(false)

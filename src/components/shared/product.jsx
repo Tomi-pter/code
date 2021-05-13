@@ -123,7 +123,7 @@ console.log(category);
                     for Price
                   </span>
                 ) : (
-                  <>$ {product.purchasePrice}</>
+                  <>$ { product.purchasePrice ? (product.purchasePrice) : '0' }</>
                 )}
               </p>
               {/* <p className="ppu for-list">({ppu})</p> */}

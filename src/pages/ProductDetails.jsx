@@ -54,17 +54,19 @@ export default props => {
                 <div className="container content">
                     {product ?
                         <div className="d-flex align-items-start">
-                            <div className={"details-container card " + (product?.category === 'Pharmacy' ?  'pharma-product' : product?.category === 'Animal Care' ? 'vet-product' : 'medsurg-product')}>
+                            <div className={"details-container card " + (product.customFields[15].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[15].value === 'Animal Health AND Medical Supplies' ? 'vet-product' : 'medsurg-product')}>
                                 <div className="img-container">
                                     <img src={ImageProduct} alt="" />
                                 </div>
                                 
                                 <div className="d-block d-lg-none">
+                                   
                                     <h3 className="name">{product?.name}</h3>
                                     <h2 className="price">${product?.purchasePrice}</h2>
                                 </div>
                                 
                                 <p>Description: </p>
+                             
                                 <p>
                                     {product?.description}
                                 </p>

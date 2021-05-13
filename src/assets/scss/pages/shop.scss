@@ -3,6 +3,7 @@
         background: #fff;
     }
     .shop-category {
+        position: relative;
         @include mediaQueries(padpro) {
             display: block !important;
         }
@@ -136,16 +137,28 @@
     }
     .products-col {
         flex: auto;
+        position: relative;
+        width: calc(100% - 480px);
+        right: 27px;
         padding: 93px 30px 93px 0;
         @include mediaQueries(padpro) {
             background: #fff;
             padding: 40px 15px;
+            position: unset;
+            width: auto;
+            right: unset;
         }
         @include mediaQueries(pad) {
             background: #fff;
             padding: 20px 15px;
+            position: unset;
+            width: auto;
+            right: unset;
         }
         @include mediaQueries(mobile) {
+            position: unset;
+            width: auto;
+            right: unset;
             background: #fff;
             padding: 20px 15px;
         }
@@ -204,6 +217,18 @@
             }
             @include mediaQueries(mobile) {
                 padding: 20px 15px;
+            }
+        }
+        @media screen and (max-width: 1365px) {
+            .shop-page {
+                .shop-category {
+                    position: unset;
+                }
+                .products-col {
+                    position: unset;
+                    width: auto;
+                    right: unset;
+                }
             }
         }
         @media screen and (max-width: 1630px) {

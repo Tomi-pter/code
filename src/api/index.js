@@ -4,10 +4,10 @@ const API = axios.create({ baseURL: 'https://premierpharmastaging.outliant.com/'
 // const user = JSON.parse(localStorage.getItem('profile'));
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem('profile')) {
-    req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
-  }
-  return req;
+    if (localStorage.getItem('profile')) {
+        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
+    }
+    return req;
 });
 
 export const logIn = (formData) => API.post('/login', formData);
@@ -27,16 +27,13 @@ export const addAddresses = (username, formData) => API.post(`/user/${username}/
 export const getAllAddresses = (username) => API.get(`/user/${username}/addresses`); 
 export const getAddressesById = (username, id) => API.get(`/user/${username}/addresses/${id}`); 
 
-// Addresses
-
-
-export const getProducts = (name, category, subCategory) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : ''));
+export const getProducts = (name, category, subCategory, sortBy) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : '') + (sortBy ? `&sortBy=${sortBy}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);
 
 export const getCart = (username) => API.get(`/cart/${username}`);
 export const addCart = (username, product) => API.post(`/cart/${username}/add`, product);
 export const updateCart = (username, product) => API.put(`/cart/${username}/update`, product);
-export const removeCart = (username, productId) => API.post(`/cart/${username}/remove`, {productId});
+export const removeCart = (username, productId) => API.post(`/cart/${username}/remove`, { productId });
 export const discount = (discountCode) => API.get(`/coupons?code=${discountCode}`);
 
 export const getCards = (username) => API.get(`/cards/${username}`);

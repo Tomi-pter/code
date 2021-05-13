@@ -82,7 +82,11 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
 
     useEffect(() => {
         const defaultCard = cards?.customerData?.invoice_settings.default_payment_method;
-        if (defaultCard) setSelectedCard(cards?.customerData?.invoice_settings.default_payment_method);
+        if (defaultCard) { 
+            setSelectedCard(cards?.customerData?.invoice_settings.default_payment_method);
+        } else {
+            if (cards?.cardsData?.length > 0 ) setSelectedCard(cards?.cardsData[0].id);
+        };
         setIsLoading(false);
         setIsDeleteLoading(false);
         if (!cards.cardError) {

@@ -17,6 +17,7 @@ export const PaymentContainer = () => {
     const account = useSelector((state) => state.account);   
     const [selectedCard, setSelectedCard] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedMethod, setSelectedMethod] = useState('card');
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -49,8 +50,6 @@ export const PaymentContainer = () => {
         if (!cart?.checkoutDetail) history.push("/checkout");
     },[cart]);
 
-    console.log(account);
-
     return (
         <>
             <HeaderNav />
@@ -61,8 +60,8 @@ export const PaymentContainer = () => {
                         <div className="payments">
                             <h1 className="title">Payment Methods</h1>
                             <ul className="nav nav-tabs">
-                                <li><a data-toggle="tab" href="#card" className="active">Credit Card</a></li>
-                                <li><a data-toggle="tab" href="#terms">Pay by Terms</a></li>
+                                <li><a data-toggle="tab" href="#card" className="active" onClick={()=>setSelectedMethod('card')}>Credit Card</a></li>
+                                <li><a data-toggle="tab" href="#terms" onClick={()=>setSelectedMethod('terms')}>Pay by Terms</a></li>
                             </ul>
                             <div className="tab-content">
                                 <div id="card" className="tab-pane fade in active show">
@@ -81,7 +80,7 @@ export const PaymentContainer = () => {
                             </div>
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"< Cart"}</Link>
-                                <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' ? true : null}>
+                                <button className="btn proceed-btn" onClick={handlePayment} disabled={selectedCard === '' && selectedMethod === "card" ? true : null}>
                                     {isLoading ?
                                         <div className="spinner-border text-light" role="status">
                                             <span className="sr-only">Loading...</span>

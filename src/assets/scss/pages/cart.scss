@@ -251,6 +251,13 @@
       background: #16CFB0;
       border: 0;
       color: #FFFFFF;
+      &:hover {
+        background: linear-gradient(
+        266.19deg,
+        #16cfb0 -15.44%,
+        #71d3f4 103.82%
+        );
+      }
     }
     .default-btn {
       width: 111px;
@@ -296,6 +303,13 @@
       border: 0;
       background: #16CFB0;
       color: #FFFFFF;
+      &:hover {
+        background: linear-gradient(
+        266.19deg,
+        #16cfb0 -15.44%,
+        #71d3f4 103.82%
+        );
+      }
     }
   }
   .main-edit-btn {
@@ -495,6 +509,13 @@
     }
     &:focus {
       box-shadow: none;
+    }
+    &:hover {
+      background: linear-gradient(
+        266.19deg,
+        #16cfb0 -15.44%,
+        #71d3f4 103.82%
+      );
     }
   }
 }

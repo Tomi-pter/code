@@ -6,6 +6,7 @@ import { getAvatar, postAvatar, putAccount } from '../../actions/account';
 
 export const PersonalInfo = ({ account, disable, setDisable }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
+    const [profileImage, setProfileImage] = useState("");
     const [image, setImage] = useState("");
     const [initialData, setInitialData] = useState("");
     const [formData, updateFormData] = useState('');
@@ -69,8 +70,9 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         inputFile.current.click();
     };
     useEffect(() => {
-        // dispatch(getAvatar(user?.username));
-    }, [account]);
+        // this is only executed once
+        dispatch(getAvatar(user?.username));
+      }, [])
 
     return (
         <>

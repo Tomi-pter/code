@@ -6,6 +6,10 @@ import {
   ERRORAVATAR,
   PUTACCOUNT,
   CHANGEPASSWORD,
+  POSTADDRESSES,
+  GETADDRESSES,
+  GETADDRESSESBYID,
+  
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
@@ -66,6 +70,37 @@ export const changePassword = (username, formData) => async (dispatch) => {
   try {
     const { data } = await api.changePassword(username, formData);
     dispatch({ type: CHANGEPASSWORD, data });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Addresses
+
+export const getAllAddresses = (username) => async (dispatch) => {
+  try {
+    const { data } = await api.getAllAddresses(username);
+    dispatch({ type: GETADDRESSES, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAddressesById = (username, id) => async (dispatch) => {
+  try {
+    const { data } = await api.getAddressesById(username, id);
+    dispatch({ type: GETADDRESSESBYID, data });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addAddresses = (username, formData) => async (dispatch) => {
+  try {
+    const { data } = await api.addAddresses(username, formData);
+    dispatch({ type: POSTADDRESSES, data });
     console.log(data);
   } catch (error) {
     console.log(error);

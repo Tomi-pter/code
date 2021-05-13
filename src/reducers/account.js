@@ -3,7 +3,8 @@ import * as actionType from "../constants/actionTypes";
 const initialState = {
   accountData: {},
   accountOrders: [],
-  avatarData: []
+  avatarData: [],
+  addressesData: [],
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -20,8 +21,15 @@ const accountReducer = (state = initialState, action) => {
       return { ...state, avatarData: action.data };
     case actionType.GETAVATAR:
       return { ...state, avatarData: action.data };
-      case actionType.ERRORAVATAR:
+    case actionType.ERRORAVATAR:
       return { ...state, errorAvatar: action.data };
+    case actionType.GETADDRESSES:
+      return { ...state, addressesData: action.data };
+    case actionType.POSTADDRESSES:
+      state.addressesData.push(action.data);
+      return state;
+    case actionType.GETADDRESSESBYID:
+      return { ...state, addressesData: action.data };
     default:
       return state;
   }

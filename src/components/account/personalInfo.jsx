@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAvatar, postAvatar, putAccount } from '../../actions/account';
+import { getAvatar, postAvatar, putAccount, getAccount } from '../../actions/account';
 
 export const PersonalInfo = ({ account, disable, setDisable }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -11,6 +11,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     const [initialData, setInitialData] = useState("");
     const [formData, updateFormData] = useState('');
     const [avatarLoading, setAvatarLoading] = useState(false);
+    const [accountData, setAccountData] = useState("");
     const handleChange = (e) => {
         e.preventDefault()
         updateFormData({
@@ -21,6 +22,8 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
 
     const handleSubmit = (e) => {
         dispatch(putAccount(user?.username, formData))
+        dispatch(getAccount(user?.username));
+        setDisable(!disable);
     };
     const inputFile = useRef(null);
     const dispatch = useDispatch();
@@ -70,6 +73,15 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         inputFile.current.click();
     };
     useEffect(() => {
+        updateFormData({
+            'given_name': account.accountData.given_name,
+            'family_name': account.accountData.family_name,
+            'phone_number': account.accountData.phone_number,
+            'company': account.accountData['custom:company']
+        });
+        setAccountData(account.accountData);
+    },[account])
+    useEffect(() => {
         // this is only executed once
         dispatch(getAvatar(user?.username));
       }, [])
@@ -92,7 +104,8 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                             )}
                     </div>
                     <div>
-                        <p className="mb-0 name"> {account.accountData?.given_name + ' ' + account.accountData?.family_name} </p>
+                        <p className="mb-0 name"> {accountData?.given_name + ' ' + accountData?.family_name} </p>
+                        <small>{accountData?.email}</small>
                         <input
                             style={{ display: "none" }}
                             ref={inputFile}
@@ -115,7 +128,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                     <div className="form-group d-flex flex-column">
                         <label htmlFor="given_name">First Name</label>
                         <input
-                            defaultValue={account.accountData?.given_name || ''}
+                            value={formData?.given_name}
                             name="given_name"
                             type="text"
                             disabled={disable}
@@ -129,31 +142,31 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                         <input
                             name="family_name"
                             type="text"
-                            defaultValue={account.accountData?.family_name || ''}
+                            value={formData?.family_name}
                             disabled={disable}
                             onChange={handleChange}
                         />
                     </div>
                 </div>
-                <div className="col-lg-6">
+                {/* <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
                         <label htmlFor="email">E-mail Address</label>
                         <input
                             name="email"
                             type="email"
-                            defaultValue={account.accountData?.email || ''}
+                            value={account.accountData?.email || ''}
                             disabled={disable}
-                            onChange={handleChange}
+                            readOnly
                         />
                     </div>
-                </div>
+                </div> */}
                 <div className="col-lg-6">
                     <div className="form-group d-flex flex-column">
                         <label htmlFor="phone_number">Mobile Number</label>
                         <input
                             name="phone_number"
                             type="text"
-                            defaultValue={account.accountData?.phone_number || ''}
+                            value={formData?.phone_number}
                             disabled={disable}
                             onChange={handleChange}
                         />
@@ -165,7 +178,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                         <input
                             name="company"
                             type="text"
-                            defaultValue={account.accountData?.['custom:company'] || ''}
+                            value={formData?.['company']}
                             disabled={disable}
                             onChange={handleChange}
                         />

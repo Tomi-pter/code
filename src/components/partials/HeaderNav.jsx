@@ -18,9 +18,10 @@ export const HeaderNav = () => {
     const location = useLocation();
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({});
+    const [avatarPro, setAvatar] = useState({});
     const itemCount = cart.cartData?.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
     const avatar = useSelector((state) => state.account.avatarData);
-
+    const errorAvatar = useSelector((state) => state.account.errorAvatar);
     const handleSubmit = (e) => {
         e.preventDefault()
         history.push(`/search?name=${formData.name}`);
@@ -51,9 +52,9 @@ export const HeaderNav = () => {
         }
         setUser(JSON.parse(localStorage.getItem('profile')));
         dispatch(getCart(user?.username));
-
-        console.log(avatar);
-    }, [avatar, location]);
+        setAvatar(avatar);
+        console.log('avatar', avatar);
+    }, [avatar, errorAvatar, location]);
 
     return (
         <nav className="sticky-top">
@@ -89,11 +90,15 @@ export const HeaderNav = () => {
                             </Link>
                             <Link to="/account" className="account-btn">
                                 <div className="profileWrapper">
-                                    {
-                                        avatar ? <img className="profilePic" src={`data:image/jpeg;base64,${encodeData(avatar.Body?.data)}`} /> : <img src={Account} alt="" />
-                                    }
-                                </div>
+                                    {avatar?.Body?.data.length > 0 ? (
+                                        <img className="profilePic" src={`data:image/jpeg;base64,${encodeData(avatar?.Body?.data)}`} />
+                                    ) : (
+                                            avatar?.Body?.data.length > 0 ?
+                                                <img className="profilePic" src={`data:image/jpeg;base64,${encodeData(avatar?.Body?.data)}`} />
+                                                : <img className="profilePic" src={Account} alt="" />
+                                        )}
 
+                                </div>
                             </Link>
                         </>
                         :

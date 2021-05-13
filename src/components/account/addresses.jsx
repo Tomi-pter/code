@@ -112,7 +112,7 @@ export const Addresses = ({ account }) => {
         setSubmitted(true);
         dispatch(addAddresses(user?.username, formData));
         dispatch(getAllAddresses(user?.username));
-        sleep(1500).then(() => {
+        sleep(500).then(() => {
             setShowModal(false);
         })
     }
@@ -193,7 +193,7 @@ export const Addresses = ({ account }) => {
                         <button className="addAddressButton" onClick={() => setShowModal(true)}>+ Add New Address</button>
                     </div>
                 </div>
-                <Modal id="addAddressModal" className="modalWrapper" show={showModal} onHide={handleClose}>
+                <Modal id="addAddressModal" className="modalWrapper modal-dialog-centered" show={showModal} onHide={handleClose}>
                     <Modal.Body>
                         <h2 className="sub-title">Add New Address</h2>
                         <div className="row">
@@ -308,7 +308,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="button-wrapper d-flex align-items-center justify-content-end">
-                            <button className="cancelAddressButton close" data-dismiss="modal" aria-label="Close">
+                            <button className="cancelAddressButton close" onClick={() => setShowModal(false)} data-dismiss="modal" aria-label="Close">
                                 Cancel
                                                         </button>
                             <button className="saveAddressesButton" disabled={isDisabled} onClick={handleSubmit}>

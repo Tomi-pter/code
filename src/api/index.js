@@ -13,6 +13,8 @@ API.interceptors.request.use((req) => {
 export const logIn = (formData) => API.post('/login', formData);
 export const signUp = (formData) => API.post('/signup', formData);
 export const changePassword = (username, formData) => API.put(`/user/${username}/change-password`, formData);
+export const confirmForgotPassword = (username, formData) => API.put(`/user/${username}/confirm-password`, formData);
+export const forgotPassword = (username) => API.post(`/user/${username}/forgot-password`);
 
 export const verifyAccount = (formData) => API.post(`/user/${formData.email}/verify?code=${formData.code}`);
 export const resendCode = (email) => API.post(`/user/${email}/resend-verification`);

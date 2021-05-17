@@ -431,6 +431,205 @@
       color: #16cfb0;
     }
     .addressesWrapper {
+      .customer-info {
+        .checkbox-container {
+          display: flex;
+          align-items: center;
+          margin-bottom: 17px;
+          input {
+            width: 18px;
+            height: 18px;
+            margin-top: -3px;
+            margin-right: 13px;
+          }
+          label {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 29px;
+            color: #4f4f4f;
+            margin-bottom: 0;
+          }
+        }
+        .info-list {
+          list-style: none;
+          padding-left: 0;
+        }
+        li {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 29px;
+          color: #4f4f4f;
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+        }
+        li img {
+          margin-right: 25px;
+        }
+        li .name {
+          font-weight: 800;
+          font-size: 22px;
+          line-height: 37px;
+        }
+        li .default {
+          width: 76.5px;
+          height: 19.5px;
+          background: #16cfb0;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 13.5px;
+          line-height: 21px;
+          color: #f2f2f2;
+          border-radius: 9.75px;
+          margin-left: 18px;
+          text-align: center;
+        }
+        .infos-list {
+          margin: 0;
+          padding: 0;
+        }
+        .infos-list li {
+          display: flex;
+          align-items: flex-start;
+          padding: 18px 0;
+          border-bottom: 1px solid #c4c4c4;
+          margin-bottom: 0;
+          &:first-child {
+            padding-top: 0;
+          }
+        }
+        .indicator {
+          min-width: 19px;
+          min-height: 19px;
+          background: #ffffff;
+          border: 2px solid #bdbdbd;
+          box-sizing: border-box;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &.active {
+            border-color: #4f4f4f;
+            .center {
+              display: block;
+            }
+          }
+        }
+        .indicator .center {
+          width: 11px;
+          height: 11px;
+          background: #4f4f4f;
+          border: 2px solid #4f4f4f;
+          border-radius: 50%;
+          box-sizing: border-box;
+          display: none;
+        }
+        .info-container {
+          flex: auto;
+        }
+        .info {
+          flex: auto;
+          margin: 0 10px;
+        }
+        .name {
+          font-style: normal;
+          font-weight: 800;
+          font-size: 17.5772px;
+          line-height: 29px;
+          color: #4f4f4f;
+        }
+        p {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14.3813px;
+          line-height: 23px;
+          color: #4f4f4f;
+          margin-bottom: 0;
+        }
+        .edit-btn,
+        .default-btn {
+          height: 31px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          box-sizing: border-box;
+          border-radius: 7.5px;
+          outline: 0;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 13px;
+          line-height: 21px;
+        }
+        .edit-btn {
+          width: 69px;
+          background: #16cfb0;
+          border: 0;
+          color: #ffffff;
+          &:hover {
+            background: linear-gradient(
+              266.19deg,
+              #16cfb0 -15.44%,
+              #71d3f4 103.82%
+            );
+          }
+        }
+        .default-btn {
+          width: 111px;
+          color: #16cfb0;
+          border: 1.5px solid #16cfb0;
+          background: transparent;
+          margin-top: 15px;
+        }
+        .add-btn {
+          border: 0;
+          outline: 0;
+          background: none;
+          font-style: normal;
+          font-weight: 800;
+          font-size: 17.5772px;
+          line-height: 29px;
+          text-decoration-line: underline;
+          color: #4f4f4f;
+          padding: 0;
+          margin: 22px 0 50px 39px;
+        }
+        .cancel-btn,
+        .save-btn {
+          width: 146px;
+          height: 60px;
+          box-sizing: border-box;
+          border-radius: 7.5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          outline: 0;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 24px;
+        }
+        .cancel-btn {
+          border: 2px solid #16cfb0;
+          color: #16cfb0;
+          background: transparent;
+        }
+        .save-btn {
+          border: 0;
+          background: #16cfb0;
+          color: #ffffff;
+          &:hover {
+            background: linear-gradient(
+              266.19deg,
+              #16cfb0 -15.44%,
+              #71d3f4 103.82%
+            );
+          }
+        }
+      }
       .table {
         thead {
           th {
@@ -482,6 +681,7 @@
         }
       }
       .addAddressButton {
+        margin-top: 40px;
         background: #16cfb0;
         border-radius: 7.5px;
         min-width: 174px;

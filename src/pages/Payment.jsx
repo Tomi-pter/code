@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 import { useHistory } from 'react-router';
-import { payment } from '../actions/payment';
+import { payment, paymentByTerms } from '../actions/payment';
 import { getCart } from '../actions/cart';
 import { getAccount } from '../actions/account';
 import { Link } from 'react-router-dom';
@@ -21,7 +21,7 @@ export const PaymentContainer = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const handleCardPayment = () => {
+    const handlePayment = (type) => {
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
         const accountData = account?.accountData;
@@ -36,11 +36,7 @@ export const PaymentContainer = () => {
             shippingAddress,
             accountData
         }
-        dispatch(payment(user?.username, body, history));
-    }
-
-    const handleTermPayment = () => {
-        console.log('Payment by Term');
+        type === 'card' ? dispatch(payment(user?.username, body, history)) : dispatch(paymentByTerms(user?.username, body, history));
     }
 
     useEffect(()=>{
@@ -82,8 +78,8 @@ export const PaymentContainer = () => {
                                 </div>
                             </div>
                             <div className="d-flex align-items-center justify-content-end actions-container">
-                                <Link to="checkout" className="btn back-btn">{"< Cart"}</Link>
-                                <button className="btn proceed-btn" onClick={()=>selectedMethod === "card" ? handleCardPayment() : handleTermPayment()} disabled={selectedCard === '' && selectedMethod === "card" ? true : null}>
+                                <Link to="checkout" className="btn back-btn">{"< Checkout"}</Link>
+                                <button className="btn proceed-btn" onClick={()=>selectedMethod === "card" ? handlePayment("card") : handlePayment("term")} disabled={selectedCard === '' && selectedMethod === "card" ? true : null}>
                                     {isLoading ?
                                         <div className="spinner-border text-light" role="status">
                                             <span className="sr-only">Loading...</span>

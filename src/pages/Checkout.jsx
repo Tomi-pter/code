@@ -38,6 +38,7 @@ export const CheckoutContainer = () => {
                         </div>
                         <div>
                             <CheckoutInfo 
+                                cart={cart}
                                 selectedShipping={selectedShipping} 
                                 setSelectedShipping={setSelectedShipping}
                                 selectedBilling={selectedBilling} 

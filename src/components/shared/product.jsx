@@ -34,7 +34,6 @@ export const Product = ({
     setSelectedProduct(product)
     setQuantity(parseInt(e.target.value))
   }
-console.log(category);
   return (
     <div className={view === 'list' ? ' col-12' : 'col-12 col-md-6 col-lg-4'}>
       <div

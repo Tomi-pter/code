@@ -14,17 +14,11 @@ export default props => {
     const query = new URLSearchParams(props.location.search);
     const name =  query.get('name') || "";
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        setIsLoading(true);
-        dispatch(getProducts(name, null, null));
-    }, [dispatch, name]);
-
+    console.log(products);
     useEffect(() => {
         setIsLoading(false);
-    }, [products]);
-
+    });
+  
     return (
         <>
             <HeaderNav />

@@ -33,15 +33,13 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     setIsLoading(true)
     var increment = data.selected + 1;
     setPageNumber(increment);
-   
-    console.log(data.selected);
-    dispatch(getProducts(null, category, subCategory, sortBy, pageNumber))
+    dispatch(getProducts(name, category, subCategory, sortBy, pageNumber))
   };
   useEffect(() => {
     setIsLoading(true)
-    dispatch(getProducts(null, category, subCategory, sortBy, pageNumber))
+    dispatch(getProducts(name, category, subCategory, sortBy, pageNumber))
 
-  }, [dispatch, category, subCategory, sortBy, pageNumber])
+  }, [dispatch, name, category, subCategory, sortBy, pageNumber])
 
 
   useEffect(() => {
@@ -56,7 +54,6 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
       setIsLoading(false)
     }, 1000)
   }, [cart])
-  console.log(sortBy);
   return (
     <div className="products-container">
       <div
@@ -165,14 +162,14 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
               quantity={quantity}
               setQuantity={setQuantity}
               cart={cart}
-              category={category}
+              category={product.customFields[15].value}
               subCategory={subCategory}
               sortBy={sortBy}
             />
           ))}
         </div>
       </div>
-      <div className="pagination-products">
+      <div className={'pagination-products ' + (page === 'search' ? 'd-none' : 'd-block')}>
         <ReactPaginate
           previousLabel={'previous'}
           nextLabel={'next'}

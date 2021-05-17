@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getCart } from '../../actions/cart';
 
+import { getProducts } from '../../actions/products'
 export const HeaderNav = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const cart = useSelector((state) => state.cart);
@@ -24,7 +25,8 @@ export const HeaderNav = () => {
     const errorAvatar = useSelector((state) => state.account.errorAvatar);
     const handleSubmit = (e) => {
         e.preventDefault()
-        history.push(`/search?name=${formData.name}`);
+        // history.push(`/search?name=${formData.name}`);
+        window.location.href = '/search?name='+formData.name;
     }
 
     const handleChange = (e) => setFormData({ [e.target.name]: e.target.value });
@@ -79,7 +81,7 @@ export const HeaderNav = () => {
                     <Link className="desktop-link" to="">Contact Us</Link>
                     <div className="search-container">
                         <form onSubmit={handleSubmit}>
-                            <input name="name" placeholder="Search Medicine..." onChange={handleChange} />
+                            <input name="name"  value={formData.name} placeholder="Search Medicine..." onChange={handleChange} />
                         </form>
                     </div>
                     {user ?

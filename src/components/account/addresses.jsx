@@ -85,6 +85,17 @@ export const Addresses = ({ account }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [showModal, setShowModal] = useState(false);
+
+    const [selectShipping, setSelectShipping] = useState(null);
+    const [selectBilling, setSelectBilling] = useState(null);
+
+    const [selectedShipping, setSelectedShipping] = useState(null);
+    const [selectedBilling, setSelectedBilling] = useState(null);
+
+    const [defaultAddress, setDefaultAddress] = useState(null);
+    const [checked, setChecked] = useState(true);
+
+
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
     const { email, mobileNumber, givenName, familyName, address, city, state, postalCode, country } = formData;
@@ -111,8 +122,8 @@ export const Addresses = ({ account }) => {
         setIsLoading(true);
         setSubmitted(true);
         dispatch(addAddresses(user?.username, formData));
-        dispatch(getAllAddresses(user?.username));
         sleep(500).then(() => {
+            dispatch(getAllAddresses(user?.username));
             setShowModal(false);
         })
     }
@@ -124,9 +135,15 @@ export const Addresses = ({ account }) => {
         })
 
     };
+
     useEffect(() => {
-        console.log(addresses);
-    }, [addresses]);
+        setSelectedShipping(account?.addressesData[0]);
+        setDefaultAddress(account?.addressesData[0]);
+        setSelectedBilling(selectedShipping);
+        setSelectBilling(selectedShipping);
+        setSelectShipping(selectedShipping);
+        setIsLoading(false);
+    }, [account,]);
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAllAddresses(user?.username));
@@ -139,48 +156,33 @@ export const Addresses = ({ account }) => {
         <>
             <div className="addressesWrapper">
                 <h2 className="sub-title">My Address Book</h2>
-                <div>
-                    {addresses.length > 0 ? <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Shipping Address</th>
-                                <th scope="col">Mobile Number</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <div className="customer-info">
+                    
+                    {addresses.length > 0 ?
+                        <ul className="infos-list">
+
                             {
                                 addresses?.map((item, index) => (
-                                    <tr >
-                                        <td scope="row">
-                                            <div className="fullName">
-                                                <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
-                                                {/* <div className="defaultText"><span>Default</span></div> */}
+                                    <li key={`key-${item.addressId}`} onClick={() => setSelectShipping(item)}>
+                                        <div className={"indicator " + (selectShipping === item ? "active" : "")}>
+                                            <div className="center"></div>
+                                        </div>
+                                        <div className="d-flex align-items-center info-container">
+                                            <div className="info">
+                                                <div className="d-flex align-items-center name">{item.details.givenName + " " + item?.details?.familyName} {defaultAddress === item && <div className="default">Default</div>}</div>
+                                                <p>{item.details.address + " " + item.details.city + " " + item.details.country + " " + item.details.postalCode}</p>
+                                                <p>{item.details.mobileNumber}</p>
+                                                <p>{item.details.email}</p>
+                                                {defaultAddress !== item && <button onClick={() => setDefaultAddress(item)} className="default-btn">Make Default</button>}
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div className="address">
-                                                {item?.details?.address}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="mobileNumber">
-                                                {item?.details?.mobileNumber}
-                                            </div>
-                                        </td>
-                                        <td>
                                             <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
                                                 <img className="edit-icon" src={DeleteIcon} alt="" />
                                             </div>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </li>
                                 ))
-
                             }
-
-                        </tbody>
-                    </table>
+                        </ul>
                         :
                         <div>
                             No Addresses
@@ -196,18 +198,7 @@ export const Addresses = ({ account }) => {
                 <Modal id="addAddressModal" className="modalWrapper modal-dialog-centered" show={showModal} onHide={handleClose}>
                     <Modal.Body>
                         <h2 className="sub-title">Add New Address</h2>
-                        <div className="row">
-                            <div className="col">
-                                <label htmlFor="email">Email</label>
-                                <Input
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    value={email}
-                                    onChange={setForm}
-                                />
-                            </div>
-                        </div>
+                        
                         <div className="row">
                             <div className="col">
                                 <div className="password-input form-group">
@@ -235,6 +226,16 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
+                            <div className="col">
+                                <label htmlFor="email">Email</label>
+                                <Input
+                                    label="Email"
+                                    name="email"
+                                    type="email"
+                                    value={email}
+                                    onChange={setForm}
+                                />
+                            </div>
                             <div className="col">
                                 <div className="password-input form-group">
                                     <label htmlFor="address">Phone Number</label>

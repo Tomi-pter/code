@@ -2,6 +2,7 @@ import * as actionType from "../constants/actionTypes";
 
 const initialState = {
   accountData: {},
+  updatedAccountData: [],
   accountOrders: [],
   avatarData: [],
   addressesData: [],
@@ -16,7 +17,7 @@ const accountReducer = (state = initialState, action) => {
     case actionType.GETORDERS:
       return { ...state, accountOrders: action.data };
     case actionType.PUTACCOUNT:
-      return { ...state, accountData: action.data };
+      return { ...state, updatedAccountData: action.data };
     case actionType.CHANGEPASSWORD:
       return { ...state, changePassword: action.data };
     case actionType.ERROROLDPASS:

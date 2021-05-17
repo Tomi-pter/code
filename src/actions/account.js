@@ -11,7 +11,6 @@ import {
   GETADDRESSES,
   GETADDRESSESBYID,
   DELETEADDRESSESBYID,
-  
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
@@ -73,12 +72,8 @@ export const changePassword = (username, formData) => async (dispatch) => {
     const { data } = await api.changePassword(username, formData);
     dispatch({ type: CHANGEPASSWORD, data });
   } catch (error) {
-    const { data } = await api.changePassword(username, formData);
-    if (error.response && error.response.data !== undefined) {
-      const { errorData } = error.response.data;
-      dispatch({ type: ERROROLDPASS, errorData });
-
-    }
+    const data = error.response.data;
+    dispatch({ type: ERROROLDPASS, data });
   }
 };
 

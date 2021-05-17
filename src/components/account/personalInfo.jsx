@@ -11,7 +11,10 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     const [initialData, setInitialData] = useState("");
     const [formData, updateFormData] = useState('');
     const [avatarLoading, setAvatarLoading] = useState(false);
-    const [accountData, setAccountData] = useState("");
+    const updateInfo = useSelector((state) => state.account.updatedAccountData);
+    const loadAccountData = () => {
+
+    }
     const handleChange = (e) => {
         e.preventDefault()
         updateFormData({
@@ -22,7 +25,9 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
 
     const handleSubmit = (e) => {
         dispatch(putAccount(user?.username, formData))
-        dispatch(getAccount(user?.username));
+        if (updateInfo) {
+            dispatch(getAccount(user?.username));
+        }
         setDisable(!disable);
     };
     const inputFile = useRef(null);
@@ -73,18 +78,35 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         inputFile.current.click();
     };
     useEffect(() => {
-        updateFormData({
-            'given_name': account.accountData.given_name,
-            'family_name': account.accountData.family_name,
-            'phone_number': account.accountData.phone_number,
-            'company': account.accountData['custom:company']
-        });
-        setAccountData(account.accountData);
-    },[account])
+        fetch(`https://premierpharmastaging.outliant.com/user/${user?.username}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(),
+        })
+            .then(response => response.json())
+            .then(data => {
+                updateFormData({
+                    'given_name': data.given_name,
+                    'family_name': data.family_name,
+                    'phone_number': data.phone_number,
+                    'company': data['custom:company']
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        if (updateInfo) {
+            dispatch(getAccount(user?.username));
+        }
+    }, [updateInfo])
     useEffect(() => {
-        // this is only executed once
+    }, [account])
+    useEffect(() => {
+        dispatch(getAccount(user?.username));
         dispatch(getAvatar(user?.username));
-      }, [])
+    }, [])
 
     return (
         <>
@@ -104,8 +126,8 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                             )}
                     </div>
                     <div>
-                        <p className="mb-0 name"> {accountData?.given_name + ' ' + accountData?.family_name} </p>
-                        <small>{accountData?.email}</small>
+                        <p className="mb-0 name"> {account.accountData?.given_name + ' ' + account.accountData?.family_name} </p>
+                        <small>{account.accountData?.email}</small>
                         <input
                             style={{ display: "none" }}
                             ref={inputFile}

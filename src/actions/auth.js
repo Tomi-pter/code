@@ -1,4 +1,4 @@
-import { AUTH, VERIFY, RESEND, LOGOUT } from '../constants/actionTypes';
+import { AUTH, VERIFY, RESEND, LOGOUT, FORGOTPASSWORD, CONFIRMFORGOTPASSWORD } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 export const logIn = (formData, router) => async (dispatch) => {
@@ -80,5 +80,34 @@ export const resendCode = (email) => async (dispatch) => {
     const data = error.response.data;
 
     dispatch({ type: RESEND, data });
+  }
+};
+
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+
+    const { data } = await api.forgotPassword(email);
+
+    dispatch({ type: FORGOTPASSWORD, data });
+    console.log(data);
+
+  } catch (error) {
+    const data = error.response.data;
+
+    dispatch({ type: FORGOTPASSWORD, data });
+  }
+};
+export const confirmForgotPassword = (username, formData) => async (dispatch) => {
+  try {
+
+    const { data } = await api.confirmForgotPassword(username, formData);
+
+    dispatch({ type: CONFIRMFORGOTPASSWORD, data });
+    console.log(data);
+  } catch (error) {
+    const data = error.response.data;
+
+    dispatch({ type: CONFIRMFORGOTPASSWORD, data });
+    console.log(data);
   }
 };

@@ -902,6 +902,21 @@
       .email-input {
         margin-bottom: 61px;
       }
+      input {
+        width: 100%;
+        height: 41px;
+        background: #f0f0f0;
+        border: none;
+        border-radius: 0;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 29px;
+        &::placeholder {
+          color: #828282;
+          font-weight: bold;
+        }
+      }
       .emailSubmitWrapper {
         .continueButton {
           background: #16cfb0;

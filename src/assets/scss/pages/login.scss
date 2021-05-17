@@ -101,7 +101,8 @@
   }
   @include mediaQueries(pad) {
     background-size: cover;
-    .card, .card-body {
+    .card,
+    .card-body {
       width: 100%;
     }
   }
@@ -112,7 +113,9 @@
     .container {
       padding: 0;
     }
-    .card, .card-body, form {
+    .card,
+    .card-body,
+    form {
       width: 100%;
       min-height: unset;
     }
@@ -144,6 +147,54 @@
     }
     .signup-container {
       justify-content: center !important;
+    }
+  }
+  .forgot-pass {
+    a {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 22px;
+
+      color: #4f4f4f;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+  .forgotPassWrapper {
+    padding: 0 80px;
+
+    .emailDesc {
+      margin-bottom: 45px;
+    }
+    .email-input {
+      margin-bottom: 61px;
+    }
+    .emailSubmitWrapper {
+      .continueButton {
+        background: #16cfb0;
+        border-radius: 7.5px;
+        max-width: 100%;
+        width: 100%;
+        min-height: 36px;
+        border: 0;
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 24px;
+        text-align: center;
+        color: #ffffff;
+        &:hover {
+          background: linear-gradient(
+            266.19deg,
+            #16cfb0 -15.44%,
+            #71d3f4 103.82%
+          );
+          border-radius: 7.50055px;
+        }
+      }
     }
   }
 }

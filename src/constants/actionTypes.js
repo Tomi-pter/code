@@ -4,6 +4,9 @@ export const LOGOUT = 'LOGOUT';
 export const VERIFY = 'VERIFY';
 export const RESEND = 'RESEND';
 
+export const FORGOTPASSWORD = 'FORGOTPASSWORD';
+export const CONFIRMFORGOTPASSWORD = 'CONFIRMFORGOTPASSWORD';
+
 // Account
 export const GETACCOUNT = 'GETACCOUNT';
 export const PUTACCOUNT = 'PUTACCOUNT';

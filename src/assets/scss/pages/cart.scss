@@ -280,6 +280,11 @@
       border: 1.5px solid #16CFB0;
       background: transparent;
       margin-top: 15px;
+      .spinner-border {
+        width: 25px;
+        height: 25px;
+        color: #16CFB0 !important;
+      }
     }
     .add-btn {
       border: 0;

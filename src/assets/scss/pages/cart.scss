@@ -193,6 +193,8 @@
       }
     }
     .indicator {
+      width: 19px;
+      height: 19px;
       min-width: 19px;
       min-height: 19px;
       background: #FFFFFF;
@@ -212,6 +214,8 @@
     .indicator .center {
       width: 11px;
       height: 11px;
+      min-width: 11px;
+      min-height: 11px;
       background: #4F4F4F;
       border: 2px solid #4F4F4F;
       border-radius: 50%;
@@ -242,6 +246,7 @@
     }
     .edit-btn, .default-btn {
       height: 31px;
+      min-height: 31px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -256,6 +261,7 @@
     }
     .edit-btn {
       width: 69px;
+      min-width: 69px;
       background: #16CFB0;
       border: 0;
       color: #FFFFFF;
@@ -269,6 +275,7 @@
     }
     .default-btn {
       width: 111px;
+      min-width: 111px;
       color: #16CFB0;
       border: 1.5px solid #16CFB0;
       background: transparent;

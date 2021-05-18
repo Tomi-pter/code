@@ -6,8 +6,8 @@ const Dropdown = ({ label, options, ...others }) => (
         {/* <label>{label}</label> */}
         <select className="form-control" {...others} required>
             <option value="" disabled hidden>{label}</option>
-            {options.map(([value, name]) => (
-                <option value={value} key={value}>{name}</option>
+            {options.map(([value, name], index) => (
+                <option value={value} key={`key-${value}-${index}`}>{name}</option>
             ))}
         </select>
     </div>

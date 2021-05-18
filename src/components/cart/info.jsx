@@ -1,7 +1,7 @@
 import React, {useEffect, useCallback, useState} from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getAccount, getAllAddresses, addAddresses } from '../../actions/account';
+import { getAccount, getAllAddresses, addAddresses, updateAddressesById } from '../../actions/account';
 import Edit from '../../assets/icon/pencil.svg';
 import Input from '../shared/input';
 import Dropdown from '../shared/dropdown';
@@ -81,17 +81,10 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const [checked, setChecked] = useState(true);
     const [defaultAddress, setDefaultAddress] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
     const [formData, setFormData] = useState(initialFormData);
     const [isDisabled, setDisabled] = useState(true);
     const dispatch = useDispatch();
-
-    // const handleChecked = () => {
-    //     setChecked(!checked);
-    //     if (!checked) {
-    //         setSelectBilling(selectedShipping);
-    //         setSelectedBilling(selectedShipping);
-    //     }
-    // }
 
     const handleSelect = (addressFor, address) => {
         if (addressFor === "shipping") {
@@ -110,11 +103,17 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const handleSubmit = () => {
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(addAddresses(user?.username, formData));
+        isEdit ? dispatch(updateAddressesById(user?.username, formData.addressId, formData)) : dispatch(addAddresses(user?.username, formData));
     }
 
     const handleAddAddress = () => {
         setFormData(initialFormData);
+    }
+
+    const handleEditAddress = (address) => {
+        setIsEdit(true);
+        setFormData(address.details);
+        setFormData({...formData, addressId: address.addressId});
     }
 
     const contactChange = (value) => {
@@ -190,7 +189,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                                     <p>{item.details.email}</p>
                                                     {defaultAddress?.addressId !== item?.addressId && <button className="default-btn">Make Default</button>}
                                                 </div>
-                                                <button className="edit-btn">Edit</button>
+                                                <button className="edit-btn" data-toggle="modal" data-target="#addAddressModal" onClick={() => handleEditAddress(item)}>Edit</button>
                                             </div>
                                         </li>
                                     ))
@@ -250,7 +249,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                                         <p>{item.details.email}</p>
                                                         {defaultAddress?.addressId !== item?.addressId && <button className="default-btn">Make Default</button>}
                                                     </div>
-                                                    <button className="edit-btn">Edit</button>
+                                                    <button className="edit-btn" data-toggle="modal" data-target="#addAddressModal" onClick={() => handleEditAddress(item)}>Edit</button>
                                                 </div>
                                             </li>
                                         ))
@@ -406,7 +405,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                 </div>
                             </div>
                             <div className="button-wrapper d-flex align-items-center justify-content-end">
-                                <button className="cancelCardButton close" data-dismiss="modal" id="closeModal" aria-label="Close">
+                                <button className="cancelCardButton close" data-dismiss="modal" id="closeModal" aria-label="Close" disabled={isLoading}>
                                     Cancel
                                 </button>
                                 <button className={"addCardButton " + (isLoading ? 'loading' : '')} onClick={handleSubmit}  disabled={isDisabled && !isLoading}>
@@ -415,9 +414,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                             <span className="sr-only">Loading...</span>
                                         </div>
                                         :
-                                        <>
-                                            Add
-                                        </>
+                                        isEdit ? 'Save' : 'Add'
                                     }
                                 </button>
                             </div>

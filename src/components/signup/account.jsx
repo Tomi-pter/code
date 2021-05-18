@@ -11,7 +11,7 @@ import XGray from '../../assets/icon/x-gray.svg';
 
 const Account = ({  setForm, formData, navigation }) => {
     const auth = useSelector((state) => state.auth);
-    const { email, password, confirm_password } = formData;
+    const { email, password, confirm_password, country } = formData;
     const { previous, next } = navigation;
     const [isLoading, setIsLoading] = useState(false);
     const [isDisabled, setDisabled] = useState(true);

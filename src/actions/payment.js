@@ -24,8 +24,8 @@ export const paymentByTerms = (username, formData, router) => async (dispatch) =
       
     router.push('/payment-confirmation');
   } catch (error) {
-    // const data = error.response.data;
-    console.log('error', error.response);
-    // dispatch({ type: PAYMENT, data });
+    const data = error.response.data;
+    
+    dispatch({ type: PAYMENT, data });
   }
 };

@@ -34,6 +34,12 @@ const accountReducer = (state = initialState, action) => {
     case actionType.POSTADDRESSES:
       state.addressesData.push(action.data);
       return { ...state, addAddressSuccess: true};
+    case actionType.UPDATEADDRESSESBYID:
+      const index = state.addressesData.findIndex(address => address.addressId === action.data.addressId);
+      if(index !== -1) {
+          state.addressesData.splice(index, 1, action.data);
+      }
+      return { ...state, updateAddressSuccess: true};
     case actionType.GETADDRESSESBYID:
       return { ...state, getAddressesById: action.data };
     default:

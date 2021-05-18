@@ -26,6 +26,7 @@ const defaultData = {
   city: "",
   state: "",
   postalCode: "",
+  country: "",
   code: ""
 };
 

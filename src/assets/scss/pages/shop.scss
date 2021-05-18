@@ -67,7 +67,7 @@
             font-size: 30px;
             line-height: 50px;
             color: #000000;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             @include mediaQueries(pad) {
                 font-size: 25px;
                 line-height: 41px;
@@ -139,7 +139,7 @@
         flex: auto;
         position: relative;
         width: calc(100% - 480px);
-        right: 54px;
+        right: 63px;
         padding: 69px 0px 93px 0;
         @include mediaQueries(padpro) {
             background: #fff;

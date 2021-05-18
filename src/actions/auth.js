@@ -106,7 +106,6 @@ export const confirmForgotPassword = (username, formData) => async (dispatch) =>
     console.log(data);
   } catch (error) {
     const data = error.response.data;
-
     dispatch({ type: CONFIRMFORGOTPASSWORD, data });
     console.log(data);
   }

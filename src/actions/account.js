@@ -11,6 +11,7 @@ import {
   GETADDRESSES,
   GETADDRESSESBYID,
   DELETEADDRESSESBYID,
+  UPDATEADDRESSESBYID
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
@@ -117,3 +118,13 @@ export const deleteAddressesById = (username, id) => async (dispatch) => {
     console.log(error);
   }
 };
+export const updateAddressesById = (username, id, formData) => async (dispatch) => {
+  try {
+    const { data } = await api.updateAddressesById(username, id, formData);
+    dispatch({ type: UPDATEADDRESSESBYID, data });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+

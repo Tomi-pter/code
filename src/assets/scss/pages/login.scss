@@ -164,7 +164,9 @@
   }
   .forgotPassWrapper {
     padding: 0 80px;
-
+    @include mediaQueries(mobile){
+      padding: 0;
+    }
     .emailDesc {
       margin-bottom: 45px;
     }

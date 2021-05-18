@@ -108,7 +108,7 @@ export const Changepassword = () => {
                                             value={oldPassword}
                                             onChange={setForm}
                                         />
-                                        <p className={"password-validation "}>{errorMess ? errorMess : ''}</p>
+                                        <p className={"invalidPassword "}>{errorMess ? errorMess : ''}</p>
 
                                     </div>
                                     <div className="password-input form-group">

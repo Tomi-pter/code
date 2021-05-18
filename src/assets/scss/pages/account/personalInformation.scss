@@ -984,6 +984,16 @@
       }
     }
   }
+  .invalidPassword{
+    margin-bottom: 5px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    color: #FF3333;
+    display: flex;
+    align-items: center;
+  }
   .password-validation {
     margin-bottom: 5px;
     font-style: normal;

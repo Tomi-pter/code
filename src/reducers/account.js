@@ -7,7 +7,8 @@ const initialState = {
   avatarData: [],
   addressesData: [],
   changePassword: [],
-  errorOldPass: []
+  errorOldPass: [],
+  getAddressesById: []
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -34,7 +35,7 @@ const accountReducer = (state = initialState, action) => {
       state.addressesData.push(action.data);
       return { ...state, addAddressSuccess: true};
     case actionType.GETADDRESSESBYID:
-      return { ...state, addressesData: action.data };
+      return { ...state, getAddressesById: action.data };
     default:
       return state;
   }

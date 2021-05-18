@@ -164,7 +164,7 @@
   }
   .forgotPassWrapper {
     padding: 0 80px;
-    @include mediaQueries(mobile){
+    @include mediaQueries(mobile) {
       padding: 0;
     }
     .emailDesc {
@@ -172,6 +172,9 @@
     }
     .email-input {
       margin-bottom: 61px;
+    }
+    .emailIcon {
+      margin-bottom: 32px;
     }
     .emailSubmitWrapper {
       .continueButton {

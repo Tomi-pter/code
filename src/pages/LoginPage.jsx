@@ -9,7 +9,7 @@ import { useForm } from "react-hooks-helper";
 
 import Input from "../components/shared/input";
 import decode from 'jwt-decode';
-
+import PasswordChangeIcon from '../assets/img/Account/password-change.svg';
 import CheckGreen from '../assets/icon/check-lgreen.svg';
 import XGray from '../assets/icon/x-gray.svg';
 
@@ -27,8 +27,9 @@ export const LoginContainer = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [forgotPass, setForgotpass] = useState(false);
     const [continueButton, setContinueButton] = useState(false);
-    const [OTPButton, setOTPButton] = useState(false);
+    const [successForgot, setSuccessForgot] = useState(false);
     const [OTP, setOTP] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [resetPassword, setResetPassword] = useState(false);
     // const checkPasswordLenght = fNewPassword.length >= 8 ? true : false;
     const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(password);
@@ -61,26 +62,32 @@ export const LoginContainer = () => {
     }
     const handFotgotPassword = () => {
         dispatch(forgotPassword(fEmail));
-        setOTP(true);
-        console.log(fEmail);
+
     }
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
     const handleResetPassword = () => {
         setResetPassword(true);
-        console.log(resetPassword);
     }
     useEffect(() => {
         const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
         const forgotEmailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotFormData.fEmail);
         emailCheck && formData.password !== '' ? setIsDisabled(null) : setIsDisabled(true);
         forgotEmailCheck && forgotFormData.fEmail != '' ? setContinueButton(null) : setContinueButton(true);
-        forgotFormData.fCode != '' ? setOTPButton(null) : setOTPButton(true)
 
     }, [formData, forgotFormData]);
 
     useEffect(() => {
         setIsLoading(false);
-        console.log(auth);
+        if (auth.sendOTP?.message === "Attempt limit exceeded, please try after some time.") {
+            setOTP(false);
+            setErrorMessage(auth.sendOTP?.message);
+        }
+        if (auth.sendOTP?.CodeDeliveryDetails) {
+            setOTP(true);
+        }
+        if (auth.forgotPasswordData?.success) {
+            setSuccessForgot(true);
+        }
     }, [auth]);
 
     useEffect(() => {
@@ -108,117 +115,90 @@ export const LoginContainer = () => {
                                 {
                                     forgotPass ? <div>
                                         <div className="forgotPassWrapper">
-                                            {OTP ?
-                                                <div>
-                                                    <h2>Verification</h2>
-                                                    <p className="">Please verify your account so you can reset your password. We’ve sent a confirmation code to {fEmail}</p>
-                                                    <div className="form-group">
-                                                        <Input
-                                                            label="Confirmation Code"
-                                                            name="code"
-                                                            type="text"
-                                                            value={code}
-                                                            onChange={setforgotFormData}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <h2>Enter New Password</h2>
-                                                    <div className="form-group">
-                                                        <label>New Password</label>
-                                                        <Input
-                                                            label="New Password"
-                                                            name="password"
-                                                            type="password"
-                                                            value={password}
-                                                            onChange={setforgotFormData}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <label>Confirm Password</label>
-                                                        <Input
-                                                            label="Confirm New Password"
-                                                            name="passwordConfirmation"
-                                                            type="password"
-                                                            value={passwordConfirmation}
-                                                            onChange={setforgotFormData}
-                                                            required
-                                                        />
-                                                    </div>
-                                                    <div className="emailSubmitWrapper">
-                                                        <button className="continueButton" disabled={continueButton} onClick={submit}>Continue</button>
-                                                    </div>
-                                                </div>
-                                                //     <div>
-                                                //     <div className="form-group">
-                                                //         <label>Email</label>
-                                                //         <Input
-                                                //             className="email-input "
-                                                //             label="Email"
-                                                //             name="fEmail"
-                                                //             type="email"
-                                                //             value={fEmail}
-                                                //             onChange={setforgotFormData}
-                                                //             required
-                                                //         />
-                                                //         <div className="emailSubmitWrapper">
-                                                //             <button className="continueButton" disabled={continueButton} onClick={handFotgotPassword}>Continue</button>
-                                                //         </div>
-                                                //     </div>
-
-                                                //     <h2 className="sub-title">Enter New Password</h2>
-                                                //     <p>New Password</p>
-                                                //     <Input
-                                                //         label="Password"
-                                                //         name="password"
-                                                //         type="password"
-                                                //         value={password}
-                                                //         onChange={setforgotFormData}
-                                                //     />
-                                                //     <p htmlFor="confirmNewPassword">Confirm Password</p>
-                                                //     <Input
-                                                //         label="Password"
-                                                //         name="passwordConfirmation"
-                                                //         type="password"
-                                                //         value={passwordConfirmation}
-                                                //         onChange={setforgotFormData}
-                                                //     />
-                                                //     <div>
-                                                //         <div className="d-flex align-items-center justify-content-end emailSubmitWrapper">
-                                                //             <button className="continueButton" onClick={submit} disabled={isDisabled}>
-                                                //                 {isLoading ?
-                                                //                     <div className="spinner-border text-light" role="status">
-                                                //                         <span className="sr-only">Loading...</span>
-                                                //                     </div>
-                                                //                     :
-                                                //                     <>
-                                                //                         Reset Password
-                                                //                      </>
-                                                //                 }
-                                                //             </button>
-                                                //         </div>
-                                                //     </div>
-                                                // </div> 
-                                                : <div>
-                                                    <h2> Change Password</h2>
-                                                    <p className="emailDesc">Enter the email address associated with your account and we’ll send you a code to confirm your password reset request.</p>
-                                                    <div className="form-group">
-                                                        <label>Email</label>
-                                                        <Input
-                                                            className="email-input "
-                                                            label="Email"
-                                                            name="fEmail"
-                                                            type="email"
-                                                            value={fEmail}
-                                                            onChange={setforgotFormData}
-                                                            required
-                                                        />
+                                            {successForgot ? (
+                                                <div className="checkEmail-container d-flex align-items-center justify-content-center">
+                                                    <div className="contentWrapper text-center">
+                                                        <img className="emailIcon" src={PasswordChangeIcon} />
+                                                        <h2>Password successfully updated</h2>
                                                         <div className="emailSubmitWrapper">
-                                                            <button className="continueButton" disabled={continueButton} onClick={handFotgotPassword}>Continue</button>
+                                                            <button className="continueButton" onClick={() => {
+                                                                setForgotpass(false);
+                                                                setSuccessForgot(false);
+                                                                setOTP(false);
+                                                            }}>Continue</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            }
+                                            ) : (
+                                                    OTP ?
+                                                        <div>
+                                                            <h2>Verification</h2>
+                                                            <p className="">Please verify your account so you can reset your password. We’ve sent a confirmation code to {fEmail}</p>
+                                                            <div className="form-group">
+                                                                <Input
+                                                                    label="Confirmation Code"
+                                                                    name="code"
+                                                                    type="text"
+                                                                    value={code}
+                                                                    onChange={setforgotFormData}
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <h2>Enter New Password</h2>
+                                                            <div className="form-group">
+                                                                <label>New Password</label>
+                                                                <Input
+                                                                    label="New Password"
+                                                                    name="password"
+                                                                    type="password"
+                                                                    value={password}
+                                                                    onChange={setforgotFormData}
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <div className="form-group">
+                                                                <label>Confirm Password</label>
+                                                                <Input
+                                                                    label="Confirm New Password"
+                                                                    name="passwordConfirmation"
+                                                                    type="password"
+                                                                    value={passwordConfirmation}
+                                                                    onChange={setforgotFormData}
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <p className={"text-center error " + (auth.forgotPasswordData?.message ? "alert-danger" : "")}>
+                                                                {auth.forgotPasswordData?.message}
+                                                            </p>
+                                                            <div className="emailSubmitWrapper">
+                                                                <button className="continueButton" disabled={continueButton} onClick={submit}>Continue</button>
+                                                            </div>
+                                                        </div>
+                                                        : <div>
+                                                            <h2> Change Password</h2>
+                                                            <p className="emailDesc">Enter the email address associated with your account and we’ll send you a code to confirm your password reset request.</p>
+                                                            <div className="form-group">
+                                                                <label>Email</label>
+                                                                <Input
+                                                                    className="email-input "
+                                                                    label="Email"
+                                                                    name="fEmail"
+                                                                    type="email"
+                                                                    value={fEmail}
+                                                                    onChange={setforgotFormData}
+                                                                    required
+                                                                />
+                                                                <div className="emailSubmitWrapper">
+                                                                    <button className="continueButton" disabled={continueButton} onClick={handFotgotPassword}>Continue</button>
+                                                                </div>
+                                                            </div>
+                                                            <p className={"text-center error " + (errorMessage ? "alert-danger" : "")}>
+                                                                {errorMessage}
+                                                            </p>
+                                                        </div>
+
+                                                )}
+
                                         </div>
                                     </div> :
                                         <form onSubmit={handleSubmit}>

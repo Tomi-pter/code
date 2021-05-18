@@ -82,6 +82,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const [defaultAddress, setDefaultAddress] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
+    const [editId, setEditId] = useState("");
     const [formData, setFormData] = useState(initialFormData);
     const [isDisabled, setDisabled] = useState(true);
     const dispatch = useDispatch();
@@ -103,7 +104,11 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const handleSubmit = () => {
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
-        isEdit ? dispatch(updateAddressesById(user?.username, formData.addressId, formData)) : dispatch(addAddresses(user?.username, formData));
+        if(isEdit) {
+            dispatch(updateAddressesById(user?.username, editId, formData));
+        } else {
+            dispatch(addAddresses(user?.username, formData));
+        };
     }
 
     const handleAddAddress = () => {
@@ -113,7 +118,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const handleEditAddress = (address) => {
         setIsEdit(true);
         setFormData(address.details);
-        setFormData({...formData, addressId: address.addressId});
+        setEditId(address.addressId);
     }
 
     const contactChange = (value) => {
@@ -135,6 +140,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     },[dispatch]);
 
     useEffect(()=>{
+        setIsLoading(false);
         setDefaultAddress(account?.addressesData[0]);
         if (cart?.checkoutDetail) {
             setSelectedShipping(cart?.checkoutDetail?.selectedShipping);
@@ -150,7 +156,9 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
             setSelectedBilling(account?.addressesData[0]);
             setSelectBilling(account?.addressesData[0]);
         }
-        setIsLoading(false);
+        setIsEdit(false);
+        setEditId("");
+        document.getElementById("closeAddressModal").click();
     },[account]);
 
     useEffect(() => {
@@ -405,7 +413,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                 </div>
                             </div>
                             <div className="button-wrapper d-flex align-items-center justify-content-end">
-                                <button className="cancelCardButton close" data-dismiss="modal" id="closeModal" aria-label="Close" disabled={isLoading}>
+                                <button className="cancelCardButton close" data-dismiss="modal" id="closeAddressModal" aria-label="Close">
                                     Cancel
                                 </button>
                                 <button className={"addCardButton " + (isLoading ? 'loading' : '')} onClick={handleSubmit}  disabled={isDisabled && !isLoading}>

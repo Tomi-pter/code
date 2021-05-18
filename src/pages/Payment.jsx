@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { payment, paymentByTerms } from '../actions/payment';
 import { getCart } from '../actions/cart';
-import { getAccount } from '../actions/account';
+import { getAccount, getFishbowlAccount } from '../actions/account';
 import { Link } from 'react-router-dom';
 
 export const PaymentContainer = () => {
@@ -43,11 +43,14 @@ export const PaymentContainer = () => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getCart(user?.username));
         dispatch(getAccount(user?.username));
+        dispatch(getFishbowlAccount(user?.username));
     },[dispatch]);
 
     useEffect(()=>{
         if (!cart?.checkoutDetail) history.push("/checkout");
     },[cart]);
+
+    console.log(account);
 
     return (
         <>

@@ -15,6 +15,8 @@ const accountReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.GETACCOUNT:
       return { ...state, accountData: action.data };
+    case actionType.GETFISHBOWLACCOUNT:
+      return { ...state, fishbowlAccountData: action.data };
     case actionType.GETORDERS:
       return { ...state, accountOrders: action.data };
     case actionType.PUTACCOUNT:

@@ -1,5 +1,6 @@
 import {
   GETACCOUNT,
+  GETFISHBOWLACCOUNT,
   GETORDERS,
   GETAVATAR,
   POSTAVATAR,
@@ -20,6 +21,15 @@ export const getAccount = (username) => async (dispatch) => {
     const { data } = await api.getAccount(username);
 
     dispatch({ type: GETACCOUNT, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getFishbowlAccount = (username) =>  async (dispatch) => {
+  try {
+    const data = await api.getFishbowlAccount(username);
+    dispatch({ type: GETFISHBOWLACCOUNT, data });
   } catch (error) {
     console.log(error);
   }
@@ -93,7 +103,7 @@ export const getAddressesById = (username, id) => async (dispatch) => {
   try {
     const { data } = await api.getAddressesById(username, id);
     dispatch({ type: GETADDRESSESBYID, data });
-    console.log(data);
+
   } catch (error) {
     console.log(error);
   }
@@ -103,7 +113,7 @@ export const addAddresses = (username, formData) => async (dispatch) => {
   try {
     const { data } = await api.addAddresses(username, formData);
     dispatch({ type: POSTADDRESSES, data });
-    console.log(data);
+
   } catch (error) {
     console.log(error);
   }
@@ -113,16 +123,19 @@ export const deleteAddressesById = (username, id) => async (dispatch) => {
   try {
     const { data } = await api.deleteAddressesById(username, id);
     dispatch({ type: DELETEADDRESSESBYID, data });
-    console.log(data);
+
   } catch (error) {
     console.log(error);
   }
 };
 export const updateAddressesById = (username, id, formData) => async (dispatch) => {
   try {
-    const { data } = await api.updateAddressesById(username, id, formData);
-    dispatch({ type: UPDATEADDRESSESBYID, data });
-    console.log(data);
+    const {data} = await api.updateAddressesById(username, id, formData);
+    const udpatedData = {
+      "addressId": id,
+      "details": formData
+    }
+    dispatch({ type: UPDATEADDRESSESBYID, data: udpatedData });
   } catch (error) {
     console.log(error);
   }

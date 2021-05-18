@@ -21,6 +21,7 @@ export const resendCode = (email) => API.post(`/user/${email}/resend-verificatio
 
 export const logOut = (username) => API.post(`/user/${username}/logout`);
 export const getAccount = (username) => API.get(`/user/${username}`);
+export const getFishbowlAccount = (username) => API.get(`/fishbowl/${username}/customer`);
 export const getOrders = (username) => API.get(`/${username}/orders`);
 
 export const putAccount = (username, accountData) => API.put(`/user/${username}`, accountData);

@@ -517,6 +517,9 @@
     color: #16CFB0;
     border: 2px solid #16CFB0;
     margin-right: 30px;
+    span {
+      margin-left: 5px;
+    }
   }
   .proceed-btn {
     color: #FFFFFF;
@@ -615,5 +618,92 @@
               opacity: 1;
           }
       }
+  }
+  @include mediaQueries(padpro) {
+    .main-content-container {
+      flex-wrap: wrap;
+    }
+    .cart-items {
+      margin-right: 0;
+    }
+    .right-container {
+      width: 100%;
+    }
+    .order-summary, .customer-info {
+      width: 100%;
+    }
+  }
+  @include mediaQueries(pad) {
+    .main-content-container {
+      flex-wrap: wrap;
+    }
+    .cart-items {
+      margin-right: 0;
+    }
+    .right-container {
+      width: 100%;
+    }
+    .order-summary, .customer-info {
+      width: 100%;
+    }
+  }
+  @include mediaQueries(mobile) {
+    padding: 50px 16px;
+    .main-content-container {
+      flex-wrap: wrap;
+    }
+    .cart-items {
+      margin-right: 0;
+    }
+    .product {
+      flex-wrap: wrap;
+      padding: 0 !important;
+      position: relative;
+    }
+    .product .img-container {
+      margin-right: 0;
+    }
+    .product .action-container {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 20px; 
+    }
+    .product .info-container {
+      padding: 20px;
+    }
+    .product .qty-action-container {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .product .qty-action-container .update-btn {
+      margin-left: 0;
+      width: 211px;
+    }
+    .right-container {
+      width: 100%;
+    }
+    .order-summary, .customer-info {
+      width: 100%;
+      padding: 20px;
+    }
+    .title-container .toggle .toggle-menu {
+      padding: 20px;
+    }
+    .cancel-btn, .save-btn {
+      width: 45% !important; 
+    }
+    .proceed-btn {
+      margin: 0 auto;
+    }
+    .back-btn {
+      width: 60px;
+    }
+    .back-btn span {
+      display: none;
+    }
+    .place-order {
+      flex: auto;
+    }
   }
 }

@@ -87,8 +87,8 @@ export const ItemList = ({ cart, page }) => {
                                 </p>
                                 {
                                     page === 'cart' ? 
-                                    <div className="d-flex align-items-center justify-container-center">
-                                        <div className="d-flex align-items-center justify-container-center qty-container">
+                                    <div className="d-flex align-items-center qty-action-container">
+                                        <div className="d-flex align-items-center qty-container">
                                             <button className="minus-btn" onClick={()=>handleQtyUpdate(cartItem, 'minus')}>-</button>
                                             <input type="number" value={selectedItem?.productId === cartItem.productId ? quantity : cartItem.quantity} onChange={(e)=>handleQtyInput(e, cartItem)} />
                                             <button className="plus-btn" onClick={()=>handleQtyUpdate(cartItem, 'add')}>+</button>

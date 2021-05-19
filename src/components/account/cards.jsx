@@ -231,15 +231,15 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                     </div>
                                                 </div>
                                                 <div className="row">
-                                                    <div className="col">
+                                                    <div className="col form-group">
                                                         <label htmlFor="cardNumber">Card Number</label>
                                                         <input className="col-12" className="form-control" id="cardNumber" {...getCardNumberProps({ onChange: handleChange })} value={formData.cardNumber} autoFocus />
                                                     </div>
-                                                    <div className="col-md-auto">
+                                                    <div className="col-md-auto form-group">
                                                         <label htmlFor="expiry">Valid Thru</label>
                                                         <input className="col-12" className="form-control" id="expiry" {...getExpiryDateProps({ onChange: handleExpireDateChange })} value={formData.expiry} />
                                                     </div>
-                                                    <div className="col col-lg-2">
+                                                    <div className="col col-lg-2 form-group">
                                                         <label htmlFor="cvv">CVV</label>
                                                         <input className="col-12" className="form-control" {...getCVCProps({ onChange: handleChange })} value={formData.cvc} />
                                                     </div>

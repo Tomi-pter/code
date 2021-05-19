@@ -65,16 +65,16 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, cart, page }) 
             {   page === 'cart' ? 
                     cart.cartData?.length > 0 ? 
                     <Link to="checkout" className="btn proceed-btn">
-                        {page === 'cart' ? 'Proceed to Checkout' : 'Place Order' }
+                        Proceed to Checkout
                     </Link>
                     :
                     <Link to="/" onClick={ (event) => event.preventDefault() } className="btn proceed-btn disabled">
-                        {page === 'cart' ? 'Proceed to Checkout' : 'Place Order' }
+                       Proceed to Checkout
                     </Link>
                 :
                 <>
-                    <Link to={(page === 'checkout' ? "cart" : "checkout")} className="btn back-btn">{"< Cart"}</Link>
-                    <button className="proceed-btn" onClick={handleCheckout}>Place Order</button>
+                    <Link to={(page === 'checkout' ? "cart" : "checkout")} className="btn back-btn">{"<"}<span>Back</span></Link>
+                    <button className="proceed-btn place-order" onClick={handleCheckout}>Place Order</button>
                 </>
             }
             </div>

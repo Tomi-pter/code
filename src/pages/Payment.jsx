@@ -63,7 +63,7 @@ export const PaymentContainer = () => {
             <HeaderNav />
             <div className="container-fluid payment-page">
                 <h1 className="title">Payment</h1>
-                <div className="d-flex align-items-start">
+                <div className="main-content-container d-flex align-items-start">
                     <div className="payments-container">
                         <div className="payments">
                             <h1 className="title">Payment Methods</h1>
@@ -89,7 +89,7 @@ export const PaymentContainer = () => {
                                 }
                             </div>
                             <div className="d-flex align-items-center justify-content-end actions-container">
-                                <Link to="checkout" className="btn back-btn">{"< Checkout"}</Link>
+                                <Link to="checkout" className="btn back-btn">{"<"}<span> Checkout</span></Link>
                                 <button className="btn proceed-btn" onClick={()=>selectedMethod === "card" ? handlePayment("card") : handlePayment("term")} disabled={selectedCard === '' && selectedMethod === "card" ? true : null}>
                                     {isLoading ?
                                         <div className="spinner-border text-light" role="status">

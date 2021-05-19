@@ -18,6 +18,7 @@ export const PaymentContainer = () => {
     const [selectedCard, setSelectedCard] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState('card');
+    const [enablePayByTerms, setEnablePayByTerms] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -50,7 +51,12 @@ export const PaymentContainer = () => {
         if (!cart?.checkoutDetail) history.push("/checkout");
     },[cart]);
 
-    console.log(account);
+    useEffect(()=>{
+        const paymentTerms = account?.fishbowlAccountData?.data?.paymentTerms?.toLowerCase();
+        if (paymentTerms && paymentTerms?.includes("net")) {
+            setEnablePayByTerms(true);
+        }
+    },[account]);
 
     return (
         <>
@@ -63,22 +69,24 @@ export const PaymentContainer = () => {
                             <h1 className="title">Payment Methods</h1>
                             <ul className="nav nav-tabs">
                                 <li><a data-toggle="tab" href="#card" className="active" onClick={()=>setSelectedMethod('card')}>Credit Card</a></li>
-                                <li><a data-toggle="tab" href="#terms" onClick={()=>setSelectedMethod('terms')}>Pay by Terms</a></li>
+                                { enablePayByTerms && <li><a data-toggle="tab" href="#terms" onClick={()=>setSelectedMethod('terms')}>Pay by Terms</a></li> }
                             </ul>
                             <div className="tab-content">
                                 <div id="card" className="tab-pane fade in active show">
                                     <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
                                 </div>
-                                <div id="terms" className="tab-pane fade">
-                                    <div className="d-flex align-items-center justify-content-between terms-copy">
-                                        <div className="mr-5">
-                                            <h2>REMINDER</h2>
-                                            <p>By selecting payment by terms you agree that ...... it will take within 24 hours to confirm your eligibility to use this as a payment option. </p>
-                                            <p>We will send an email to update the status of your order.</p>
+                                { enablePayByTerms && 
+                                    <div id="terms" className="tab-pane fade">
+                                        <div className="d-flex align-items-center justify-content-between terms-copy">
+                                            <div className="mr-5">
+                                                <h2>REMINDER</h2>
+                                                <p>By selecting payment by terms you agree that ...... it will take within 24 hours to confirm your eligibility to use this as a payment option. </p>
+                                                <p>We will send an email to update the status of your order.</p>
+                                            </div>
+                                            <img src={require("../assets/icon/card-active.svg")} alt="" />
                                         </div>
-                                        <img src={require("../assets/icon/card-active.svg")} alt="" />
-                                    </div>
-                                </div>
+                                    </div> 
+                                }
                             </div>
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"< Checkout"}</Link>

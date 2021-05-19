@@ -426,7 +426,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
         setIsLoading(false);
         setIsDefaultLoading(false);
         setIsDefaultSelected(null);
-        const isDefaultAddress = account?.addressesData?.find(address => address.isDefault === true);
+        const isDefaultAddress = account?.addressesData?.find(address => address.isDefault === true);        
         setDefaultAddress(isDefaultAddress);
         if (cart?.checkoutDetail) {
             setSelectedShipping(cart?.checkoutDetail?.selectedShipping);
@@ -710,13 +710,6 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                     <div className="password-input form-group">
                                         <label htmlFor="country">Country</label>
                                         <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} />
-                                        {/* <Input
-                                            label="Country"
-                                            name="country"
-                                            type="text"
-                                            value={formData.country}
-                                            onChange={handleChange}
-                                        /> */}
                                     </div>
                                 </div>
                             </div>

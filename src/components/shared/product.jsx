@@ -56,9 +56,7 @@ export const Product = ({
             <div className="header-name-wrapper">
           <p className="flex-fill list-header-name">{product.name}</p>
             </div>
-            <div className={'header-price-wrapper' + (auth ? ' d-block' : ' d-none')}>
-              <p className="list-header-price">$ {product.purchasePrice}</p>
-            </div>
+          
           </div>
         </div>
         <div className={'product-details-container'}>
@@ -128,6 +126,7 @@ export const Product = ({
               {/* <p className="ppu for-list">({ppu})</p> */}
             </div>
             {auth ? (
+              <>    
             <div className="buy-container d-flex">
               <input
                 className="qty for-list mr-2"
@@ -154,6 +153,10 @@ export const Product = ({
               </button>
             
               </div>
+              <div className={'header-price-wrapper ' + (view === "list" ? 'header-price-wrapper-show' : 'd-none')}>
+              <p className="list-header-price">$ {product.purchasePrice}</p>
+            </div>
+           </>
            ) : (
               <>
                <span style={{ fontSize: '12.3295px' }} className="to-buy">

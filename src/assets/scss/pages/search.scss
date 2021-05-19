@@ -59,7 +59,7 @@
             .strength,
             .buy-container,
             .incart {
-                margin-top: 50px !important;
+                margin-top: 35px !important;
                 position: relative;
                 min-height: 32px;
                 display: flex;
@@ -93,6 +93,9 @@
             }
             .incart::before {
                 content: "In cart";
+            }
+            .header-price-wrapper {
+                margin-top: 20px;
             }
         }
     }

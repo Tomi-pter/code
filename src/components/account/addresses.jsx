@@ -182,47 +182,64 @@ export const Addresses = ({ account }) => {
             <div className="addressesWrapper">
                 <h2 className="sub-title">My Address Book</h2>
                 <div>
-                    {addresses.length > 0 ? <table class="table">
+                    {addresses.length > 0 ? <table class="table ">
                         <thead>
                             <tr>
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Shipping Address</th>
                                 <th scope="col">Mobile Number</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
+                                <th className="d-none d-sm-block" scope="col"></th>
+                                <th className="d-none d-sm-block" scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             {
                                 addresses?.map((item, index) => (
-                                    <tr >
-                                        <td scope="row">
-                                            <div className="fullName">
-                                                <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
-                                                {/* <div className="defaultText"><span>Default</span></div> */}
+                                    <>
+                                        <tr>
+                                            <td scope="row">
+                                                <div className="fullName">
+                                                    <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className="address">
+                                                    {item?.details?.address}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className="mobileNumber">
+                                                    {item?.details?.mobileNumber}
+                                                </div>
+
+                                            </td>
+                                            <td className="d-none d-lg-block">
+                                                <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
+                                                    <img className="edit-icon" src={EditIcon} alt="" />
+                                                </div>
+                                            </td>
+                                            <td className="d-none d-lg-block">
+                                                <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
+                                                    <img className="edit-icon" src={DeleteIcon} alt="" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <div className="d-block d-md-none">
+                                            
+                                            <div className="d-flex align-item-center justify-content-end">
+                                                <div className="mr-2">
+                                                    <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
+                                                        <img className="edit-icon" src={EditIcon} alt="" />
+                                                    </div>
+                                                </div>
+                                                <div className="">
+                                                    <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
+                                                        <img className="edit-icon" src={DeleteIcon} alt="" />
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <div className="address">
-                                                {item?.details?.address}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="mobileNumber">
-                                                {item?.details?.mobileNumber}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
-                                                <img className="edit-icon" src={EditIcon} alt="" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
-                                                <img className="edit-icon" src={DeleteIcon} alt="" />
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </>
                                 ))
 
                             }
@@ -234,7 +251,6 @@ export const Addresses = ({ account }) => {
                             No Addresses
                     </div>
                     }
-
                 </div>
                 <div className="col-12 d-flex align-items-center justify-content-end">
                     <div>
@@ -246,7 +262,7 @@ export const Addresses = ({ account }) => {
                         <h2 className="sub-title">Add New Address</h2>
 
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="givenName">First Name</label>
                                     <Input
@@ -258,7 +274,7 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="familyName">Last Name</label>
                                     <Input
@@ -272,7 +288,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <label htmlFor="email">Email</label>
                                 <Input
                                     label="Email"
@@ -282,7 +298,7 @@ export const Addresses = ({ account }) => {
                                     onChange={setForm}
                                 />
                             </div>
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="address">Phone Number</label>
                                     <InputContact
@@ -297,7 +313,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="address">Address</label>
                                     <Input
@@ -311,7 +327,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="city">City</label>
                                     <Input
@@ -323,13 +339,13 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="state">State</label>
                                     <Dropdown label="State" name="state" value={state} options={states} onChange={setForm} />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="postalCode">Postal Code</label>
                                     <Input
@@ -341,7 +357,7 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="country">Country</label>
                                     <Input
@@ -380,7 +396,7 @@ export const Addresses = ({ account }) => {
                         <h2 className="sub-title">Update Address</h2>
 
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="givenName">First Name</label>
                                     <Input
@@ -392,7 +408,7 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="familyName">Last Name</label>
                                     <Input
@@ -406,7 +422,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <label htmlFor="email">Email</label>
                                 <Input
                                     label="Email"
@@ -416,7 +432,7 @@ export const Addresses = ({ account }) => {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="address">Phone Number</label>
                                     <InputContact
@@ -431,7 +447,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="address">Address</label>
                                     <Input
@@ -445,7 +461,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="city">City</label>
                                     <Input
@@ -457,13 +473,13 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="state">State</label>
                                     <Dropdown label="State" name="state" value={updateFormData.state} options={states} onChange={handleChange} />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="postalCode">Postal Code</label>
                                     <Input
@@ -475,7 +491,7 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="country">Country</label>
                                     <Input

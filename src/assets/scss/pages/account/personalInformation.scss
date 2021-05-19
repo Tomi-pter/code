@@ -664,9 +664,40 @@
         }
         tbody {
           tr {
-            border-bottom: 1px solid #ccc ;
+            border-bottom: 1px solid #ccc;
             td {
               border: 0;
+              .default,
+              .default-btn {
+                width: 121px;
+                min-width: 121px;
+                height: 27px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 13.5px;
+                line-height: 21px;
+                text-align: center;
+              }
+              .default {
+                background: #16cfb0;
+                color: #f2f2f2;
+                border-radius: 9.75px;
+                padding: 0 10px;
+              }
+              .default-btn {
+                color: #16cfb0;
+                border: 1.5px solid #16cfb0;
+                background: transparent;
+                padding: 0 10px;
+                .spinner-border {
+                  width: 20px;
+                  height: 20px;
+                  color: #16cfb0 !important;
+                }
+              }
               .fullName {
                 max-width: 89px;
                 p {

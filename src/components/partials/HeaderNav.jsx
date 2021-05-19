@@ -11,7 +11,9 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getCart } from '../../actions/cart';
 
-import { getProducts } from '../../actions/products'
+import { getProducts } from '../../actions/products';
+import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
+
 export const HeaderNav = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const cart = useSelector((state) => state.cart);
@@ -97,7 +99,7 @@ export const HeaderNav = () => {
                                     ) : (
                                             avatar?.Body?.data.length > 0 ?
                                                 <img className="profilePic" src={`data:image/jpeg;base64,${encodeData(avatar?.Body?.data)}`} />
-                                                : <img className="profilePic" src={Account} alt="" />
+                                                : <img className="profilePic" src={ProfilePic} alt="" />
                                         )}
 
                                 </div>

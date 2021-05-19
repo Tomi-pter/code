@@ -3,10 +3,9 @@ import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hooks-helper";
 
-import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
 import DeleteIcon from '../../assets/img/Account/delete-icon.svg';
-import { addAddresses, getAllAddresses, getAddressesById, deleteAddressesById, updateAddressesById } from '../../actions/account';
+import { addAddresses, getAllAddresses, getAddressesById, deleteAddressesById, updateAddressesById, makeDefaultAddress } from '../../actions/account';
 import Input from '../shared/input';
 import Dropdown from "../shared/dropdown";
 
@@ -89,9 +88,11 @@ export const Addresses = ({ account }) => {
     const [showModal, setShowModal] = useState(false);
     const [showUpdateModal, setUpdateShowModal] = useState(false);
     const [currentAddressId, setCurrentAddressId] = useState();
+    const [defaultAddress, setDefaultAddress] = useState(null);
+    const [isDefaultSelected, setIsDefaultSelected] = useState(null);
+    const [isDefaultLoading, setIsDefaultLoading] = useState(false);
     const handleClose = () => setShowModal(false);
     const handleUpdateClose = () => setUpdateShowModal(false);
-    const handleShow = () => setShowModal(true);
     const { email, mobileNumber, givenName, familyName, address, city, state, postalCode, country } = formData;
 
     const dispatch = useDispatch();
@@ -124,6 +125,12 @@ export const Addresses = ({ account }) => {
                 value: value
             }
         })
+    }
+    const handleMakeDefaultAddress = (address) => {
+        setIsDefaultSelected(address);
+        setIsDefaultLoading(true);
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(makeDefaultAddress(user?.username, address.addressId));
     }
     const handleChange = (e) => {
         e.preventDefault()
@@ -168,7 +175,9 @@ export const Addresses = ({ account }) => {
         if (showUpdateModal) {
             setUpdateFormData(getAddressesByIdData.details);
         }
-    }, [addresses, getAddressesByIdData]);
+        const isDefaultAddress = account?.addressesData?.find(address => address.isDefault === true);
+        setDefaultAddress(isDefaultAddress);
+    }, [account, addresses, getAddressesByIdData]);
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAllAddresses(user?.username));
@@ -181,15 +190,15 @@ export const Addresses = ({ account }) => {
         <>
             <div className="addressesWrapper">
                 <h2 className="sub-title">My Address Book</h2>
-                <div>
+                <div className="d-none d-lg-block">
                     {addresses.length > 0 ? <table class="table ">
                         <thead>
                             <tr>
                                 <th scope="col">Full Name</th>
                                 <th scope="col">Shipping Address</th>
                                 <th scope="col">Mobile Number</th>
-                                <th className="d-none d-sm-block" scope="col"></th>
-                                <th className="d-none d-sm-block" scope="col"></th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -211,7 +220,20 @@ export const Addresses = ({ account }) => {
                                                 <div className="mobileNumber">
                                                     {item?.details?.mobileNumber}
                                                 </div>
-
+                                            </td>
+                                            <td>
+                                                {defaultAddress?.addressId === item?.addressId && <div className="default">Default</div>}
+                                                {defaultAddress?.addressId !== item?.addressId &&
+                                                    <button className="default-btn" onClick={() => handleMakeDefaultAddress(item)}>
+                                                        {
+                                                            isDefaultLoading && isDefaultSelected.addressId === item.addressId ?
+                                                                <div className="spinner-border text-success" role="status">
+                                                                    <span className="sr-only">Loading...</span>
+                                                                </div>
+                                                                : "Make Default"
+                                                        }
+                                                    </button>
+                                                }
                                             </td>
                                             <td className="d-none d-lg-block">
                                                 <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
@@ -225,7 +247,7 @@ export const Addresses = ({ account }) => {
                                             </td>
                                         </tr>
                                         <div className="d-block d-md-none">
-                                            
+
                                             <div className="d-flex align-item-center justify-content-end">
                                                 <div className="mr-2">
                                                     <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
@@ -252,6 +274,8 @@ export const Addresses = ({ account }) => {
                     </div>
                     }
                 </div>
+
+                
                 <div className="col-12 d-flex align-items-center justify-content-end">
                     <div>
                         <button className="addAddressButton" onClick={() => setShowModal(true)}>+ Add New Address</button>
@@ -504,6 +528,7 @@ export const Addresses = ({ account }) => {
                                 </div>
                             </div>
                         </div>
+
                         <div className="button-wrapper d-flex align-items-center justify-content-end">
                             <button className="cancelAddressButton close" onClick={() => setUpdateShowModal(false)} data-dismiss="modal" aria-label="Close">
                                 Cancel

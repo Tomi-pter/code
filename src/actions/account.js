@@ -12,7 +12,8 @@ import {
   GETADDRESSES,
   GETADDRESSESBYID,
   DELETEADDRESSESBYID,
-  UPDATEADDRESSESBYID
+  UPDATEADDRESSESBYID,
+  UPDATEDEFAULTADDRESS
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
@@ -132,11 +133,8 @@ export const deleteAddressesById = (username, id) => async (dispatch) => {
 export const updateAddressesById = (username, id, formData) => async (dispatch) => {
   try {
     const {data} = await api.updateAddressesById(username, id, formData);
-    const udpatedData = {
-      "addressId": id,
-      "details": formData
-    }
-    dispatch({ type: UPDATEADDRESSESBYID, data: udpatedData });
+
+    dispatch({ type: UPDATEADDRESSESBYID, data });
   } catch (error) {
     console.log(error);
   }
@@ -145,8 +143,8 @@ export const updateAddressesById = (username, id, formData) => async (dispatch) 
 export const makeDefaultAddress = (username, id) => async (dispatch) => {
   try {
     const {data} = await api.makeDefaultAddress(username, id);
-    console.log(data)
-    // dispatch({ type: UPDATEADDRESSESBYID, data: udpatedData });
+    
+    dispatch({ type: UPDATEDEFAULTADDRESS, data });
   } catch (error) {
     console.log(error);
   }

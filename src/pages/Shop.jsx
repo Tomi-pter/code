@@ -15,6 +15,7 @@ export default (props) => {
   const [category, setCategory] = useState('')
   const [subCategory, setSubCategory] = useState('')
   const [dummySub, setDummySub] = useState('')
+  const [selectCategory, setSelectCategory] = useState('');
   const location = useLocation()
   const dispatch = useDispatch()
 
@@ -43,7 +44,6 @@ export default (props) => {
     setIsLoading(false)
   }, [products])
 
-
   return (
     <>
       <HeaderNav />
@@ -55,9 +55,16 @@ export default (props) => {
               <select
                 className="select-category form-control"
                 id="categoryType"
+                onChange={(e) => {
+                  const selectedCategory=e.target.value;
+                  setCategory(selectedCategory)
+                }}
               >
-                <option>For Animal Health</option>
-                <option>For Pharmacies</option>
+              <option value="Pharmaceuticals" >For Pharmacies</option> 
+              <option 
+              value="Animal Health AND Medical Supplies">For Animal Health</option> 
+              <option
+               value="Medical Supplies">For Medical/Surgical Products</option>
               </select>
             </div>
             <div

@@ -71,7 +71,7 @@
             display: block !important;
         }
         @include mediaQueries(mobile) {
-            padding: 0 40px;
+            padding: 0 10px;
             &.search-wrapper {
                 flex-direction: column;
             }
@@ -396,11 +396,6 @@
                                 width: 100%;
                                 padding-right: 15px;
                             }
-                            .header-price-wrapper {
-                                @include mediaQueries(padpro) {
-                                    max-width: 50%;
-                                }
-                            }
                             .product-image-head {
                                 max-width: 40%;
                             }
@@ -426,11 +421,6 @@
                             .header-name-wrapper {
                                 width: 100%;
                                 padding-right: 15px;
-                            }
-                            .header-price-wrapper {
-                                @include mediaQueries(padpro) {
-                                    max-width: 50%;
-                                }
                             }
                             .product-image-head {
                                 max-width: 40%;
@@ -459,9 +449,6 @@
                                 max-width: 100%;
                                 width: 100%;
                             }
-                            .header-price-wrapper {
-                                max-width: 100%;
-                            }
                             .product-image-head {
                                 max-width: 100%;
                                 width: 50%;
@@ -477,7 +464,8 @@
                     }
                     @include mediaQueries(mobile) {
                         display: block;
-                        width: 100%;
+                        width: 75%;
+                        margin-left: auto;
                         .mobile-list-header {
                             display: flex;
                             align-items: center;
@@ -902,5 +890,13 @@
     .medsurg-product .img-container {
         background: url("../../img/medsurg-bg.png") no-repeat top;
         background-size: contain;
+    }
+    .header-price-wrapper {
+        display: none;
+    }
+    @include mediaQueries(custom-shop) {
+        .header-price-wrapper-show {
+            display: block;
+        }
     }
 }

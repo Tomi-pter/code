@@ -2,6 +2,9 @@
   min-height: 100vh;
   background: #f6f9fe;
   padding: 70px 150px 60px 150px;
+  @include mediaQueries(pad) {
+    padding: 40px 0;
+  }
   @include mediaQueries(mobile) {
     padding: 40px 0;
   }
@@ -23,6 +26,10 @@
   .side-nav {
     min-width: 360px;
     margin-right: 30px;
+    @include mediaQueries(pad) {
+      min-width: 100%;
+      margin-right: 0;
+    }
     @include mediaQueries(mobile) {
       min-width: 100%;
       margin-right: 0;
@@ -125,6 +132,9 @@
 
   .information {
     flex: auto;
+    @include mediaQueries(pad) {
+      width: 100%;
+    }
     @include mediaQueries(mobile) {
       width: 100%;
     }
@@ -136,6 +146,9 @@
     }
     .tab-pane > .card {
       padding: 36px 60px 60px 60px;
+      @include mediaQueries(pad) {
+        padding: 40px 16px;
+      }
       @include mediaQueries(mobile) {
         padding: 40px 16px;
       }
@@ -350,6 +363,12 @@
       background: #eaeaea;
       padding: 30px 50px;
       margin-bottom: 37px;
+      @include mediaQueries(pad) {
+        padding: 20px 18px;
+      }
+      @include mediaQueries(mobile) {
+        padding: 20px 18px;
+      }
       .date-status-container {
         margin-bottom: 40px;
       }
@@ -407,6 +426,12 @@
       }
       .item-info-end {
         min-width: 131px;
+        @include mediaQueries(pad) {
+          min-width: auto;
+        }
+        @include mediaQueries(mobile) {
+          min-width: auto;
+        }
       }
     }
     .saveButton {
@@ -448,6 +473,57 @@
       color: #16cfb0;
     }
     .addressesWrapper {
+      .mobile-addresses{
+        border-bottom: 1px solid #ccc;
+        .fullName{
+          font-size: 24px;
+          font-weight: bold;
+        }
+        .edit-btn,
+        .default-btn {
+          height: 31px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          box-sizing: border-box;
+          border-radius: 7.5px;
+          outline: 0;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 13px;
+          line-height: 21px;
+        }
+        .edit-btn {
+          width: 69px;
+          background: #16cfb0;
+          border: 0;
+          color: #ffffff;
+          &:hover {
+            background: linear-gradient(
+              266.19deg,
+              #16cfb0 -15.44%,
+              #71d3f4 103.82%
+            );
+          }
+        }
+        .default-btn {
+          width: 111px;
+          color: #16cfb0;
+          border: 1.5px solid #16cfb0;
+          background: transparent;
+          margin-top: 15px;
+        }
+        .default {
+          max-width: 111px;
+          background: #16cfb0;
+          color: #f2f2f2;
+          border-radius: 9.75px;
+          padding: 2px 10px;
+          text-align: center;
+          margin-top: 15px;
+        }
+      }
       .customer-info {
         .checkbox-container {
           display: flex;

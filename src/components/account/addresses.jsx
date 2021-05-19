@@ -246,21 +246,6 @@ export const Addresses = ({ account }) => {
                                                 </div>
                                             </td>
                                         </tr>
-                                        <div className="d-block d-md-none">
-
-                                            <div className="d-flex align-item-center justify-content-end">
-                                                <div className="mr-2">
-                                                    <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
-                                                        <img className="edit-icon" src={EditIcon} alt="" />
-                                                    </div>
-                                                </div>
-                                                <div className="">
-                                                    <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
-                                                        <img className="edit-icon" src={DeleteIcon} alt="" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </>
                                 ))
 
@@ -275,7 +260,47 @@ export const Addresses = ({ account }) => {
                     }
                 </div>
 
-                
+                <div className="d-block d-lg-none">
+                    {
+                        addresses?.map((item, index) => (
+                            <>
+                                <div className="mobile-addresses mt-2 mb-2">
+                                    <div className="fullName ">
+                                        <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
+                                    </div>
+                                    <div className="address mb-2">
+                                        {item?.details?.address}
+                                    </div>
+                                    <div className="mobileNumber mb-2">
+                                        {item?.details?.mobileNumber}
+                                    </div>
+                                    {defaultAddress?.addressId === item?.addressId && <div className="default mb-2">Default</div>}
+                                    {defaultAddress?.addressId !== item?.addressId &&
+                                        <button className="default-btn mb-2" onClick={() => handleMakeDefaultAddress(item)}>
+                                            {
+                                                isDefaultLoading && isDefaultSelected.addressId === item.addressId ?
+                                                    <div className="spinner-border text-success" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                    : "Make Default"
+                                            }
+                                        </button>
+                                    }
+                                    <div className="d-flex mb-3">
+                                        <div className="edit-wrapper mr-2" onClick={() => editAddress(item.addressId)}>
+                                            <img className="edit-icon" src={EditIcon} alt="" />
+                                        </div>
+                                        <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
+                                            <img className="edit-icon" src={DeleteIcon} alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+
+                        ))
+
+                    }
+                </div>
                 <div className="col-12 d-flex align-items-center justify-content-end">
                     <div>
                         <button className="addAddressButton" onClick={() => setShowModal(true)}>+ Add New Address</button>

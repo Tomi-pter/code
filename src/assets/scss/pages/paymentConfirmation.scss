@@ -53,4 +53,22 @@
     color: #21E8DE;
     margin-right: 60px;
   }
+
+  @include mediaQueries(mobile) {
+    padding: 50px 16px;
+    > div, .card {
+      width: 100%;
+    }
+    h1 {
+      font-size: 50px;
+      line-height: 80px;
+    }
+    .buttonWrapper {
+      justify-content: space-between !important;
+    }
+    .secondaryButton, .primaryButton {
+      width: 45%;
+      margin: 0;
+    }
+  }
 }

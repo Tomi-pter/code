@@ -33,6 +33,7 @@ export const PersonalInformationContainer = () => {
     const handleLogout = () => {
         dispatch(logOut(user?.username, history));
         var cartIFrame = document.getElementById('hidden-iframe');
+        localStorage.removeItem('profile');
         cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
     };
     useEffect(() => {
@@ -46,7 +47,7 @@ export const PersonalInformationContainer = () => {
             <HeaderNav />
             <div className="personalInformationWrapper">
                 <div className="container">
-                    <div className="d-flex align-items-start">
+                    <div className="d-flex align-items-start flex-column flex-md-row">
                         <div className="side-nav">
                             <h1 className="title">Account</h1>
                             <div className="card">

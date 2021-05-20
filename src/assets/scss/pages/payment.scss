@@ -96,6 +96,9 @@
       color: #16CFB0;
       border: 2px solid #16CFB0;
       margin-right: 30px;
+      span {
+        margin-left: 5px;
+      }
     }
     .proceed-btn {
       color: #FFFFFF;
@@ -136,6 +139,104 @@
     span {
       font-size: 26.25px;
       line-height: 44px;
+    }
+  }
+  @include mediaQueries(padpro) {
+    .main-content-container {
+      flex-wrap: wrap;
+    }
+    .payments-container {
+      order: 2;
+      margin-right: 0;
+    }
+    .total-container {
+      order: 1;
+      margin-bottom: 30px;
+    }
+  }
+  @include mediaQueries(pad) {
+    .main-content-container {
+      flex-wrap: wrap;
+    }
+    .payments-container {
+      order: 2;
+      margin-right: 0;
+    }
+    .nav-tabs {
+      justify-content: space-around !important;
+    }
+    .nav-tabs li {
+      margin: 0 !important;
+    }
+    .actions-container {
+      justify-content: space-between !important;
+    }
+    .total-container {
+      order: 1;
+      margin-bottom: 30px;
+    }
+  }
+  @include mediaQueries(mobile) {
+    padding: 50px 16px;
+    .main-content-container {
+      flex-wrap: wrap;
+    }
+    .payments-container {
+      order: 2;
+      margin-right: 0;
+      width: 100%;
+    }
+    .payments {
+      padding: 20px !important;
+    }
+    .nav-tabs {
+      justify-content: space-around !important;
+    }
+    .nav-tabs li {
+      margin: 0 !important;
+    }
+    .nav-tabs li a {
+      width: unset !important;
+      height: unset !important;
+      padding: 15px 5px !important;
+    }
+   .nav-tabs li a.active::after {
+      width: 25px !important;
+      height: 25px !important;
+      top: -13px !important;
+      right: -13px !important;
+      background-size: contain !important;
+    }
+    .terms-copy {
+      padding: 20px 20px 50px 20px !important;
+      flex-wrap: wrap;
+      div {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+    .actions-container {
+      justify-content: space-between !important;
+    }
+    .back-btn {
+      width: 60px !important;
+    }
+    .back-btn span {
+      display: none;
+    }
+    .place-order {
+      flex: auto;
+    }
+    .total-container {
+      order: 1;
+      margin-bottom: 30px;
+      width: 100%;
+      min-width: 100%;
+      padding: 20px;
     }
   }
 }

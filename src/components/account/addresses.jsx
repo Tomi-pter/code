@@ -3,10 +3,9 @@ import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hooks-helper";
 
-import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
 import DeleteIcon from '../../assets/img/Account/delete-icon.svg';
-import { addAddresses, getAllAddresses, getAddressesById, deleteAddressesById, updateAddressesById } from '../../actions/account';
+import { addAddresses, getAllAddresses, getAddressesById, deleteAddressesById, updateAddressesById, makeDefaultAddress } from '../../actions/account';
 import Input from '../shared/input';
 import Dropdown from "../shared/dropdown";
 
@@ -89,9 +88,11 @@ export const Addresses = ({ account }) => {
     const [showModal, setShowModal] = useState(false);
     const [showUpdateModal, setUpdateShowModal] = useState(false);
     const [currentAddressId, setCurrentAddressId] = useState();
+    const [defaultAddress, setDefaultAddress] = useState(null);
+    const [isDefaultSelected, setIsDefaultSelected] = useState(null);
+    const [isDefaultLoading, setIsDefaultLoading] = useState(false);
     const handleClose = () => setShowModal(false);
     const handleUpdateClose = () => setUpdateShowModal(false);
-    const handleShow = () => setShowModal(true);
     const { email, mobileNumber, givenName, familyName, address, city, state, postalCode, country } = formData;
 
     const dispatch = useDispatch();
@@ -124,6 +125,12 @@ export const Addresses = ({ account }) => {
                 value: value
             }
         })
+    }
+    const handleMakeDefaultAddress = (address) => {
+        setIsDefaultSelected(address);
+        setIsDefaultLoading(true);
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(makeDefaultAddress(user?.username, address.addressId));
     }
     const handleChange = (e) => {
         e.preventDefault()
@@ -168,7 +175,9 @@ export const Addresses = ({ account }) => {
         if (showUpdateModal) {
             setUpdateFormData(getAddressesByIdData.details);
         }
-    }, [addresses, getAddressesByIdData]);
+        const isDefaultAddress = account?.addressesData?.find(address => address.isDefault === true);
+        setDefaultAddress(isDefaultAddress);
+    }, [account, addresses, getAddressesByIdData]);
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAllAddresses(user?.username));
@@ -181,8 +190,8 @@ export const Addresses = ({ account }) => {
         <>
             <div className="addressesWrapper">
                 <h2 className="sub-title">My Address Book</h2>
-                <div>
-                    {addresses.length > 0 ? <table class="table">
+                <div className="d-none d-lg-block">
+                    {addresses.length > 0 ? <table class="table ">
                         <thead>
                             <tr>
                                 <th scope="col">Full Name</th>
@@ -195,34 +204,49 @@ export const Addresses = ({ account }) => {
                         <tbody>
                             {
                                 addresses?.map((item, index) => (
-                                    <tr >
-                                        <td scope="row">
-                                            <div className="fullName">
-                                                <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
-                                                {/* <div className="defaultText"><span>Default</span></div> */}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="address">
-                                                {item?.details?.address}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="mobileNumber">
-                                                {item?.details?.mobileNumber}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
-                                                <img className="edit-icon" src={EditIcon} alt="" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
-                                                <img className="edit-icon" src={DeleteIcon} alt="" />
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <>
+                                        <tr>
+                                            <td scope="row">
+                                                <div className="fullName">
+                                                    <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className="address">
+                                                    {item?.details?.address}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className="mobileNumber">
+                                                    {item?.details?.mobileNumber}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {defaultAddress?.addressId === item?.addressId && <div className="default">Default</div>}
+                                                {defaultAddress?.addressId !== item?.addressId &&
+                                                    <button className="default-btn" onClick={() => handleMakeDefaultAddress(item)}>
+                                                        {
+                                                            isDefaultLoading && isDefaultSelected.addressId === item.addressId ?
+                                                                <div className="spinner-border text-success" role="status">
+                                                                    <span className="sr-only">Loading...</span>
+                                                                </div>
+                                                                : "Make Default"
+                                                        }
+                                                    </button>
+                                                }
+                                            </td>
+                                            <td className="d-none d-lg-block">
+                                                <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
+                                                    <img className="edit-icon" src={EditIcon} alt="" />
+                                                </div>
+                                            </td>
+                                            <td className="d-none d-lg-block">
+                                                <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
+                                                    <img className="edit-icon" src={DeleteIcon} alt="" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </>
                                 ))
 
                             }
@@ -234,7 +258,48 @@ export const Addresses = ({ account }) => {
                             No Addresses
                     </div>
                     }
+                </div>
 
+                <div className="d-block d-lg-none">
+                    {
+                        addresses?.map((item, index) => (
+                            <>
+                                <div className="mobile-addresses mt-2 mb-2">
+                                    <div className="fullName ">
+                                        <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
+                                    </div>
+                                    <div className="address mb-2">
+                                        {item?.details?.address}
+                                    </div>
+                                    <div className="mobileNumber mb-2">
+                                        {item?.details?.mobileNumber}
+                                    </div>
+                                    {defaultAddress?.addressId === item?.addressId && <div className="default mb-2">Default</div>}
+                                    {defaultAddress?.addressId !== item?.addressId &&
+                                        <button className="default-btn mb-2" onClick={() => handleMakeDefaultAddress(item)}>
+                                            {
+                                                isDefaultLoading && isDefaultSelected.addressId === item.addressId ?
+                                                    <div className="spinner-border text-success" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                    : "Make Default"
+                                            }
+                                        </button>
+                                    }
+                                    <div className="d-flex mb-3">
+                                        <div className="edit-wrapper mr-2" onClick={() => editAddress(item.addressId)}>
+                                            <img className="edit-icon" src={EditIcon} alt="" />
+                                        </div>
+                                        <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
+                                            <img className="edit-icon" src={DeleteIcon} alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+
+                        ))
+
+                    }
                 </div>
                 <div className="col-12 d-flex align-items-center justify-content-end">
                     <div>
@@ -246,7 +311,7 @@ export const Addresses = ({ account }) => {
                         <h2 className="sub-title">Add New Address</h2>
 
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="givenName">First Name</label>
                                     <Input
@@ -258,7 +323,7 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="familyName">Last Name</label>
                                     <Input
@@ -272,7 +337,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <label htmlFor="email">Email</label>
                                 <Input
                                     label="Email"
@@ -282,7 +347,7 @@ export const Addresses = ({ account }) => {
                                     onChange={setForm}
                                 />
                             </div>
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="address">Phone Number</label>
                                     <InputContact
@@ -297,7 +362,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="address">Address</label>
                                     <Input
@@ -311,7 +376,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="city">City</label>
                                     <Input
@@ -323,13 +388,13 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="state">State</label>
                                     <Dropdown label="State" name="state" value={state} options={states} onChange={setForm} />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="postalCode">Postal Code</label>
                                     <Input
@@ -341,7 +406,7 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="country">Country</label>
                                     <Input
@@ -380,7 +445,7 @@ export const Addresses = ({ account }) => {
                         <h2 className="sub-title">Update Address</h2>
 
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="givenName">First Name</label>
                                     <Input
@@ -392,7 +457,7 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="familyName">Last Name</label>
                                     <Input
@@ -406,7 +471,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <label htmlFor="email">Email</label>
                                 <Input
                                     label="Email"
@@ -416,7 +481,7 @@ export const Addresses = ({ account }) => {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="address">Phone Number</label>
                                     <InputContact
@@ -431,7 +496,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-12 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="address">Address</label>
                                     <Input
@@ -445,7 +510,7 @@ export const Addresses = ({ account }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="city">City</label>
                                     <Input
@@ -457,13 +522,13 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="state">State</label>
                                     <Dropdown label="State" name="state" value={updateFormData.state} options={states} onChange={handleChange} />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="postalCode">Postal Code</label>
                                     <Input
@@ -475,7 +540,7 @@ export const Addresses = ({ account }) => {
                                     />
                                 </div>
                             </div>
-                            <div className="col">
+                            <div className="col-6 col-md">
                                 <div className="password-input form-group">
                                     <label htmlFor="country">Country</label>
                                     <Input
@@ -488,6 +553,7 @@ export const Addresses = ({ account }) => {
                                 </div>
                             </div>
                         </div>
+
                         <div className="button-wrapper d-flex align-items-center justify-content-end">
                             <button className="cancelAddressButton close" onClick={() => setUpdateShowModal(false)} data-dismiss="modal" aria-label="Close">
                                 Cancel

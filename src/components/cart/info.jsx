@@ -611,7 +611,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                         <div className="modal-body">
                             <h2 className="sub-title">Add New Address</h2>
                             <div className="row">
-                                <div className="col">
+                                <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
                                         <label htmlFor="givenName">First Name</label>
                                         <Input
@@ -623,7 +623,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                         />
                                     </div>
                                 </div>
-                                <div className="col">
+                                <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
                                         <label htmlFor="familyName">Last Name</label>
                                         <Input
@@ -637,7 +637,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col">
+                                <div className="col-12 col-sm-6">
                                     <label htmlFor="email">Email</label>
                                     <Input
                                         label="Email"
@@ -647,7 +647,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div className="col">
+                                <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
                                         <label htmlFor="address">Phone Number</label>
                                         <InputContact
@@ -676,7 +676,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col">
+                                <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
                                         <label htmlFor="city">City</label>
                                         <Input
@@ -688,13 +688,13 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                         />
                                     </div>
                                 </div>
-                                <div className="col">
+                                <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
                                         <label htmlFor="state">State</label>
                                         <Dropdown label="State" name="state" value={formData.state} options={states} onChange={handleChange} />
                                     </div>
                                 </div>
-                                <div className="col">
+                                <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
                                         <label htmlFor="postalCode">Postal Code</label>
                                         <Input
@@ -706,7 +706,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                         />
                                     </div>
                                 </div>
-                                <div className="col">
+                                <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
                                         <label htmlFor="country">Country</label>
                                         <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} />

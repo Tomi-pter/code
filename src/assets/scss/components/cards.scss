@@ -16,6 +16,10 @@
           width: 67.5px;
           height: 67.5px;
           margin-right: 60px;
+          @include mediaQueries(mobile) {
+            width: 50px;
+            height: 50px;
+          }
         }
         .name {
           font-style: normal;
@@ -144,6 +148,7 @@
             font-size: 18px;
             line-height: 29px;
             color: #4f4f4f;
+            min-height: 40px;
         }
         .error {
             min-height: 22px;
@@ -204,6 +209,40 @@
                 min-height: 36px;
                 color: #16cfb0;
                 opacity: 1;
+            }
+        }
+    }
+    
+    @include mediaQueries(mobile) {
+        .card-list {
+            .card {
+                padding: 20px;
+                &.active {
+                    padding: 30px 20px;
+                }
+            }
+            .card-info > div {
+                align-items: center;
+                svg {
+                    margin-right: 10px;
+                }
+                .name, .card-number {
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+            }
+            .img-container {
+                width: 20px !important;
+                height: 20px !important;
+                min-width: 20px !important;
+                min-height: 20px !important;
+                img {
+                    width: 100%;
+                }
+            }
+            .add-card {
+                margin: 0 auto;
+                padding: 12px 69px !important;
             }
         }
     }

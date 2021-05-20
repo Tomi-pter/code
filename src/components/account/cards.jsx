@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 import { getCards, addCard, getDefaultCard, setDefaultCard, removeCard } from '../../actions/cards';
 
-const initialState = {cardNumber: "", cardholderName: "", cvc: "", expiry: ""};
+const initialState = { cardNumber: "", cardholderName: "", cvc: "", expiry: "" };
 
 export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     const [formData, setFormData] = useState(initialState);
@@ -82,10 +82,10 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
 
     useEffect(() => {
         const defaultCard = cards?.customerData?.invoice_settings.default_payment_method;
-        if (defaultCard) { 
+        if (defaultCard) {
             setSelectedCard(cards?.customerData?.invoice_settings.default_payment_method);
         } else {
-            if (cards?.cardsData?.length > 0 ) setSelectedCard(cards?.cardsData[0].id);
+            if (cards?.cardsData?.length > 0) setSelectedCard(cards?.cardsData[0].id);
         };
         setIsLoading(false);
         setIsDeleteLoading(false);
@@ -108,13 +108,13 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                 <div className="card-list">
                     {
                         cards.cardsData?.map((card, index) => (
-                            <div 
-                                key={`key-list-${index}`} 
+                            <div
+                                key={`key-list-${index}`}
                                 className={"d-flex flex-row align-items-center justify-content-between card " + (selectedCard === card.id ? "active" : "")}
-                                onClick={()=>setSelectedCard(card.id)}
+                                onClick={() => setSelectedCard(card.id)}
                             >
                                 <div className="d-flex card-info">
-                                    <PaymentInputsContainer>    
+                                    <PaymentInputsContainer>
                                         {({ getCardNumberProps, getCardImageProps }) => (
                                             <div className="d-flex">
                                                 <svg {...getCardImageProps({ images })} />
@@ -128,7 +128,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                     </PaymentInputsContainer>
                                 </div>
                                 <div className="img-container">
-                                    { selectedCard === card.id && <img src={require("../../assets/icon/card-active.svg")} alt="" /> } 
+                                    {selectedCard === card.id && <img src={require("../../assets/icon/card-active.svg")} alt="" />}
                                 </div>
                             </div>
                         ))
@@ -139,79 +139,121 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                 </div>
                 :
                 <div className="card-table">
-                <h2 className="sub-title">Payment Options</h2>
-                <h3 className="credit-title">Credit/Debit Card</h3>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Card Number</th>
-                            <th scope="col">Expiry Date</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <h2 className="sub-title">Payment Options</h2>
+                    <h3 className="credit-title">Credit/Debit Card</h3>
+                    <div className="d-none d-lg-block">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Card Number</th>
+                                    <th scope="col">Expiry Date</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    cards.cardsData?.map((card, index) => (
+                                        <tr key={`key-${index}`} >
+                                            <td>
+                                                <PaymentInputsContainer>
+                                                    {({ getCardNumberProps, getCardImageProps, getExpiryDateProps }) => (
+                                                        <div className="d-flex align-items-center">
+                                                            <div className="mr-2">
+                                                                <svg {...getCardImageProps({ images })} />
+                                                            </div>
+                                                            <div>
+                                                                <input hidden {...getCardNumberProps()} value={`${setCard(card.card.brand)}`} id={`card-${index}`} readOnly />
+                                                                <span className="card-number">*****************{card.card.last4}</span>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </PaymentInputsContainer>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    {card.card.exp_month}/{card.card.exp_year}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {
+                                                    cards?.customerData?.invoice_settings.default_payment_method === card.id ?
+                                                        <span className="default">Default</span>
+                                                        :
+                                                        <button className="default-btn" onClick={() => handleSetDefault(card.id)}>
+                                                            {isDefaultLoading && selectedDefaultCard === card.id ?
+                                                                <div className="spinner-border text-light" role="status">
+                                                                    <span className="sr-only">Loading...</span>
+                                                                </div>
+                                                                :
+                                                                <>
+                                                                    Make Default
+                                                    </>
+                                                            }
+                                                        </button>
+                                                }
+                                            </td>
+                                            <td>
+                                                {isDeleteLoading && selectedDeleteCard === card.id ?
+                                                    <div className="spinner-border text-danger delete-spinner" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                    :
+                                                    <a className="delete-wrapper" onClick={() => removeCreditCard(card.id)}>
+                                                        <img className="delete-icon" src={DeleteIcon} alt="" />
+                                                    </a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="card-list d-block d-lg-none">
                         {
                             cards.cardsData?.map((card, index) => (
-                                <tr key={`key-${index}`} >
-                                    <td>
+                                <div
+                                    key={`key-list-${index}`}
+                                    className={"d-flex flex-row align-items-center justify-content-between card " + (selectedCard === card.id ? "active" : "")}
+                                    onClick={() => setSelectedCard(card.id)}
+                                >
+
+                                    <div className="d-flex card-info">
                                         <PaymentInputsContainer>
-                                            {({ getCardNumberProps, getCardImageProps, getExpiryDateProps }) => (
-                                                <div className="d-flex align-items-center">
-                                                    <div className="mr-2">
-                                                        <svg {...getCardImageProps({ images })} />
-                                                    </div>
+                                            {({ getCardNumberProps, getCardImageProps }) => (
+                                                <div className="d-flex">
+                                                    <svg {...getCardImageProps({ images })} />
                                                     <div>
-                                                        <input hidden {...getCardNumberProps()} value={`${setCard(card.card.brand)}`} id={`card-${index}`} readOnly />
+                                                        <p className="name">{card.billing_details.name}</p>
+                                                        <input {...getCardNumberProps()} value={`${setCard(card.card.brand)}`} id={`card-list-${index}`} readOnly />
                                                         <span className="card-number">*****************{card.card.last4}</span>
                                                     </div>
                                                 </div>
                                             )}
                                         </PaymentInputsContainer>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            {card.card.exp_month}/{card.card.exp_year}
+                                    </div>
+                                    <div className="img-container">
+                                        {selectedCard === card.id && <img src={require("../../assets/icon/card-active.svg")} alt="" />}
+                                    </div>
+                                    {isDeleteLoading && selectedDeleteCard === card.id ?
+                                        <div className="spinner-border text-danger delete-spinner" role="status">
+                                            <span className="sr-only">Loading...</span>
                                         </div>
-                                    </td>
-                                    <td>
-                                        {
-                                            cards?.customerData?.invoice_settings.default_payment_method === card.id ? 
-                                                <span className="default">Default</span>
-                                            :
-                                            <button className="default-btn" onClick={()=>handleSetDefault(card.id)}>
-                                                {isDefaultLoading && selectedDefaultCard === card.id ?
-                                                    <div className="spinner-border text-light" role="status">
-                                                        <span className="sr-only">Loading...</span>
-                                                    </div>
-                                                    :
-                                                    <>
-                                                        Make Default
-                                                    </>
-                                                }
-                                            </button>
-                                        }
-                                    </td>
-                                    <td>
-                                        {isDeleteLoading && selectedDeleteCard === card.id ?
-                                            <div className="spinner-border text-danger delete-spinner" role="status">
-                                                <span className="sr-only">Loading...</span>
-                                            </div>
-                                            :
-                                            <a className="delete-wrapper" onClick={() => removeCreditCard(card.id)}>
-                                                <img className="delete-icon" src={DeleteIcon} alt="" />
-                                            </a>
-                                        }
-                                    </td>
-                                </tr>
+                                        :
+                                        <a className="delete-wrapper" onClick={() => removeCreditCard(card.id)}>
+                                            <img className="delete-icon" src={DeleteIcon} alt="" />
+                                        </a>
+                                    }
+                                </div>
                             ))
                         }
-                    </tbody>
-                </table>
-                <div className="w-100 d-flex align-items-center justify-content-end">
-                    <button className="addCardButton" data-toggle="modal" data-target="#addCardModal" onClick={() => handleAddCard()}>+ Add New Card</button>
+
+                    </div>
+                    <div className="w-100 d-flex align-items-center justify-content-end">
+                        <button className="addCardButton" data-toggle="modal" data-target="#addCardModal" onClick={() => handleAddCard()}>+ Add New Card</button>
+                    </div>
                 </div>
-            </div>
             }
             <div className="modal fade" id="addCardModal" tabIndex="-1" role="dialog" aria-labelledby="addCardModal" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered" role="document">
@@ -251,7 +293,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                 <button className="cancelCardButton close" id="modalClose" data-dismiss="modal" aria-label="Close">
                                                     Cancel
                                                 </button>
-                                                <button className={"addCardButton " + (isLoading ? "loading" : "")} disabled={(!meta.isTouched || meta.isTouched ) && !meta.error && formData.cardholderName !== "" && !isLoading ? false : true} onClick={handleSubmit}>
+                                                <button className={"addCardButton " + (isLoading ? "loading" : "")} disabled={(!meta.isTouched || meta.isTouched) && !meta.error && formData.cardholderName !== "" && !isLoading ? false : true} onClick={handleSubmit}>
                                                     {isLoading ?
                                                         <div className="spinner-border text-light" role="status">
                                                             <span className="sr-only">Loading...</span>

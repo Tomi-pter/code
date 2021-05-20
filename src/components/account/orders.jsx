@@ -22,15 +22,15 @@ export const OrdersHistory = ({ account }) => {
                 <li>Canceled <div className="count">1</div></li>
             </ul>
             <div className="orders">
-                { (!account?.accountOrders || account?.accountOrders?.length <= 0) &&
+                {(!account?.accountOrders || account?.accountOrders?.length <= 0) &&
                     <div className="d-flex align-items-center justify-content-center orders-empty">No Order History</div>
                 }
                 {
                     account?.accountOrders?.map((order, index) => (
                         <div key={`key-${index}`} className="order">
                             <div className="d-flex align-item-center justify-content-between">
-                                <div className="orderNo">Order #{index}</div>
-                                <div className="amount">{(order.details.total / 100 )} USD</div>
+                                <div className="orderNo">Order #{order.salesOrderId}</div>
+                                <div className="amount">{(order.details.total / 100)} USD</div>
                             </div>
                             <div className="d-flex align-item-center justify-content-between date-status-container">
                                 <div className="date">Placed on {formatDate(order.details.dateOrdered)}</div>
@@ -49,7 +49,7 @@ export const OrdersHistory = ({ account }) => {
                                         <p>Quantity: {item.quantity}</p>
                                     </div>
                                     <div className="item-info-end">
-                                        {order.details.status === "Pending" ? 
+                                        {order.details.status === "Pending" ?
                                             <p className="text-center">{order.details.status}</p>
                                             :
                                             <>
@@ -58,10 +58,10 @@ export const OrdersHistory = ({ account }) => {
                                             </>
                                         }
                                     </div>
-                                </div> 
+                                </div>
                             ))}
                         </div>
-                   ))
+                    ))
                 }
             </div>
         </>

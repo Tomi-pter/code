@@ -1,4 +1,4 @@
-import { AUTH, VERIFY, RESEND, LOGOUT, FORGOTPASSWORD, CONFIRMFORGOTPASSWORD } from '../constants/actionTypes';
+import { AUTH, VERIFY, RESEND, LOGOUT, FORGOTPASSWORD, CONFIRMFORGOTPASSWORD, GETCOUNTRIES, GETSTATES } from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
 export const logIn = (formData, router) => async (dispatch) => {
@@ -29,7 +29,7 @@ export const logOut = (username, router) => async (dispatch) => {
   }
 };
 
-export const signUp = (formData, router) => async (dispatch) => {
+export const signUp = (formData) => async (dispatch) => {
   try {
     const { data } = await api.signUp(formData);
 
@@ -97,6 +97,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     dispatch({ type: FORGOTPASSWORD, data });
   }
 };
+
 export const confirmForgotPassword = (username, formData) => async (dispatch) => {
   try {
 
@@ -107,6 +108,32 @@ export const confirmForgotPassword = (username, formData) => async (dispatch) =>
   } catch (error) {
     const data = error.response.data;
     dispatch({ type: CONFIRMFORGOTPASSWORD, data });
+    console.log(data);
+  }
+};
+
+export const getCountries = () => async (dispatch) => {
+  try {
+
+    const { data } = await api.getCountries();
+
+    dispatch({ type: GETCOUNTRIES, data });
+
+  } catch (error) {
+    const data = error.response.data;
+    console.log(data);
+  }
+};
+
+export const getStates = (id) => async (dispatch) => {
+  try {
+
+    const { data } = await api.getStates(id);
+    console.log(data)
+    dispatch({ type: GETSTATES, data });
+
+  } catch (error) {
+    const data = error.response.data;
     console.log(data);
   }
 };

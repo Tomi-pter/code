@@ -1,13 +1,12 @@
 import React from "react";
 
-const Dropdown = ({ label, options, ...others }) => (
+const Dropdown = ({ id, label, options, valueKey, ...others }) => (
   <>
     <div className="form-group">
-        {/* <label>{label}</label> */}
-        <select className="form-control" {...others} required>
+        <select id="id" className="form-control" {...others} required>
             <option value="" disabled hidden>{label}</option>
-            {options.map(([value, name], index) => (
-                <option value={value} key={`key-${value}-${index}`}>{name}</option>
+            {options && options.map((option, index) => (
+                option.name !== 'Unknown' && <option value={option[valueKey]} key={`key-${option.id}-${index}`}>{option.name}</option>
             ))}
         </select>
     </div>

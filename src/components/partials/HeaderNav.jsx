@@ -113,9 +113,9 @@ export const HeaderNav = () => {
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <Link className="dropdown-item" href="#!" to="">About Us</Link>
                             <ul>Products
-                            <li><Link className="dropdown-item" href="#!" to="/shop?category=Pharmacy">For Pharmacies</Link></li>
-                                <li><Link className="dropdown-item" href="#!" to="/shop?category=Animal Care">For Animal Care</Link></li>
-                                <li><Link className="dropdown-item" href="#!" to="/shop?category=Medical">For Medical/Surgical Products</Link></li>
+                            <li><Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">For Pharmacies</Link></li>
+                                <li><Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">For Animal Care</Link></li>
+                                <li><Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">For Medical/Surgical Products</Link></li>
                             </ul>
                             <Link className="dropdown-item" href="#!" to="">Contact Us</Link>
                         </div>

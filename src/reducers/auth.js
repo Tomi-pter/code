@@ -14,11 +14,15 @@ const authReducer = (state = { authData: null }, action) => {
       return { ...state, verifyData: action.data };
     case actionType.LOGOUT:
       localStorage.clear();
+      return state;
     case actionType.FORGOTPASSWORD:
       return { ...state, sendOTP: action.data };
     case actionType.CONFIRMFORGOTPASSWORD:
       return { ...state, forgotPasswordData: action.data };
-      return { ...state, authData: null };
+    case actionType.GETCOUNTRIES:
+      return { ...state, countriesData: action.data }
+    case actionType.GETSTATES:
+      return { ...state, statesData: action.data }
     default:
       return state;
   }

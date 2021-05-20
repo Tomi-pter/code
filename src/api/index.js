@@ -16,6 +16,9 @@ export const changePassword = (username, formData) => API.put(`/user/${username}
 export const confirmForgotPassword = (username, formData) => API.post(`/user/${username}/confirm-password`, formData);
 export const forgotPassword = (username) => API.post(`/user/${username}/forgot-password`);
 
+export const getCountries = () => API.get(`/countries`);
+export const getStates = (id) => API.get(`/states?countryId=${id}`);
+
 export const verifyAccount = (formData) => API.post(`/user/${formData.email}/verify?code=${formData.code}`);
 export const resendCode = (email) => API.post(`/user/${email}/resend-verification`);
 

@@ -10,8 +10,8 @@ import { useForm } from "react-hooks-helper";
 import Input from "../components/shared/input";
 import decode from 'jwt-decode';
 import PasswordChangeIcon from '../assets/img/Account/password-change.svg';
-import CheckGreen from '../assets/icon/check-lgreen.svg';
-import XGray from '../assets/icon/x-gray.svg';
+// import CheckGreen from '../assets/icon/check-lgreen.svg';
+// import XGray from '../assets/icon/x-gray.svg';
 
 const initialState = { email: '', password: '', code: '' };
 const initialForgotState = { fEmail: '', password: '', passwordConfirmation: '', code: "" };
@@ -22,7 +22,7 @@ export const LoginContainer = () => {
     const [formData, setFormData] = useState(initialState);
     const [forgotFormData, setforgotFormData] = useForm(initialForgotState);
     const { fEmail, password, passwordConfirmation, code } = forgotFormData;
-    const [submitted, setSubmitted] = useState(false);
+    // const [submitted, setSubmitted] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [forgotPass, setForgotpass] = useState(false);
@@ -30,11 +30,11 @@ export const LoginContainer = () => {
     const [successForgot, setSuccessForgot] = useState(false);
     const [OTP, setOTP] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [resetPassword, setResetPassword] = useState(false);
+    // const [resetPassword, setResetPassword] = useState(false);
     // const checkPasswordLenght = fNewPassword.length >= 8 ? true : false;
-    const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(password);
-    const checkNumber = /^(?=.*[0-9])/.test(password);
-    const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(password);
+    // const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(password);
+    // const checkNumber = /^(?=.*[0-9])/.test(password);
+    // const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(password);
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -45,7 +45,7 @@ export const LoginContainer = () => {
     }
     const submit = () => {
         setIsLoading(true);
-        setSubmitted(true);
+        // setSubmitted(true);
         dispatch(confirmForgotPassword(fEmail, {
             code: code,
             password: password,
@@ -65,9 +65,9 @@ export const LoginContainer = () => {
 
     }
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-    const handleResetPassword = () => {
-        setResetPassword(true);
-    }
+    // const handleResetPassword = () => {
+    //     setResetPassword(true);
+    // }
     useEffect(() => {
         const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
         const forgotEmailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotFormData.fEmail);
@@ -174,7 +174,8 @@ export const LoginContainer = () => {
                                                                 <button className="continueButton" disabled={continueButton} onClick={submit}>Continue</button>
                                                             </div>
                                                         </div>
-                                                        : <div>
+                                                        : 
+                                                        <div>
                                                             <h2> Change Password</h2>
                                                             <p className="emailDesc">Enter the email address associated with your account and we’ll send you a code to confirm your password reset request.</p>
                                                             <div className="form-group">
@@ -196,53 +197,52 @@ export const LoginContainer = () => {
                                                                 {errorMessage}
                                                             </p>
                                                         </div>
-
                                                 )}
-
                                         </div>
-                                    </div> :
-                                        <form onSubmit={handleSubmit}>
-                                            <h3 className="text-center">Log in</h3>
-                                            <h4 className="text-center">Lorem Ipsum</h4>
-                                            <p className={"text-center error " + (auth.authData?.message ? "alert-danger" : "")}>
-                                                {auth.authData?.message}
-                                            </p>
-                                            <Input
-                                                label="Username"
-                                                name="email"
-                                                type="email"
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                            <div className="forgot-pass d-flex justify-content-end">
-                                                <a href="#" onClick={() => setForgotpass(true)}>Forgot Password?</a>
+                                    </div> 
+                                    :
+                                    <form onSubmit={handleSubmit}>
+                                        <h3 className="text-center">Log in</h3>
+                                        <h4 className="text-center">Lorem Ipsum</h4>
+                                        <p className={"text-center error " + (auth.authData?.message ? "alert-danger" : "")}>
+                                            {auth.authData?.message}
+                                        </p>
+                                        <Input
+                                            label="Username"
+                                            name="email"
+                                            type="email"
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <div className="forgot-pass d-flex justify-content-end">
+                                            <a href="#" onClick={() => setForgotpass(true)}>Forgot Password?</a>
+                                        </div>
+                                        <Input
+                                            label="Password"
+                                            name="password"
+                                            type="password"
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <div className="signup-container d-flex align-items-center justify-content-between">
+                                            <div className="d-none d-sm-block">
+                                                <span className="signup-text">
+                                                    Don’t have an account? <Link to="/register">SIGN UP</Link>
+                                                </span>
                                             </div>
-                                            <Input
-                                                label="Password"
-                                                name="password"
-                                                type="password"
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                            <div className="signup-container d-flex align-items-center justify-content-between">
-                                                <div className="d-none d-sm-block">
-                                                    <span className="signup-text">
-                                                        Don’t have an account? <Link to="/register">SIGN UP</Link>
-                                                    </span>
-                                                </div>
-                                                <button type="submit" className="btn submit-button" disabled={isDisabled}>
-                                                    {isLoading ?
-                                                        <div className="spinner-border text-light" role="status">
-                                                            <span className="sr-only">Loading...</span>
-                                                        </div>
-                                                        :
-                                                        <>
-                                                            Submit
-                                            </>
-                                                    }
-                                                </button>
-                                            </div>
-                                        </form>
+                                            <button type="submit" className="btn submit-button" disabled={isDisabled}>
+                                                {isLoading ?
+                                                    <div className="spinner-border text-light" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                    :
+                                                    <>
+                                                        Submit
+                                        </>
+                                                }
+                                            </button>
+                                        </div>
+                                    </form>
                                 }
 
 

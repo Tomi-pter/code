@@ -26,7 +26,7 @@ const Account = ({  setForm, formData, navigation }) => {
     const submit = () => {
         setIsLoading(true);
         setSubmitted(true);
-        dispatch(signUp(formData, history));
+        dispatch(signUp(formData));
     }
 
     const validation = useCallback(() => {

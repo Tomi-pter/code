@@ -7,6 +7,7 @@ import Input from '../shared/input';
 import Dropdown from '../shared/dropdown';
 import InputContact from 'react-phone-number-input/input';
 import { formatPhoneNumberIntl, isPossiblePhoneNumber } from 'react-phone-number-input'
+import { getCountries, getStates } from '../../actions/auth';
 
 const initialFormData = {
     givenName: "",
@@ -20,336 +21,10 @@ const initialFormData = {
     postalCode: "",
     country: ""
 };
-const states = [
-    ["AL","Alabama"],
-    ["AK","Alaska"],
-    ["AZ","Arizona"],
-    ["AR","Arkansas"],
-    ["CA","California"],
-    ["CO","Colorado"],
-    ["CT","Connecticut"],
-    ["DE","Delaware"],
-    ["DC","District of Columbia"],
-    ["FL","Florida"],
-    ["GA","Georgia"],
-    ["GU","Guam"],
-    ["HI","Hawaii"],
-    ["ID","Idaho"],
-    ["IL","Illinois"],
-    ["IN","Indiana"],
-    ["IA","Iowa"],
-    ["KS","Kansas"],
-    ["KY","Kentucky"],
-    ["LA","Louisiana"],
-    ["ME","Maine"],
-    ["MD","Maryland"],
-    ["MA","Massachusetts"],
-    ["MI","Michigan"],
-    ["MN","Minnesota"],
-    ["MS","Mississippi"],
-    ["MO","Missouri"],
-    ["MT","Montana"],
-    ["NE","Nebraska"],
-    ["NV","Nevada"],
-    ["NH","New Hampshire"],
-    ["NJ","New Jersey"],
-    ["NM","New Mexico"],
-    ["NY","New York"],
-    ["NC","North Carolina"],
-    ["ND","North Dakota"],
-    ["MP","Northern Marina Islands"],
-    ["OH","Ohio"],
-    ["OK","Oklahoma"],
-    ["OR","Oregon"],
-    ["PA","Pennsylvania"],
-    ["RI","Rhode Island"],
-    ["SC","South Carolina"],
-    ["SD","South Dakota"],
-    ["TN","Tennessee"],
-    ["TX","Texas"],
-    ["AA","U.S. Armed Forces - Americas"],
-    ["AE","U.S. Armed Forces - Europe"],
-    ["AP","U.S. Armed Forces - Pacific"],
-    ["xx","Unknown State"],
-    ["UT","Utah"],
-    ["VT","Vermont"],
-    ["VI","Virgin Islands, U.S."],
-    ["VA","Virginia"],
-    ["WA","Washington"],
-    ["WV","West Virginia"],
-    ["WI","Wisconsin"],
-    ["WY","Wyoming"],
-    ["AB","Alberta"],
-    ["BC","British Columbia"],
-    ["MB","Manitoba"],
-    ["NB","New Brunswick"],
-    ["NL","Newfoundland"],
-    ["NT","Northwest Territories"],
-    ["NS","Nova Scotia"],
-    ["NU","Nunavut"],
-    ["ON","Ontario"],
-    ["PE","Prince Edward Island"],
-    ["QC","Quebec"],
-    ["SK","Saskatchewan"],
-    ["YT","Yukon"],
-    ["ACT","Australian Capital Territory"],
-    ["NSW","New South Wales"],
-    ["NT","Northern Territory"],
-    ["QLD","Queensland"],
-    ["SA","South Australia"],
-    ["TAS","Tasmania"],
-    ["VIC","Victoria"],
-    ["WA","Western Australia"]
-];
-const countries = [
-    ["UNITED STATES", "UNITED STATES"],
-    ["CANADA", "CANADA"],
-    ["UNITED KINGDOM", "UNITED KINGDOM"],
-    ["RUSSIAN FEDERATION", "RUSSIAN FEDERATION"],
-    ["CHINA", "CHINA"],
-    ["JAPAN", "JAPAN"],
-    ["KOREA, REPUBLIC OF", "KOREA, REPUBLIC OF"],
-    ["KOREA, DEMOCRATIC PEOPLE'S REPUBLIC OF", "KOREA, DEMOCRATIC PEOPLE'S REPUBLIC OF"],
-    ["MEXICO", "MEXICO"],
-    ["GERMANY", "GERMANY"],
-    ["SPAIN", "SPAIN"],
-    ["FRANCE", "FRANCE"],
-    ["FINLAND", "FINLAND"],
-    ["ICELAND", "ICELAND"],
-    ["AUSTRALIA", "AUSTRALIA"],
-    ["AFGHANISTAN", "AFGHANISTAN"],
-    ["ALAND ISLANDS", "ALAND ISLANDS"],
-    ["ALBANIA", "ALBANIA"],
-    ["ALGERIA", "ALGERIA"],
-    ["AMERICAN SAMOA", "AMERICAN SAMOA"],
-    ["ANDORRA", "ANDORRA"],
-    ["ANGOLA", "ANGOLA"],
-    ["ANGUILLA", "ANGUILLA"],
-    ["ANTARCTICA", "ANTARCTICA"],
-    ["ANTIGUA AND BARBUDA", "ANTIGUA AND BARBUDA"],
-    ["ARGENTINA", "ARGENTINA"],
-    ["ARMENIA", "ARMENIA"],
-    ["ARUBA", "ARUBA"],
-    ["AUSTRIA", "AUSTRIA"],
-    ["AZERBAIJAN", "AZERBAIJAN"],
-    ["BAHAMAS", "BAHAMAS"],
-    ["BAHRAIN", "BAHRAIN"],
-    ["BANGLADESH", "BANGLADESH"],
-    ["BARBADOS", "BARBADOS"],
-    ["BELARUS", "BELARUS"],
-    ["BELGIUM", "BELGIUM"],
-    ["BELIZE", "BELIZE"],
-    ["BENIN", "BENIN"],
-    ["BERMUDA", "BERMUDA"],
-    ["BHUTAN", "BHUTAN"],
-    ["BOLIVIA", "BOLIVIA"],
-    ["BOSNIA AND HERZEGOVINA", "BOSNIA AND HERZEGOVINA"],
-    ["BOTSWANA", "BOTSWANA"],
-    ["BOUVET ISLAND", "BOUVET ISLAND"],
-    ["BRAZIL", "BRAZIL"],
-    ["BRITISH INDIAN OCEAN TERRITORY", "BRITISH INDIAN OCEAN TERRITORY"],
-    ["BRUNEI DARUSSALAM", "BRUNEI DARUSSALAM"],
-    ["BULGARIA", "BULGARIA"],
-    ["BURKINA FASO", "BURKINA FASO"],
-    ["BURUNDI", "BURUNDI"],
-    ["CAMBODIA", "CAMBODIA"],
-    ["CAMEROON", "CAMEROON"],
-    ["CAPE VERDE", "CAPE VERDE"],
-    ["CAYMAN ISLANDS", "CAYMAN ISLANDS"],
-    ["CENTRAL AFRICAN REPUBLIC", "CENTRAL AFRICAN REPUBLIC"],
-    ["CHAD", "CHAD"],
-    ["CHILE", "CHILE"],
-    ["CHRISTMAS ISLAND", "CHRISTMAS ISLAND"],
-    ["COCOS (KEELING) ISLANDS", "COCOS (KEELING) ISLANDS"],
-    ["COLOMBIA", "COLOMBIA"],
-    ["COMOROS", "COMOROS"],
-    ["CONGO", "CONGO"],
-    ["CONGO, THE DEMOCRATIC REPUBLIC OF THE", "CONGO, THE DEMOCRATIC REPUBLIC OF THE"],
-    ["COOK ISLANDS", "COOK ISLANDS"],
-    ["COSTA RICA", "COSTA RICA"],
-    ["COTE D'IVOIRE", "COTE D'IVOIRE"],
-    ["CROATIA", "CROATIA"],
-    ["CUBA", "CUBA"],
-    ["CYPRUS", "CYPRUS"],
-    ["CZECH REPUBLIC", "CZECH REPUBLIC"],
-    ["DENMARK", "DENMARK"],
-    ["DJIBOUTI", "DJIBOUTI"],
-    ["DOMINICA", "DOMINICA"],
-    ["DOMINICAN REPUBLIC", "DOMINICAN REPUBLIC"],
-    ["ECUADOR", "ECUADOR"],
-    ["EGYPT", "EGYPT"],
-    ["EL SALVADOR", "EL SALVADOR"],
-    ["EQUATORIAL GUINEA", "EQUATORIAL GUINEA"],
-    ["ERITREA", "ERITREA"],
-    ["ESTONIA", "ESTONIA"],
-    ["ETHIOPIA", "ETHIOPIA"],
-    ["FALKLAND ISLANDS (MALVINAS)", "FALKLAND ISLANDS (MALVINAS)"],
-    ["FAROE ISLANDS", "FAROE ISLANDS"],
-    ["FIJI", "FIJI"],
-    ["FRENCH GUIANA", "FRENCH GUIANA"],
-    ["FRENCH POLYNESIA", "FRENCH POLYNESIA"],
-    ["FRENCH SOUTHERN TERRITORIES", "FRENCH SOUTHERN TERRITORIES"],
-    ["GABON", "GABON"],
-    ["GAMBIA", "GAMBIA"],
-    ["GEORGIA", "GEORGIA"],
-    ["GHANA", "GHANA"],
-    ["GIBRALTAR", "GIBRALTAR"],
-    ["GREECE", "GREECE"],
-    ["GREENLAND", "GREENLAND"],
-    ["GRENADA", "GRENADA"],
-    ["GUADELOUPE", "GUADELOUPE"],
-    ["GUAM", "GUAM"],
-    ["GUATEMALA", "GUATEMALA"],
-    ["GUERNSEY", "GUERNSEY"],
-    ["GUINEA", "GUINEA"],
-    ["GUINEA-BISSAU", "GUINEA-BISSAU"],
-    ["GUYANA", "GUYANA"],
-    ["HAITI", "HAITI"],
-    ["HEARD ISLAND AND MCDONALD ISLANDS", "HEARD ISLAND AND MCDONALD ISLANDS"],
-    ["HOLY SEE (VATICAN CITY STATE)", "HOLY SEE (VATICAN CITY STATE)"],
-    ["HONDURAS", "HONDURAS"],
-    ["HONG KONG", "HONG KONG"],
-    ["HUNGARY", "HUNGARY"],
-    ["INDIA", "INDIA"],
-    ["INDONESIA", "INDONESIA"],
-    ["IRAN, ISLAMIC REPUBLIC OF", "IRAN, ISLAMIC REPUBLIC OF"],
-    ["IRAQ", "IRAQ"],
-    ["IRELAND", "IRELAND"],
-    ["ISLE OF MAN", "ISLE OF MAN"],
-    ["ISRAEL", "ISRAEL"],
-    ["ITALY", "ITALY"],
-    ["JAMAICA", "JAMAICA"],
-    ["JERSEY", "JERSEY"],
-    ["JORDAN", "JORDAN"],
-    ["KAZAKHSTAN", "KAZAKHSTAN"],
-    ["KENYA", "KENYA"],
-    ["KIRIBATI", "KIRIBATI"],
-    ["KUWAIT", "KUWAIT"],
-    ["KYRGYZSTAN", "KYRGYZSTAN"],
-    ["LAO PEOPLE'S DEMOCRATIC REPUBLIC", "LAO PEOPLE'S DEMOCRATIC REPUBLIC"],
-    ["LATVIA", "LATVIA"],
-    ["LEBANON", "LEBANON"],
-    ["LESOTHO", "LESOTHO"],
-    ["LIBERIA", "LIBERIA"],
-    ["LIBYAN ARAB JAMAHIRIYA", "LIBYAN ARAB JAMAHIRIYA"],
-    ["LIECHTENSTEIN", "LIECHTENSTEIN"],
-    ["LITHUANIA", "LITHUANIA"],
-    ["LUXEMBOURG", "LUXEMBOURG"],
-    ["MACAO", "MACAO"],
-    ["MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF", "MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF"],
-    ["MADAGASCAR", "MADAGASCAR"],
-    ["MALAWI", "MALAWI"],
-    ["MALAYSIA", "MALAYSIA"],
-    ["MALDIVES", "MALDIVES"],
-    ["MALI", "MALI"],
-    ["MALTA", "MALTA"],
-    ["MARSHALL ISLANDS", "MARSHALL ISLANDS"],
-    ["MARTINIQUE", "MARTINIQUE"],
-    ["MAURITANIA", "MAURITANIA"],
-    ["MAURITIUS", "MAURITIUS"],
-    ["MAYOTTE", "MAYOTTE"],
-    ["MICRONESIA, FEDERATED STATES OF", "MICRONESIA, FEDERATED STATES OF"],
-    ["MOLDOVA, REPUBLIC OF", "MOLDOVA, REPUBLIC OF"],
-    ["MONACO", "MONACO"],
-    ["MONGOLIA", "MONGOLIA"],
-    ["MONTSERRAT", "MONTSERRAT"],
-    ["MOROCCO", "MOROCCO"],
-    ["MOZAMBIQUE", "MOZAMBIQUE"],
-    ["MYANMAR", "MYANMAR"],
-    ["NAMIBIA", "NAMIBIA"],
-    ["NAURU", "NAURU"],
-    ["NEPAL", "NEPAL"],
-    ["NETHERLANDS", "NETHERLANDS"],
-    ["NETHERLANDS ANTILLES", "NETHERLANDS ANTILLES"],
-    ["NEW CALEDONIA", "NEW CALEDONIA"],
-    ["NEW ZEALAND", "NEW ZEALAND"],
-    ["NICARAGUA", "NICARAGUA"],
-    ["NIGER", "NIGER"],
-    ["NIGERIA", "NIGERIA"],
-    ["NIUE", "NIUE"],
-    ["NORFOLK ISLAND", "NORFOLK ISLAND"],
-    ["NORTHERN MARIANA ISLANDS", "NORTHERN MARIANA ISLANDS"],
-    ["NORWAY", "NORWAY"],
-    ["OMAN", "OMAN"],
-    ["PAKISTAN", "PAKISTAN"],
-    ["PALAU", "PALAU"],
-    ["PALESTINIAN TERRITORY, OCCUPIED", "PALESTINIAN TERRITORY, OCCUPIED"],
-    ["PANAMA", "PANAMA"],
-    ["PAPUA NEW GUINEA", "PAPUA NEW GUINEA"],
-    ["PARAGUAY", "PARAGUAY"],
-    ["PERU", "PERU"],
-    ["PHILIPPINES", "PHILIPPINES"],
-    ["PITCAIRN", "PITCAIRN"],
-    ["POLAND", "POLAND"],
-    ["PORTUGAL", "PORTUGAL"],
-    ["PUERTO RICO", "PUERTO RICO"],
-    ["QATAR", "QATAR"],
-    ["REUNION", "REUNION"],
-    ["ROMANIA", "ROMANIA"],
-    ["RWANDA", "RWANDA"],
-    ["SAINT HELENA", "SAINT HELENA"],
-    ["SAINT KITTS AND NEVIS", "SAINT KITTS AND NEVIS"],
-    ["SAINT LUCIA", "SAINT LUCIA"],
-    ["SAINT PIERRE AND MIQUELON", "SAINT PIERRE AND MIQUELON"],
-    ["SAINT VINCENT AND THE GRENADINES", "SAINT VINCENT AND THE GRENADINES"],
-    ["SAMOA", "SAMOA"],
-    ["SAN MARINO", "SAN MARINO"],
-    ["SAO TOME AND PRINCIPE", "SAO TOME AND PRINCIPE"],
-    ["SAUDI ARABIA", "SAUDI ARABIA"],
-    ["SENEGAL", "SENEGAL"],
-    ["SERBIA AND MONTENEGRO", "SERBIA AND MONTENEGRO"],
-    ["SEYCHELLES", "SEYCHELLES"],
-    ["SIERRA LEONE", "SIERRA LEONE"],
-    ["SINGAPORE", "SINGAPORE"],
-    ["SLOVAKIA", "SLOVAKIA"],
-    ["SLOVENIA", "SLOVENIA"],
-    ["SOLOMON ISLANDS", "SOLOMON ISLANDS"],
-    ["SOMALIA", "SOMALIA"],
-    ["SOUTH AFRICA", "SOUTH AFRICA"],
-    ["SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS", "SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS"],
-    ["SRI LANKA", "SRI LANKA"],
-    ["SUDAN", "SUDAN"],
-    ["SURINAME", "SURINAME"],
-    ["SVALBARD AND JAN MAYEN", "SVALBARD AND JAN MAYEN"],
-    ["SWAZILAND", "SWAZILAND"],
-    ["SWEDEN", "SWEDEN"],
-    ["SWITZERLAND", "SWITZERLAND"],
-    ["SYRIAN ARAB REPUBLIC", "SYRIAN ARAB REPUBLIC"],
-    ["TAIWAN, PROVINCE OF CHINA", "TAIWAN, PROVINCE OF CHINA"],
-    ["TAJIKISTAN", "TAJIKISTAN"],
-    ["TANZANIA, UNITED REPUBLIC OF", "TANZANIA, UNITED REPUBLIC OF"],
-    ["THAILAND", "THAILAND"],
-    ["TIMOR-LESTE", "TIMOR-LESTE"],
-    ["TOGO", "TOGO"],
-    ["TOKELAU", "TOKELAU"],
-    ["TONGA", "TONGA"],
-    ["TRINIDAD AND TOBAGO", "TRINIDAD AND TOBAGO"],
-    ["TUNISIA", "TUNISIA"],
-    ["TURKEY", "TURKEY"],
-    ["TURKMENISTAN", "TURKMENISTAN"],
-    ["TURKS AND CAICOS ISLANDS", "TURKS AND CAICOS ISLANDS"],
-    ["TUVALU", "TUVALU"],
-    ["UGANDA", "UGANDA"],
-    ["UKRAINE", "UKRAINE"],
-    ["UNITED ARAB EMIRATES", "UNITED ARAB EMIRATES"],
-    ["UNITED STATES MINOR OUTLYING ISLANDS", "UNITED STATES MINOR OUTLYING ISLANDS"],
-    ["URUGUAY", "URUGUAY"],
-    ["UZBEKISTAN", "UZBEKISTAN"],
-    ["VANUATU", "VANUATU"],
-    ["VENEZUELA", "VENEZUELA"],
-    ["VIET NAM", "VIET NAM"],
-    ["VIRGIN ISLANDS, BRITISH", "VIRGIN ISLANDS, BRITISH"],
-    ["VIRGIN ISLANDS, U.S.", "VIRGIN ISLANDS, U.S."],
-    ["WALLIS AND FUTUNA", "WALLIS AND FUTUNA"],
-    ["WESTERN SAHARA", "WESTERN SAHARA"],
-    ["YEMEN", "YEMEN"],
-    ["ZAMBIA", "ZAMBIA"],
-    ["ZIMBABWE", "ZIMBABWE"],
-    ["SOUTH SUDAN", "SOUTH SUDAN"],
-]
 
 export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selectedBilling, setSelectedBilling}) => {
     const account = useSelector((state) => state.account);
+    const auth = useSelector((state) => state.auth);
     const [selectShipping, setSelectShipping] = useState(null);
     const [selectBilling, setSelectBilling] = useState(null);
     const [checked, setChecked] = useState(true);
@@ -361,6 +36,8 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const [editId, setEditId] = useState("");
     const [formData, setFormData] = useState(initialFormData);
     const [isDisabled, setDisabled] = useState(true);
+    const [countries, setCountries] = useState([]);
+    const [states, setStates] = useState([]);
     const dispatch = useDispatch();
 
     const handleSelect = (addressFor, address) => {
@@ -413,13 +90,14 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const validation = useCallback(() => {
         const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
         const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
-        formData.email && formData.mobileNumber && phoneCheck && emailCheck && formData.givenName && formData.familyName && formData.address && formData.city && formData.state && formData.postalCode && formData.country ? setDisabled(false) : setDisabled(true);
+        formData.email && formData.mobileNumber && phoneCheck && emailCheck && formData.givenName && formData.familyName && formData.address && formData.city && formData.postalCode && formData.country ? setDisabled(false) : setDisabled(true);
     }, [formData])
     
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAccount(user?.username));
         dispatch(getAllAddresses(user?.username));
+        dispatch(getCountries());
     },[dispatch]);
 
     useEffect(()=>{
@@ -455,8 +133,26 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     },[checked]);
 
     useEffect(() => {
+        setCountries(auth?.countriesData);
+        if (auth?.statesData?.length > 0) {
+          setStates(auth?.statesData);
+        } else {
+          setStates([]);
+          formData.state = "";
+        }   
+    }, [auth])
+
+    useEffect(() => {
+        const selectedCountry = countries.filter(e => e.name === formData.country);
+        if (formData.country !== "" && selectedCountry) dispatch(getStates(selectedCountry[0]?.id));
+    }, [formData.country])
+
+
+    useEffect(() => {
         validation();
     }, [validation])
+
+    console.log(states);
 
     return (
         <>
@@ -690,12 +386,6 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                 </div>
                                 <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
-                                        <label htmlFor="state">State</label>
-                                        <Dropdown label="State" name="state" value={formData.state} options={states} onChange={handleChange} />
-                                    </div>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                    <div className="password-input form-group">
                                         <label htmlFor="postalCode">Postal Code</label>
                                         <Input
                                             label="Postal"
@@ -709,9 +399,19 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                 <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
                                         <label htmlFor="country">Country</label>
-                                        <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} />
+                                        <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} valueKey={'name'} />
+                                        {/* <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} /> */}
                                     </div>
                                 </div>
+                                {states?.length > 0 && 
+                                    <div className="col-12 col-sm-6">
+                                        <div className="password-input form-group">
+                                            <label htmlFor="state">State</label>
+                                            <Dropdown id="state" label="State" name="state" value={formData.state} options={states} onChange={handleChange} valueKey={'code'} />
+                                            {/* <Dropdown label="State" name="state" value={formData.state} options={states} onChange={handleChange} /> */}
+                                        </div>
+                                    </div>
+                                }
                             </div>
                             <div className="button-wrapper d-flex align-items-center justify-content-end">
                                 <button className="cancelCardButton close" data-dismiss="modal" id="closeAddressModal" aria-label="Close">

@@ -30,7 +30,6 @@ const Address = ({ setForm, formData, navigation }) => {
 
   useEffect(() => {
     setCountries(auth?.countriesData);
-    console.log(auth?.statesData);
     if (auth?.statesData?.length > 0) {
       setStates(auth?.statesData);
     } else {

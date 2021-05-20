@@ -129,7 +129,6 @@ export const getStates = (id) => async (dispatch) => {
   try {
 
     const { data } = await api.getStates(id);
-    console.log(data)
     dispatch({ type: GETSTATES, data });
 
   } catch (error) {

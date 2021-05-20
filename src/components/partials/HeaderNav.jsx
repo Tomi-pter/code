@@ -57,7 +57,8 @@ export const HeaderNav = () => {
         setUser(JSON.parse(localStorage.getItem('profile')));
         dispatch(getCart(user?.username));
         setAvatar(avatar);
-        console.log('avatar', avatar);
+        localStorage.setItem('avatar', avatar?.Body?.data);
+        console.log('avatar', localStorage.getItem('avatar'));
     }, [avatar, errorAvatar, location]);
 
     return (

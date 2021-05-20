@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ShippingCounter } from '../../components/shared/shippingCounter';
 import Logo from '../../assets/img/logo.svg';
 import Cart from '../../assets/icon/cart-green.svg';
-import Account from '../../assets/icon/account.svg';
 import BurgerMenu from '../../assets/icon/burger-menu.svg';
 import decode from 'jwt-decode';
 
@@ -11,32 +10,25 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getCart } from '../../actions/cart';
 
-import { getProducts } from '../../actions/products';
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
+import { getAvatar } from '../../actions/account';
 
 export const HeaderNav = () => {
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [user, setUser] = useState({});
     const cart = useSelector((state) => state.cart);
-    const history = useHistory();
+    const avatar = useSelector((state) => state.account.avatarData);
+    const [formData, setFormData] = useState({});
+    const itemCount = cart.cartData?.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
     const location = useLocation();
     const dispatch = useDispatch();
-    const [formData, setFormData] = useState({});
-    const [avatarPro, setAvatar] = useState({});
-    const itemCount = cart.cartData?.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
-    const avatar = useSelector((state) => state.account.avatarData);
-    const errorAvatar = useSelector((state) => state.account.errorAvatar);
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        // history.push(`/search?name=${formData.name}`);
         window.location.href = '/search?name='+formData.name;
     }
 
     const handleChange = (e) => setFormData({ [e.target.name]: e.target.value });
 
-    const sendWPData = () => {
-        var cartIFrame = document.getElementById('hidden-iframe');
-        cartIFrame.contentWindow.postMessage(user, 'https://premierpharma.wpengine.com');
-    }
     const encodeData = (buffer) => {
         let binary = '';
         let bytes = new Uint8Array(buffer);
@@ -46,20 +38,25 @@ export const HeaderNav = () => {
         }
         return window.btoa(binary);
     };
+    
     useEffect(() => {
-        const token = user?.accessToken;
-
+        const localUser = JSON.parse(localStorage.getItem('profile'));
+        const token = localUser?.accessToken;
         if (token) {
             const decodedToken = decode(token);
 
             if (decodedToken.exp * 1000 < new Date().getTime()) setUser(null);
         }
-        setUser(JSON.parse(localStorage.getItem('profile')));
-        dispatch(getCart(user?.username));
-        setAvatar(avatar);
-        localStorage.setItem('avatar', avatar?.Body?.data);
-        console.log('avatar', localStorage.getItem('avatar'));
-    }, [avatar, errorAvatar, location]);
+        setUser(localUser);
+        dispatch(getCart(localUser?.username));
+        dispatch(getAvatar(localUser?.username));
+    }, [location]);
+
+    const sendWPData = () => {
+        const cartIFrame = document.getElementById('hidden-iframe');
+        const sendData = {...user, avatarData: avatar?.Body?.data};
+        cartIFrame.contentWindow.postMessage(sendData, 'https://premierpharma.wpengine.com');
+    }
 
     return (
         <nav className="sticky-top">
@@ -95,14 +92,12 @@ export const HeaderNav = () => {
                             </Link>
                             <Link to="/account" className="account-btn">
                                 <div className="profileWrapper">
-                                    {avatar?.Body?.data.length > 0 ? (
+                                    {
+                                        avatar?.Body?.data.length > 0 ?
                                         <img className="profilePic" src={`data:image/jpeg;base64,${encodeData(avatar?.Body?.data)}`} />
-                                    ) : (
-                                            avatar?.Body?.data.length > 0 ?
-                                                <img className="profilePic" src={`data:image/jpeg;base64,${encodeData(avatar?.Body?.data)}`} />
-                                                : <img className="profilePic" src={ProfilePic} alt="" />
-                                        )}
-
+                                        : 
+                                        <img className="profilePic" src={ProfilePic} alt="" />
+                                    }
                                 </div>
                             </Link>
                         </>

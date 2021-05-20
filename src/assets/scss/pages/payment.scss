@@ -67,12 +67,13 @@
       box-sizing: border-box;
       border-radius: 7.5px;
       padding: 40px 40px 80px 40px;
-      p {
+      li {
         font-style: normal;
         font-weight: normal;
         font-size: 20px;
         line-height: 29px;
         color: #000000;
+        margin-bottom: 10px;
       }
     }
     .actions-container {

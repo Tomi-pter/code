@@ -80,8 +80,10 @@ export const PaymentContainer = () => {
                                         <div className="d-flex align-items-center justify-content-between terms-copy">
                                             <div className="mr-5">
                                                 <h2>REMINDER</h2>
-                                                <p>By selecting payment by terms you agree that ...... it will take within 24 hours to confirm your eligibility to use this as a payment option. </p>
-                                                <p>We will send an email to update the status of your order.</p>
+                                                <ol type="a">
+                                                    <li>If payment terms have already been established you will receive an invoice via email once the order has been processed.</li>
+                                                    <li>If payment terms have not been established, you agree that within 24 hours Premier Pharmaceuticals will confirm your eligibility to use this payment option. Your dedicated sales rep will contact you with confirmation.</li>
+                                                </ol>
                                             </div>
                                             <img src={require("../assets/icon/card-active.svg")} alt="" />
                                         </div>

@@ -42,6 +42,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
   }
   const handlePageClick = (data) => {
     setIsLoading(true)
+    window.scrollTo(0, 0)
     var increment = data.selected + 1;
     setPageNumber(increment);
     dispatch(getProducts(name, category, sortBy, pageNumber))
@@ -180,7 +181,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
           )) : ''}
         </div>
       </div>
-      <div className={'pagination-products ' + (page === 'search' ? 'd-none' : 'd-block')}>
+      <div className="pagination-products">
         <ReactPaginate
           previousLabel={'previous'}
           nextLabel={'next'}

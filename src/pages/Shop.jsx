@@ -13,8 +13,6 @@ export default (props) => {
   const [view, setView] = useState('grid')
   const [isLoading, setIsLoading] = useState(true)
   const [category, setCategory] = useState('')
-  const [subCategory, setSubCategory] = useState('')
-  const [dummySub, setDummySub] = useState('')
   const [selectCategory, setSelectCategory] = useState('');
   const location = useLocation()
   const dispatch = useDispatch()
@@ -27,7 +25,7 @@ export default (props) => {
     const cat = query.get('category')
     if (cat) {
       if (cat === "Pharmaceuticals" && pharmaBtn.className.split(' ').length === 2) pharmaBtn.click()
-      if (cat === "Animal Health AND Medical Supplies" && animalBtn.className.split(' ').length === 2) animalBtn.click()
+      if (cat === "Animal Health" && animalBtn.className.split(' ').length === 2) animalBtn.click()
       if (cat === "Medical Supplies" && medicalBtn.className.split(' ').length === 2) medicalBtn.click()
     } else {
       pharmaBtn.click()
@@ -37,8 +35,8 @@ export default (props) => {
 
   useEffect(() => {
     setIsLoading(true)
-    if (category) dispatch(getProducts(null, category, dummySub))
-  }, [dispatch, category, dummySub])
+    if (category) dispatch(getProducts(null, category))
+  }, [dispatch, category])
 
   useEffect(() => {
     setIsLoading(false)
@@ -56,15 +54,15 @@ export default (props) => {
                 className="select-category form-control"
                 id="categoryType"
                 onChange={(e) => {
-                  const selectedCategory=e.target.value;
+                  const selectedCategory = e.target.value;
                   setCategory(selectedCategory)
                 }}
               >
-              <option value="Pharmaceuticals" >For Pharmacies</option> 
-              <option 
-              value="Animal Health AND Medical Supplies">For Animal Health</option> 
-              <option
-               value="Medical Supplies">For Medical/Surgical Products</option>
+                <option value="Pharmaceuticals" >For Pharmacies</option>
+                <option
+                  value="Animal Health">For Animal Health</option>
+                <option
+                  value="Medical Supplies">For Medical/Surgical Products</option>
               </select>
             </div>
             <div
@@ -74,7 +72,7 @@ export default (props) => {
               <div className="accordion-item">
                 <button
                   id="pharmacy-accordion-btn"
-                  className="accordion-button collapsed"
+                  className={'accordion-button collapsed' + (category === "Pharmaceuticals" ? ' active' : '')}
                   type="button"
                   data-toggle="collapse"
                   data-target="#accordion1"
@@ -83,136 +81,26 @@ export default (props) => {
                 >
                   For Pharmacies
                 </button>
-                <div
-                  id="accordion1"
-                  className="accordion-body accordion-collapse collapse"
-                  data-parent="#categoryAccordion"
-                >
-                  <ul>
-                    <li
-                      className={subCategory === 'Branded Drug' ? 'active' : ''}
-                      onClick={() => setSubCategory('Branded Drug')}
-                    >
-                      Branded Drugs
-                    </li>
-                    <li
-                      className={subCategory === 'COVID-19' ? 'active' : ''}
-                      onClick={() => setSubCategory('COVID-19')}
-                    >
-                      COVID-19
-                    </li>
-                    <li
-                      className={subCategory === 'Deal' ? 'active' : ''}
-                      onClick={() => setSubCategory('Deal')}
-                    >
-                      Deal
-                    </li>
-                    <li
-                      className={subCategory === 'Diabetes' ? 'active' : ''}
-                      onClick={() => setSubCategory('Diabetes')}
-                    >
-                      Diabetes
-                    </li>
-                    <li
-                      className={subCategory === 'Injectables' ? 'active' : ''}
-                      onClick={() => setSubCategory('Injectables')}
-                    >
-                      Injectables
-                    </li>
-                    <li
-                      className={subCategory === 'OTC' ? 'active' : ''}
-                      onClick={() => setSubCategory('OTC')}
-                    >
-                      OTC
-                    </li>
-                    <li
-                      className={subCategory === 'PPE Supplies' ? 'active' : ''}
-                      onClick={() => setSubCategory('PPE Supplies')}
-                    >
-                      PPE Supplies
-                    </li>
-                    <li
-                      className={subCategory === 'Short-dated' ? 'active' : ''}
-                      onClick={() => setSubCategory('Short-dated')}
-                    >
-                      Short dated
-                    </li>
-                  </ul>
-                </div>
+               
               </div>
               <div className="accordion-item">
                 <button
                   id="animal-accordion-btn"
-                  className="accordion-button collapsed"
+                 className={'accordion-button collapsed' + (category === "Animal Health" ? ' active' : '')}
                   type="button"
                   data-toggle="collapse"
                   data-target="#accordion2"
                   aria-expanded="false"
-                  onClick={() => setCategory('Animal Health AND Medical Supplies')}
+                  onClick={() => setCategory('Animal Health')}
                 >
                   For Animal Care
                 </button>
-                <div
-                  id="accordion2"
-                  className="accordion-body accordion-collapse collapse"
-                  data-parent="#categoryAccordion"
-                >
-                  <ul>
-                  <li
-                      className={subCategory === 'Branded Drug' ? 'active' : ''}
-                      onClick={() => setSubCategory('Branded Drug')}
-                    >
-                      Branded Drugs
-                    </li>
-                    <li
-                      className={subCategory === 'COVID-19' ? 'active' : ''}
-                      onClick={() => setSubCategory('COVID-19')}
-                    >
-                      COVID-19
-                    </li>
-                    <li
-                      className={subCategory === 'Deal' ? 'active' : ''}
-                      onClick={() => setSubCategory('Deal')}
-                    >
-                      Deal
-                    </li>
-                    <li
-                      className={subCategory === 'Diabetes' ? 'active' : ''}
-                      onClick={() => setSubCategory('Diabetes')}
-                    >
-                      Diabetes
-                    </li>
-                    <li
-                      className={subCategory === 'Injectables' ? 'active' : ''}
-                      onClick={() => setSubCategory('Injectables')}
-                    >
-                      Injectables
-                    </li>
-                    <li
-                      className={subCategory === 'OTC' ? 'active' : ''}
-                      onClick={() => setSubCategory('OTC')}
-                    >
-                      OTC
-                    </li>
-                    <li
-                      className={subCategory === 'PPE Supplies' ? 'active' : ''}
-                      onClick={() => setSubCategory('PPE Supplies')}
-                    >
-                      PPE Supplies
-                    </li>
-                    <li
-                      className={subCategory === 'Short-dated' ? 'active' : ''}
-                      onClick={() => setSubCategory('Short-dated')}
-                    >
-                      Short dated
-                    </li>
-                  </ul>
-                </div>
+              
               </div>
               <div className="accordion-item">
                 <button
                   id="medical-accordion-btn"
-                  className="accordion-button collapsed"
+                 className={'accordion-button collapsed' + (category === "Medical Supplies" ? ' active' : '')}
                   type="button"
                   data-toggle="collapse"
                   data-target="#accordion3"
@@ -221,62 +109,7 @@ export default (props) => {
                 >
                   For Medical/Surgical Products
                 </button>
-                <div
-                  id="accordion3"
-                  className="accordion-body accordion-collapse collapse"
-                  data-parent="#categoryAccordion"
-                >
-                  <ul>
-                  <li
-                      className={subCategory === 'Branded Drug' ? 'active' : ''}
-                      onClick={() => setSubCategory('Branded Drug')}
-                    >
-                      Branded Drugs
-                    </li>
-                    <li
-                      className={subCategory === 'COVID-19' ? 'active' : ''}
-                      onClick={() => setSubCategory('COVID-19')}
-                    >
-                      COVID-19
-                    </li>
-                    <li
-                      className={subCategory === 'Deal' ? 'active' : ''}
-                      onClick={() => setSubCategory('Deal')}
-                    >
-                      Deal
-                    </li>
-                    <li
-                      className={subCategory === 'Diabetes' ? 'active' : ''}
-                      onClick={() => setSubCategory('Diabetes')}
-                    >
-                      Diabetes
-                    </li>
-                    <li
-                      className={subCategory === 'Injectables' ? 'active' : ''}
-                      onClick={() => setSubCategory('Injectables')}
-                    >
-                      Injectables
-                    </li>
-                    <li
-                      className={subCategory === 'OTC' ? 'active' : ''}
-                      onClick={() => setSubCategory('OTC')}
-                    >
-                      OTC
-                    </li>
-                    <li
-                      className={subCategory === 'PPE Supplies' ? 'active' : ''}
-                      onClick={() => setSubCategory('PPE Supplies')}
-                    >
-                      PPE Supplies
-                    </li>
-                    <li
-                      className={subCategory === 'Short-dated' ? 'active' : ''}
-                      onClick={() => setSubCategory('Short-dated')}
-                    >
-                      Short dated
-                    </li>
-                  </ul>
-                </div>
+               
               </div>
             </div>
           </div>
@@ -287,11 +120,11 @@ export default (props) => {
                   For{' '}
                   {category === 'Pharmaceuticals'
                     ? 'Pharmacies'
-                    : category === 'Animal Health AND Medical Supplies'
-                    ? 'Animal Health'
-                    : 'Medical/Surgical Products'}
+                    : category === 'Animal Health'
+                      ? 'Animal Health'
+                      : 'Medical/Surgical Products'}
                 </h3>
-                <p>{subCategory}</p>
+            
               </div>
               <div className="content">
                 <div className="products-container">
@@ -317,7 +150,8 @@ export default (props) => {
                         setView={setView}
                         products={products}
                         category={category}
-                        subCategory={subCategory}
+                      
+                        
                       />
                     )}
                   </div>

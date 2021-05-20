@@ -101,22 +101,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            &::after {
-                content: "";
-                min-width: 25px;
-                min-height: 15px;
-                background: url("../../icon/accordion-collapsed.svg") no-repeat center;
-                background-size: contain;
-            }
-            &:not(.collapsed) {
+            &.active {
                 color: #0098ff;
-                &::after {
-                    content: "";
-                    min-width: 25px;
-                    min-height: 15px;
-                    background: url("../../icon/accordion-show.svg") no-repeat center;
-                    background-size: contain;
-                }
             }
         }
         .accordion-body {

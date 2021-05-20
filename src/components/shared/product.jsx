@@ -41,7 +41,7 @@ export const Product = ({
           'product ' +
           (category === 'Pharmaceuticals'
             ? 'pharma-product'
-            : category === 'Animal Health AND Medical Supplies'
+            : category === 'Animal Health'
             ? 'vet-product'
             : 'medsurg-product')
         }

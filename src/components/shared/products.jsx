@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { getProducts } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
 
-export const Products = ({ page, products, view, setView, name, shopFont, category, subCategory }) => {
+export const Products = ({ page, products, view, setView, name, shopFont, category }) => {
   const cart = useSelector((state) => state.cart)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -15,6 +15,17 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
+  const totalPageCount = Math.ceil(products.count/10);
+  const totalProduct = products.count;
+  
+  // const totalInPage = pageNumber === totalPageCount ? (totalProduct % 10 === 0 ? 10 : totalProduct % 10) : 10;
+  var totalInPage = pageNumber * 10;
+  var startCount = 1;
+  if(pageNumber > 1)
+     startCount = (pageNumber - 1) * 10 + 1;
+  if(pageNumber === totalPageCount)
+      totalInPage = totalProduct;
+
   const handleAddCart = (product) => {
     const user = JSON.parse(localStorage.getItem('profile'))
     const newProduct = {
@@ -33,13 +44,13 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     setIsLoading(true)
     var increment = data.selected + 1;
     setPageNumber(increment);
-    dispatch(getProducts(name, category, subCategory, sortBy, pageNumber))
+    dispatch(getProducts(name, category, sortBy, pageNumber))
   };
   useEffect(() => {
     setIsLoading(true)
-    dispatch(getProducts(name, category, subCategory, sortBy, pageNumber))
+    dispatch(getProducts(name, category, sortBy, pageNumber))
 
-  }, [dispatch, name, category, subCategory, sortBy, pageNumber])
+  }, [dispatch, name, category, sortBy, pageNumber])
 
 
   useEffect(() => {
@@ -66,7 +77,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
         {page === 'search' ? (
           <h3 className="search-for">Search Results for <q>{name}</q></h3>
         ) : (
-          <p className="total-products">Showing 1 - 10 of 1600 products</p>
+          <p className="total-products">Showing {startCount} - {totalInPage} of {totalProduct} products</p>
         )}
         <div className="d-flex align-items-center filter-view-container">
           <div className="d-flex align-items-center sort-by">
@@ -149,7 +160,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
                             });
                         }}
                     </ProductConsumer> */}
-          {products.map((product) => (
+          {typeof(products.products) != "undefined" ? products.products.map((product) => (
             <Product
               shopFont={shopFont}
               view={view}
@@ -163,10 +174,10 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
               setQuantity={setQuantity}
               cart={cart}
               category={product.customFields ? product.customFields[15] ?  product.customFields[15].value : "" : ""}
-              subCategory={subCategory}
+            
               sortBy={sortBy}
             />
-          ))}
+          )) : ''}
         </div>
       </div>
       <div className={'pagination-products ' + (page === 'search' ? 'd-none' : 'd-block')}>
@@ -175,7 +186,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
           nextLabel={'next'}
           breakLabel={'...'}
           breakClassName={'break-me'}
-          pageCount={160}
+          pageCount={totalPageCount}
           onPageChange={handlePageClick}
           containerClassName={'pagination'}
           activeClassName={'active'}

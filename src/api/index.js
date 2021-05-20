@@ -25,14 +25,14 @@ export const getFishbowlAccount = (username) => API.get(`/fishbowl/${username}/c
 export const getOrders = (username) => API.get(`/${username}/orders`);
 
 export const putAccount = (username, accountData) => API.put(`/user/${username}`, accountData);
-export const addAddresses = (username, formData) => API.post(`/user/${username}/addresses`, formData); 
-export const getAllAddresses = (username) => API.get(`/user/${username}/addresses`); 
-export const getAddressesById = (username, id) => API.get(`/user/${username}/addresses/${id}`); 
-export const deleteAddressesById = (username, id) => API.delete(`/user/${username}/addresses/${id}`); 
-export const updateAddressesById = (username, id, formData) => API.put(`/user/${username}/addresses/${id}`, formData); 
+export const addAddresses = (username, formData) => API.post(`/user/${username}/addresses`, formData);
+export const getAllAddresses = (username) => API.get(`/user/${username}/addresses`);
+export const getAddressesById = (username, id) => API.get(`/user/${username}/addresses/${id}`);
+export const deleteAddressesById = (username, id) => API.delete(`/user/${username}/addresses/${id}`);
+export const updateAddressesById = (username, id, formData) => API.put(`/user/${username}/addresses/${id}`, formData);
 export const makeDefaultAddress = (username, id) => API.put(`/user/${username}/addresses/${id}/default`);
 
-export const getProducts = (name, category, subCategory, sortBy, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (subCategory ? `&subCategory=${subCategory}` : '') + (sortBy ? `&sortBy=${sortBy}` : '') + (page ? `&page=${page}` : ''));
+export const getProducts = (name, category, sortBy, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (sortBy ? `&sortBy=${sortBy}` : '') + (page ? `&page=${page}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);
 
 export const getCart = (username) => API.get(`/cart/${username}`);

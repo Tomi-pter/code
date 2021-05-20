@@ -30,6 +30,9 @@
                         color: #fff;
                     }
                 }
+                &.disabled {
+                    display: none;
+                }
             }
             .previous {
                 position: absolute;

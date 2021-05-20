@@ -171,7 +171,6 @@ export const Addresses = ({ account }) => {
         dispatch(getAddressesById(user?.username, id));
     };
     useEffect(() => {
-        console.log(addresses);
         if (showUpdateModal) {
             setUpdateFormData(getAddressesByIdData.details);
         }
@@ -191,7 +190,7 @@ export const Addresses = ({ account }) => {
             <div className="addressesWrapper">
                 <h2 className="sub-title">My Address Book</h2>
                 <div className="d-none d-lg-block">
-                    {addresses.length > 0 ? <table class="table ">
+                    {addresses.length > 0 ? <table className="table ">
                         <thead>
                             <tr>
                                 <th scope="col">Full Name</th>

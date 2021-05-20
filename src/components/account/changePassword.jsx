@@ -61,9 +61,7 @@ export const Changepassword = () => {
     useEffect(() => {
         if (changePass.success) {
             setEmaillPass(true);
-            console.log('emailPass', emailPass)
         }
-        console.log('useEffect', changePass.success);
 
     }, [changePass]);
     useEffect(() => {

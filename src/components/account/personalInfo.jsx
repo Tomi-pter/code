@@ -3,18 +3,19 @@ import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAvatar, postAvatar, putAccount, getAccount } from '../../actions/account';
+import { Alert, Button } from 'react-bootstrap';
 
 export const PersonalInfo = ({ account, disable, setDisable }) => {
+    const [showError, setShowError] = useState(false);
     const user = JSON.parse(localStorage.getItem('profile'));
     const [profileImage, setProfileImage] = useState("");
     const [image, setImage] = useState("");
     const [initialData, setInitialData] = useState("");
     const [formData, updateFormData] = useState('');
     const [avatarLoading, setAvatarLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
     const updateInfo = useSelector((state) => state.account.updatedAccountData);
-    const loadAccountData = () => {
-
-    }
+    const avatar = useSelector((state) => state.account.avatarData);
     const handleChange = (e) => {
         e.preventDefault()
         updateFormData({
@@ -38,23 +39,33 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         const saveAvatar = new FormData();
         let xhr = new XMLHttpRequest();
         if (files && files.length) {
-            const filename = files[0].name;
-            var parts = filename.split(".");
-            const fileType = parts[parts.length - 1];
-            saveAvatar.append('file', files[0], filename);
-            xhr.upload.onprogress = function (e) {
-                if (e.lengthComputable) {
-                    var percentComplete = (e.loaded / e.total) * 100;
-                    console.log(percentComplete);
-                    if (percentComplete == 100) {
-                        setAvatarLoading(false);
-                        dispatch(getAvatar(user?.username))
+            const fileSize = files[0].size;
+            const fileKB = fileSize / 1024;
+            if (fileKB.toFixed(2) < 1000) {
+                const filename = files[0].name;
+                var parts = filename.split(".");
+                const fileType = parts[parts.length - 1];
+                saveAvatar.append('file', files[0], filename);
+                xhr.upload.onprogress = function (e) {
+                    if (e.lengthComputable) {
+                        var percentComplete = (e.loaded / e.total) * 100;
+                        if (percentComplete == 100) {
+                            setAvatarLoading(false);
+                            dispatch(getAvatar(user?.username));
+                        }
                     }
-                }
-            };
-            xhr.timeout = 5000;
-            xhr.open("POST", 'https://premierpharmastaging.outliant.com/user/' + user?.username + '/photo');
-            xhr.send(saveAvatar);
+                };
+                console.log(fileKB.toFixed(2) + "KB");
+                xhr.timeout = 5000;
+                xhr.open("POST", 'https://premierpharmastaging.outliant.com/user/' + user?.username + '/photo');
+                xhr.send(saveAvatar);
+                setSuccess(true);
+                setShowError(false);
+            } else {
+                setShowError(true);
+                setAvatarLoading(false);
+            }
+
         }
 
     };
@@ -78,6 +89,9 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         inputFile.current.click();
     };
     useEffect(() => {
+        if (success) {
+            dispatch(getAvatar(user?.username));
+        }
         fetch(`https://premierpharmastaging.outliant.com/user/${user?.username}`, {
             method: 'GET',
             headers: {
@@ -102,7 +116,8 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         }
     }, [updateInfo])
     useEffect(() => {
-    }, [account])
+        
+    }, [account, avatar])
     useEffect(() => {
         dispatch(getAccount(user?.username));
         dispatch(getAvatar(user?.username));
@@ -110,6 +125,11 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
 
     return (
         <>
+            <Alert variant="danger" show={showError} onClose={() => setShowError(false)} dismissible >
+                <p style={{ margin: 0 }}>
+                    This file is too large to upload. The maximum supported file size are: 1MB.
+                </p>
+            </Alert>
             <div className="d-flex align-items-center justify-content-between profile-container">
                 <div className="d-flex align-items-center">
                     <div className="avatar-wrapper position-relative">
@@ -117,11 +137,11 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                             <div id="loading-circle-container">
                                 <div className="avatar-loader ">
                                 </div>
-                                <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(account.avatarData?.Body?.data)}`} />
+                                <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(avatar?.Body?.data)}`} />
                             </div>
                         ) : (
                                 account.avatarData?.Body?.data.length > 0 ?
-                                    <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(account.avatarData?.Body?.data)}`} />
+                                    <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(avatar?.Body?.data)}`} />
                                     : <img className="profilePic mr-4" src={ProfilePic} alt="" />
                             )}
                     </div>
@@ -217,6 +237,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                     </div>
                 </div> : ''
             }
+
         </>
     )
 }

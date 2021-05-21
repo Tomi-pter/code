@@ -5,7 +5,6 @@ import * as api from '../api/index.js';
 export const getProducts = (name, category, sortBy, page) => async(dispatch) => {
     try {
         const { data } = await api.getProducts(name, category, sortBy, page);
-
         dispatch({ type: GETPRODUCTS, payload: data });
 
     } catch (error) {

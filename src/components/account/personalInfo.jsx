@@ -82,15 +82,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     useEffect(() => {
         setDisable(true);
         setIsLoading(false);
-        if (account?.avatarData?.Body?.data) {
-            let binary = '';
-            let bytes = new Uint8Array(account?.avatarData?.Body?.data);
-            let len = bytes.byteLength;
-            for (let i = 0; i < len; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
-            setAvatarPic(window.btoa(binary));
-        }
+        setAvatarPic(account?.avatarData);
     }, [account])
 
     useEffect(() => {
@@ -114,8 +106,8 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                 <div className="d-flex align-items-center">
                     <div className="avatar-wrapper position-relative">
                         {avatarLoading && <div className="avatar-loader "></div>}
-                        {   account.avatarData?.Body?.data.length > 0 ?
-                            <img className="profilePic mr-4" src={`data:image/jpeg;base64,${avatarPic}`} />
+                        {   avatarPic !== '' ?
+                            <img className="profilePic mr-4" src={avatarPic} />
                             :
                             <img className="profilePic mr-4" src={ProfilePic} alt="" />
                         }

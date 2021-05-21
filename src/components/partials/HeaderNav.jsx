@@ -29,16 +29,6 @@ export const HeaderNav = () => {
 
     const handleChange = (e) => setFormData({ [e.target.name]: e.target.value });
 
-    const encodeData = (buffer) => {
-        let binary = '';
-        let bytes = new Uint8Array(buffer);
-        let len = bytes.byteLength;
-        for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return window.btoa(binary);
-    };
-    
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('profile'));
         const token = localUser?.accessToken;
@@ -93,8 +83,8 @@ export const HeaderNav = () => {
                             <Link to="/account" className="account-btn">
                                 <div className="profileWrapper">
                                     {
-                                        avatar?.Body?.data.length > 0 ?
-                                        <img className="profilePic" src={`data:image/jpeg;base64,${encodeData(avatar?.Body?.data)}`} />
+                                        avatar ?
+                                        <img className="profilePic" src={avatar} />
                                         : 
                                         <img className="profilePic" src={ProfilePic} alt="" />
                                     }

@@ -13,7 +13,6 @@ export default (props) => {
   const [view, setView] = useState('grid')
   const [isLoading, setIsLoading] = useState(true)
   const [category, setCategory] = useState('')
-  const [selectCategory, setSelectCategory] = useState('');
   const location = useLocation()
   const dispatch = useDispatch()
 

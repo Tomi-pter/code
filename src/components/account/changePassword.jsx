@@ -9,11 +9,11 @@ import { changePassword } from '../../actions/account';
 import CheckGreen from '../../assets/icon/check-lgreen.svg';
 import XGray from '../../assets/icon/x-gray.svg';
 
-
 const defaultData = {
     oldPassword: "",
     newPassword: "",
 };
+
 export const Changepassword = () => {
     let history = useHistory();
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -21,31 +21,26 @@ export const Changepassword = () => {
     const [formData, setForm] = useForm(defaultData);
     const [isDisabled, setDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [errorMess, setErrorOldPass] = useState("");
     const handleClose = () => setShowModal(false);
-    const handleShow = () => setShowModal(true);
     const changePass = useSelector((state) => state.account.changePassword);
-    const errorOldPass = useSelector((state) => state.account.errorOldPass);
     const { oldPassword, newPassword } = formData;
     const checkPasswordLenght = newPassword.length >= 8 ? true : false;
     const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(newPassword);
     const checkNumber = /^(?=.*[0-9])/.test(newPassword);
     const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(newPassword);
     const dispatch = useDispatch();
-    // const passwordRequest = () => {
-    //     setEmaillPass(true);
-    // }
+
     const validation = useCallback(() => {
         const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~])[A-Za-z\d `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]{8,}$/.test(newPassword);
         oldPassword && newPassword && passwordCheck ? setDisabled(false) : setDisabled(true);
     }, [oldPassword, newPassword])
+
     const submit = () => {
         setIsLoading(true);
-        setSubmitted(true);
         dispatch(changePassword(user?.username, formData));
-        if (changePass.success == true) {
+        if (changePass.success === true) {
             setEmaillPass(true);
             console.log('emailPass', emailPass)
         } else {
@@ -54,19 +49,22 @@ export const Changepassword = () => {
             setErrorOldPass('Invalid Old Password');
         }
     }
+
     const resetSession = () => {
         localStorage.removeItem('profile')
         history.push('/');
     }
+
     useEffect(() => {
         if (changePass.success) {
             setEmaillPass(true);
         }
-
     }, [changePass]);
+
     useEffect(() => {
         validation();
     }, [validation]);
+
     return (
         <>
             <div className="changePasswordWrapper">

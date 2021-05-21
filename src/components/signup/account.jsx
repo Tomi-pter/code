@@ -11,12 +11,12 @@ import XGray from '../../assets/icon/x-gray.svg';
 
 const Account = ({  setForm, formData, navigation }) => {
     const auth = useSelector((state) => state.auth);
-    const { email, password, confirm_password, country } = formData;
+    const { email, password, confirm_password } = formData;
     const { previous, next } = navigation;
     const [isLoading, setIsLoading] = useState(false);
     const [isDisabled, setDisabled] = useState(true);
     const [submitted, setSubmitted] = useState(false);
-    const history = useHistory();
+    // const history = useHistory();
     const dispatch = useDispatch();
     const checkPasswordLenght = password.length >= 8 ? true : false;
     const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(password);

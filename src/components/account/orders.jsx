@@ -16,10 +16,12 @@ export const OrdersHistory = ({ account }) => {
         <>
             <ul className="nav align-item-center justify-content-around order-nav">
                 <li className="active">All</li>
-                <li>Delivered <div className="count">7</div></li>
+                <li>Processing <div className="count">7</div></li>
+                <li>Shipped <div className="count">7</div></li>
+                {/* <li>Delivered <div className="count">7</div></li>
                 <li>In Transit <div className="count">2</div></li>
                 <li>Pending <div className="count">1</div></li>
-                <li>Canceled <div className="count">1</div></li>
+                <li>Canceled <div className="count">1</div></li> */}
             </ul>
             <div className="orders">
                 {(!account?.accountOrders || account?.accountOrders?.length <= 0) &&

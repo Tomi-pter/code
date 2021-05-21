@@ -112,7 +112,7 @@ export const PersonalInformationContainer = () => {
                                             <PersonalInfo disable={disable} setDisable={setDisable} account={account} accountData={accountData} setAccountData={setAccountData} />
                                         </div>
                                         <div className="tab-pane fade show" id="my-addresses" role="tabpanel" aria-labelledby="pills-home-2">
-                                            <Addresses account={account} accountData={accountData} setAccountData={setAccountData} />
+                                            <Addresses key={account.addressesData} account={account} accountData={accountData} setAccountData={setAccountData} />
                                         </div>
                                         <div className="tab-pane fade show" id="payment-options" role="tabpanel" aria-labelledby="pills-home-3">
                                             <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='account' />

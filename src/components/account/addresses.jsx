@@ -204,7 +204,7 @@ export const Addresses = ({ account }) => {
                             {
                                 addresses?.map((item, index) => (
                                     <>
-                                        <tr>
+                                        <tr key={index}>
                                             <td scope="row">
                                                 <div className="fullName">
                                                     <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
@@ -263,7 +263,7 @@ export const Addresses = ({ account }) => {
                     {
                         addresses?.map((item, index) => (
                             <>
-                                <div className="mobile-addresses mt-2 mb-2">
+                                <div className="mobile-addresses mt-2 mb-2" key={index}>
                                     <div className="fullName ">
                                         <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
                                     </div>

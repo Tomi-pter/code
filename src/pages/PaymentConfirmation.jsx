@@ -27,7 +27,7 @@ export const PaymentConfirmationContainer = () => {
                         <p className="purchase-text">for your purchase</p>
                     </div>
                     <div className="buttonWrapper d-flex align-items-center justify-content-center">
-                        <Link to="/account" className="secondaryButton">
+                        <Link to="/account?order-history" className="secondaryButton">
                             View Order
                         </Link>
                         <Link to="/shop" className="primaryButton">

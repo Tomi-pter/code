@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../actions/auth';
 import { getAccount, getOrders } from '../../actions/account';
+import { useParams } from "react-router-dom";
 
 export const PersonalInformationContainer = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -27,9 +28,12 @@ export const PersonalInformationContainer = () => {
     const [selectedCard, setSelectedCard] = useState('');
     const [accountData, setAccountData] = useState('');
     const [isOpen, setOpen] = useState(true);
+    const [activeTab, setActiveTab] = useState('');
     const dispatch = useDispatch();
     const account = useSelector((state) => state.account);
     const history = useHistory();
+    const { id } = useParams();
+
     const handleLogout = () => {
         dispatch(logOut(user?.username, history));
         var cartIFrame = document.getElementById('hidden-iframe');
@@ -40,6 +44,11 @@ export const PersonalInformationContainer = () => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAccount(user?.username));
         dispatch(getOrders(user?.username));
+        if (window.location.href.indexOf("order-history") > -1) {
+            setActiveTab(true);
+        } else {
+            setActiveTab(false);
+        }
     }, [dispatch]);
 
     return (
@@ -55,7 +64,7 @@ export const PersonalInformationContainer = () => {
                                     <li className="primary-nav">
                                         <a
                                             data-toggle="tab" href="#personal-profile"
-                                            className={`accordion-title flex-column align-items-start primary-link active ${isOpen ? "open" : ""}`}
+                                            className={`accordion-title flex-column align-items-start primary-link ${activeTab ? '' : 'active'} ${isOpen ? "open" : ""}`}
                                         >
                                             <span>
                                                 <img src={AccountUser} alt="" />Personal Information <span className="caret" onClick={() => setOpen(!isOpen)}></span>
@@ -78,7 +87,7 @@ export const PersonalInformationContainer = () => {
                                         </a>
                                     </li>
                                     <li className="primary-nav">
-                                        <a data-toggle="tab" href="#order-history" className="primary-link ">
+                                        <a data-toggle="tab" href="#order-history" className={`primary-link ${activeTab ? 'active' : ''} `}>
                                             <img src={CartIcon} alt="" />Order History
                                         </a>
                                     </li>
@@ -96,7 +105,7 @@ export const PersonalInformationContainer = () => {
                         </div>
                         <div className="information">
                             <div className="tab-content" id="pills-tabContent">
-                                <div className="tab-pane fade show active" id="personal-profile" role="tabpanel" aria-labelledby="pills-home-tab">
+                                <div className={`tab-pane fade ${activeTab ? '' : 'active show'}`} id="personal-profile" role="tabpanel" aria-labelledby="pills-home-tab">
                                     <h1 className="title">Personal Information</h1>
                                     <div className="card tab-content" id="pills-tab-1Content">
                                         <div className="tab-pane fade show active" id="my-profile" role="tabpanel" aria-labelledby="pills-home-1">
@@ -110,7 +119,7 @@ export const PersonalInformationContainer = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="order-history" className="tab-pane fade">
+                                <div id="order-history" className={`tab-pane fade ${activeTab ? 'active show' : ''}`}>
                                     <h1 className="title">Order History</h1>
                                     <div className="card">
                                         <OrdersHistory account={account} />

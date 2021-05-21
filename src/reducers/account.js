@@ -21,6 +21,7 @@ const accountReducer = (state = initialState, action) => {
       return { ...state, accountOrders: action.data };
     case actionType.PUTACCOUNT:
       const newData = {
+        ...state.accountData,
         'given_name': action.accountData.given_name,
         'family_name': action.accountData.family_name,
         'phone_number': action.accountData.phone_number,

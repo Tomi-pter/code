@@ -35,10 +35,10 @@ export const PersonalInformationContainer = () => {
     const { id } = useParams();
 
     const handleLogout = () => {
-        dispatch(logOut(user?.username, history));
         var cartIFrame = document.getElementById('hidden-iframe');
-        localStorage.removeItem('profile');
+        // localStorage.removeItem('profile');
         cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
+        dispatch(logOut(user?.username, history));
     };
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));

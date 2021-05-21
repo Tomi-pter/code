@@ -6,7 +6,6 @@ const authReducer = (state = { authData: null }, action) => {
       if (action?.data?.success && action?.data?.accessToken) {
         localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
       }
-
       return { ...state, authData: action.data };
     case actionType.VERIFY:
       return { ...state, verifyData: action.data };

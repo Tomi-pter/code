@@ -45,8 +45,6 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     window.scrollTo(0, 0)
     var increment = data.selected + 1;
     setPageNumber(increment);
-    dispatch(getProducts(name, category, sortBy, pageNumber))
-
   };
 
   useEffect(() => {
@@ -55,7 +53,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     }, 1000)
     dispatch(getProducts(name, category, sortBy, pageNumber))
 
-  }, [dispatch, name, category, sortBy, pageNumber])
+  }, [pageNumber, sortBy])
 
 
   useEffect(() => {

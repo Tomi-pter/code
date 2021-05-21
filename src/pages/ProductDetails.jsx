@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getProduct } from '../actions/products';
 import { addCart } from '../actions/cart';
+import NoImage from '../assets/img/test-no-image.png'
 
 export default props => {
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -56,7 +57,7 @@ export default props => {
                         <div className="d-flex align-items-start">
                             <div className={"details-container card " + (product.customFields[15].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[15].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
                                 <div className="img-container">
-                                    <img src={ImageProduct} alt="" />
+                                <img src={product.url  ? product.url : NoImage} alt="" />
                                 </div>
                                 
                                 <div className="d-block d-lg-none">

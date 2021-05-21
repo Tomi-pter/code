@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router'
-import ProductImage from '../../assets/img/product-sample.png'
+import NoImage from '../../assets/img/test-no-image.png'
+// import ProductImage from '../../assets/img/product-sample.png'
 import { Link } from 'react-router-dom'
 
 export const Product = ({
@@ -62,7 +63,7 @@ export const Product = ({
         <div className={'product-details-container'}>
           <div className="img-container">
             <div>
-              <img src={ProductImage} alt="" />
+              <img src={product.url  ? product.url : NoImage} alt="" />
             </div>
           </div>
           <div className="details-container">

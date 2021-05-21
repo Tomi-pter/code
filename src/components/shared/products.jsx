@@ -15,16 +15,16 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
-  const totalPageCount = Math.ceil(products.count/10);
+  const totalPageCount = Math.ceil(products.count / 10);
   const totalProduct = products.count;
-  
+
   // const totalInPage = pageNumber === totalPageCount ? (totalProduct % 10 === 0 ? 10 : totalProduct % 10) : 10;
   var totalInPage = pageNumber * 10;
   var startCount = 1;
-  if(pageNumber > 1)
-     startCount = (pageNumber - 1) * 10 + 1;
-  if(pageNumber === totalPageCount)
-      totalInPage = totalProduct;
+  if (pageNumber > 1)
+    startCount = (pageNumber - 1) * 10 + 1;
+  if (pageNumber === totalPageCount)
+    totalInPage = totalProduct;
 
   const handleAddCart = (product) => {
     const user = JSON.parse(localStorage.getItem('profile'))
@@ -46,9 +46,13 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     var increment = data.selected + 1;
     setPageNumber(increment);
     dispatch(getProducts(name, category, sortBy, pageNumber))
+
   };
+
   useEffect(() => {
-    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
     dispatch(getProducts(name, category, sortBy, pageNumber))
 
   }, [dispatch, name, category, sortBy, pageNumber])
@@ -99,18 +103,18 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
                 )}
               </button>
               <div className="dropdown-menu" aria-labelledby="sortByDropdown">
-                <a className="dropdown-item" onClick={() => setSortBy('')}>
+                <span className="dropdown-item" onClick={() => setSortBy('')}>
                   Default
-                </a>
+                </span>
                 {/* <a className="dropdown-item"  onClick={() => setSortBy('size')}>
                   Size
                 </a>
                 <a className="dropdown-item"  onClick={() => setSortBy('strength')}>
                   Strength
                 </a> */}
-                <a className="dropdown-item" onClick={() => setSortBy('price')}>
+                <span className="dropdown-item" onClick={() => setSortBy('price')}>
                   Price
-                </a>
+                </span>
               </div>
             </div>
           </div>
@@ -161,24 +165,33 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
                             });
                         }}
                     </ProductConsumer> */}
-          {typeof(products.products) != "undefined" ? products.products.map((product) => (
-            <Product
-              shopFont={shopFont}
-              view={view}
-              key={product.id}
-              product={product}
-              addCart={handleAddCart}
-              setSelectedProduct={setSelectedProduct}
-              selectedProduct={selectedProduct}
-              isLoading={isLoading}
-              quantity={quantity}
-              setQuantity={setQuantity}
-              cart={cart}
-              category={product.customFields ? product.customFields[15] ?  product.customFields[15].value : "" : ""}
-            
-              sortBy={sortBy}
-            />
-          )) : ''}
+          {isLoading ?
+            <div className="container-fluid">
+              <div className="spinner-container d-flex align-items-center justify-content-center">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+            :
+            typeof (products.products) != "undefined" ? products.products.map((product) => (
+              <Product
+                shopFont={shopFont}
+                view={view}
+                key={product.id}
+                product={product}
+                addCart={handleAddCart}
+                setSelectedProduct={setSelectedProduct}
+                selectedProduct={selectedProduct}
+                isLoading={isLoading}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                cart={cart}
+                category={product.customFields ? product.customFields[15] ? product.customFields[15].value : "" : ""}
+
+                sortBy={sortBy}
+              />
+            )) : ''}
         </div>
       </div>
       <div className="pagination-products">
@@ -192,7 +205,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
           containerClassName={'pagination'}
           activeClassName={'active'}
           initialPage={0}
-       
+
         />
       </div>
     </div>

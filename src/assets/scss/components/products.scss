@@ -200,6 +200,9 @@
             border-radius: 0;
             width: 138px;
             min-width: unset;
+            span {
+                cursor: pointer;
+            }
         }
         .grid-btn,
         .list-btn {
@@ -774,17 +777,6 @@
                             display: none;
                         }
                     }
-                }
-                .incart {
-                    // @include mediaQueries(padpro) {
-                    //     display: none;
-                    // }
-                    // @include mediaQueries(pad) {
-                    //     display: none;
-                    // }
-                    // @include mediaQueries(mobile) {
-                    //     display: none;
-                    // }
                 }
             }
         }

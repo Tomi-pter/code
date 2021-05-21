@@ -81,7 +81,7 @@ export const Changepassword = () => {
                         </button>
                     </div>
                 </div>
-                <Modal id="changePasswordModal" className="modalWrapper" show={showModal} onHide={handleClose} backdrop="static">
+                <Modal id="changePasswordModal" className="modalWrapper" show={showModal} onHide={handleClose}>
                     <Modal.Body>
                         {emailPass ?
                             <div className="checkEmail-container d-flex align-items-center justify-content-center">

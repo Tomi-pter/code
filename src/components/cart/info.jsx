@@ -152,8 +152,6 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
         validation();
     }, [validation])
 
-    console.log(states);
-
     return (
         <>
             <div className="customer-info">

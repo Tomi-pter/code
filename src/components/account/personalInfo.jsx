@@ -18,7 +18,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     const [formData, updateFormData] = useState(defaultFormData);
     const [avatarLoading, setAvatarLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const avatar = useSelector((state) => state.account.avatarData);
+    const [avatarPic, setAvatarPic] = useState('');
     const inputFile = useRef(null);
     const dispatch = useDispatch();
 
@@ -61,16 +61,6 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         }
     };
 
-    const encodeData = (buffer) => {
-        let binary = '';
-        let bytes = new Uint8Array(buffer);
-        let len = bytes.byteLength;
-        for (let i = 0; i < len; i++) {
-            binary += String.fromCharCode(bytes[i]);
-        }
-        return window.btoa(binary);
-    };
-
     const toggleEdit = () => {
         setDisable(!disable);
         updateFormData({
@@ -79,7 +69,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
             'phone_number': account?.accountData?.phone_number,
             'company': account?.accountData['custom:company']
         })
-    }
+    };
 
     const toggleCancel = () => {
         setDisable(!disable);
@@ -90,10 +80,23 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     };
 
     useEffect(() => {
-        setAvatarLoading(false);
         setDisable(true);
         setIsLoading(false);
+        if (account?.avatarData?.Body?.data) {
+            let binary = '';
+            let bytes = new Uint8Array(account?.avatarData?.Body?.data);
+            let len = bytes.byteLength;
+            for (let i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            setAvatarPic(window.btoa(binary));
+        }
     }, [account])
+
+    useEffect(() => {
+       setAvatarLoading(false);
+    }, [avatarPic])
+
 
     useEffect(() => {
         dispatch(getAccount(user?.username));
@@ -112,8 +115,8 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                     <div className="avatar-wrapper position-relative">
                         {avatarLoading && <div className="avatar-loader "></div>}
                         {   account.avatarData?.Body?.data.length > 0 ?
-                            <img className="profilePic mr-4" src={`data:image/jpeg;base64,${encodeData(avatar?.Body?.data)}`} />
-                            : 
+                            <img className="profilePic mr-4" src={`data:image/jpeg;base64,${avatarPic}`} />
+                            :
                             <img className="profilePic mr-4" src={ProfilePic} alt="" />
                         }
                     </div>

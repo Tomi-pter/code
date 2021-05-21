@@ -48,6 +48,7 @@ export const putAccount = (username, accountData) => async (dispatch) => {
 export const getOrders = (username) => async (dispatch) => {
   try {
     const { data } = await api.getOrders(username);
+    console.log('orders', data);
     dispatch({ type: GETORDERS, data });
   } catch (error) {
     console.log(error);

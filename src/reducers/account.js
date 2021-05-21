@@ -20,7 +20,13 @@ const accountReducer = (state = initialState, action) => {
     case actionType.GETORDERS:
       return { ...state, accountOrders: action.data };
     case actionType.PUTACCOUNT:
-      return { ...state, updatedAccountData: action.data };
+      const newData = {
+        'given_name': action.accountData.given_name,
+        'family_name': action.accountData.family_name,
+        'phone_number': action.accountData.phone_number,
+        'custom:company': action.accountData.company
+      }
+      return { ...state, accountData: newData };
     case actionType.CHANGEPASSWORD:
       return { ...state, changePassword: action.data };
     case actionType.ERROROLDPASS:

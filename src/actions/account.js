@@ -39,8 +39,7 @@ export const getFishbowlAccount = (username) =>  async (dispatch) => {
 export const putAccount = (username, accountData) => async (dispatch) => {
   try {
     const { data } = await api.putAccount(username, accountData);
-    dispatch({ type: PUTACCOUNT, data });
-    console.log(data);
+    if (data.success) dispatch({ type: PUTACCOUNT, accountData});
   } catch (error) {
     console.log(error);
   }

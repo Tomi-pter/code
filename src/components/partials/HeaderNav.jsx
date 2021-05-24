@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ShippingCounter } from '../../components/shared/shippingCounter';
 import Logo from '../../assets/img/logo.svg';
 import Cart from '../../assets/icon/cart-green.svg';
 import BurgerMenu from '../../assets/icon/burger-menu.svg';
+import SearchClear from '../../assets/icon/search-clear.svg';
+import mobileSearch from '../../assets/icon/search-green-ico.svg';
+import mobileSearchClose from '../../assets/icon/search-close.svg';
 import decode from 'jwt-decode';
 
 import { useSelector } from 'react-redux';
@@ -18,13 +21,18 @@ export const HeaderNav = () => {
     const cart = useSelector((state) => state.cart);
     const avatar = useSelector((state) => state.account.avatarData);
     const [formData, setFormData] = useState({});
+    const [searchActive, setSearchActive] = useState(false);
+    const searchInput = useRef(null);
     const itemCount = cart.cartData?.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
     const location = useLocation();
     const dispatch = useDispatch();
 
+    const resetInputField = () => {
+        searchInput.current.value = "";
+    };
     const handleSubmit = (e) => {
         e.preventDefault()
-        window.location.href = '/search?name='+formData.name;
+        window.location.href = '/search?name=' + formData.name;
     }
 
     const handleChange = (e) => setFormData({ [e.target.name]: e.target.value });
@@ -44,7 +52,7 @@ export const HeaderNav = () => {
 
     const sendWPData = () => {
         const cartIFrame = document.getElementById('hidden-iframe');
-        const sendData = {...user, avatarData: avatar};
+        const sendData = { ...user, avatarData: avatar };
         cartIFrame.contentWindow.postMessage(sendData, 'https://premierpharma.wpengine.com');
     }
 
@@ -71,31 +79,46 @@ export const HeaderNav = () => {
                     <a className="desktop-link" href="https://premierpharma.wpengine.com/contact-us/">Contact Us</a>
                     <div className="search-container">
                         <form onSubmit={handleSubmit}>
-                            <input name="name"  value={formData.name} placeholder="Search Medicine..." onChange={handleChange} />
+                            <input name="name" value={formData.name || ""} placeholder="Search Medicine..." onChange={handleChange} />
                         </form>
                     </div>
+
                     {user ?
                         <>
                             <Link to="/cart" className="cart-btn">
                                 <img src={Cart} alt="" width="27.5" height="27.5" />
                                 <div className="count">{itemCount}</div>
                             </Link>
+                            <div className="mobile-search-div">
+                                {searchActive ?
+                                    <img src={mobileSearchClose} onClick={() => setSearchActive(false)} />
+                                    :
+                                    <img src={mobileSearch} onClick={() => setSearchActive(true)} />
+
+                                }
+                            </div>
                             <Link to="/account" className="account-btn">
                                 <div className="profileWrapper">
                                     {
                                         avatar ?
-                                        <img className="profilePic" src={avatar} />
-                                        : 
-                                        <img className="profilePic" src={ProfilePic} alt="" />
+                                            <img className="profilePic" src={avatar} />
+                                            :
+                                            <img className="profilePic" src={ProfilePic} alt="" />
                                     }
                                 </div>
                             </Link>
                         </>
                         :
-                        <Link to="/login" className="login-btn">
-                            Login
+                        <>
+                            <div className="mobile-search-div">
+                                <img src={mobileSearch} />
+                            </div>
+                            <Link to="/login" className="login-btn">
+                                Login
                     </Link>
+                        </>
                     }
+
                     <div className="dropdown burger-btn">
                         <a className="dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src={BurgerMenu} alt="" />
@@ -111,7 +134,24 @@ export const HeaderNav = () => {
                         </div>
                     </div>
                 </div>
+                {searchActive ? (
+                    <div className="w-100 align-items-center text-center mobile-search ">
+                        <form onSubmit={handleSubmit} className="position-relative">
+                            <img src={SearchClear} className="clear-search" onClick={resetInputField} />
+                            <input
+                                name="name"
+                                value={formData.name || ""}
+                                placeholder="Search Medicine..."
+                                ref={searchInput}
+                                onChange={handleChange} />
+                        </form>
+                    </div>
+                ) : (
+                    ''
+                )}
+
             </div>
+
         </nav>
     );
 };

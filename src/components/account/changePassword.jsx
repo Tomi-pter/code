@@ -80,6 +80,7 @@ export const Changepassword = () => {
                     </div>
                 </div>
                 <Modal id="changePasswordModal" className="modalWrapper" show={showModal} onHide={handleClose}>
+                    <Modal.Header closeButton></Modal.Header>
                     <Modal.Body>
                         {emailPass ?
                             <div className="checkEmail-container d-flex align-items-center justify-content-center">

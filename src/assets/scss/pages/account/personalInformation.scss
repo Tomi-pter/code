@@ -2,6 +2,9 @@
   min-height: 100vh;
   background: #f6f9fe;
   padding: 70px 150px 60px 150px;
+  @include mediaQueries(padpro) {
+    padding: 40px;
+  }
   @include mediaQueries(pad) {
     padding: 40px 0;
   }
@@ -147,6 +150,9 @@
     }
     .tab-pane > .card {
       padding: 36px 60px 60px 60px;
+      @include mediaQueries(padpro) {
+        padding: 40px 16px;
+      }
       @include mediaQueries(pad) {
         padding: 40px 16px;
       }
@@ -829,6 +835,13 @@
 }
 
 .modalWrapper {
+  .modal-header{
+    padding: 0;
+    border: 0;
+    .close{
+      padding: 0;
+    }
+  }
   .modal-dialog {
     max-width: 745px;
     width: 100%;

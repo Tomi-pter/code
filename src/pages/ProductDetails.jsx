@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getProduct } from '../actions/products';
 import { addCart } from '../actions/cart';
-import NoImage from '../assets/img/image-unavailable.svg'
+import NoImage from '../assets/img/unavailable.svg';
 
 export default props => {
     const user = JSON.parse(localStorage.getItem('profile'));

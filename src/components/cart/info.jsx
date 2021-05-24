@@ -93,6 +93,14 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
         formData.email !== "" && formData.mobileNumber !== "" && phoneCheck && emailCheck && formData.givenName !== "" && formData.familyName !== "" && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && (formData.country !== "" && states.length > 0) ? setDisabled(false) : setDisabled(true);
     }, [formData])
     
+    const shippingList = (type) => {
+        if (type === 'shipping') { 
+            if (document.getElementById('infosCollapse').className.includes("show")) setSelectShipping(selectedShipping);
+        } else { 
+            if (document.getElementById('infosCollapse2').className.includes("show")) setSelectBilling(selectedBilling);
+        }
+    }
+    
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAccount(user?.username));
@@ -116,9 +124,9 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
             };
         } else {
             setSelectedShipping(account?.addressesData[0]);
-            setSelectShipping(account?.addressesData[0]);
+            if (!selectShipping) setSelectShipping(account?.addressesData[0]);
             setSelectedBilling(account?.addressesData[0]);
-            setSelectBilling(account?.addressesData[0]);
+            if (!selectBilling) setSelectBilling(account?.addressesData[0]);
         }
         setIsEdit(false);
         setEditId("");
@@ -158,7 +166,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                 <div className="d-flex align-items-center justify-content-between title-container">
                     <h1 className="title m-0">Shipping Address</h1>
                     <div className="toggle">
-                        <button className="main-edit-btn" type="button" id="shippingBtn" data-toggle="collapse" data-target="#infosCollapse" aria-expanded="false" aria-controls="infosCollapse">
+                        <button className="main-edit-btn" type="button" id="shippingBtn" data-toggle="collapse" data-target="#infosCollapse" aria-expanded="false" aria-controls="infosCollapse" onClick={()=>shippingList('shipping')}>
                             <img src={Edit} alt="" />
                         </button>
                         <div className="toggle-menu collapse" id="infosCollapse">
@@ -229,7 +237,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                     <h1 className="title m-0">Billing Address</h1>
                     {!checked && 
                         <div className="toggle">
-                            <button className="main-edit-btn" type="button" id="billingBtn" data-toggle="collapse" data-target="#infosCollapse2" aria-expanded="false" aria-controls="infosCollapse2" disabled={checked}>
+                            <button className="main-edit-btn" type="button" id="billingBtn" data-toggle="collapse" data-target="#infosCollapse2" aria-expanded="false" aria-controls="infosCollapse2" onClick={()=>shippingList('billing')} disabled={checked}>
                                 <img src={Edit} alt="" />
                             </button>
                             <div className="toggle-menu collapse" id="infosCollapse2">

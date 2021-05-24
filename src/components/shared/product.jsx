@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router'
-import NoImage from '../../assets/img/image-unavailable.svg'
+import NoImage from '../../assets/img/unavailable.svg'
 // import ProductImage from '../../assets/img/product-sample.png'
 import { Link } from 'react-router-dom'
 

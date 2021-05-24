@@ -47,6 +47,8 @@
 
     .accordion-title {
       position: relative;
+      outline: 0;
+      border: 0;
       .caret {
         transition: all 0.3s ease;
         display: inline-block;

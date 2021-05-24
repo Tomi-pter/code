@@ -62,7 +62,7 @@ export const PersonalInformationContainer = () => {
                             <div className="card">
                                 <ul className="nav nav-tabs flex-column" id="pills-tab" role="tablist">
                                     <li className="primary-nav">
-                                        <a
+                                        <button
                                             data-toggle="tab" href="#personal-profile"
                                             className={`accordion-title flex-column align-items-start primary-link ${activeTab ? '' : 'active'} ${isOpen ? "open" : ""}`}
                                         >
@@ -84,7 +84,7 @@ export const PersonalInformationContainer = () => {
                                                     </ul>
                                                 </span>
                                             </span>
-                                        </a>
+                                        </button>
                                     </li>
                                     <li className="primary-nav">
                                         <a data-toggle="tab" href="#order-history" className={`primary-link ${activeTab ? 'active' : ''} `}>

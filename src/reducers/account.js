@@ -51,9 +51,11 @@ const accountReducer = (state = initialState, action) => {
       return { ...state, updateAddressSuccess: true};
     case actionType.UPDATEDEFAULTADDRESS:
       const prevDefault = state.addressesData.find(address => address.isDefault === true);
-      const prevIndex = state.addressesData.findIndex(address => address.addressId === prevDefault.addressId);
-      if(prevIndex !== -1) {
-          state.addressesData.splice(prevIndex, 1, {...prevDefault, isDefault: false});
+      if (prevDefault) {
+        const prevIndex = state.addressesData.findIndex(address => address.addressId === prevDefault.addressId);
+        if(prevIndex !== -1) {
+            state.addressesData.splice(prevIndex, 1, {...prevDefault, isDefault: false});
+        }
       }
       const newDefault = action.data;
       const newIndex = state.addressesData.findIndex(address => address.addressId === newDefault.addressId);
@@ -61,6 +63,10 @@ const accountReducer = (state = initialState, action) => {
           state.addressesData.splice(newIndex, 1, newDefault);
       }
       return { ...state, updateAddressDefault: true};
+    case actionType.DELETEADDRESSESBYID:
+      const newAddressesData = state.addressesData.filter((address) => address.id !== action.data.id)
+      
+      return { ...state, addressesData: newAddressesData };
     case actionType.GETADDRESSESBYID:
       return { ...state, getAddressesById: action.data };
     default:

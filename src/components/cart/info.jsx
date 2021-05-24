@@ -90,7 +90,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const validation = useCallback(() => {
         const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
         const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
-        formData.email && formData.mobileNumber && phoneCheck && emailCheck && formData.givenName && formData.familyName && formData.address && formData.city && formData.postalCode && formData.country ? setDisabled(false) : setDisabled(true);
+        formData.email !== "" && formData.mobileNumber !== "" && phoneCheck && emailCheck && formData.givenName !== "" && formData.familyName !== "" && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && (formData.country !== "" && states.length > 0) ? setDisabled(false) : setDisabled(true);
     }, [formData])
     
     useEffect(()=>{
@@ -303,7 +303,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                         <div className="modal-body">
-                            <h2 className="sub-title">Add New Address</h2>
+                            <h2 className="sub-title">{isEdit ? 'Edit Address' : 'Add New Address'}</h2>
                             <div className="row">
                                 <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">

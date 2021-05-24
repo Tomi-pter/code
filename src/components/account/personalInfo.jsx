@@ -82,8 +82,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     useEffect(() => {
         setDisable(true);
         setIsLoading(false);
-        setAvatarPic(account?.avatarData);
-        console.log('test', account);
+        if(account?.avatarData) setAvatarPic(account?.avatarData);
     }, [account])
 
     useEffect(() => {

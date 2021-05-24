@@ -155,8 +155,10 @@
     .profile-container {
       margin-bottom: 50px;
       .profilePic {
+        min-width: 60px;
         max-width: 60px;
         width: 100%;
+        min-height: 60px;
         max-height: 60px;
         height: 60px;
         border-radius: 100%;
@@ -710,6 +712,10 @@
                   min-height: 24px;
                 }
               }
+              .delete-spinner {
+                width: 20px;
+                height: 20px;
+              }
             }
           }
         }
@@ -735,46 +741,6 @@
             #71d3f4 103.82%
           );
           border-radius: 7.50055px;
-        }
-      }
-      #addAddressModal {
-        .saveAddressesButton {
-          background: #16cfb0;
-          border-radius: 7.5px;
-          min-width: 127px;
-          min-height: 36px;
-          border: 0;
-          font-family: "Axiforma Bold";
-          font-style: normal;
-          font-weight: 600;
-          font-size: 15px;
-          line-height: 24px;
-          text-align: center;
-          color: #ffffff;
-          margin-left: 20px;
-          &:hover {
-            background: linear-gradient(
-              266.19deg,
-              #16cfb0 -15.44%,
-              #71d3f4 103.82%
-            );
-            border-radius: 7.50055px;
-          }
-        }
-        .cancelAddressButton {
-          background: transparent;
-          border: 2px solid #16cfb0;
-          box-sizing: border-box;
-          border-radius: 7.5px;
-          min-width: 127px;
-          min-height: 36px;
-          font-family: "Axiforma Bold";
-          font-style: normal;
-          font-weight: 600;
-          font-size: 15px;
-          line-height: 24px;
-          text-align: center;
-          color: #16cfb0;
         }
       }
     }
@@ -986,6 +952,16 @@
     &:hover {
       background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
       border-radius: 7.50055px;
+    }
+    .spinner-border {
+      width: 25px;
+      height: 25px;
+    }
+    &:disabled, &:disabled:hover {
+        background: #f0f0f0 !important;
+    }
+    &.loading:disabled, &.loading:disabled:hover {
+        background: #16cfb0;
     }
   }
   .cancelAddressButton {

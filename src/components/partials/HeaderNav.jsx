@@ -44,7 +44,8 @@ export const HeaderNav = () => {
 
     const sendWPData = () => {
         const cartIFrame = document.getElementById('hidden-iframe');
-        const sendData = {...user, avatarData: avatar};
+        const avatarData = avatar ? avatar : 'https://premierpharma.wpengine.com/wp-content/uploads/2021/05/placeholder-dp.svg';
+        const sendData = {...user, avatarData, cartCount: itemCount};
         cartIFrame.contentWindow.postMessage(sendData, 'https://premierpharma.wpengine.com');
     }
 

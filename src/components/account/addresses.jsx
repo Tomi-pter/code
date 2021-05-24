@@ -190,72 +190,73 @@ export const Addresses = ({ account }) => {
             <div className="addressesWrapper">
                 <h2 className="sub-title">My Address Book</h2>
                 <div className="d-none d-lg-block">
-                    {addresses.length > 0 ? <table className="table ">
-                        <thead>
-                            <tr>
-                                <th scope="col">Full Name</th>
-                                <th scope="col">Shipping Address</th>
-                                <th scope="col">Mobile Number</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                addresses?.map((item, index) => (
-                                    <>
-                                        <tr key={index}>
-                                            <td scope="row">
-                                                <div className="fullName">
-                                                    <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div className="address">
-                                                    {item?.details?.address}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div className="mobileNumber">
-                                                    {item?.details?.mobileNumber}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                {defaultAddress?.addressId === item?.addressId && <div className="default">Default</div>}
-                                                {defaultAddress?.addressId !== item?.addressId &&
-                                                    <button className="default-btn" onClick={() => handleMakeDefaultAddress(item)}>
-                                                        {
-                                                            isDefaultLoading && isDefaultSelected.addressId === item.addressId ?
-                                                                <div className="spinner-border text-success" role="status">
-                                                                    <span className="sr-only">Loading...</span>
-                                                                </div>
-                                                                : "Make Default"
-                                                        }
-                                                    </button>
-                                                }
-                                            </td>
-                                            <td className="d-none d-lg-block">
-                                                <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
-                                                    <img className="edit-icon" src={EditIcon} alt="" />
-                                                </div>
-                                            </td>
-                                            <td className="d-none d-lg-block">
-                                                <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
-                                                    <img className="edit-icon" src={DeleteIcon} alt="" />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </>
-                                ))
+                    {addresses.length > 0 ? 
+                        <table className="table ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Full Name</th>
+                                    <th scope="col">Shipping Address</th>
+                                    <th scope="col">Mobile Number</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    addresses?.map((item, index) => (
+                                        <>
+                                            <tr key={index}>
+                                                <td scope="row">
+                                                    <div className="fullName">
+                                                        <p>{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="address">
+                                                        {item?.details?.address}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="mobileNumber">
+                                                        {item?.details?.mobileNumber}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {defaultAddress?.addressId === item?.addressId && <div className="default">Default</div>}
+                                                    {defaultAddress?.addressId !== item?.addressId &&
+                                                        <button className="default-btn" onClick={() => handleMakeDefaultAddress(item)}>
+                                                            {
+                                                                isDefaultLoading && isDefaultSelected.addressId === item.addressId ?
+                                                                    <div className="spinner-border text-success" role="status">
+                                                                        <span className="sr-only">Loading...</span>
+                                                                    </div>
+                                                                    : "Make Default"
+                                                            }
+                                                        </button>
+                                                    }
+                                                </td>
+                                                <td className="d-none d-lg-block">
+                                                    <div className="edit-wrapper" onClick={() => editAddress(item.addressId)}>
+                                                        <img className="edit-icon" src={EditIcon} alt="" />
+                                                    </div>
+                                                </td>
+                                                <td className="d-none d-lg-block">
+                                                    <div className="edit-wrapper" onClick={() => removeAddress(item.addressId)}>
+                                                        <img className="edit-icon" src={DeleteIcon} alt="" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </>
+                                    ))
 
-                            }
+                                }
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
                         :
                         <div>
                             No Addresses
-                    </div>
+                        </div>
                     }
                 </div>
 

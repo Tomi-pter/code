@@ -41,8 +41,8 @@
     background: none;
     color: #e63757;
   }
-  .form-group{
-      margin-bottom: 30px;
+  .form-group {
+    margin-bottom: 30px;
   }
   input,
   select {
@@ -73,11 +73,11 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 22px;
-    color: #BDBDBD;
+    color: #bdbdbd;
     display: flex;
     align-items: center;
     &.valid {
-      color: #37B34A;
+      color: #37b34a;
     }
     img {
       margin-right: 8px;
@@ -86,7 +86,8 @@
       margin-bottom: 10px;
     }
   }
-  button, .resend {
+  button,
+  .resend {
     width: 170px;
     height: 42.75px;
     border-radius: 3px;
@@ -110,7 +111,7 @@
     padding: 0 20px;
   }
   .next,
-  .submit {    
+  .submit {
     background: #16cfb0;
     color: #ffffff;
     &:disabled {
@@ -122,7 +123,8 @@
     align-items: center;
     justify-content: center;
   }
-  .prev, .resend  {
+  .prev,
+  .resend {
     background: transparent;
     border: 3px solid #16cfb0;
     box-sizing: border-box;
@@ -138,7 +140,8 @@
     .next {
       margin-left: auto;
     }
-    .prev, .resend {
+    .prev,
+    .resend {
       margin-right: 10px !important;
     }
   }
@@ -185,6 +188,81 @@
     .resend {
       margin-bottom: 20px;
       margin-right: 0 !important;
+    }
+  }
+  .newsletterWrapper {
+    max-width: 1138px;
+    min-height: 478px;
+    background-image: url(https://premierpharma.wpengine.com/wp-content/uploads/2021/02/Frame-87.png);
+    background-color: #71d3f4;
+    border-radius: 10px 10px 10px 10px;
+    overflow: hidden;
+    box-shadow: 0px 9.28977px 37.1591px rgb(0 0 0 / 5%);
+    @include mediaQueries(mobile) {
+    min-height: 353px;
+    }
+    .emailWrapper {
+      padding: 50px 95px;
+      @include mediaQueries(mobile) {
+        padding: 20px 30px;
+      }
+      h2 {
+        font-weight: 700;
+        font-size: 36px;
+        color: #fff !important;
+        line-height: 60px;
+        text-align: center;
+        @include mediaQueries(mobile) {
+          font-size: 25px;
+          line-height: 41px;
+        }
+      }
+      .emailGroup {
+        background: #fff !important;
+        box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.07);
+        border-radius: 49.5px;
+        max-width: 797px;
+        margin: 46px auto 0 auto;
+        @include mediaQueries(mobile) {
+          max-width: 333px;
+          min-height: 39px;
+          margin: 26px auto 0 auto;
+        }
+        .input-group-append {
+          background: #fff !important;
+          border-radius: 49.5px;
+          padding: 10px;
+        }
+        input {
+          background: #fff !important;
+          box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.07);
+          border-radius: 49.5px 0 0 49.5px;
+          min-height: 73px;
+          @include mediaQueries(mobile) {
+            max-width: 333px;
+            min-height: 39px;
+            height: 100%;
+          }
+        }
+        button {
+          max-width: 155px;
+          min-height: 49px;
+          background: #16cfb0;
+          border-radius: 49.5px;
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 33px;
+          text-align: center;
+          color: #fff;
+          @include mediaQueries(mobile) {
+            max-width: 64px;
+            min-height: 29px;
+            height: 100%;
+            font-size: 12px;
+            line-height: 20px;
+          }
+        }
+      }
     }
   }
 }

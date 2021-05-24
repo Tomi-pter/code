@@ -101,7 +101,7 @@ export const HeaderNav = () => {
                             <Link to="/account" className="account-btn">
                                 <div className="profileWrapper">
                                     {
-                                        avatar ?
+                                        avatar !== "" && !Array.isArray(avatar) ?
                                             <img className="profilePic" src={avatar} />
                                             :
                                             <img className="profilePic" src={ProfilePic} alt="" />

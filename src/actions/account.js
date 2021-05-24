@@ -83,7 +83,7 @@ export const changePassword = (username, formData) => async (dispatch) => {
     const { data } = await api.changePassword(username, formData);
     dispatch({ type: CHANGEPASSWORD, data });
   } catch (error) {
-    const data = error.response.data;ƒ
+    const data = error.response.data;
     dispatch({ type: ERROROLDPASS, data });
   }
 };

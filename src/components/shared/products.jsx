@@ -10,6 +10,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
   const cart = useSelector((state) => state.cart)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [isCartLoading, setIsCartLoading] = useState(false)
   const [sortBy, setSortBy] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
   const [quantity, setQuantity] = useState(1)
@@ -36,8 +37,8 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
         quantity,
       },
     }
+    setIsCartLoading(true)
     setSelectedProduct(product)
-    setIsLoading(true)
     dispatch(addCart(user?.username, newProduct))
   }
   const handlePageClick = (data) => {
@@ -182,6 +183,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
                 setSelectedProduct={setSelectedProduct}
                 selectedProduct={selectedProduct}
                 isLoading={isLoading}
+                isCartLoading={isCartLoading}
                 quantity={quantity}
                 setQuantity={setQuantity}
                 cart={cart}

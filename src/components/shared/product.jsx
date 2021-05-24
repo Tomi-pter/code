@@ -11,6 +11,7 @@ export const Product = ({
   setSelectedProduct,
   selectedProduct,
   isLoading,
+  isCartLoading,
   quantity,
   setQuantity,
   shopFont,
@@ -140,11 +141,11 @@ export const Product = ({
               <button
                 className={
                   'cart-btn ' +
-                  (selectedProduct === product && isLoading ? 'adding' : '')
+                  (selectedProduct === product && isCartLoading ? 'adding' : '')
                 }
                 onClick={() => addCart(product)}
               >
-                {selectedProduct === product && isLoading ? (
+                {selectedProduct === product && isCartLoading ? (
                   <div className="spinner-border text-light" role="status">
                     <span className="sr-only">Loading...</span>
                   </div>

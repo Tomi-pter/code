@@ -836,6 +836,11 @@
 }
 
 .modalWrapper {
+  &.change-success .modal-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .modal-header{
     padding: 0;
     border: 0;

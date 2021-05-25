@@ -7,6 +7,7 @@ import PasswordChangeIcon from '../../assets/img/Account/password-change.svg';
 import { changePassword } from '../../actions/account';
 import CheckGreen from '../../assets/icon/check-lgreen.svg';
 import XGray from '../../assets/icon/x-gray.svg';
+import { logOut } from '../../actions/auth';
 
 const defaultData = {
     oldPassword: "",
@@ -49,8 +50,10 @@ export const Changepassword = () => {
     }
 
     const resetSession = () => {
+        var cartIFrame = document.getElementById('hidden-iframe');
+        cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
         localStorage.removeItem('profile')
-        history.push('/');
+        history.push('/login');
     }
 
     useEffect(() => {
@@ -87,8 +90,8 @@ export const Changepassword = () => {
                         </button>
                     </div>
                 </div>
-                <Modal id="changePasswordModal" className="modalWrapper" show={showModal} onHide={handleClose}>
-                    <Modal.Header closeButton></Modal.Header>
+                <Modal id="changePasswordModal" className={"modalWrapper " + (emailPass ? "change-success" : "")} backdrop={emailPass ? "static" : "dynamic"} show={showModal} onHide={handleClose}>
+                    {!emailPass && <Modal.Header closeButton></Modal.Header>}
                     <Modal.Body>
                         {emailPass ?
                             <div className="checkEmail-container d-flex align-items-center justify-content-center">

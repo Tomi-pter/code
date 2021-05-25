@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateCart, removeCart } from '../../actions/cart';
 
+import NoImage from '../../assets/img/unavailable.svg'
+
 export const ItemList = ({ cart, page }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
     const [selectedItem, setSelectedItem] = useState(null);
@@ -48,8 +50,6 @@ export const ItemList = ({ cart, page }) => {
         setQuantity(1);
     },[cart]);
 
-    console.log(cart);
-
     return (
         <div>
             { (!cart.cartData || cart.cartData?.length <= 0) &&
@@ -66,7 +66,12 @@ export const ItemList = ({ cart, page }) => {
                             </div>
                         }
                         <div className="img-container">
-                            <img className="product-image" src={require("../../assets/img/product-sample2.png")} alt="" />
+                            {
+                                cartItem.imageUrl !== "" ? 
+                                <img className="product-image" src={cartItem.imageUrl} alt="" />
+                                :
+                                <img className="product-image no-image" src={NoImage} alt="" />
+                            }    
                         </div>
                         <div className="info-container">
                             {

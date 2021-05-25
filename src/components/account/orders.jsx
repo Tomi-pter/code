@@ -49,8 +49,8 @@ export const OrdersHistory = ({ account }) => {
                                             <p className="text-center">{order.details.status}</p>
                                             :
                                             <>
-                                                <p>{order.details.status}</p>
-                                                <p>{formatDate(order.details.dateOrdered)} - {formatDate(order.details.deliveredOn)}</p>
+                                                <p className="text-center">{order.details.status}</p>
+                                                <p className="text-center">{formatDate(order.details.dateOrdered)} - {formatDate(order.details.deliveredOn)}</p>
                                             </>
                                         }
                                     </div>
@@ -103,7 +103,6 @@ export const OrdersHistory = ({ account }) => {
                 ))
             )
         }
-
         if (status === "Shipped") {
             return (
                 filterShippedOrders.length === 0 ?
@@ -152,6 +151,8 @@ export const OrdersHistory = ({ account }) => {
     useEffect(()=>{
         if(account?.accountOrders) setOrders(account?.accountOrders)
     },[account]);
+
+    console.log(orders);
 
     return (
         <>

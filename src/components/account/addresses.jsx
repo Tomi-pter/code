@@ -45,8 +45,9 @@ export const Addresses = ({ account }) => {
     const validation = useCallback(() => {
         const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
         const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
-        formData.email !== "" && formData.mobileNumber !== "" && phoneCheck && emailCheck && formData.givenName !== "" && formData.familyName !== "" && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && (formData.country !== "" && states.length > 0) ? setDisabled(false) : setDisabled(true);
-    }, [formData]);
+        const checkState = formData.state === "" && states.length > 0 ? false : true;
+        formData.email !== "" && formData.mobileNumber !== "" && phoneCheck && emailCheck && formData.givenName !== "" && formData.familyName !== "" && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
+    }, [formData, states]);
 
     const handleMakeDefaultAddress = (address) => {
         setIsDefaultSelected(address);

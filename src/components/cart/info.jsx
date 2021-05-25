@@ -65,11 +65,14 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     }
 
     const handleAddAddress = () => {
+        setIsEdit(false);
+        setStates([]);
         setFormData(initialFormData);
     }
 
     const handleEditAddress = (address) => {
         setIsEdit(true);
+        setStates([]);
         setFormData(address.details);
         setEditId(address.addressId);
     }
@@ -86,12 +89,6 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     }
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-    const validation = useCallback(() => {
-        const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
-        const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
-        formData.email !== "" && formData.mobileNumber !== "" && phoneCheck && emailCheck && formData.givenName !== "" && formData.familyName !== "" && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && (formData.country !== "" && states.length > 0) ? setDisabled(false) : setDisabled(true);
-    }, [formData])
     
     const shippingList = (type) => {
         if (type === 'shipping') { 
@@ -130,6 +127,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
         }
         setIsEdit(false);
         setEditId("");
+        setStates([]);
         document.getElementById("closeAddressModal").click();
     },[account]);
 
@@ -155,6 +153,12 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
         if (formData.country !== "" && selectedCountry) dispatch(getStates(selectedCountry[0]?.id));
     }, [formData.country])
 
+    const validation = useCallback(() => {
+        const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
+        const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
+        const checkState = formData.state === "" && states.length > 0 ? false : true;
+        formData.email !== "" && formData.mobileNumber !== "" && phoneCheck && emailCheck && formData.givenName !== "" && formData.familyName !== "" && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
+    }, [formData, states])
 
     useEffect(() => {
         validation();

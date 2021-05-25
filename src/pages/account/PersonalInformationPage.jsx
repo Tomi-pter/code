@@ -71,7 +71,7 @@ export const PersonalInformationContainer = () => {
                                             </span>
                                             <span className={`accordion-item  ${!isOpen ? "collapsed" : ""}`}>
                                                 <span className="accordion-content">
-                                                    <ul className="sub-nav nav flex-column mb-3" id="pills-tab-1" role="tablist">
+                                                    <ul className="sub-nav nav flex-column mb-3 text-left" id="pills-tab-1" role="tablist">
                                                         <li>
                                                             <a className="active" data-toggle="pill" href="#my-profile" role="tab" aria-controls="pills-home-1" aria-selected="true">My Profile</a>
                                                         </li>

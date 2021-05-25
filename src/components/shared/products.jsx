@@ -34,6 +34,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
         productId: parseInt(product.id),
         productName: product.name,
         price: parseFloat(product.purchasePrice),
+        imageUrl: product.url, 
         quantity,
       },
     }
@@ -69,6 +70,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
       setIsLoading(false)
     }, 1000)
   }, [cart])
+
   return (
     <div className="products-container">
       <div

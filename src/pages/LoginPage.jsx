@@ -51,14 +51,6 @@ export const LoginContainer = () => {
             password: password,
             passwordConfirmation: passwordConfirmation
         }));
-        // if (changePass.success == true) {
-        //     setEmaillPass(true);
-        //     console.log('emailPass', emailPass)
-        // } else {
-        //     setEmaillPass(false);
-        //     setIsLoading(false);
-        //     setErrorOldPass('Invalid Old Password');
-        // }
     }
     const handFotgotPassword = () => {
         dispatch(forgotPassword(fEmail));
@@ -168,7 +160,7 @@ export const LoginContainer = () => {
                                                                 />
                                                             </div>
                                                             <p className={"text-center error " + (auth.forgotPasswordData?.message ? "alert-danger" : "")}>
-                                                                {auth.forgotPasswordData?.message}
+                                                                {auth.forgotPasswordData}
                                                             </p>
                                                             <div className="emailSubmitWrapper">
                                                                 <button className="continueButton" disabled={continueButton} onClick={submit}>Continue</button>

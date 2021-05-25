@@ -65,13 +65,8 @@ export const ItemList = ({ cart, page }) => {
                                 </div>
                             </div>
                         }
-                        <div className="img-container">
-                            {
-                                cartItem.imageUrl !== "" ? 
-                                <img className="product-image" src={cartItem.imageUrl} alt="" />
-                                :
-                                <img className="product-image no-image" src={NoImage} alt="" />
-                            }    
+                        <div className={cartItem.imageUrl  ? 'img-container' : 'no-img'}>
+                                <img className="product-image" src={cartItem.imageUrl  ? cartItem.imageUrl : NoImage} alt="" />
                         </div>
                         <div className="info-container">
                             {
@@ -88,6 +83,9 @@ export const ItemList = ({ cart, page }) => {
                                 </p>
                                 <p className="variant">
                                     Brand: Welchol
+                                </p>
+                                <p className="availability">
+                                Ships in 2-3 business days
                                 </p>
                                 <p className="price">
                                     {cartItem.price}

@@ -4,10 +4,10 @@ const initialState = {
   accountData: {},
   updatedAccountData: [],
   accountOrders: [],
-  avatarData: [],
+  avatarData: '',
   addressesData: [],
-  changePassword: [],
-  errorOldPass: [],
+  changePassword: null,
+  errorOldPass: null,
   getAddressesById: []
 };
 
@@ -29,9 +29,9 @@ const accountReducer = (state = initialState, action) => {
       }
       return { ...state, accountData: newData };
     case actionType.CHANGEPASSWORD:
-      return { ...state, changePassword: action.data };
+      return { ...state, changePassword: action.data, errorOldPass: null };
     case actionType.ERROROLDPASS:
-      return { ...state, errorOldPass: action.data };
+      return { ...state, errorOldPass: action.data, changePassword: null };
     case actionType.POSTAVATAR:
       return { ...state, avatarData: action.data };
     case actionType.GETAVATAR:

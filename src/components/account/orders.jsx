@@ -152,8 +152,6 @@ export const OrdersHistory = ({ account }) => {
         if(account?.accountOrders) setOrders(account?.accountOrders)
     },[account]);
 
-    console.log(orders);
-
     return (
         <>
             <ul className="nav align-item-center justify-content-around order-nav">

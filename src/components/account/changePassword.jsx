@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from "react-hooks-helper";
 import { Modal } from 'react-bootstrap';
 import Input from "../shared/input";
 import PasswordChangeIcon from '../../assets/img/Account/password-change.svg';
@@ -15,39 +14,38 @@ const defaultData = {
 };
 
 export const Changepassword = () => {
-    let history = useHistory();
     const user = JSON.parse(localStorage.getItem('profile'));
+    const account = useSelector((state) => state.account);
     const [emailPass, setEmaillPass] = useState(false);
-    const [formData, setForm] = useForm(defaultData);
+    const [formData, setFormData] = useState(defaultData);
     const [isDisabled, setDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [errorMess, setErrorOldPass] = useState("");
-    const handleClose = () => setShowModal(false);
-    const changePass = useSelector((state) => state.account.changePassword);
-    const { oldPassword, newPassword } = formData;
-    const checkPasswordLenght = newPassword.length >= 8 ? true : false;
-    const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(newPassword);
-    const checkNumber = /^(?=.*[0-9])/.test(newPassword);
-    const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(newPassword);
+    const checkPasswordLenght = formData.newPassword.length >= 8 ? true : false;
+    const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(formData.newPassword);
+    const checkNumber = /^(?=.*[0-9])/.test(formData.newPassword);
+    const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(formData.newPassword);
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handleClose = () => {
+        setShowModal(false);
+        setErrorOldPass("");
+        formData.oldPassword = "";
+        formData.newPassword = "";
+    };
+
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const validation = useCallback(() => {
-        const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~])[A-Za-z\d `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]{8,}$/.test(newPassword);
-        oldPassword && newPassword && passwordCheck ? setDisabled(false) : setDisabled(true);
-    }, [oldPassword, newPassword])
+        const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~])[A-Za-z\d `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]{8,}$/.test(formData.newPassword);
+        formData.oldPassword && formData.newPassword && passwordCheck ? setDisabled(false) : setDisabled(true);
+    }, [formData])
 
     const submit = () => {
         setIsLoading(true);
         dispatch(changePassword(user?.username, formData));
-        if (changePass.success === true) {
-            setEmaillPass(true);
-            console.log('emailPass', emailPass)
-        } else {
-            setEmaillPass(false);
-            setIsLoading(false);
-            setErrorOldPass('Invalid Old Password');
-        }
     }
 
     const resetSession = () => {
@@ -56,10 +54,20 @@ export const Changepassword = () => {
     }
 
     useEffect(() => {
-        if (changePass.success) {
+        if (account?.changePassword && account?.changePassword?.success) {
             setEmaillPass(true);
+        } 
+        
+        if (account?.errorOldPass) {
+            setEmaillPass(false);
+            if (account?.errorOldPass?.message === 'Incorrect username or password.') {
+                setErrorOldPass('Invalid Old Password');
+            } else {
+                setErrorOldPass(account?.errorOldPass?.message);
+            }
         }
-    }, [changePass]);
+        setIsLoading(false);
+    }, [account]);
 
     useEffect(() => {
         validation();
@@ -102,8 +110,8 @@ export const Changepassword = () => {
                                             label="Old Password"
                                             name="oldPassword"
                                             type="password"
-                                            value={oldPassword}
-                                            onChange={setForm}
+                                            value={formData.oldPassword}
+                                            onChange={handleChange}
                                         />
                                         <p className={"invalidPassword "}>{errorMess ? errorMess : ''}</p>
 
@@ -114,8 +122,8 @@ export const Changepassword = () => {
                                             label="Password"
                                             name="newPassword"
                                             type="password"
-                                            value={newPassword}
-                                            onChange={setForm}
+                                            value={formData.newPassword}
+                                            onChange={handleChange}
                                         />
                                         <p className={"password-validation " + (checkPasswordLenght ? 'valid' : '')}>{checkPasswordLenght ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use 8 or more characters</p>
                                         <p className={"password-validation " + (checkLetters ? 'valid' : '')}>{checkLetters ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use upper and lower case letters</p>

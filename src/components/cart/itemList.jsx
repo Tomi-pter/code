@@ -65,7 +65,7 @@ export const ItemList = ({ cart, page }) => {
                                 </div>
                             </div>
                         }
-                        <div className={cartItem.imageUrl  ? 'img-container' : 'no-img'}>
+                        <div className="img-container">
                                 <img className="product-image" src={cartItem.imageUrl  ? cartItem.imageUrl : NoImage} alt="" />
                         </div>
                         <div className="info-container">

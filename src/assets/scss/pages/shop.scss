@@ -28,7 +28,7 @@
     .filter-col {
         min-height: 100vh;
         background: #ffffff;
-        padding: 69px 112px 93px 60px;
+        padding: 69px 30px 93px 30px;
         .product-category {
             display: none;
             @include mediaQueries(custom-select) {
@@ -130,7 +130,7 @@
         flex: auto;
         position: relative;
         width: calc(100% - 480px);
-        right: 63px;
+        right: 50px;
         padding: 69px 0px 93px 0;
         @include mediaQueries(padpro) {
             background: #fff;

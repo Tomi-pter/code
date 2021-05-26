@@ -16,14 +16,14 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
-  const totalPageCount = Math.ceil(products.count / 10);
+  const totalPageCount = Math.ceil(products.count / 12);
   const totalProduct = products.count;
 
   // const totalInPage = pageNumber === totalPageCount ? (totalProduct % 10 === 0 ? 10 : totalProduct % 10) : 10;
-  var totalInPage = pageNumber * 10;
+  var totalInPage = pageNumber * 12;
   var startCount = 1;
   if (pageNumber > 1)
-    startCount = (pageNumber - 1) * 10 + 1;
+    startCount = (pageNumber - 1) * 12 + 1;
   if (pageNumber === totalPageCount)
     totalInPage = totalProduct;
 
@@ -142,14 +142,12 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
           </div>
           <div className="name-container">
             <p>Name</p>
-            <p>(Compare To)</p>
           </div>
           <p className="company">Manufacturer</p>
           <p className="size">Size</p>
           {/* <p className="strength">Strength</p> */}
           <div className="price-container">
             <p>Price</p>
-            <p>(PPU)</p>
           </div>
           {/* <p className="buy-container"> */}
           <p className={'buy' + (!user ? ' buy-offline' : ' buy-online')} style={!user ? { minWidth: '90px' } : { minWidth: '145px' }}>Buy</p>

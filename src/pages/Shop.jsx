@@ -57,11 +57,11 @@ export default (props) => {
                   setCategory(selectedCategory)
                 }}
               >
-                <option value="Pharmaceuticals" >For Pharmacies</option>
+                <option value="Pharmaceuticals" >Pharmacies</option>
                 <option
-                  value="Animal Health">For Animal Health</option>
+                  value="Animal Health">Animal Health</option>
                 <option
-                  value="Medical Supplies">For Medical/Surgical Products</option>
+                  value="Medical Supplies">Medical/Surgical Products</option>
               </select>
             </div>
             <div
@@ -78,7 +78,7 @@ export default (props) => {
                   aria-expanded="false"
                   onClick={() => setCategory('Pharmaceuticals')}
                 >
-                  For Pharmacies
+                  Pharmacies
                 </button>
                
               </div>
@@ -92,7 +92,7 @@ export default (props) => {
                   aria-expanded="false"
                   onClick={() => setCategory('Animal Health')}
                 >
-                  For Animal Care
+                  Animal Care
                 </button>
               
               </div>
@@ -106,7 +106,7 @@ export default (props) => {
                   aria-expanded="false"
                   onClick={() => setCategory('Medical Supplies')}
                 >
-                  For Medical/Surgical Products
+                  Medical/Surgical Products
                 </button>
                
               </div>

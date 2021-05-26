@@ -91,10 +91,10 @@ export const Product = ({
               {/* <p className="compare for-list">({compare_to})</p> */}
             </div>
             <p className="company for-list">
-              {product.customFields[3] ? product.customFields[3].value : 'Amneal Pharm'}
+              {product.customFields[11].value ? product.customFields[11].value : 'N/A'}
             </p>
             <p className="size for-list">
-              {product.customFields[6] ? product.customFields[6].value: '100'}
+              {product.customFields[13].value ? product.customFields[13].value: 'N/A'}
             </p>
             {/* <p className="strength for-list">
               {product.customFields[9].value || '100'}

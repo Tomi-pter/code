@@ -74,10 +74,9 @@ export default props => {
                                 <ul>
                                     <li>Item #:  {product?.num}</li>
                                     <li>NDC:  {product?.ndc}</li>
-                                    <li>Manufacturer:  {product.customFields[3] ? product.customFields[3].value : 'Amneal Pharm'}</li>
-                                    <li>Size:  {product.customFields[6] ? product.customFields[6].value: '100'}</li>
-                                    <li>Strength: {product?.customFields[9].value}</li>
-                                    <li>PPU: ppu</li>
+                                    <li>Manufacturer:  {product.customFields[11].value ? product.customFields[11].value : 'N/A'}</li>
+                                    <li>Size:  {product.customFields[13].value ? product.customFields[13].value : 'N/A'}</li>
+                                    <li>Strength: {product.customFields[14].value ? product.customFields[14].value : 'N/A' }</li>
                                 </ul>
                                 
                                 <div className="d-block d-lg-none">

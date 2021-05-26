@@ -26,7 +26,7 @@ export const OrdersHistory = ({ account }) => {
                         <div key={`key-${index}`} className="order">
                             <div className="d-flex align-item-center justify-content-between">
                                 <div className="orderNo">Order #{order.salesOrderNumber}</div>
-                                <div className="amount">{(order.details.total / 100)} USD</div>
+                                <div className="amount">${(order.details.total / 100).toFixed(2)}</div>
                             </div>
                             <div className="d-flex align-item-center justify-content-between date-status-container">
                                 <div className="date">Placed on {formatDate(order.details.dateOrdered)}</div>
@@ -39,18 +39,13 @@ export const OrdersHistory = ({ account }) => {
                                         <p className="product-name">
                                             {item.productName}
                                         </p>
-                                        {/* <p className="variant-text">
-                                            Brand: Welchol
-                                        </p> */}
                                         <p>Quantity: {item.quantity}</p>
                                     </div>
-                                    <div className="item-info-end">
-                                        {order.details.status === "Pending" ?
-                                            <p className="text-center">{order.details.status}</p>
-                                            :
+                                    <div className="item-info-end text-left">
+                                        {order.status === 'Shipped' &&
                                             <>
-                                                <p className="text-center">{order.details.status}</p>
-                                                <p className="text-center">{formatDate(order.details.dateOrdered)} - {formatDate(order.details.deliveredOn)}</p>
+                                                <p className="text-left">Get by</p>
+                                                <p className="text-left">{formatDate(order?.getBy)}</p>
                                             </>
                                         }
                                     </div>

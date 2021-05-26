@@ -12,6 +12,8 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
   const [isLoading, setIsLoading] = useState(false)
   const [isCartLoading, setIsCartLoading] = useState(false)
   const [sortBy, setSortBy] = useState(null)
+  const [filter, setFilter] = useState(null)
+  const [order, setOrder] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
@@ -42,6 +44,14 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     setSelectedProduct(product)
     dispatch(addCart(user?.username, newProduct))
   }
+ 
+   const setSorting = (filter, order, value) => {
+    setIsLoading(true)
+    setFilter(filter);
+    setOrder(order);
+    dispatch(getProducts(null, category, filter, order, null));
+    setSortBy(value);
+   }
   const handlePageClick = (data) => {
     setIsLoading(true)
     window.scrollTo(0, 0)
@@ -49,13 +59,14 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     setPageNumber(increment);
   };
 
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)
     }, 1000)
-    dispatch(getProducts(name, category, sortBy, pageNumber))
+    dispatch(getProducts(name, category, filter, order, pageNumber))
 
-  }, [pageNumber, sortBy])
+  }, [pageNumber, filter, order])
 
 
   useEffect(() => {
@@ -98,14 +109,24 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
                 aria-expanded="false"
               >
                 {sortBy === null || sortBy === "" ? (
-                  <> Default </>
-                ) : (
+                  <>A-Z </>
+                ) : ( 
                   <>{sortBy}</>
                 )}
               </button>
               <div className="dropdown-menu" aria-labelledby="sortByDropdown">
-                <span className="dropdown-item" onClick={() => setSortBy('')}>
-                  Default
+                <span className="dropdown-item" onClick={() => {setSorting('name', 'ASC', 'A-Z')}}>
+                  A - Z
+                </span>
+                <span className="dropdown-item" onClick={() => {setSorting('name', 'DESC', 'Z-A')}}>
+                  Z - A
+                </span>
+
+                <span className="dropdown-item" onClick={() => {setSorting('price', 'ASC', '$ Low - High')}}>
+                $ Low - High
+                </span>
+                <span className="dropdown-item" onClick={() => {setSorting('price', 'DESC', '$ High - Low')}}>
+                $ High - Low
                 </span>
                 {/* <a className="dropdown-item"  onClick={() => setSortBy('size')}>
                   Size
@@ -113,9 +134,9 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
                 <a className="dropdown-item"  onClick={() => setSortBy('strength')}>
                   Strength
                 </a> */}
-                <span className="dropdown-item" onClick={() => setSortBy('price')}>
+                {/* <span className="dropdown-item" onClick={() => setSortBy('price')}>
                   Price
-                </span>
+                </span> */}
               </div>
             </div>
           </div>

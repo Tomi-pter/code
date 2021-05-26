@@ -35,7 +35,7 @@ export const deleteAddressesById = (username, id) => API.delete(`/user/${usernam
 export const updateAddressesById = (username, id, formData) => API.put(`/user/${username}/addresses/${id}`, formData);
 export const makeDefaultAddress = (username, id) => API.put(`/user/${username}/addresses/${id}/default`);
 
-export const getProducts = (name, category, sortBy, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (sortBy ? `&sortBy=${sortBy}` : '') + (page ? `&page=${page}` : ''));
+export const getProducts = (name, category, sortBy, sortOrder, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (sortBy ? `&sortBy=${sortBy}&order=${sortOrder}` : '') + (page ? `&page=${page}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);
 
 export const getCart = (username) => API.get(`/cart/${username}`);

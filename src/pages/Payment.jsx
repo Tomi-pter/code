@@ -26,7 +26,7 @@ export const PaymentContainer = () => {
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
         const accountData = account?.accountData;
-        const amount = parseInt(cart?.checkoutDetail?.total);
+        const amount = parseFloat(cart?.checkoutDetail?.total);
         const billingAddress = cart?.checkoutDetail?.selectedBilling;
         const shippingAddress = cart?.checkoutDetail?.selectedShipping;
         const body = {
@@ -80,10 +80,10 @@ export const PaymentContainer = () => {
                                         <div className="d-flex align-items-center justify-content-between terms-copy">
                                             <div className="mr-5">
                                                 <h2>REMINDER</h2>
-                                                <ol type="a">
+                                                <ul>
                                                     <li>If payment terms have already been established you will receive an invoice via email once the order has been processed.</li>
                                                     <li>If payment terms have not been established, you agree that within 24 hours Premier Pharmaceuticals will confirm your eligibility to use this payment option. Your dedicated sales rep will contact you with confirmation.</li>
-                                                </ol>
+                                                </ul>
                                             </div>
                                             <img src={require("../assets/icon/card-active.svg")} alt="" />
                                         </div>

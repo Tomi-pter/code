@@ -7,7 +7,7 @@ import PasswordChangeIcon from '../../assets/img/Account/password-change.svg';
 import { changePassword } from '../../actions/account';
 import CheckGreen from '../../assets/icon/check-lgreen.svg';
 import XGray from '../../assets/icon/x-gray.svg';
-import { logOut } from '../../actions/auth';
+import { logOutResetPassword } from '../../actions/account';
 
 const defaultData = {
     oldPassword: "",
@@ -52,17 +52,16 @@ export const Changepassword = () => {
         formData.newPassword = "";
         var cartIFrame = document.getElementById('hidden-iframe');
         cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
-        dispatch(logOut(user?.username, history));
-        // history.push('/login');
+        localStorage.removeItem('profile');
+        setEmaillPass(false);
+        setErrorOldPass("");
+        dispatch(logOutResetPassword(user?.username, history));
     }
 
     useEffect(() => {
         if (account?.changePassword && account?.changePassword?.success) {
             setEmaillPass(true);
             setShowModal(false);
-            // var cartIFrame = document.getElementById('hidden-iframe');
-            // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
-            // localStorage.removeItem('profile');
         } 
         
         if (account?.errorOldPass) {

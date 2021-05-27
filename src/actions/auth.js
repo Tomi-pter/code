@@ -23,7 +23,7 @@ export const logOut = (username, router) => async (dispatch) => {
 
     dispatch({ type: LOGOUT, data });
 
-    router.push('/login');
+    router.push('/');
   } catch (error) {
     console.log(error);
   }

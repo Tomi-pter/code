@@ -32,9 +32,6 @@ export const Changepassword = () => {
 
     const handleClose = () => {
         setShowModal(false);
-        setErrorOldPass("");
-        formData.oldPassword = "";
-        formData.newPassword = "";
     };
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -50,16 +47,22 @@ export const Changepassword = () => {
     }
 
     const resetSession = () => {
-        history.push('/login');
+        setErrorOldPass("");
+        formData.oldPassword = "";
+        formData.newPassword = "";
+        var cartIFrame = document.getElementById('hidden-iframe');
+        cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
+        dispatch(logOut(user?.username, history));
+        // history.push('/login');
     }
 
     useEffect(() => {
         if (account?.changePassword && account?.changePassword?.success) {
             setEmaillPass(true);
             setShowModal(false);
-            var cartIFrame = document.getElementById('hidden-iframe');
-            cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
-            localStorage.removeItem('profile')
+            // var cartIFrame = document.getElementById('hidden-iframe');
+            // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
+            // localStorage.removeItem('profile');
         } 
         
         if (account?.errorOldPass) {

@@ -16,6 +16,40 @@ export const OrdersHistory = ({ account }) => {
         });
     }
 
+    const renderOrder = (order, index) => {
+        return (
+            <div key={`key-${index}`} className="order">
+                <div className="d-flex align-item-center justify-content-between">
+                    <div className="orderNo">Order #{order.salesOrderNumber}</div>
+                    <div className="amount">${(order.details.total / 100).toFixed(2)}</div>
+                </div>
+                <div className="d-flex align-item-center justify-content-between date-status-container">
+                    <div className="date">Placed on {formatDate(order.details.dateOrdered)}</div>
+                    <div className="status">{order.status}</div>
+                </div>
+                {order.details.items.map((item, index) => (
+                    <div key={`item-${index}`} className="d-flex align-items-center item">
+                        <img src={ProductPlaceholder} alt="" />
+                        <div className="item-info">
+                            <p className="product-name">
+                                {item.productName}
+                            </p>
+                            <p>Quantity: {item.quantity}</p>
+                        </div>
+                        <div className="item-info-end text-left">
+                            {order.status === 'Shipped' &&
+                                <>
+                                    <p className="text-left">Get by</p>
+                                    <p className="text-left">{formatDate(order?.getBy)}</p>
+                                </>
+                            }
+                        </div>
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
     const renderOrders = () => {
         if (status === "All") {
             return (
@@ -23,35 +57,7 @@ export const OrdersHistory = ({ account }) => {
                     <div className="d-flex align-items-center justify-content-center orders-empty">No Order History</div>
                 :
                     orders.map((order, index) => (
-                        <div key={`key-${index}`} className="order">
-                            <div className="d-flex align-item-center justify-content-between">
-                                <div className="orderNo">Order #{order.salesOrderNumber}</div>
-                                <div className="amount">${(order.details.total / 100).toFixed(2)}</div>
-                            </div>
-                            <div className="d-flex align-item-center justify-content-between date-status-container">
-                                <div className="date">Placed on {formatDate(order.details.dateOrdered)}</div>
-                                <div className="status">{order.status}</div>
-                            </div>
-                            {order.details.items.map((item, index) => (
-                                <div key={`item-${index}`} className="d-flex align-items-center item">
-                                    <img src={ProductPlaceholder} alt="" />
-                                    <div className="item-info">
-                                        <p className="product-name">
-                                            {item.productName}
-                                        </p>
-                                        <p>Quantity: {item.quantity}</p>
-                                    </div>
-                                    <div className="item-info-end text-left">
-                                        {order.status === 'Shipped' &&
-                                            <>
-                                                <p className="text-left">Get by</p>
-                                                <p className="text-left">{formatDate(order?.getBy)}</p>
-                                            </>
-                                        }
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        renderOrder(order, index)
                     ))
             )
         }
@@ -61,40 +67,7 @@ export const OrdersHistory = ({ account }) => {
                     <div className="d-flex align-items-center justify-content-center orders-empty">No Processing Order/s</div>
                 :
                 filterProcessingOrders.map((order, index) => (
-                    <div key={`key-${index}`} className="order">
-                        <div className="d-flex align-item-center justify-content-between">
-                            <div className="orderNo">Order #{order.salesOrderNumber}</div>
-                            <div className="amount">{(order.details.total / 100)} USD</div>
-                        </div>
-                        <div className="d-flex align-item-center justify-content-between date-status-container">
-                            <div className="date">Placed on {formatDate(order.details.dateOrdered)}</div>
-                            <div className="status">{order.status}</div>
-                        </div>
-                        {order.details.items.map((item, index) => (
-                            <div key={`item-${index}`} className="d-flex align-items-center item">
-                                <img src={ProductPlaceholder} alt="" />
-                                <div className="item-info">
-                                    <p className="product-name">
-                                        {item.productName}
-                                    </p>
-                                    {/* <p className="variant-text">
-                                        Brand: Welchol
-                                    </p> */}
-                                    <p>Quantity: {item.quantity}</p>
-                                </div>
-                                <div className="item-info-end">
-                                    {order.details.status === "Pending" ?
-                                        <p className="text-center">{order.details.status}</p>
-                                        :
-                                        <>
-                                            <p>{order.details.status}</p>
-                                            <p>{formatDate(order.details.dateOrdered)} - {formatDate(order.details.deliveredOn)}</p>
-                                        </>
-                                    }
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    renderOrder(order, index)
                 ))
             )
         }
@@ -104,40 +77,7 @@ export const OrdersHistory = ({ account }) => {
                     <div className="d-flex align-items-center justify-content-center orders-empty">No Shipped Order/s</div>
                 :
                 filterShippedOrders.map((order, index) => (
-                    <div key={`key-${index}`} className="order">
-                        <div className="d-flex align-item-center justify-content-between">
-                            <div className="orderNo">Order #{order.salesOrderNumber}</div>
-                            <div className="amount">{(order.details.total / 100)} USD</div>
-                        </div>
-                        <div className="d-flex align-item-center justify-content-between date-status-container">
-                            <div className="date">Placed on {formatDate(order.details.dateOrdered)}</div>
-                            <div className="status">{order.status}</div>
-                        </div>
-                        {order.details.items.map((item, index) => (
-                            <div key={`item-${index}`} className="d-flex align-items-center item">
-                                <img src={ProductPlaceholder} alt="" />
-                                <div className="item-info">
-                                    <p className="product-name">
-                                        {item.productName}
-                                    </p>
-                                    {/* <p className="variant-text">
-                                        Brand: Welchol
-                                    </p> */}
-                                    <p>Quantity: {item.quantity}</p>
-                                </div>
-                                <div className="item-info-end">
-                                    {order.details.status === "Pending" ?
-                                        <p className="text-center">{order.details.status}</p>
-                                        :
-                                        <>
-                                            <p>{order.details.status}</p>
-                                            <p>{formatDate(order.details.dateOrdered)} - {formatDate(order.details.deliveredOn)}</p>
-                                        </>
-                                    }
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    renderOrder(order, index)
                 ))
             )
         }

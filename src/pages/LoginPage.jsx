@@ -160,7 +160,7 @@ export const LoginContainer = () => {
                                                                 />
                                                             </div>
                                                             <p className={"text-center error " + (auth.forgotPasswordData?.message ? "alert-danger" : "")}>
-                                                                {auth.forgotPasswordData}
+                                                                {auth.forgotPasswordData == 'Passwords do not match' ? auth.forgotPasswordData : auth.forgotPasswordData?.message}
                                                             </p>
                                                             <div className="emailSubmitWrapper">
                                                                 <button className="continueButton" disabled={continueButton} onClick={submit}>Continue</button>

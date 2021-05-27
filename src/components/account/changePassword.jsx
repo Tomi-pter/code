@@ -59,10 +59,12 @@ export const Changepassword = () => {
     }
 
     useEffect(() => {
-        if (account?.changePassword && account?.changePassword?.success) {
+        if (account?.changePassword?.success) {
             setEmaillPass(true);
             setShowModal(false);
-        } 
+        } else {
+            setEmaillPass(false);
+        }
         
         if (account?.errorOldPass) {
             setEmaillPass(false);

@@ -26,7 +26,7 @@ export const ItemList = ({ cart, page }) => {
         if (!selectedItem || item.productId !== selectedItem.productId) {
             setSelectedItem(item);
         }
-        value < 1 ? handleDelete(item) :  setQuantity(value)
+        value < 1 ? handleDelete(item) : setQuantity(value)
     }
 
     const handleUpdate = () => {
@@ -44,20 +44,20 @@ export const ItemList = ({ cart, page }) => {
         dispatch(removeCart(user?.username, parseInt(item.productId)));
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setIsLoading(false);
         setSelectedItem(null);
         setQuantity(1);
-    },[cart]);
+    }, [cart]);
 
     return (
         <div>
             { (!cart.cartData || cart.cartData?.length <= 0) &&
-                <div className="d-flex align-items-center justify-content-center cart-empty">Your Cart is Empty</div> 
+                <div className="d-flex align-items-center justify-content-center cart-empty">Your Cart is Empty</div>
             }
             {
                 cart.cartData?.map(cartItem => (
-                    <div key={`key`+ cartItem.productId} className="product d-flex align-items-start">
+                    <div key={`key` + cartItem.productId} className="product d-flex align-items-start">
                         {isLoading && selectedItem === cartItem &&
                             <div className="loader-container">
                                 <div className="spinner-border text-light" role="status">
@@ -66,13 +66,13 @@ export const ItemList = ({ cart, page }) => {
                             </div>
                         }
                         <div className="img-container">
-                                <img className="product-image" src={cartItem.imageUrl  ? cartItem.imageUrl : NoImage} alt="" />
+                            <img className="product-image" src={cartItem.imageUrl ? cartItem.imageUrl : NoImage} alt="" />
                         </div>
                         <div className="info-container">
                             {
-                                page === 'cart' && 
+                                page === 'cart' &&
                                 <div className="d-flex justify-content-end action-container">
-                                    <a className="delete-btn" href="#!" onClick={()=>handleDelete(cartItem)}>
+                                    <a className="delete-btn" href="#!" onClick={() => handleDelete(cartItem)}>
                                         <img src={require("../../assets/img/delete_icon.svg")} alt="" />
                                     </a>
                                 </div>
@@ -85,23 +85,28 @@ export const ItemList = ({ cart, page }) => {
                                     Brand: Welchol
                                 </p>
                                 <p className="availability">
-                                Ships in 2-3 business days
+                                    {cartItem.qtyOnHand > 0 ? (
+                                        ''
+                                    ) : (
+                                        "Ships in 2 - 3 business days"
+                                    ) }
+
                                 </p>
                                 <p className="price">
                                     {cartItem.price}
                                 </p>
                                 {
-                                    page === 'cart' ? 
-                                    <div className="d-flex align-items-center qty-action-container">
-                                        <div className="d-flex align-items-center qty-container">
-                                            <button className="minus-btn" onClick={()=>handleQtyUpdate(cartItem, 'minus')}>-</button>
-                                            <input type="number" value={selectedItem?.productId === cartItem.productId ? quantity : cartItem.quantity} onChange={(e)=>handleQtyInput(e, cartItem)} />
-                                            <button className="plus-btn" onClick={()=>handleQtyUpdate(cartItem, 'add')}>+</button>
+                                    page === 'cart' ?
+                                        <div className="d-flex align-items-center qty-action-container">
+                                            <div className="d-flex align-items-center qty-container">
+                                                <button className="minus-btn" onClick={() => handleQtyUpdate(cartItem, 'minus')}>-</button>
+                                                <input type="number" value={selectedItem?.productId === cartItem.productId ? quantity : cartItem.quantity} onChange={(e) => handleQtyInput(e, cartItem)} />
+                                                <button className="plus-btn" onClick={() => handleQtyUpdate(cartItem, 'add')}>+</button>
+                                            </div>
+                                            {selectedItem?.productId === cartItem.productId && !isLoading && <button className="update-btn" onClick={handleUpdate}>Update</button>}
                                         </div>
-                                        {selectedItem?.productId === cartItem.productId && !isLoading && <button className="update-btn" onClick={handleUpdate}>Update</button>}
-                                    </div>
-                                    :
-                                    <p className="quantity">x{cartItem.quantity}</p>
+                                        :
+                                        <p className="quantity">x{cartItem.quantity}</p>
                                 }
                             </div>
                         </div>

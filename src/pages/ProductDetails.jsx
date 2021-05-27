@@ -29,6 +29,7 @@ export default props => {
                 productId: parseInt(product.id),
                 productName: product.name,
                 price: parseFloat(product.purchasePrice),
+                imageUrl: product.url, 
                 quantity
             }
         }

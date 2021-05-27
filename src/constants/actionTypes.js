@@ -33,6 +33,9 @@ export const ERRORAVATAR = 'ERRORAVATAR';
 // Products
 export const GETPRODUCTS = 'GETPRODUCTS';
 
+//Search
+export const GETSEARCH = 'GETSEARCH';
+
 // Cart
 export const UPDATECART = 'UPDATECART';
 export const CHECKOUTCART = 'CHECKOUTCART';

@@ -38,6 +38,8 @@ export const makeDefaultAddress = (username, id) => API.put(`/user/${username}/a
 export const getProducts = (name, category, sortBy, sortOrder, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (sortBy ? `&sortBy=${sortBy}&order=${sortOrder}` : '') + (page ? `&page=${page}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);
 
+export const getSearch = (name) => API.get("/products?" + (name ? `name=${name}` : ''));
+
 export const getCart = (username) => API.get(`/cart/${username}`);
 export const addCart = (username, product) => API.post(`/cart/${username}/add`, product);
 export const updateCart = (username, product) => API.put(`/cart/${username}/update`, product);

@@ -15,27 +15,72 @@ import { getCart } from '../../actions/cart';
 
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import { getAvatar } from '../../actions/account';
+import { getSearch } from '../../actions/products';
 
 export const HeaderNav = () => {
     const [user, setUser] = useState({});
     const cart = useSelector((state) => state.cart);
+    const search = useSelector((state) => state.search);
     const avatar = useSelector((state) => state.account.avatarData);
     const [formData, setFormData] = useState({});
-    const [searchActive, setSearchActive] = useState(false);
+    const [searchResults, setsearchResults] = useState([]);
+    const [searchActive, setSearchActive] = useState();
     const searchInput = useRef(null);
     const itemCount = cart.cartData?.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
     const location = useLocation();
     const dispatch = useDispatch();
 
+    const searchRedirect = (id) => {
+        window.location.href = '/product/' + id;
+    };
+
+    const handleBlur = (e) => {
+        setTimeout(() => {
+            var element = document.getElementById("resultBox");
+            element.classList.remove('d-block');
+            element.classList.add('d-none');
+        }, 100);
+
+    };
     const resetInputField = () => {
         searchInput.current.value = "";
+        setTimeout(() => {
+            var element = document.getElementById("resultBoxMobile");
+            element.classList.remove('d-block');
+            element.classList.add('d-none');
+        }, 100);
     };
+
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
         window.location.href = '/search?name=' + formData.name;
-    }
+    };
 
-    const handleChange = (e) => setFormData({ [e.target.name]: e.target.value });
+    const handleChange = (e) => {
+        var element = document.getElementById("resultBox");
+        element.classList.add('d-block');
+        element.classList.remove('d-none');
+      
+        setFormData({ [e.target.name]: e.target.value })
+        if (e.target.value) {
+            dispatch(getSearch(e.target.value));
+        }
+    };
+
+    
+    const handleChangeMobile = (e) => {
+        var element = document.getElementById("resultBoxMobile");
+        element.classList.add('d-block');
+        element.classList.remove('d-none');
+        setFormData({ [e.target.name]: e.target.value })
+        if (e.target.value) {
+            dispatch(getSearch(e.target.value));
+        }
+    };
+
+
 
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('profile'));
@@ -50,10 +95,14 @@ export const HeaderNav = () => {
         dispatch(getAvatar(localUser?.username));
     }, [location]);
 
+    useEffect(() => {
+        setsearchResults(search);
+    }, [search])
+
     const sendWPData = () => {
         const cartIFrame = document.getElementById('hidden-iframe');
         const avatarData = avatar !== "" && !Array.isArray(avatar) ? avatar : 'https://premierpharma.wpengine.com/wp-content/uploads/2021/05/placeholder-dp.svg';
-        const sendData = {...user, avatarData, cartCount: itemCount};
+        const sendData = { ...user, avatarData, cartCount: itemCount };
         cartIFrame.contentWindow.postMessage(sendData, 'https://premierpharma.wpengine.com');
     }
 
@@ -80,8 +129,17 @@ export const HeaderNav = () => {
                     <a className="desktop-link" href="https://premierpharma.wpengine.com/contact-us/">Contact Us</a>
                     <div className="search-container">
                         <form onSubmit={handleSubmit}>
-                            <input name="name" value={formData.name || ""} placeholder="Search Medicine..." onChange={handleChange} />
+                            <input name="name" value={formData.name || ""} placeholder="Search Medicine..." onChange={handleChange} autoComplete="off" onBlur={handleBlur} />
                         </form>
+                        <ul id="resultBox" className={'results ' + (formData.name ? 'd-block' : 'd-none')}>
+                            {formData.name ? search.products?.map(searchResult => (
+
+                                <li key={searchResult.id}>
+                                    <p onClick={() => { searchRedirect(searchResult.id) }}>{searchResult.name}
+                                    </p>
+                                </li>
+                            )) : ''}
+                        </ul>
                     </div>
 
                     {user ?
@@ -136,16 +194,26 @@ export const HeaderNav = () => {
                     </div>
                 </div>
                 {searchActive ? (
-                    <div className="w-100 align-items-center text-center mobile-search ">
-                        <form onSubmit={handleSubmit} className="position-relative">
+                    <div className="w-100 align-items-center text-center mobile-search position-relative">
+                        <form onSubmit={handleSubmit}>
                             <img src={SearchClear} className="clear-search" onClick={resetInputField} />
                             <input
                                 name="name"
                                 value={formData.name || ""}
                                 placeholder="Search Medicine..."
                                 ref={searchInput}
-                                onChange={handleChange} />
+                                autoComplete="off"
+                                onChange={handleChangeMobile} />
                         </form>
+                        <ul id="resultBoxMobile" className={'results ' + (formData.name ? 'd-block' : 'd-none')}>
+                                {formData.name ? search.products?.map(searchResult => (
+
+                                    <li key={searchResult.id}>
+                                        <p onClick={() => { searchRedirect(searchResult.id) }}>{searchResult.name}
+                                        </p>
+                                    </li>
+                                )) : ''}
+                            </ul>
                     </div>
                 ) : (
                     ''

@@ -88,6 +88,17 @@ export const changePassword = (username, formData) => async (dispatch) => {
   }
 };
 
+export const logOutResetPassword = (username, router) => async (dispatch) => {
+  try {
+    const { data } = await api.logOut(username);
+
+    router.push('/login');
+    
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // Addresses
 
 export const getAllAddresses = (username) => async (dispatch) => {

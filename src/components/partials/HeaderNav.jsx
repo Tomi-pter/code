@@ -51,7 +51,6 @@ export const HeaderNav = () => {
         }, 100);
     };
 
-console.log(searchActive);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -148,7 +147,7 @@ console.log(searchActive);
                                 <img src={Cart} alt="" width="27.5" height="27.5" />
                                 <div className="count">{itemCount}</div>
                             </Link>
-                            <div className="mobile-search-div test"> 
+                            <div className="mobile-search-div"> 
                                 {searchActive ?
                                     <img src={mobileSearchClose} onClick={() => setSearchActive(false)} />
                                     :
@@ -169,7 +168,7 @@ console.log(searchActive);
                         </>
                         :
                         <>
-                            <div className="mobile-search-div test"> 
+                            <div className="mobile-search-div"> 
                                 {searchActive ?
                                     <img src={mobileSearchClose} onClick={() => setSearchActive(false)} />
                                     :

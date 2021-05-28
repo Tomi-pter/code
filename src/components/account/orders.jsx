@@ -85,7 +85,7 @@ export const OrdersHistory = ({ account }) => {
     
     useEffect(()=>{
         if( account?.accountOrders) {
-            const sorted = account?.accountOrders?.sort((a,b) => (a.details.dateOrdered < b.details.dateOrdered) ? 1 : ((b.details.dateOrdered < a.details.dateOrdered) ? -1 : 0));
+            const sorted = account?.accountOrders?.sort((a,b) => (a.salesOrderNumber < b.salesOrderNumber) ? 1 : ((b.salesOrderNumber < a.salesOrderNumber) ? -1 : 0));
             setOrders(sorted);
         }
     },[account]);

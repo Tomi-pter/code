@@ -85,10 +85,10 @@ export const ItemList = ({ cart, page }) => {
                                     Brand: Welchol
                                 </p>
                                 <p className="availability">
-                                    {cartItem.qtyOnHand > 0 ? (
+                                    {cartItem.qtyOnHand !== "" ? (
                                         ''
                                     ) : (
-                                        "Ships in 2 - 3 business days"
+                                        "Ships in 2 - 5 business days"
                                     ) }
 
                                 </p>

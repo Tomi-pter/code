@@ -64,6 +64,14 @@ export default props => {
                                 <div className="d-block d-lg-none">
                                    
                                     <h3 className="name">{product?.name}</h3>
+                                    <p className="availability">
+                                        {product?.qtyOnHand !== "" ? (
+                                            ''
+                                        ) : (
+                                            "Ships in 2 - 5 business days"
+                                        ) }
+
+                                    </p>
                                     <h2 className="price">${product?.purchasePrice}</h2>
                                 </div>
                                 
@@ -85,7 +93,7 @@ export default props => {
                                 <>
                                     <div className="d-flex align-items-center justify-container-center qty-container">
                                         <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
-                                        <span>{quantity}</span>
+                                        <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
                                         <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                                     </div>
                                     <button className="cart-btn">Add to cart</button>
@@ -97,6 +105,14 @@ export default props => {
                             </div>
                             <div className="card d-none d-lg-block">
                                 <h3 className="name">{product?.name || product?.description}</h3>
+                                <p className="availability">
+                                    {product?.qtyOnHand !== "" ? (
+                                        ''
+                                    ) : (
+                                        "Ships in 2 - 5 business days"
+                                    ) }
+
+                                </p>
                                 { user ? 
                                     <>
                                         <div className="d-flex align-items-center justify-container-center">

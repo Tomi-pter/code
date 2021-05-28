@@ -52,6 +52,11 @@
             @content;
         }
     }
+    @else if $deviceType==xs-mobile {
+        @media screen and (max-width: 991px) {
+            @content;
+        }
+    }
     @else if $deviceType==mobile {
         @media screen and (max-width: 767px) {
             @content;

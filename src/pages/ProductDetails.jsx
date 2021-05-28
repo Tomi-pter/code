@@ -78,18 +78,23 @@ export default props => {
                                     <li>Size:  {product.customFields[13].value ? product.customFields[13].value : 'N/A'}</li>
                                     <li>Strength: {product.customFields[14].value ? product.customFields[14].value : 'N/A' }</li>
                                 </ul>
-                                
+                              
                                 <div className="d-block d-lg-none">
+                                { user ? 
+                                <>
                                     <div className="d-flex align-items-center justify-container-center qty-container">
                                         <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
                                         <span>{quantity}</span>
                                         <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                                     </div>
                                     <button className="cart-btn">Add to cart</button>
+                               
+                                </> :
+                                  <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
+                                }
                                 </div>
-                                
                             </div>
-                            <div className="card">
+                            <div className="card d-none d-lg-block">
                                 <h3 className="name">{product?.name || product?.description}</h3>
                                 { user ? 
                                     <>

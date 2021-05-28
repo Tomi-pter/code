@@ -148,7 +148,7 @@ console.log(searchActive);
                                 <img src={Cart} alt="" width="27.5" height="27.5" />
                                 <div className="count">{itemCount}</div>
                             </Link>
-                            <div className="mobile-search-div">
+                            <div className="mobile-search-div test">
                                 {searchActive ?
                                     <img src={mobileSearchClose} onClick={() => setSearchActive(false)} />
                                     :

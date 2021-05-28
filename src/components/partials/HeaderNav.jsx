@@ -51,6 +51,7 @@ export const HeaderNav = () => {
         }, 100);
     };
 
+console.log(searchActive);
 
     const handleSubmit = (e) => {
         e.preventDefault()

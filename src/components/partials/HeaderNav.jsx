@@ -52,7 +52,6 @@ export const HeaderNav = () => {
     };
 
 
-
     const handleSubmit = (e) => {
         e.preventDefault()
         window.location.href = '/search?name=' + formData.name;

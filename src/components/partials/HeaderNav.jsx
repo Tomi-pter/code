@@ -148,7 +148,7 @@ console.log(searchActive);
                                 <img src={Cart} alt="" width="27.5" height="27.5" />
                                 <div className="count">{itemCount}</div>
                             </Link>
-                            <div className="mobile-search-div test1"> 
+                            <div className="mobile-search-div test"> 
                                 {searchActive ?
                                     <img src={mobileSearchClose} onClick={() => setSearchActive(false)} />
                                     :
@@ -169,8 +169,12 @@ console.log(searchActive);
                         </>
                         :
                         <>
-                            <div className="mobile-search-div">
-                                <img src={mobileSearch} />
+                            <div className="mobile-search-div test"> 
+                                {searchActive ?
+                                    <img src={mobileSearchClose} onClick={() => setSearchActive(false)} />
+                                    :
+                                    <img src={mobileSearch} onClick={() => setSearchActive(true)} />
+                                }
                             </div>
                             <Link to="/login" className="login-btn">
                                 Login

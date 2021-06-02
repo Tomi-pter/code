@@ -19,7 +19,7 @@ const Address = ({ setForm, formData, navigation }) => {
   const validation = useCallback(() => {
     const checkState = state === "" && states.length > 0 ? false : true;
     address && city && postalCode && country && checkState ? setDisabled(false) : setDisabled(true);
-  }, [address, city, postalCode, country, states])
+  }, [address, city, postalCode, country, state, states])
 
   useEffect(() => {
     validation();

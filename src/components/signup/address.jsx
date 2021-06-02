@@ -17,8 +17,9 @@ const Address = ({ setForm, formData, navigation }) => {
   const dispatch = useDispatch();
 
   const validation = useCallback(() => {
-    address && city && postalCode && country ? setDisabled(false) : setDisabled(true);
-  }, [address, city, postalCode, country])
+    const checkState = state === "" && states.length > 0 ? false : true;
+    address && city && postalCode && country && checkState ? setDisabled(false) : setDisabled(true);
+  }, [address, city, postalCode, country, states])
 
   useEffect(() => {
     validation();
@@ -46,7 +47,16 @@ const Address = ({ setForm, formData, navigation }) => {
 
   useEffect(() => {
     const selectedCountry = countries.filter(e => e.name === country);
-    if (country !== "" && selectedCountry) dispatch(getStates(selectedCountry[0]?.id));
+    if (country !== "" && selectedCountry) {
+      const countryCode = selectedCountry[0]?.abbreviation;
+      setForm({
+        target: {
+          name: 'countryCode',
+          value: countryCode
+        }
+      })
+      dispatch(getStates(selectedCountry[0]?.id));
+    }
   }, [country])
 
   return (

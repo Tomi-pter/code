@@ -22,7 +22,8 @@ const defaultData = {
     city: "",
     state: "",
     postalCode: "",
-    country: ""
+    country: "",
+    countryCode: ""
 };
 
 export const Addresses = ({ account }) => {
@@ -129,7 +130,11 @@ export const Addresses = ({ account }) => {
 
     useEffect(() => {
         const selectedCountry = countries.filter(e => e.name === formData.country);
-        if (formData.country !== "" && selectedCountry) dispatch(getStates(selectedCountry[0]?.id));
+        if (formData.country !== "" && selectedCountry) {
+            const countryCode = selectedCountry[0]?.abbreviation;
+            setFormData({ ...formData, countryCode });
+            dispatch(getStates(selectedCountry[0]?.id))
+        };
     }, [formData.country])
 
     useEffect(() => {

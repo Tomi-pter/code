@@ -19,7 +19,8 @@ const initialFormData = {
     city: "",
     state: "",
     postalCode: "",
-    country: ""
+    country: "",
+    countryCode: ""
 };
 
 export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selectedBilling, setSelectedBilling}) => {
@@ -150,7 +151,11 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
 
     useEffect(() => {
         const selectedCountry = countries.filter(e => e.name === formData.country);
-        if (formData.country !== "" && selectedCountry) dispatch(getStates(selectedCountry[0]?.id));
+        if (formData.country !== "" && selectedCountry) {
+            const countryCode = selectedCountry[0]?.abbreviation;
+            setFormData({ ...formData, countryCode });
+            dispatch(getStates(selectedCountry[0]?.id))
+        };
     }, [formData.country])
 
     const validation = useCallback(() => {

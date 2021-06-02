@@ -27,6 +27,7 @@ const defaultData = {
   state: "",
   postalCode: "",
   country: "",
+  countryCode: "",
   code: ""
 };
 

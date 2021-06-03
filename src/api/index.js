@@ -46,9 +46,9 @@ export const updateCart = (username, product) => API.put(`/cart/${username}/upda
 export const removeCart = (username, productId) => API.post(`/cart/${username}/remove`, { productId });
 export const discount = (discountCode) => API.get(`/coupons?code=${discountCode}`);
 
-export const getCards = (username) => API.get(`/cards/${username}`);
-export const addCard = (username, paymentMethod) => API.post(`/cards/${username}/add-payment-method`, paymentMethod);
-export const removeCard = (username, paymentMethod) => API.post(`/cards/${username}/remove-payment-method`, paymentMethod);
+export const getCards = (username) => API.get(`/square/customers/${username}`);
+export const addCard = (username, formData) => API.post(`/${username}/cards`, formData);
+export const removeCard = (username, id) => API.delete(`/${username}/cards/${id}`);
 
 export const getDefaultCard = (username) => API.get(`/customer/${username}`);
 export const setDefaultCard = (username, body) => API.put(`/cards/${username}/default-payment-method`, body);

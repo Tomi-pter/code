@@ -41,7 +41,7 @@ export const UPDATECART = 'UPDATECART';
 export const CHECKOUTCART = 'CHECKOUTCART';
 export const SETDISCOUNT = 'SETDISCOUNT';
 
-export const UPDATECARDS = 'UPDATECARDS';
+export const GETCARDS = 'GETCARDS';
 export const ADDCARD = 'ADDCARD';
 export const ERRORCARD = 'ERRORCARD';
 export const DEFAULTCARD = 'DEFAULTCARD';

@@ -1,12 +1,12 @@
-import { UPDATECARDS, ADDCARD, ERRORCARD, DEFAULTCARD, REMOVECARD } from '../constants/actionTypes';
+import { GETCARDS, ADDCARD, ERRORCARD, DEFAULTCARD, REMOVECARD } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
 export const getCards = (username) => async (dispatch) => {
   try {
     const { data } = await api.getCards(username);
-    
-    dispatch({ type: UPDATECARDS, payload: data });
+    const cards = data.cards ? data.cards : []; 
+    dispatch({ type: GETCARDS, payload: cards });
 
   } catch (error) {
     console.log(error.message);
@@ -38,10 +38,9 @@ export const setDefaultCard = (username, id) => async (dispatch) => {
   }
 };
 
-export const addCard = (username, paymentMethod) => async (dispatch) => {
+export const addCard = (username, formData) => async (dispatch) => {
     try {
-        
-      const { data } = await api.addCard(username, paymentMethod);
+      const { data } = await api.addCard(username, formData);
 
       dispatch({ type: ADDCARD, payload: data });
     } catch (error) {
@@ -53,10 +52,11 @@ export const addCard = (username, paymentMethod) => async (dispatch) => {
     }
 };
 
-export const removeCard = (username, paymentMethod) => async (dispatch) => {
+export const removeCard = (username, id) => async (dispatch) => {
   try {
-    const { data } = await api.removeCard(username, paymentMethod);
-    dispatch({ type: REMOVECARD, payload: data });
+    const { data } = await api.removeCard(username, id);
+
+    dispatch({ type: REMOVECARD, payload: id });
   } catch (error) {
     const data = error.response.data;
     dispatch({ type: ERRORCARD, payload: data });

@@ -49,10 +49,9 @@ export const removeCart = (username, productId) => async (dispatch) => {
     }
 };
 
-export const discount = (discountCode) => async (dispatch) => {
+export const discount = (couponId) => async (dispatch) => {
   try {
-    const { data } = await api.discount(discountCode);
-
+    const { data } = await api.discount(couponId);
     dispatch({ type: SETDISCOUNT, payload: data });
     
   } catch (error) {

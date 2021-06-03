@@ -7,7 +7,19 @@ import { useDispatch } from 'react-redux';
 
 import { getCards, addCard, getDefaultCard, setDefaultCard, removeCard } from '../../actions/cards';
 
-const initialState = { cardNumber: "", cardholderName: "", cvc: "", expiry: "" };
+// import 'react-square-payment-form/lib/default.css'
+
+import {
+  SquarePaymentForm,
+  CreditCardNumberInput,
+  CreditCardExpirationDateInput,
+  CreditCardPostalCodeInput,
+  CreditCardCVVInput,
+  CreditCardSubmitButton
+} from 'react-square-payment-form'
+
+// const initialState = { cardNumber: "", cardholderName: "", cvc: "", expiry: "" };
+const initialState = { cardNonce: "", cardholderName: "" };
 
 export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     const [formData, setFormData] = useState(initialState);
@@ -18,7 +30,25 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     const [selectedDeleteCard, setSelectedDeleteCard] = useState('');
     const [isDefaultLoading, setIsDefaultLoading] = useState(false);
     const [isDeleteLoading, setIsDeleteLoading] = useState(false);
+    const [cardholderName, setCardholderName] = useState('');
     const dispatch = useDispatch();
+
+    const [errorMessages, setErrorMEssage] = useState([]);
+
+    const cardNonceResponseReceived = (errors, nonce, cardData, buyerVerificationToken) => {
+        if (errors) {
+            console.log(errors);
+            setErrorMEssage(errors);
+            return
+        }
+
+        setErrorMEssage([]);
+        // console.log("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
+        setIsLoading(true);
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(addCard(user?.username, {...formData, cardNonce: nonce }));
+        // console.log("nonce created: " + nonce + 'cardholder' + cardholderName);
+    }
 
     const setCard = (cardType) => {
         switch (cardType) {
@@ -64,13 +94,11 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
         setSelectedDeleteCard(id);
         setIsDeleteLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(removeCard(user?.username, {
-            "paymentMethodId": id
-        }));
+        dispatch(removeCard(user?.username, id));
     };
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
+    
     const handleExpireDateChange = (e) => {
         const value = e.target.value.split("/");
         if (value[1]) {
@@ -81,12 +109,12 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     };
 
     useEffect(() => {
-        const defaultCard = cards?.customerData?.invoice_settings.default_payment_method;
-        if (defaultCard) {
-            setSelectedCard(cards?.customerData?.invoice_settings.default_payment_method);
-        } else {
-            if (cards?.cardsData?.length > 0) setSelectedCard(cards?.cardsData[0].id);
-        };
+        // const defaultCard = cards?.customerData?.invoice_settings?.default_payment_method;
+        // if (defaultCard) {
+        //     setSelectedCard(cards?.customerData?.invoice_settings?.default_payment_method);
+        // } else {
+        if (cards?.cardsData?.length > 0) setSelectedCard(cards?.cardsData[0].id);
+        // };
         setIsLoading(false);
         setIsDeleteLoading(false);
         if (!cards.cardError) {
@@ -99,7 +127,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getCards(user?.username));
-        dispatch(getDefaultCard(user?.username));
+        // dispatch(getDefaultCard(user?.username));
     }, [dispatch]);
 
     return (
@@ -114,7 +142,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                 onClick={() => setSelectedCard(card.id)}
                             >
                                 <div className="d-flex card-info">
-                                    <PaymentInputsContainer>
+                                    {/* <PaymentInputsContainer>
                                         {({ getCardNumberProps, getCardImageProps }) => (
                                             <div className="d-flex">
                                                 <svg {...getCardImageProps({ images })} />
@@ -125,7 +153,8 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                 </div>
                                             </div>
                                         )}
-                                    </PaymentInputsContainer>
+                                    </PaymentInputsContainer> */}
+                                    <span className="card-number">*****************{card.last4}</span>
                                 </div>
                                 <div className="img-container">
                                     {selectedCard === card.id && <img src={require("../../assets/icon/card-active.svg")} alt="" />}
@@ -141,14 +170,14 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                 <div className="card-table">
                     <h2 className="sub-title">Payment Options</h2>
                     <h3 className="credit-title">Credit/Debit Card</h3>
-                    <div className="d-none d-lg-block">
+                    <div className="">
                         <table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col">Card Number</th>
-                                    <th scope="col">Expiry Date</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th scope="col" colSpan="2">Expiry Date</th>
+                                    {/* <th></th> */}
+                                    {/* <th></th> */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -156,7 +185,8 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                     cards.cardsData?.map((card, index) => (
                                         <tr key={`key-${index}`} >
                                             <td>
-                                                <PaymentInputsContainer>
+                                                <span className="card-number">*****************{card.last4}</span>
+                                                {/* <PaymentInputsContainer>
                                                     {({ getCardNumberProps, getCardImageProps, getExpiryDateProps }) => (
                                                         <div className="d-flex align-items-center">
                                                             <div className="mr-2">
@@ -168,14 +198,14 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                             </div>
                                                         </div>
                                                     )}
-                                                </PaymentInputsContainer>
+                                                </PaymentInputsContainer> */}
                                             </td>
                                             <td>
                                                 <div>
-                                                    {card.card.exp_month}/{card.card.exp_year}
+                                                    {card.expMonth}/{card.expYear}
                                                 </div>
                                             </td>
-                                            <td>
+                                            {/* <td>
                                                 {
                                                     cards?.customerData?.invoice_settings.default_payment_method === card.id ?
                                                         <span className="default">Default</span>
@@ -192,7 +222,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                             }
                                                         </button>
                                                 }
-                                            </td>
+                                            </td> */}
                                             <td>
                                                 {isDeleteLoading && selectedDeleteCard === card.id ?
                                                     <div className="spinner-border text-danger delete-spinner" role="status">
@@ -210,46 +240,6 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                             </tbody>
                         </table>
                     </div>
-                    <div className="card-list d-block d-lg-none">
-                        {
-                            cards.cardsData?.map((card, index) => (
-                                <div
-                                    key={`key-list-${index}`}
-                                    className={"d-flex flex-row align-items-center justify-content-between card " + (selectedCard === card.id ? "active" : "")}
-                                    onClick={() => setSelectedCard(card.id)}
-                                >
-
-                                    <div className="d-flex card-info">
-                                        <PaymentInputsContainer>
-                                            {({ getCardNumberProps, getCardImageProps }) => (
-                                                <div className="d-flex">
-                                                    <svg {...getCardImageProps({ images })} />
-                                                    <div>
-                                                        <p className="name">{card.billing_details.name}</p>
-                                                        <input {...getCardNumberProps()} value={`${setCard(card.card.brand)}`} id={`card-list-${index}`} readOnly />
-                                                        <span className="card-number">*****************{card.card.last4}</span>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </PaymentInputsContainer>
-                                    </div>
-                                    <div className="img-container">
-                                        {selectedCard === card.id && <img src={require("../../assets/icon/card-active.svg")} alt="" />}
-                                    </div>
-                                    {isDeleteLoading && selectedDeleteCard === card.id ?
-                                        <div className="spinner-border text-danger delete-spinner" role="status">
-                                            <span className="sr-only">Loading...</span>
-                                        </div>
-                                        :
-                                        <a className="delete-wrapper" onClick={() => removeCreditCard(card.id)}>
-                                            <img className="delete-icon" src={DeleteIcon} alt="" />
-                                        </a>
-                                    }
-                                </div>
-                            ))
-                        }
-
-                    </div>
                     <div className="w-100 d-flex align-items-center justify-content-end">
                         <button className="addCardButton" data-toggle="modal" data-target="#addCardModal" onClick={() => handleAddCard()}>+ Add New Card</button>
                     </div>
@@ -261,53 +251,68 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                         <div className="modal-body">
                             <h2 className="sub-title">Add New Card</h2>
                             <div className="card">
-                                <PaymentInputsContainer>
-                                    {({ meta, getCardNumberProps, getCardImageProps, getExpiryDateProps, getCVCProps }) => (
-                                        <div >
-                                            {/* <svg {...getCardImageProps({ images })} /> */}
-                                            <div className="form-container">
-                                                <div className="row inputs-container">
-                                                    <div className="col-12 form-group">
-                                                        <label htmlFor="cardHolderName">Cardholder Name</label>
-                                                        <input type="text" className="form-control" id="cardHolderName" value={formData.cardholderName} name="cardholderName" onChange={handleChange} placeholder="Name" />
-                                                    </div>
-                                                </div>
-                                                <div className="row">
-                                                    <div className="col form-group">
-                                                        <label htmlFor="cardNumber">Card Number</label>
-                                                        <input className="col-12" className="form-control" id="cardNumber" {...getCardNumberProps({ onChange: handleChange })} value={formData.cardNumber} autoFocus />
-                                                    </div>
-                                                    <div className="col-md-auto form-group">
-                                                        <label htmlFor="expiry">Valid Thru</label>
-                                                        <input className="col-12" className="form-control" id="expiry" {...getExpiryDateProps({ onChange: handleExpireDateChange })} value={formData.expiry} />
-                                                    </div>
-                                                    <div className="col col-lg-2 form-group">
-                                                        <label htmlFor="cvv">CVV</label>
-                                                        <input className="col-12" className="form-control" {...getCVCProps({ onChange: handleChange })} value={formData.cvc} />
-                                                    </div>
-                                                </div>
-                                                {meta.isTouched && meta.error && <span className="error">{meta.error}</span>}
-                                            </div>
-                                            <p className="add-error">{cards.cardError && stateAddCard ? cards.cardError : ''}</p>
-                                            <div className="button-wrapper d-flex align-items-center justify-content-end">
-                                                <button className="cancelCardButton close" id="modalClose" data-dismiss="modal" aria-label="Close">
-                                                    Cancel
-                                                </button>
-                                                <button className={"addCardButton " + (isLoading ? "loading" : "")} disabled={(!meta.isTouched || meta.isTouched) && !meta.error && formData.cardholderName !== "" && !isLoading ? false : true} onClick={handleSubmit}>
-                                                    {isLoading ?
-                                                        <div className="spinner-border text-light" role="status">
-                                                            <span className="sr-only">Loading...</span>
-                                                        </div>
-                                                        :
-                                                        <>
-                                                            Add Card
-                                                        </>
-                                                    }
-                                                </button>
-                                            </div>
+                                <SquarePaymentForm 
+                                    sandbox={true}
+                                    applicationId={'sandbox-sq0idb-krQT_NJnn_raAz8vXvvioA'}
+                                    locationId={'LXRGNHX6SSJRT'}
+                                    cardNonceResponseReceived={cardNonceResponseReceived}
+                                    className="w-100"
+                                >
+                                    <fieldset className="sq-fieldset">
+                                        <div>
+                                            <p>Cardholder Name</p>
+                                            <input type="text" placeholder="Name" name="cardholderName" onChange={handleChange} />
                                         </div>
-                                    )}
-                                </PaymentInputsContainer>
+                                        <CreditCardNumberInput />
+                                        <div className="sq-form-third">
+                                            <CreditCardExpirationDateInput />
+                                        </div>
+
+                                        <div className="sq-form-third">
+                                            <CreditCardPostalCodeInput />
+                                        </div>
+
+                                        <div className="sq-form-third">
+                                            <CreditCardCVVInput />
+                                        </div>
+                                    </fieldset>
+
+                                    {/* <CreditCardSubmitButton>
+                                        Add Card
+                                    </CreditCardSubmitButton> */}
+                                    <ul className="sq-error-message">
+                                        {errorMessages.map((errorMessage, index) =>
+                                            <li key={`sq-error-${index}`}>{errorMessage.message}</li>
+                                        )}
+                                    </ul>
+                                    <div className="button-wrapper d-flex align-items-center justify-content-end">
+                                        <button className="cancelCardButton close" id="modalClose" data-dismiss="modal" aria-label="Close">
+                                            Cancel
+                                        </button>
+                                        <CreditCardSubmitButton>
+                                            {isLoading ?
+                                                <div className="spinner-border text-light" role="status">
+                                                    <span className="sr-only">Loading...</span>
+                                                </div>
+                                                :
+                                                <>
+                                                    Add Card
+                                                </>
+                                            }
+                                        </CreditCardSubmitButton>
+                                        {/* <button className={"addCardButton " + (isLoading ? "loading" : "")} disabled={formData.cardholderName !== "" && !isLoading ? false : true} onClick={handleSubmit}>
+                                            {isLoading ?
+                                                <div className="spinner-border text-light" role="status">
+                                                    <span className="sr-only">Loading...</span>
+                                                </div>
+                                                :
+                                                <>
+                                                    Add Card
+                                                </>
+                                            }
+                                        </button> */}
+                                    </div>
+                                </SquarePaymentForm>
                             </div>
                         </div>
                     </div>

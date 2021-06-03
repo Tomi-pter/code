@@ -1,16 +1,16 @@
-import { UPDATECARDS, ADDCARD, REMOVECARD, ERRORCARD, DEFAULTCARD } from '../constants/actionTypes';
+import { GETCARDS, ADDCARD, REMOVECARD, ERRORCARD, DEFAULTCARD } from '../constants/actionTypes';
 
 const cardsReducer = (state = { cardsData: [] }, action) => {
   switch (action.type) {
-    case UPDATECARDS:
+    case GETCARDS:
 
-      return { ...state, cardsData: action.payload.data, cardError: null };
+      return { ...state, cardsData: action.payload, cardError: null };
     case ADDCARD: 
-      state.cardsData.push(action.payload)
+      state.cardsData.push(action.payload.result.card)
 
       return { ...state, cardError: null };
     case REMOVECARD:
-      const newCardsData = state.cardsData.filter((card) => card.id !== action.payload.id)
+      const newCardsData = state.cardsData.filter((card) => card.id !== action.payload)
 
       return { ...state, cardsData: newCardsData, cardError: null };
     case ERRORCARD: 

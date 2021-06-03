@@ -16,7 +16,7 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, cart, page }) 
     const shippingCounter = subTotal >= 150 ? 0 : (150 - subTotal).toFixed(2);
     const totalCalc = cart.cartData?.length > 0 ? parseFloat(subTotal) + parseFloat(shipping) : 0;
     const total = parseFloat(totalCalc).toFixed(2);
-    const discount = cart?.discountDetail?.percent_off / 100; //discount decimal
+    const discount = cart?.discountDetail?.discount_data?.percentage / 100; //discount decimal
     const discountAmount = discount ? (discount * total).toFixed(2) : 0;
     const finalTotal = discount ? (Math.round((total * 100) * (1 - discount)) / 100) : total;
     // const finalTotal = discount ? (Math.round((total * 100) * discount) / 100) : total;

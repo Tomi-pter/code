@@ -18,7 +18,7 @@ export const DiscountForm = ({  discountCode, setDiscountCode, discountAmount })
 
     useEffect(()=>{
         // setDiscountDetail(cart?.discountDetail);  
-        if(cart?.discountDetail?.id) setDiscountCode(cart?.discountDetail?.id);
+        if(cart?.discountDetail?.discount_data?.name) setDiscountCode(cart?.discountDetail?.discount_data?.name);
     },[cart]);
 
     return (
@@ -30,7 +30,7 @@ export const DiscountForm = ({  discountCode, setDiscountCode, discountAmount })
                 <div className="icon-container">
                     {cart?.discountDetail && 
                         <>
-                            { cart?.discountDetail?.valid ? 
+                            { !cart?.discountDetail?.error ? 
                                 <img src={require("../../assets/icon/check-green.svg")} alt="" /> 
                                 :
                                 <img src={require("../../assets/icon/x-red.svg")} alt="" />
@@ -41,7 +41,8 @@ export const DiscountForm = ({  discountCode, setDiscountCode, discountAmount })
             </div>
             {cart?.discountDetail && 
                 <>
-                    { cart?.discountDetail?.valid ? 
+                    { !cart?.discountDetail?.message && !cart?.discountDetail?.error ? 
+                    
                         <>
                             <span className="msg success">Code Accepted!</span>
                             <div className="d-flex align-items-center justify-content-between discount-value">
@@ -50,7 +51,7 @@ export const DiscountForm = ({  discountCode, setDiscountCode, discountAmount })
                             </div>
                         </>
                         :
-                        <span className="msg error">The code entered is invalid</span>
+                        <span className="msg error">{cart?.discountDetail?.message ? cart?.discountDetail?.message : 'The code entered is invalid'}</span>
                     }
                 </>
             }

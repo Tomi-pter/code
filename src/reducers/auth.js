@@ -19,7 +19,7 @@ const authReducer = (state = { authData: null }, action) => {
     case actionType.CONFIRMFORGOTPASSWORD:
       return { ...state, forgotPasswordData: action.data };
     case actionType.GETCOUNTRIES:
-      return { ...state, countriesData: action.data }
+      return { ...state, countriesData: action.data, authData: {...state.authData, message: ''} }
     case actionType.GETSTATES:
       return { ...state, statesData: action.data }
     default:

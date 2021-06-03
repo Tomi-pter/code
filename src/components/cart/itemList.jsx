@@ -81,9 +81,9 @@ export const ItemList = ({ cart, page }) => {
                                 <p className="product-name">
                                     {cartItem.productName}
                                 </p>
-                                <p className="variant">
+                                {/* <p className="variant">
                                     Brand: Welchol
-                                </p>
+                                </p> */}
                                 <p className="availability">
                                     {cartItem.qtyOnHand !== "" ? (
                                         ''
@@ -93,7 +93,7 @@ export const ItemList = ({ cart, page }) => {
 
                                 </p>
                                 <p className="price">
-                                    {cartItem.price}
+                                    ${cartItem.price}
                                 </p>
                                 {
                                     page === 'cart' ?

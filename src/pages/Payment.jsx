@@ -30,7 +30,7 @@ export const PaymentContainer = () => {
         const billingAddress = cart?.checkoutDetail?.selectedBilling;
         const shippingAddress = cart?.checkoutDetail?.selectedShipping;
         const body = {
-            code: cart?.discountDetail?.id,
+            code: cart?.discountDetail?.discount_data?.name,
             // paymentMethodId: selectedCard,
             cardNonce: selectedCard,
             amount,

@@ -44,7 +44,7 @@ export const getCart = (username) => API.get(`/cart/${username}`);
 export const addCart = (username, product) => API.post(`/cart/${username}/add`, product);
 export const updateCart = (username, product) => API.put(`/cart/${username}/update`, product);
 export const removeCart = (username, productId) => API.post(`/cart/${username}/remove`, { productId });
-export const discount = (discountCode) => API.get(`/coupons?code=${discountCode}`);
+export const discount = (discountCode) => API.get(`/coupon?code=${discountCode}`);
 
 export const getCards = (username) => API.get(`/square/customers/${username}`);
 export const addCard = (username, formData) => API.post(`/${username}/cards`, formData);

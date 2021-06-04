@@ -35,9 +35,9 @@ export const PersonalInformationContainer = () => {
     const { id } = useParams();
 
     const handleLogout = () => {
-        var cartIFrame = document.getElementById('hidden-iframe');
-        // localStorage.removeItem('profile');
-        cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
+        // var cartIFrame = document.getElementById('hidden-iframe');
+        // // localStorage.removeItem('profile');
+        // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
         dispatch(logOut(user?.username, history));
     };
     useEffect(() => {

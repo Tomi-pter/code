@@ -153,9 +153,8 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                             <thead>
                                 <tr>
                                     <th scope="col">Card Number</th>
-                                    <th className="d-none d-sm-block" scope="col">Expiry Date</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th scope="col" colSpan="2">Expiry Date</th>
+                                    <th className="d-none d-sm-table-cell" scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -176,16 +175,43 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                         </div>
                                                     )}
                                                 </PaymentInputsContainer>
-                                                <div className="mt-3 d-block d-sm-none">
-                                                    <span>Expire Date: </span>{card.expMonth}/{card.expYear}
-                                                </div>
-                                            </td>
-                                            <td className="d-none d-sm-block">
-                                                <div>
-                                                    {card.expMonth}/{card.expYear}
+                                                <div className="mt-5 d-block d-sm-none">
+                                                    {
+                                                        cards?.defaultCard?.paymentMethodId === card.id ?
+                                                            <span className="default">Default</span>
+                                                            :
+                                                            <button className="default-btn" onClick={() => handleSetDefault(card.id)}>
+                                                                {isDefaultLoading && selectedDefaultCard === card.id ?
+                                                                    <div className="spinner-border text-light" role="status">
+                                                                        <span className="sr-only">Loading...</span>
+                                                                    </div>
+                                                                    :
+                                                                    <>
+                                                                        Make Default
+                                                                    </>
+                                                                }
+                                                            </button>
+                                                    }
                                                 </div>
                                             </td>
                                             <td>
+                                                <div>
+                                                    {card.expMonth}/{card.expYear}
+                                                </div>
+                                                <div className="mt-5 d-block d-sm-none d-flex justify-content-end">
+                                                    { 
+                                                        isDeleteLoading && selectedDeleteCard === card.id ?
+                                                        <div className="spinner-border text-danger delete-spinner" role="status">
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                        :
+                                                        <a className="delete-wrapper" onClick={() => removeCreditCard(card.id)}>
+                                                            <img className="delete-icon" src={DeleteIcon} alt="" />
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td className="d-none d-sm-table-cell">
                                                 {
                                                     cards?.defaultCard?.paymentMethodId === card.id ?
                                                         <span className="default">Default</span>
@@ -203,7 +229,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                         </button>
                                                 }
                                             </td> 
-                                            <td>
+                                            <td className="d-none d-sm-table-cell">
                                                 {isDeleteLoading && selectedDeleteCard === card.id ?
                                                     <div className="spinner-border text-danger delete-spinner" role="status">
                                                         <span className="sr-only">Loading...</span>

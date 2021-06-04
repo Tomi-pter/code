@@ -20,7 +20,7 @@ export const logIn = (formData, router) => async (dispatch) => {
 export const logOut = (username, router) => async (dispatch) => {
   try {
     const { data } = await api.logOut(username);
-
+    
     dispatch({ type: LOGOUT, data });
 
     router.push('/');

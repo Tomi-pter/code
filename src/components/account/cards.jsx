@@ -5,7 +5,7 @@ import DeleteIcon from '../../assets/img/Account/delete-icon.svg';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import { getCards, addCard, removeCard } from '../../actions/cards';
+import { getCards, addCard, removeCard, getDefaultCard, setDefaultCard } from '../../actions/cards';
 
 import {
   SquarePaymentForm,
@@ -24,14 +24,20 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedDeleteCard, setSelectedDeleteCard] = useState('');
     const [isDeleteLoading, setIsDeleteLoading] = useState(false);
+    const [isDefaultLoading, setIsDefaultLoading] = useState(false);
+    const [selectedDefaultCard, setSelectedDefaultCard] = useState('');
     const dispatch = useDispatch();
 
     const [errorMessages, setErrorMEssage] = useState([]);
 
     const cardNonceResponseReceived = (errors, nonce, cardData, buyerVerificationToken) => {
         if (errors) {
-            console.log(errors);
             setErrorMEssage(errors);
+            return
+        }
+
+        if (formData.cardholderName === "") {
+            setErrorMEssage([{message: 'Provide Cardholder name'}]);
             return
         }
 
@@ -73,12 +79,24 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
         dispatch(removeCard(user?.username, id));
     };
 
+    const handleSetDefault = (id) => {
+        setSelectedDefaultCard(id);
+        setIsDefaultLoading(true);
+        const user = JSON.parse(localStorage.getItem('profile'));
+        dispatch(setDefaultCard(user?.username, id));
+    }
+
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     useEffect(() => {
-        if (cards?.cardsData?.length > 0) setSelectedCard(cards?.cardsData[0].id);
+        if (cards?.defaultCard?.paymentMethodId) { 
+            setSelectedCard(cards?.defaultCard?.paymentMethodId);
+        } else {
+            setSelectedCard(cards?.cardsData[0]?.id);
+        };
         setIsLoading(false);
         setIsDeleteLoading(false);
+        setIsDefaultLoading(false);
         if (!cards.cardError) {
             setFormData(initialState);
             document.getElementById("modalClose").click();
@@ -88,9 +106,8 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getCards(user?.username));
+        dispatch(getDefaultCard(user?.username));
     }, [dispatch]);
-
-    console.log(cards?.cardsData);
 
     return (
         <div className="cardWrapper">
@@ -138,6 +155,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                     <th scope="col">Card Number</th>
                                     <th className="d-none d-sm-block" scope="col">Expiry Date</th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -167,6 +185,24 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                     {card.expMonth}/{card.expYear}
                                                 </div>
                                             </td>
+                                            <td>
+                                                {
+                                                    cards?.defaultCard?.paymentMethodId === card.id ?
+                                                        <span className="default">Default</span>
+                                                        :
+                                                        <button className="default-btn" onClick={() => handleSetDefault(card.id)}>
+                                                            {isDefaultLoading && selectedDefaultCard === card.id ?
+                                                                <div className="spinner-border text-light" role="status">
+                                                                    <span className="sr-only">Loading...</span>
+                                                                </div>
+                                                                :
+                                                                <>
+                                                                    Make Default
+                                                    </>
+                                                            }
+                                                        </button>
+                                                }
+                                            </td> 
                                             <td>
                                                 {isDeleteLoading && selectedDeleteCard === card.id ?
                                                     <div className="spinner-border text-danger delete-spinner" role="status">

@@ -19,7 +19,7 @@ const cardsReducer = (state = { cardsData: [] }, action) => {
     
     case DEFAULTCARD:
 
-      return { ...state, customerData: action.payload };
+      return { ...state, defaultCard: action.payload };
     default:
       return state;
   }

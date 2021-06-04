@@ -50,8 +50,8 @@ export const getCards = (username) => API.get(`/square/customers/${username}`);
 export const addCard = (username, formData) => API.post(`/${username}/cards`, formData);
 export const removeCard = (username, id) => API.delete(`/${username}/cards/${id}`);
 
-export const getDefaultCard = (username) => API.get(`/customer/${username}`);
-export const setDefaultCard = (username, body) => API.put(`/cards/${username}/default-payment-method`, body);
+export const getDefaultCard = (username) => API.get(`/cards/${username}/default-payment-method`);
+export const setDefaultCard = (username, body) => API.post(`/cards/${username}/default-payment-method`, body);
 
 export const payment = (username, formData) => API.post(`/${username}/payment`, formData);
 export const paymentByTerms = (username, formData) => API.post(`/${username}/pay-by-terms`, formData);

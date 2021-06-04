@@ -337,6 +337,9 @@
       .item-info {
         flex: auto;
         padding: 0 25px;
+        @include mediaQueries(mobile) {
+          padding: 0 10px;
+        }
       }
       .item-info-end {
         min-width: 131px;
@@ -344,7 +347,7 @@
           min-width: auto;
         }
         @include mediaQueries(mobile) {
-          min-width: auto;
+          min-width: 60px;
         }
       }
     }

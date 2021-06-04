@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
+import NoImage from '../../assets/img/unavailable.svg';
 
 export const OrdersHistory = ({ account }) => {
     const [orders, setOrders] = useState([]);
@@ -29,7 +30,7 @@ export const OrdersHistory = ({ account }) => {
                 </div>
                 {order.details.items.map((item, index) => (
                     <div key={`item-${index}`} className="d-flex align-items-center item">
-                        <img src={ProductPlaceholder} alt="" />
+                        <img width="50" src={item.imageUrl !== "" ? item.imageUrl : NoImage} alt="" />
                         <div className="item-info">
                             <p className="product-name">
                                 {item.productName}
@@ -89,6 +90,8 @@ export const OrdersHistory = ({ account }) => {
             setOrders(sorted);
         }
     },[account]);
+
+    console.log(orders);
 
     return (
         <>

@@ -195,7 +195,7 @@ export const LoginContainer = () => {
                                     :
                                     <form onSubmit={handleSubmit}>
                                         <h3 className="text-center">Log in</h3>
-                                        <h4 className="text-center">Lorem Ipsum</h4>
+                                        {/* <h4 className="text-center">Lorem Ipsum</h4> */}
                                         <p className={"text-center error " + (auth.authData?.message ? "alert-danger" : "")}>
                                             {auth.authData?.message}
                                         </p>

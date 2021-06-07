@@ -5,6 +5,7 @@ import { getCart, addCart } from '../../actions/cart'
 import { useSelector } from 'react-redux'
 import { getProducts } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
+import { useLocation } from 'react-router'
 
 export const Products = ({ page, products, view, setView, name, shopFont, category }) => {
   const cart = useSelector((state) => state.cart)
@@ -20,6 +21,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
   const user = JSON.parse(localStorage.getItem('profile'))
   const totalPageCount = Math.ceil(products.count / 12);
   const totalProduct = products.count;
+  const location = useLocation();
 
   // const totalInPage = pageNumber === totalPageCount ? (totalProduct % 10 === 0 ? 10 : totalProduct % 10) : 10;
   var totalInPage = pageNumber * 12;
@@ -66,8 +68,7 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     }, 1000)
     dispatch(getProducts(name, category, filter, order, pageNumber))
 
-  }, [pageNumber, filter, order])
-
+  }, [pageNumber, filter, order, location])
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('profile'))

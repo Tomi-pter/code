@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import ImageProduct from '../assets/img/product-sample.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getProduct } from '../actions/products';
@@ -18,6 +18,7 @@ export default props => {
     const [quantity, setQuantity] = useState(1);
     const product = products[0];
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const incart = () => {
         const incartCheck = cart?.cartData?.filter(item => item.productId === parseInt(product.id));
@@ -41,7 +42,7 @@ export default props => {
     useEffect(() => {
         const id = props.match.params.id;
         dispatch(getProduct(id));
-    }, [dispatch]);
+    }, [dispatch, location]);
 
     useEffect(()=>{
         setTimeout(() => {

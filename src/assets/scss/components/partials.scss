@@ -68,9 +68,7 @@
                 padding: 0;
                 list-style: none;
                 border-top: 0;
-                border-bottom: 1px solid #707070;
-                border-left: 1px solid #707070;
-                border-right: 1px solid #707070;
+                border: 1px solid #707070;
                 font-size: 12px;
                 li {
                     border-bottom: 1px solid #707070;
@@ -243,9 +241,9 @@
                             transition: .3s ease;
                         }
                     }
-                }
-                &:last-child {
-                    border-bottom: 0;
+                    &:last-child {
+                        border-bottom: 0;
+                    }
                 }
             }
             .clear-search {

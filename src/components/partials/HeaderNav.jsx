@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { ShippingCounter } from '../../components/shared/shippingCounter';
 import Logo from '../../assets/img/logo.svg';
 import Cart from '../../assets/icon/cart-green.svg';
@@ -29,9 +29,11 @@ export const HeaderNav = () => {
     const itemCount = cart.cartData?.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
     const location = useLocation();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const searchRedirect = (id) => {
-        window.location.href = '/product/' + id;
+        history.push(`/product/${id}`);
+        // window.location.href = '/product/' + id;
     };
 
     const handleBlur = (e) => {
@@ -42,6 +44,7 @@ export const HeaderNav = () => {
         }, 100);
 
     };
+
     const resetInputField = () => {
         searchInput.current.value = "";
         setTimeout(() => {
@@ -54,7 +57,8 @@ export const HeaderNav = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        window.location.href = '/search?name=' + formData.name;
+        // window.location.href = '/search?name=' + formData.name;
+        history.push(`/search?name=${formData.name}`);
     };
 
     const handleChange = (e) => {
@@ -63,7 +67,8 @@ export const HeaderNav = () => {
         element.classList.remove('d-none');
       
         setFormData({ [e.target.name]: e.target.value })
-        if (e.target.value) {
+        if (e.target.value !== "") {
+            setsearchResults(null);
             dispatch(getSearch(e.target.value));
         }
     };
@@ -74,7 +79,8 @@ export const HeaderNav = () => {
         element.classList.add('d-block');
         element.classList.remove('d-none');
         setFormData({ [e.target.name]: e.target.value })
-        if (e.target.value) {
+        if (e.target.value !== "") {
+            setsearchResults(null);
             dispatch(getSearch(e.target.value));
         }
     };
@@ -128,7 +134,7 @@ export const HeaderNav = () => {
                     <a className="desktop-link" href="https://premierpharma.wpengine.com/contact-us/">Contact Us</a>
                     <div className="search-container">
                         <form onSubmit={handleSubmit}>
-                            <input name="name" value={formData.name || ""} placeholder="Search Medicine..." onChange={handleChange} autoComplete="off" onBlur={handleBlur} />
+                            <input name="name" value={formData.name || ""} placeholder="Search Medicine..." onChange={handleChange} autoComplete="off" />
                         </form>
                         <ul id="resultBox" className={'results ' + (formData.name ? 'd-block' : 'd-none')}>
                             {formData.name && searchResults?.products?.length > 0 ? searchResults?.products?.map(searchResult => (

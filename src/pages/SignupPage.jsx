@@ -2,12 +2,16 @@ import React from 'react';
 import { Header } from '../components/partials/Header';
 import { Footer } from '../components/partials/Footer';
 import SignupImage from '../assets/img/signup-img.png';
+import { Helmet } from 'react-helmet';
 
 import MultiStepForm from "../components/signup/multi-step-form";
 
 export const SignUpContainer = () => {
   return (
     <>
+      <Helmet>
+        <title>Sign Up | Premier Pharmaceuticals</title>
+      </Helmet>
       <Header />
       <div className="container-fluid d-flex align-items-center signup">
         <div className="container signup-wrapper">

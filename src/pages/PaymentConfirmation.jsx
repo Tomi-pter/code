@@ -3,6 +3,7 @@ import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import PaymentConfirmedImg from '../assets/img/Payment/default-check-icon.svg'
 import { Link, useHistory } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 
 
 import { useSelector } from 'react-redux';
@@ -17,6 +18,9 @@ export const PaymentConfirmationContainer = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Payment Confirmation | Premier Pharmaceuticals</title>
+            </Helmet>
             <HeaderNav />
             <div className="d-flex align-items-center justify-content-center payment-confirmation">
                 <div>

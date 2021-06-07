@@ -23,7 +23,7 @@ export const HeaderNav = () => {
     const search = useSelector((state) => state.search);
     const avatar = useSelector((state) => state.account.avatarData);
     const [formData, setFormData] = useState({});
-    const [searchResults, setsearchResults] = useState([]);
+    const [searchResults, setsearchResults] = useState(null);
     const [searchActive, setSearchActive] = useState();
     const searchInput = useRef(null);
     const itemCount = cart.cartData?.length > 0 ? cart.cartData.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
@@ -131,13 +131,12 @@ export const HeaderNav = () => {
                             <input name="name" value={formData.name || ""} placeholder="Search Medicine..." onChange={handleChange} autoComplete="off" onBlur={handleBlur} />
                         </form>
                         <ul id="resultBox" className={'results ' + (formData.name ? 'd-block' : 'd-none')}>
-                            {formData.name ? search.products?.map(searchResult => (
-
-                                <li key={searchResult.id}>
-                                    <p onClick={() => { searchRedirect(searchResult.id) }}>{searchResult.name}
+                            {formData.name && searchResults?.products?.length > 0 ? searchResults?.products?.map(searchResult => (
+                                <li key={searchResult.id} onClick={() => searchRedirect(searchResult.id)}>
+                                    <p >{searchResult.name}
                                     </p>
                                 </li>
-                            )) : ''}
+                            )) : <li><p>Product Not Found</p></li>}
                         </ul>
                     </div>
 

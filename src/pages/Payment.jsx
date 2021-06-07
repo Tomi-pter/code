@@ -2,6 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { Cards } from '../components/account/cards';
+import { Helmet } from 'react-helmet';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -61,6 +62,9 @@ export const PaymentContainer = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Payment | Premier Pharmaceuticals</title>
+            </Helmet>
             <HeaderNav />
             <div className="container-fluid payment-page">
                 <h1 className="title">Payment</h1>

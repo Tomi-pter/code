@@ -4,6 +4,7 @@ import { Footer } from '../components/partials/Footer';
 import  { ItemList } from '../components/cart/itemList';
 import  { OrderSummary } from '../components/cart/orderSummary';
 import  { CheckoutInfo } from '../components/cart/info';
+import { Helmet } from 'react-helmet';
 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -28,6 +29,9 @@ export const CheckoutContainer = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Checkout | Premier Pharmaceuticals</title>
+            </Helmet>
             <HeaderNav />
                 <div className="container-fluid cart-page">
                     <h1 className="title">Place Order</h1>

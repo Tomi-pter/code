@@ -6,6 +6,7 @@ import { AccountVerification } from '../components/login/AccountVerification';
 import { Header } from '../components/partials/Header';
 import { Footer } from '../components/partials/Footer';
 import { useForm } from "react-hooks-helper";
+import { Helmet } from 'react-helmet';
 
 import Input from "../components/shared/input";
 import decode from 'jwt-decode';
@@ -96,6 +97,9 @@ export const LoginContainer = () => {
 
     return (
         <>
+            <Helmet>
+                <title>{ forgotPass ? 'Forgot Password' : 'Log In' } | Premier Pharmaceuticals</title>
+            </Helmet>
             <Header />
             {auth.authData?.accountStatus === "UNCONFIRMED" ?
                 <AccountVerification formData={formData} setFormData={setFormData} />

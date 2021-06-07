@@ -3,6 +3,7 @@ import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import  { ItemList } from '../components/cart/itemList';
 import  { OrderSummary } from '../components/cart/orderSummary';
+import { Helmet } from 'react-helmet';
 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -19,6 +20,9 @@ export const CartContainer = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Cart | Premier Pharmaceuticals</title>
+            </Helmet>
             <HeaderNav />
                 <div className="container-fluid cart-page">
                     <h1 className="title">My Cart</h1>

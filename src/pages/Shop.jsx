@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { HeaderNav } from '../components/partials/HeaderNav'
 import { Footer } from '../components/partials/Footer'
 import { Products } from '../components/shared/products'
+import { Helmet } from 'react-helmet';
 
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -43,6 +44,9 @@ export default (props) => {
 
   return (
     <>
+      <Helmet>
+        <title>Shop | Premier Pharmaceuticals</title>
+      </Helmet>
       <HeaderNav />
       <div className="shop-page">
         <div className="container-fluid d-flex p-0 shop-category">

@@ -14,6 +14,7 @@ import LogOutIcon from '../../assets/img/Account/mdi_logout-variant.svg';
 import SecurityIcon from '../../assets/img/Account/security.svg';
 // import MasterCardIcon from '../../assets/img/Payment/master-card-logo.svg';
 import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
+import { Helmet } from 'react-helmet';
 
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -53,6 +54,9 @@ export const PersonalInformationContainer = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Account | Premier Pharmaceuticals</title>
+            </Helmet>
             <HeaderNav />
             <div className="personalInformationWrapper">
                 <div className="container">

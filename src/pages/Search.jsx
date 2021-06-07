@@ -2,6 +2,7 @@ import React,  {useState, useEffect} from 'react';
 import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { Products } from '../components/shared/products';
+import { Helmet } from 'react-helmet';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -19,6 +20,9 @@ export default props => {
   
     return (
         <>
+            <Helmet>
+                <title>Search | Premier Pharmaceuticals</title>
+            </Helmet>
             <HeaderNav />
             <div className="search-page">
                 <div className="container-fluid">

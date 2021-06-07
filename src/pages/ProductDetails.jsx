@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { getProduct } from '../actions/products';
 import { addCart } from '../actions/cart';
 import NoImage from '../assets/img/unavailable.svg';
+import { Helmet } from 'react-helmet';
 
 export default props => {
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -51,6 +52,9 @@ export default props => {
 
     return (
         <>
+            <Helmet>
+                <title>Product | Premier Pharmaceuticals</title>
+            </Helmet>
             <HeaderNav />
             <div className="product-page">
                 <div className="container content">

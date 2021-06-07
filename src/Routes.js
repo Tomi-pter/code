@@ -20,7 +20,7 @@ export default ({ childProps }) => (
   <BrowserRouter basename="/">
     <Switch>
       <Route exact path='/' component={() => { 
-          window.location.href = 'https://premierpharma.wpengine.com/'; 
+          window.location.href = process.env.REACT_APP_HOMEPAGE_URL;
           return null;
       }}/>
       <Route path="/login" component={LoginContainer} />

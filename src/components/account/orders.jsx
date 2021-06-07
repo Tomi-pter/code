@@ -91,8 +91,6 @@ export const OrdersHistory = ({ account }) => {
         }
     },[account]);
 
-    console.log(orders);
-
     return (
         <>
             <ul className="nav align-item-center justify-content-around order-nav">

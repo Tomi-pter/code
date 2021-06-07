@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'https://premierpharmastaging.outliant.com/' });
+const API = axios.create({ baseURL: process.env.REACT_APP_BACKEND_URL });
 // const user = JSON.parse(localStorage.getItem('profile'));
 
 API.interceptors.request.use((req) => {

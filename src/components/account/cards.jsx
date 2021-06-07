@@ -259,8 +259,8 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                             <div className="card">
                                 <SquarePaymentForm 
                                     sandbox={true}
-                                    applicationId={'sandbox-sq0idb-krQT_NJnn_raAz8vXvvioA'}
-                                    locationId={'LXRGNHX6SSJRT'}
+                                    applicationId={process.env.REACT_APP_SQUARE_APPLICATION_ID}
+                                    locationId={process.env.REACT_APP_LOCATION_ID}
                                     cardNonceResponseReceived={cardNonceResponseReceived}
                                     className="w-100"
                                 >

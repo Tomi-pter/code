@@ -19,10 +19,13 @@ import { ProtectedRoutes } from './components/protectedRoutes';
 export default ({ childProps }) => (
   <BrowserRouter basename="/">
     <Switch>
-      <Route exact path='/' component={() => { 
+      {/* <Route exact path='/' component={() => { 
           window.location.href = process.env.REACT_APP_HOMEPAGE_URL;
           return null;
-      }}/>
+      }}/> */}
+      <Route exact path="/">
+        <Redirect to="/login" />
+      </Route>
       <Route path="/login" component={LoginContainer} />
       <Route path="/register" component={SignUpContainer} />
       {/* <Route path="/account-verification" component={AccountVerification} /> */}

@@ -92,7 +92,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
         if (cards?.defaultCard?.paymentMethodId) { 
             setSelectedCard(cards?.defaultCard?.paymentMethodId);
         } else {
-            setSelectedCard(cards?.cardsData[0]?.id);
+            cards?.cardsData.length > 1 ? setSelectedCard(cards?.cardsData[0]?.id) : setSelectedCard('');
         };
         setIsLoading(false);
         setIsDeleteLoading(false);

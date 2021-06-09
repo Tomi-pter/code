@@ -89,10 +89,11 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     useEffect(() => {
-        if (cards?.defaultCard?.paymentMethodId) { 
+        if (cards?.defaultCard?.paymentMethodId && cards?.defaultCard?.paymentMethodId !== 'ccof:u5DrkxBw16pLQ02Z3GB') {
             setSelectedCard(cards?.defaultCard?.paymentMethodId);
         } else {
-            cards?.cardsData.length > 1 ? setSelectedCard(cards?.cardsData[0]?.id) : setSelectedCard('');
+            console.log(cards?.cardsData.length);
+            cards?.cardsData.length > 0 ? setSelectedCard(cards?.cardsData[0]?.id) : setSelectedCard('');
         };
         setIsLoading(false);
         setIsDeleteLoading(false);

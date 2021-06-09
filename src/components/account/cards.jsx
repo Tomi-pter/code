@@ -92,7 +92,6 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
         if (cards?.defaultCard?.paymentMethodId && cards?.defaultCard?.paymentMethodId !== 'ccof:u5DrkxBw16pLQ02Z3GB') {
             setSelectedCard(cards?.defaultCard?.paymentMethodId);
         } else {
-            console.log(cards?.cardsData.length);
             cards?.cardsData.length > 0 ? setSelectedCard(cards?.cardsData[0]?.id) : setSelectedCard('');
         };
         setIsLoading(false);

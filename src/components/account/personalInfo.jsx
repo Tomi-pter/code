@@ -51,7 +51,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                     }
                 };
                 xhr.timeout = 5000;
-                xhr.open("POST", 'https://premierpharmastaging.outliant.com/user/' + user?.username + '/photo');
+                xhr.open("POST", `${process.env.REACT_APP_BACKEND_URL}/user/` + user?.username + '/photo');
                 xhr.send(saveAvatar);
                 setShowError(false);
             } else {

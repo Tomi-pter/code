@@ -106,21 +106,21 @@ export const HeaderNav = () => {
 
     const sendWPData = () => {
         const cartIFrame = document.getElementById('hidden-iframe');
-        const avatarData = avatar !== "" && !Array.isArray(avatar) ? avatar : 'https://premierpharma.wpengine.com/wp-content/uploads/2021/05/placeholder-dp.svg';
+        const avatarData = avatar !== "" && !Array.isArray(avatar) ? avatar : `${process.env.REACT_APP_HOMEPAGE_URL}/wp-content/uploads/2021/05/placeholder-dp.svg`;
         const sendData = { ...user, avatarData, cartCount: itemCount };
-        cartIFrame.contentWindow.postMessage(sendData, 'https://premierpharma.wpengine.com');
+        cartIFrame.contentWindow.postMessage(sendData, process.env.REACT_APP_HOMEPAGE_URL);
     }
 
     return (
         <nav className="sticky-top">
             <ShippingCounter cart={cart} path={location.pathname} />
             <div className="navbar d-flex align-items-center header main">
-                <iframe id="hidden-iframe" src="https://premierpharma.wpengine.com" height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe>
-                <a href="https://premierpharma.wpengine.com/">
+                <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe>
+                <a href={process.env.REACT_APP_HOMEPAGE_URL}>
                     <img className="logo" src={Logo} width="152.25" height="46.49" alt="" />
                 </a>
                 <div className="d-flex align-items-center justify-content-end right-col">
-                    <a className="desktop-link" href="https://premierpharma.wpengine.com/about-us/">About Us</a>
+                    <a className="desktop-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/about-us`}>About Us</a>
                     <div className="desktop-link dropdown">
                         <a className="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Products
@@ -131,7 +131,7 @@ export const HeaderNav = () => {
                             <Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">For Medical/Surgical Products</Link>
                         </div>
                     </div>
-                    <a className="desktop-link" href="https://premierpharma.wpengine.com/contact-us/">Contact Us</a>
+                    <a className="desktop-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/contact-us`}>Contact Us</a>
                     <div className="search-container">
                         <form onSubmit={handleSubmit}>
                             <input name="name" value={formData.name || ""} placeholder="Search Medicine..." onChange={handleChange} autoComplete="off" />
@@ -191,13 +191,13 @@ export const HeaderNav = () => {
                             <img src={BurgerMenu} alt="" />
                         </a>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <Link className="dropdown-item" href="https://premierpharma.wpengine.com/about-us/" to="">About Us</Link>
+                            <Link className="dropdown-item" href={`${process.env.REACT_APP_HOMEPAGE_URL}/about-us`} to="">About Us</Link>
                             <ul>Products
                             <li><Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">For Pharmacies</Link></li>
                                 <li><Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">For Animal Care</Link></li>
                                 <li><Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">For Medical/Surgical Products</Link></li>
                             </ul>
-                            <Link className="dropdown-item" href="https://premierpharma.wpengine.com/contact-us/" to="">Contact Us</Link>
+                            <Link className="dropdown-item" href={`${process.env.REACT_APP_HOMEPAGE_URL}/contact-us`} to="">Contact Us</Link>
                         </div>
                     </div>
                 </div>

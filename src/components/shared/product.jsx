@@ -64,7 +64,7 @@ export const Product = ({
         <div className={'product-details-container'}>
           <div className="img-container">
             <div>
-              <img src={product.url  ? product.url : NoImage} alt="" />
+              <img src={product.url  ? product.url : NoImage} alt=""   onClick={() => viewProduct(product.id)}/>
             </div>
           </div>
           <div className="details-container">

@@ -835,6 +835,7 @@
     }
     .pharma-product {
         .img-container {
+            cursor: pointer;
             width: calc(100% - 70px);
             display: flex;
             align-items: center;
@@ -861,6 +862,7 @@
     .vet-product,
     .medsurg-product {
         .img-container {
+            cursor: pointer;
             display: flex;
             align-items: flex-end;
             justify-content: center;

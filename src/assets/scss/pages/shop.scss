@@ -72,7 +72,7 @@
             font-size: 30px;
             line-height: 50px;
             color: #000000;
-            margin-bottom: 15px;
+            margin-bottom: 24px;
             @include mediaQueries(pad) {
                 font-size: 25px;
                 line-height: 41px;
@@ -87,10 +87,10 @@
         }
         .accordion-button {
             width: 350px;
-            min-height: 49px;
+            min-height: 42px;
             font-style: normal;
             font-weight: bold;
-            font-size: 22px;
+            font-size: 19px;
             line-height: 36px;
             text-align: left;
             color: #4f4f4f;

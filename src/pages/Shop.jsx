@@ -11,7 +11,7 @@ import { getProducts } from '../actions/products'
 
 export default (props) => {
   const products = useSelector((state) => state.products)
-  const [view, setView] = useState('grid')
+  const [view, setView] = useState('grid');
   const [isLoading, setIsLoading] = useState(true)
   const [category, setCategory] = useState('')
   const location = useLocation()
@@ -41,7 +41,9 @@ export default (props) => {
   useEffect(() => {
     setIsLoading(false)
   }, [products])
-
+  useEffect(() =>{
+    setView('list');
+  }, [location])
   return (
     <>
       <Helmet>

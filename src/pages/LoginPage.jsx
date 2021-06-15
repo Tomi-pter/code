@@ -3,7 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn, forgotPassword, confirmForgotPassword } from '../actions/auth';
 import { AccountVerification } from '../components/login/AccountVerification';
-import { Header } from '../components/partials/Header';
+import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { useForm } from "react-hooks-helper";
 import { Helmet } from 'react-helmet';
@@ -100,7 +100,7 @@ export const LoginContainer = () => {
             <Helmet>
                 <title>{ forgotPass ? 'Forgot Password' : 'Log In' } | Premier Pharmaceuticals</title>
             </Helmet>
-            <Header />
+            <HeaderNav />
             {auth.authData?.accountStatus === "UNCONFIRMED" ?
                 <AccountVerification formData={formData} setFormData={setFormData} />
                 :

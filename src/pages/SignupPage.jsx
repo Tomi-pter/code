@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from '../components/partials/Header';
+import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import SignupImage from '../assets/img/signup-img.png';
 import { Helmet } from 'react-helmet';
@@ -12,7 +12,7 @@ export const SignUpContainer = () => {
       <Helmet>
         <title>Sign Up | Premier Pharmaceuticals</title>
       </Helmet>
-      <Header />
+      <HeaderNav />
       <div className="container-fluid d-flex align-items-center signup">
         <div className="container signup-wrapper">
           <div className="card mb-0">

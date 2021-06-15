@@ -13,7 +13,7 @@ const authReducer = (state = { authData: null }, action) => {
       return { ...state, verifyData: action.data };
     case actionType.LOGOUT:
       const cartIFrame = document.getElementById('hidden-iframe');
-      cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
+      cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
       localStorage.clear();
       return state;
     case actionType.FORGOTPASSWORD:

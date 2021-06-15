@@ -51,7 +51,7 @@ export const Changepassword = () => {
         formData.oldPassword = "";
         formData.newPassword = "";
         var cartIFrame = document.getElementById('hidden-iframe');
-        cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
+        cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
         localStorage.removeItem('profile');
         setEmaillPass(false);
         setErrorOldPass("");

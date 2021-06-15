@@ -112,7 +112,8 @@ export const HeaderNav = () => {
         cartIFrame.contentWindow.postMessage(sendData, process.env.REACT_APP_HOMEPAGE_URL);
     }
     return (
-        location.pathname === '/login' || location.pathname === '/register' ? <nav onLoad={sendWPData}  className="navbar header-login header">
+        location.pathname === '/login' || location.pathname === '/register' ? <nav className="navbar header-login header">
+            <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe>
             <a href={process.env.REACT_APP_HOMEPAGE_URL}>
                 <img className="logo" src={PPLogo} width="152.25" height="46.49" alt="" />
             </a>

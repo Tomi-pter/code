@@ -96,7 +96,7 @@ export default props => {
                             </div>
                             <div className="accordion-item">
                                 <button className="accordion-button collapsed" type="button" data-toggle="collapse" data-target="#accordion2" aria-expanded="false">
-                                <span>For Animal Care (250)</span>
+                                <span>For Animal Health (250)</span>
                                     </button>
                                 <div id="accordion2" className="accordion-body accordion-collapse collapse">
                                     <ul>

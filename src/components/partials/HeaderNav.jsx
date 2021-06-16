@@ -132,7 +132,7 @@ export const HeaderNav = () => {
                         </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">For Pharmacies</Link>
-                                <Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">For Animal Care</Link>
+                                <Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">For Animal Health</Link>
                                 <Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">For Medical/Surgical Products</Link>
                             </div>
                         </div>

@@ -5,6 +5,9 @@ const cartReducer = (state = { cartData: [] }, action) => {
         case actionType.UPDATECART:
         
           return { ...state, cartData: action.payload };
+        case actionType.UPDATECOUNT:
+        
+          return { ...state, countData: action.payload };
         case actionType.CHECKOUTCART:
 
           return { ...state, checkoutDetail: action.payload };

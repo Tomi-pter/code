@@ -50,13 +50,15 @@ export const ItemList = ({ cart, page }) => {
         setQuantity(1);
     }, [cart]);
 
+    console.log(cart);
+
     return (
         <div>
-            { (!cart.cartData || cart.cartData?.length <= 0) &&
+            { (!cart.countData || cart.countData?.length <= 0) &&
                 <div className="d-flex align-items-center justify-content-center cart-empty">Your Cart is Empty</div>
             }
             {
-                cart.cartData?.map(cartItem => (
+                cart.countData?.map(cartItem => (
                     <div key={`key` + cartItem.productId} className="product d-flex align-items-start">
                         {isLoading && selectedItem === cartItem &&
                             <div className="loader-container">

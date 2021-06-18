@@ -41,6 +41,7 @@ export const getProduct = (id) => API.get(`/products/${id}`);
 export const getSearch = (name) => API.get("/products?" + (name ? `name=${name}` : ''));
 
 export const getCart = (username) => API.get(`/cart/${username}`);
+export const getCount = (username) => API.get(`/cart/${username}/count`);
 export const addCart = (username, product) => API.post(`/cart/${username}/add`, product);
 export const updateCart = (username, product) => API.put(`/cart/${username}/update`, product);
 export const removeCart = (username, productId) => API.post(`/cart/${username}/remove`, { productId });

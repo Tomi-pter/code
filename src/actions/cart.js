@@ -1,4 +1,4 @@
-import { UPDATECART, CHECKOUTCART, SETDISCOUNT } from '../constants/actionTypes';
+import { UPDATECART, UPDATECOUNT, CHECKOUTCART, SETDISCOUNT } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -7,6 +7,17 @@ export const getCart = (username) => async (dispatch) => {
     const { data } = await api.getCart(username);
     
     dispatch({ type: UPDATECART, payload: data.items || [] });
+
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getCount = (username) => async (dispatch) => {
+  try {
+    const { data } = await api.getCount(username);
+    
+    dispatch({ type: UPDATECOUNT, payload: data.items || [] });
 
   } catch (error) {
     console.log(error.message);

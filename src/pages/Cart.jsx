@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { getCart } from '../actions/cart';
+import { getCart, getCount } from '../actions/cart';
 
 export const CartContainer = () => {
     const cart = useSelector((state) => state.cart);
@@ -15,7 +15,7 @@ export const CartContainer = () => {
 
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(getCart(user?.username));
+        dispatch(getCount(user?.username));
     },[dispatch]);
 
     return (

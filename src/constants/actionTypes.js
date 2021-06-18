@@ -38,6 +38,7 @@ export const GETSEARCH = 'GETSEARCH';
 
 // Cart
 export const UPDATECART = 'UPDATECART';
+export const UPDATECOUNT = 'UPDATECOUNT';
 export const CHECKOUTCART = 'CHECKOUTCART';
 export const SETDISCOUNT = 'SETDISCOUNT';
 

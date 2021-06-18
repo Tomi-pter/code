@@ -9,12 +9,12 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, cart, page }) 
     const [discountCode, setDiscountCode] = useState('');
     const dispatch = useDispatch();
     const history = useHistory();
-    const itemCount = cart.cartData?.length > 0 ? cart.cartData?.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
-    const subTotalCalc = cart.cartData?.length > 0 ? (cart.cartData?.map(item => parseFloat(item.price) * item.quantity).reduce((prev, next) => prev + next)) : 0;
+    const itemCount = cart.countData?.length > 0 ? cart.countData?.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
+    const subTotalCalc = cart.countData?.length > 0 ? (cart.countData?.map(item => parseFloat(item.price) * item.quantity).reduce((prev, next) => prev + next)) : 0;
     const subTotal = parseFloat(subTotalCalc).toFixed(2);
     const shipping = subTotal >= 150 ? 0 : ((15 / 100) * subTotal).toFixed(2);
     const shippingCounter = subTotal >= 150 ? 0 : (150 - subTotal).toFixed(2);
-    const totalCalc = cart.cartData?.length > 0 ? parseFloat(subTotal) + parseFloat(shipping) : 0;
+    const totalCalc = cart.countData?.length > 0 ? parseFloat(subTotal) + parseFloat(shipping) : 0;
     const total = parseFloat(totalCalc).toFixed(2);
     const discount = cart?.discountDetail?.discount_data?.percentage / 100; //discount decimal
     const discountAmount = discount ? (discount * total).toFixed(2) : 0;
@@ -63,7 +63,7 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, cart, page }) 
             </div>
             <div className="d-flex justify-content-between actions-container">
             {   page === 'cart' ? 
-                    cart.cartData?.length > 0 ? 
+                    cart.countData?.length > 0 ? 
                     <Link to="checkout" className="btn proceed-btn">
                         Proceed to Checkout
                     </Link>

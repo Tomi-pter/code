@@ -5,17 +5,17 @@ import { Footer } from '../components/partials/Footer'
 import { Products } from '../components/shared/products'
 import { Helmet } from 'react-helmet';
 
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { getProducts } from '../actions/products'
+// import { useSelector } from 'react-redux'
+// import { useDispatch } from 'react-redux'
+// import { getProducts } from '../actions/products'
 
 export default (props) => {
-  const products = useSelector((state) => state.products)
+  // const products = useSelector((state) => state.products)
   const [view, setView] = useState('list');
-  const [isLoading, setIsLoading] = useState(true)
+  // const [isLoading, setIsLoading] = useState(true)
   const [category, setCategory] = useState('')
   const location = useLocation()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   useEffect(() => {
     const pharmaBtn = document.getElementById("pharmacy-accordion-btn")
@@ -33,14 +33,10 @@ export default (props) => {
     window.history.replaceState({}, document.title, '/' + 'shop')
   }, [location])
 
-  useEffect(() => {
-    setIsLoading(true)
-    if (category !== '') dispatch(getProducts(null, category))
-  }, [dispatch, category])
-
-  useEffect(() => {
-    setIsLoading(false)
-  }, [products])
+  // useEffect(() => {
+  //   setIsLoading(true)
+  //   dispatch(getProducts(null, category))
+  // }, [dispatch])
 
   return (
     <>
@@ -136,7 +132,7 @@ export default (props) => {
                       'products' + (view === 'list' ? ' list-view' : '')
                     }
                   >
-                    {isLoading ? (
+                    {/* {isLoading ? (
                       <div className="spinner-container d-flex align-items-center justify-content-center">
                         <div
                           className="spinner-border text-primary"
@@ -145,18 +141,16 @@ export default (props) => {
                           <span className="sr-only">Loading...</span>
                         </div>
                       </div>
-                    ) : (
+                    ) : ( */}
                       <Products
                         page="shop"
                         shopFont={true}
                         view={view}
                         setView={setView}
-                        products={products}
+                        // products={products}
                         category={category}
-                      
-                        
                       />
-                    )}
+                    {/* )} */}
                   </div>
                 </div>
               </div>

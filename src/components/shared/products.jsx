@@ -7,7 +7,8 @@ import { getProducts } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
 import { useLocation } from 'react-router'
 
-export const Products = ({ page, products, view, setView, name, shopFont, category }) => {
+export const Products = ({ page, view, setView, name, shopFont, category }) => {
+  const products = useSelector((state) => state.products);
   const cart = useSelector((state) => state.cart)
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -47,13 +48,14 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     dispatch(addCart(user?.username, newProduct))
   }
  
-   const setSorting = (filter, order, value) => {
+  const setSorting = (filter, order, value) => {
     setIsLoading(true)
     setFilter(filter);
     setOrder(order);
     dispatch(getProducts(null, category, filter, order, null));
     setSortBy(value);
-   }
+  }
+
   const handlePageClick = (data) => {
     setIsLoading(true)
     window.scrollTo(0, 0)
@@ -68,7 +70,9 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
     }, 1000)
     dispatch(getProducts(name, category, filter, order, pageNumber))
 
-  }, [pageNumber, filter, order, location])
+  }, [pageNumber, filter, order])
+
+  // location
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('profile'))
@@ -82,6 +86,15 @@ export const Products = ({ page, products, view, setView, name, shopFont, catego
       setIsLoading(false)
     }, 1000)
   }, [cart])
+
+  useEffect(() => {
+    setIsLoading(true)
+    if (category !== '') dispatch(getProducts(null, category))
+  }, [category])
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [products])
 
   return (
     <div className="products-container">

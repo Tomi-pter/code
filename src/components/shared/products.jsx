@@ -68,8 +68,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setTimeout(() => {
       setIsLoading(false)
     }, 1000)
-    dispatch(getProducts(name, category, filter, order, pageNumber))
-
+    if (category !== '') dispatch(getProducts(name, category, filter, order, pageNumber))
   }, [pageNumber, filter, order])
 
   // location

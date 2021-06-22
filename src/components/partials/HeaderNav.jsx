@@ -122,7 +122,8 @@ export const HeaderNav = () => {
         const cartIFrame = document.getElementById('hidden-iframe');
         if (location.pathname === '/login' || location.pathname === '/register') {
             const cartIFrame = document.getElementById('hidden-iframe');
-            cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
+            // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
+            cartIFrame.contentWindow.postMessage(null, process.env.REACT_APP_HOMEPAGE_URL);
         } else {
             const avatarData = avatar !== "" && !Array.isArray(avatar) ? avatar : `${process.env.REACT_APP_HOMEPAGE_URL}/wp-content/uploads/2021/05/placeholder-dp.svg`;
             const sendData = { ...user, avatarData, cartCount: itemCount };

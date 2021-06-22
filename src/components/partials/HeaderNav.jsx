@@ -20,7 +20,7 @@ import PPLogo from '../../assets/img/pp-logo.svg';
 
 export const HeaderNav = () => {
     const location = useLocation();
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
     const cart = useSelector((state) => state.cart);
     const search = useSelector((state) => state.search);
     const avatar = useSelector((state) => state.account.avatarData);
@@ -107,19 +107,25 @@ export const HeaderNav = () => {
 
     const sendWPData = () => {
         const cartIFrame = document.getElementById('hidden-iframe');
-        const avatarData = avatar !== "" && !Array.isArray(avatar) ? avatar : `${process.env.REACT_APP_HOMEPAGE_URL}/wp-content/uploads/2021/05/placeholder-dp.svg`;
-        const sendData = { ...user, avatarData, cartCount: itemCount };
-        cartIFrame.contentWindow.postMessage(sendData, process.env.REACT_APP_HOMEPAGE_URL);
+        if (location.pathname !== '/login' || location.pathname !== '/register') {
+            const avatarData = avatar !== "" && !Array.isArray(avatar) ? avatar : `${process.env.REACT_APP_HOMEPAGE_URL}/wp-content/uploads/2021/05/placeholder-dp.svg`;
+            const sendData = { ...user, avatarData, cartCount: itemCount };
+            cartIFrame.contentWindow.postMessage(sendData, process.env.REACT_APP_HOMEPAGE_URL);
+        } else {
+            const cartIFrame = document.getElementById('hidden-iframe');
+            cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
+        }
     }
+
     return (
         <nav className={location.pathname === '/login' || location.pathname === '/register' ? "navbar header-login header" : "sticky-top"}>
+            <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" onLoad={sendWPData} />
             {location.pathname === '/login' || location.pathname === '/register' ?
                 <a href={process.env.REACT_APP_HOMEPAGE_URL}>
                     <img className="logo" src={PPLogo} width="152.25" height="46.49" alt="" />
                 </a>
                 :
                 <>
-                    <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" onLoad={sendWPData} />
                     <ShippingCounter cart={cart} path={location.pathname} />
                     <div className="navbar d-flex align-items-center header main">
                         <a href={process.env.REACT_APP_HOMEPAGE_URL}>

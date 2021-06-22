@@ -100,8 +100,15 @@ export const HeaderNav = () => {
         dispatch(getCart(localUser?.username));
         dispatch(getAvatar(localUser?.username));
 
+    }, [location]);
+
+    useEffect(() => {
+        setsearchResults(search);
+    }, [search])
+
+    useEffect(() => {
         const cartIFrame = document.getElementById('hidden-iframe');
-        if (location.pathname !== '/login' || location.pathname !== '/register') {
+        if (user) {
             const avatarData = avatar !== "" && !Array.isArray(avatar) ? avatar : `${process.env.REACT_APP_HOMEPAGE_URL}/wp-content/uploads/2021/05/placeholder-dp.svg`;
             const sendData = { ...user, avatarData, cartCount: itemCount };
             cartIFrame.contentWindow.postMessage(sendData, process.env.REACT_APP_HOMEPAGE_URL);
@@ -109,12 +116,7 @@ export const HeaderNav = () => {
             const cartIFrame = document.getElementById('hidden-iframe');
             cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
         }
-
-    }, [location]);
-
-    useEffect(() => {
-        setsearchResults(search);
-    }, [search])
+    }, [user])
 
     // const sendWPData = () => {
     //     const cartIFrame = document.getElementById('hidden-iframe');

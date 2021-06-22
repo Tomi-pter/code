@@ -21,9 +21,9 @@ export const logOut = (username, router) => async (dispatch) => {
   try {
     const { data } = await api.logOut(username);
     
-    dispatch({ type: LOGOUT, data });
-    const cartIFrame = document.getElementById('hidden-iframe');
-    cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
+    dispatch({ type: LOGOUT, data, router });
+    // const cartIFrame = document.getElementById('hidden-iframe');
+    // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
     router.push('/');
   } catch (error) {
     console.log(error);

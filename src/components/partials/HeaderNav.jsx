@@ -113,7 +113,7 @@ export const HeaderNav = () => {
     }
     return (
         <nav className={location.pathname === '/login' || location.pathname === '/register' ? "navbar header-login header" : "sticky-top"}>
-            {/* <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" onLoad={sendWPData} ></iframe> */}
+            <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" onLoad={sendWPData} />
             {location.pathname === '/login' || location.pathname === '/register' ?
                 <a href={process.env.REACT_APP_HOMEPAGE_URL}>
                     <img className="logo" src={PPLogo} width="152.25" height="46.49" alt="" />

@@ -37,14 +37,14 @@ export const HeaderNav = () => {
         // window.location.href = '/product/' + id;
     };
 
-    const handleBlur = (e) => {
-        setTimeout(() => {
-            var element = document.getElementById("resultBox");
-            element.classList.remove('d-block');
-            element.classList.add('d-none');
-        }, 100);
+    // const handleBlur = (e) => {
+    //     setTimeout(() => {
+    //         var element = document.getElementById("resultBox");
+    //         element.classList.remove('d-block');
+    //         element.classList.add('d-none');
+    //     }, 100);
 
-    };
+    // };
 
     const resetInputField = () => {
         searchInput.current.value = "";
@@ -132,8 +132,8 @@ export const HeaderNav = () => {
 
     return (
         <nav className={location.pathname === '/login' || location.pathname === '/register' ? "navbar header-login header" : "sticky-top"}>
-            <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" />
-            {/* <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" onLoad={sendWPData} /> */}
+            {/* <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" /> */}
+            <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" onLoad={sendWPData} />
             {location.pathname === '/login' || location.pathname === '/register' ?
                 <a href={process.env.REACT_APP_HOMEPAGE_URL}>
                     <img className="logo" src={PPLogo} width="152.25" height="46.49" alt="" />

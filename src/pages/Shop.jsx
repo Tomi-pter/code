@@ -106,7 +106,7 @@ export default (props) => {
                       aria-expanded="false"
                       onClick={() => setCategory('Animal Health')}
                     >
-                      For Animal Care
+                      For Animal Health
                     </button>
                   
                   {/* </div> */}

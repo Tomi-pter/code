@@ -18,16 +18,31 @@ export const OrdersHistory = ({ account }) => {
     }
 
     const renderOrder = (order, index) => {
+        console.log(order);
         return (
             <div key={`key-${index}`} className="order">
-                <div className="d-flex align-item-center justify-content-between">
-                    <div className="orderNo">Order #{order.salesOrderNumber}</div>
-                    <div className="amount">${(order.details.total / 100).toFixed(2)}</div>
+                <div className="d-flex align-items-start justify-content-between date-status-container">
+                    <div className="orderNo">
+                        <p className="d-flex">Order #{order.salesOrderNumber}</p>
+                        <p>Placed on {formatDate(order.details.dateOrdered)}</p>
+                    </div>
+                    <div className="status">{order.status}</div>
+                    {/* <div>
+                        <p>Discount: ${(order.details.discount / 100).toFixed(2)}</p>
+                        <p>Sub Total: ${(order.details.discount / 100).toFixed(2)}</p>
+                        <p className="amount">Total: ${(order.details.total / 100).toFixed(2)}</p>
+                    </div> */}
                 </div>
-                <div className="d-flex align-item-center justify-content-between date-status-container">
+                {/* <div className="d-flex align-item-center justify-content-between date-status-container">
                     <div className="date">Placed on {formatDate(order.details.dateOrdered)}</div>
                     <div className="status">{order.status}</div>
                 </div>
+                <div className="d-flex align-item-center justify-content-between">
+                    <div className="d-flex align-item-center">
+                        <div className="date">Shipping Fee:</div>
+                        <div className="date">{order.details.shippingFee}</div>
+                    </div>
+                </div> */}
                 {order.details.items.map((item, index) => (
                     <div key={`item-${index}`} className="d-flex align-items-center item">
                         <img width="50" src={item.imageUrl !== "" ? item.imageUrl : NoImage} alt="" />
@@ -47,6 +62,29 @@ export const OrdersHistory = ({ account }) => {
                         </div>
                     </div>
                 ))}
+                <div className="mt-2">
+                    {/* <div className="orderNo">
+                        <p className="d-flex">Order #{order.salesOrderNumber}</p>
+                        <p>Placed on {formatDate(order.details.dateOrdered)}</p>
+                        <div className="status">{order.status}</div>
+                    </div> */}
+                    {/* <div> */}
+                        <div className="d-flex align-items-center justify-content-between">
+                            <b>Subtotal:</b> <div>${order.details.subTotal.toFixed(2)}</div>
+                        </div>
+                        <div className="d-flex align-items-center justify-content-between">
+                            <div>Shipping Fee:</div> <div>${(order.details.shippingFee / 100).toFixed(2)}</div>
+                        </div>
+                        {order.details.discount > 0 &&
+                            <div className="d-flex align-items-center justify-content-between">
+                                <div>Discount:</div> <div>${order.details.discount.toFixed(2)}</div>
+                            </div>
+                        }
+                        <div className="d-flex align-items-center justify-content-between mt-5">
+                            <div className="amount">Total:</div> <div>${(order.details.total / 100).toFixed(2)}</div>
+                        </div>
+                    {/* </div> */}
+                </div>
             </div>
         )
     }

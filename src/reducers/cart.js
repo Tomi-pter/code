@@ -4,10 +4,10 @@ const cartReducer = (state = { cartData: [] }, action) => {
     switch (action.type) {
         case actionType.UPDATECART:
         
-          return { ...state, cartData: action.payload };
+          return { ...state, cartData: action.payload, countData: action.payload };
         case actionType.UPDATECOUNT:
         
-          return { ...state, countData: action.payload };
+          return { ...state, countData: action.payload, cartData: action.payload };
         case actionType.CHECKOUTCART:
 
           return { ...state, checkoutDetail: action.payload };

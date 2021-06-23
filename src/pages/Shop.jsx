@@ -80,7 +80,7 @@ export default (props) => {
                 >
                   Pharmacies
                 </button>
-               
+
               </div>
               <div className="accordion-item">
                 <button
@@ -92,9 +92,9 @@ export default (props) => {
                   aria-expanded="false"
                   onClick={() => setCategory('Animal Health')}
                 >
-                  Animal Care
+                  Animal Health
                 </button>
-              
+
               </div>
               <div className="accordion-item">
                 <button
@@ -108,7 +108,7 @@ export default (props) => {
                 >
                   Medical/Surgical Products
                 </button>
-               
+
               </div>
             </div>
           </div>
@@ -123,7 +123,7 @@ export default (props) => {
                       ? 'Animal Health'
                       : 'Medical/Surgical Products'}
                 </h3>
-            
+
               </div>
               <div className="content">
                 <div className="products-container">

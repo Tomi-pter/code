@@ -41,7 +41,7 @@ export const updateCart = (username, product) => async (dispatch) => {
       
     const { data } = await api.updateCart(username, product);
 
-    dispatch({ type: UPDATECART, payload: data.items });
+    dispatch({ type: UPDATECOUNT, payload: data.items });
 
   } catch (error) {
     console.log(error.message);
@@ -53,7 +53,7 @@ export const removeCart = (username, productId) => async (dispatch) => {
         
       const { data } = await api.removeCart(username, productId);
 
-      dispatch({ type: UPDATECART, payload: data.items });
+      dispatch({ type: UPDATECOUNT, payload: data.items });
   
     } catch (error) {
       console.log(error.message);

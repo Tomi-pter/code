@@ -65,16 +65,17 @@
         }
     }
     .top-details {
-        padding: 0 40px;
+        padding: 0 0 19px 0;
         margin-bottom: 40px;
+        border-bottom: 1px solid #E0E0E0;
         @include mediaQueries(padpro) {
-            display: block !important;
+            // display: block !important;
         }
         @include mediaQueries(pad) {
-            display: block !important;
+            // display: block !important;
         }
         @include mediaQueries(mobile) {
-            padding: 0 10px;
+            // padding: 0 10px;
             &.search-wrapper {
                 flex-direction: column;
             }
@@ -113,7 +114,7 @@
             color: #000000;
             margin: 0;
             @include mediaQueries(pad) {
-                display: none;
+                // display: none;
             }
             @include mediaQueries(mobile) {
                 display: none;
@@ -122,10 +123,11 @@
         .filter-view-container {
             margin-left: 20px;
             min-width: 370px;
-            height: 67px;
+            // height: 67px;
             @include mediaQueries(pad) {
-                margin-left: 0;
-                min-width: 100%;
+                // margin-left: 0;
+                // min-width: 100%;
+                min-width: unset;
             }
             @include mediaQueries(mobile) {
                 margin-left: 0;
@@ -136,7 +138,7 @@
             margin-right: 25px;
             flex: 1;
             @include mediaQueries(pad) {
-                flex: 1;
+                // flex: 1;
             }
             @include mediaQueries(mobile) {
                 flex: 1;
@@ -231,10 +233,10 @@
     }
     .products {
         @include mediaQueries(padpro) {
-            margin-top: 40px;
+            // margin-top: 40px;
         }
         @include mediaQueries(pad) {
-            margin-top: 40px;
+            // margin-top: 40px;
         }
         .for-list,
         .list-header {
@@ -442,8 +444,8 @@
                     }
                     @include mediaQueries(pad) {
                         display: block;
-                        width: 60%;
-                        margin-left: auto;
+                        // width: 60%;
+                        // margin-left: auto;
                         .mobile-list-header {
                             display: flex;
                             align-items: center;
@@ -470,7 +472,7 @@
                     }
                     @include mediaQueries(mobile) {
                         display: block;
-                        width: 75%;
+                        // width: 75%;
                         margin-left: auto;
                         .mobile-list-header {
                             display: flex;
@@ -509,7 +511,7 @@
                     // }
                     .img-container {
                         @include mediaQueries(custom-shop) {
-                            max-width: 25%;
+                            // max-width: 25%;
                             img {
                                 width: 100%;
                             }
@@ -519,6 +521,10 @@
                         }
                         @include mediaQueries(pad) {
                             max-width: 40%;
+                        }
+                        @include mediaQueries(mobile) {
+                            max-width: 25%;
+                            margin-right: 20px;
                         }
                     }
                     .details-container {
@@ -591,17 +597,17 @@
                 width: unset;
                 height: unset;
                 @include mediaQueries(custom-shop) {
-                    display: block;
+                    // display: block;
                     width: 100% !important;
                     max-width: 155px;
                 }
                 @include mediaQueries(padpro) {
-                    display: block;
+                    // display: block;
                     width: 100% !important;
                     max-width: 155px;
                 }
                 @include mediaQueries(pad) {
-                    display: block;
+                    // display: block;
                     width: 100% !important;
                     max-width: 155px;
                 }
@@ -628,9 +634,17 @@
                 flex: auto;
                 justify-content: space-between;
                 padding-left: 20px;
+                @include mediaQueries(padpro) {
+                    > div, > p {
+                        width: 30%;
+                    }
+                }
                 @include mediaQueries(pad) {
                     padding: 0;
                     max-width: 50%;
+                    > div, > p {
+                        width: 20%;
+                    }
                 }
                 @include mediaQueries(mobile) {
                     padding: 0;

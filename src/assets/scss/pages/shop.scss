@@ -4,31 +4,47 @@
     }
     .shop-category {
         position: relative;
+        padding: 50px 100px 80px 100px;
         @include mediaQueries(padpro) {
+            padding: 0 !important;
             display: block !important;
         }
         @include mediaQueries(pad) {
+            padding: 0 !important;
             display: block !important;
         }
         @include mediaQueries(mobile) {
+            padding: 0 !important;
             display: block !important;
         }
     }
-    .category-accordion {
+    // .category-accordion {
+    //     @include mediaQueries(padpro) {
+    //         display: none;
+    //     }
+    //     @include mediaQueries(pad) {
+    //         display: none;
+    //     }
+    //     @include mediaQueries(mobile) {
+    //         display: none;
+    //     }
+    // }
+    .category {
         @include mediaQueries(padpro) {
-            display: none;
+            display: none !important;
         }
         @include mediaQueries(pad) {
-            display: none;
+            display: none !important;
         }
         @include mediaQueries(mobile) {
-            display: none;
+            display: none !important;
         }
     }
     .filter-col {
-        min-height: 100vh;
+        // min-height: 100vh;
         background: #ffffff;
-        padding: 69px 30px 93px 30px;
+        // padding: 69px 30px 93px 30px;
+        padding: 40px 50px 25px 50px;
         .product-category {
             display: none;
             @include mediaQueries(custom-select) {
@@ -59,82 +75,102 @@
                 background: #f0f0f0;
                 border-radius: 14.5px;
                 border: 0;
-                max-width: 160px;
+                // max-width: 160px;
                 height: 29px;
                 padding: 0 10px;
                 font-size: 13px;
                 font-family: 'Axiforma Bold';
             }
         }
-        h3 {
-            font-style: normal;
-            font-weight: bold;
-            font-size: 30px;
-            line-height: 50px;
-            color: #000000;
-            margin-bottom: 24px;
-            @include mediaQueries(pad) {
-                font-size: 25px;
-                line-height: 41px;
-            }
-            @include mediaQueries(mobile) {
-                font-size: 25px;
-                line-height: 41px;
-            }
+        // h3 {
+        //     font-style: normal;
+        //     font-weight: bold;
+        //     font-size: 30px;
+        //     line-height: 50px;
+        //     color: #000000;
+        //     margin-bottom: 24px;
+        //     @include mediaQueries(pad) {
+        //         font-size: 25px;
+        //         line-height: 41px;
+        //     }
+        //     @include mediaQueries(mobile) {
+        //         font-size: 25px;
+        //         line-height: 41px;
+        //     }
+        // }
+        .category {
+            padding: 0 30px 12px 30px;
+            border-bottom: 1px solid #0098FF;
         }
         .accordion-item {
             margin-bottom: 23px;
         }
         .accordion-button {
-            width: 350px;
-            min-height: 42px;
+            // width: 350px;
+            min-height: 36px;
             font-style: normal;
-            font-weight: bold;
-            font-size: 19px;
-            line-height: 36px;
-            text-align: left;
-            color: #4f4f4f;
+            font-weight: normal;
+            font-size: 22px;
+            line-height: 35px;
+            text-align: center;
+            color: #4F4F4F;
             background: none;
             border: 0;
             outline: 0;
-            padding: 0;
+            padding: 0 12px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            opacity: 0.6;
             &.active {
-                color: #0098ff;
-            }
-        }
-        .accordion-body {
-            margin-top: 30px;
-            margin-bottom: 27px;
-            ul {
-                list-style: none;
-                padding-left: 20px;
-                padding-bottom: 0;
-            }
-            li {
-                font-style: normal;
-                font-weight: normal;
-                font-size: 18px;
-                line-height: 200%;
-                color: #0098ff;
-                cursor: pointer;
-            }
-            li.active {
+                // color: #0098ff;
+                font-family: "Axiforma Bold";
                 font-weight: bold;
+                line-height: 36px;
+                opacity: 1;
+                position: relative;
+                &:after {
+                    content: '';
+                    height: 3px;
+                    background: #0098FF;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: -12px;
+                }
             }
         }
+        // .accordion-body {
+        //     margin-top: 30px;
+        //     margin-bottom: 27px;
+        //     ul {
+        //         list-style: none;
+        //         padding-left: 20px;
+        //         padding-bottom: 0;
+        //     }
+        //     li {
+        //         font-style: normal;
+        //         font-weight: normal;
+        //         font-size: 18px;
+        //         line-height: 200%;
+        //         color: #0098ff;
+        //         cursor: pointer;
+        //     }
+        //     li.active {
+        //         font-weight: bold;
+        //     }
+        // }
     }
     .products-col {
-        flex: auto;
+        // flex: auto;
         position: relative;
-        width: calc(100% - 480px);
-        right: 50px;
-        padding: 69px 0px 93px 0;
+        // width: calc(100% - 480px);
+        // right: 50px;
+        // padding: 69px 0px 93px 0;
         @include mediaQueries(padpro) {
             background: #fff;
-            padding: 40px 15px;
+            // padding: 40px 15px;
+            padding: 20px;
             position: unset;
             width: auto;
             right: unset;
@@ -177,17 +213,18 @@
                 height: 133px;
             }
             h3 {
+                font-family: "Axiforma Bold";
                 font-style: normal;
-                font-weight: bold;
-                font-size: 30px;
-                line-height: 50px;
+                font-weight: 800;
+                font-size: 40px;
+                line-height: 67px;
                 text-align: center;
-                color: #4f4f4f;
+                color: #4F4F4F;
                 margin-bottom: 10px;
-                @include mediaQueries(pad) {
-                    font-size: 25px;
-                    line-height: 41px;
-                }
+                // @include mediaQueries(pad) {
+                //     font-size: 25px;
+                //     line-height: 41px;
+                // }
                 @include mediaQueries(mobile) {
                     font-size: 25px;
                     line-height: 41px;

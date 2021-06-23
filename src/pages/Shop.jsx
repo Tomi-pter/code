@@ -45,85 +45,86 @@ export default (props) => {
       </Helmet>
       <HeaderNav />
       <div className="shop-page">
-        <div className="container-fluid d-flex p-0 shop-category">
-          <div className="filter-col">
-            <h3>Categories</h3>
-            <div className="product-category">
-              <select
-                className="select-category form-control"
-                id="categoryType"
-                onChange={(e) => {
-                  const selectedCategory = e.target.value;
-                  setCategory(selectedCategory)
-                }}
-              >
-                <option value="Pharmaceuticals" >Pharmacies</option>
-                <option
-                  value="Animal Health">Animal Health</option>
-                <option
-                  value="Medical Supplies">Medical/Surgical Products</option>
-              </select>
-            </div>
-            <div
-              className="category-accordion accordion"
-              id="categoryAccordion"
-            >
-              <div className="accordion-item">
-                <button
-                  id="pharmacy-accordion-btn"
-                  className={'accordion-button collapsed' + (category === "Pharmaceuticals" ? ' active' : '')}
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#accordion1"
-                  aria-expanded="false"
-                  onClick={() => setCategory('Pharmaceuticals')}
-                >
-                  Pharmacies
-                </button>
-
-              </div>
-              <div className="accordion-item">
-                <button
-                  id="animal-accordion-btn"
-                 className={'accordion-button collapsed' + (category === "Animal Health" ? ' active' : '')}
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#accordion2"
-                  aria-expanded="false"
-                  onClick={() => setCategory('Animal Health')}
-                >
-                  Animal Health
-                </button>
-
-              </div>
-              <div className="accordion-item">
-                <button
-                  id="medical-accordion-btn"
-                 className={'accordion-button collapsed' + (category === "Medical Supplies" ? ' active' : '')}
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#accordion3"
-                  aria-expanded="false"
-                  onClick={() => setCategory('Medical Supplies')}
-                >
-                  Medical/Surgical Products
-                </button>
-
-              </div>
-            </div>
-          </div>
+        <div className="container-fluid shop-category">
           <div className="products-col">
             <div className="content-container">
               <div className="content-category">
                 <h3>
-                  For{' '}
+                  Products
+                  {/* For{' '}
                   {category === 'Pharmaceuticals'
                     ? 'Pharmacies'
                     : category === 'Animal Health'
                       ? 'Animal Health'
-                      : 'Medical/Surgical Products'}
+                      : 'Medical/Surgical Products'} */}
                 </h3>
-
+              </div>
+              <div className="filter-col">
+                {/* <h3>Categories</h3> */}
+                <div className="product-category">
+                  <select
+                    className="select-category form-control"
+                    id="categoryType"
+                    onChange={(e) => {
+                      const selectedCategory = e.target.value;
+                      setCategory(selectedCategory)
+                    }}
+                  >
+                    <option value="Pharmaceuticals" >Pharmacies</option>
+                    <option
+                      value="Animal Health">Animal Health</option>
+                    <option
+                      value="Medical Supplies">Medical/Surgical Products</option>
+                  </select>
+                </div>
+                <div
+                  // className="category-accordion accordion"
+                  // id="categoryAccordion"
+                  className="category d-flex align-items-center justify-content-between"
+                >
+                  {/* <div className="accordion-item"> */}
+                    <button
+                      id="pharmacy-accordion-btn"
+                      className={'accordion-button collapsed' + (category === "Pharmaceuticals" ? ' active' : '')}
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#accordion1"
+                      aria-expanded="false"
+                      onClick={() => setCategory('Pharmaceuticals')}
+                    >
+                      For Pharmacies
+                    </button>
+                  
+                  {/* </div> */}
+                  {/* <div className="accordion-item"> */}
+                    <button
+                      id="animal-accordion-btn"
+                      className={'accordion-button collapsed' + (category === "Animal Health" ? ' active' : '')}
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#accordion2"
+                      aria-expanded="false"
+                      onClick={() => setCategory('Animal Health')}
+                    >
+                      For Animal Care
+                    </button>
+                  
+                  {/* </div> */}
+                  {/* <div className="accordion-item"> */}
+                    <button
+                      id="medical-accordion-btn"
+                      className={'accordion-button collapsed' + (category === "Medical Supplies" ? ' active' : '')}
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#accordion3"
+                      aria-expanded="false"
+                      onClick={() => setCategory('Medical Supplies')}
+                    >
+                      For Medical/Surgical Products
+                    </button>
+                  
+                  {/* </div> */}
+                </div>
               </div>
               <div className="content">
                 <div className="products-container">

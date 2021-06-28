@@ -45,8 +45,6 @@ const MultiStepForm = ({ images }) => {
       return <Address {...props} />;
     case "account":
       return <Account {...props} />;
-    case "verification":
-      return <Verification {...props} />;
     default:
       return null;
   }

@@ -1,0 +1,80 @@
+.approval-page {
+  background-image: url("../../img/Payment/payment-bg.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: calc(100vh - 266px);
+  padding: 90px 0;
+  .card {
+    width: 660px;
+    min-height: 399.25px;
+    background: #fff;
+    border-radius: 7.5px;
+    margin: 0;
+  }
+  img{
+      margin-bottom: 28.25px;
+  }
+  p {
+    font-family: "Axiforma Bold", sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 47px;
+    text-align: center;
+    color: #4f4f4f;
+  }
+  h1 {
+    font-size: 75px;
+    line-height: 125px;
+  }
+  .buttonWrapper {
+    margin-top: 90px;
+  }
+  .primaryButton,
+  .secondaryButton {
+    width: 223.5px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 24px;
+  }
+  .primaryButton {
+    background: #16cfb0;
+    border-radius: 7.5px;
+    color: #ffffff;
+    margin-left: 60px;
+  }
+  .secondaryButton {
+    background: #ffffff;
+    border: 0.75px solid #21e8de;
+    box-sizing: border-box;
+    border-radius: 7.5px;
+    color: #21e8de;
+    margin-right: 60px;
+  }
+
+  @include mediaQueries(mobile) {
+    padding: 50px 16px;
+    > div,
+    .card {
+      width: 100%;
+    }
+    h1 {
+      font-size: 50px;
+      line-height: 80px;
+    }
+    .buttonWrapper {
+      justify-content: space-between !important;
+    }
+    .secondaryButton,
+    .primaryButton {
+      width: 45%;
+      margin: 0;
+    }
+  }
+}

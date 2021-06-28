@@ -1,13 +1,21 @@
-import { AUTH, VERIFY, RESEND, LOGOUT, FORGOTPASSWORD, CONFIRMFORGOTPASSWORD, GETCOUNTRIES, GETSTATES } from '../constants/actionTypes';
-import * as api from '../api/index.js';
-
+import {
+  AUTH,
+  VERIFY,
+  RESEND,
+  LOGOUT,
+  FORGOTPASSWORD,
+  CONFIRMFORGOTPASSWORD,
+  GETCOUNTRIES,
+  GETSTATES,
+} from "../constants/actionTypes";
+import * as api from "../api/index.js";
 export const logIn = (formData, router) => async (dispatch) => {
   try {
     const { data } = await api.logIn(formData);
 
     dispatch({ type: AUTH, data });
 
-    router.push('/account');
+    router.push("/account");
   } catch (error) {
     const data = error.response.data;
 
@@ -20,33 +28,28 @@ export const logIn = (formData, router) => async (dispatch) => {
 export const logOut = (username, router) => async (dispatch) => {
   try {
     const { data } = await api.logOut(username);
-    
+
     dispatch({ type: LOGOUT, data, router });
     // const cartIFrame = document.getElementById('hidden-iframe');
     // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
-    router.push('/');
+    router.push("/");
   } catch (error) {
     console.log(error);
   }
 };
 
-export const signUp = (formData) => async (dispatch) => {
+export const signUp = (formData, router) => async (dispatch) => {
   try {
     const { data } = await api.signUp(formData);
-
     dispatch({ type: AUTH, data });
-
-    // router.push('/account-verification');
   } catch (error) {
     const data = error.response.data;
-
     dispatch({ type: AUTH, data });
   }
 };
 
 export const verifyAccount = (formData, router) => async (dispatch) => {
   try {
-
     const { data } = await api.verifyAccount(formData);
     if (data.success) dispatch(logIn(formData, router));
     // if (data.data.success) logIn(formData, router);
@@ -72,11 +75,9 @@ export const verifyAccount = (formData, router) => async (dispatch) => {
 
 export const resendCode = (email) => async (dispatch) => {
   try {
-
     const { data } = await api.resendCode(email);
 
     dispatch({ type: RESEND, data });
-
   } catch (error) {
     const data = error.response.data;
 
@@ -86,12 +87,10 @@ export const resendCode = (email) => async (dispatch) => {
 
 export const forgotPassword = (email) => async (dispatch) => {
   try {
-
     const { data } = await api.forgotPassword(email);
 
     dispatch({ type: FORGOTPASSWORD, data });
     console.log(data);
-
   } catch (error) {
     const data = error.response.data;
 
@@ -99,27 +98,25 @@ export const forgotPassword = (email) => async (dispatch) => {
   }
 };
 
-export const confirmForgotPassword = (username, formData) => async (dispatch) => {
-  try {
+export const confirmForgotPassword =
+  (username, formData) => async (dispatch) => {
+    try {
+      const { data } = await api.confirmForgotPassword(username, formData);
 
-    const { data } = await api.confirmForgotPassword(username, formData);
-
-    dispatch({ type: CONFIRMFORGOTPASSWORD, data });
-    console.log(data);
-  } catch (error) {
-    const data = error.response.data;
-    dispatch({ type: CONFIRMFORGOTPASSWORD, data });
-    console.log(data);
-  }
-};
+      dispatch({ type: CONFIRMFORGOTPASSWORD, data });
+      console.log(data);
+    } catch (error) {
+      const data = error.response.data;
+      dispatch({ type: CONFIRMFORGOTPASSWORD, data });
+      console.log(data);
+    }
+  };
 
 export const getCountries = () => async (dispatch) => {
   try {
-
     const { data } = await api.getCountries();
 
     dispatch({ type: GETCOUNTRIES, data });
-
   } catch (error) {
     const data = error.response.data;
     console.log(data);
@@ -128,10 +125,8 @@ export const getCountries = () => async (dispatch) => {
 
 export const getStates = (id) => async (dispatch) => {
   try {
-
     const { data } = await api.getStates(id);
     dispatch({ type: GETSTATES, data });
-
   } catch (error) {
     const data = error.response.data;
     console.log(data);

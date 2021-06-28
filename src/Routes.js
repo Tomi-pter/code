@@ -11,10 +11,11 @@ import Search from "./pages/Search";
 import Shop from "./pages/Shop";
 import TestShop from "./pages/TestShop";
 import Product from "./pages/ProductDetails";
+import ApprovalPage from "./components/signup/approval-page";
 import { CartContainer } from "./pages/Cart";
 // import AccountVerification from "./pages/AccountVerification";
 
-import { ProtectedRoutes } from './components/protectedRoutes';
+import { ProtectedRoutes } from "./components/protectedRoutes";
 
 export default ({ childProps }) => (
   <BrowserRouter basename="/">
@@ -32,15 +33,22 @@ export default ({ childProps }) => (
       <Route path="/search" component={Search} />
       <Route path="/shop" component={Shop} />
       <Route path="/test-shop" component={TestShop} />
+      <Route path="/approval-page" component={ApprovalPage} />
       <Route exact path="/product">
         <Redirect to="/shop" />
       </Route>
       <Route path="/product/:id" component={Product} />
-      <ProtectedRoutes path="/account" component={PersonalInformationContainer} />
+      <ProtectedRoutes
+        path="/account"
+        component={PersonalInformationContainer}
+      />
       <ProtectedRoutes path="/checkout" component={CheckoutContainer} />
       <ProtectedRoutes path="/payment" component={PaymentContainer} />
       <ProtectedRoutes path="/cart" component={CartContainer} />
-      <ProtectedRoutes path="/payment-confirmation" component={PaymentConfirmationContainer} />
+      <ProtectedRoutes
+        path="/payment-confirmation"
+        component={PaymentConfirmationContainer}
+      />
       <Route component={ErrorPageContainer} />
     </Switch>
   </BrowserRouter>

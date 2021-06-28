@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Input from "../shared/input";
@@ -8,8 +8,11 @@ import { useSelector } from 'react-redux';
 
 import CheckGreen from '../../assets/icon/check-lgreen.svg';
 import XGray from '../../assets/icon/x-gray.svg';
+import SignupImage from '../../assets/img/signup-img.png';
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const Account = ({  setForm, formData, navigation }) => {
+const Account = ({ setForm, formData, navigation }) => {
+    const history = useHistory()
     const auth = useSelector((state) => state.auth);
     const { email, password, confirm_password } = formData;
     const { previous, next } = navigation;
@@ -22,7 +25,7 @@ const Account = ({  setForm, formData, navigation }) => {
     const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(password);
     const checkNumber = /^(?=.*[0-9])/.test(password);
     const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(password);
-    
+
     const submit = () => {
         setIsLoading(true);
         setSubmitted(true);
@@ -40,63 +43,73 @@ const Account = ({  setForm, formData, navigation }) => {
         validation();
     }, [validation]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setIsLoading(false);
-        if(!auth.authData?.message && submitted) { 
-            next() 
+        if (!auth.authData?.message && submitted) {
+            sleep(1000).then(
+                () => history.push('/approval-page')
+            )
         } else {
             setSubmitted(false);
         };
-    },[auth]);
+    }, [auth]);
 
     return (
-        <div className="form">
-            <h4>Account</h4>
-            <Input
-                label="Email"
-                name="email"
-                type="email"
-                value={email}
-                onChange={setForm}
-            />
-            <div className="password-container">
-                <Input
-                    label="Password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={setForm}
-                />
-                <p className={"password-validation " + (checkPasswordLenght ? 'valid' : '')}>{checkPasswordLenght ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use 8 or more characters</p>
-                <p className={"password-validation " + (checkLetters ? 'valid' : '')}>{checkLetters ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use upper and lower case letters</p>
-                <p className={"password-validation " + (checkNumber ? 'valid' : '')}>{checkNumber ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use a number (e.g. 1234)</p>
-                <p className={"password-validation " + (checkCharacter ? 'valid' : '')}>{checkCharacter ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use a symbol (e.g. !@#$)</p>
-                <Input
-                    label="Confirm Password"
-                    name="confirm_password"
-                    type="password"
-                    value={confirm_password}
-                    onChange={setForm}
-                />
-            </div>
-            <p className={"text-center error "+(auth.authData?.message ? "alert-danger" : "")}>
-                {auth.authData?.message}
-            </p>
-            <div className="d-flex align-items-center justify-content-end nav">
-                <button className="prev mr-5" onClick={previous}><img src={PrevIcon} alt="" /> <span>Previous Step</span></button>
-                <button className="submit" onClick={submit} disabled={isDisabled}>
-                    {isLoading ?
-                        <div className="spinner-border text-light" role="status">
-                            <span className="sr-only">Loading...</span>
+        <div className="card mb-0">
+            <div className="d-flex">
+                <div className="form-container">
+                    <div className="form">
+                        <h4>Account</h4>
+                        <Input
+                            label="Email"
+                            name="email"
+                            type="email"
+                            value={email}
+                            onChange={setForm}
+                        />
+                        <div className="password-container">
+                            <Input
+                                label="Password"
+                                name="password"
+                                type="password"
+                                value={password}
+                                onChange={setForm}
+                            />
+                            <p className={"password-validation " + (checkPasswordLenght ? 'valid' : '')}>{checkPasswordLenght ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use 8 or more characters</p>
+                            <p className={"password-validation " + (checkLetters ? 'valid' : '')}>{checkLetters ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use upper and lower case letters</p>
+                            <p className={"password-validation " + (checkNumber ? 'valid' : '')}>{checkNumber ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use a number (e.g. 1234)</p>
+                            <p className={"password-validation " + (checkCharacter ? 'valid' : '')}>{checkCharacter ? <img src={CheckGreen} alt="" /> : <img src={XGray} alt="" />} Use a symbol (e.g. !@#$)</p>
+                            <Input
+                                label="Confirm Password"
+                                name="confirm_password"
+                                type="password"
+                                value={confirm_password}
+                                onChange={setForm}
+                            />
                         </div>
-                        :
-                        <>
-                            Submit
+                        <p className={"text-center error " + (auth.authData?.message ? "alert-danger" : "")}>
+                            {auth.authData?.message}
+                        </p>
+                        <div className="d-flex align-items-center justify-content-end nav">
+                            <button className="prev mr-5" onClick={previous}><img src={PrevIcon} alt="" /> <span>Previous Step</span></button>
+                            <button className="submit" onClick={submit} disabled={isDisabled}>
+                                {isLoading ?
+                                    <div className="spinner-border text-light" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                    :
+                                    <>
+                                        Submit
                         </>
-                    }
-                </button>
+                                }
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <img className="signup-img" src={SignupImage} alt="" />
             </div>
         </div>
+
     );
 };
 

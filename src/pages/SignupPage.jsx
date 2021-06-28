@@ -15,15 +15,7 @@ export const SignUpContainer = () => {
       <HeaderNav />
       <div className="container-fluid d-flex align-items-center signup">
         <div className="container signup-wrapper">
-          <div className="card mb-0">
-            <div className="d-flex">
-              <div className="form-container">
-                <h3>Sign Up</h3>
-                <MultiStepForm />
-              </div>
-              <img className="signup-img" src={SignupImage} alt="" />
-            </div>
-          </div>
+          <MultiStepForm />
           <div className="newsletterWrapper d-flex align-items-center justify-content-center mt-5">
             <div className="emailWrapper">
               <h2>Want to learn more about how Premier Pharmaceuticals can help?</h2>

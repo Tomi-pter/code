@@ -7,5 +7,6 @@ import cart from './cart';
 import cards from './cards';
 import payment from './payment';
 import search from './search';
+import admin from './admin';
 
-export const reducers = combineReducers({ auth, account, products, cart, cards, payment, search });
+export const reducers = combineReducers({ auth, account, products, cart, cards, payment, search, admin });

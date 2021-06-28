@@ -1,0 +1,54 @@
+.admin-pages {
+    min-height: 100vh;
+    .card {
+        min-height: calc(100vh - 100px);
+        padding: 30px;
+        margin-bottom: 0;
+    }
+    .header {
+        height: 40px;
+        padding: 0;
+    }
+    .table-container {
+        max-height: calc(100vh - 238px);
+        overflow: auto;
+    }
+    table thead th {
+        position: sticky;
+        top: 0;
+    }
+    table tbody td {
+        &:last-child {
+            width: 200px;
+            min-width: 200px;
+        }
+    }
+    .table-loader {
+        padding: 0;
+        width: 100%;
+        height: 200px;
+        .spinner-border {
+            width: 100px;
+            height: 100px;
+        }
+    }
+    /* width */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888; 
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+    }
+}

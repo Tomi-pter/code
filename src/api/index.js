@@ -60,3 +60,7 @@ export const paymentByTerms = (username, formData) => API.post(`/${username}/pay
 // UPLOAD AVATAR
 export const getAvatar = (username) => API.get(`/user/${username}/photo`);
 export const postAvatar = (username, image) => API.post(`/user/${username}/photo`, image);
+
+// ADMIN
+export const getUsers = () => API.get(`/admin/users`);
+export const getCustomProducts = (username) => API.get(`/custom-price/${username}`);

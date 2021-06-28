@@ -13,6 +13,8 @@ import TestShop from "./pages/TestShop";
 import Product from "./pages/ProductDetails";
 import ApprovalPage from "./components/signup/approval-page";
 import { CartContainer } from "./pages/Cart";
+import { AdminDashboard } from "./pages/admin";
+import Company from "./pages/admin/company";
 // import AccountVerification from "./pages/AccountVerification";
 
 import { ProtectedRoutes } from "./components/protectedRoutes";
@@ -38,6 +40,8 @@ export default ({ childProps }) => (
         <Redirect to="/shop" />
       </Route>
       <Route path="/product/:id" component={Product} />
+      <Route exact path="/admin" component={AdminDashboard} />
+      <Route path="/admin/:id" component={Company} />
       <ProtectedRoutes
         path="/account"
         component={PersonalInformationContainer}

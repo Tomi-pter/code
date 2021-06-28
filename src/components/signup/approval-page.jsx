@@ -14,7 +14,7 @@ const ApprovalPage = () => {
                         <p>Your account is going through a 24 hour approval. We will let you know once it is approved.</p>
                     </div>
                     <div className="buttonWrapper d-flex align-items-center justify-content-center">
-                        <Link to="/" className="primaryButton">
+                        <Link to={process.env.REACT_APP_HOMEPAGE_URL} className="primaryButton">
                             Continue to Home Page
                         </Link>
                     </div>

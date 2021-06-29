@@ -1,4 +1,4 @@
-import { GETUSERS, GETCUSTOMPRODUCTS, RESETCUSTOMPRODUCTS, CREATECUSTOMPRODUCT, UPDATECUSTOMPRODUCT, REMOVECUSTOMPRODUCT } from '../constants/actionTypes';
+import { GETUSERS, GETCUSTOMPRODUCTS, RESETCUSTOMPRODUCTS, CREATECUSTOMPRODUCT, UPDATECUSTOMPRODUCT, REMOVECUSTOMPRODUCT, LOGINADMINUSER } from '../constants/actionTypes';
 
 const adminReducer = (state = { users: [], customProducts: [] }, action) => {
   switch (action.type) {
@@ -26,6 +26,11 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
         const newCustomProducts = state.customProducts.filter((product) => product.customPricingId !== action.id)
       
         return { ...state, customProducts: newCustomProducts };
+    case LOGINADMINUSER:
+        if (action?.data?.success && action?.data?.accessToken) {
+          localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
+        }
+        return { ...state, authData: action.data };
     default:
         return state;
   }

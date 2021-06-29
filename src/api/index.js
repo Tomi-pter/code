@@ -67,3 +67,4 @@ export const getCustomProducts = (username) => API.get(`/custom-price/${username
 export const createCustomProduct = (formData) => API.post(`/custom-price/create`, formData);
 export const updateCustomProduct = (id, formData) => API.put(`/custom-price/${id}`, formData);
 export const removeCustomProduct = (id) => API.delete(`/custom-price/${id}`);
+export const loginAdminUser = (formData) => API.post(`/admin/login-as-user`, formData);

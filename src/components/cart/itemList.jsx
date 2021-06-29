@@ -50,8 +50,6 @@ export const ItemList = ({ cart, page }) => {
         setQuantity(1);
     }, [cart]);
 
-    console.log(cart);
-
     return (
         <div>
             { (!cart.countData || cart.countData?.length <= 0) &&

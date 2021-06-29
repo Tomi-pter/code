@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-import { getUsers } from '../../actions/admin';
+import { getUsers, loginAdminUser } from '../../actions/admin';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 export const AdminDashboard = () => {
     const admin = useSelector((state) => state.admin);
+    const history = useHistory();
     const dispatch = useDispatch();
+
+    const handleLoginUser = (user) => {
+        const formData = {username: user.Username}
+        dispatch(loginAdminUser(formData, history));
+    }
 
     useEffect(() => {
         dispatch(getUsers());
     }, [dispatch]);
-
-    console.log(admin);
 
     return (
         <div className="d-flex align-items-center justify-content-center admin-pages">
@@ -40,7 +44,7 @@ export const AdminDashboard = () => {
                                         <td>{user.UserStatus}</td>
                                         <td>
                                             <Link to={`admin/${user.Username}`} className="mr-5">View</Link>
-                                            <button className="btn btn-primary">Login</button>
+                                            <button className="btn btn-primary" onClick={()=>handleLoginUser(user)} disabled={user.UserStatus === 'CONFIRMED' ? null : true}>Login</button>
                                         </td>
                                     </tr>
                                 ))

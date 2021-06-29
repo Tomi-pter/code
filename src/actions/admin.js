@@ -4,7 +4,8 @@ import {
     RESETCUSTOMPRODUCTS,
     CREATECUSTOMPRODUCT,
     UPDATECUSTOMPRODUCT,
-    REMOVECUSTOMPRODUCT
+    REMOVECUSTOMPRODUCT,
+    LOGINADMINUSER
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
   
@@ -62,6 +63,21 @@ export const removeCustomProduct = (id) => async (dispatch) => {
         const { data } = await api.removeCustomProduct(id);
         
         dispatch({ type: REMOVECUSTOMPRODUCT, id });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const loginAdminUser = (formData, router) => async (dispatch) => {
+    try {
+        console.log(formData);
+        const { data } = await api.loginAdminUser(formData);
+
+        console.log(data);
+        
+        // dispatch({ type: LOGINADMINUSER, data });
+
+        // router.push("/account");
     } catch (error) {
         console.log(error);
     }

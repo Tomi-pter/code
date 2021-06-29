@@ -1,15 +1,16 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { Alert } from 'react-bootstrap';
 import NotificationIcon from '../../assets/img/notif-bell.svg';
-import moment from 'moment';
-import tz from 'moment-timezone'
+import moment from 'moment-timezone';
 export const NotificationBanner = () => {
     const calculateTimeLeft = () => {
         let year = new Date().getFullYear();
         var d = new Date(); 
-        d.setHours(2, 34, 0);
-        const datetime = moment(d)
-        let difference = +new Date(datetime.tz('America/New_York')) - +new Date();
+        d.setHours(5, 30, 0);
+        // const datetime = moment(d).tz('America/New_York');
+        const datetime = moment.tz(d, "America/New_York").format();
+        console.log(datetime);
+        let difference = +new Date(datetime) - +new Date();
 
         let timeLeft = {};
 
@@ -55,7 +56,7 @@ export const NotificationBanner = () => {
                     </div>
                     <div className="col-md-auto d-flex align-items-center">
                         <span class="banner-text ">
-                            {timerComponents.length ? <span>Place your order by 5:30 EST for guaranteed overnight shipping! ({timerComponents})</span> : <span>Order will ship the following business day</span>} </span>
+                            {timerComponents.length ? <span>Place your order by 5:30 EST for guaranteed overnight shipping! {timerComponents}</span> : <span>Order will ship the following business day</span>} </span>
                     </div>
                 </div>
 

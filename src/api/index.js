@@ -64,3 +64,6 @@ export const postAvatar = (username, image) => API.post(`/user/${username}/photo
 // ADMIN
 export const getUsers = () => API.get(`/admin/users`);
 export const getCustomProducts = (username) => API.get(`/custom-price/${username}`);
+export const createCustomProduct = (formData) => API.post(`/custom-price/create`, formData);
+export const updateCustomProduct = (id, formData) => API.put(`/custom-price/${id}`, formData);
+export const removeCustomProduct = (id) => API.delete(`/custom-price/${id}`);

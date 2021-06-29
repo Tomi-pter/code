@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { getUsers, getCustomProducts, resetCustomProducts } from '../../actions/admin';
+import { getUsers, getCustomProducts, resetCustomProducts, createCustomProduct, updateCustomProduct, removeCustomProduct } from '../../actions/admin';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-const initialState = { productId: "", price: 0 };
+const initialState = { productId: "", price: "" };
 
 export default props => {
     const admin = useSelector((state) => state.admin);
     const [username, setUsername] = useState('');
     const [companyDetails, setCompanyDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [actionLoading, setActionLoading] = useState(false);
     const [formData, setFormData] = useState(initialState);
     const [actionType, setActionType] = useState('add');
     const location = useLocation();
@@ -19,19 +20,35 @@ export default props => {
 
     const handleAction = (action, product) => {
         if (action === 'add') {
-            setFormData(initialState);
+            setFormData({...initialState, username });
         } else {
             setFormData(product);
         }
         setActionType(action);
     }
 
-    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: parseInt(e.target.value) });
+
+    const handleSubmit = () => {
+        if (actionType === 'add') {
+            setActionLoading(true);
+            dispatch(createCustomProduct(formData));
+        } else {
+            setActionLoading(true);
+            dispatch(updateCustomProduct(formData.customPricingId, formData));
+        }
+    }
+
+    const handleDelete = (product) => {
+        dispatch(removeCustomProduct(product.customPricingId));
+    }
 
     useEffect(() => {
         const company = admin.users.filter((user) => user.Username === username);
         setCompanyDetails(company[0]);
+        document.getElementById("closeModal").click();
         setIsLoading(false);
+        setActionLoading(false);
     }, [admin]);
 
     useEffect(() => {
@@ -42,8 +59,6 @@ export default props => {
     }, [dispatch, location]);
 
     useEffect(() => {
-        console.log('render!');
-
         return () => dispatch(resetCustomProducts());
     }, []);
 
@@ -92,8 +107,8 @@ export default props => {
                                         {/* <td>Product Name</td> */}
                                         <td>{product.price}</td>
                                         <td>
-                                            <a href="#" className="mr-5" data-toggle="modal" data-target="#productModal" onClick={()=>handleAction('edit', product)}>Edit</a>
-                                            <a href="#" className="mr-5">Delete</a>
+                                            <button type="button" className="btn btn-outline-secondary mr-3" data-toggle="modal" data-target="#productModal" onClick={()=>handleAction('edit', product)}>Edit</button>
+                                            <button type="button" className="btn btn-outline-danger" onClick={()=>handleDelete(product)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))                           
@@ -107,7 +122,7 @@ export default props => {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="productModalTitle">{actionType === 'add' ? 'Add' : 'Edit'} Product</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <button id="closeModal" type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -124,7 +139,20 @@ export default props => {
                                 <label htmlFor="FormControlInput3">Price</label>
                                 <input type="number" name="price" value={formData.price} className="form-control" id="FormControlInput3" onChange={handleChange} />
                             </div>
-                            <button type="button" className="btn btn-primary w-100">{actionType === 'add' ? 'Add' : 'Save changes'}</button>
+                            <button 
+                                type="button" 
+                                className="btn btn-primary d-flex align-items-center justify-content-center w-100" 
+                                onClick={handleSubmit}
+                                disabled={formData.productId === "" && formData.price === "" && !actionLoading ? true : null}
+                            >
+                                {
+                                    actionLoading &&
+                                    <div className="spinner-border text-light spinner-border-sm mr-3" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                }
+                                {actionType === 'add' ? 'Add' : 'Save changes'}
+                            </button>
                         </div>
                     </div>
                 </div>

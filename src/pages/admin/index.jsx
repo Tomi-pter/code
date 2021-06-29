@@ -13,6 +13,8 @@ export const AdminDashboard = () => {
         dispatch(getUsers());
     }, [dispatch]);
 
+    console.log(admin);
+
     return (
         <div className="d-flex align-items-center justify-content-center admin-pages">
             <div className="card container">
@@ -38,7 +40,7 @@ export const AdminDashboard = () => {
                                         <td>{user.UserStatus}</td>
                                         <td>
                                             <Link to={`admin/${user.Username}`} className="mr-5">View</Link>
-                                            <a href="#" className="mr-5">Login</a>
+                                            <button className="btn btn-primary">Login</button>
                                         </td>
                                     </tr>
                                 ))

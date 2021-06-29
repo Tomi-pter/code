@@ -160,7 +160,7 @@ export const Addresses = ({ account }) => {
                 </thead>
                 <tbody>
                     {
-                        account?.addressesData?.map((item, index) => (
+                        account.addressesData?.map((item, index) => (
                             <tr key={index}>
                                 <td className="w-100">
                                     <p className="mb-0">{item?.details?.givenName + ' ' + item?.details?.familyName}</p>

@@ -133,7 +133,7 @@ export const addAddresses = (username, formData) => async (dispatch) => {
 export const deleteAddressesById = (username, id) => async (dispatch) => {
   try {
     const { data } = await api.deleteAddressesById(username, id);
-    dispatch({ type: DELETEADDRESSESBYID, data });
+    dispatch({ type: DELETEADDRESSESBYID, payload: id });
 
   } catch (error) {
     console.log(error);

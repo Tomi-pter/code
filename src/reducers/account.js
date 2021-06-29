@@ -64,8 +64,7 @@ const accountReducer = (state = initialState, action) => {
       }
       return { ...state, updateAddressDefault: true};
     case actionType.DELETEADDRESSESBYID:
-      const newAddressesData = state.addressesData.filter((address) => address.id !== action.data.id)
-      
+      const newAddressesData = state.addressesData.filter((address) => address.addressId !== action.payload)
       return { ...state, addressesData: newAddressesData };
     case actionType.GETADDRESSESBYID:
       return { ...state, getAddressesById: action.data };

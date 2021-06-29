@@ -9,7 +9,6 @@ export const NotificationBanner = () => {
         d.setHours(5, 30, 0);
         // const datetime = moment(d).tz('America/New_York');
         const datetime = moment.tz(d, "America/New_York").format();
-        console.log(datetime);
         let difference = +new Date(datetime) - +new Date();
 
         let timeLeft = {};

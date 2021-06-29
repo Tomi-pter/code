@@ -92,17 +92,19 @@ export const LoginContainer = () => {
 
             if (decodedToken.exp * 1000 > new Date().getTime()) history.push("/account");
         }
-
+        if (auth.authData?.accountStatus === "UNCONFIRMED") {
+            history.push("/account");
+        }
     }, [location]);
 
     return (
         <>
             <Helmet>
-                <title>{ forgotPass ? 'Forgot Password' : 'Log In' } | Premier Pharmaceuticals</title>
+                <title>{forgotPass ? 'Forgot Password' : 'Log In'} | Premier Pharmaceuticals</title>
             </Helmet>
             <HeaderNav />
             {auth.authData?.accountStatus === "UNCONFIRMED" ?
-                <AccountVerification formData={formData} setFormData={setFormData} />
+                history.push("/approval-page")
                 :
                 <div className="container-fluid d-flex align-items-center login">
                     <div className="container d-flex align-items-center justify-content-end">
@@ -170,7 +172,7 @@ export const LoginContainer = () => {
                                                                 <button className="continueButton" disabled={continueButton} onClick={submit}>Continue</button>
                                                             </div>
                                                         </div>
-                                                        : 
+                                                        :
                                                         <div>
                                                             <h2> Change Password</h2>
                                                             <p className="emailDesc">Enter the email address associated with your account and we’ll send you a code to confirm your password reset request.</p>
@@ -195,50 +197,50 @@ export const LoginContainer = () => {
                                                         </div>
                                                 )}
                                         </div>
-                                    </div> 
-                                    :
-                                    <form onSubmit={handleSubmit}>
-                                        <h3 className="text-center">Log in</h3>
-                                        {/* <h4 className="text-center">Lorem Ipsum</h4> */}
-                                        <p className={"text-center error " + (auth.authData?.message ? "alert-danger" : "")}>
-                                            {auth.authData?.message}
-                                        </p>
-                                        <Input
-                                            label="Username"
-                                            name="email"
-                                            type="email"
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                        <div className="forgot-pass d-flex justify-content-end">
-                                            <a href="#" onClick={() => setForgotpass(true)}>Forgot Password?</a>
-                                        </div>
-                                        <Input
-                                            label="Password"
-                                            name="password"
-                                            type="password"
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                        <div className="signup-container d-flex align-items-center justify-content-between">
-                                            <div className="d-none d-sm-block">
-                                                <span className="signup-text">
-                                                    Don’t have an account? <Link to="/register">SIGN UP</Link>
-                                                </span>
+                                    </div>
+                                        :
+                                        <form onSubmit={handleSubmit}>
+                                            <h3 className="text-center">Log in</h3>
+                                            {/* <h4 className="text-center">Lorem Ipsum</h4> */}
+                                            <p className={"text-center error " + (auth.authData?.message ? "alert-danger" : "")}>
+                                                {auth.authData?.message}
+                                            </p>
+                                            <Input
+                                                label="Username"
+                                                name="email"
+                                                type="email"
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                            <div className="forgot-pass d-flex justify-content-end">
+                                                <a href="#" onClick={() => setForgotpass(true)}>Forgot Password?</a>
                                             </div>
-                                            <button type="submit" className="btn submit-button" disabled={isDisabled}>
-                                                {isLoading ?
-                                                    <div className="spinner-border text-light" role="status">
-                                                        <span className="sr-only">Loading...</span>
-                                                    </div>
-                                                    :
-                                                    <>
-                                                        Submit
+                                            <Input
+                                                label="Password"
+                                                name="password"
+                                                type="password"
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                            <div className="signup-container d-flex align-items-center justify-content-between">
+                                                <div className="d-none d-sm-block">
+                                                    <span className="signup-text">
+                                                        Don’t have an account? <Link to="/register">SIGN UP</Link>
+                                                    </span>
+                                                </div>
+                                                <button type="submit" className="btn submit-button" disabled={isDisabled}>
+                                                    {isLoading ?
+                                                        <div className="spinner-border text-light" role="status">
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                        :
+                                                        <>
+                                                            Submit
                                         </>
-                                                }
-                                            </button>
-                                        </div>
-                                    </form>
+                                                    }
+                                                </button>
+                                            </div>
+                                        </form>
                                 }
 
 

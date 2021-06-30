@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Product } from './product'
 import { useDispatch } from 'react-redux'
 import { getCart, addCart } from '../../actions/cart'
+import { getCustomProducts } from '../../actions/admin'
 import { useSelector } from 'react-redux'
 import { getProducts } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
@@ -10,6 +11,8 @@ import { useLocation } from 'react-router'
 export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const products = useSelector((state) => state.products);
   const cart = useSelector((state) => state.cart)
+  const admin = useSelector((state) => state.admin);
+  const [customProducts, setCustomProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isCartLoading, setIsCartLoading] = useState(false)
@@ -39,7 +42,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         productId: parseInt(product.id),
         productName: product.name,
         price: parseFloat(product.purchasePrice),
-        imageUrl: product.url, 
+        imageUrl: product.url,
         quantity,
       },
     }
@@ -47,7 +50,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setSelectedProduct(product)
     dispatch(addCart(user?.username, newProduct))
   }
- 
+
   const setSorting = (filter, order, value) => {
     setIsLoading(true)
     setFilter(filter);
@@ -63,6 +66,28 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setPageNumber(increment);
   };
 
+  useEffect(() => {
+      if (products?.products?.length > 0 && admin?.customProducts?.length > 0) {
+          const customProductLookup = admin.customProducts.reduce((prods, prod) => {
+               prods[prod.productId] = prod;
+
+               return prods;
+           }, {});
+
+           const productsWithCustomPrice = products.products.map(prod => {
+               if (customProductLookup[prod.id] !== undefined) {
+                   prod.purchasePrice = customProductLookup[prod.id].price;
+               }
+
+               return { ...prod }
+           })
+
+           setCustomProducts(productsWithCustomPrice);
+      }
+      else {
+          setCustomProducts(products.products);
+      }
+  }, [products, admin]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -76,6 +101,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('profile'))
     dispatch(getCart(user?.username))
+    dispatch(getCustomProducts(user?.username))
   }, [dispatch])
 
   useEffect(() => {
@@ -94,6 +120,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   useEffect(() => {
     setIsLoading(false)
   }, [products])
+
+  console.log(customProducts);
 
   return (
     <div className="products-container">
@@ -123,7 +151,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
               >
                 {sortBy === null || sortBy === "" ? (
                   <>A-Z </>
-                ) : ( 
+                ) : (
                   <>{sortBy}</>
                 )}
               </button>
@@ -207,25 +235,25 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
               </div>
             </div>
             :
-            typeof (products.products) != "undefined" ? products.products.map((product) => (
-              <Product
-                shopFont={shopFont}
-                view={view}
-                key={product.id}
-                product={product}
-                addCart={handleAddCart}
-                setSelectedProduct={setSelectedProduct}
-                selectedProduct={selectedProduct}
-                isLoading={isLoading}
-                isCartLoading={isCartLoading}
-                quantity={quantity}
-                setQuantity={setQuantity}
-                cart={cart}
-                category={product.customFields ? product.customFields[15] ? product.customFields[15].value : "" : ""}
+            typeof (customProducts) != "undefined" ? customProducts.map((product) => (
+                  <Product
+                    shopFont={shopFont}
+                    view={view}
+                    key={product.id}
+                    product={product}
+                    addCart={handleAddCart}
+                    setSelectedProduct={setSelectedProduct}
+                    selectedProduct={selectedProduct}
+                    isLoading={isLoading}
+                    isCartLoading={isCartLoading}
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                    cart={cart}
+                    category={product.customFields ? product.customFields[15] ? product.customFields[15].value : "" : ""}
 
-                sortBy={sortBy}
-              />
-            )) : ''}
+                    sortBy={sortBy}
+                  />
+                )) : ''}
         </div>
       </div>
       <div className="pagination-products">

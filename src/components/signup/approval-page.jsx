@@ -10,7 +10,7 @@ const ApprovalPage = () => {
                 <div>
                     <div className="d-flex flex-column align-items-center justify-content-center card">
                         <img src={AccountSuccessImg} alt="" />
-                        <p>Your account is going through a 24 hour approval. We will let you know once it is approved.</p>
+                        <p>Thank you for creating an account with Premier Pharmaceuticals. We are currently reviewing your account and will notify you within 1 business day once it is approved.</p>
                     </div>
                     <div className="buttonWrapper d-flex align-items-center justify-content-center">
                         <a href={process.env.REACT_APP_HOMEPAGE_URL} className="primaryButton">

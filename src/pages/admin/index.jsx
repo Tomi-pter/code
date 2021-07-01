@@ -12,8 +12,23 @@ export const AdminDashboard = () => {
 
     const handleLoginUser = (user) => {
         const formData = {username: user.Username}
-        dispatch(loginAdminUser(formData, history));
+        const profile = JSON.parse(localStorage.getItem('profile'));
+        dispatch(loginAdminUser(formData, profile));
     }
+
+    const handleLogout = () => {
+        localStorage.removeItem('admin')
+        history.push('/admin/login')
+    }
+
+    useEffect(() => {
+        if (admin.loginError) {
+            document.getElementById('toast').classList.toggle("show");
+            setTimeout(function() { 
+                document.getElementById('toast').classList.toggle("show");
+            }, 5000);
+        }
+    }, [admin]);
 
     useEffect(() => {
         dispatch(getUsers());
@@ -26,6 +41,7 @@ export const AdminDashboard = () => {
                     <h2 className="m-0">
                         Companies
                     </h2>
+                    <button type="button" className="btn btn-danger" onClick={()=>handleLogout()}>Logout</button>
                 </div>
                 <div className="table-container">
                     <table className="table table-hover">
@@ -52,6 +68,9 @@ export const AdminDashboard = () => {
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div id="toast" className="toast alert alert-danger" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" style={{position: 'absolute', bottom: '1rem', right: '1rem'}}>
+                Let the user login atleast once! 
             </div>
         </div>
     )

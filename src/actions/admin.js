@@ -5,7 +5,8 @@ import {
     CREATECUSTOMPRODUCT,
     UPDATECUSTOMPRODUCT,
     REMOVECUSTOMPRODUCT,
-    LOGINADMINUSER
+    LOGINADMINUSER,
+    LOGINERROR
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
   
@@ -68,17 +69,20 @@ export const removeCustomProduct = (id) => async (dispatch) => {
     }
 };
 
-export const loginAdminUser = (formData, router) => async (dispatch) => {
+export const loginAdminUser = (formData, profile) => async (dispatch) => {
     try {
-        console.log(formData);
-        const { data } = await api.loginAdminUser(formData);
-
-        console.log(data);
+        if (profile) {
+            await api.logOut(profile.username);
+            localStorage.removeItem('profile');
+        }
         
-        // dispatch({ type: LOGINADMINUSER, data });
+        const { data } = await api.loginAdminUser(formData);
+        
+        dispatch({ type: LOGINADMINUSER, data });
 
-        // router.push("/account");
+        window.open("/shop", "_blank");
     } catch (error) {
-        console.log(error);
+        // console.log(error);
+        dispatch({ type: LOGINERROR });
     }
 };

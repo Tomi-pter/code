@@ -53,9 +53,9 @@ export default props => {
 
     useEffect(() => {
         setIsLoading(true);
-        setUsername(props.match.params.id)
+        setUsername(props.computedMatch.params.id)
         dispatch(getUsers())
-        dispatch(getCustomProducts(props.match.params.id));
+        dispatch(getCustomProducts(props.computedMatch.params.id));
     }, [dispatch, location]);
 
     useEffect(() => {

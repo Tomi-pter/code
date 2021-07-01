@@ -28,7 +28,8 @@ export default (props) => {
       if (cat === "Animal Health" && animalBtn.className.split(' ').length === 2) animalBtn.click()
       if (cat === "Medical Supplies" && medicalBtn.className.split(' ').length === 2) medicalBtn.click()
     } else {
-      pharmaBtn.click()
+      // pharmaBtn.click()
+      setCategory('Pharmaceuticals')
     }
     window.history.replaceState({}, document.title, '/' + 'shop')
   }, [location])
@@ -92,7 +93,7 @@ export default (props) => {
                       aria-expanded="false"
                       onClick={() => setCategory('Pharmaceuticals')}
                     >
-                      For Pharmacies
+                      Pharmacies
                     </button>
                   
                   {/* </div> */}
@@ -106,7 +107,7 @@ export default (props) => {
                       aria-expanded="false"
                       onClick={() => setCategory('Animal Health')}
                     >
-                      For Animal Health
+                      Animal Health
                     </button>
                   
                   {/* </div> */}
@@ -120,7 +121,7 @@ export default (props) => {
                       aria-expanded="false"
                       onClick={() => setCategory('Medical Supplies')}
                     >
-                      For Medical/Surgical Products
+                      Medical/Surgical Products
                     </button>
                   
                   {/* </div> */}

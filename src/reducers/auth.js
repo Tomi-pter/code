@@ -14,7 +14,8 @@ const authReducer = (state = { authData: null }, action) => {
     case actionType.LOGOUT:
       // const cartIFrame = document.getElementById('hidden-iframe');
       // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
-      localStorage.clear();
+      localStorage.removeItem('profile');
+      // localStorage.clear();
       return state;
     case actionType.FORGOTPASSWORD:
       return { ...state, sendOTP: action.data };

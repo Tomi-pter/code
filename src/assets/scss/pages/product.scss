@@ -13,7 +13,7 @@
     }
     .content {
         @include mediaQueries(mobile) {
-            padding: 0;
+            padding: 15px;
         }
         .details-container {
             min-width: 539.25px;
@@ -23,7 +23,7 @@
             }
             @include mediaQueries(pad) {
                 width: 100%;
-                margin: 0;
+                margin-bottom: 30px;
             }
             @include mediaQueries(mobile) {
                 min-width: 0;
@@ -35,7 +35,7 @@
             border-radius: 5px;
             padding: 60px;
             @include mediaQueries(mobile) {
-                padding: 40px;
+                padding: 30px;
             }
         }
         .name,

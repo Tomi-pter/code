@@ -5,6 +5,8 @@ import { Footer } from '../components/partials/Footer'
 import { Products } from '../components/shared/products'
 import { Helmet } from 'react-helmet';
 
+import { NotificationBanner } from '../components/shared/warningNotification';
+
 // import { useSelector } from 'react-redux'
 // import { useDispatch } from 'react-redux'
 // import { getProducts } from '../actions/products'
@@ -128,6 +130,7 @@ export default (props) => {
                 </div>
               </div>
               <div className="content">
+                <NotificationBanner />
                 <div className="products-container">
                   <div
                     className={

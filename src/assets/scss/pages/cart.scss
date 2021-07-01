@@ -755,23 +755,4 @@
       flex: auto;
     }
   }
-  .notificationBanner {
-    background: #0098ff;
-    border-radius: 5px;
-    padding: 19px 0;
-    .bannerIcon{
-        height: 26.25px;
-        width: 22.5px;
-    }
-    span.banner-text {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 22px;
-      color: #ffffff;
-    }
-    .close{
-        color: #FFF;
-    }
-  }
 }

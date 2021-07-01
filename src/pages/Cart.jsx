@@ -3,7 +3,7 @@ import { HeaderNav } from '../components/partials/HeaderNav';
 import { Footer } from '../components/partials/Footer';
 import { ItemList } from '../components/cart/itemList';
 import { OrderSummary } from '../components/cart/orderSummary';
-import { NotificationBanner } from '../components/cart/warningNotification';
+import { NotificationBanner } from '../components/shared/warningNotification';
 import { Helmet } from 'react-helmet';
 
 import { useDispatch } from 'react-redux';

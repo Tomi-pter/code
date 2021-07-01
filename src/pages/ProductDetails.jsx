@@ -9,6 +9,7 @@ import { getProduct } from '../actions/products';
 import { addCart } from '../actions/cart';
 import NoImage from '../assets/img/unavailable.svg';
 import { Helmet } from 'react-helmet';
+import { NotificationBanner } from '../components/shared/warningNotification';
 
 export default props => {
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -60,7 +61,7 @@ export default props => {
             <div className="product-page">
                 <div className="container content">
                     {product ?
-                        <div className="d-flex align-items-start">
+                        <div className="d-block d-lg-flex align-items-start">
                             <div className={"details-container card " + (product.customFields[15].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[15].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
                                 <div className="img-container">
                                 <img src={product.url  ? product.url : NoImage} alt="" />
@@ -108,42 +109,45 @@ export default props => {
                                 }
                                 </div>
                             </div>
-                            <div className="card d-none d-lg-block">
-                                <h3 className="name">{product?.name || product?.description}</h3>
-                                <p className="availability">
-                                    {product?.qtyOnHand !== "" ? (
-                                        ''
-                                    ) : (
-                                        "Ships in 2 - 5 business days"
-                                    ) }
+                            <div className="right-col">
+                                <div className="card d-none d-lg-block">
+                                    <h3 className="name">{product?.name || product?.description}</h3>
+                                    <p className="availability">
+                                        {product?.qtyOnHand !== "" ? (
+                                            ''
+                                        ) : (
+                                            "Ships in 2 - 5 business days"
+                                        ) }
 
-                                </p>
-                                { user ? 
-                                    <>
-                                        <div className="d-flex align-items-center justify-container-center">
-                                            <h2 className="price">${product?.purchasePrice}</h2> 
-                                            {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
-                                        </div>
-                                        <div className="d-flex align-items-center justify-container-center qty-container">
-                                            <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
-                                            <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
-                                            <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
-                                        </div>
-                                        <div className="d-flex align-items-center">
-                                            <button className="cart-btn" onClick={()=>handleAddCart()}>
-                                                {isLoading ?
-                                                    <div className="spinner-border text-light" role="status">
-                                                        <span className="sr-only">Loading...</span>
-                                                    </div>
-                                                    :
-                                                    <>Add to cart</>
-                                                }
-                                            </button>
-                                        </div>
-                                    </>
-                                    :
-                                    <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
-                                }
+                                    </p>
+                                    { user ? 
+                                        <>
+                                            <div className="d-flex align-items-center justify-container-center">
+                                                <h2 className="price">${product?.purchasePrice}</h2> 
+                                                {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
+                                            </div>
+                                            <div className="d-flex align-items-center justify-container-center qty-container">
+                                                <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
+                                                <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
+                                                <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
+                                            </div>
+                                            <div className="d-flex align-items-center">
+                                                <button className="cart-btn" onClick={()=>handleAddCart()}>
+                                                    {isLoading ?
+                                                        <div className="spinner-border text-light" role="status">
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                        :
+                                                        <>Add to cart</>
+                                                    }
+                                                </button>
+                                            </div>
+                                        </>
+                                        :
+                                        <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
+                                    }
+                                </div>
+                                <NotificationBanner />
                             </div>
                         </div>
                         :

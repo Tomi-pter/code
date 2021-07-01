@@ -69,7 +69,8 @@
             }
         }
         @include mediaQueries(mobile) {
-            padding: 20px 15px 5px 15px;
+            // padding: 20px 15px 5px 15px;
+            padding: 20px 15px 15px 15px;
             min-height: auto;
             .select-category {
                 background: #f0f0f0;
@@ -251,7 +252,8 @@
                 padding: 20px 15px;
             }
             @include mediaQueries(mobile) {
-                padding: 0px 15px 20px 15px;
+                // padding: 0px 15px 20px 15px;
+                padding: 0;
             }
         }
         @media screen and (max-width: 1510px) and (min-width: 1400px) {

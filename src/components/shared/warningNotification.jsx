@@ -49,8 +49,8 @@ export const NotificationBanner = () => {
     return (
         <>
             <Alert className="notificationBanner" onClose={() => setShow(false)} >
-                <div className="row">
-                    <div className="col-auto pl-5 text-center">
+                <div className="d-flex align-items-center">
+                    <div className="col-auto text-center">
                         <img className="bannerIcon" src={NotificationIcon} />
                     </div>
                     <div className="col-md-auto d-flex align-items-center">

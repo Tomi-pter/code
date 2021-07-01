@@ -76,7 +76,7 @@ export const OrdersHistory = ({ account }) => {
                         </div>
                         {order.details.discount > 0 &&
                             <div className="d-flex align-items-center justify-content-between">
-                                <div>Discount:</div> <div>${order.details.discount.toFixed(2)}</div>
+                                <div>Discount:</div> <div>${(order.details.discount / 100).toFixed(2)}</div>
                             </div>
                         }
                         <div className="d-flex align-items-center justify-content-between mt-5">

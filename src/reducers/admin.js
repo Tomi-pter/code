@@ -1,4 +1,15 @@
-import { GETUSERS, GETCUSTOMPRODUCTS, RESETCUSTOMPRODUCTS, CREATECUSTOMPRODUCT, UPDATECUSTOMPRODUCT, REMOVECUSTOMPRODUCT, LOGINADMINUSER, LOGINERROR } from '../constants/actionTypes';
+import 
+{   GETUSERS, 
+    GETCUSTOMPRODUCTS, 
+    RESETCUSTOMPRODUCTS, 
+    CREATECUSTOMPRODUCT, 
+    UPDATECUSTOMPRODUCT, 
+    REMOVECUSTOMPRODUCT, 
+    LOGINADMINUSER, 
+    LOGINERROR, 
+    LOGINADMIN, 
+    LOGINADMINERROR 
+} from '../constants/actionTypes';
 
 const adminReducer = (state = { users: [], customProducts: [] }, action) => {
   switch (action.type) {
@@ -34,6 +45,13 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
     case LOGINERROR: 
     
         return { ...state, loginError: true };
+    case LOGINADMIN: 
+        localStorage.setItem("admin", JSON.stringify(action?.data));
+
+        return { ...state, adminAuthData: action?.data, adminLoginError: null}
+    case LOGINADMINERROR:
+
+        return { ...state, adminLoginError: action?.data}
     default:
         return state;
   }

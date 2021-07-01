@@ -1,24 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router';
+
+import { loginAdmin } from '../actions/admin';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const initialState = { username: "", password: "" };
 
 export default props => {
+    const admin = useSelector((state) => state.admin);
     const [formData, setFormData] = useState(initialState);
     const [actionLoading, setActionLoading] = useState(false);
+    const [error, setError] = useState('');
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = () => {
-        localStorage.setItem("admin", JSON.stringify({username: formData.username}));
-        history.push("/admin");
+        setError('');
+        setActionLoading(true);
+        dispatch(loginAdmin(formData, history));
     }
+
+    useEffect(() => {
+        if (admin.adminLoginError) {
+            setError(admin.adminLoginError.message);
+        }
+        setActionLoading(false);
+    }, [admin]);
 
     return (
         <div className="d-flex align-items-center justify-content-center admin-pages">
             <div className="card form-login">
-                <h1 className="text-center mb-5">Admin Login</h1>
+                <h1 className="text-center">Admin Login</h1>
+                <div className="error">
+                    {error}
+                </div>
                 <div className="form-group">
                     <label htmlFor="FormControlInput1">Username</label>
                     <input type="text" name="username" value={formData.username} className="form-control" id="FormControlInput1" placeholder="Username" onChange={handleChange} />
@@ -31,7 +49,7 @@ export default props => {
                     type="button" 
                     className="btn btn-primary d-flex align-items-center justify-content-center w-100" 
                     onClick={handleSubmit}
-                    disabled={formData.username === "" && formData.password === "" && !actionLoading ? true : null}
+                    disabled={(formData.username !== "" && formData.password !== "") ? actionLoading ? true : null : true}
                 >
                     {
                         actionLoading &&

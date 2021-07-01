@@ -10,6 +10,15 @@
         min-height: unset !important;
         padding: 50px 30px;
     }
+    h1 {
+        margin-bottom: 20px !important;
+    }
+    .error {
+        min-height: 20px;
+        color: #f0506e;
+        text-align: center;
+        margin-bottom: 15px;
+    }
     .header {
         height: 40px;
         padding: 0;

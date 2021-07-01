@@ -6,7 +6,9 @@ import {
     UPDATECUSTOMPRODUCT,
     REMOVECUSTOMPRODUCT,
     LOGINADMINUSER,
-    LOGINERROR
+    LOGINERROR,
+    LOGINADMIN, 
+    LOGINADMINERROR
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
   
@@ -84,5 +86,19 @@ export const loginAdminUser = (formData, profile) => async (dispatch) => {
     } catch (error) {
         // console.log(error);
         dispatch({ type: LOGINERROR });
+    }
+};
+
+export const loginAdmin = (formData, route) => async (dispatch) => {
+    try {
+        const { data } = await api.loginAdmin(formData);
+        
+        dispatch({ type: LOGINADMIN, data });
+
+        route.push("/admin");
+    } catch (error) {
+        // console.log(error);
+        const { data } = error.response
+        dispatch({ type: LOGINADMINERROR, data });
     }
 };

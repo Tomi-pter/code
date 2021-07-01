@@ -44,9 +44,9 @@ export default props => {
     }
 
     useEffect(() => {
+        document.getElementById("closeModal").click();
         const company = admin.users.filter((user) => user.Username === username);
         setCompanyDetails(company[0]);
-        document.getElementById("closeModal").click();
         setIsLoading(false);
         setActionLoading(false);
     }, [admin]);
@@ -143,7 +143,8 @@ export default props => {
                                 type="button" 
                                 className="btn btn-primary d-flex align-items-center justify-content-center w-100" 
                                 onClick={handleSubmit}
-                                disabled={formData.productId === "" && formData.price === "" && !actionLoading ? true : null}
+                                // disabled={formData.productId === "" && formData.price === "" && !actionLoading ? true : null}
+                                disabled={(formData.productId !== "" && formData.price !== "") ? actionLoading ? true : null : true}
                             >
                                 {
                                     actionLoading &&

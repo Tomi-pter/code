@@ -54,7 +54,7 @@ export const NotificationBanner = () => {
                         <img className="bannerIcon" src={NotificationIcon} />
                     </div>
                     <div className="col-md-auto d-flex align-items-center">
-                        <span class="banner-text ">
+                        <span className="banner-text ">
                             {timerComponents.length ? <span>Place your order by 5:30 EST for guaranteed overnight shipping! {timerComponents}</span> : <span>Order will ship the following business day</span>} </span>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
             border-color: #37B34A;
           }
         }
-        svg {
+        img {
           width: 67.5px;
           height: 67.5px;
           margin-right: 60px;
@@ -29,9 +29,9 @@
           color: #4F4F4F;
           margin-bottom: 0;
         }
-        input {
-          display: none;
-        }
+        // input {
+        //   display: none;
+        // }
         .card-number {
           font-style: normal;
           font-weight: normal;
@@ -39,10 +39,10 @@
           line-height: 30px;
           color: #4F4F4F;
         }
-        .card .img-container {
-          width: 39.75px;
-          height: 39.75px;
-        }
+        // .card .img-container {
+        //   width: 39.75px;
+        //   height: 39.75px;
+        // }
         .add-card {
           color: #16CFB0;
           border-color: #16CFB0;
@@ -62,10 +62,18 @@
                 text-align: left;
             }
             td {
-                .cardNumber {
-                    p {
+                .cc {
+                    // p {
                         margin-bottom: 5px;
+                    // }
+                    img {
+                        width: 48px;
+                        height: 48px;
+                        margin-right: 5px;
                     }
+                    // .card-info {
+                    //     height: 48px;
+                    // }
                 }
                 .spinner-border.delete-spinner {
                     width: 20px;

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PaymentInputsContainer } from 'react-payment-inputs';
-import images from 'react-payment-inputs/images';
-import DeleteIcon from '../../assets/img/Account/delete-icon.svg';
+
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -16,7 +14,10 @@ import {
   CreditCardSubmitButton
 } from 'react-square-payment-form'
 
-const initialState = { cardNonce: "", cardholderName: "" };
+import DeleteIcon from '../../assets/img/Account/delete-icon.svg';
+import { getCreditCardType } from '../util/creditCards';
+
+const initialState = { cardholderName: "", cardNonce: "" };
 
 export const Cards = ({ selectedCard, setSelectedCard, page }) => {
     const [formData, setFormData] = useState(initialState);
@@ -45,27 +46,6 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(addCard(user?.username, {...formData, cardNonce: nonce }));
-    }
-
-    const setCard = (cardType) => {
-        switch (cardType) {
-            case 'VISA':
-                return '4242';
-            case 'MASTERCARD':
-                return '5555';
-            case 'DISCOVER':
-                return '6011';
-            case 'AMEX':
-                return '3784';
-            case 'UNIONPAY':
-                return '6200';
-            case 'DINERS':
-                return '3056';
-            case 'JCB':
-                return '3566';
-            default:
-                return '';
-        }
     }
 
     const handleAddCard = () => {
@@ -120,19 +100,12 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                 className={"d-flex flex-row align-items-center justify-content-between card " + (selectedCard === card.id ? "active" : "")}
                                 onClick={() => setSelectedCard(card.id)}
                             >
-                                <div className="d-flex card-info">
-                                    <PaymentInputsContainer>
-                                        {({ getCardNumberProps, getCardImageProps }) => (
-                                            <div className="d-flex">
-                                                <svg {...getCardImageProps({ images })} />
-                                                <div>
-                                                    <p className="name">{card.cardholderName}</p>
-                                                    <input {...getCardNumberProps()} value={`${setCard(card.cardBrand)}`} id={`card-list-${index}`} readOnly />
-                                                    <span className="card-number">*****************{card.last4}</span>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </PaymentInputsContainer>
+                                <div className="d-flex align-items-center card-info">
+                                        <img src={getCreditCardType(card.cardBrand)} alt="card" />
+                                        <div>
+                                            <p className="name">{card.cardholderName}</p>
+                                            <span className="card-number">*****************{card.last4}</span>
+                                        </div>
                                 </div>
                                 <div className="img-container">
                                     {selectedCard === card.id && <img src={require("../../assets/icon/card-active.svg")} alt="" />}
@@ -162,19 +135,10 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                     cards.cardsData?.map((card, index) => (
                                         <tr key={`key-${index}`} >
                                             <td>
-                                                <PaymentInputsContainer>
-                                                    {({ getCardNumberProps, getCardImageProps, getExpiryDateProps }) => (
-                                                        <div className="d-flex align-items-center">
-                                                            <div className="mr-2">
-                                                                <svg {...getCardImageProps({ images })} />
-                                                            </div>
-                                                            <div>
-                                                                <input hidden {...getCardNumberProps()} value={`${setCard(card.cardBrand)}`} id={`card-${index}`} readOnly />
-                                                                <span className="card-number">*****************{card.last4}</span>
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                </PaymentInputsContainer>
+                                                <div className="d-flex align-items-center cc">
+                                                    <img src={getCreditCardType(card.cardBrand)} alt="card" />
+                                                    <span className="card-number">*****************{card.last4}</span>
+                                                </div>
                                                 <div className="mt-5 d-block d-sm-none">
                                                     {
                                                         cards?.defaultCard?.paymentMethodId === card.id ?
@@ -267,7 +231,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                     <fieldset className="sq-fieldset">
                                         <div>
                                             <p>Cardholder Name</p>
-                                            <input type="text" placeholder="Name" name="cardholderName" onChange={handleChange} />
+                                            <input type="text" placeholder="Name" name="cardholderName" value={formData.cardholderName} onChange={handleChange} />
                                         </div>
                                         <CreditCardNumberInput />
                                         <div className="sq-form-third">

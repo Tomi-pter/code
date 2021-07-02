@@ -222,7 +222,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                             <h2 className="sub-title">Add New Card</h2>
                             <div className="card">
                                 <SquarePaymentForm 
-                                    sandbox={true}
+                                    sandbox={process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox")}
                                     applicationId={process.env.REACT_APP_SQUARE_APPLICATION_ID}
                                     locationId={process.env.REACT_APP_LOCATION_ID}
                                     cardNonceResponseReceived={cardNonceResponseReceived}

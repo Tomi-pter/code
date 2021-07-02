@@ -17,6 +17,7 @@ export default props => {
     const products = useSelector((state) => state.products);
     const [isLoading, setIsLoading] = useState(false);
     const [quantity, setQuantity] = useState(1);
+    const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
     const product = products[0];
     const dispatch = useDispatch();
     const location = useLocation();
@@ -62,7 +63,7 @@ export default props => {
                 <div className="container content">
                     {product ?
                         <div className="d-block d-lg-flex align-items-start">
-                            <div className={"details-container card " + (product.customFields[15].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[15].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
+                            <div className={"details-container card " + (product.customFields[staging ? 15 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[staging ? 15 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
                                 <div className="img-container">
                                 <img src={product.url  ? product.url : NoImage} alt="" />
                                 </div>
@@ -89,9 +90,9 @@ export default props => {
                                 <ul>
                                     <li>Item #:  {product?.num}</li>
                                     <li>NDC:  {product?.ndc}</li>
-                                    <li>Manufacturer:  {product.customFields[11].value ? product.customFields[11].value : 'N/A'}</li>
-                                    <li>Size:  {product.customFields[13].value ? product.customFields[13].value : 'N/A'}</li>
-                                    <li>Strength: {product.customFields[14].value ? product.customFields[14].value : 'N/A' }</li>
+                                    <li>Manufacturer:  {product.customFields[staging ? 11 : 3].value ? product.customFields[staging ? 11 : 3].value : 'N/A'}</li>
+                                    <li>Size:  {product.customFields[staging ? 13 : 6].value ? product.customFields[staging ? 13 : 6].value : 'N/A'}</li>
+                                    <li>Strength: {product.customFields[staging ? 14 : 9].value ? product.customFields[staging ? 14 : 9].value : 'N/A' }</li>
                                 </ul>
                               
                                 <div className="d-block d-lg-none">

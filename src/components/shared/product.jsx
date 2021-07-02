@@ -21,6 +21,7 @@ export const Product = ({
   sortBy
 }) => {
   const auth = localStorage.getItem('profile')
+  const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
   const history = useHistory()
 
   const incart = () => {
@@ -91,10 +92,10 @@ export const Product = ({
               {/* <p className="compare for-list">({compare_to})</p> */}
             </div>
             <p className="company for-list">
-              {product.customFields[11].value ? product.customFields[11].value : 'N/A'}
+              {product.customFields[staging ? 11 : 3].value ? product.customFields[staging ? 11 : 3].value : 'N/A'}
             </p>
             <p className="size for-list">
-              {product.customFields[13].value ? product.customFields[13].value: 'N/A'}
+              {product.customFields[staging ? 13 : 6].value ? product.customFields[staging ? 13 : 6].value: 'N/A'}
             </p>
             {/* <p className="strength for-list">
               {product.customFields[9].value || '100'}

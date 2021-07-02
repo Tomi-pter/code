@@ -25,6 +25,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const user = JSON.parse(localStorage.getItem('profile'))
   const totalPageCount = Math.ceil(products.count / 12);
   const totalProduct = products.count;
+  const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
   const location = useLocation();
 
   // const totalInPage = pageNumber === totalPageCount ? (totalProduct % 10 === 0 ? 10 : totalProduct % 10) : 10;
@@ -120,8 +121,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   useEffect(() => {
     setIsLoading(false)
   }, [products])
-
-  console.log(customProducts);
 
   return (
     <div className="products-container">
@@ -249,7 +248,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                     quantity={quantity}
                     setQuantity={setQuantity}
                     cart={cart}
-                    category={product.customFields ? product.customFields[15] ? product.customFields[15].value : "" : ""}
+                    category={product.customFields ? product.customFields[staging ? 15 : 10] ? product.customFields[staging ? 15 : 10].value : "" : ""}
 
                     sortBy={sortBy}
                   />

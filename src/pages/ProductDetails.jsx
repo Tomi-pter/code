@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getProduct } from '../actions/products';
+import { getCustomProducts } from '../actions/admin'
 import { addCart } from '../actions/cart';
 import NoImage from '../assets/img/unavailable.svg';
 import { Helmet } from 'react-helmet';
@@ -14,7 +15,9 @@ import { NotificationBanner } from '../components/shared/warningNotification';
 export default props => {
     const user = JSON.parse(localStorage.getItem('profile'));
     const cart = useSelector((state) => state.cart);
+    const admin = useSelector((state) => state.admin);
     const products = useSelector((state) => state.products);
+    const [customProducts, setCustomProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
@@ -42,8 +45,33 @@ export default props => {
     }
 
     useEffect(() => {
+        if (products?.length > 0 && admin?.customProducts?.length > 0) {
+            
+            const customProductLookup = admin.customProducts.reduce((prods, prod) => {
+                 prods[prod.productId] = prod;
+  
+                 return prods;
+             }, {});
+  
+             const productsWithCustomPrice = products.map(prod => {
+                 if (customProductLookup[prod.id] !== undefined) {
+                     prod.purchasePrice = customProductLookup[prod.id].price;
+                 }
+  
+                 return { ...prod }
+             })
+             
+             setCustomProducts(productsWithCustomPrice);
+        }
+        else {
+            setCustomProducts(products.products);
+        }
+    }, [products, admin]);
+
+    useEffect(() => {
         const id = props.match.params.id;
         dispatch(getProduct(id));
+        dispatch(getCustomProducts(user?.username))
     }, [dispatch, location]);
 
     useEffect(()=>{
@@ -52,6 +80,8 @@ export default props => {
             setIsLoading(false);
         }, 1000);
     },[cart]);
+
+    console.log(products, customProducts);
 
     return (
         <>
@@ -79,7 +109,7 @@ export default props => {
                                         ) }
 
                                     </p>
-                                    <h2 className="price">${product?.purchasePrice}</h2>
+                                    <h2 className="price">${customProducts && customProducts.length > 0 ? customProducts[0].purchasePrice : product?.purchasePrice}</h2>
                                 </div>
                                 
                                 <p>Description: </p>
@@ -124,7 +154,7 @@ export default props => {
                                     { user ? 
                                         <>
                                             <div className="d-flex align-items-center justify-container-center">
-                                                <h2 className="price">${product?.purchasePrice}</h2> 
+                                                <h2 className="price">${customProducts && customProducts.length > 0 ? customProducts[0].purchasePrice : product?.purchasePrice}</h2> 
                                                 {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
                                             </div>
                                             <div className="d-flex align-items-center justify-container-center qty-container">

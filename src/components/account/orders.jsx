@@ -80,7 +80,7 @@ export const OrdersHistory = ({ account }) => {
                             </div>
                         }
                         <div className="d-flex align-items-center justify-content-between mt-5">
-                            <div className="amount">Total:</div> <div>${((order.details.shippingFee + order.details.total) / 100).toFixed(2)}</div>
+                            <div className="amount">Total:</div> <div>${((((order.details.shippingFee) / 100) + order.details.subTotal) - (order.details.discount / 100)).toFixed(2)}</div>
                         </div>
                     {/* </div> */}
                 </div>

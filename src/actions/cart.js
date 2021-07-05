@@ -1,4 +1,4 @@
-import { UPDATECART, UPDATECOUNT, CHECKOUTCART, SETDISCOUNT } from '../constants/actionTypes';
+import { UPDATECART, UPDATECOUNT, CHECKOUTCART, SETDISCOUNT, CLEARCART } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -78,6 +78,16 @@ export const checkout = (checkoutDetail, router) => async (dispatch) => {
 
     dispatch({ type: CHECKOUTCART, payload: checkoutDetail });
     router.push('/payment');
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const clearCart = () => async (dispatch) => {
+  try {
+
+    dispatch({ type: CLEARCART });
+
   } catch (error) {
     console.log(error.message);
   }

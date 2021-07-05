@@ -5,15 +5,22 @@ import PaymentConfirmedImg from '../assets/img/Payment/default-check-icon.svg'
 import { Link, useHistory } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 
-
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { clearCart } from '../actions/cart';
 
 export const PaymentConfirmationContainer = () => {
     const payment = useSelector((state) => state.payment);
+    const dispatch = useDispatch();
     const history = useHistory();
 
     useEffect(()=>{
-        if (!payment?.paymentData) history.push("/cart");
+        if (!payment?.paymentData) {
+            history.push("/cart")
+        } else {
+            dispatch(clearCart())
+        }
     },[payment, history]);
 
     return (

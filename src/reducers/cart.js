@@ -14,6 +14,9 @@ const cartReducer = (state = { cartData: [] }, action) => {
         case actionType.SETDISCOUNT:
 
           return { ...state, discountDetail: action.payload };
+        case actionType.CLEARCART:
+
+          return { ...state, cartData: [], countData: [], checkoutDetail: null, discountDetail: null };
         default:
           return state;
       }

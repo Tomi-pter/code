@@ -41,6 +41,7 @@ export const UPDATECART = 'UPDATECART';
 export const UPDATECOUNT = 'UPDATECOUNT';
 export const CHECKOUTCART = 'CHECKOUTCART';
 export const SETDISCOUNT = 'SETDISCOUNT';
+export const CLEARCART = 'CLEARCART';
 
 export const GETCARDS = 'GETCARDS';
 export const ADDCARD = 'ADDCARD';

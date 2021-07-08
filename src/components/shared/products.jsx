@@ -94,10 +94,9 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setTimeout(() => {
       setIsLoading(false)
     }, 1000)
-    if (category !== '') dispatch(getProducts(name, category, filter, order, pageNumber))
-  }, [pageNumber, filter, order])
-
-  // location
+    if (category !== '' && page === 'shop') dispatch(getProducts(name, category, filter, order, pageNumber))
+    if (page === 'search') dispatch(getProducts(name))
+  }, [pageNumber, filter, order, name])
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('profile'))

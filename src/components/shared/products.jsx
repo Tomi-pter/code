@@ -94,9 +94,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setTimeout(() => {
       setIsLoading(false)
     }, 1000)
-    if (category !== '' && page === 'shop') dispatch(getProducts(name, category, filter, order, pageNumber))
-    if (page === 'search') dispatch(getProducts(name))
-  }, [pageNumber, filter, order, name])
+    if ((category !== '' && page === 'shop') || (page === 'search')) dispatch(getProducts(name, category, filter, order, pageNumber))
+  }, [pageNumber, filter, order])
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('profile'))
@@ -114,8 +113,13 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   useEffect(() => {
     setIsLoading(true)
-    if (category !== '') dispatch(getProducts(null, category))
+    if (category !== '' && page !== 'search') dispatch(getProducts(null, category))
   }, [category])
+
+  useEffect(() => {
+    setIsLoading(true)
+    if (page === 'search') dispatch(getProducts(name))
+  }, [name])
 
   useEffect(() => {
     setIsLoading(false)

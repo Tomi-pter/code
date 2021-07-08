@@ -17,15 +17,20 @@ export default props => {
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const handleSubmit = () => {
-        setError('');
-        setActionLoading(true);
-        dispatch(loginAdmin(formData, history));
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (formData.username !== "" && formData.password !== "") {
+            setError('');
+            setActionLoading(true);
+            dispatch(loginAdmin(formData, history));
+        } else {
+            setError('Missing Username or Password')
+        }        
     }
 
     useEffect(() => {
         if (admin.adminLoginError) {
-            setError(admin.adminLoginError.message);
+            setError(admin.adminLoginError);
         }
         setActionLoading(false);
     }, [admin]);
@@ -37,28 +42,31 @@ export default props => {
                 <div className="error">
                     {error}
                 </div>
-                <div className="form-group">
-                    <label htmlFor="FormControlInput1">Username</label>
-                    <input type="text" name="username" value={formData.username} className="form-control" id="FormControlInput1" placeholder="Username" onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="FormControlInput2">Password</label>
-                    <input type="password" name="password" value={formData.password} className="form-control" id="FormControlInput2" placeholder="Password" onChange={handleChange} />
-                </div>
-                <button
-                    type="button"
-                    className="btn btn-primary d-flex align-items-center justify-content-center w-100"
-                    onClick={handleSubmit}
-                    disabled={(formData.username !== "" && formData.password !== "") ? actionLoading ? true : null : true}
-                >
-                    {
-                        actionLoading &&
-                        <div className="spinner-border text-light spinner-border-sm mr-3" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    }
-                    Enter
-                </button>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="FormControlInput1">Username</label>
+                        <input type="text" name="username" value={formData.username} className="form-control" id="FormControlInput1" placeholder="Username" onChange={handleChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="FormControlInput2">Password</label>
+                        <input type="password" name="password" value={formData.password} className="form-control" id="FormControlInput2" placeholder="Password" onChange={handleChange} />
+                    </div>
+                    <input type="submit" value="Submit" hidden />
+                    <button
+                        type="submit"
+                        className="btn btn-primary d-flex align-items-center justify-content-center w-100"
+                        onClick={handleSubmit}
+                        disabled={(formData.username !== "" && formData.password !== "") ? actionLoading ? true : null : true}
+                    >
+                        {
+                            actionLoading &&
+                            <div className="spinner-border text-light spinner-border-sm mr-3" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        }
+                        Login
+                    </button>
+                </form>
             </div>
         </div>
     )

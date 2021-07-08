@@ -18,7 +18,7 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
         return {...state, users: action.data.Users};
     case GETCUSTOMPRODUCTS:
 
-        return {...state, customProducts: action.data}
+        return {...state, customProducts: action.data, loginError: false}
     case RESETCUSTOMPRODUCTS:
 
         return {...state, customProducts: [] }

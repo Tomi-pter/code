@@ -65,7 +65,7 @@ export default props => {
     return (
         <div className="d-flex align-items-center justify-content-center admin-pages">
             <div className="card container">
-                <div className="d-flex align-items-center justify-content-between mb-5 header">
+                <div className="d-flex align-items-center justify-content-between mb-4 header">
                     <Link to={`/admin`}>{'< Back'}</Link>
                     <h2 className="m-0">
                         {companyDetails && `${companyDetails?.Attributes[7].Value}'s Custom Price List`}

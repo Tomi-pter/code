@@ -2,8 +2,11 @@
     min-height: 100vh;
     .card {
         min-height: calc(100vh - 100px);
+        max-height: calc(100vh - 100px);
         padding: 30px;
         margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
     }
     .form-login {
         width: 400px;
@@ -24,8 +27,8 @@
         padding: 0;
     }
     .table-container {
-        max-height: calc(100vh - 238px);
         overflow: auto;
+        flex: auto;
     }
     table thead th {
         position: sticky;

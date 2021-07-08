@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { getUsers, loginAdminUser } from '../../actions/admin';
@@ -7,6 +7,9 @@ import { useDispatch } from 'react-redux';
 
 export const AdminDashboard = () => {
     const admin = useSelector((state) => state.admin);
+    const [companies, setCompanies] = useState([]);
+    const [search, setSearch] = useState('');
+    const [showError, setShowError] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -21,12 +24,28 @@ export const AdminDashboard = () => {
         history.push('/admin/login')
     }
 
+    const handleChange = (e) => {
+        setSearch(e.target.value)
+    }
+
+    useEffect(() => {
+       if (search === '') {
+        setCompanies(admin?.users)
+       } else {
+        const filterCompanies = admin?.users.filter(user => user.Attributes[7].Value.toLowerCase().includes(search.toLowerCase()))
+        setCompanies(filterCompanies)
+       }
+    }, [search]);
+
     useEffect(() => {
         if (admin.loginError) {
-            document.getElementById('toast').classList.toggle("show");
+            setShowError(true)
             setTimeout(function() {
-                document.getElementById('toast').classList.toggle("show");
-            }, 5000);
+                setShowError(false)
+            }, 3000);
+        }
+        if (admin?.users) {
+            setCompanies(admin.users)
         }
     }, [admin]);
 
@@ -34,14 +53,24 @@ export const AdminDashboard = () => {
         dispatch(getUsers());
     }, [dispatch]);
 
+    useEffect( () => () => setShowError(false), [] );
+
     return (
         <div className="d-flex align-items-center justify-content-center admin-pages">
             <div className="card container">
-                <div className="d-flex align-items-center justify-content-between mb-5 header">
+                <div className="d-flex align-items-center justify-content-between mb-4 header">
                     <h2 className="m-0">
                         Companies
                     </h2>
                     <button type="button" className="btn btn-danger" onClick={()=>handleLogout()}>Logout</button>
+                </div>
+                <div className="search-container input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1">
+                            Search
+                        </span>
+                    </div>
+                    <input className="form-control" type="text" value={search} placeholder="Company Name" onChange={handleChange} />
                 </div>
                 <div className="table-container">
                     <table className="table table-hover">
@@ -54,7 +83,7 @@ export const AdminDashboard = () => {
                         </thead>
                         <tbody>
                             {
-                                admin?.users.map((user, index) => (
+                                companies.map((user, index) => (
                                     <tr key={`user-key-${index}`}>
                                         <td>{user.Attributes[7].Value}</td>
                                         <td>{user.UserStatus}</td>
@@ -69,7 +98,7 @@ export const AdminDashboard = () => {
                     </table>
                 </div>
             </div>
-            <div id="toast" className="toast alert alert-danger" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" style={{position: 'absolute', bottom: '1rem', right: '1rem'}}>
+            <div id="toast" className={"toast alert alert-danger " + (showError ? 'show' : '')} role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" style={{position: 'absolute', bottom: '1rem', right: '1rem'}}>
                 Let the user login atleast once!
             </div>
         </div>

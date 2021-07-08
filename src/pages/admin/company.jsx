@@ -94,7 +94,7 @@ export default props => {
                                 </td>
                             </tr>
                             :
-                            admin?.customProducts?.length === 0 ? 
+                            admin?.customProducts?.length === 0 ?
                                 <tr>
                                     <td colSpan="3" className="text-center table-loader">
                                         No Custom Product Price
@@ -111,7 +111,7 @@ export default props => {
                                             <button type="button" className="btn btn-outline-danger" onClick={()=>handleDelete(product)}>Delete</button>
                                         </td>
                                     </tr>
-                                ))                           
+                                ))
                         }
                         </tbody>
                     </table>
@@ -129,7 +129,7 @@ export default props => {
                         <div className="modal-body">
                             <div className="form-group">
                                 <label htmlFor="FormControlInput1">Product ID</label>
-                                <input type="text" name="productId" value={formData.productId} className="form-control" id="FormControlInput1" placeholder="Product ID" onChange={handleChange} />
+                                <input type="number" min="1" name="productId" value={formData.productId} className="form-control" id="FormControlInput1" placeholder="Product ID" onChange={handleChange} />
                             </div>
                             {/* <div className="form-group">
                                 <label htmlFor="FormControlInput2">Product Name</label>
@@ -139,9 +139,9 @@ export default props => {
                                 <label htmlFor="FormControlInput3">Price</label>
                                 <input type="number" name="price" value={formData.price} className="form-control" id="FormControlInput3" onChange={handleChange} />
                             </div>
-                            <button 
-                                type="button" 
-                                className="btn btn-primary d-flex align-items-center justify-content-center w-100" 
+                            <button
+                                type="button"
+                                className="btn btn-primary d-flex align-items-center justify-content-center w-100"
                                 onClick={handleSubmit}
                                 // disabled={formData.productId === "" && formData.price === "" && !actionLoading ? true : null}
                                 disabled={(formData.productId !== "" && formData.price !== "") ? actionLoading ? true : null : true}

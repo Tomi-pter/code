@@ -24,7 +24,7 @@ export const AdminDashboard = () => {
     useEffect(() => {
         if (admin.loginError) {
             document.getElementById('toast').classList.toggle("show");
-            setTimeout(function() { 
+            setTimeout(function() {
                 document.getElementById('toast').classList.toggle("show");
             }, 5000);
         }
@@ -70,7 +70,7 @@ export const AdminDashboard = () => {
                 </div>
             </div>
             <div id="toast" className="toast alert alert-danger" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" style={{position: 'absolute', bottom: '1rem', right: '1rem'}}>
-                Let the user login atleast once! 
+                Let the user login atleast once!
             </div>
         </div>
     )

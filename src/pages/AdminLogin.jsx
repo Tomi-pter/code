@@ -45,9 +45,9 @@ export default props => {
                     <label htmlFor="FormControlInput2">Password</label>
                     <input type="password" name="password" value={formData.password} className="form-control" id="FormControlInput2" placeholder="Password" onChange={handleChange} />
                 </div>
-                <button 
-                    type="button" 
-                    className="btn btn-primary d-flex align-items-center justify-content-center w-100" 
+                <button
+                    type="button"
+                    className="btn btn-primary d-flex align-items-center justify-content-center w-100"
                     onClick={handleSubmit}
                     disabled={(formData.username !== "" && formData.password !== "") ? actionLoading ? true : null : true}
                 >
@@ -57,7 +57,7 @@ export default props => {
                             <span className="sr-only">Loading...</span>
                         </div>
                     }
-                    Login
+                    Enter
                 </button>
             </div>
         </div>

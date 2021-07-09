@@ -119,7 +119,7 @@ export default props => {
                                 </p>
                                 <ul>
                                 {/* {product?.num} */}
-                                    <li>Item #: {product.customFields[staging ? 21 : 11].value ? product.customFields[staging ? 21 : 11].value : 'N/A'}</li>
+                                    <li>Item #: {product.customFields[staging ? 21 : 13].value ? product.customFields[staging ? 21 : 13].value : 'N/A'}</li>
                                     <li>NDC:  {product?.ndc}</li>
                                     <li>Manufacturer:  {product.customFields[staging ? 11 : 3].value ? product.customFields[staging ? 11 : 3].value : 'N/A'}</li>
                                     <li>Size:  {product.customFields[staging ? 13 : 6].value ? product.customFields[staging ? 13 : 6].value : 'N/A'}</li>

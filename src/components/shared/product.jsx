@@ -73,7 +73,7 @@ export const Product = ({
 
             <div className="no-container for-list">
               {/* {product.num} */}
-              <p className="item-no">{product.customFields[staging ? 21 : 13].value}</p>
+              <p className="item-no">{product.customFields[staging ? 21 : 13].value ? product.customFields[staging ? 21 : 13].value : 'N/A'}</p>
               <p className="ndc">{product.ndc}</p>
             </div>
             <div
@@ -93,7 +93,7 @@ export const Product = ({
               {view !== 'list' && 
                 <>
                   {/* {product.num} */}
-                  <p className="mb-0">ITEM #: {product.customFields[staging ? 21 : 13].value}</p>
+                  <p className="mb-0">ITEM #: {product.customFields[staging ? 21 : 13].value ? product.customFields[staging ? 21 : 13].value : 'N/A'}</p>
                   <p>NDC: {product.ndc}</p>
                 </>
               }

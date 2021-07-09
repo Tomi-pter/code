@@ -72,7 +72,8 @@ export const Product = ({
             {/* <img className="for-list pr-4" src={HeartImg} /> */}
 
             <div className="no-container for-list">
-              <p className="item-no">{product.num}</p>
+              {/* {product.num} */}
+              <p className="item-no">{product.customFields[staging ? 21 : 11].value}</p>
               <p className="ndc">{product.ndc}</p>
             </div>
             <div
@@ -91,7 +92,8 @@ export const Product = ({
               )}
               {view !== 'list' && 
                 <>
-                  <p className="mb-0">Product #: {product.num}</p>
+                  {/* {product.num} */}
+                  <p className="mb-0">ITEM #: {product.customFields[staging ? 21 : 11].value}</p>
                   <p>NDC: {product.ndc}</p>
                 </>
               }

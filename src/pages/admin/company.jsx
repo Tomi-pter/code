@@ -27,7 +27,7 @@ export default props => {
         setActionType(action);
     }
 
-    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: parseInt(e.target.value) });
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: parseFloat(e.target.value) });
 
     const handleSubmit = () => {
         if (actionType === 'add') {
@@ -137,7 +137,7 @@ export default props => {
                             </div> */}
                             <div className="form-group">
                                 <label htmlFor="FormControlInput3">Price</label>
-                                <input type="number" name="price" value={formData.price} className="form-control" id="FormControlInput3" onChange={handleChange} />
+                                <input type="number" min="1" name="price" step="any" value={formData.price} className="form-control" id="FormControlInput3" onChange={handleChange} />
                             </div>
                             <button
                                 type="button"

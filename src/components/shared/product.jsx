@@ -57,7 +57,7 @@ export const Product = ({
           >
             {/* <div className="product-image-head"></div> */}
             <div className="header-name-wrapper">
-          <p className="flex-fill list-header-name">{product.name}</p>
+              <p className="flex-fill list-header-name">{product.name}</p>
             </div>
           
           </div>
@@ -83,12 +83,18 @@ export const Product = ({
               }}
             >
               {shopFont ? (
-                <p style={{ fontSize: '11.4183px !important' }}>
-                  {product.description}
-                </p>
+                  <p style={{ fontSize: '11.4183px !important' }}>
+                    {product.description}
+                  </p>
               ) : (
-               <p className="name">{product.description}</p>
+                  <p className="name">{product.description}</p>
               )}
+              {view !== 'list' && 
+                <>
+                  <p className="mb-0">Product #: {product.num}</p>
+                  <p>NDC: {product.ndc}</p>
+                </>
+              }
               {/* <p className="compare for-list">({compare_to})</p> */}
             </div>
             <p className="company for-list">

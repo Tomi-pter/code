@@ -50,6 +50,42 @@
             height: 100px;
         }
     }
+    .modal-body {
+        padding-top: 10px;
+    }
+    .error-msg {
+        text-align: center;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+    .ndc-container {
+        position: relative;
+    }
+    .search-result-container {
+        max-height: 350px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #ffff;
+        // padding: 20px 0;
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        z-index: 1;
+        overflow: auto;
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        li {
+            cursor: pointer;
+            padding: 20px;
+            &:hover {
+                color: #ffff;
+                background: #2c7be5;
+            }
+        }
+    }
     /* width */
     ::-webkit-scrollbar {
         width: 8px;

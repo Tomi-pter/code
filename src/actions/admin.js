@@ -3,6 +3,7 @@ import {
     GETCUSTOMPRODUCTS,
     RESETCUSTOMPRODUCTS,
     CREATECUSTOMPRODUCT,
+    CREATECUSTOMPRODUCTERROR,
     UPDATECUSTOMPRODUCT,
     REMOVECUSTOMPRODUCT,
     LOGINADMINUSER,
@@ -47,7 +48,9 @@ export const createCustomProduct = (formData) => async (dispatch) => {
 
         dispatch({ type: CREATECUSTOMPRODUCT, data });
     } catch (error) {
-        console.log(error);
+        const data = error.response.data;
+
+        dispatch({ type: CREATECUSTOMPRODUCTERROR, data });
     }
 };
 

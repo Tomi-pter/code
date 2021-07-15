@@ -5,12 +5,12 @@ import moment from 'moment-timezone';
 export const NotificationBanner = () => {
     const calculateTimeLeft = () => {
         let year = new Date().getFullYear();
+
         var d = new Date(); 
-        d.setHours(5, 30, 0);
-        // const datetime = moment(d).tz('America/New_York');
-        const datetime = moment.tz(d, "America/New_York").format();
-        console.log(datetime);
-        let difference = +new Date(datetime) - +new Date();
+        const today = moment.utc(d).tz("America/New_York").format();
+        let datetime = d.setHours(17, 30, 0);
+        datetime = moment.tz(datetime, "America/New_York").format();
+        let difference = +new Date(datetime) - +new Date(today);
 
         let timeLeft = {};
 
@@ -54,7 +54,7 @@ export const NotificationBanner = () => {
                     <img className="bannerIcon" src={NotificationIcon} />
                     <div className="banner-text">
                         {timerComponents.length > 0 ?
-                            <span>Place your order by 5:30 EST for guaranteed overnight shipping! {timerComponents}</span>
+                            <span>Place your order by 5:30 PM EST for guaranteed overnight shipping! {timerComponents}</span>
                             :
                             <span>Order will ship the following business day</span>
                         }

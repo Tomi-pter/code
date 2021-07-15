@@ -63,8 +63,8 @@ export default props => {
     }
 
     useEffect(() => {
-        if (admin.createError) {
-            setErrorMsg(admin?.createError?.message);
+        if (admin.error) {
+            setErrorMsg(admin?.error?.message);
         } else {
             document.getElementById("closeModal").click();
             setErrorMsg('')

@@ -3,7 +3,7 @@ import {
     GETCUSTOMPRODUCTS,
     RESETCUSTOMPRODUCTS,
     CREATECUSTOMPRODUCT,
-    CREATECUSTOMPRODUCTERROR,
+    CUSTOMPRODUCTERROR,
     UPDATECUSTOMPRODUCT,
     REMOVECUSTOMPRODUCT,
     LOGINADMINUSER,
@@ -50,7 +50,7 @@ export const createCustomProduct = (formData) => async (dispatch) => {
     } catch (error) {
         const data = error.response.data;
 
-        dispatch({ type: CREATECUSTOMPRODUCTERROR, data });
+        dispatch({ type: CUSTOMPRODUCTERROR, data });
     }
 };
 
@@ -60,7 +60,10 @@ export const updateCustomProduct = (id, formData) => async (dispatch) => {
 
         dispatch({ type: UPDATECUSTOMPRODUCT, data });
     } catch (error) {
-        console.log(error);
+        // console.log(error);
+        const data = error.response.data;
+
+        dispatch({ type: CUSTOMPRODUCTERROR, data });
     }
 };
 

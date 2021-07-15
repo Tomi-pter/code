@@ -3,7 +3,7 @@ import
     GETCUSTOMPRODUCTS, 
     RESETCUSTOMPRODUCTS, 
     CREATECUSTOMPRODUCT, 
-    CREATECUSTOMPRODUCTERROR,
+    CUSTOMPRODUCTERROR,
     UPDATECUSTOMPRODUCT, 
     REMOVECUSTOMPRODUCT, 
     LOGINADMINUSER, 
@@ -27,9 +27,9 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
         state.customProducts.push(action.data)
 
         return {...state, createError: null }
-    case CREATECUSTOMPRODUCTERROR:
+    case CUSTOMPRODUCTERROR:
 
-        return{...state, createError: action.data}
+        return{...state, error: action.data}
     case UPDATECUSTOMPRODUCT:
         const index = state.customProducts.findIndex(product => product.customPricingId  === action.data.customPricingId);
         if(index !== -1) {

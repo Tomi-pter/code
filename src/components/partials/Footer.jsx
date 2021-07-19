@@ -26,11 +26,11 @@ export const Footer = () => {
                 </div>
                 <div className="d-flex justify-content-center align-items-center bottom-nav">
                     <a className='nav-link' href={`${process.env.REACT_APP_HOMEPAGE_URL}/privacy-policy`}>
-                        Privacy Policy
+                        Privacy Policy / Terms and Conditions
                     </a>
-                    <a className='nav-link' href={`${process.env.REACT_APP_HOMEPAGE_URL}/terms-conditions`}>
+                    {/* <a className='nav-link' href={`${process.env.REACT_APP_HOMEPAGE_URL}/terms-conditions`}>
                         Terms and Conditions
-                    </a>
+                    </a> */}
                     <a className='nav-link' href={`${process.env.REACT_APP_HOMEPAGE_URL}/about-us`}>
                         About Us
                     </a>

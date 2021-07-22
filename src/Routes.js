@@ -16,7 +16,6 @@ import { CartContainer } from "./pages/Cart";
 import AdminLogin from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/admin";
 import Company from "./pages/admin/company";
-// import AccountVerification from "./pages/AccountVerification";
 
 import { ProtectedRoutes } from "./components/protectedRoutes";
 import { AdminProtectedRoutes } from "./components/adminProtectedRoutes";
@@ -24,16 +23,11 @@ import { AdminProtectedRoutes } from "./components/adminProtectedRoutes";
 export default ({ childProps }) => (
   <BrowserRouter basename="/">
     <Switch>
-      {/* <Route exact path='/' component={() => { 
-          window.location.href = process.env.REACT_APP_HOMEPAGE_URL;
-          return null;
-      }}/> */}
       <Route exact path="/">
         <Redirect to="/login" />
       </Route>
       <Route path="/login" component={LoginContainer} />
       <Route path="/register" component={SignUpContainer} />
-      {/* <Route path="/account-verification" component={AccountVerification} /> */}
       <Route path="/search" component={Search} />
       <Route path="/shop" component={Shop} />
       <Route path="/test-shop" component={TestShop} />

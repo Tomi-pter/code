@@ -87,8 +87,11 @@ export default props => {
         dispatch(getCustomProducts(props.computedMatch.params.id));
     }, [dispatch, location]);
 
-    useEffect(() => {
-        return () => dispatch(resetCustomProducts());
+    useEffect( () => () => {
+        dispatch(resetCustomProducts())
+        window.onunload = () => {
+            localStorage.removeItem('admin')
+        }
     }, []);
 
     return (
@@ -160,7 +163,7 @@ export default props => {
                             <div className="form-group">
                                 <label htmlFor="FormControlInput1">Product NDC</label>
                                 <div className="ndc-container">
-                                    <input type="text" name="ndc" value={formData.ndc} className="form-control" id="FormControlInput1" placeholder="Product NDC" onChange={handleChange} />
+                                    <input type="text" name="ndc" value={formData.ndc} className="form-control" id="FormControlInput1" placeholder="Product NDC" onChange={handleChange} disabled={actionType === 'add' ? null : true}/>
                                     {searchResult.length > 0 && !searchSelect && 
                                         <div className="search-result-container">
                                            <ul>

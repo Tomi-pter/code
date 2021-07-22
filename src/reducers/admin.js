@@ -26,7 +26,7 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
     case CREATECUSTOMPRODUCT:
         state.customProducts.push(action.data)
 
-        return {...state, createError: null }
+        return {...state, error: null }
     case CUSTOMPRODUCTERROR:
 
         return{...state, error: action.data}
@@ -36,7 +36,7 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
             state.customProducts.splice(index, 1, action.data);
         }
 
-        return { ...state, updateError: null};
+        return { ...state, error: null};
     case REMOVECUSTOMPRODUCT:
         const newCustomProducts = state.customProducts.filter((product) => product.customPricingId !== action.id)
       

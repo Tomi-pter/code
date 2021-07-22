@@ -53,7 +53,12 @@ export const AdminDashboard = () => {
         dispatch(getUsers());
     }, [dispatch]);
 
-    useEffect( () => () => setShowError(false), [] );
+    useEffect( () => () => {
+        setShowError(false)
+        window.onunload = () => {
+            localStorage.removeItem('admin')
+        }
+    }, []);
 
     return (
         <div className="d-flex align-items-center justify-content-center admin-pages">

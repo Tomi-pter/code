@@ -155,7 +155,7 @@ export const HeaderNav = () => {
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">Pharmacies</Link>
                                     <Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">Animal Health</Link>
-                                    <Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">Medical/Surgical Products</Link>
+                                    <Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">Medical/Surgical</Link>
                                 </div>
                             </div>
                             <a className="desktop-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/contact-us`}>Contact Us</a>
@@ -222,7 +222,7 @@ export const HeaderNav = () => {
                                     <ul>Products
                                     <li><Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">For Pharmacies</Link></li>
                                         <li><Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">For Animal Health</Link></li>
-                                        <li><Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">For Medical/Surgical Products</Link></li>
+                                        <li><Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">For Medical/Surgical</Link></li>
                                     </ul>
                                     <Link className="dropdown-item" href={`${process.env.REACT_APP_HOMEPAGE_URL}/contact-us`} to="">Contact Us</Link>
                                 </div>

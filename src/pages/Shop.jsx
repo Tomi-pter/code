@@ -77,7 +77,7 @@ export default (props) => {
                     <option
                       value="Animal Health">Animal Health</option>
                     <option
-                      value="Medical Supplies">Medical/Surgical Products</option>
+                      value="Medical Supplies">Medical/Surgical</option>
                   </select>
                 </div>
                 <div
@@ -123,7 +123,7 @@ export default (props) => {
                       aria-expanded="false"
                       onClick={() => setCategory('Medical Supplies')}
                     >
-                      Medical/Surgical Products
+                      Medical/Surgical
                     </button>
                   
                   {/* </div> */}

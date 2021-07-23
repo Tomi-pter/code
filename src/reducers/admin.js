@@ -9,7 +9,9 @@ import
     LOGINADMINUSER, 
     LOGINERROR, 
     LOGINADMIN, 
-    LOGINADMINERROR 
+    LOGINADMINERROR,
+    CONFIRMUSER,
+    CONFIRMUSERERROR
 } from '../constants/actionTypes';
 
 const adminReducer = (state = { users: [], customProducts: [] }, action) => {
@@ -56,6 +58,17 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
     case LOGINADMINERROR:
 
         return { ...state, adminLoginError: action?.data}
+    case CONFIRMUSER:
+        const userIndex = state.users.findIndex(user => user.Username  === action.data.Username);
+
+        if(userIndex !== -1) {
+            state.users.splice(userIndex, 1, action.data);
+        }
+
+        return { ...state, confirmError: null }
+    case CONFIRMUSERERROR:
+
+        return { ...state, confirmError: action?.data}
     default:
         return state;
   }

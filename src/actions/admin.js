@@ -9,7 +9,9 @@ import {
     LOGINADMINUSER,
     LOGINERROR,
     LOGINADMIN, 
-    LOGINADMINERROR
+    LOGINADMINERROR,
+    CONFIRMUSER,
+    CONFIRMUSERERROR
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
   
@@ -106,5 +108,20 @@ export const loginAdmin = (formData, route) => async (dispatch) => {
         // console.log(error);
         const { data } = error.response
         dispatch({ type: LOGINADMINERROR, data });
+    }
+};
+
+export const confirmUser = (formData, user) => async (dispatch) => {
+    try {
+        await api.confirmUser(formData);
+
+        const data = {...user, UserStatus: 'CONFIRMED'}
+        
+        dispatch({ type: CONFIRMUSER, data });
+    } catch (error) {
+        console.log(error);
+        // const { data } = error.response
+        const data = {success: false}
+        dispatch({ type: CONFIRMUSERERROR, data });
     }
 };

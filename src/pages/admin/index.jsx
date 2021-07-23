@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { getUsers, loginAdminUser } from '../../actions/admin';
+import { getUsers, loginAdminUser, confirmUser } from '../../actions/admin';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -10,6 +10,9 @@ export const AdminDashboard = () => {
     const [companies, setCompanies] = useState([]);
     const [search, setSearch] = useState('');
     const [showError, setShowError] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [selectedUser, setSelectedUser] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -28,6 +31,13 @@ export const AdminDashboard = () => {
         setSearch(e.target.value)
     }
 
+    const handleConfirmUser = (user) => {
+        setConfirmLoading(true);
+        setSelectedUser(user.Username);
+        const formData = {username: user.Username};
+        dispatch(confirmUser(formData, user));
+    }
+
     useEffect(() => {
        if (search === '') {
         setCompanies(admin?.users)
@@ -38,7 +48,8 @@ export const AdminDashboard = () => {
     }, [search]);
 
     useEffect(() => {
-        if (admin.loginError) {
+        if (admin.loginError || admin.confirmError) {
+            setErrorMsg(admin.loginError ? 'Let the user login atleast once!' : 'Error Confirming User!')
             setShowError(true)
             setTimeout(function() {
                 setShowError(false)
@@ -47,6 +58,7 @@ export const AdminDashboard = () => {
         if (admin?.users) {
             setCompanies(admin.users)
         }
+        setConfirmLoading(false);
     }, [admin]);
 
     useEffect(() => {
@@ -91,7 +103,21 @@ export const AdminDashboard = () => {
                                 companies.map((user, index) => (
                                     <tr key={`user-key-${index}`}>
                                         <td>{user.Attributes[7].Value}</td>
-                                        <td>{user.UserStatus}</td>
+                                        <td>
+                                            {
+                                                user.UserStatus === "CONFIRMED" ? user.UserStatus : 
+                                                <button className="btn btn-success" onClick={()=>handleConfirmUser(user)} disabled={confirmLoading ? true : null}>
+                                                    {
+                                                        confirmLoading && user.Username === selectedUser ?
+                                                        <div className="spinner-border text-light spinner-border-sm" role="status">
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                        :
+                                                        'Confirm'
+                                                    }    
+                                                </button>
+                                            }
+                                        </td>
                                         <td>
                                             <Link to={`admin/${user.Username}`} className="mr-5">View</Link>
                                             <button className="btn btn-primary" onClick={()=>handleLoginUser(user)} disabled={user.UserStatus === 'CONFIRMED' ? null : true}>Login</button>
@@ -104,7 +130,7 @@ export const AdminDashboard = () => {
                 </div>
             </div>
             <div id="toast" className={"toast alert alert-danger " + (showError ? 'show' : '')} role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" style={{position: 'absolute', bottom: '1rem', right: '1rem'}}>
-                Let the user login atleast once!
+                {errorMsg}
             </div>
         </div>
     )

@@ -70,3 +70,4 @@ export const updateCustomProduct = (id, formData) => API.put(`/custom-price/${id
 export const removeCustomProduct = (id) => API.delete(`/custom-price/${id}`);
 export const loginAdminUser = (formData) => API.post(`/admin/login-as-user`, formData);
 export const loginAdmin = (formData) => API.post(`/admin/login`, formData);
+export const confirmUser = (formData) => API.post(`/admin/confirm-user`, formData);

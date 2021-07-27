@@ -96,10 +96,12 @@ export const HeaderNav = () => {
 
             if (decodedToken.exp * 1000 < new Date().getTime()) setUser(null);
         }
-        setUser(localUser);
-        dispatch(getCart(localUser?.username));
-        dispatch(getAvatar(localUser?.username));
-        sendWPData();
+        if (localUser) {
+            setUser(localUser);
+            dispatch(getCart(localUser?.username));
+            dispatch(getAvatar(localUser?.username));
+            sendWPData();
+        }
     }, [location]);
 
     useEffect(() => {

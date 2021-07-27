@@ -11,7 +11,9 @@ import
     LOGINADMIN, 
     LOGINADMINERROR,
     CONFIRMUSER,
-    CONFIRMUSERERROR
+    CONFIRMUSERERROR,
+    IMPORTUSER,
+    IMPORTUSERERROR
 } from '../constants/actionTypes';
 
 const adminReducer = (state = { users: [], customProducts: [] }, action) => {
@@ -69,6 +71,13 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
     case CONFIRMUSERERROR:
 
         return { ...state, confirmError: action?.data}
+    case IMPORTUSER:
+        state.customProducts.push(action.data)
+
+        return {...state, importError: null }
+    case IMPORTUSERERROR:
+
+        return { ...state, importError: action?.data}
     default:
         return state;
   }

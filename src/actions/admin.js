@@ -11,7 +11,9 @@ import {
     LOGINADMIN, 
     LOGINADMINERROR,
     CONFIRMUSER,
-    CONFIRMUSERERROR
+    CONFIRMUSERERROR,
+    IMPORTUSER,
+    IMPORTUSERERROR
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
   
@@ -119,9 +121,17 @@ export const confirmUser = (formData, user) => async (dispatch) => {
         
         dispatch({ type: CONFIRMUSER, data });
     } catch (error) {
-        console.log(error);
-        // const { data } = error.response
         const data = {success: false}
         dispatch({ type: CONFIRMUSERERROR, data });
+    }
+};
+
+export const importUser = (formData) => async (dispatch) => {
+    try {
+        const data = await api.importUser(formData);
+        dispatch({ type: IMPORTUSER, data });
+    } catch (error) {
+        const { data } = error.response
+        dispatch({ type: IMPORTUSERERROR, data });
     }
 };

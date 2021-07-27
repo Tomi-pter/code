@@ -71,3 +71,4 @@ export const removeCustomProduct = (id) => API.delete(`/custom-price/${id}`);
 export const loginAdminUser = (formData) => API.post(`/admin/login-as-user`, formData);
 export const loginAdmin = (formData) => API.post(`/admin/login`, formData);
 export const confirmUser = (formData) => API.post(`/admin/confirm-user`, formData);
+export const importUser = (formData) => API.post(`/admin/import-customer`, formData);

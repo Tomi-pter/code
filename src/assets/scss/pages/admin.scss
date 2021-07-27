@@ -26,6 +26,9 @@
         height: 40px;
         padding: 0;
     }
+    .import-btn {
+        white-space: nowrap;
+    }
     .table-container {
         overflow: auto;
         flex: auto;
@@ -110,5 +113,10 @@
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
         background: #555; 
+    }
+
+    #importUserModal .modal-dialog {
+        width: 90%;
+        max-width: 1230px;
     }
 }

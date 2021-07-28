@@ -11,7 +11,7 @@ export const NotificationBanner = () => {
         let datetime = moment.utc(today.toDate().setHours(17, 30, 0)).tz("America/New_York").format();
         let difference = +new Date(datetime) - +new Date(today.format());
 
-        console.log(today.format(), datetime);
+        console.log('today -' + today.format(), 'target -' + datetime);
 
         let timeLeft = {};
 

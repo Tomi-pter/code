@@ -4,15 +4,12 @@ import NotificationIcon from '../../assets/img/notif-bell.svg';
 import moment from 'moment-timezone';
 export const NotificationBanner = () => {
     const calculateTimeLeft = () => {
-        let year = new Date().getFullYear();
-
         var d = new Date();
         var m = moment.utc(d).tz("America/New_York");
         const today = moment.utc(d).tz("America/New_York");
         m.set({hour:17,minute:30,second:0,millisecond:0});
         m.toISOString();
-        let datetime = m.tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
-        let difference = +new Date(m) - +new Date(today.format());
+        let difference = +new Date(m.format()) - +new Date(today.format());
 
         let timeLeft = {};
 
@@ -38,13 +35,13 @@ export const NotificationBanner = () => {
     });
 
     const timerComponents = [];
-    Object.keys(timeLeft).forEach((interval) => {
+    Object.keys(timeLeft).forEach((interval, index) => {
         if (!timeLeft[interval]) {
             return;
         }
 
         timerComponents.push(
-            <span>
+            <span key={index}>
                 {timeLeft[interval]} {interval}{" "}
             </span>
         );

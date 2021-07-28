@@ -44,6 +44,11 @@ export default props => {
         dispatch(addCart(user?.username, newProduct));
     }
 
+    const formatPrice = (price) => {
+        var n = parseFloat(price).toFixed(2);
+        return n;
+    }
+
     useEffect(() => {
         if (products?.length > 0 && admin?.customProducts?.length > 0) {
             
@@ -81,8 +86,6 @@ export default props => {
         }, 1000);
     },[cart]);
 
-    console.log(products, customProducts);
-
     return (
         <>
             <Helmet>
@@ -109,7 +112,7 @@ export default props => {
                                         ) }
 
                                     </p>
-                                    <h2 className="price">${customProducts && customProducts.length > 0 ? customProducts[0].purchasePrice : product?.purchasePrice}</h2>
+                                    <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
                                 </div>
                                 
                                 <p>Description: </p>
@@ -155,7 +158,7 @@ export default props => {
                                     { user ? 
                                         <>
                                             <div className="d-flex align-items-center justify-container-center">
-                                                <h2 className="price">${customProducts && customProducts.length > 0 ? customProducts[0].purchasePrice : product?.purchasePrice}</h2> 
+                                                <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2> 
                                                 {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
                                             </div>
                                             <div className="d-flex align-items-center justify-container-center qty-container">

@@ -6,12 +6,12 @@ export const NotificationBanner = () => {
     const calculateTimeLeft = () => {
         let year = new Date().getFullYear();
 
-        var d = new Date(); 
-        const today = moment.utc(d).tz("America/New_York").format();
-        let datetime = moment.utc(new Date().setHours(17, 30, 0)).tz("America/New_York").format();
-        let difference = +new Date(datetime) - +new Date(today);
+        var d = new Date();
+        const today = moment.utc(d).tz("America/New_York");
+        let datetime = moment.utc(today.toDate().setHours(17, 30, 0)).tz("America/New_York").format();
+        let difference = +new Date(datetime) - +new Date(today.format());
 
-        console.log(today, datetime);
+        console.log(today.format(), datetime);
 
         let timeLeft = {};
 

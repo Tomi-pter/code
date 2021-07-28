@@ -7,11 +7,12 @@ export const NotificationBanner = () => {
         let year = new Date().getFullYear();
 
         var d = new Date();
+        var m = moment.utc(d).tz("America/New_York");
         const today = moment.utc(d).tz("America/New_York");
-        let datetime = moment(today.toDate().setHours(17, 30, 0));
-        let difference = +new Date(datetime.format()) - +new Date(today.format());
-
-        console.log('today - ' + today.format('MMMM Do YYYY, h:mm:ss a'), 'target - ' + datetime.format('MMMM Do YYYY, h:mm:ss a'));
+        m.set({hour:17,minute:30,second:0,millisecond:0});
+        m.toISOString();
+        let datetime = m.tz("America/New_York").format('MMMM Do YYYY, h:mm:ss a');
+        let difference = +new Date(m) - +new Date(today.format());
 
         let timeLeft = {};
 

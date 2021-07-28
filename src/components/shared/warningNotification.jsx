@@ -8,10 +8,10 @@ export const NotificationBanner = () => {
 
         var d = new Date();
         const today = moment.utc(d).tz("America/New_York");
-        let datetime = moment.utc(today.toDate().setHours(17, 30, 0)).tz("America/New_York").format();
-        let difference = +new Date(datetime) - +new Date(today.format());
+        let datetime = moment(today.toDate().setHours(17, 30, 0));
+        let difference = +new Date(datetime.format()) - +new Date(today.format());
 
-        console.log('today -' + today.format(), 'target -' + datetime);
+        console.log('today - ' + today.format('MMMM Do YYYY, h:mm:ss a'), 'target - ' + datetime.format('MMMM Do YYYY, h:mm:ss a'));
 
         let timeLeft = {};
 

@@ -94,6 +94,8 @@ export default props => {
         }
     }, []);
 
+    console.log(admin?.customProducts);
+
     return (
         <div className="d-flex align-items-center justify-content-center admin-pages">
             <div className="card container">
@@ -111,6 +113,7 @@ export default props => {
                         <thead className="thead-dark">
                             <tr>
                                 <th scope="col">Product NDC</th>
+                                <th scope="col">Description</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -118,7 +121,7 @@ export default props => {
                         <tbody>
                         { isLoading ?
                             <tr>
-                                <td colSpan="3" className="text-center table-loader">
+                                <td colSpan="4" className="text-center table-loader">
                                     <div className="spinner-border text-primary" role="status">
                                         <span className="sr-only">Loading...</span>
                                     </div>
@@ -127,7 +130,7 @@ export default props => {
                             :
                             admin?.customProducts?.length === 0 ?
                                 <tr>
-                                    <td colSpan="3" className="text-center table-loader">
+                                    <td colSpan="4" className="text-center table-loader">
                                         No Custom Product Price
                                     </td>
                                 </tr>
@@ -135,6 +138,7 @@ export default props => {
                                 admin?.customProducts?.map((product, index) => (
                                     <tr key={`product-key-${index}`}>
                                         <td>{product.ndc ? product.ndc : 'N/A'}</td>
+                                        <td>{product.productName ? product.productName : 'N/A'}</td>
                                         <td>{product.price}</td>
                                         <td>
                                             <button type="button" className="btn btn-outline-secondary mr-3" data-toggle="modal" data-target="#productModal" onClick={()=>handleAction('edit', product)}>Edit</button>

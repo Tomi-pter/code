@@ -90,7 +90,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     const { data } = await api.forgotPassword(email);
 
     dispatch({ type: FORGOTPASSWORD, data });
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     const data = error.response.data;
 
@@ -104,7 +104,7 @@ export const confirmForgotPassword =
       const { data } = await api.confirmForgotPassword(username, formData);
 
       dispatch({ type: CONFIRMFORGOTPASSWORD, data });
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       const data = error.response.data;
       dispatch({ type: CONFIRMFORGOTPASSWORD, data });

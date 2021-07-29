@@ -94,7 +94,7 @@ export default props => {
         }
     }, []);
 
-    console.log(admin?.customProducts);
+    // console.log(admin?.customProducts);
 
     return (
         <div className="d-flex align-items-center justify-content-center admin-pages">

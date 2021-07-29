@@ -18,7 +18,7 @@ export const PaymentContainer = () => {
     const account = useSelector((state) => state.account);   
     const [selectedCard, setSelectedCard] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedMethod, setSelectedMethod] = useState('card');
+    const [selectedMethod, setSelectedMethod] = useState('terms');
     const [enablePayByTerms, setEnablePayByTerms] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -75,15 +75,15 @@ export const PaymentContainer = () => {
                         <div className="payments">
                             <h1 className="title">Payment Methods</h1>
                             <ul className="nav nav-tabs">
-                                <li><a data-toggle="tab" href="#card" className="active" onClick={()=>setSelectedMethod('card')}>Credit Card</a></li>
-                                { enablePayByTerms && <li><a data-toggle="tab" href="#terms" onClick={()=>setSelectedMethod('terms')}>Pay by Terms</a></li> }
+                                {/* <li><a data-toggle="tab" href="#card" className="active" onClick={()=>setSelectedMethod('card')}>Credit Card</a></li> */}
+                                { enablePayByTerms && <li><a data-toggle="tab" href="#terms" className="active" onClick={()=>setSelectedMethod('terms')}>Pay by Terms</a></li> }
                             </ul>
                             <div className="tab-content">
-                                <div id="card" className="tab-pane fade in active show">
+                                {/* <div id="card" className="tab-pane fade in active show">
                                     <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
-                                </div>
+                                </div> */}
                                 { enablePayByTerms && 
-                                    <div id="terms" className="tab-pane fade">
+                                    <div id="terms" className="tab-pane fade active show">
                                         <div className="d-flex align-items-center justify-content-between terms-copy">
                                             <div className="mr-5">
                                                 <h2>REMINDER</h2>

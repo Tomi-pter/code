@@ -82,9 +82,9 @@ export const PersonalInformationContainer = () => {
                                                         <li>
                                                             <a className="" data-toggle="pill" href="#my-addresses" role="tab" aria-controls="pills-home-2" aria-selected="false">My Address Book</a>
                                                         </li>
-                                                        <li >
+                                                        {/* <li >
                                                             <a className="" data-toggle="pill" href="#payment-options" role="tab" aria-controls="pills-home-3" aria-selected="false">Payment Options</a>
-                                                        </li>
+                                                        </li> */}
                                                     </ul>
                                                 </span>
                                             </span>
@@ -118,9 +118,9 @@ export const PersonalInformationContainer = () => {
                                         <div className="tab-pane fade show" id="my-addresses" role="tabpanel" aria-labelledby="pills-home-2">
                                             <Addresses key={account.addressesData} account={account} accountData={accountData} setAccountData={setAccountData} />
                                         </div>
-                                        <div className="tab-pane fade show" id="payment-options" role="tabpanel" aria-labelledby="pills-home-3">
+                                        {/* <div className="tab-pane fade show" id="payment-options" role="tabpanel" aria-labelledby="pills-home-3">
                                             <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='account' />
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                                 <div id="order-history" className={`tab-pane fade ${activeTab ? 'active show' : ''}`}>

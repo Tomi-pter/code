@@ -90,6 +90,7 @@ export const PaymentContainer = () => {
                                                 <ul>
                                                     <li>If payment terms have already been established you will receive an invoice via email once the order has been processed.</li>
                                                     <li>If payment terms have not been established, you agree that within 24 hours Premier Pharmaceuticals will confirm your eligibility to use this payment option. Your dedicated sales rep will contact you with confirmation.</li>
+                                                    <li>We are working on adding payments by credit card, but currently cannot process them. In the meantime, Premier Pharmaceuticals is happy to offer 30 day payment terms for all orders.</li>
                                                 </ul>
                                             </div>
                                             <img src={require("../assets/icon/card-active.svg")} alt="" />

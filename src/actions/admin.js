@@ -128,8 +128,50 @@ export const confirmUser = (formData, user) => async (dispatch) => {
 
 export const importUser = (formData) => async (dispatch) => {
     try {
-        const data = await api.importUser(formData);
-        dispatch({ type: IMPORTUSER, data });
+        const { data } = await api.importUser(formData);
+
+        const newData = {
+            "Username": data.userSub,
+            "Attributes": [
+                {
+                    "Name": "sub",
+                    "Value": data.userSub
+                },
+                {
+                    "Name": "email_verified",
+                    "Value": "false"
+                },
+                {
+                    "Name": "phone_number_verified",
+                    "Value": "false"
+                },
+                {
+                    "Name": "phone_number",
+                    "Value": formData.phoneNumber
+                },
+                {
+                    "Name": "given_name",
+                    "Value": formData.givenName
+                },
+                {
+                    "Name": "family_name",
+                    "Value": formData.familyName
+                },
+                {
+                    "Name": "email",
+                    "Value": formData.email
+                },
+                {
+                    "Name": "custom:company",
+                    "Value": formData.company
+                }
+            ],
+            "Enabled": true,
+            "UserStatus": "UNCONFIRMED"
+        }
+
+        dispatch({ type: IMPORTUSER, data: newData });
+
     } catch (error) {
         const { data } = error.response
         dispatch({ type: IMPORTUSERERROR, data });

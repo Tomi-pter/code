@@ -338,7 +338,7 @@ export const AdminDashboard = () => {
                                         Import
                                     </button>
                                     <p className="text-danger text-small error-msg">
-                                        {admin?.importError}
+                                        {admin?.importError?.message}
                                     </p>
                                 </div>
                             </div>

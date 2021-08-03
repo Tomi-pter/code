@@ -72,7 +72,7 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
 
         return { ...state, confirmError: action?.data}
     case IMPORTUSER:
-        state.customProducts.push(action.data)
+        state.users.unshift(action.data)
 
         return {...state, importError: null }
     case IMPORTUSERERROR:

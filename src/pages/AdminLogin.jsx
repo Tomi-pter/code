@@ -45,11 +45,11 @@ export default props => {
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="FormControlInput1">Username</label>
-                        <input type="text" name="username" value={formData.username} className="form-control" id="FormControlInput1" placeholder="Username" onChange={handleChange} />
+                        <input type="text" name="username" value={formData.username} className="form-control" id="FormControlInput1" placeholder="Username" onChange={handleChange} disabled={actionLoading ? true : null} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="FormControlInput2">Password</label>
-                        <input type="password" name="password" value={formData.password} className="form-control" id="FormControlInput2" placeholder="Password" onChange={handleChange} />
+                        <input type="password" name="password" value={formData.password} className="form-control" id="FormControlInput2" placeholder="Password" onChange={handleChange} disabled={actionLoading ? true : null}  />
                     </div>
                     <input type="submit" value="Submit" hidden />
                     <button

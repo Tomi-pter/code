@@ -113,7 +113,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   useEffect(() => {
     setIsLoading(true)
-    if (category !== '' && page !== 'search') dispatch(getProducts(null, category))
+    if (category !== '' && page === 'shop') dispatch(getProducts(null, category))
   }, [category])
 
   useEffect(() => {

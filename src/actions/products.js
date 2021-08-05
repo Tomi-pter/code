@@ -8,7 +8,7 @@ export const getProducts = (name, category, sortBy, sortOrder, page) => async(di
         dispatch({ type: GETPRODUCTS, payload: data });
 
     } catch (error) {
-        console.log(error.message);
+        console.log('Error get products', error.message);
     }
 };
 

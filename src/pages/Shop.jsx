@@ -7,17 +7,10 @@ import { Helmet } from 'react-helmet';
 
 import { NotificationBanner } from '../components/shared/warningNotification';
 
-// import { useSelector } from 'react-redux'
-// import { useDispatch } from 'react-redux'
-// import { getProducts } from '../actions/products'
-
 export default (props) => {
-  // const products = useSelector((state) => state.products)
   const [view, setView] = useState('list');
-  // const [isLoading, setIsLoading] = useState(true)
   const [category, setCategory] = useState('')
   const location = useLocation()
-  // const dispatch = useDispatch()
 
   useEffect(() => {
     const pharmaBtn = document.getElementById("pharmacy-accordion-btn")
@@ -29,17 +22,12 @@ export default (props) => {
       if (cat === "Pharmaceuticals" && pharmaBtn.className.split(' ').length === 2) pharmaBtn.click()
       if (cat === "Animal Health" && animalBtn.className.split(' ').length === 2) animalBtn.click()
       if (cat === "Medical Supplies" && medicalBtn.className.split(' ').length === 2) medicalBtn.click()
+      window.history.replaceState({}, document.title, '/' + 'shop')
     } else {
-      // pharmaBtn.click()
-      setCategory('Pharmaceuticals')
+      pharmaBtn.click()
+      // setCategory('Pharmaceuticals')
     }
-    window.history.replaceState({}, document.title, '/' + 'shop')
   }, [location])
-
-  // useEffect(() => {
-  //   setIsLoading(true)
-  //   dispatch(getProducts(null, category))
-  // }, [dispatch])
 
   return (
     <>
@@ -54,16 +42,9 @@ export default (props) => {
               <div className="content-category">
                 <h3>
                   Products
-                  {/* For{' '}
-                  {category === 'Pharmaceuticals'
-                    ? 'Pharmacies'
-                    : category === 'Animal Health'
-                      ? 'Animal Health'
-                      : 'Medical/Surgical Products'} */}
                 </h3>
               </div>
               <div className="filter-col">
-                {/* <h3>Categories</h3> */}
                 <div className="product-category">
                   <select
                     className="select-category form-control"
@@ -80,12 +61,7 @@ export default (props) => {
                       value="Medical Supplies">Medical/Surgical</option>
                   </select>
                 </div>
-                <div
-                  // className="category-accordion accordion"
-                  // id="categoryAccordion"
-                  className="category d-flex align-items-center justify-content-between"
-                >
-                  {/* <div className="accordion-item"> */}
+                <div className="category d-flex align-items-center justify-content-between">
                     <button
                       id="pharmacy-accordion-btn"
                       className={'accordion-button collapsed' + (category === "Pharmaceuticals" ? ' active' : '')}
@@ -97,9 +73,6 @@ export default (props) => {
                     >
                       Pharmacies
                     </button>
-                  
-                  {/* </div> */}
-                  {/* <div className="accordion-item"> */}
                     <button
                       id="animal-accordion-btn"
                       className={'accordion-button collapsed' + (category === "Animal Health" ? ' active' : '')}
@@ -111,9 +84,6 @@ export default (props) => {
                     >
                       Animal Health
                     </button>
-                  
-                  {/* </div> */}
-                  {/* <div className="accordion-item"> */}
                     <button
                       id="medical-accordion-btn"
                       className={'accordion-button collapsed' + (category === "Medical Supplies" ? ' active' : '')}
@@ -125,8 +95,6 @@ export default (props) => {
                     >
                       Medical/Surgical
                     </button>
-                  
-                  {/* </div> */}
                 </div>
               </div>
               <div className="content">
@@ -137,25 +105,13 @@ export default (props) => {
                       'products' + (view === 'list' ? ' list-view' : '')
                     }
                   >
-                    {/* {isLoading ? (
-                      <div className="spinner-container d-flex align-items-center justify-content-center">
-                        <div
-                          className="spinner-border text-primary"
-                          role="status"
-                        >
-                          <span className="sr-only">Loading...</span>
-                        </div>
-                      </div>
-                    ) : ( */}
                       <Products
                         page="shop"
                         shopFont={true}
                         view={view}
                         setView={setView}
-                        // products={products}
                         category={category}
                       />
-                    {/* )} */}
                   </div>
                 </div>
               </div>

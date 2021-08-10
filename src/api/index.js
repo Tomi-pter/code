@@ -29,6 +29,8 @@ export const getFishbowlAccount = (username) => API.get(`/fishbowl/${username}/c
 export const getOrders = (username) => API.get(`/${username}/orders`);
 
 export const putAccount = (username, accountData) => API.put(`/user/${username}`, accountData);
+export const updateEmail = (username, formData) => API.put(`/user/${username}/change-email`, formData);
+
 export const addAddresses = (username, formData) => API.post(`/user/${username}/addresses`, formData);
 export const getAllAddresses = (username) => API.get(`/user/${username}/addresses`);
 export const getAddressesById = (username, id) => API.get(`/user/${username}/addresses/${id}`);

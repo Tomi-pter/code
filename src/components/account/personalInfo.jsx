@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import EditIcon from '../../assets/img/Account/edit-icon.svg';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAvatar, putAccount, getAccount } from '../../actions/account';
+import { getAvatar, putAccount, getAccount, updateEmail } from '../../actions/account';
 import { Alert } from 'react-bootstrap';
 
 const defaultFormData = {
@@ -19,6 +19,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     const [avatarLoading, setAvatarLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [avatarPic, setAvatarPic] = useState('');
+    const [newEmail, setNewEmail] = useState('');
     const inputFile = useRef(null);
     const dispatch = useDispatch();
 
@@ -79,9 +80,21 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
         inputFile.current.click();
     };
 
+    const handleEmailChange = (e) => {setNewEmail(e.target.value)};
+
+    const disableEmailSave = () => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail) && !isLoading ? false : true
+    }
+
+    const handleSaveNewEmail = () => {
+        setIsLoading(true);
+        dispatch(updateEmail(user?.username, { newEmail }))
+    }
+
     useEffect(() => {
         setDisable(true);
         setIsLoading(false);
+        document.getElementById("emailChangeModalClose").click();
         if(account?.avatarData && !Array.isArray(account?.avatarData)) setAvatarPic(account?.avatarData);
     }, [account])
 
@@ -114,7 +127,15 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                     </div>
                     <div>
                         <p className="mb-0 name"> {account.accountData?.given_name + ' ' + account.accountData?.family_name} </p>
-                        <small>{account.accountData?.email}</small>
+                        <small 
+                            className="d-flex align-items-center" 
+                            data-toggle="modal" 
+                            data-target="#emailChangeModal"
+                            onClick={()=>setNewEmail(account.accountData?.email)}
+                        >
+                            {account.accountData?.email} 
+                            <img className="ml-2" src={EditIcon} alt="" width="13" height="13" />
+                        </small>
                         <input
                             style={{ display: "none" }}
                             ref={inputFile}
@@ -208,6 +229,38 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                     </button>
                 </div>
             }
+            <div className="modal fade" id="emailChangeModal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLongTitle">Change Email</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close" id="emailChangeModalClose">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <div className="form-group d-flex flex-column">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                value={newEmail}
+                                name="newEmail"
+                                type="email"
+                                onChange={handleEmailChange}
+                            />
+                        </div>
+                        <button type="button" className="btn btn-primary float-right saveButton" onClick={handleSaveNewEmail} disabled={disableEmailSave()}>
+                            {isLoading ?
+                                <div className="spinner-border text-light" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                                :
+                                "Save"
+                            }
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

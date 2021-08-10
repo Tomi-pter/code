@@ -13,7 +13,8 @@ import {
   GETADDRESSESBYID,
   DELETEADDRESSESBYID,
   UPDATEADDRESSESBYID,
-  UPDATEDEFAULTADDRESS
+  UPDATEDEFAULTADDRESS,
+  UPDATEEMAIL
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
@@ -40,6 +41,17 @@ export const putAccount = (username, accountData) => async (dispatch) => {
   try {
     const { data } = await api.putAccount(username, accountData);
     if (data.success) dispatch({ type: PUTACCOUNT, accountData});
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateEmail = (username, formData) => async (dispatch) => {
+  try {
+    const { data } = await api.updateEmail(username, formData);
+
+    if (data.success) dispatch({ type: UPDATEEMAIL, formData});
+
   } catch (error) {
     console.log(error);
   }

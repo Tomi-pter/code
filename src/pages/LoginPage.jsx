@@ -11,8 +11,6 @@ import { Helmet } from 'react-helmet';
 import Input from "../components/shared/input";
 import decode from 'jwt-decode';
 import PasswordChangeIcon from '../assets/img/Account/password-change.svg';
-// import CheckGreen from '../assets/icon/check-lgreen.svg';
-// import XGray from '../assets/icon/x-gray.svg';
 
 const initialState = { email: '', password: '', code: '' };
 const initialForgotState = { fEmail: '', password: '', passwordConfirmation: '', code: "" };
@@ -23,7 +21,6 @@ export const LoginContainer = () => {
     const [formData, setFormData] = useState(initialState);
     const [forgotFormData, setforgotFormData] = useForm(initialForgotState);
     const { fEmail, password, passwordConfirmation, code } = forgotFormData;
-    // const [submitted, setSubmitted] = useState(false);
     const [isDisabled, setIsDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [forgotPass, setForgotpass] = useState(false);
@@ -31,11 +28,6 @@ export const LoginContainer = () => {
     const [successForgot, setSuccessForgot] = useState(false);
     const [OTP, setOTP] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    // const [resetPassword, setResetPassword] = useState(false);
-    // const checkPasswordLenght = fNewPassword.length >= 8 ? true : false;
-    // const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(password);
-    // const checkNumber = /^(?=.*[0-9])/.test(password);
-    // const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(password);
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -46,7 +38,6 @@ export const LoginContainer = () => {
     }
     const submit = () => {
         setIsLoading(true);
-        // setSubmitted(true);
         dispatch(confirmForgotPassword(fEmail, {
             code: code,
             password: password,
@@ -58,9 +49,7 @@ export const LoginContainer = () => {
 
     }
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-    // const handleResetPassword = () => {
-    //     setResetPassword(true);
-    // }
+
     useEffect(() => {
         const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
         const forgotEmailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotFormData.fEmail);

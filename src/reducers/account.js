@@ -28,6 +28,12 @@ const accountReducer = (state = initialState, action) => {
         'custom:company': action.accountData.company
       }
       return { ...state, accountData: newData };
+    case actionType.UPDATEEMAIL:
+        const newEmail = {
+          ...state.accountData,
+          'email': action.formData.newEmail
+        }
+        return { ...state, accountData: newEmail };
     case actionType.CHANGEPASSWORD:
       return { ...state, changePassword: action.data, errorOldPass: null };
     case actionType.ERROROLDPASS:

@@ -139,7 +139,7 @@ export default props => {
                                     <tr key={`product-key-${index}`}>
                                         <td>{product.ndc ? product.ndc : 'N/A'}</td>
                                         <td>{product.productName ? product.productName : 'N/A'}</td>
-                                        <td>{product.price}</td>
+                                        <td>{product.price.toFixed(2)}</td>
                                         <td>
                                             <button type="button" className="btn btn-outline-secondary mr-3" data-toggle="modal" data-target="#productModal" onClick={()=>handleAction('edit', product)}>Edit</button>
                                             <button type="button" className="btn btn-outline-danger" onClick={()=>handleDelete(product)}>Delete</button>
@@ -168,7 +168,7 @@ export default props => {
                                 <label htmlFor="FormControlInput1">Product NDC</label>
                                 <div className="ndc-container">
                                     <input type="text" name="ndc" value={formData.ndc} className="form-control" id="FormControlInput1" placeholder="Product NDC" onChange={handleChange} disabled={actionType === 'add' ? null : true}/>
-                                    {searchResult.length > 0 && !searchSelect && 
+                                    {searchResult.length > 0 && !searchSelect &&
                                         <div className="search-result-container">
                                            <ul>
                                                {

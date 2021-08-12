@@ -191,7 +191,7 @@ export const AdminDashboard = () => {
                                 Search
                             </span>
                         </div>
-                        <input className="form-control" type="text" name="search" value={search} placeholder="Company Name" onChange={handleSearchChange} autoComplete="nope" />
+                        <input className="form-control" type="text" name="search" value={search} placeholder="Company Name" onChange={handleSearchChange} autoComplete="off" />
                     </div>
                     <button type="button" className="btn btn-primary import-btn" data-toggle="modal" data-target="#importUserModal" onClick={()=>openImportForm()}>
                         Import User

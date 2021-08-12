@@ -30,7 +30,7 @@ export default props => {
 
     useEffect(() => {
         if (admin.adminLoginError) {
-            setError(admin.adminLoginError);
+            setError(admin.adminLoginError.message);
         }
         setActionLoading(false);
     }, [admin]);
@@ -42,14 +42,14 @@ export default props => {
                 <div className="error">
                     {error}
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} autocomplete="off">
                     <div className="form-group">
                         <label htmlFor="FormControlInput1">Username</label>
-                        <input type="text" name="username" value={formData.username} className="form-control" id="FormControlInput1" placeholder="Username" onChange={handleChange} disabled={actionLoading ? true : null} />
+                        <input type="text" name="username" value={formData.username} className="form-control" id="FormControlInput1" placeholder="Username" onChange={handleChange} disabled={actionLoading ? true : null} autoComplete="off" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="FormControlInput2">Password</label>
-                        <input type="password" name="password" value={formData.password} className="form-control" id="FormControlInput2" placeholder="Password" onChange={handleChange} disabled={actionLoading ? true : null}  />
+                        <input type="password" name="password" value={formData.password} className="form-control" id="FormControlInput2" placeholder="Password" onChange={handleChange} disabled={actionLoading ? true : null}  autoComplete="off" />
                     </div>
                     <input type="submit" value="Submit" hidden />
                     <button

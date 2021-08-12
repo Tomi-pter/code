@@ -108,6 +108,7 @@ export const loginAdmin = (formData, route) => async (dispatch) => {
         route.push("/admin");
     } catch (error) {
         // console.log(error);
+
         const { data } = error.response
         dispatch({ type: LOGINADMINERROR, data });
     }

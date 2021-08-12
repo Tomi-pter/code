@@ -131,7 +131,7 @@ export default props => {
                                 Search
                             </span>
                         </div>
-                        <input className="form-control" type="text" name="search" value={mainSearch} placeholder="Company Name" onChange={handleSearchChange} autoComplete="off" />
+                        <input className="form-control" type="text" name="search" value={mainSearch} placeholder="Product NDC / Description" onChange={handleSearchChange} autoComplete="off" />
                     </div>
                 </div>
                 <div className="table-container">

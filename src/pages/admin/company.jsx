@@ -11,6 +11,7 @@ const initialState = { ndc: "", price: "" };
 export default props => {
     const admin = useSelector((state) => state.admin);
     const search = useSelector((state) => state.search);
+    const [products, setProducts] = useState([]);
     const [username, setUsername] = useState('');
     const [companyDetails, setCompanyDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +21,7 @@ export default props => {
     const [searchResult, setSearchResult] = useState([]);
     const [searchSelect, setSearchSelect] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
+    const [mainSearch, setMainSearch] = useState('');
     const location = useLocation();
     const dispatch = useDispatch();
 
@@ -71,10 +73,24 @@ export default props => {
         }
         const company = admin.users.filter((user) => user.Username === username);
         setCompanyDetails(company[0]);
+        if (admin?.customProducts) setProducts(admin?.customProducts)
         setIsLoading(false);
         setActionLoading(false);
         setSearchResult([]);
     }, [admin]);
+
+    const handleSearchChange = (e) => {
+        setMainSearch(e.target.value)
+    }
+
+    useEffect(() => {
+        if (mainSearch === '') {
+            setProducts(admin?.customProducts)
+        } else {
+            const filterProducts = admin?.customProducts.filter(product => product.ndc.toLowerCase().includes(mainSearch.toLowerCase()) || product.productName.toLowerCase().includes(mainSearch.toLowerCase()))
+            setProducts(filterProducts)
+        }
+    }, [mainSearch]);
 
     useEffect(() => {
        if(search?.products) setSearchResult(search?.products);
@@ -108,6 +124,16 @@ export default props => {
                         Add Product
                     </button>
                 </div>
+                <div className="d-flex align-items-center justify-content-between mb-3">
+                    <div className="search-container input-group">
+                        <div className="input-group-prepend">
+                            <span className="input-group-text" id="basic-addon1">
+                                Search
+                            </span>
+                        </div>
+                        <input className="form-control" type="text" name="search" value={mainSearch} placeholder="Company Name" onChange={handleSearchChange} autoComplete="off" />
+                    </div>
+                </div>
                 <div className="table-container">
                     <table className="table table-hover">
                         <thead className="thead-dark">
@@ -128,14 +154,14 @@ export default props => {
                                 </td>
                             </tr>
                             :
-                            admin?.customProducts?.length === 0 ?
+                            products.length === 0 ?
                                 <tr>
                                     <td colSpan="4" className="text-center table-loader">
                                         No Custom Product Price
                                     </td>
                                 </tr>
                                 :
-                                admin?.customProducts?.map((product, index) => (
+                                products.map((product, index) => (
                                     <tr key={`product-key-${index}`}>
                                         <td>{product.ndc ? product.ndc : 'N/A'}</td>
                                         <td>{product.productName ? product.productName : 'N/A'}</td>

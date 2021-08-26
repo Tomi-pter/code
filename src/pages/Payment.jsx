@@ -57,7 +57,7 @@ export const PaymentContainer = () => {
 
     useEffect(()=>{
         const paymentTerms = account?.fishbowlAccountData?.data?.paymentTerms?.toLowerCase();
-        if (paymentTerms && paymentTerms?.includes("net")) {
+        if (paymentTerms?.includes("net")) {
             setEnablePayByTerms(true);
         }
     },[account]);
@@ -76,13 +76,14 @@ export const PaymentContainer = () => {
                             <h1 className="title">Payment Methods</h1>
                             <ul className="nav nav-tabs">
                                 {/* <li><a data-toggle="tab" href="#card" className="active" onClick={()=>setSelectedMethod('card')}>Credit Card</a></li> */}
-                                { enablePayByTerms && <li><a data-toggle="tab" href="#terms" className="active" onClick={()=>setSelectedMethod('terms')}>Pay by Terms</a></li> }
+                                {/* { enablePayByTerms && } */}
+                                <li><a data-toggle="tab" href="#terms" className="active" onClick={()=>setSelectedMethod('terms')}>Pay by Terms</a></li>
                             </ul>
                             <div className="tab-content">
                                 {/* <div id="card" className="tab-pane fade in active show">
                                     <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='payment' />
                                 </div> */}
-                                { enablePayByTerms && 
+                                {/* { enablePayByTerms &&  */}
                                     <div id="terms" className="tab-pane fade active show">
                                         <div className="d-flex align-items-center justify-content-between terms-copy">
                                             <div className="mr-5">
@@ -96,19 +97,17 @@ export const PaymentContainer = () => {
                                             <img src={require("../assets/icon/card-active.svg")} alt="" />
                                         </div>
                                     </div> 
-                                }
+                                {/* } */}
                             </div>
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"<"}<span> Checkout</span></Link>
-                                <button className="btn proceed-btn" onClick={()=>selectedMethod === "card" ? handlePayment("card") : handlePayment("term")} disabled={selectedCard === '' && selectedMethod === "card" ? true : null}>
+                                <button className="btn proceed-btn" onClick={()=>handlePayment("term")} disabled={enablePayByTerms ? false : true}>
                                     {isLoading ?
                                         <div className="spinner-border text-light" role="status">
                                             <span className="sr-only">Loading...</span>
                                         </div>
                                         :
-                                        <>
-                                        Place Order
-                                        </>
+                                        'Place Order'
                                     }
                                 </button>
                             </div>

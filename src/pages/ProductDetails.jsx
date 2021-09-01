@@ -36,7 +36,7 @@ export default props => {
                 productId: parseInt(product.id),
                 productName: product.name,
                 price: parseFloat(product.purchasePrice),
-                imageUrl: product.url, 
+                imageUrl: product.url,
                 quantity
             }
         }
@@ -51,21 +51,21 @@ export default props => {
 
     useEffect(() => {
         if (products?.length > 0 && admin?.customProducts?.length > 0) {
-            
+
             const customProductLookup = admin.customProducts.reduce((prods, prod) => {
                  prods[prod.productId] = prod;
-  
+
                  return prods;
              }, {});
-  
+
              const productsWithCustomPrice = products.map(prod => {
                  if (customProductLookup[prod.id] !== undefined) {
                      prod.purchasePrice = customProductLookup[prod.id].price;
                  }
-  
+
                  return { ...prod }
              })
-             
+
              setCustomProducts(productsWithCustomPrice);
         }
         else {
@@ -96,13 +96,13 @@ export default props => {
                 <div className="container content">
                     {product ?
                         <div className="d-block d-lg-flex align-items-start">
-                            <div className={"details-container card " + (product.customFields[staging ? 15 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[staging ? 15 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
+                            <div className={"details-container card " + (product.customFields[staging ? 19 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[staging ? 19 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
                                 <div className="img-container">
                                 <img src={product.url  ? product.url : NoImage} alt="" />
                                 </div>
-                                
+
                                 <div className="d-block d-lg-none">
-                                   
+
                                     <h3 className="name">{product?.name}</h3>
                                     <p className="availability">
                                         {product?.qtyOnHand !== "" ? (
@@ -114,23 +114,23 @@ export default props => {
                                     </p>
                                     <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
                                 </div>
-                                
+
                                 <p>Description: </p>
-                             
+
                                 <p>
                                     {product?.description}
                                 </p>
                                 <ul>
                                 {/* {product?.num} */}
-                                    <li>Item #: {product.customFields[staging ? 21 : 13] && product.customFields[staging ? 21 : 13].value ? product.customFields[staging ? 21 : 13].value : 'N/A'}</li>
+                                    <li>Item #: {product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</li>
                                     <li>NDC:  {product?.ndc}</li>
-                                    <li>Manufacturer:  {product.customFields[staging ? 11 : 3].value ? product.customFields[staging ? 11 : 3].value : 'N/A'}</li>
-                                    <li>Size:  {product.customFields[staging ? 13 : 6].value ? product.customFields[staging ? 13 : 6].value : 'N/A'}</li>
-                                    <li>Strength: {product.customFields[staging ? 14 : 9].value ? product.customFields[staging ? 14 : 9].value : 'N/A' }</li>
+                                    <li>Manufacturer:  {product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 15 : 3].value : 'N/A'}</li>
+                                    <li>Size:  {product.customFields[staging ? 17 : 6].value ? product.customFields[staging ? 17 : 6].value : 'N/A'}</li>
+                                    <li>Strength: {product.customFields[staging ? 18 : 9].value ? product.customFields[staging ? 18 : 9].value : 'N/A' }</li>
                                 </ul>
-                              
+
                                 <div className="d-block d-lg-none">
-                                { user ? 
+                                { user ?
                                 <>
                                     <div className="d-flex align-items-center justify-container-center qty-container">
                                         <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
@@ -138,7 +138,7 @@ export default props => {
                                         <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                                     </div>
                                     <button className="cart-btn">Add to cart</button>
-                               
+
                                 </> :
                                   <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
                                 }
@@ -155,10 +155,10 @@ export default props => {
                                         ) }
 
                                     </p>
-                                    { user ? 
+                                    { user ?
                                         <>
                                             <div className="d-flex align-items-center justify-container-center">
-                                                <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2> 
+                                                <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
                                                 {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
                                             </div>
                                             <div className="d-flex align-items-center justify-container-center qty-container">

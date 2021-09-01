@@ -251,7 +251,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                     quantity={quantity}
                     setQuantity={setQuantity}
                     cart={cart}
-                    category={product.customFields ? product.customFields[staging ? 15 : 10] ? product.customFields[staging ? 15 : 10].value : "" : ""}
+                    category={product.customFields ? product.customFields[staging ? 19 : 10] ? product.customFields[staging ? 19 : 10].value : "" : ""}
 
                     sortBy={sortBy}
                   />

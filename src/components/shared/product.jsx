@@ -59,7 +59,7 @@ export const Product = ({
             <div className="header-name-wrapper">
               <p className="flex-fill list-header-name">{product.name}</p>
             </div>
-          
+
           </div>
         </div>
         <div className={'product-details-container'}>
@@ -73,7 +73,7 @@ export const Product = ({
 
             <div className="no-container for-list">
               {/* {product.num} */}
-              <p className="item-no">{product.customFields[staging ? 21 : 13] && product.customFields[staging ? 21 : 13].value ? product.customFields[staging ? 21 : 13].value : 'N/A'}</p>
+              <p className="item-no">{product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</p>
               <p className="ndc">{product.ndc}</p>
             </div>
             <div
@@ -90,29 +90,30 @@ export const Product = ({
               ) : (
                   <p className="name">{product.description}</p>
               )}
-              {view !== 'list' && 
+              {view !== 'list' &&
                 <>
                   {/* {product.num} */}
-                  <p className="mb-0">ITEM #: {product.customFields[staging ? 21 : 13] && product.customFields[staging ? 21 : 13].value ? product.customFields[staging ? 21 : 13].value : 'N/A'}</p>
+                  <p className="mb-0">ITEM #: {product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</p>
                   <p>NDC: {product.ndc}</p>
                 </>
               }
               {/* <p className="compare for-list">({compare_to})</p> */}
             </div>
             <p className="company for-list">
-              {product.customFields[staging ? 11 : 3].value ? product.customFields[staging ? 11 : 3].value : 'N/A'}
+              {product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 15 : 3].value : 'N/A'}
             </p>
             <p className="size for-list">
-              {product.customFields[staging ? 13 : 6].value ? product.customFields[staging ? 13 : 6].value: 'N/A'}
+              {product.customFields[staging ? 17 : 6].value ? product.customFields[staging ? 17 : 6].value: 'N/A'}
             </p>
             {/* <p className="strength for-list">
-              {product.customFields[9].value || '100'}
+              {product.
+              [9].value || '100'}
             </p> */}
             <div className="price-container">
               <p className="price">
                 {!auth && shopFont ? (
                 <span style={{ fontSize: '12.3295px' }}>
-                <Link 
+                <Link
                   to="/login"
                   style={{ textDecoration: 'underline', color: 'black' }}
                 >
@@ -137,7 +138,7 @@ export const Product = ({
               {/* <p className="ppu for-list">({ppu})</p> */}
             </div>
             {auth ? (
-              <>    
+              <>
             <div className="buy-container d-flex">
               <input
                 className="qty for-list mr-2"
@@ -162,7 +163,7 @@ export const Product = ({
                   <></>
                 )}
               </button>
-            
+
               </div>
               <div className={'header-price-wrapper ' + (view === "list" ? 'header-price-wrapper-show' : 'd-none')}>
               <p className="list-header-price">$ {product.purchasePrice}</p>

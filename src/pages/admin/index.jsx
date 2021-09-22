@@ -213,7 +213,7 @@ export const AdminDashboard = () => {
                                         <td>{user.Attributes[7].Value}</td>
                                         <td>
                                             {
-                                                user.UserStatus === "CONFIRMED" ? user.UserStatus : 
+                                                (user.UserStatus === "CONFIRMED" || user.UserStatus === "RESET_REQUIRED") ? user.UserStatus : 
                                                 <button className="btn btn-success" onClick={()=>handleConfirmUser(user)} disabled={confirmLoading ? true : null}>
                                                     {
                                                         confirmLoading && user.Username === selectedUser ?

@@ -81,9 +81,9 @@ export const ItemList = ({ cart, page }) => {
                                 <p className="product-name">
                                     {cartItem.productName}
                                 </p>
-                                {/* <p className="variant">
-                                    Brand: Welchol
-                                </p> */}
+                                <p className="variant">
+                                    NDC: {cartItem.ndc}
+                                </p>
                                 <p className="availability">
                                     {cartItem.qtyOnHand !== "" ? (
                                         ''

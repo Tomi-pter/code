@@ -38,6 +38,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   const handleAddCart = (product) => {
     const user = JSON.parse(localStorage.getItem('profile'))
+    console.log(product)
     const newProduct = {
       product: {
         productId: parseInt(product.id),
@@ -45,6 +46,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         price: parseFloat(product.purchasePrice),
         imageUrl: product.url,
         quantity,
+        ndc: product.ndc
       },
     }
     setIsCartLoading(true)

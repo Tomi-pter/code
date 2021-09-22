@@ -112,6 +112,9 @@
       margin: 0;
       line-height: 43px;
       color: #4f4f4f;
+      &.no-stock {
+        color: red;
+      }
     }
     .price {
       font-style: normal;

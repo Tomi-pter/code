@@ -84,13 +84,12 @@ export const ItemList = ({ cart, page }) => {
                                 <p className="variant">
                                     NDC: {cartItem.ndc}
                                 </p>
-                                <p className="availability">
-                                    {cartItem.qtyOnHand !== "" ? (
+                                <p className={"availability " + (cartItem?.qtyOnHand !== "" ? '' : 'no-stock')}>
+                                    {cartItem?.qtyOnHand !== "" ? 
                                         ''
-                                    ) : (
-                                        "Ships in 2 - 5 business days"
-                                    ) }
-
+                                    : 
+                                        "Item is out of stock. Please call for availability."
+                                    }
                                 </p>
                                 <p className="price">
                                     ${cartItem.price}

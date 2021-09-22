@@ -37,7 +37,8 @@ export default props => {
                 productName: product.name,
                 price: parseFloat(product.purchasePrice),
                 imageUrl: product.url,
-                quantity
+                quantity,
+                ndc: product.ndc
             }
         }
         setIsLoading(true);
@@ -104,13 +105,12 @@ export default props => {
                                 <div className="d-block d-lg-none">
 
                                     <h3 className="name">{product?.name}</h3>
-                                    <p className="availability">
-                                        {product?.qtyOnHand !== "" ? (
+                                    <p className={"availability " + (product?.qtyOnHand !== "" ? '' : 'no-stock')}>
+                                        {product?.qtyOnHand !== "" ? 
                                             ''
-                                        ) : (
-                                            "Ships in 2 - 5 business days"
-                                        ) }
-
+                                        : 
+                                            "Item is out of stock. Please call for availability."
+                                        }
                                     </p>
                                     <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
                                 </div>
@@ -147,13 +147,12 @@ export default props => {
                             <div className="right-col">
                                 <div className="card d-none d-lg-block">
                                     <h3 className="name">{product?.name || product?.description}</h3>
-                                    <p className="availability">
-                                        {product?.qtyOnHand !== "" ? (
+                                    <p className={"availability " + (product?.qtyOnHand !== "" ? '' : 'no-stock')}>
+                                        {product?.qtyOnHand !== "" ? 
                                             ''
-                                        ) : (
-                                            "Ships in 2 - 5 business days"
-                                        ) }
-
+                                        : 
+                                            "Item is out of stock. Please call for availability."
+                                        }
                                     </p>
                                     { user ?
                                         <>
@@ -182,7 +181,7 @@ export default props => {
                                         <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
                                     }
                                 </div>
-                                <NotificationBanner />
+                                {product?.qtyOnHand !== "" && <NotificationBanner />}
                             </div>
                         </div>
                         :

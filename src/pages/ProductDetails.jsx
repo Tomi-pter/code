@@ -105,10 +105,10 @@ export default props => {
                                 <div className="d-block d-lg-none">
 
                                     <h3 className="name">{product?.name}</h3>
-                                    <p className={"availability " + (product?.qtyOnHand !== "" ? '' : 'no-stock')}>
-                                        {product?.qtyOnHand !== "" ? 
+                                    <p className={"availability " + ((product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ? '' : 'no-stock')}>
+                                        {(product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ?
                                             ''
-                                        : 
+                                        :
                                             "Item is out of stock. Please call for availability."
                                         }
                                     </p>
@@ -147,10 +147,10 @@ export default props => {
                             <div className="right-col">
                                 <div className="card d-none d-lg-block">
                                     <h3 className="name">{product?.name || product?.description}</h3>
-                                    <p className={"availability " + (product?.qtyOnHand !== "" ? '' : 'no-stock')}>
-                                        {product?.qtyOnHand !== "" ? 
+                                    <p className={"availability " + ((product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ? '' : 'no-stock')}>
+                                        {(product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ? 
                                             ''
-                                        : 
+                                        :
                                             "Item is out of stock. Please call for availability."
                                         }
                                     </p>

@@ -84,8 +84,8 @@ export const ItemList = ({ cart, page }) => {
                                 <p className="variant">
                                     NDC: {cartItem.ndc}
                                 </p>
-                                <p className={"availability " + (cartItem?.qtyOnHand !== "" ? '' : 'no-stock')}>
-                                    {cartItem?.qtyOnHand !== "" ?
+                                <p className={"availability " + ((cartItem?.qtyOnHand !== "" && cartItem?.qtyOnHand !== "0.0") ? '' : 'no-stock')}>
+                                    {(cartItem?.qtyOnHand !== "" && cartItem?.qtyOnHand !== "0.0") ?
                                         ''
                                     :
                                         "Item is out of stock. Please call for availability."

@@ -49,6 +49,11 @@ export const OrdersHistory = ({ account }) => {
                             <p className="product-name">
                                 {item.productName}
                             </p>
+                            {
+                                item.ndc
+                                ? <p>NDC: {item.ndc} </p>
+                                : ''
+                            }
                             <p>Quantity: {item.quantity}</p>
                         </div>
                         <div className="item-info-end text-left">

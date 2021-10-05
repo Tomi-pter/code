@@ -47,7 +47,16 @@
         padding: 40px 50px 25px 50px;
         .product-category {
             display: none;
-            @include mediaQueries(custom-select) {
+            // @include mediaQueries(custom-select) {
+            //     display: block;
+            // }
+            @include mediaQueries(padpro) {
+                display: block;
+            }
+            @include mediaQueries(pad) {
+                display: block;
+            }
+            @include mediaQueries(mobile) {
                 display: block;
             }
         }

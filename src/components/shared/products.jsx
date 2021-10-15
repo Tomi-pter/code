@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { getCart, addCart } from '../../actions/cart'
 import { getCustomProducts } from '../../actions/admin'
 import { useSelector } from 'react-redux'
-import { getProducts } from '../../actions/products'
+import { getProducts, getFavoriteProducts } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
 import { useLocation } from 'react-router'
 
@@ -38,7 +38,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   const handleAddCart = (product) => {
     const user = JSON.parse(localStorage.getItem('profile'))
-    console.log(product)
     const newProduct = {
       product: {
         productId: parseInt(product.id),
@@ -70,25 +69,28 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   };
 
   useEffect(() => {
-      if (products?.products?.length > 0 && admin?.customProducts?.length > 0) {
-          const customProductLookup = admin.customProducts.reduce((prods, prod) => {
-               prods[prod.productId] = prod;
+      if (category === 'Favorites') {
+        setCustomProducts(products);
+      } else {
+        if (products?.products?.length > 0 && admin?.customProducts?.length > 0) {
+            const customProductLookup = admin.customProducts.reduce((prods, prod) => {
+                prods[prod.productId] = prod;
 
-               return prods;
-           }, {});
+                return prods;
+            }, {});
 
-           const productsWithCustomPrice = products.products.map(prod => {
-               if (customProductLookup[prod.id] !== undefined) {
-                   prod.purchasePrice = customProductLookup[prod.id].price;
-               }
+            const productsWithCustomPrice = products.products.map(prod => {
+                if (customProductLookup[prod.id] !== undefined) {
+                    prod.purchasePrice = customProductLookup[prod.id].price;
+                }
 
-               return { ...prod }
-           })
+                return { ...prod }
+            })
 
-           setCustomProducts(productsWithCustomPrice);
-      }
-      else {
-          setCustomProducts(products.products);
+            setCustomProducts(productsWithCustomPrice);
+        } else {
+            setCustomProducts(products.products);
+        }
       }
   }, [products, admin]);
 
@@ -115,7 +117,13 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   useEffect(() => {
     setIsLoading(true)
-    if (category !== '' && page === 'shop') dispatch(getProducts(null, category))
+    if (category !== '' && page === 'shop') {
+      if (category === 'Favorites') {
+        dispatch(getFavoriteProducts(user?.username))
+      } else {
+        dispatch(getProducts(null, category))
+      }
+    }
   }, [category])
 
   useEffect(() => {
@@ -260,20 +268,23 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                 )) : ''}
         </div>
       </div>
-      <div className="pagination-products">
-        <ReactPaginate
-          previousLabel={'previous'}
-          nextLabel={'next'}
-          breakLabel={'...'}
-          breakClassName={'break-me'}
-          pageCount={totalPageCount}
-          onPageChange={handlePageClick}
-          containerClassName={'pagination'}
-          activeClassName={'active'}
-          initialPage={0}
+      {
+        customProducts?.length > 12 && 
+        <div className="pagination-products">
+          <ReactPaginate
+            previousLabel={'previous'}
+            nextLabel={'next'}
+            breakLabel={'...'}
+            breakClassName={'break-me'}
+            pageCount={totalPageCount}
+            onPageChange={handlePageClick}
+            containerClassName={'pagination'}
+            activeClassName={'active'}
+            initialPage={0}
 
-        />
-      </div>
+          />
+        </div>
+      }
     </div>
   )
 }

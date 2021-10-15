@@ -9,16 +9,19 @@ import { NotificationBanner } from '../components/shared/warningNotification';
 
 export default (props) => {
   const [view, setView] = useState('list');
-  const [category, setCategory] = useState('')
-  const location = useLocation()
+  const [category, setCategory] = useState('');
+  const auth = JSON.parse(localStorage.getItem('profile'));
+  const location = useLocation();
 
   useEffect(() => {
+    const favBtn = document.getElementById("favorites-accordion-btn")
     const pharmaBtn = document.getElementById("pharmacy-accordion-btn")
     const animalBtn = document.getElementById("animal-accordion-btn")
     const medicalBtn = document.getElementById("medical-accordion-btn")
     const query = new URLSearchParams(props.location.search)
     const cat = query.get('category')
     if (cat) {
+      if (cat === "Favorites" && favBtn.className.split(' ').length === 2) favBtn.click()
       if (cat === "Pharmaceuticals" && pharmaBtn.className.split(' ').length === 2) pharmaBtn.click()
       if (cat === "Animal Health" && animalBtn.className.split(' ').length === 2) animalBtn.click()
       if (cat === "Medical Supplies" && medicalBtn.className.split(' ').length === 2) medicalBtn.click()
@@ -54,6 +57,7 @@ export default (props) => {
                       setCategory(selectedCategory)
                     }}
                   >
+                    { auth && <option value="Favorites" >Favorites</option>}
                     <option value="Pharmaceuticals" >Pharmacies</option>
                     <option
                       value="Animal Health">Animal Health</option>
@@ -62,6 +66,19 @@ export default (props) => {
                   </select>
                 </div>
                 <div className="category d-flex align-items-center justify-content-between">
+                  { auth &&
+                    <button
+                      id="favorites-accordion-btn"
+                      className={'accordion-button collapsed' + (category === "Favorites" ? ' active' : '')}
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#accordion1"
+                      aria-expanded="false"
+                      onClick={() => setCategory('Favorites')}
+                    >
+                      Favorites
+                    </button>
+                  }
                     <button
                       id="pharmacy-accordion-btn"
                       className={'accordion-button collapsed' + (category === "Pharmaceuticals" ? ' active' : '')}

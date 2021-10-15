@@ -12,6 +12,17 @@ export const getProducts = (name, category, sortBy, sortOrder, page) => async(di
     }
 };
 
+export const getFavoriteProducts = (username) => async(dispatch) => {
+    try {
+        const { data } = await api.getFavoriteProducts(username);
+
+        dispatch({ type: GETPRODUCTS, payload: data });
+
+    } catch (error) {
+        console.log('Error get products', error.message);
+    }
+};
+
 export const getProduct = (id) => async(dispatch) => {
     try {
         const { data } = await api.getProduct(id);

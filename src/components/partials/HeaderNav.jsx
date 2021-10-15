@@ -155,6 +155,7 @@ export const HeaderNav = () => {
                                     Products
                             </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    { user && <Link className="dropdown-item" href="#!" to="/shop?category=Favorites">Favorites</Link> }
                                     <Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">Pharmacies</Link>
                                     <Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">Animal Health</Link>
                                     <Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">Medical/Surgical</Link>
@@ -222,9 +223,10 @@ export const HeaderNav = () => {
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <Link className="dropdown-item" href={`${process.env.REACT_APP_HOMEPAGE_URL}/about-us`} to="">About Us</Link>
                                     <ul>Products
-                                    <li><Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">For Pharmacies</Link></li>
-                                        <li><Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">For Animal Health</Link></li>
-                                        <li><Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">For Medical/Surgical</Link></li>
+                                    { user && <li><Link className="dropdown-item" href="#!" to="/shop?category=Favorites">Favorites</Link></li> }
+                                        <li><Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">Pharmacies</Link></li>
+                                        <li><Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">Animal Health</Link></li>
+                                        <li><Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">Medical/Surgical</Link></li>
                                     </ul>
                                     <Link className="dropdown-item" href={`${process.env.REACT_APP_HOMEPAGE_URL}/contact-us`} to="">Contact Us</Link>
                                 </div>

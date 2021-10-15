@@ -57,7 +57,7 @@ export default (props) => {
                       setCategory(selectedCategory)
                     }}
                   >
-                    { auth && <option value="Favorites" >Favorites</option>}
+                    { auth && <option value="Favorites" >My Favorites</option>}
                     <option value="Pharmaceuticals" >Pharmacies</option>
                     <option
                       value="Animal Health">Animal Health</option>
@@ -76,7 +76,7 @@ export default (props) => {
                       aria-expanded="false"
                       onClick={() => setCategory('Favorites')}
                     >
-                      Favorites
+                      My Favorites
                     </button>
                   }
                     <button

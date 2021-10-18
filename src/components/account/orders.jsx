@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
 import NoImage from '../../assets/img/unavailable.svg';
 
@@ -43,7 +44,7 @@ export const OrdersHistory = ({ account }) => {
                     </div>
                 </div> */}
                 {order.details.items.map((item, index) => (
-                    <div key={`item-${index}`} className="d-flex align-items-center item">
+                    <Link to={`/product/${item.productId}`} key={`item-${index}`} className="d-flex align-items-center item">
                         <img width="50" src={item.imageUrl !== "" ? item.imageUrl : NoImage} alt="" />
                         <div className="item-info">
                             <p className="product-name">
@@ -64,7 +65,7 @@ export const OrdersHistory = ({ account }) => {
                                 </>
                             }
                         </div>
-                    </div>
+                    </Link>
                 ))}
                 <div className="mt-2">
                     {/* <div className="orderNo">

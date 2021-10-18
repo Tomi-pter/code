@@ -55,6 +55,7 @@ export const OrdersHistory = ({ account }) => {
                                 ? <p>NDC: {item.ndc} </p>
                                 : ''
                             }
+                            <p>Price: ${item.price}</p>
                             <p>Quantity: {item.quantity}</p>
                         </div>
                         <div className="item-info-end text-left">

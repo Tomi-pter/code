@@ -73,7 +73,7 @@ export const Product = ({
 
             <div className="no-container for-list">
               {/* {product.num} */}
-              <p className="item-no">{product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</p>
+              <p className="item-no">{product.customFields && product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</p>
               <p className="ndc">{product.ndc}</p>
             </div>
             <div
@@ -93,17 +93,17 @@ export const Product = ({
               {view !== 'list' &&
                 <>
                   {/* {product.num} */}
-                  <p className="mb-0">ITEM #: {product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</p>
+                  <p className="mb-0">ITEM #: {product.customFields && product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</p>
                   <p>NDC: {product.ndc}</p>
                 </>
               }
               {/* <p className="compare for-list">({compare_to})</p> */}
             </div>
             <p className="company for-list">
-              {product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 15 : 3].value : 'N/A'}
+              {product.customFields && product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 15 : 3].value : 'N/A'}
             </p>
             <p className="size for-list">
-              {product.customFields[staging ? 17 : 6].value ? product.customFields[staging ? 17 : 6].value: 'N/A'}
+              {product.customFields && product.customFields[staging ? 17 : 6].value ? product.customFields[staging ? 17 : 6].value: 'N/A'}
             </p>
             {/* <p className="strength for-list">
               {product.

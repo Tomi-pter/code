@@ -74,25 +74,29 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   };
 
   useEffect(() => {
-    if (products?.products?.length > 0 && admin?.customProducts?.length > 0) {
-        const customProductLookup = admin.customProducts.reduce((prods, prod) => {
-            prods[prod.productId] = prod;
-
-            return prods;
-        }, {});
-
-        const productsWithCustomPrice = products.products.map(prod => {
-            if (customProductLookup[prod.id] !== undefined) {
-                prod.purchasePrice = customProductLookup[prod.id].price;
-            }
-
-            return { ...prod }
-        })
-
-        setCustomProducts(productsWithCustomPrice);
-    } else {
+      if (category === 'Favorites') {
         setCustomProducts(products.products);
-    }
+      } else {
+        if (products?.products?.length > 0 && admin?.customProducts?.length > 0) {
+            const customProductLookup = admin.customProducts.reduce((prods, prod) => {
+                prods[prod.productId] = prod;
+
+                return prods;
+            }, {});
+
+            const productsWithCustomPrice = products.products.map(prod => {
+                if (customProductLookup[prod.id] !== undefined) {
+                    prod.purchasePrice = customProductLookup[prod.id].price;
+                }
+
+                return { ...prod }
+            })
+
+            setCustomProducts(productsWithCustomPrice);
+        } else {
+            setCustomProducts(products.products);
+        }
+      }
   }, [products, admin]);
 
   useEffect(() => {

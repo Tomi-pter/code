@@ -57,7 +57,12 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setIsLoading(true)
     setFilter(filter);
     setOrder(order);
-    dispatch(getProducts(null, category, filter, order, null));
+    if (category === 'Favorites') {
+      dispatch(getFavoriteProducts(user?.username, filter, order, null))
+    } else {
+      dispatch(getProducts(null, category, filter, order, null))
+    }
+    // dispatch(getProducts(null, category, filter, order, null));
     setSortBy(value);
   }
 
@@ -70,7 +75,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   useEffect(() => {
       if (category === 'Favorites') {
-        setCustomProducts(products);
+        setCustomProducts(products.products);
       } else {
         if (products?.products?.length > 0 && admin?.customProducts?.length > 0) {
             const customProductLookup = admin.customProducts.reduce((prods, prod) => {
@@ -95,10 +100,16 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   }, [products, admin]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
-    if ((category !== '' && page === 'shop') || (page === 'search')) dispatch(getProducts(name, category, filter, order, pageNumber))
+    // setTimeout(() => {
+    //   setIsLoading(false)
+    // }, 1000)
+    if ((category !== '' && page === 'shop') || (page === 'search')) {
+      if (category === 'Favorites') {
+        dispatch(getFavoriteProducts(user?.username, filter, order, pageNumber))
+      } else {
+        dispatch(getProducts(name, category, filter, order, pageNumber))
+      }
+    }
   }, [pageNumber, filter, order])
 
   useEffect(() => {
@@ -162,7 +173,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                 aria-expanded="false"
               >
                 {sortBy === null || sortBy === "" ? (
-                  <>A-Z </>
+                  "A-Z"
                 ) : (
                   <>{sortBy}</>
                 )}
@@ -247,7 +258,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
               </div>
             </div>
             :
-            typeof (customProducts) != "undefined" ? customProducts.map((product) => (
+            typeof (customProducts) != "undefined" && customProducts.map((product) => (
                   <Product
                     shopFont={shopFont}
                     view={view}
@@ -265,11 +276,12 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
                     sortBy={sortBy}
                   />
-                )) : ''}
+                ))
+          }
         </div>
       </div>
       {
-        customProducts?.length > 12 && 
+        totalProduct > 12 && 
         <div className="pagination-products">
           <ReactPaginate
             previousLabel={'previous'}
@@ -281,7 +293,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
             containerClassName={'pagination'}
             activeClassName={'active'}
             initialPage={0}
-
           />
         </div>
       }

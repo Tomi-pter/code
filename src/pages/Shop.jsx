@@ -72,7 +72,7 @@ export default (props) => {
                       className={'accordion-button collapsed' + (category === "Favorites" ? ' active' : '')}
                       type="button"
                       data-toggle="collapse"
-                      data-target="#accordion1"
+                      data-target="#accordion4"
                       aria-expanded="false"
                       onClick={() => setCategory('Favorites')}
                     >

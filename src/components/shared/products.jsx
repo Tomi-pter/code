@@ -68,7 +68,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   const handlePageClick = (data) => {
     setIsLoading(true)
-    window.scrollTo(0, 0)
+    window.scrollTo({top: 300,
+      behavior: 'smooth'})
     var increment = data.selected + 1;
     setPageNumber(increment);
   };
@@ -98,7 +99,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         }
       }
       setTotalProduct(products.count)
-      setPageNumber(1)
+      // setPageNumber(1)
       setIsLoading(false)
   }, [products, admin]);
 
@@ -126,7 +127,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   useEffect(() => {
     setIsLoading(true)
     setTotalProduct(0)
-    setPageNumber(0)
+    setPageNumber(1)
     if (category !== '' && page === 'shop') {
       if (category === 'Favorites') {
         dispatch(getFavoriteProducts(user?.username))

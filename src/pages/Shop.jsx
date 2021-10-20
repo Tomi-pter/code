@@ -20,7 +20,7 @@ export default (props) => {
     const medicalBtn = document.getElementById("medical-accordion-btn")
     const query = new URLSearchParams(props.location.search)
     const cat = query.get('category')
-    if (cat) {
+    if (cat && cat !== '') {
       if (cat === "Favorites" && favBtn.className.split(' ').length === 2) favBtn.click()
       if (cat === "Pharmaceuticals" && pharmaBtn.className.split(' ').length === 2) pharmaBtn.click()
       if (cat === "Animal Health" && animalBtn.className.split(' ').length === 2) animalBtn.click()

@@ -24,7 +24,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
   const totalPageCount = Math.ceil(products.count / 12);
-  const totalProduct = products.count;
+  const [totalProduct, setTotalProduct] = useState(0);
   const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
   const location = useLocation();
 
@@ -97,6 +97,9 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
             setCustomProducts(products.products);
         }
       }
+      setTotalProduct(products.count)
+      setPageNumber(1)
+      setIsLoading(false)
   }, [products, admin]);
 
   useEffect(() => {
@@ -113,21 +116,17 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   }, [pageNumber, filter, order])
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('profile'))
-    dispatch(getCart(user?.username))
-    dispatch(getCustomProducts(user?.username))
-  }, [dispatch])
-
-  useEffect(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
       setQuantity(1)
       setSelectedProduct(null)
       setIsLoading(false)
-    }, 1000)
+    // }, 1000)
   }, [cart])
 
   useEffect(() => {
     setIsLoading(true)
+    setTotalProduct(0)
+    setPageNumber(0)
     if (category !== '' && page === 'shop') {
       if (category === 'Favorites') {
         dispatch(getFavoriteProducts(user?.username))
@@ -143,8 +142,14 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   }, [name])
 
   useEffect(() => {
-    setIsLoading(false)
-  }, [products])
+    const user = JSON.parse(localStorage.getItem('profile'))
+    dispatch(getCart(user?.username))
+    dispatch(getCustomProducts(user?.username))
+  }, [])
+
+  // useEffect(() => {
+  //   setIsLoading(false)
+  // }, [products])
 
   return (
     <div className="products-container">
@@ -158,7 +163,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         {page === 'search' ? (
           <h3 className="search-for">Search Results for <q>{name}</q></h3>
         ) : (
-          <p className="total-products">Showing {startCount} - {totalInPage} of {totalProduct} products</p>
+          <p className="total-products">{ totalProduct === 0 ? 'Showing...' : `Showing ${startCount} - ${totalInPage} of ${totalProduct} products`}</p>
         )}
         <div className="d-flex align-items-center filter-view-container">
           <div className="d-flex align-items-center sort-by">
@@ -258,25 +263,25 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
               </div>
             </div>
             :
-            typeof (customProducts) != "undefined" && customProducts.map((product) => (
-                  <Product
-                    shopFont={shopFont}
-                    view={view}
-                    key={product.id}
-                    product={product}
-                    addCart={handleAddCart}
-                    setSelectedProduct={setSelectedProduct}
-                    selectedProduct={selectedProduct}
-                    isLoading={isLoading}
-                    isCartLoading={isCartLoading}
-                    quantity={quantity}
-                    setQuantity={setQuantity}
-                    cart={cart}
-                    category={product.customFields ? product.customFields[staging ? 19 : 10] ? product.customFields[staging ? 19 : 10].value : "" : ""}
+            customProducts?.map((product) => (
+              <Product
+                shopFont={shopFont}
+                view={view}
+                key={product.id}
+                product={product}
+                addCart={handleAddCart}
+                setSelectedProduct={setSelectedProduct}
+                selectedProduct={selectedProduct}
+                isLoading={isLoading}
+                isCartLoading={isCartLoading}
+                quantity={quantity}
+                setQuantity={setQuantity}
+                cart={cart}
+                category={product.customFields ? product.customFields[staging ? 19 : 10] ? product.customFields[staging ? 19 : 10].value : "" : ""}
 
-                    sortBy={sortBy}
-                  />
-                ))
+                sortBy={sortBy}
+              />
+            ))
           }
         </div>
       </div>

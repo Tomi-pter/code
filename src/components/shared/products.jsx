@@ -174,7 +174,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         {page === 'search' ? (
           <h3 className="search-for">Search Results for <q>{name}</q></h3>
         ) : (
-          <p className="total-products">{ isLoading ? 'Showing...' : totalProduct === 0 ? '' : `Showing ${startCount} - ${totalInPage} of ${totalProduct} products`}</p>
+          <p className="total-products">{ (isLoading || !totalProduct) ? 'Showing...' : totalProduct === 0 ? '' : `Showing ${startCount} - ${totalInPage} of ${totalProduct} products`}</p>
         )}
         <div className="d-flex align-items-center filter-view-container">
           <div className="d-flex align-items-center sort-by">

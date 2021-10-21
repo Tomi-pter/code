@@ -13,7 +13,7 @@ export default (props) => {
   const auth = JSON.parse(localStorage.getItem('profile'));
   const location = useLocation();
 
-  useEffect(() => {
+  const selectedCategory = () => {
     const favBtn = document.getElementById("favorites-accordion-btn")
     const pharmaBtn = document.getElementById("pharmacy-accordion-btn")
     const animalBtn = document.getElementById("animal-accordion-btn")
@@ -21,7 +21,11 @@ export default (props) => {
     const query = new URLSearchParams(props.location.search)
     const cat = query.get('category')
     if (cat && cat !== '') {
-      if (cat === "Favorites" && favBtn.className.split(' ').length === 2) favBtn.click()
+      if (cat === "Favorites" && favBtn?.className.split(' ')?.length === 2 && auth) {
+        favBtn.click()
+      } else {
+        pharmaBtn.click()
+      }
       if (cat === "Pharmaceuticals" && pharmaBtn.className.split(' ').length === 2) pharmaBtn.click()
       if (cat === "Animal Health" && animalBtn.className.split(' ').length === 2) animalBtn.click()
       if (cat === "Medical Supplies" && medicalBtn.className.split(' ').length === 2) medicalBtn.click()
@@ -30,7 +34,15 @@ export default (props) => {
       pharmaBtn.click()
       // setCategory('Pharmaceuticals')
     }
+  }
+
+  useEffect(() => {
+    selectedCategory()
   }, [location])
+
+  useEffect(() => {
+    selectedCategory()
+  }, [])
 
   return (
     <>

@@ -72,6 +72,14 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
       behavior: 'smooth'})
     var increment = data.selected + 1;
     setPageNumber(increment);
+
+    if ((category !== '' && page === 'shop') || (page === 'search')) {
+      if (category === 'Favorites') {
+        dispatch(getFavoriteProducts(user?.username, filter, order, pageNumber))
+      } else {
+        dispatch(getProducts(name, category, filter, order, pageNumber))
+      }
+    }
   };
 
   useEffect(() => {
@@ -103,18 +111,18 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
       setIsLoading(false)
   }, [products, admin]);
 
-  useEffect(() => {
-    // setTimeout(() => {
-    //   setIsLoading(false)
-    // }, 1000)
-    if ((category !== '' && page === 'shop') || (page === 'search')) {
-      if (category === 'Favorites') {
-        dispatch(getFavoriteProducts(user?.username, filter, order, pageNumber))
-      } else {
-        dispatch(getProducts(name, category, filter, order, pageNumber))
-      }
-    }
-  }, [pageNumber, filter, order])
+  // useEffect(() => {
+  //   // setTimeout(() => {
+  //   //   setIsLoading(false)
+  //   // }, 1000)
+  //   if ((category !== '' && page === 'shop') || (page === 'search')) {
+  //     if (category === 'Favorites') {
+  //       dispatch(getFavoriteProducts(user?.username, filter, order, pageNumber))
+  //     } else {
+  //       dispatch(getProducts(name, category, filter, order, pageNumber))
+  //     }
+  //   }
+  // }, [pageNumber, filter, order])
 
   useEffect(() => {
     // setTimeout(() => {
@@ -127,11 +135,14 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   useEffect(() => {
     setIsLoading(true)
     setTotalProduct(0)
+    setPageNumber(1)
     if (category !== '' && page === 'shop') {
       if (category === 'Favorites') {
-        dispatch(getFavoriteProducts(user?.username))
+        // dispatch(getFavoriteProducts(user?.username))
+        dispatch(getFavoriteProducts(user?.username, filter, order, 1))
       } else {
-        dispatch(getProducts(null, category))
+        // dispatch(getProducts(null, category))
+        dispatch(getProducts(name, category, filter, order, 1))
       }
     }
   }, [category])
@@ -163,7 +174,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         {page === 'search' ? (
           <h3 className="search-for">Search Results for <q>{name}</q></h3>
         ) : (
-          <p className="total-products">{ totalProduct === 0 ? 'Showing...' : `Showing ${startCount} - ${totalInPage} of ${totalProduct} products`}</p>
+          <p className="total-products">{ isLoading ? 'Showing...' : totalProduct === 0 ? '' : `Showing ${startCount} - ${totalInPage} of ${totalProduct} products`}</p>
         )}
         <div className="d-flex align-items-center filter-view-container">
           <div className="d-flex align-items-center sort-by">
@@ -263,6 +274,11 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
               </div>
             </div>
             :
+            customProducts?.length === 0 ? 
+            <div className="col-12 d-flex align-items-center justify-content-center text-center">
+              No Favorite Product
+            </div>
+            :
             customProducts?.map((product) => (
               <Product
                 shopFont={shopFont}
@@ -293,7 +309,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           breakClassName={'break-me'}
           pageCount={totalPageCount}
           onPageChange={handlePageClick}
-          containerClassName={'pagination'}
+          containerClassName={totalProduct === 0 ? 'pagination empty' : 'pagination'}
           activeClassName={'active'}
           initialPage={0}
         />

@@ -36,9 +36,9 @@ export default (props) => {
     }
   }
 
-  useEffect(() => {
-    selectedCategory()
-  }, [location])
+  // useEffect(() => {
+  //   selectedCategory()
+  // }, [location])
 
   useEffect(() => {
     selectedCategory()
@@ -68,6 +68,7 @@ export default (props) => {
                       const selectedCategory = e.target.value;
                       setCategory(selectedCategory)
                     }}
+                    value={category}
                   >
                     { auth && <option value="Favorites" >My Favorites</option>}
                     <option value="Pharmaceuticals" >Pharmacies</option>

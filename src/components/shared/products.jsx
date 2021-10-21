@@ -265,7 +265,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                             });
                         }}
                     </ProductConsumer> */}
-          {isLoading ?
+          {isLoading || !totalProduct ?
             <div className="container-fluid">
               <div className="spinner-container d-flex align-items-center justify-content-center">
                 <div className="spinner-border text-primary" role="status">

@@ -127,7 +127,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   useEffect(() => {
     setIsLoading(true)
     setTotalProduct(0)
-    setPageNumber(1)
     if (category !== '' && page === 'shop') {
       if (category === 'Favorites') {
         dispatch(getFavoriteProducts(user?.username))
@@ -286,22 +285,19 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           }
         </div>
       </div>
-      {
-        totalProduct > 12 && 
-        <div className="pagination-products">
-          <ReactPaginate
-            previousLabel={'previous'}
-            nextLabel={'next'}
-            breakLabel={'...'}
-            breakClassName={'break-me'}
-            pageCount={totalPageCount}
-            onPageChange={handlePageClick}
-            containerClassName={'pagination'}
-            activeClassName={'active'}
-            initialPage={0}
-          />
-        </div>
-      }
+      <div className="pagination-products">
+        <ReactPaginate
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          pageCount={totalPageCount}
+          onPageChange={handlePageClick}
+          containerClassName={'pagination'}
+          activeClassName={'active'}
+          initialPage={0}
+        />
+      </div>
     </div>
   )
 }

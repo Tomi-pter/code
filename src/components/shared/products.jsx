@@ -16,9 +16,9 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isCartLoading, setIsCartLoading] = useState(false)
-  const [sortBy, setSortBy] = useState(null)
-  const [filter, setFilter] = useState(null)
-  const [order, setOrder] = useState(null)
+  const [sortBy, setSortBy] = useState('A-Z')
+  const [filter, setFilter] = useState('name')
+  const [order, setOrder] = useState('ASC')
   const [pageNumber, setPageNumber] = useState(1)
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
@@ -75,9 +75,9 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
     if ((category !== '' && page === 'shop') || (page === 'search')) {
       if (category === 'Favorites') {
-        dispatch(getFavoriteProducts(user?.username, filter, order, pageNumber))
+        dispatch(getFavoriteProducts(user?.username, filter, order, increment))
       } else {
-        dispatch(getProducts(name, category, filter, order, pageNumber))
+        dispatch(getProducts(name, category, filter, order, increment))
       }
     }
   };
@@ -188,11 +188,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                {sortBy === null || sortBy === "" ? (
-                  "A-Z"
-                ) : (
-                  <>{sortBy}</>
-                )}
+                {sortBy}
               </button>
               <div className="dropdown-menu" aria-labelledby="sortByDropdown">
                 <span className="dropdown-item" onClick={() => {setSorting('name', 'ASC', 'A-Z')}}>

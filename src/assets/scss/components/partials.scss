@@ -48,6 +48,9 @@
         }
         .search-container {
             position: relative;
+            form:focus-within ~ ul {
+                display: block !important;
+            }
             input {
                 width: 204px;
                 background: transparent;
@@ -70,6 +73,7 @@
                 border-top: 0;
                 border: 1px solid #707070;
                 font-size: 12px;
+                display: none;
                 li {
                     border-bottom: 1px solid #707070;
                     p {
@@ -204,6 +208,9 @@
         .mobile-search {
             padding: 20px 15px 0 15px;
             display: block;
+            form:focus-within ~ ul {
+                display: block !important;
+            }
             input {
                 background-color: #ececec;
                 background-image: url('../../icon/search-green-ico.svg');

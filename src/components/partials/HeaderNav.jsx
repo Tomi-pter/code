@@ -63,9 +63,9 @@ export const HeaderNav = () => {
     };
 
     const handleChange = (e) => {
-        var element = document.getElementById("resultBox");
-        element.classList.add('d-block');
-        element.classList.remove('d-none');
+        // var element = document.getElementById("resultBox");
+        // element.classList.add('d-block');
+        // element.classList.remove('d-none');
 
         setFormData({ [e.target.name]: e.target.value })
         if (e.target.value !== "") {
@@ -76,17 +76,15 @@ export const HeaderNav = () => {
 
 
     const handleChangeMobile = (e) => {
-        var element = document.getElementById("resultBoxMobile");
-        element.classList.add('d-block');
-        element.classList.remove('d-none');
+        // var element = document.getElementById("resultBoxMobile");
+        // element.classList.add('d-block');
+        // element.classList.remove('d-none');
         setFormData({ [e.target.name]: e.target.value })
         if (e.target.value !== "") {
             setsearchResults(null);
             dispatch(getSearch(e.target.value));
         }
     };
-
-
 
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('profile'));
@@ -166,14 +164,17 @@ export const HeaderNav = () => {
                                 <form onSubmit={handleSubmit}>
                                     <input name="name" value={formData.name || ""} placeholder="Search Medicine..." onChange={handleChange} autoComplete="off" />
                                 </form>
-                                <ul id="resultBox" className={'results ' + (formData.name ? 'd-block' : 'd-none')}>
-                                    {formData.name && searchResults?.products?.length > 0 ? searchResults?.products?.map(searchResult => (
-                                        <li key={searchResult.id} onClick={() => searchRedirect(searchResult.id)}>
-                                            <p >{searchResult.name}
-                                            </p>
-                                        </li>
-                                    )) : <li><p>Product Not Found</p></li>}
-                                </ul>
+                                {formData.name && formData.name !== '' &&
+                                    <ul id="resultBox" className='results'>
+                                        { searchResults?.products?.length > 0 ? searchResults?.products?.map(searchResult => (
+                                            <li key={searchResult.id} onClick={() => searchRedirect(searchResult.id)}>
+                                                <p >{searchResult.name}
+                                                </p>
+                                            </li>
+                                            )) : <li><p>Product Not Found</p></li>
+                                        }
+                                    </ul>
+                                }
                             </div>
 
                             {user ?
@@ -242,17 +243,23 @@ export const HeaderNav = () => {
                                         placeholder="Search Medicine..."
                                         ref={searchInput}
                                         autoComplete="off"
-                                        onChange={handleChangeMobile} />
+                                        onChange={handleChangeMobile} 
+                                    />
                                 </form>
-                                <ul id="resultBoxMobile" className={'results ' + (formData.name ? 'd-block' : 'd-none')}>
-                                    {formData.name ? search.products?.map(searchResult => (
-
-                                        <li key={searchResult.id}>
-                                            <p onClick={() => { searchRedirect(searchResult.id) }}>{searchResult.name}
-                                            </p>
-                                        </li>
-                                    )) : ''}
-                                </ul>
+                                {formData.name && formData.name !== '' && 
+                                    <ul id="resultBoxMobile" className='results'>
+                                        {
+                                            search?.products?.length > 0 ?
+                                            search?.products?.map(searchResult => (
+                                                <li key={searchResult.id}>
+                                                    <p onClick={() => { searchRedirect(searchResult.id) }}>{searchResult.name}</p>
+                                                </li>
+                                            ))
+                                            :
+                                            <li><p>Product Not Found</p></li>
+                                        }
+                                    </ul>
+                                }
                             </div>
                         }
                     </div>

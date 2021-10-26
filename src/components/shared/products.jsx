@@ -204,15 +204,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                 <span className="dropdown-item" onClick={() => {setSorting('price', 'DESC', '$ High - Low')}}>
                 $ High - Low
                 </span>
-                {/* <a className="dropdown-item"  onClick={() => setSortBy('size')}>
-                  Size
-                </a>
-                <a className="dropdown-item"  onClick={() => setSortBy('strength')}>
-                  Strength
-                </a> */}
-                {/* <span className="dropdown-item" onClick={() => setSortBy('price')}>
-                  Price
-                </span> */}
               </div>
             </div>
           </div>

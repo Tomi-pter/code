@@ -37,6 +37,7 @@ export const Product = ({
     setSelectedProduct(product)
     setQuantity(parseInt(e.target.value))
   }
+  console.log(product)
   return (
     <div className={view === 'list' ? ' col-12' : 'col-12 col-md-6 col-lg-4'}>
       <div
@@ -57,7 +58,10 @@ export const Product = ({
           >
             {/* <div className="product-image-head"></div> */}
             <div className="header-name-wrapper">
-              <p className="flex-fill list-header-name">{product.name}</p>
+              <p className="flex-fill list-header-name">
+                {product.name}
+                {(!product?.qtyOnHand || product?.qtyOnHand === "" || product?.qtyOnHand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
+              </p>
             </div>
 
           </div>
@@ -86,9 +90,13 @@ export const Product = ({
               {shopFont ? (
                   <p style={{ fontSize: '11.4183px !important' }}>
                     {product.description}
+                    {(!product?.qtyOnHand || product?.qtyOnHand === "" || product?.qtyOnHand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
                   </p>
               ) : (
-                  <p className="name">{product.description}</p>
+                  <p className="name">
+                    {product.description}
+                    {(!product?.qtyOnHand || product?.qtyOnHand === "" || product?.qtyOnHand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
+                  </p>
               )}
               {view !== 'list' &&
                 <>

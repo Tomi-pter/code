@@ -63,9 +63,8 @@ export const HeaderNav = () => {
     };
 
     const handleChange = (e) => {
-        // var element = document.getElementById("resultBox");
-        // element.classList.add('d-block');
-        // element.classList.remove('d-none');
+        var element = document.getElementById("resultBox");
+        if(element) element.style.display = "block"
 
         setFormData({ [e.target.name]: e.target.value })
         if (e.target.value !== "") {
@@ -76,15 +75,36 @@ export const HeaderNav = () => {
 
 
     const handleChangeMobile = (e) => {
-        // var element = document.getElementById("resultBoxMobile");
-        // element.classList.add('d-block');
-        // element.classList.remove('d-none');
+        var element = document.getElementById("resultBoxMobile");
+        if (element) element.style.display = "block"
         setFormData({ [e.target.name]: e.target.value })
         if (e.target.value !== "") {
             setsearchResults(null);
             dispatch(getSearch(e.target.value));
         }
     };
+
+    const handleMouseEnter = () => {
+        var element = document.getElementById("resultBox");
+        var mobileElement = document.getElementById("resultBoxMobile");
+        if (element) {
+            element.style.display = 'block'
+        }
+        if (mobileElement) {
+            mobileElement.style.display = 'block'
+        }
+    }
+
+    const handleMouseLeave = (e) => {
+        var element = document.getElementById("resultBox");
+        var mobileElement = document.getElementById("resultBoxMobile");
+        if (element) {
+            element.style.display = 'none'
+        }
+        if (mobileElement) {
+            mobileElement.style.display = 'none'
+        }
+    }
 
     useEffect(() => {
         const localUser = JSON.parse(localStorage.getItem('profile'));
@@ -100,6 +120,7 @@ export const HeaderNav = () => {
             dispatch(getAvatar(localUser?.username));
             sendWPData();
         }
+        setFormData({...formData, name: ''})
     }, [location]);
 
     useEffect(() => {
@@ -151,7 +172,7 @@ export const HeaderNav = () => {
                             <div className="desktop-link dropdown">
                                 <a className="nav-link dropdown-toggle" href="#!" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Products
-                            </a>
+                                </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     { user && <Link className="dropdown-item" href="#!" to="/shop?category=Favorites">My Favorites</Link> }
                                     <Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">Pharmacies</Link>
@@ -160,7 +181,7 @@ export const HeaderNav = () => {
                                 </div>
                             </div>
                             <a className="desktop-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/contact-us`}>Contact Us</a>
-                            <div className="search-container">
+                            <div className="search-container" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
                                 <form onSubmit={handleSubmit}>
                                     <input name="name" value={formData.name || ""} placeholder="Search Medicine..." onChange={handleChange} autoComplete="off" />
                                 </form>
@@ -168,8 +189,7 @@ export const HeaderNav = () => {
                                     <ul id="resultBox" className='results'>
                                         { searchResults?.products?.length > 0 ? searchResults?.products?.map(searchResult => (
                                             <li key={searchResult.id} onClick={() => searchRedirect(searchResult.id)}>
-                                                <p >{searchResult.name}
-                                                </p>
+                                                <p >{searchResult.name}</p>
                                             </li>
                                             )) : <li><p>Product Not Found</p></li>
                                         }
@@ -234,7 +254,7 @@ export const HeaderNav = () => {
                             </div>
                         </div>
                         {searchActive &&
-                            <div className="w-100 align-items-center text-center mobile-search position-relative">
+                            <div className="w-100 align-items-center text-center mobile-search position-relative" onMouseLeave={handleMouseLeave} onMouseEnter={handleMouseEnter}>
                                 <form onSubmit={handleSubmit}>
                                     <img src={SearchClear} className="clear-search" onClick={resetInputField} />
                                     <input

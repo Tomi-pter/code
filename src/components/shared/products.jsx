@@ -139,10 +139,10 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     if (category !== '' && page === 'shop') {
       if (category === 'Favorites') {
         // dispatch(getFavoriteProducts(user?.username))
-        dispatch(getFavoriteProducts(user?.username, filter, order, 1))
+        dispatch(getFavoriteProducts(user?.username, 'name', 'ASC', 1))
       } else {
         // dispatch(getProducts(null, category))
-        dispatch(getProducts(name, category, filter, order, 1))
+        dispatch(getProducts(name, category, 'name', 'ASC', 1))
       }
     }
   }, [category])
@@ -233,7 +233,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           </div>
           <p className="company">Manufacturer</p>
           <p className="size">Size</p>
-          {/* <p className="strength">Strength</p> */}
+          <p className="strength">Strength</p>
           <div className="price-container">
             <p>Price</p>
           </div>

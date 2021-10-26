@@ -749,7 +749,7 @@
             .list-header,
             .details-container {
                 .no-container {
-                    min-width: 110px;
+                    min-width: 120px;
                 }
                 .name-container {
                     flex: auto;
@@ -772,6 +772,12 @@
                 .buy-container {
                     // min-width: 79px;
                     max-width: 145px;
+                    @include mediaQueries(pad) {
+                        display: block !important;
+                        button {
+                            margin-top: 10px;
+                        }
+                    }
                 }
                 .size,
                 .price-container,

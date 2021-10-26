@@ -38,6 +38,8 @@ export const Product = ({
     setQuantity(parseInt(e.target.value))
   }
   
+  console.log(product)
+  
   return (
     <div className={view === 'list' ? ' col-12' : 'col-12 col-md-6 col-lg-4'}>
       <div
@@ -112,6 +114,9 @@ export const Product = ({
             </p>
             <p className="size for-list">
               {product.customFields && product.customFields[staging ? 17 : 6] && product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 17 : 6].value: 'N/A'}
+            </p>
+            <p className="strength for-list">
+              {product.customFields && product.customFields[staging ? 18 : 9] && product.customFields[staging ? 18 : 9].value ? product.customFields[staging ? 18 : 9].value: 'N/A'}
             </p>
             {/* <p className="strength for-list">
               {product.

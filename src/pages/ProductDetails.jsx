@@ -97,7 +97,7 @@ export default props => {
                 <div className="container content">
                     {product ?
                         <div className="d-block d-lg-flex align-items-start">
-                            <div className={"details-container card " + (product.customFields[staging ? 19 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[staging ? 19 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
+                            <div className={"details-container card " + (product.customFields[staging ? 19 : 10] && product.customFields[staging ? 19 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[staging ? 19 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
                                 <div className="img-container">
                                 <img src={product.url  ? product.url : NoImage} alt="" />
                                 </div>

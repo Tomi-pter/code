@@ -218,6 +218,12 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
               onClick={() => setView('list')}
             ></button>
           </div>
+          {
+            page === 'shop' && category === 'Favorites' &&
+            <div className="search-container">
+              <input type="text" placeholder="Search Favorite Product..." />
+            </div>
+          }
         </div>
       </div>
       <div className={'products' + (view === 'list' ? ' list-view' : '')}>

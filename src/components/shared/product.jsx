@@ -38,8 +38,6 @@ export const Product = ({
     setQuantity(parseInt(e.target.value))
   }
   
-  console.log(product)
-  
   return (
     <div className={view === 'list' ? ' col-12' : 'col-12 col-md-6 col-lg-4'}>
       <div

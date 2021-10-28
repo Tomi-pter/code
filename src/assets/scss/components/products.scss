@@ -6,6 +6,29 @@
             height: 100px;
         }
     }
+    .search-container {
+        position: relative;
+        margin-left: 25px;
+        @include mediaQueries(mobile) {
+            width: 100%;
+            margin-left: 0;
+            margin-bottom: 10px;
+            order: 1;
+        }
+        input {
+            width: 300px;
+            background: transparent;
+            border-radius: 0;
+            outline: 0;
+            border: none;
+            border-bottom: 1px solid #000000;
+            padding: 5px 25px 5px 20px;
+            background: url("../../icon/search.svg") no-repeat 98% center;
+            @include mediaQueries(mobile) {
+                width: 100%;
+            }
+        }
+    }
     .pagination-products {
         margin-top: 38px;
         ul {
@@ -76,6 +99,7 @@
         }
         @include mediaQueries(pad) {
             // display: block !important;
+            flex-wrap: wrap;
         }
         @include mediaQueries(mobile) {
             // padding: 0 10px;
@@ -102,7 +126,7 @@
         }
         .sort-label {
             @include mediaQueries(pad) {
-                display: none;
+                // display: none;
             }
             @include mediaQueries(mobile) {
                 display: none;
@@ -118,6 +142,7 @@
             margin: 0;
             @include mediaQueries(pad) {
                 // display: none;
+                margin-bottom: 10px;
             }
             @include mediaQueries(mobile) {
                 display: none;
@@ -128,13 +153,14 @@
             min-width: 370px;
             // height: 67px;
             @include mediaQueries(pad) {
-                // margin-left: 0;
+                margin-left: 0;
                 // min-width: 100%;
                 min-width: unset;
             }
             @include mediaQueries(mobile) {
                 margin-left: 0;
                 min-width: 100%;
+                flex-wrap: wrap;
             }
         }
         .sort-by {
@@ -145,6 +171,12 @@
             }
             @include mediaQueries(mobile) {
                 flex: 1;
+                order: 2;
+            }
+        }
+        .view {
+            @include mediaQueries(mobile) {
+                order: 3;
             }
         }
         label {

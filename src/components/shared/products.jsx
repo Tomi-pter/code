@@ -58,7 +58,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setFilter(filter);
     setOrder(order);
     if (category === 'Favorites') {
-      dispatch(getFavoriteProducts(user?.username, filter, order, null))
+      dispatch(getFavoriteProducts(user?.username, null, filter, order, null))
     } else {
       dispatch(getProducts(null, category, filter, order, null))
     }
@@ -75,11 +75,16 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
     if ((category !== '' && page === 'shop') || (page === 'search')) {
       if (category === 'Favorites') {
-        dispatch(getFavoriteProducts(user?.username, filter, order, increment))
+        dispatch(getFavoriteProducts(user?.username, null, filter, order, increment))
       } else {
         dispatch(getProducts(name, category, filter, order, increment))
       }
     }
+  };
+
+  const handleSearchFav = (e) => {
+    setIsLoading(true)
+    dispatch(getFavoriteProducts(user?.username, e.target.value, filter, order, 1))
   };
 
   useEffect(() => {
@@ -139,7 +144,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     if (category !== '' && page === 'shop') {
       if (category === 'Favorites') {
         // dispatch(getFavoriteProducts(user?.username))
-        dispatch(getFavoriteProducts(user?.username, 'name', 'ASC', 1))
+        dispatch(getFavoriteProducts(user?.username, null, 'name', 'ASC', 1))
       } else {
         // dispatch(getProducts(null, category))
         dispatch(getProducts(name, category, 'name', 'ASC', 1))
@@ -221,7 +226,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           {
             page === 'shop' && category === 'Favorites' &&
             <div className="search-container">
-              <input type="text" placeholder="Search Favorite Product..." />
+              <input type="text" placeholder="Search Favorite Product..." onChange={handleSearchFav} />
             </div>
           }
         </div>

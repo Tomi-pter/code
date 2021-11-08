@@ -143,7 +143,7 @@ export const Product = ({
                     for Price
                   </span>
                 ) : (
-                  <>$ { product.purchasePrice ? (product.purchasePrice) : '0' }</>
+                  <>$ { product.purchasePrice % 1 === 0 ? parseInt(product.purchasePrice) : product.purchasePrice }</>
                 )}
               </p>
               {/* <p className="ppu for-list">({ppu})</p> */}
@@ -177,7 +177,7 @@ export const Product = ({
 
               </div>
               <div className={'header-price-wrapper ' + (view === "list" ? 'header-price-wrapper-show' : 'd-none')}>
-              <p className="list-header-price">$ {product.purchasePrice}</p>
+              <p className="list-header-price">$ {product.purchasePrice % 1 === 0 ? parseInt(product.purchasePrice) : product.purchasePrice}</p>
             </div>
            </>
            ) : (

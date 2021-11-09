@@ -46,7 +46,7 @@ export const PaymentContainer = () => {
 
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(getCart(user?.username));
+        // dispatch(getCart(user?.username));
         dispatch(getAccount(user?.username));
         dispatch(getFishbowlAccount(user?.username));
     },[dispatch]);

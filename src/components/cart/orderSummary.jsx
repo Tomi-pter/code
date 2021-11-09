@@ -52,6 +52,7 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, cart, page }) 
             </ul>
             {page === 'checkout' && 
                 <DiscountForm 
+                    cart={cart}
                     discountCode={discountCode} 
                     setDiscountCode={setDiscountCode} 
                     discountAmount={discountAmount}

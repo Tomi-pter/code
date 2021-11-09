@@ -1,4 +1,4 @@
-import { GETPRODUCTS, GETSEARCH } from '../constants/actionTypes';
+import { GETPRODUCTS, ERRORGETPRODUCTS, GETSEARCH } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -31,7 +31,9 @@ export const getProduct = (id) => async(dispatch) => {
         dispatch({ type: GETPRODUCTS, payload: [data] });
 
     } catch (error) {
-        console.log(error.message);
+
+        dispatch({ type: ERRORGETPRODUCTS, payload: error.response})
+        
     }
 };
 

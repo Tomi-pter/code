@@ -33,6 +33,7 @@ export const ERRORAVATAR = 'ERRORAVATAR';
 
 // Products
 export const GETPRODUCTS = 'GETPRODUCTS';
+export const ERRORGETPRODUCTS = 'ERRORGETPRODUCTS';
 
 //Search
 export const GETSEARCH = 'GETSEARCH';

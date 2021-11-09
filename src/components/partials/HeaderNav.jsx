@@ -11,7 +11,7 @@ import decode from 'jwt-decode';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getCart } from '../../actions/cart';
+import { getCart, getCount } from '../../actions/cart';
 
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import { getAvatar } from '../../actions/account';
@@ -117,6 +117,7 @@ export const HeaderNav = () => {
         if (localUser) {
             setUser(localUser);
             dispatch(getCart(localUser?.username));
+            dispatch(getCount(localUser?.username));
             dispatch(getAvatar(localUser?.username));
             sendWPData();
         }

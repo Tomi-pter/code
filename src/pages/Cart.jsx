@@ -17,8 +17,8 @@ export const CartContainer = () => {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(getCount(user?.username));
-    }, [dispatch]);
+        // dispatch(getCount(user?.username));
+    }, []);
 
     return (
         <>

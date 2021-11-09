@@ -23,7 +23,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const [quantity, setQuantity] = useState(1)
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
-  const totalPageCount = Math.ceil(products.count / 12);
+  const totalPageCount = Math.ceil(products?.count / 12);
   const [totalProduct, setTotalProduct] = useState(0);
   const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
   const location = useLocation();
@@ -89,7 +89,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   useEffect(() => {
       if (category === 'Favorites') {
-        setCustomProducts(products.products);
+        setCustomProducts(products?.products);
       } else {
         if (products?.products?.length > 0 && admin?.customProducts?.length > 0) {
             const customProductLookup = admin.customProducts.reduce((prods, prod) => {
@@ -98,7 +98,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                 return prods;
             }, {});
 
-            const productsWithCustomPrice = products.products.map(prod => {
+            const productsWithCustomPrice = products?.products.map(prod => {
                 if (customProductLookup[prod.id] !== undefined) {
                     prod.purchasePrice = customProductLookup[prod.id].price;
                 }
@@ -108,10 +108,10 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
             setCustomProducts(productsWithCustomPrice);
         } else {
-            setCustomProducts(products.products);
+            setCustomProducts(products?.products);
         }
       }
-      setTotalProduct(products.count)
+      setTotalProduct(products?.count)
       // setPageNumber(1)
       setIsLoading(false)
   }, [products, admin]);

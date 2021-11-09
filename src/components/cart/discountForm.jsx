@@ -3,18 +3,18 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { discount, getCart } from '../../actions/cart';
 
-export const DiscountForm = ({  discountCode, setDiscountCode, discountAmount }) => {
-    const cart = useSelector((state) => state.cart);
+export const DiscountForm = ({ cart, discountCode, setDiscountCode, discountAmount }) => {
+    // const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
     const handleSubmit = () => {
         dispatch(discount(discountCode));
     }
 
-    useEffect(()=>{
-        const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(getCart(user?.username));
-    },[dispatch]);
+    // useEffect(()=>{
+    //     const user = JSON.parse(localStorage.getItem('profile'));
+    //     dispatch(getCart(user?.username));
+    // },[dispatch]);
 
     useEffect(()=>{
         // setDiscountDetail(cart?.discountDetail);

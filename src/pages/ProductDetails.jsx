@@ -17,11 +17,11 @@ export default props => {
     const cart = useSelector((state) => state.cart);
     const admin = useSelector((state) => state.admin);
     const products = useSelector((state) => state.products);
+    const [product, setProduct] = useState(null);
     const [customProducts, setCustomProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
-    const product = products[0];
     const dispatch = useDispatch();
     const location = useLocation();
 
@@ -72,6 +72,7 @@ export default props => {
         else {
             setCustomProducts(products.products);
         }
+        setProduct(products[0])
     }, [products, admin]);
 
     useEffect(() => {
@@ -95,9 +96,9 @@ export default props => {
             <HeaderNav />
             <div className="product-page">
                 <div className="container content">
-                    {product ?
+                    {!products.errorGetProducts && product &&
                         <div className="d-block d-lg-flex align-items-start">
-                            <div className={"details-container card " + (product.customFields[staging ? 19 : 10] && product.customFields[staging ? 19 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product.customFields[staging ? 19 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
+                            <div className={"details-container card " + (product?.customFields[staging ? 19 : 10] && product?.customFields[staging ? 19 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product?.customFields[staging ? 19 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
                                 <div className="img-container">
                                 <img src={product.url  ? product.url : NoImage} alt="" />
                                 </div>
@@ -140,7 +141,7 @@ export default props => {
                                     <button className="cart-btn">Add to cart</button>
 
                                 </> :
-                                  <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
+                                <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
                                 }
                                 </div>
                             </div>
@@ -184,9 +185,8 @@ export default props => {
                                 {product?.qtyOnHand !== "" && <NotificationBanner />}
                             </div>
                         </div>
-                        :
-                        <div className="text-center">Product Not Found</div>
                     }
+                    {products.errorGetProducts && <div className="text-center">Product Not Found</div>}
                 </div>
             </div>
             <Footer />

@@ -34,6 +34,7 @@ export const ERRORAVATAR = 'ERRORAVATAR';
 // Products
 export const GETPRODUCTS = 'GETPRODUCTS';
 export const ERRORGETPRODUCTS = 'ERRORGETPRODUCTS';
+export const REQUESTPRICE = 'REQUESTPRICE';
 
 //Search
 export const GETSEARCH = 'GETSEARCH';

@@ -8,17 +8,21 @@ export const Product = ({
   view,
   product,
   addCart,
+  requestPrice,
   setSelectedProduct,
   selectedProduct,
   isLoading,
   isCartLoading,
+  requestLoading,
+  requestSent,
   quantity,
   setQuantity,
   shopFont,
   cart,
   category,
   subCategory,
-  sortBy
+  sortBy,
+  selectedCategory
 }) => {
   const auth = localStorage.getItem('profile')
   const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
@@ -124,14 +128,14 @@ export const Product = ({
               <p className="price">
                 {!auth && shopFont ? (
                 <span style={{ fontSize: '12.3295px' }}>
-                <Link
-                  to="/login"
-                  style={{ textDecoration: 'underline', color: 'black' }}
-                >
-                  Login
-                </Link>{' '}
-                for Price
-              </span>
+                  <Link
+                    to="/login"
+                    style={{ textDecoration: 'underline', color: 'black' }}
+                  >
+                    Login
+                  </Link>{' '}
+                  for Price
+                </span>
                 ) : !auth ? (
                   <span style={{ fontSize: '12.3295px' }}>
                     <Link
@@ -143,43 +147,61 @@ export const Product = ({
                     for Price
                   </span>
                 ) : (
+
+                  selectedCategory === 'Favorites' ?
                   <>$ { product.purchasePrice % 1 === 0 ? parseInt(product.purchasePrice) : product.purchasePrice }</>
+                  :
+                  requestLoading && selectedProduct === product ? 
+                  <span style={{ fontSize: '12.3295px' }}>Requesting...</span>
+                  :
+                  requestSent ?
+                  <span style={{ fontSize: '12.3295px', color: 'green' }}>
+                    Request Sent
+                  </span>
+                  :
+                  <span style={{ fontSize: '12.3295px', textDecoration: 'underline', color: 'black', cursor: 'pointer' }} onClick={()=>requestPrice(product)}>
+                      Request
+                    for Price
+                  </span>
                 )}
               </p>
               {/* <p className="ppu for-list">({ppu})</p> */}
             </div>
             {auth ? (
+              selectedCategory === 'Favorites' &&
               <>
-            <div className="buy-container d-flex">
-              <input
-                className="qty for-list mr-2"
-                type="number"
-                min="1"
-                placeholder="1"
-                value={selectedProduct === product ? quantity : 1}
-                onChange={handleChange}
-              />
-              <button
-                className={
-                  'cart-btn ' +
-                  (selectedProduct === product && isCartLoading ? 'adding' : '')
-                }
-                onClick={() => addCart(product)}
-              >
-                {selectedProduct === product && isCartLoading ? (
-                  <div className="spinner-border text-light" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </button>
+                <div className="buy-container d-flex">
+                  <input
+                    className="qty for-list mr-2"
+                    type="number"
+                    min="1"
+                    placeholder="1"
+                    value={selectedProduct === product ? quantity : 1}
+                    onChange={handleChange}
+                  />
+                  <button
+                    className={
+                      'cart-btn ' +
+                      (selectedProduct === product && isCartLoading ? 'adding' : '')
+                    }
+                    onClick={() => addCart(product)}
+                  >
+                    {selectedProduct === product && isCartLoading ? (
+                      <div className="spinner-border text-light" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </button>
 
-              </div>
-              <div className={'header-price-wrapper ' + (view === "list" ? 'header-price-wrapper-show' : 'd-none')}>
-              <p className="list-header-price">$ {product.purchasePrice % 1 === 0 ? parseInt(product.purchasePrice) : product.purchasePrice}</p>
-            </div>
-           </>
+                  </div>
+                  <div className={'header-price-wrapper ' + (view === "list" ? 'header-price-wrapper-show' : 'd-none')}>
+                  <p className="list-header-price">$ {product.purchasePrice % 1 === 0 ? parseInt(product.purchasePrice) : product.purchasePrice}</p>
+                </div>
+              </>
+              // :
+              // <span style={{ fontSize: '12.3295px', textDecoration: 'underline', fontWeight: 'bold', cursor: 'pointer' }} className="to-buy" onClick={()=>requestPrice(product)}>Request to Buy</span>
            ) : (
               <>
                <span style={{ fontSize: '12.3295px' }} className="to-buy">
@@ -193,7 +215,7 @@ export const Product = ({
                   </span>
               </>
             )}
-            <p className={'incart' + (auth ? ' for-list' : ' d-none')} >{incart()}</p>
+            <p className={'incart' + (auth && selectedCategory === 'Favorites' ? ' for-list' : ' d-none')} >{incart()}</p>
           </div>
           {/* <div className={(view === "list " ? "d-block" : "d-none")}>
                         <div className="price-wrapper">

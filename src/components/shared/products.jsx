@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { getCart, addCart } from '../../actions/cart'
 import { getCustomProducts } from '../../actions/admin'
 import { useSelector } from 'react-redux'
-import { getProducts, getFavoriteProducts } from '../../actions/products'
+import { getProducts, getFavoriteProducts, requestPrice } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
 import { useLocation } from 'react-router'
 
@@ -16,6 +16,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isCartLoading, setIsCartLoading] = useState(false)
+  const [requestLoading, setRequestLoading] = useState(false)
+  const [requestSent, setRequestSent] = useState(false)
   const [sortBy, setSortBy] = useState('A-Z')
   const [filter, setFilter] = useState('name')
   const [order, setOrder] = useState('ASC')
@@ -87,6 +89,17 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     dispatch(getFavoriteProducts(user?.username, e.target.value, filter, order, 1))
   };
 
+  const handleRequestPrice = (product) => {
+    const user = JSON.parse(localStorage.getItem('profile'))
+    const formData = {
+      ndc: product.ndc,
+      productName: product.name
+    }
+    setRequestLoading(true)
+    setSelectedProduct(product)
+    dispatch(requestPrice(user?.username, formData))
+  }
+
   useEffect(() => {
       if (category === 'Favorites') {
         setCustomProducts(products?.products);
@@ -113,7 +126,15 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
       }
       setTotalProduct(products?.count)
       // setPageNumber(1)
+      if (requestLoading && products.requestPriceSuccess) {
+        setRequestSent(true)
+        setTimeout(function() {
+          setRequestSent(false)
+        }, 3000);
+      }
       setIsLoading(false)
+      setRequestLoading(false)
+      
   }, [products, admin]);
 
   // useEffect(() => {
@@ -245,12 +266,12 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           <p className="company">Manufacturer</p>
           <p className="size">Size</p>
           <p className="strength">Strength</p>
-          <div className="price-container">
+          <div className="price-container" style={{minWidth: category !== 'Favorites' && '100px'}}>
             <p>Price</p>
           </div>
           {/* <p className="buy-container"> */}
-          <p className={'buy' + (!user ? ' buy-offline' : ' buy-online')} style={!user ? { minWidth: '90px' } : { minWidth: '145px' }}>Buy</p>
-          <div className={'incart' + (!user ? ' d-none' : ' d-block')}>
+          { category === 'Favorites' && <p className={'buy' + (!user ? ' buy-offline' : ' buy-online')} style={!user ? { minWidth: '90px' } : { minWidth: '145px' }}>Buy</p>}
+          <div className={'incart' + (!user || category !== 'Favorites' ? ' d-none' : ' d-block')}>
             <p>In</p>
             <p>Cart</p>
           </div>
@@ -284,15 +305,18 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                 key={product.id}
                 product={product}
                 addCart={handleAddCart}
+                requestPrice={handleRequestPrice}
                 setSelectedProduct={setSelectedProduct}
                 selectedProduct={selectedProduct}
                 isLoading={isLoading}
                 isCartLoading={isCartLoading}
+                requestLoading={requestLoading}
+                requestSent={requestSent}
                 quantity={quantity}
                 setQuantity={setQuantity}
                 cart={cart}
                 category={product.customFields ? product.customFields[staging ? 19 : 10] ? product.customFields[staging ? 19 : 10].value : "" : ""}
-
+                selectedCategory={category}
                 sortBy={sortBy}
               />
             ))

@@ -134,7 +134,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
       }
       setIsLoading(false)
       setRequestLoading(false)
-      
   }, [products, admin]);
 
   // useEffect(() => {

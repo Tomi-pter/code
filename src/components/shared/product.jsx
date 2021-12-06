@@ -154,7 +154,7 @@ export const Product = ({
                   requestLoading && selectedProduct === product ? 
                   <span style={{ fontSize: '12.3295px' }}>Requesting...</span>
                   :
-                  requestSent ?
+                  requestSent && selectedProduct.id === product.id ?
                   <span style={{ fontSize: '12.3295px', color: 'green' }}>
                     Request Sent
                   </span>

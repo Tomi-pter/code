@@ -114,6 +114,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
             const productsWithCustomPrice = products?.products.map(prod => {
                 if (customProductLookup[prod.id] !== undefined) {
                     prod.purchasePrice = customProductLookup[prod.id].price;
+                    prod.favorite = true
                 }
 
                 return { ...prod }

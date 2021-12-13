@@ -5,7 +5,7 @@ import ImageProduct from '../assets/img/product-sample.png';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getProduct } from '../actions/products';
+import { getProduct, requestPrice } from '../actions/products';
 import { getCustomProducts } from '../actions/admin'
 import { addCart } from '../actions/cart';
 import NoImage from '../assets/img/unavailable.svg';
@@ -20,6 +20,8 @@ export default props => {
     const [product, setProduct] = useState(null);
     const [customProducts, setCustomProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [requestLoading, setRequestLoading] = useState(false)
+    const [requestSent, setRequestSent] = useState(false)
     const [quantity, setQuantity] = useState(1);
     const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
     const dispatch = useDispatch();
@@ -50,6 +52,16 @@ export default props => {
         return n;
     }
 
+    const handleRequestPrice = (product) => {
+        const user = JSON.parse(localStorage.getItem('profile'))
+        const formData = {
+          ndc: product.ndc,
+          productName: product.name
+        }
+        setRequestLoading(true)
+        dispatch(requestPrice(user?.username, formData))
+    }
+
     useEffect(() => {
         if (products?.length > 0 && admin?.customProducts?.length > 0) {
 
@@ -62,6 +74,7 @@ export default props => {
              const productsWithCustomPrice = products.map(prod => {
                  if (customProductLookup[prod.id] !== undefined) {
                      prod.purchasePrice = customProductLookup[prod.id].price;
+                     prod.favorite = true
                  }
 
                  return { ...prod }
@@ -73,6 +86,13 @@ export default props => {
             setCustomProducts(products.products);
         }
         setProduct(products[0])
+        if (requestLoading && products.requestPriceSuccess) {
+            setRequestSent(true)
+            setTimeout(function() {
+              setRequestSent(false)
+            }, 3000);
+          }
+          setRequestLoading(false)
     }, [products, admin]);
 
     useEffect(() => {
@@ -113,7 +133,21 @@ export default props => {
                                             "Item is out of stock. Please call for availability."
                                         }
                                     </p>
-                                    <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
+                                    {product.favorite ? 
+                                        <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
+                                        :
+                                        requestLoading ? 
+                                            <p style={{ margin: '20px 0' }}>Requesting...</p>
+                                        :
+                                        requestSent ?
+                                            <p style={{ margin: '20px 0', color: 'green' }}>
+                                                Request Sent
+                                            </p>
+                                        :
+                                        <p style={{ textDecoration: 'underline', color: 'black', cursor: 'pointer', margin: '20px 0' }} onClick={()=>handleRequestPrice(product)}>
+                                            Request for Price
+                                        </p>
+                                    }
                                 </div>
 
                                 <p>Description: </p>
@@ -132,15 +166,18 @@ export default props => {
 
                                 <div className="d-block d-lg-none">
                                 { user ?
-                                <>
-                                    <div className="d-flex align-items-center justify-container-center qty-container">
-                                        <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
-                                        <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
-                                        <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
-                                    </div>
-                                    <button className="cart-btn">Add to cart</button>
+                                    product.favorite ? 
+                                    <>
+                                        <div className="d-flex align-items-center justify-container-center qty-container">
+                                            <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
+                                            <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
+                                            <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
+                                        </div>
+                                        <button className="cart-btn">Add to cart</button>
 
-                                </> :
+                                    </> 
+                                    : ''
+                                :
                                 <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
                                 }
                                 </div>
@@ -156,30 +193,43 @@ export default props => {
                                         }
                                     </p>
                                     { user ?
-                                        <>
-                                            <div className="d-flex align-items-center justify-container-center">
-                                                <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
-                                                {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
-                                            </div>
-                                            <div className="d-flex align-items-center justify-container-center qty-container">
-                                                <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
-                                                <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
-                                                <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
-                                            </div>
-                                            <div className="d-flex align-items-center">
-                                                <button className="cart-btn" onClick={()=>handleAddCart()}>
-                                                    {isLoading ?
-                                                        <div className="spinner-border text-light" role="status">
-                                                            <span className="sr-only">Loading...</span>
-                                                        </div>
-                                                        :
-                                                        <>Add to cart</>
-                                                    }
-                                                </button>
-                                            </div>
-                                        </>
+                                            product.favorite ? 
+                                                <>
+                                                    <div className="d-flex align-items-center justify-container-center">
+                                                        <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
+                                                        {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
+                                                    </div>
+                                                    <div className="d-flex align-items-center justify-container-center qty-container">
+                                                        <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
+                                                        <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
+                                                        <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
+                                                    </div>
+                                                    <div className="d-flex align-items-center">
+                                                        <button className="cart-btn" onClick={()=>handleAddCart()}>
+                                                            {isLoading ?
+                                                                <div className="spinner-border text-light" role="status">
+                                                                    <span className="sr-only">Loading...</span>
+                                                                </div>
+                                                                :
+                                                                <>Add to cart</>
+                                                            }
+                                                        </button>
+                                                    </div>
+                                                </>
+                                            :
+                                            requestLoading ? 
+                                                <p>Requesting...</p>
+                                            :
+                                            requestSent ?
+                                                <p style={{ color: 'green' }}>
+                                                    Request Sent
+                                                </p>
+                                            :
+                                            <p style={{ textDecoration: 'underline', color: 'black', cursor: 'pointer' }} onClick={()=>handleRequestPrice(product)}>
+                                                Request for Price
+                                            </p>
                                         :
-                                        <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
+                                            <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
                                     }
                                 </div>
                                 {product?.qtyOnHand !== "" && <NotificationBanner />}

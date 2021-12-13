@@ -148,7 +148,7 @@ export const Product = ({
                   </span>
                 ) : (
 
-                  selectedCategory === 'Favorites' ?
+                  (selectedCategory === 'Favorites' || product.favorite) ?
                   <>$ { product.purchasePrice % 1 === 0 ? parseInt(product.purchasePrice) : product.purchasePrice }</>
                   :
                   requestLoading && selectedProduct === product ? 

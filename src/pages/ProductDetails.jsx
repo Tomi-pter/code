@@ -91,8 +91,9 @@ export default props => {
             setTimeout(function() {
               setRequestSent(false)
             }, 3000);
-          }
-          setRequestLoading(false)
+            alert('Thanks! A sales representative will be in touch with you shortly');
+        }
+        setRequestLoading(false)
     }, [products, admin]);
 
     useEffect(() => {
@@ -133,10 +134,10 @@ export default props => {
                                             "Item is out of stock. Please call for availability."
                                         }
                                     </p>
-                                    {product.favorite ? 
+                                    {product.favorite ?
                                         <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
                                         :
-                                        requestLoading ? 
+                                        requestLoading ?
                                             <p style={{ margin: '20px 0' }}>Requesting...</p>
                                         :
                                         requestSent ?
@@ -166,7 +167,7 @@ export default props => {
 
                                 <div className="d-block d-lg-none">
                                 { user ?
-                                    product.favorite ? 
+                                    product.favorite ?
                                     <>
                                         <div className="d-flex align-items-center justify-container-center qty-container">
                                             <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
@@ -175,7 +176,7 @@ export default props => {
                                         </div>
                                         <button className="cart-btn">Add to cart</button>
 
-                                    </> 
+                                    </>
                                     : ''
                                 :
                                 <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
@@ -186,14 +187,14 @@ export default props => {
                                 <div className="card d-none d-lg-block">
                                     <h3 className="name">{product?.name || product?.description}</h3>
                                     <p className={"availability " + ((product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ? '' : 'no-stock')}>
-                                        {(product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ? 
+                                        {(product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ?
                                             ''
                                         :
                                             "Item is out of stock. Please call for availability."
                                         }
                                     </p>
                                     { user ?
-                                            product.favorite ? 
+                                            product.favorite ?
                                                 <>
                                                     <div className="d-flex align-items-center justify-container-center">
                                                         <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
@@ -217,7 +218,7 @@ export default props => {
                                                     </div>
                                                 </>
                                             :
-                                            requestLoading ? 
+                                            requestLoading ?
                                                 <p>Requesting...</p>
                                             :
                                             requestSent ?

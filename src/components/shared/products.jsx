@@ -132,6 +132,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         setTimeout(function() {
           setRequestSent(false)
         }, 3000);
+        alert('Thanks! A sales representative will be in touch with you shortly');
       }
       setIsLoading(false)
       setRequestLoading(false)
@@ -293,7 +294,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
               </div>
             </div>
             :
-            customProducts?.length === 0 ? 
+            customProducts?.length === 0 ?
             <div className="col-12 d-flex align-items-center justify-content-center text-center">
               No Favorite Product
             </div>

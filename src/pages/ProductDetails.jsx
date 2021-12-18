@@ -5,7 +5,7 @@ import ImageProduct from '../assets/img/product-sample.png';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getProduct, requestPrice } from '../actions/products';
+import { getProduct, requestPrice, getRequestPrice } from '../actions/products';
 import { getCustomProducts } from '../actions/admin'
 import { addCart } from '../actions/cart';
 import NoImage from '../assets/img/unavailable.svg';
@@ -22,6 +22,7 @@ export default props => {
     const [isLoading, setIsLoading] = useState(false);
     const [requestLoading, setRequestLoading] = useState(false)
     const [requestSent, setRequestSent] = useState(false)
+    const [requestedProductPrice, setRequestedProductPrice] = useState([])
     const [quantity, setQuantity] = useState(1);
     const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
     const dispatch = useDispatch();
@@ -62,8 +63,21 @@ export default props => {
         dispatch(requestPrice(user?.username, formData))
     }
 
+    const handleRequestedCheck = (ndc) => {
+        const requestedCheck = requestedProductPrice.filter(item => item.ndc === ndc);
+        if (requestedCheck[0]) {
+          const lastRequest = new Date(requestedCheck[0]?.lastRequested);
+          const hour= 1000 * 60 * 60;
+          const hourago = Date.now() - (hour * 24);
+      
+          return lastRequest > hourago;
+        } else {
+          return false
+        }
+    }
+
     useEffect(() => {
-        if (products?.length > 0 && admin?.customProducts?.length > 0) {
+        if (products.products?.length > 0 && admin?.customProducts?.length > 0) {
 
             const customProductLookup = admin.customProducts.reduce((prods, prod) => {
                  prods[prod.productId] = prod;
@@ -71,7 +85,7 @@ export default props => {
                  return prods;
              }, {});
 
-             const productsWithCustomPrice = products.map(prod => {
+             const productsWithCustomPrice = products.products.map(prod => {
                  if (customProductLookup[prod.id] !== undefined) {
                      prod.purchasePrice = customProductLookup[prod.id].price;
                      prod.favorite = true
@@ -81,16 +95,14 @@ export default props => {
              })
 
              setCustomProducts(productsWithCustomPrice);
-        }
-        else {
+        } else {
             setCustomProducts(products.products);
         }
-        setProduct(products[0])
+        setProduct(products?.products[0])
+        if (products.requestedProductPrice) {
+            setRequestedProductPrice(products.requestedProductPrice)
+        }
         if (requestLoading && products.requestPriceSuccess) {
-            setRequestSent(true)
-            setTimeout(function() {
-              setRequestSent(false)
-            }, 3000);
             alert('Thanks! A sales representative will be in touch with you shortly');
         }
         setRequestLoading(false)
@@ -100,6 +112,7 @@ export default props => {
         const id = props.match.params.id;
         dispatch(getProduct(id));
         dispatch(getCustomProducts(user?.username))
+        dispatch(getRequestPrice(user?.username))
     }, [dispatch, location]);
 
     useEffect(()=>{
@@ -134,20 +147,20 @@ export default props => {
                                             "Item is out of stock. Please call for availability."
                                         }
                                     </p>
-                                    {product.favorite ?
+                                    {product?.favorite ?
                                         <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
                                         :
-                                        requestLoading ?
-                                            <p style={{ margin: '20px 0' }}>Requesting...</p>
-                                        :
-                                        requestSent ?
+                                        handleRequestedCheck(product?.ndc) ? 
                                             <p style={{ margin: '20px 0', color: 'green' }}>
                                                 Request Sent
                                             </p>
                                         :
-                                        <p style={{ textDecoration: 'underline', color: 'black', cursor: 'pointer', margin: '20px 0' }} onClick={()=>handleRequestPrice(product)}>
-                                            Request for Price
-                                        </p>
+                                        requestLoading ?
+                                            <p style={{ margin: '20px 0' }}>Requesting...</p>
+                                        :
+                                            <p style={{ textDecoration: 'underline', color: 'black', cursor: 'pointer', margin: '20px 0' }} onClick={()=>handleRequestPrice(product)}>
+                                                Request for Price
+                                            </p>
                                     }
                                 </div>
 
@@ -194,7 +207,7 @@ export default props => {
                                         }
                                     </p>
                                     { user ?
-                                            product.favorite ?
+                                            product?.favorite ?
                                                 <>
                                                     <div className="d-flex align-items-center justify-container-center">
                                                         <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
@@ -218,13 +231,13 @@ export default props => {
                                                     </div>
                                                 </>
                                             :
+                                            handleRequestedCheck(product?.ndc) ? 
+                                            <p style={{ color: 'green' }}>
+                                                Request Sent
+                                            </p>
+                                            :
                                             requestLoading ?
                                                 <p>Requesting...</p>
-                                            :
-                                            requestSent ?
-                                                <p style={{ color: 'green' }}>
-                                                    Request Sent
-                                                </p>
                                             :
                                             <p style={{ textDecoration: 'underline', color: 'black', cursor: 'pointer' }} onClick={()=>handleRequestPrice(product)}>
                                                 Request for Price

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { getCart, addCart } from '../../actions/cart'
 import { getCustomProducts } from '../../actions/admin'
 import { useSelector } from 'react-redux'
-import { getProducts, getFavoriteProducts, requestPrice } from '../../actions/products'
+import { getProducts, getFavoriteProducts, requestPrice, getRequestPrice } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
 import { useLocation } from 'react-router'
 
@@ -13,6 +13,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const cart = useSelector((state) => state.cart)
   const admin = useSelector((state) => state.admin);
   const [customProducts, setCustomProducts] = useState([]);
+  const [requestedProductPrice, setRequestedProductPrice] = useState([])
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isCartLoading, setIsCartLoading] = useState(false)
@@ -127,11 +128,10 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
       }
       setTotalProduct(products?.count)
       // setPageNumber(1)
+      if (products.requestedProductPrice) {
+        setRequestedProductPrice(products.requestedProductPrice)
+      }
       if (requestLoading && products.requestPriceSuccess) {
-        setRequestSent(true)
-        setTimeout(function() {
-          setRequestSent(false)
-        }, 3000);
         alert('Thanks! A sales representative will be in touch with you shortly');
       }
       setIsLoading(false)
@@ -183,6 +183,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     const user = JSON.parse(localStorage.getItem('profile'))
     dispatch(getCart(user?.username))
     dispatch(getCustomProducts(user?.username))
+    dispatch(getRequestPrice(user?.username))
   }, [])
 
   // useEffect(() => {
@@ -311,6 +312,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                 selectedProduct={selectedProduct}
                 isLoading={isLoading}
                 isCartLoading={isCartLoading}
+                requestedProductPrice={requestedProductPrice}
                 requestLoading={requestLoading}
                 requestSent={requestSent}
                 quantity={quantity}

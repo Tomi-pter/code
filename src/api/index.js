@@ -41,6 +41,7 @@ export const makeDefaultAddress = (username, id) => API.put(`/user/${username}/a
 export const getProducts = (name, category, sortBy, sortOrder, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (sortBy ? `&sortBy=${sortBy}&order=${sortOrder}` : '') + (page ? `&page=${page}` : ''));
 export const getFavoriteProducts = (username, name, sortBy, sortOrder, page) => API.get(`/products/${username}/favorites` + (sortBy || page || name ? '?' : '') + (name ? `name=${name}` : '') + (name && sortBy ? '&' : '')  + (sortBy ? `sortBy=${sortBy}&order=${sortOrder}` : '') + (sortBy && page ? '&' : '') + (page ? `page=${page}` : ''));
 export const getProduct = (id) => API.get(`/products/${id}`);
+export const getRequestPrice = (username) => API.get(`/user/${username}/request-pricing`);
 export const requestPrice = (username, formData) => API.post(`/user/${username}/request-pricing`, formData);
 
 export const getSearch = (name) => API.get("/products?" + (name ? `name=${name}` : ''));

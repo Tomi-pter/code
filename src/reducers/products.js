@@ -1,14 +1,19 @@
-import { GETPRODUCTS, ERRORGETPRODUCTS, REQUESTPRICE } from '../constants/actionTypes';
+import { GETPRODUCTS, ERRORGETPRODUCTS, REQUESTPRICE, GETREQUESTPRICE } from '../constants/actionTypes';
 
-export default (products = {products: []}, action) => {
+export default (state = {products: [], requestedProductPrice: []}, action) => {
   switch (action.type) {
     case GETPRODUCTS:
-      return action.payload;
+      const {products, count} = action.payload
+      return {...state, products, count};
     case ERRORGETPRODUCTS:
-      return {...products, errorGetProducts: action.payload}
+      return {...state, errorGetProducts: action.payload}
+    case GETREQUESTPRICE:
+      return {...state, requestedProductPrice: action.payload}
     case REQUESTPRICE:
-      return {...products, requestPriceSuccess: true}
+      state.requestedProductPrice.push(action.payload)
+
+      return {...state, requestPriceSuccess: true}
     default:
-      return products;
+      return state;
   }
 };

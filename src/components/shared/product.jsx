@@ -13,6 +13,7 @@ export const Product = ({
   selectedProduct,
   isLoading,
   isCartLoading,
+  requestedProductPrice,
   requestLoading,
   requestSent,
   quantity,
@@ -40,6 +41,19 @@ export const Product = ({
   const handleChange = (e) => {
     setSelectedProduct(product)
     setQuantity(parseInt(e.target.value))
+  }
+
+  const handleRequestedCheck = (ndc) => {
+    const requestedCheck = requestedProductPrice.filter(item => item.ndc === ndc);
+    if (requestedCheck[0]) {
+      const lastRequest = new Date(requestedCheck[0]?.lastRequested);
+      const hour= 1000 * 60 * 60;
+      const hourago = Date.now() - (hour * 24);
+  
+      return lastRequest > hourago;
+    } else {
+      return false
+    }
   }
   
   return (
@@ -147,21 +161,19 @@ export const Product = ({
                     for Price
                   </span>
                 ) : (
-
                   (selectedCategory === 'Favorites' || product.favorite) ?
                   <>$ { product.purchasePrice % 1 === 0 ? parseInt(product.purchasePrice) : product.purchasePrice }</>
                   :
-                  requestLoading && selectedProduct === product ? 
-                  <span style={{ fontSize: '12.3295px' }}>Requesting...</span>
-                  :
-                  requestSent && selectedProduct.id === product.id ?
+                  handleRequestedCheck(product.ndc) ? 
                   <span style={{ fontSize: '12.3295px', color: 'green' }}>
                     Request Sent
                   </span>
                   :
+                  requestLoading && selectedProduct === product ? 
+                  <span style={{ fontSize: '12.3295px' }}>Requesting...</span>
+                  :
                   <span style={{ fontSize: '12.3295px', textDecoration: 'underline', color: 'black', cursor: 'pointer' }} onClick={()=>requestPrice(product)}>
-                      Request
-                    for Price
+                    Request for Price
                   </span>
                 )}
               </p>

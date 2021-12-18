@@ -1,4 +1,4 @@
-import { GETPRODUCTS, ERRORGETPRODUCTS, GETSEARCH, REQUESTPRICE } from '../constants/actionTypes';
+import { GETPRODUCTS, ERRORGETPRODUCTS, GETSEARCH, REQUESTPRICE, GETREQUESTPRICE } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -27,8 +27,8 @@ export const getFavoriteProducts = (username, name, sortBy, sortOrder, page) => 
 export const getProduct = (id) => async(dispatch) => {
     try {
         const { data } = await api.getProduct(id);
-
-        dispatch({ type: GETPRODUCTS, payload: [data] });
+        
+        dispatch({ type: GETPRODUCTS, payload: {products: [data]} });
 
     } catch (error) {
 
@@ -52,7 +52,18 @@ export const requestPrice = (username, formData) => async(dispatch) => {
     try {
         const { data } = await api.requestPrice(username, formData);
 
-        dispatch({ type: REQUESTPRICE, payload: data });
+        dispatch({ type: REQUESTPRICE, payload: {...formData, lastRequested: new Date().getTime()} });
+
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+export const getRequestPrice = (username) => async(dispatch) => {
+    try {
+        const { data } = await api.getRequestPrice(username);
+
+        dispatch({ type: GETREQUESTPRICE, payload: data.products });
 
     } catch (error) {
         console.log(error.message);

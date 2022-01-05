@@ -11,6 +11,7 @@ import { addCart } from '../actions/cart';
 import NoImage from '../assets/img/unavailable.svg';
 import { Helmet } from 'react-helmet';
 import { NotificationBanner } from '../components/shared/warningNotification';
+import { Modal, Button } from "react-bootstrap";
 
 export default props => {
     const user = JSON.parse(localStorage.getItem('profile'));
@@ -27,6 +28,9 @@ export default props => {
     const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
     const dispatch = useDispatch();
     const location = useLocation();
+    const [showModal, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
 
     const incart = () => {
         const incartCheck = cart?.cartData?.filter(item => item.productId === parseInt(product.id));
@@ -103,7 +107,8 @@ export default props => {
             setRequestedProductPrice(products.requestedProductPrice)
         }
         if (requestLoading && products.requestPriceSuccess) {
-            alert('Thanks! A sales representative will be in touch with you shortly');
+            // alert('Thanks! A sales representative will be in touch with you shortly');
+            setShow(true)
         }
         setRequestLoading(false)
     }, [products, admin]);
@@ -254,6 +259,19 @@ export default props => {
                 </div>
             </div>
             <Footer />
+            <Modal show={showModal} onHide={handleClose} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Request Sent</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Thanks! A sales representative will be in touch with you shortly
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        OK
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }

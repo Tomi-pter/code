@@ -6,7 +6,8 @@ import { getCustomProducts } from '../../actions/admin'
 import { useSelector } from 'react-redux'
 import { getProducts, getFavoriteProducts, requestPrice, getRequestPrice } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router';
+import { Modal, Button } from "react-bootstrap";
 
 export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const products = useSelector((state) => state.products);
@@ -30,6 +31,10 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const [totalProduct, setTotalProduct] = useState(0);
   const staging = process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
   const location = useLocation();
+
+  const [showModal, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
 
   // const totalInPage = pageNumber === totalPageCount ? (totalProduct % 10 === 0 ? 10 : totalProduct % 10) : 10;
   var totalInPage = pageNumber * 12;
@@ -132,7 +137,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         setRequestedProductPrice(products.requestedProductPrice)
       }
       if (requestLoading && products.requestPriceSuccess) {
-        alert('Thanks! A sales representative will be in touch with you shortly');
+        // alert('Thanks! A sales representative will be in touch with you shortly');
+        setShow(true)
       }
       setIsLoading(false)
       setRequestLoading(false)
@@ -165,10 +171,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setPageNumber(1)
     if (category !== '' && page === 'shop') {
       if (category === 'Favorites') {
-        // dispatch(getFavoriteProducts(user?.username))
         dispatch(getFavoriteProducts(user?.username, null, 'name', 'ASC', 1))
       } else {
-        // dispatch(getProducts(null, category))
         dispatch(getProducts(name, category, 'name', 'ASC', 1))
       }
     }
@@ -185,10 +189,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     dispatch(getCustomProducts(user?.username))
     dispatch(getRequestPrice(user?.username))
   }, [])
-
-  // useEffect(() => {
-  //   setIsLoading(false)
-  // }, [products])
 
   return (
     <div className="products-container">
@@ -339,6 +339,19 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           initialPage={0}
         />
       </div>
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Request Sent</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Thanks! A sales representative will be in touch with you shortly
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }

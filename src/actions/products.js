@@ -8,7 +8,8 @@ export const getProducts = (name, category, sortBy, sortOrder, page) => async(di
         dispatch({ type: GETPRODUCTS, payload: data });
 
     } catch (error) {
-        console.log('Error get products', error.message);
+        dispatch({ type: GETPRODUCTS, payload: {count: 0, products: []} });
+        // console.log('Error get products', error.message);
     }
 };
 
@@ -16,11 +17,12 @@ export const getFavoriteProducts = (username, name, sortBy, sortOrder, page) => 
     try {
 
         const { data } = await api.getFavoriteProducts(username, name, sortBy, sortOrder, page);
-        
+
         dispatch({ type: GETPRODUCTS, payload: data });
 
     } catch (error) {
-        console.log('Error get products', error.message);
+        dispatch({ type: GETPRODUCTS, payload: {count: 0, products: []} });
+        // console.log('Error get products', error.message);
     }
 };
 

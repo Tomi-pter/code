@@ -92,7 +92,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   const handleSearchFav = (e) => {
     setIsLoading(true)
-    dispatch(getFavoriteProducts(user?.username, e.target.value, filter, order, 1))
+    const searchNDC = e.target.value.replaceAll("-", "");
+    dispatch(getFavoriteProducts(user?.username, searchNDC, filter, order, 1))
   };
 
   const handleRequestPrice = (product) => {
@@ -136,10 +137,12 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
       if (products.requestedProductPrice) {
         setRequestedProductPrice(products.requestedProductPrice)
       }
+
       if (requestLoading && products.requestPriceSuccess) {
         // alert('Thanks! A sales representative will be in touch with you shortly');
         setShow(true)
       }
+
       setIsLoading(false)
       setRequestLoading(false)
   }, [products, admin]);
@@ -286,7 +289,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                             });
                         }}
                     </ProductConsumer> */}
-          {isLoading || !totalProduct ?
+          {/* || !totalProduct */}
+          {isLoading ?
             <div className="container-fluid">
               <div className="spinner-container d-flex align-items-center justify-content-center">
                 <div className="spinner-border text-primary" role="status">
@@ -295,34 +299,36 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
               </div>
             </div>
             :
-            customProducts?.length === 0 ?
-            <div className="col-12 d-flex align-items-center justify-content-center text-center">
-              No Favorite Product
-            </div>
-            :
-            customProducts?.map((product) => (
-              <Product
-                shopFont={shopFont}
-                view={view}
-                key={product.id}
-                product={product}
-                addCart={handleAddCart}
-                requestPrice={handleRequestPrice}
-                setSelectedProduct={setSelectedProduct}
-                selectedProduct={selectedProduct}
-                isLoading={isLoading}
-                isCartLoading={isCartLoading}
-                requestedProductPrice={requestedProductPrice}
-                requestLoading={requestLoading}
-                requestSent={requestSent}
-                quantity={quantity}
-                setQuantity={setQuantity}
-                cart={cart}
-                category={product.customFields ? product.customFields[staging ? 19 : 10] ? product.customFields[staging ? 19 : 10].value : "" : ""}
-                selectedCategory={category}
-                sortBy={sortBy}
-              />
-            ))
+            (
+              totalProduct === 0  ?
+              <div className="col-12 d-flex align-items-center justify-content-center text-center">
+                No Product
+              </div>
+              :
+              customProducts?.map((product) => (
+                <Product
+                  shopFont={shopFont}
+                  view={view}
+                  key={product.id}
+                  product={product}
+                  addCart={handleAddCart}
+                  requestPrice={handleRequestPrice}
+                  setSelectedProduct={setSelectedProduct}
+                  selectedProduct={selectedProduct}
+                  isLoading={isLoading}
+                  isCartLoading={isCartLoading}
+                  requestedProductPrice={requestedProductPrice}
+                  requestLoading={requestLoading}
+                  requestSent={requestSent}
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  cart={cart}
+                  category={product.customFields ? product.customFields[staging ? 19 : 10] ? product.customFields[staging ? 19 : 10].value : "" : ""}
+                  selectedCategory={category}
+                  sortBy={sortBy}
+                />
+              ))
+            )
           }
         </div>
       </div>

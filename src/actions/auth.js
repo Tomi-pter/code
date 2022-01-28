@@ -118,7 +118,7 @@ export const getCountries = () => async (dispatch) => {
     
     dispatch({ type: GETCOUNTRIES, data });
   } catch (error) {
-    const data = error.response.data;
+    const data = error?.response?.data;
     console.log(data);
   }
 };
@@ -128,7 +128,7 @@ export const getStates = (countryCode) => async (dispatch) => {
     const { data } = await api.getStates(countryCode);
     dispatch({ type: GETSTATES, data });
   } catch (error) {
-    const data = error.response.data;
+    const data = error?.response?.data;
     console.log(data);
   }
 };

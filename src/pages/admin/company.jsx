@@ -6,6 +6,8 @@ import { getSearch } from '../../actions/products';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
+import { ExportToCsv } from 'export-to-csv';
+
 const initialState = { ndc: "", price: "" };
 
 export default props => {
@@ -64,6 +66,32 @@ export default props => {
         dispatch(removeCustomProduct(product.customPricingId));
     }
 
+    const handleExport = (filename, data) => {
+        let newData = []
+        let name = filename + (filename.slice(-1) === 's' ? `' Custom Price List` : `'s Custom Price List`)
+        const csvOptions = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalSeparator: '.',
+            showLabels: true, 
+            showTitle: true,
+            title: name,
+            filename: name,
+            useTextFile: false,
+            useBom: true,
+            useKeysAsHeaders: false,
+            headers: ['Product ID', 'Product NDC', 'Description', 'Price']
+        };
+
+        for (var i=0; i < data.length; i++) {
+            newData.push({productId: data[i].productId, ndc: data[i].ndc, description: data[i].productName, price: data[i].price})
+        }
+
+        const csvExporter = new ExportToCsv(csvOptions);
+ 
+        csvExporter.generateCsv(newData);
+    }
+
     useEffect(() => {
         if (admin.error) {
             setErrorMsg(admin?.error?.message);
@@ -120,9 +148,14 @@ export default props => {
                     <h2 className="m-0">
                         {companyDetails && `${companyDetails?.Attributes[7].Value}'s Custom Price List`}
                     </h2>
-                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#productModal" onClick={()=>handleAction('add')}>
-                        Add Product
-                    </button>
+                    <div>
+                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#productModal" onClick={()=>handleAction('add')}>
+                            Add Product
+                        </button>
+                        <button type="button" className="btn btn-success export-btn" onClick={()=>handleExport(companyDetails?.Attributes[7]?.Value, products)} disabled={products.length > 0 ? false : true}>
+                            Export CSV
+                        </button>
+                    </div>
                 </div>
                 <div className="d-flex align-items-center justify-content-between mb-3">
                     <div className="search-container input-group">

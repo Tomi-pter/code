@@ -49,11 +49,11 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     const newProduct = {
       product: {
         productId: parseInt(product.id),
-        productName: product.name,
-        price: parseFloat(product.purchasePrice),
+        productName: product.fullname,
+        price: parseFloat(product.cost),
         imageUrl: product.url,
         quantity,
-        ndc: product.ndc
+        ndc: product.externalid
       },
     }
     setIsCartLoading(true)
@@ -99,8 +99,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const handleRequestPrice = (product) => {
     const user = JSON.parse(localStorage.getItem('profile'))
     const formData = {
-      ndc: product.ndc,
-      productName: product.name
+      ndc: product.externalid,
+      productName: product.fullname
     }
     setRequestLoading(true)
     setSelectedProduct(product)
@@ -133,13 +133,12 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         }
       }
       setTotalProduct(products?.count)
-      // setPageNumber(1)
+      
       if (products.requestedProductPrice) {
         setRequestedProductPrice(products.requestedProductPrice)
       }
 
       if (requestLoading && products.requestPriceSuccess) {
-        // alert('Thanks! A sales representative will be in touch with you shortly');
         setShow(true)
       }
 
@@ -147,25 +146,10 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
       setRequestLoading(false)
   }, [products, admin]);
 
-  // useEffect(() => {
-  //   // setTimeout(() => {
-  //   //   setIsLoading(false)
-  //   // }, 1000)
-  //   if ((category !== '' && page === 'shop') || (page === 'search')) {
-  //     if (category === 'Favorites') {
-  //       dispatch(getFavoriteProducts(user?.username, filter, order, pageNumber))
-  //     } else {
-  //       dispatch(getProducts(name, category, filter, order, pageNumber))
-  //     }
-  //   }
-  // }, [pageNumber, filter, order])
-
   useEffect(() => {
-    // setTimeout(() => {
-      setQuantity(1)
-      setSelectedProduct(null)
-      setIsLoading(false)
-    // }, 1000)
+    setQuantity(1)
+    setSelectedProduct(null)
+    setIsLoading(false)
   }, [cart])
 
   useEffect(() => {
@@ -259,8 +243,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
       </div>
       <div className={'products' + (view === 'list' ? ' list-view' : '')}>
         <div className="list-header">
-          {/* <p>Fav.</p> */}
-
           <div className="no-container">
             <p>Item #</p>
             <p>NDC</p>
@@ -274,7 +256,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           <div className="price-container" style={{minWidth: category !== 'Favorites' && '100px'}}>
             <p>Price</p>
           </div>
-          {/* <p className="buy-container"> */}
           { category === 'Favorites' && <p className={'buy' + (!user ? ' buy-offline' : ' buy-online')} style={!user ? { minWidth: '90px' } : { minWidth: '145px' }}>Buy</p>}
           <div className={'incart' + (!user || category !== 'Favorites' ? ' d-none' : ' d-block')}>
             <p>In</p>
@@ -282,14 +263,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           </div>
         </div>
         <div className="row">
-          {/* <ProductConsumer>
-                        {(value) => {
-                            return value.products.map(product => {
-                                return <Product view={view} key={product.id} product={product} />
-                            });
-                        }}
-                    </ProductConsumer> */}
-          {/* || !totalProduct */}
           {isLoading ?
             <div className="container-fluid">
               <div className="spinner-container d-flex align-items-center justify-content-center">
@@ -323,7 +296,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                   quantity={quantity}
                   setQuantity={setQuantity}
                   cart={cart}
-                  category={product.customFields ? product.customFields[staging ? 19 : 10] ? product.customFields[staging ? 19 : 10].value : "" : ""}
+                  category={product.category || ''}
                   selectedCategory={category}
                   sortBy={sortBy}
                 />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router'
 import NoImage from '../../assets/img/unavailable.svg'
-// import ProductImage from '../../assets/img/product-sample.png'
+
 import { Link } from 'react-router-dom'
 
 export const Product = ({
@@ -43,8 +43,8 @@ export const Product = ({
     setQuantity(parseInt(e.target.value))
   }
 
-  const handleRequestedCheck = (ndc) => {
-    const requestedCheck = requestedProductPrice.filter(item => item.ndc === ndc);
+  const handleRequestedCheck = (externalid) => {
+    const requestedCheck = requestedProductPrice.filter(item => item.externalid === externalid);
     if (requestedCheck[0]) {
       const lastRequest = new Date(requestedCheck[0]?.lastRequested);
       const hour= 1000 * 60 * 60;
@@ -74,10 +74,9 @@ export const Product = ({
               'mobile-list-header ' + (view === 'list' ? ' d-flex' : 'd-none')
             }
           >
-            {/* <div className="product-image-head"></div> */}
             <div className="header-name-wrapper">
               <p className="flex-fill list-header-name">
-                {product.name}
+                {product.fullname}
                 {(!product?.qtyOnHand || product?.qtyOnHand === "" || product?.qtyOnHand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
               </p>
             </div>
@@ -91,12 +90,9 @@ export const Product = ({
             </div>
           </div>
           <div className="details-container">
-            {/* <img className="for-list pr-4" src={HeartImg} /> */}
-
             <div className="no-container for-list">
-              {/* {product.num} */}
-              <p className="item-no">{product.customFields && product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</p>
-              <p className="ndc">{product.ndc}</p>
+              <p className="item-no">{product.itemNo || 'N/A'}</p>
+              <p className="ndc">{product.externalid}</p>
             </div>
             <div
               className="name-container"
@@ -107,37 +103,31 @@ export const Product = ({
             >
               {shopFont ? (
                   <p style={{ fontSize: '11.4183px !important' }}>
-                    {product.description}
+                    {product.fullname}
                     {(!product?.qtyOnHand || product?.qtyOnHand === "" || product?.qtyOnHand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
                   </p>
               ) : (
                   <p className="name">
-                    {product.description}
+                    {product.fullname}
                     {(!product?.qtyOnHand || product?.qtyOnHand === "" || product?.qtyOnHand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
                   </p>
               )}
               {view !== 'list' &&
                 <>
-                  {/* {product.num} */}
-                  <p className="mb-0">ITEM #: {product.customFields && product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</p>
-                  <p>NDC: {product.ndc}</p>
+                  <p className="mb-0">ITEM #: {product.itemNo || "N/A"}</p>
+                  <p>NDC: {product.externalid}</p>
                 </>
               }
-              {/* <p className="compare for-list">({compare_to})</p> */}
             </div>
             <p className="company for-list">
-              {product.customFields && product.customFields[staging ? 15 : 3] && product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 15 : 3].value : 'N/A'}
+              {product.company || 'N/A'}
             </p>
             <p className="size for-list">
-              {product.customFields && product.customFields[staging ? 17 : 6] && product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 17 : 6].value: 'N/A'}
+              {product.side || 'N/A'}
             </p>
             <p className="strength for-list">
-              {product.customFields && product.customFields[staging ? 18 : 9] && product.customFields[staging ? 18 : 9].value ? product.customFields[staging ? 18 : 9].value: 'N/A'}
+              {product.strength || 'N/A'}
             </p>
-            {/* <p className="strength for-list">
-              {product.
-              [9].value || '100'}
-            </p> */}
             <div className="price-container">
               <p className="price">
                 {!auth && shopFont ? (
@@ -162,9 +152,9 @@ export const Product = ({
                   </span>
                 ) : (
                   (selectedCategory === 'Favorites' || product.favorite) ?
-                  <>$ { product.purchasePrice % 1 === 0 ? parseInt(product.purchasePrice) : product.purchasePrice }</>
+                  <>$ { product.cost % 1 === 0 ? parseInt(product.cost) : product.cost }</>
                   :
-                  handleRequestedCheck(product.ndc) ? 
+                  handleRequestedCheck(product.externalid) ? 
                   <span style={{ fontSize: '12.3295px', color: 'green' }}>
                     Request Sent
                   </span>
@@ -177,7 +167,6 @@ export const Product = ({
                   </span>
                 )}
               </p>
-              {/* <p className="ppu for-list">({ppu})</p> */}
             </div>
             {auth ? (
               selectedCategory === 'Favorites' &&
@@ -209,11 +198,9 @@ export const Product = ({
 
                   </div>
                   <div className={'header-price-wrapper ' + (view === "list" ? 'header-price-wrapper-show' : 'd-none')}>
-                  <p className="list-header-price">$ {product.purchasePrice % 1 === 0 ? parseInt(product.purchasePrice) : product.purchasePrice}</p>
+                  <p className="list-header-price">$ {product.cost % 1 === 0 ? parseInt(product.cost) : product.cost}</p>
                 </div>
               </>
-              // :
-              // <span style={{ fontSize: '12.3295px', textDecoration: 'underline', fontWeight: 'bold', cursor: 'pointer' }} className="to-buy" onClick={()=>requestPrice(product)}>Request to Buy</span>
            ) : (
               <>
                <span style={{ fontSize: '12.3295px' }} className="to-buy">
@@ -229,25 +216,6 @@ export const Product = ({
             )}
             <p className={'incart' + (auth && selectedCategory === 'Favorites' ? ' for-list' : ' d-none')} >{incart()}</p>
           </div>
-          {/* <div className={(view === "list " ? "d-block" : "d-none")}>
-                        <div className="price-wrapper">
-                            <div className="flex-fill">
-                                <p className="price">${product.purchasePrice}</p>
-                                <p className="ppu">({ppu})</p>
-                            </div>
-                            <div className="buy-container">
-                                <button className={"cart-btn " + (selectedProduct === product && isLoading ? 'adding' : '')} onClick={() => addCart(product)}>
-                                    {(selectedProduct === product && isLoading) ?
-                                        <div className="spinner-border text-light" role="status">
-                                            <span className="sr-only">Loading...</span>
-                                        </div>
-                                        :
-                                        <></>
-                                    }
-                                </button>
-                            </div>
-                        </div>
-                    </div> */}
         </div>
       </div>
     </div>

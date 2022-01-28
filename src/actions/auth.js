@@ -115,7 +115,7 @@ export const confirmForgotPassword =
 export const getCountries = () => async (dispatch) => {
   try {
     const { data } = await api.getCountries();
-
+    
     dispatch({ type: GETCOUNTRIES, data });
   } catch (error) {
     const data = error.response.data;
@@ -123,9 +123,9 @@ export const getCountries = () => async (dispatch) => {
   }
 };
 
-export const getStates = (id) => async (dispatch) => {
+export const getStates = (countryCode) => async (dispatch) => {
   try {
-    const { data } = await api.getStates(id);
+    const { data } = await api.getStates(countryCode);
     dispatch({ type: GETSTATES, data });
   } catch (error) {
     const data = error.response.data;

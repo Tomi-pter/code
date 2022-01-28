@@ -133,7 +133,7 @@ export const Addresses = ({ account }) => {
         if (formData.country !== "" && selectedCountry) {
             const countryCode = selectedCountry[0]?.abbreviation;
             setFormData({ ...formData, countryCode });
-            dispatch(getStates(selectedCountry[0]?.id))
+            dispatch(getStates(countryCode))
         };
     }, [formData.country])
 

@@ -101,7 +101,8 @@ export const PaymentContainer = () => {
                             </div>
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"<"}<span> Checkout</span></Link>
-                                <button className="btn proceed-btn" onClick={()=>handlePayment("term")} disabled={enablePayByTerms ? false : true}>
+                                {/* disabled={enablePayByTerms ? false : true} */}
+                                <button className="btn proceed-btn" onClick={()=>handlePayment("term")}>
                                     {isLoading ?
                                         <div className="spinner-border text-light" role="status">
                                             <span className="sr-only">Loading...</span>

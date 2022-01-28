@@ -55,7 +55,7 @@ const Address = ({ setForm, formData, navigation }) => {
           value: countryCode
         }
       })
-      dispatch(getStates(selectedCountry[0]?.id));
+      dispatch(getStates(countryCode));
     }
   }, [country])
 

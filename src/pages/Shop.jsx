@@ -29,10 +29,8 @@ export default (props) => {
       if (cat === "Pharmaceuticals" && pharmaBtn.className.split(' ').length === 2) pharmaBtn.click()
       if (cat === "Animal Health" && animalBtn.className.split(' ').length === 2) animalBtn.click()
       if (cat === "Medical Supplies" && medicalBtn.className.split(' ').length === 2) medicalBtn.click()
-      // window.history.replaceState({}, document.title, '/' + 'shop')
     } else {
       pharmaBtn.click()
-      // setCategory('Pharmaceuticals')
     }
   }
 

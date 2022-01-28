@@ -41,11 +41,11 @@ export default props => {
         const newProduct = {
             product: {
                 productId: parseInt(product.id),
-                productName: product.name,
-                price: parseFloat(product.purchasePrice),
+                productName: product.fullname,
+                price: parseFloat(product.cost),
                 imageUrl: product.url,
                 quantity,
-                ndc: product.ndc
+                ndc: product.externalid
             }
         }
         setIsLoading(true);
@@ -60,8 +60,8 @@ export default props => {
     const handleRequestPrice = (product) => {
         const user = JSON.parse(localStorage.getItem('profile'))
         const formData = {
-          ndc: product.ndc,
-          productName: product.name
+          ndc: product.externalid,
+          productName: product.fullname
         }
         setRequestLoading(true)
         dispatch(requestPrice(user?.username, formData))
@@ -137,14 +137,15 @@ export default props => {
                 <div className="container content">
                     {!products.errorGetProducts && product &&
                         <div className="d-block d-lg-flex align-items-start">
-                            <div className={"details-container card " + (product?.customFields[staging ? 19 : 10] && product?.customFields[staging ? 19 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product?.customFields[staging ? 19 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}>
+                            {/* <div className={"details-container card " + (product?.customFields[staging ? 19 : 10] && product?.customFields[staging ? 19 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product?.customFields[staging ? 19 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}> */}
+                            <div className={"details-container card " + (product?.category ? 'pharma-product' : 'pharma-product')}>
                                 <div className="img-container">
                                 <img src={product.url  ? product.url : NoImage} alt="" />
                                 </div>
 
                                 <div className="d-block d-lg-none">
 
-                                    <h3 className="name">{product?.name}</h3>
+                                    <h3 className="name">{product?.fullname}</h3>
                                     <p className={"availability " + ((product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ? '' : 'no-stock')}>
                                         {(product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ?
                                             ''
@@ -153,9 +154,9 @@ export default props => {
                                         }
                                     </p>
                                     {product?.favorite ?
-                                        <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
+                                        <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.cost)}</h2>
                                         :
-                                        handleRequestedCheck(product?.ndc) ? 
+                                        handleRequestedCheck(product?.externalid) ? 
                                             <p style={{ margin: '20px 0', color: 'green' }}>
                                                 Request Sent
                                             </p>
@@ -172,15 +173,18 @@ export default props => {
                                 <p>Description: </p>
 
                                 <p>
-                                    {product?.description}
+                                    {product.fullname}
                                 </p>
                                 <ul>
-                                {/* {product?.num} */}
-                                    <li>Item #: {product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</li>
-                                    <li>NDC:  {product?.ndc}</li>
-                                    <li>Manufacturer:  {product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 15 : 3].value : 'N/A'}</li>
+                                    {/* <li>Item #: {product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</li> */}
+                                    <li>Item #: {product?.itemNo || 'N/A'}</li>
+                                    <li>NDC:  {product?.externalid}</li>
+                                    {/* <li>Manufacturer:  {product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 15 : 3].value : 'N/A'}</li>
                                     <li>Size:  {product.customFields[staging ? 17 : 6].value ? product.customFields[staging ? 17 : 6].value : 'N/A'}</li>
-                                    <li>Strength: {product.customFields[staging ? 18 : 9].value ? product.customFields[staging ? 18 : 9].value : 'N/A' }</li>
+                                    <li>Strength: {product.customFields[staging ? 18 : 9].value ? product.customFields[staging ? 18 : 9].value : 'N/A' }</li> */}
+                                     <li>Manufacturer:  {product?.manufacturer || 'N/A'}</li>
+                                    <li>Size:  {product?.size || 'N/A'}</li>
+                                    <li>Strength: {product?.strength || 'N/A' }</li>
                                 </ul>
 
                                 <div className="d-block d-lg-none">
@@ -203,7 +207,7 @@ export default props => {
                             </div>
                             <div className="right-col">
                                 <div className="card d-none d-lg-block">
-                                    <h3 className="name">{product?.name || product?.description}</h3>
+                                    <h3 className="name">{product?.fullname}</h3>
                                     <p className={"availability " + ((product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ? '' : 'no-stock')}>
                                         {(product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ?
                                             ''
@@ -215,7 +219,7 @@ export default props => {
                                             product?.favorite ?
                                                 <>
                                                     <div className="d-flex align-items-center justify-container-center">
-                                                        <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.purchasePrice)}</h2>
+                                                        <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.cost)}</h2>
                                                         {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
                                                     </div>
                                                     <div className="d-flex align-items-center justify-container-center qty-container">
@@ -236,7 +240,7 @@ export default props => {
                                                     </div>
                                                 </>
                                             :
-                                            handleRequestedCheck(product?.ndc) ? 
+                                            handleRequestedCheck(product?.externalid) ? 
                                             <p style={{ color: 'green' }}>
                                                 Request Sent
                                             </p>

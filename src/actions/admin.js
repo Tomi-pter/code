@@ -13,7 +13,8 @@ import {
     CONFIRMUSER,
     CONFIRMUSERERROR,
     IMPORTUSER,
-    IMPORTUSERERROR
+    IMPORTUSERERROR,
+    EXPORTCSV
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
   
@@ -175,5 +176,18 @@ export const importUser = (formData) => async (dispatch) => {
     } catch (error) {
         const { data } = error.response
         dispatch({ type: IMPORTUSERERROR, data });
+    }
+};
+
+export const exportCSV = () => async (dispatch) => {
+    try {
+        
+        const { data } = await api.exportCSV();
+        
+        dispatch({ type: EXPORTCSV, data });
+
+    } catch (error) {
+
+        dispatch({ type: EXPORTCSV, data: [] });
     }
 };

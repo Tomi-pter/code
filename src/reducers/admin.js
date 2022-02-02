@@ -13,7 +13,8 @@ import
     CONFIRMUSER,
     CONFIRMUSERERROR,
     IMPORTUSER,
-    IMPORTUSERERROR
+    IMPORTUSERERROR,
+    EXPORTCSV
 } from '../constants/actionTypes';
 
 const adminReducer = (state = { users: [], customProducts: [] }, action) => {
@@ -78,6 +79,9 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
     case IMPORTUSERERROR:
 
         return { ...state, importError: action?.data}
+    case EXPORTCSV:
+
+        return { ...state, exportData: action?.data}
     default:
         return state;
   }

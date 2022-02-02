@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { getUsers, loginAdminUser, confirmUser, importUser } from '../../actions/admin';
+import { getUsers, loginAdminUser, confirmUser, importUser, exportCSV } from '../../actions/admin';
 import { getCountries, getStates } from '../../actions/auth';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -12,6 +12,8 @@ import Dropdown from "../../components/shared/dropdown";
 
 import CheckGreen from '../../assets/icon/check-lgreen.svg';
 import XGray from '../../assets/icon/x-gray.svg';
+
+import { ExportToCsv } from 'export-to-csv';
 
 const initialState = {
     givenName: "",
@@ -44,6 +46,7 @@ export const AdminDashboard = () => {
     const [countries, setCountries] = useState([]);
     const [states, setStates] = useState([]);
     const [isDisabled, setDisabled] = useState(true);
+    const [exportCsv, setExportCsv] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -90,6 +93,11 @@ export const AdminDashboard = () => {
     const handleSubmit = () => {
         setActionLoading(true)
         dispatch(importUser(formData));
+    }
+
+    const handleExport = () => {
+        setExportCsv(true);
+        dispatch(exportCSV());
     }
 
     useEffect(() => {
@@ -141,6 +149,30 @@ export const AdminDashboard = () => {
         setActionLoading(false);
         if (!admin.importError) {
             document.getElementById("closeImportUserModal").click();
+        }
+        if (exportCsv) {
+            const csvOptions = { 
+                fieldSeparator: ',',
+                quoteStrings: '"',
+                decimalSeparator: '.',
+                showLabels: true, 
+                showTitle: true,
+                title: 'Custom Price List',
+                filename: 'Custom Price List',
+                useTextFile: false,
+                useBom: true,
+                useKeysAsHeaders: true
+            };
+
+            if (admin?.exportData.length > 0) {
+                const csvExporter = new ExportToCsv(csvOptions);
+    
+                csvExporter.generateCsv(admin?.exportData);
+            } else {
+                alert('No Custom Price')
+            }
+            
+            setExportCsv(false);
         }
     }, [admin]);
 
@@ -195,6 +227,9 @@ export const AdminDashboard = () => {
                     </div>
                     <button type="button" className="btn btn-primary import-btn" data-toggle="modal" data-target="#importUserModal" onClick={()=>openImportForm()}>
                         Import User
+                    </button>
+                    <button type="button" className="btn btn-success export-btn" onClick={()=>handleExport()}>
+                        Export CSV
                     </button>
                 </div>
                 <div className="table-container">

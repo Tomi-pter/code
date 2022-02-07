@@ -49,11 +49,11 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     const newProduct = {
       product: {
         productId: parseInt(product.id),
-        productName: product.fullname,
+        productName: product.displayname,
         price: parseFloat(product.cost),
         imageUrl: product.url,
         quantity,
-        ndc: product.externalid
+        ndc: product.ndc
       },
     }
     setIsCartLoading(true)
@@ -99,8 +99,8 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const handleRequestPrice = (product) => {
     const user = JSON.parse(localStorage.getItem('profile'))
     const formData = {
-      ndc: product.externalid,
-      productName: product.fullname
+      ndc: product.ndc,
+      productName: product.displayname
     }
     setRequestLoading(true)
     setSelectedProduct(product)

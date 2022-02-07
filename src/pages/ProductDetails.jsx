@@ -41,11 +41,11 @@ export default props => {
         const newProduct = {
             product: {
                 productId: parseInt(product.id),
-                productName: product.fullname,
+                productName: product.displayname,
                 price: parseFloat(product.cost),
                 imageUrl: product.url,
                 quantity,
-                ndc: product.externalid
+                ndc: product.ndc
             }
         }
         setIsLoading(true);
@@ -60,8 +60,8 @@ export default props => {
     const handleRequestPrice = (product) => {
         const user = JSON.parse(localStorage.getItem('profile'))
         const formData = {
-          ndc: product.externalid,
-          productName: product.fullname
+          ndc: product.ndc,
+          productName: product.displayname
         }
         setRequestLoading(true)
         dispatch(requestPrice(user?.username, formData))
@@ -145,9 +145,9 @@ export default props => {
 
                                 <div className="d-block d-lg-none">
 
-                                    <h3 className="name">{product?.fullname}</h3>
-                                    <p className={"availability " + ((product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ? '' : 'no-stock')}>
-                                        {(product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ?
+                                    <h3 className="name">{product?.displayname}</h3>
+                                    <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ? '' : 'no-stock')}>
+                                        {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ?
                                             ''
                                         :
                                             "Item is out of stock. Please call for availability."
@@ -156,7 +156,7 @@ export default props => {
                                     {product?.favorite ?
                                         <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.cost)}</h2>
                                         :
-                                        handleRequestedCheck(product?.externalid) ? 
+                                        handleRequestedCheck(product?.ndc) ? 
                                             <p style={{ margin: '20px 0', color: 'green' }}>
                                                 Request Sent
                                             </p>
@@ -173,18 +173,18 @@ export default props => {
                                 <p>Description: </p>
 
                                 <p>
-                                    {product.fullname}
+                                    {product.displayname}
                                 </p>
                                 <ul>
                                     {/* <li>Item #: {product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</li> */}
-                                    <li>Item #: {product?.itemNo || 'N/A'}</li>
-                                    <li>NDC:  {product?.externalid}</li>
+                                    <li>Item #: {product?.productNumber || 'N/A'}</li>
+                                    <li>NDC:  {product?.ndc}</li>
                                     {/* <li>Manufacturer:  {product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 15 : 3].value : 'N/A'}</li>
                                     <li>Size:  {product.customFields[staging ? 17 : 6].value ? product.customFields[staging ? 17 : 6].value : 'N/A'}</li>
                                     <li>Strength: {product.customFields[staging ? 18 : 9].value ? product.customFields[staging ? 18 : 9].value : 'N/A' }</li> */}
                                      <li>Manufacturer:  {product?.manufacturer || 'N/A'}</li>
-                                    <li>Size:  {product?.size || 'N/A'}</li>
-                                    <li>Strength: {product?.strength || 'N/A' }</li>
+                                    <li>Size:  {product?.bottleSize || 'N/A'}</li>
+                                    <li>Strength: {product?.drugStrength || 'N/A' }</li>
                                 </ul>
 
                                 <div className="d-block d-lg-none">
@@ -207,9 +207,9 @@ export default props => {
                             </div>
                             <div className="right-col">
                                 <div className="card d-none d-lg-block">
-                                    <h3 className="name">{product?.fullname}</h3>
-                                    <p className={"availability " + ((product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ? '' : 'no-stock')}>
-                                        {(product?.qtyOnHand !== "" && product?.qtyOnHand !== "0.0") ?
+                                    <h3 className="name">{product?.displayname}</h3>
+                                    <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ? '' : 'no-stock')}>
+                                        {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ?
                                             ''
                                         :
                                             "Item is out of stock. Please call for availability."
@@ -240,7 +240,7 @@ export default props => {
                                                     </div>
                                                 </>
                                             :
-                                            handleRequestedCheck(product?.externalid) ? 
+                                            handleRequestedCheck(product?.ndc) ? 
                                             <p style={{ color: 'green' }}>
                                                 Request Sent
                                             </p>
@@ -255,7 +255,7 @@ export default props => {
                                             <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
                                     }
                                 </div>
-                                {product?.qtyOnHand !== "" && <NotificationBanner />}
+                                {product?.totalquantityonhand !== "" && <NotificationBanner />}
                             </div>
                         </div>
                     }

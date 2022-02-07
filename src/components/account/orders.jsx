@@ -6,8 +6,8 @@ import NoImage from '../../assets/img/unavailable.svg';
 export const OrdersHistory = ({ account }) => {
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState('All');
-    const filterProcessingOrders = orders?.filter(order => order.status === 'Processing');
-    const filterShippedOrders = orders?.filter(order => order.status === 'Shipped');
+    const filterProcessingOrders = orders?.filter(order => !order.details.shipComplete);
+    const filterShippedOrders = orders?.filter(order => order.details.shipComplete);
 
     const formatDate = (ms) => {
         const date = new Date(ms);
@@ -18,15 +18,28 @@ export const OrdersHistory = ({ account }) => {
         });
     }
 
+    const calcSubTotal = (items) => {
+        let subTotal = 0;
+
+        for(let i=0;i<items.length;i++) {
+            let price = items[i].price
+            let quantity = items[i].quantity
+            subTotal = subTotal + (price * quantity)
+        }
+
+        return subTotal.toFixed(2)
+    }
+
     const renderOrder = (order, index) => {
         return (
             <div key={`key-${index}`} className="order">
                 <div className="d-flex align-items-start justify-content-between date-status-container">
                     <div className="orderNo">
                         <p className="d-flex">Order #{order.salesOrderNumber}</p>
+                        {order.trackingNumber && <p>Tracking <a href={`https://www.fedex.com/fedextrack/?trknbr=${order.trackingNumber}`} target="_blank">#{order.trackingNumber}</a></p>}
                         <p>Placed on {formatDate(order.details.dateOrdered)}</p>
                     </div>
-                    <div className="status">{order.status}</div>
+                    <div className="status">{order.details.shipComplete ? 'Shipped' : 'Processing'}</div>
                     {/* <div>
                         <p>Discount: ${(order.details.discount / 100).toFixed(2)}</p>
                         <p>Sub Total: ${(order.details.discount / 100).toFixed(2)}</p>
@@ -59,7 +72,7 @@ export const OrdersHistory = ({ account }) => {
                             <p>Quantity: {item.quantity}</p>
                         </div>
                         <div className="item-info-end text-left">
-                            {order.status === 'Shipped' &&
+                            {order.details.shipComplete &&
                                 <>
                                     <p className="text-left">Get by</p>
                                     <p className="text-left">{formatDate(order?.getBy)}</p>
@@ -75,19 +88,20 @@ export const OrdersHistory = ({ account }) => {
                         <div className="status">{order.status}</div>
                     </div> */}
                     {/* <div> */}
+                    {/* order.details.subTotal.toFixed(2) */}
                         <div className="d-flex align-items-center justify-content-between">
-                            <b>Subtotal:</b> <div>${order.details.subTotal.toFixed(2)}</div>
+                            <b>Subtotal:</b> <div>${calcSubTotal(order.details.items)}</div>
                         </div>
                         <div className="d-flex align-items-center justify-content-between">
-                            <div>Shipping Fee:</div> <div>${(order.details.shippingFee / 100).toFixed(2)}</div>
+                            <div>Shipping Fee:</div> <div>${order.details.shippingFee.toFixed(2)}</div>
                         </div>
                         {order.details.discount > 0 &&
                             <div className="d-flex align-items-center justify-content-between">
-                                <div>Discount:</div> <div>${(order.details.discount / 100).toFixed(2)}</div>
+                                <div>Discount:</div> <div>${order.details.discount.toFixed(2)}</div>
                             </div>
                         }
                         <div className="d-flex align-items-center justify-content-between mt-5">
-                            <div className="amount">Total:</div> <div>${(order.details.total/100).toFixed(2)}</div>
+                            <div className="amount">Total:</div> <div>${order.details.total.toFixed(2)}</div>
                         </div>
                     {/* </div> */}
                 </div>

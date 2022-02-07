@@ -43,8 +43,8 @@ export const Product = ({
     setQuantity(parseInt(e.target.value))
   }
 
-  const handleRequestedCheck = (externalid) => {
-    const requestedCheck = requestedProductPrice.filter(item => item.externalid === externalid);
+  const handleRequestedCheck = (ndc) => {
+    const requestedCheck = requestedProductPrice.filter(item => item.ndc === ndc);
     if (requestedCheck[0]) {
       const lastRequest = new Date(requestedCheck[0]?.lastRequested);
       const hour= 1000 * 60 * 60;
@@ -76,8 +76,8 @@ export const Product = ({
           >
             <div className="header-name-wrapper">
               <p className="flex-fill list-header-name">
-                {product.fullname}
-                {(!product?.qtyOnHand || product?.qtyOnHand === "" || product?.qtyOnHand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
+                {product.displayname}
+                {(!product?.totalquantityonhand || product?.totalquantityonhand === "" || product?.totalquantityonhand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
               </p>
             </div>
 
@@ -91,8 +91,8 @@ export const Product = ({
           </div>
           <div className="details-container">
             <div className="no-container for-list">
-              <p className="item-no">{product.itemNo || 'N/A'}</p>
-              <p className="ndc">{product.externalid}</p>
+              <p className="item-no">{product.productNumber || 'N/A'}</p>
+              <p className="ndc">{product.ndc}</p>
             </div>
             <div
               className="name-container"
@@ -103,30 +103,30 @@ export const Product = ({
             >
               {shopFont ? (
                   <p style={{ fontSize: '11.4183px !important' }}>
-                    {product.fullname}
-                    {(!product?.qtyOnHand || product?.qtyOnHand === "" || product?.qtyOnHand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
+                    {product.displayname}
+                    {(!product?.totalquantityonhand || product?.totalquantityonhand === "" || product?.totalquantityonhand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
                   </p>
               ) : (
                   <p className="name">
-                    {product.fullname}
-                    {(!product?.qtyOnHand || product?.qtyOnHand === "" || product?.qtyOnHand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
+                    {product.displayname}
+                    {(!product?.totalquantityonhand || product?.totalquantityonhand === "" || product?.totalquantityonhand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
                   </p>
               )}
               {view !== 'list' &&
                 <>
-                  <p className="mb-0">ITEM #: {product.itemNo || "N/A"}</p>
-                  <p>NDC: {product.externalid}</p>
+                  <p className="mb-0">ITEM #: {product.productNumber || "N/A"}</p>
+                  <p>NDC: {product.ndc}</p>
                 </>
               }
             </div>
             <p className="company for-list">
-              {product.company || 'N/A'}
+              {product.manufacturer || 'N/A'}
             </p>
             <p className="size for-list">
-              {product.side || 'N/A'}
+              {product.bottleSize || 'N/A'}
             </p>
             <p className="strength for-list">
-              {product.strength || 'N/A'}
+              {product.drugStrength || 'N/A'}
             </p>
             <div className="price-container">
               <p className="price">
@@ -154,7 +154,7 @@ export const Product = ({
                   (selectedCategory === 'Favorites' || product.favorite) ?
                   <>$ { product.cost % 1 === 0 ? parseInt(product.cost) : product.cost }</>
                   :
-                  handleRequestedCheck(product.externalid) ? 
+                  handleRequestedCheck(product.ndc) ? 
                   <span style={{ fontSize: '12.3295px', color: 'green' }}>
                     Request Sent
                   </span>

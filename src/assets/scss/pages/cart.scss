@@ -428,6 +428,7 @@
     li .default {
       width: 76.5px;
       height: 19.5px;
+      display: inline-block;
       background: #16cfb0;
       font-style: normal;
       font-weight: normal;
@@ -435,7 +436,6 @@
       line-height: 21px;
       color: #f2f2f2;
       border-radius: 9.75px;
-      margin-left: 18px;
       text-align: center;
     }
   }

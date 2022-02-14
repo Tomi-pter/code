@@ -135,7 +135,8 @@ export const getAddressesById = (username, id) => async (dispatch) => {
 export const addAddresses = (username, formData) => async (dispatch) => {
   try {
     const { data } = await api.addAddresses(username, formData);
-    dispatch({ type: POSTADDRESSES, data });
+    
+    dispatch({ type: POSTADDRESSES, data: {details: data, isDefault: false} });
 
   } catch (error) {
     console.log(error);
@@ -152,20 +153,22 @@ export const deleteAddressesById = (username, id) => async (dispatch) => {
   }
 };
 
-export const updateAddressesById = (username, id, formData) => async (dispatch) => {
+export const updateAddressesById = (username, address, formData) => async (dispatch) => {
   try {
+    const id = address.addressId
     const {data} = await api.updateAddressesById(username, id, formData);
-
-    dispatch({ type: UPDATEADDRESSESBYID, data });
+    
+    dispatch({ type: UPDATEADDRESSESBYID, data: {...address, details: data} });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const makeDefaultAddress = (username, id) => async (dispatch) => {
+export const makeDefaultAddress = (username, address) => async (dispatch) => {
   try {
-    const {data} = await api.makeDefaultAddress(username, id);
-    
+    const id = address.addressId;
+    await api.makeDefaultAddress(username, id);
+    const data = {...address, isDefault: true} ;
     dispatch({ type: UPDATEDEFAULTADDRESS, data });
   } catch (error) {
     console.log(error);

@@ -10,9 +10,9 @@ import { formatPhoneNumberIntl, isPossiblePhoneNumber } from 'react-phone-number
 import { getCountries, getStates } from '../../actions/auth';
 
 const initialFormData = {
-    givenName: "",
-    familyName: "",
-    email: "",
+    // givenName: "",
+    // familyName: "",
+    // email: "",
     mobileNumber: "",
     address: "",
     company: "",
@@ -35,6 +35,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const [isDefaultLoading, setIsDefaultLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [editId, setEditId] = useState("");
+    const [editAddress, setEditAddress] = useState(null);
     const [formData, setFormData] = useState(initialFormData);
     const [isDisabled, setDisabled] = useState(true);
     const [countries, setCountries] = useState([]);
@@ -59,7 +60,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
         setIsLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
         if(isEdit) {
-            dispatch(updateAddressesById(user?.username, editId, formData));
+            dispatch(updateAddressesById(user?.username, editAddress, formData));
         } else {
             dispatch(addAddresses(user?.username, formData));
         };
@@ -76,13 +77,14 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
         setStates([]);
         setFormData(address.details);
         setEditId(address.addressId);
+        setEditAddress(address)
     }
 
     const handleMakeDefaultAddress = (address) => {
         setIsDefaultSelected(address);
         setIsDefaultLoading(true);
         const user = JSON.parse(localStorage.getItem('profile'));
-        dispatch(makeDefaultAddress(user?.username, address.addressId));
+        dispatch(makeDefaultAddress(user?.username, address));
     }
 
     const contactChange = (value) => {
@@ -128,6 +130,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
         }
         setIsEdit(false);
         setEditId("");
+        setEditAddress(null);
         setStates([]);
         document.getElementById("closeAddressModal").click();
     },[account]);
@@ -159,10 +162,9 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     }, [formData.country])
 
     const validation = useCallback(() => {
-        const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
         const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
         const checkState = formData.state === "" && states.length > 0 ? false : true;
-        formData.email !== "" && formData.mobileNumber !== "" && phoneCheck && emailCheck && formData.givenName !== "" && formData.familyName !== "" && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
+        formData.mobileNumber !== "" && phoneCheck && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
     }, [formData, states])
 
     useEffect(() => {
@@ -181,19 +183,20 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                         <div className="toggle-menu collapse" id="infosCollapse">
                             <ul className="infos-list">
                                 {
-                                    account?.addressesData.map(item => (
-                                        <li key={`key-${item.addressId}`} onClick={()=>setSelectShipping(item)}>
+                                    account?.addressesData?.map(item => (
+                                        <li key={`key-${item?.addressId}`} onClick={()=>setSelectShipping(item)}>
                                             <div className={"indicator " + (selectShipping?.addressId === item?.addressId ? "active" : "")}>
                                                 <div className="center"></div>
                                             </div>
                                             <div className="d-flex align-items-center info-container">
                                                 <div className="info">
-                                                    <div className="d-flex align-items-center name">{item.details.givenName +  " " + item?.details?.familyName} {defaultAddress?.addressId === item?.addressId && <div className="default">Default</div>}</div>
-                                                    <p>{item.details.address +  " " + item.details.city +  " " + item.details.state +  " " + item.details.postalCode}</p>
-                                                    <p>{item.details.mobileNumber}</p>
-                                                    <p>{item.details.email}</p>
+                                                    {/* {item.details.givenName +  " " + item?.details?.familyName} */}
+                                                    <p>{item.details?.address +  " " + item.details?.city +  " " + item.details?.state +  " " + item.details?.postalCode}</p>
+                                                    <p>{item.details?.mobileNumber}</p>
+                                                    <div className="d-flex align-items-center name">{defaultAddress?.addressId === item?.addressId && <div className="default">Default</div>}</div>
+                                                    {/* <p>{item.details.email}</p> */}
                                                     {
-                                                        defaultAddress?.addressId !== item?.addressId && 
+                                                        item?.addressId && defaultAddress?.addressId !== item?.addressId && 
                                                         <button className="default-btn" onClick={()=>handleMakeDefaultAddress(item)}>
                                                             {
                                                                 isDefaultLoading && isDefaultSelected.addressId === item.addressId ?  
@@ -222,22 +225,21 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                 <ul className="info-list">
                     <ul className="info-list">
                         <li>
-                            <img src={require("../../assets/img/mdi_account.svg")} alt="" />
-                            <span className="name">{selectedShipping?.details?.givenName + ' ' + selectedShipping?.details?.familyName}</span>
-                            {defaultAddress?.addressId === selectedShipping?.addressId && <span className="default">Default</span>}
+                            {/* <img src={require("../../assets/img/mdi_account.svg")} alt="" />
+                            <span className="name">{selectedShipping?.details?.givenName + ' ' + selectedShipping?.details?.familyName}</span> */}
                         </li>
                         <li>
                             <img src={require("../../assets/img/mdi_map-marker.svg")} alt="" />
-                            <span>{selectedShipping?.details?.address + ' ' + selectedShipping?.details?.city + ' ' + selectedShipping?.details?.state + ' ' + selectedShipping?.details?.postalCode}</span>
+                            <span>{selectedShipping?.details?.address + ' ' + selectedShipping?.details?.city + ' ' + selectedShipping?.details?.state + ' ' + selectedShipping?.details?.postalCode} {defaultAddress?.addressId === selectedShipping?.addressId && <span className="default">Default</span>}</span>
                         </li>
                         <li>
                             <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
                             <span>{selectedShipping?.details?.mobileNumber}</span>
                         </li>
-                        <li>
+                        {/* <li>
                             <img src={require("../../assets/img/mdi_email.svg")} alt="" />
                             <span>{selectedShipping?.details?.email}</span>
-                        </li>
+                        </li> */}
                     </ul>
                 </ul>
             </div>
@@ -259,11 +261,12 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                                 </div>
                                                 <div className="d-flex align-items-center info-container">
                                                     <div className="info">
-                                                        <div className="d-flex align-items-center name">{item.details.givenName +  " " + item?.details?.familyName} {defaultAddress?.addressId === item?.addressId &&  <div className="default">Default</div>}</div>
-                                                        <p>{item.details.address +  " " + item.details.city +  " " + item.details.state +  " " + item.details.postalCode}</p>
-                                                        <p>{item.details.mobileNumber}</p>
-                                                        <p>{item.details.email}</p>
-                                                        {defaultAddress?.addressId !== item?.addressId && 
+                                                        {/* {item.details.givenName +  " " + item?.details?.familyName} */}
+                                                        <p>{item.details?.address +  " " + item.details?.city +  " " + item.details?.state +  " " + item.details?.postalCode}</p>
+                                                        <p>{item.details?.mobileNumber}</p>
+                                                        {/* <p>{item.details.email}</p> */}
+                                                        <div className="d-flex align-items-center name">{defaultAddress?.addressId === item?.addressId &&  <div className="default">Default</div>}</div>
+                                                        {item?.addressId && defaultAddress?.addressId !== item?.addressId && 
                                                             <button className="default-btn" onClick={()=>handleMakeDefaultAddress(item)}>
                                                                 {
                                                                     isDefaultLoading && isDefaultSelected.addressId === item.addressId ?  
@@ -283,7 +286,8 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                 </ul>
                                 <button className="add-btn" data-toggle="modal" data-target="#addAddressModal" onClick={() => handleAddAddress()}>+ Add New Address</button>
                                 <div className="d-flex align-items-center justify-content-between">
-                                    <button className="cancel-btn">Cancel</button>
+                                    {/* <button className="cancel-btn">Cancel</button> */}
+                                    <button className="cancel-btn" onClick={()=>{document.getElementById("billingBtn").click()}}>Cancel</button>
                                     <button className="save-btn" onClick={()=>handleSelect('billing', selectBilling)}>Save</button>
                                 </div>
                             </div>
@@ -296,23 +300,23 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                 </div>
                 {!checked &&
                     <ul className="info-list">
-                        <li>
+                        {/* <li>
                             <img src={require("../../assets/img/mdi_account.svg")} alt="" />
                             <span className="name">{selectedBilling?.details?.givenName + ' ' + selectedBilling?.details?.familyName}</span>
-                            {defaultAddress?.addressId === selectedBilling?.addressId && <span className="default">Default</span>}
-                        </li>
+                            
+                        </li> */}
                         <li>
                             <img src={require("../../assets/img/mdi_map-marker.svg")} alt="" />
-                            <span>{selectedBilling?.details?.address + ' ' + selectedBilling?.details?.city + ' ' + selectedBilling?.details?.state + ' ' + selectedBilling?.details?.postalCode}</span>
+                            <span>{selectedBilling?.details?.address + ' ' + selectedBilling?.details?.city + ' ' + selectedBilling?.details?.state + ' ' + selectedBilling?.details?.postalCode} {defaultAddress?.addressId === selectedBilling?.addressId && <span className="default">Default</span>}</span>
                         </li>
                         <li>
                             <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
                             <span>{selectedBilling?.details?.mobileNumber}</span>
                         </li>
-                        <li>
+                        {/* <li>
                             <img src={require("../../assets/img/mdi_email.svg")} alt="" />
                             <span>{selectedBilling?.details?.email}</span>
-                        </li>
+                        </li> */}
                     </ul>
                 }
             </div>
@@ -321,7 +325,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                     <div className="modal-content">
                         <div className="modal-body">
                             <h2 className="sub-title">{isEdit ? 'Edit Address' : 'Add New Address'}</h2>
-                            <div className="row">
+                            {/* <div className="row">
                                 <div className="col-12 col-sm-6">
                                     <div className="password-input form-group">
                                         <label htmlFor="givenName">First Name</label>
@@ -346,32 +350,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                         />
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-12 col-sm-6">
-                                    <label htmlFor="email">Email</label>
-                                    <Input
-                                        label="Email"
-                                        name="email"
-                                        type="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                    <div className="password-input form-group">
-                                        <label htmlFor="address">Phone Number</label>
-                                        <InputContact
-                                            country="US"
-                                            international
-                                            withCountryCallingCode
-                                            value={formData.mobileNumber}
-                                            className="form-control"
-                                            onChange={contactChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                            </div> */}
                             <div className="row">
                                 <div className="col">
                                     <div className="password-input form-group">
@@ -382,6 +361,31 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                             type="text"
                                             value={formData.address}
                                             onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                {/* <div className="col-12 col-sm-6">
+                                    <label htmlFor="email">Email</label>
+                                    <Input
+                                        label="Email"
+                                        name="email"
+                                        type="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                    />
+                                </div> */}
+                                <div className="col-12">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="address">Phone Number</label>
+                                        <InputContact
+                                            country="US"
+                                            international
+                                            withCountryCallingCode
+                                            value={formData.mobileNumber}
+                                            className="form-control"
+                                            onChange={contactChange}
                                         />
                                     </div>
                                 </div>

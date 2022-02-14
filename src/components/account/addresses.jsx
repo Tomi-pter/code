@@ -13,9 +13,6 @@ import { formatPhoneNumberIntl, isPossiblePhoneNumber } from 'react-phone-number
 import InputContact from 'react-phone-number-input/input';
 
 const defaultData = {
-    givenName: "",
-    familyName: "",
-    email: "",
     mobileNumber: "",
     address: "",
     company: "",
@@ -44,16 +41,15 @@ export const Addresses = ({ account }) => {
     const dispatch = useDispatch();
 
     const validation = useCallback(() => {
-        const emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
         const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
         const checkState = formData.state === "" && states.length > 0 ? false : true;
-        formData.email !== "" && formData.mobileNumber !== "" && phoneCheck && emailCheck && formData.givenName !== "" && formData.familyName !== "" && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
+        formData.mobileNumber !== "" && phoneCheck && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
     }, [formData, states]);
 
     const handleMakeDefaultAddress = (address) => {
         setIsDefaultSelected(address);
         setIsDefaultLoading(true);
-        dispatch(makeDefaultAddress(user?.username, address.addressId));
+        dispatch(makeDefaultAddress(user?.username, address));
     }
 
     const handleChange = (e) => {
@@ -72,7 +68,7 @@ export const Addresses = ({ account }) => {
 
     const handleSubmit = () => {
         setIsLoading(true);
-        isEdit ? dispatch(updateAddressesById(user?.username, selectedAddress.addressId, formData)) : dispatch(addAddresses(user?.username, formData));
+        isEdit ? dispatch(updateAddressesById(user?.username, selectedAddress, formData)) : dispatch(addAddresses(user?.username, formData));
     }
 
     const addAddress = () => {
@@ -84,9 +80,6 @@ export const Addresses = ({ account }) => {
         setIsEdit(true);
         setSelectedAddress(address);
         setFormData({
-            givenName: address.details.givenName,
-            familyName: address.details.familyName,
-            email: address.details.email,
             mobileNumber: address.details.mobileNumber,
             address: address.details.address,
             company: address.details.company,
@@ -163,13 +156,13 @@ export const Addresses = ({ account }) => {
                         account.addressesData?.map((item, index) => (
                             <tr key={index}>
                                 <td className="w-100">
-                                    <p className="mb-0">{item?.details?.givenName + ' ' + item?.details?.familyName}</p>
+                                    {/* <p className="mb-0">{item?.details?.givenName + ' ' + item?.details?.familyName}</p> */}
                                     <p className="mb-0">{item?.details?.address}</p>
                                     <p className="mb-0">{item?.details?.mobileNumber}</p>
                                     <div className="d-flex d-lg-none mt-5 align-items-center justify-content-between">
                                         <div>
                                             {defaultAddress?.addressId === item?.addressId && <div className="default">Default</div>}
-                                            {defaultAddress?.addressId !== item?.addressId &&
+                                            {item?.addressId && defaultAddress?.addressId !== item?.addressId &&
                                                 <button className="default-btn" onClick={() => handleMakeDefaultAddress(item)}>
                                                     {
                                                         isDefaultLoading && isDefaultSelected?.addressId === item.addressId ?
@@ -199,7 +192,7 @@ export const Addresses = ({ account }) => {
                                 </td>
                                 <td className="d-none d-lg-table-cell">
                                     {defaultAddress?.addressId === item?.addressId && <div className="default">Default</div>}
-                                    {defaultAddress?.addressId !== item?.addressId &&
+                                    {item?.addressId && defaultAddress?.addressId !== item?.addressId &&
                                         <button className="default-btn" onClick={() => handleMakeDefaultAddress(item)}>
                                             {
                                                 isDefaultLoading && isDefaultSelected?.addressId === item.addressId ?
@@ -247,57 +240,6 @@ export const Addresses = ({ account }) => {
                 <Modal.Body>
                     <h2 className="sub-title">{isEdit ? 'Edit Address' : 'Add New Address'}</h2>
                     <div className="row">
-                        <div className="col-12 col-sm-6">
-                            <div className="password-input form-group">
-                                <label htmlFor="givenName">First Name</label>
-                                <Input
-                                    label="First Name"
-                                    name="givenName"
-                                    type="text"
-                                    value={formData.givenName}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                        </div>
-                        <div className="col-12 col-sm-6">
-                            <div className="password-input form-group">
-                                <label htmlFor="familyName">Last Name</label>
-                                <Input
-                                    label="Last Name"
-                                    name="familyName"
-                                    type="text"
-                                    value={formData.familyName}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 col-sm-6">
-                            <label htmlFor="email">Email</label>
-                            <Input
-                                label="Email"
-                                name="email"
-                                type="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="col-12 col-sm-6">
-                            <div className="password-input form-group">
-                                <label htmlFor="address">Phone Number</label>
-                                <InputContact
-                                    country="US"
-                                    international
-                                    withCountryCallingCode
-                                    value={formData.mobileNumber}
-                                    className="form-control"
-                                    onChange={contactChange}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
                         <div className="col">
                             <div className="password-input form-group">
                                 <label htmlFor="address">Address</label>
@@ -307,6 +249,21 @@ export const Addresses = ({ account }) => {
                                     type="text"
                                     value={formData.address}
                                     onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="password-input form-group">
+                                <label htmlFor="address">Phone Number</label>
+                                <InputContact
+                                    country="US"
+                                    international
+                                    withCountryCallingCode
+                                    value={formData.mobileNumber}
+                                    className="form-control"
+                                    onChange={contactChange}
                                 />
                             </div>
                         </div>
@@ -340,7 +297,6 @@ export const Addresses = ({ account }) => {
                             <div className="password-input form-group">
                                 <label htmlFor="country">Country</label>
                                 <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} valueKey={'name'} />
-                                {/* <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} /> */}
                             </div>
                         </div>
                         {states?.length > 0 && 
@@ -348,7 +304,6 @@ export const Addresses = ({ account }) => {
                                 <div className="password-input form-group">
                                     <label htmlFor="state">State</label>
                                     <Dropdown id="state" label="State" name="state" value={formData.state} options={states} onChange={handleChange} valueKey={'code'} />
-                                    {/* <Dropdown label="State" name="state" value={formData.state} options={states} onChange={handleChange} /> */}
                                 </div>
                             </div>
                         }

@@ -7,6 +7,7 @@ import NextIcon from "../../assets/icon/next-white.svg";
 import { getCountries, getStates } from '../../actions/auth';
 import { useDispatch, useSelector } from "react-redux";
 import SignupImage from '../../assets/img/signup-img.png';
+
 const Address = ({ setForm, formData, navigation }) => {
   const auth = useSelector((state) => state.auth);
   const { address, city, state, postalCode, country } = formData;
@@ -26,10 +27,6 @@ const Address = ({ setForm, formData, navigation }) => {
   }, [validation])
 
   useEffect(() => {
-    dispatch(getCountries());
-  }, [dispatch])
-
-  useEffect(() => {
     setCountries(auth?.countriesData);
     if (auth?.statesData?.length > 0) {
       setStates(auth?.statesData);
@@ -46,7 +43,7 @@ const Address = ({ setForm, formData, navigation }) => {
   }, [auth])
 
   useEffect(() => {
-    const selectedCountry = countries.filter(e => e.name === country);
+    const selectedCountry = countries?.filter(e => e.name === country);
     if (country !== "" && selectedCountry) {
       const countryCode = selectedCountry[0]?.abbreviation;
       setForm({
@@ -58,6 +55,16 @@ const Address = ({ setForm, formData, navigation }) => {
       dispatch(getStates(countryCode));
     }
   }, [country])
+
+  useEffect(() => {
+    setForm({
+        target: {
+        name: 'country',
+        value: ""
+      }
+    })
+    dispatch(getCountries());
+  }, [])
 
   return (
     <div className="card mb-0">

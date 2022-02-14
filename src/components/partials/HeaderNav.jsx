@@ -190,7 +190,7 @@ export const HeaderNav = () => {
                                     <ul id="resultBox" className='results'>
                                         { searchResults?.products?.length > 0 ? searchResults?.products?.map(searchResult => (
                                             <li key={searchResult.id} onClick={() => searchRedirect(searchResult.id)}>
-                                                <p >{searchResult.name}</p>
+                                                <p >{searchResult.displayname}</p>
                                             </li>
                                             )) : <li><p>Product Not Found</p></li>
                                         }
@@ -264,10 +264,10 @@ export const HeaderNav = () => {
                                         placeholder="Search Medicine..."
                                         ref={searchInput}
                                         autoComplete="off"
-                                        onChange={handleChangeMobile} 
+                                        onChange={handleChangeMobile}
                                     />
                                 </form>
-                                {formData.name && formData.name !== '' && 
+                                {formData.name && formData.name !== '' &&
                                     <ul id="resultBoxMobile" className='results'>
                                         {
                                             search?.products?.length > 0 ?

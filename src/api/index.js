@@ -26,7 +26,7 @@ export const resendCode = (email) => API.post(`/user/${email}/resend-verificatio
 export const logOut = (username) => API.post(`/user/${username}/logout`);
 export const getAccount = (username) => API.get(`/user/${username}`);
 export const getFishbowlAccount = (username) => API.get(`/fishbowl/${username}/customer`);
-export const getOrders = (username) => API.get(`/${username}/orders`);
+export const getOrders = (username, status, page) => API.get(`/${username}/orders?` + (page ? `page=${page}` : '') + (status ? `&status=${status}` : ''));
 
 export const putAccount = (username, accountData) => API.put(`/user/${username}`, accountData);
 export const updateEmail = (username, formData) => API.put(`/user/${username}/change-email`, formData);

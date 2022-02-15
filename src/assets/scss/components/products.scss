@@ -29,67 +29,6 @@
             }
         }
     }
-    .pagination-products {
-        margin-top: 38px;
-        ul {
-            display: block;
-            text-align: center;
-            position: relative;
-            &.empty {
-                display: none;
-            }
-            li {
-                display: inline;
-                margin-right: 20px;
-                @include mediaQueries(mobile) {
-                    margin-right: 5px;
-                }
-                a {
-                    font-size: 13px;
-                    padding: 7px 15px;
-                    border-radius: 5px;
-                    font-weight: bold;
-                }
-                &.active {
-                    a {
-                        background: #16cfb0;
-                        color: #fff;
-                    }
-                }
-                &.disabled {
-                    display: none;
-                }
-            }
-            .previous {
-                position: absolute;
-                left: 0;
-                margin-right: 0px;
-                @include mediaQueries(mobile) {
-                    display: none;
-                }
-                a {
-                    &::before {
-                        content: "<";
-                        margin-right: 5px;
-                    }
-                }
-            }
-            .next {
-                position: absolute;
-                right: 0;
-                margin-right: 0px;
-                @include mediaQueries(mobile) {
-                    display: none;
-                }
-                a {
-                    &::after {
-                        content: ">";
-                        margin-left: 5px;
-                    }
-                }
-            }
-        }
-    }
     .top-details {
         padding: 0 0 19px 0;
         margin-bottom: 40px;
@@ -971,6 +910,68 @@
     @include mediaQueries(custom-shop) {
         .header-price-wrapper-show {
             display: block;
+        }
+    }
+}
+
+.pagination-products, .pagination-orders {
+    margin-top: 38px;
+    ul {
+        display: block;
+        text-align: center;
+        position: relative;
+        &.empty {
+            display: none;
+        }
+        li {
+            display: inline;
+            margin-right: 20px;
+            @include mediaQueries(mobile) {
+                margin-right: 5px;
+            }
+            a {
+                font-size: 13px;
+                padding: 7px 15px;
+                border-radius: 5px;
+                font-weight: bold;
+            }
+            &.active {
+                a {
+                    background: #16cfb0;
+                    color: #fff;
+                }
+            }
+            &.disabled {
+                display: none;
+            }
+        }
+        .previous {
+            position: absolute;
+            left: 0;
+            margin-right: 0px;
+            @include mediaQueries(mobile) {
+                display: none;
+            }
+            a {
+                &::before {
+                    content: "<";
+                    margin-right: 5px;
+                }
+            }
+        }
+        .next {
+            position: absolute;
+            right: 0;
+            margin-right: 0px;
+            @include mediaQueries(mobile) {
+                display: none;
+            }
+            a {
+                &::after {
+                    content: ">";
+                    margin-left: 5px;
+                }
+            }
         }
     }
 }

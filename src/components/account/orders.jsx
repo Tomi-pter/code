@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
-import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
 import NoImage from '../../assets/img/unavailable.svg';
 
-export const OrdersHistory = ({ account }) => {
+import { useSelector, useDispatch } from 'react-redux';
+import { getOrders } from '../../actions/account';
+
+import ReactPaginate from 'react-paginate';
+
+export const OrdersHistory = () => {
+    const user = JSON.parse(localStorage.getItem('profile'));
+    const account = useSelector((state) => state.account);
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState('All');
-    const filterProcessingOrders = orders?.filter(order => !order.details.shipComplete);
-    const filterShippedOrders = orders?.filter(order => order.details.shipComplete);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
     const formatDate = (ms) => {
         const date = new Date(ms);
@@ -109,55 +117,73 @@ export const OrdersHistory = ({ account }) => {
         )
     }
 
-    const renderOrders = () => {
-        if (status === "All") {
-            return (
-                orders.length === 0 ?
-                    <div className="d-flex align-items-center justify-content-center orders-empty">No Order History</div>
-                :
-                    orders.map((order, index) => (
-                        renderOrder(order, index)
-                    ))
-            )
-        }
-        if (status === "Processing") {
-            return (
-                filterProcessingOrders.length === 0 ?
-                    <div className="d-flex align-items-center justify-content-center orders-empty">No Processing Order/s</div>
-                :
-                filterProcessingOrders.map((order, index) => (
-                    renderOrder(order, index)
-                ))
-            )
-        }
-        if (status === "Shipped") {
-            return (
-                filterShippedOrders.length === 0 ?
-                    <div className="d-flex align-items-center justify-content-center orders-empty">No Shipped Order/s</div>
-                :
-                filterShippedOrders.map((order, index) => (
-                    renderOrder(order, index)
-                ))
-            )
-        }
+    const handlePageClick = (data) => {
+        let s = status === 'All' ? null : status;
+        let p = data.selected + 1
+        setPage(p);
+        dispatch(getOrders(user?.username, s, page));
     }
 
     useEffect(()=>{
-        if( account?.accountOrders) {
-            const sorted = account?.accountOrders?.sort((a,b) => (a.salesOrderNumber < b.salesOrderNumber) ? 1 : ((b.salesOrderNumber < a.salesOrderNumber) ? -1 : 0));
+        let s = status === 'All' ? null : status;
+        setLoading(true)
+        setOrders([]);
+        dispatch(getOrders(user?.username, s, page));
+    },[status]);
+
+    useEffect(()=>{
+        if(account?.ordersData?.orders) {
+            const sorted = account?.ordersData?.orders?.sort((a,b) => (a.salesOrderNumber < b.salesOrderNumber) ? 1 : ((b.salesOrderNumber < a.salesOrderNumber) ? -1 : 0));
             setOrders(sorted);
         }
+        setLoading(false)
     },[account]);
+
+    useEffect(()=>{
+        dispatch(getOrders(user?.username, null, 1));
+    },[]);
 
     return (
         <>
             <ul className="nav align-item-center justify-content-around order-nav">
                 <li className={status === "All" ? "active" : ""} onClick={()=>setStatus('All')}>All</li>
-                <li className={status === "Processing" ? "active" : ""} onClick={()=>setStatus('Processing')}>Processing <div className="count">{filterProcessingOrders.length}</div></li>
-                <li className={status === "Shipped" ? "active" : ""} onClick={()=>setStatus('Shipped')}>Shipped <div className="count">{filterShippedOrders.length}</div></li>
+                <li className={status === "Processing" ? "active" : ""} onClick={()=>setStatus('Processing')}>Processing</li>
+                <li className={status === "Shipped" ? "active" : ""} onClick={()=>setStatus('Shipped')}>Shipped</li>
             </ul>
             <div className="orders">
-                {renderOrders()}
+                {
+                    orders.length === 0 ?
+                    <div className="d-flex align-items-center justify-content-center orders-empty">
+                        {
+                            !account?.ordersData || loading ? 
+                            <div className="spinner-border" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        :
+                            'No Order History'
+                        }
+                    </div>
+                    :
+                    orders.map((order, index) => (
+                        renderOrder(order, index)
+                    ))
+                }
+                {
+                    account?.ordersData?.count > 5 && !loading &&
+                    <div className="pagination-orders">
+                        <ReactPaginate
+                            previousLabel={'previous'}
+                            nextLabel={'next'}
+                            breakLabel={'...'}
+                            breakClassName={'break-me'}
+                            pageCount={Math.ceil(account?.ordersData?.count / 5) || 0}
+                            onPageChange={handlePageClick}
+                            containerClassName={account?.ordersData?.count === 0 ? 'pagination empty' : 'pagination'}
+                            activeClassName={'active'}
+                            initialPage={0}
+                        />
+                    </div>
+                }
             </div>
         </>
     )

@@ -48,8 +48,8 @@ export const PaymentContainer = () => {
         const user = JSON.parse(localStorage.getItem('profile'));
         // dispatch(getCart(user?.username));
         dispatch(getAccount(user?.username));
-        dispatch(getFishbowlAccount(user?.username));
-    },[dispatch]);
+        // dispatch(getFishbowlAccount(user?.username));
+    },[]);
 
     useEffect(()=>{
         if (!cart?.checkoutDetail) history.push("/checkout");

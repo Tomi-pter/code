@@ -17,8 +17,7 @@ import ProductPlaceholder from '../../assets/img/product-placeholder-order.svg';
 import { Helmet } from 'react-helmet';
 
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../actions/auth';
 import { getAccount, getOrders } from '../../actions/account';
 import { useParams } from "react-router-dom";
@@ -41,16 +40,16 @@ export const PersonalInformationContainer = () => {
         // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
         dispatch(logOut(user?.username, history));
     };
+
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('profile'));
         dispatch(getAccount(user?.username));
-        dispatch(getOrders(user?.username));
         if (window.location.href.indexOf("order-history") > -1) {
             setActiveTab(true);
         } else {
             setActiveTab(false);
         }
-    }, [dispatch]);
+    }, []);
 
     return (
         <>
@@ -126,7 +125,7 @@ export const PersonalInformationContainer = () => {
                                 <div id="order-history" className={`tab-pane fade ${activeTab ? 'active show' : ''}`}>
                                     <h1 className="title">Order History</h1>
                                     <div className="card">
-                                        <OrdersHistory account={account} />
+                                        <OrdersHistory />
                                     </div>
                                 </div>
                                 <div id="security" className="tab-pane fade">

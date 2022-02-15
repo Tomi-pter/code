@@ -3,7 +3,8 @@ import * as actionType from "../constants/actionTypes";
 const initialState = {
   accountData: {},
   updatedAccountData: [],
-  accountOrders: [],
+  // accountOrders: [],
+  ordersData: null,
   avatarData: '',
   addressesData: [],
   changePassword: null,
@@ -18,7 +19,7 @@ const accountReducer = (state = initialState, action) => {
     case actionType.GETFISHBOWLACCOUNT:
       return { ...state, fishbowlAccountData: action.data };
     case actionType.GETORDERS:
-      return { ...state, accountOrders: action.data };
+      return { ...state, ordersData: action.data };
     case actionType.PUTACCOUNT:
       const newData = {
         ...state.accountData,

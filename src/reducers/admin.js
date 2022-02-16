@@ -14,7 +14,8 @@ import
     CONFIRMUSERERROR,
     IMPORTUSER,
     IMPORTUSERERROR,
-    EXPORTCSV
+    EXPORTCSV,
+    UPDATEUSERNETSUITEID
 } from '../constants/actionTypes';
 
 const adminReducer = (state = { users: [], customProducts: [] }, action) => {
@@ -62,7 +63,7 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
 
         return { ...state, adminLoginError: action?.data}
     case CONFIRMUSER:
-        const userIndex = state.users.findIndex(user => user.Username  === action.data.Username);
+        const userIndex = state.users.findIndex(user => user.username  === action.data.username);
 
         if(userIndex !== -1) {
             state.users.splice(userIndex, 1, action.data);
@@ -82,6 +83,15 @@ const adminReducer = (state = { users: [], customProducts: [] }, action) => {
     case EXPORTCSV:
 
         return { ...state, exportData: action?.data}
+    case UPDATEUSERNETSUITEID:
+        const netsuiteIndex = state.users.findIndex(user => user.username  === action.data.username);
+        const newData = {...state.users[netsuiteIndex], awsNetsuiteId: action.data.netsuiteCustomerId}
+        
+        if(netsuiteIndex !== -1) {
+            state.users.splice(netsuiteIndex, 1, newData);
+        }
+
+        return { ...state, linkError: null }
     default:
         return state;
   }

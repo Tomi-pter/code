@@ -1,6 +1,6 @@
 import {
   GETACCOUNT,
-  GETFISHBOWLACCOUNT,
+  GETNETSUITEACCOUNT,
   GETORDERS,
   GETAVATAR,
   POSTAVATAR,
@@ -28,10 +28,10 @@ export const getAccount = (username) => async (dispatch) => {
   }
 };
 
-export const getFishbowlAccount = (username) =>  async (dispatch) => {
+export const getNetsuiteAccount = (username) =>  async (dispatch) => {
   try {
-    const data = await api.getFishbowlAccount(username);
-    dispatch({ type: GETFISHBOWLACCOUNT, data });
+    const { data } = await api.getNetsuiteAccount(username);
+    dispatch({ type: GETNETSUITEACCOUNT, data });
   } catch (error) {
     console.log(error);
   }

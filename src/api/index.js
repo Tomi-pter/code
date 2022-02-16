@@ -25,7 +25,7 @@ export const resendCode = (email) => API.post(`/user/${email}/resend-verificatio
 
 export const logOut = (username) => API.post(`/user/${username}/logout`);
 export const getAccount = (username) => API.get(`/user/${username}`);
-export const getFishbowlAccount = (username) => API.get(`/fishbowl/${username}/customer`);
+export const getNetsuiteAccount = (username) => API.get(`/customers/${username}`);
 export const getOrders = (username, status, page) => API.get(`/${username}/orders?` + (page ? `page=${page}` : '') + (status ? `&status=${status}` : ''));
 
 export const putAccount = (username, accountData) => API.put(`/user/${username}`, accountData);
@@ -78,3 +78,4 @@ export const loginAdmin = (formData) => API.post(`/admin/login`, formData);
 export const confirmUser = (formData) => API.post(`/admin/confirm-user`, formData);
 export const importUser = (formData) => API.post(`/admin/import-customer`, formData);
 export const exportCSV = () => API.get(`/custom-price/export`);
+export const updateUserNetsuiteID = (username, formData) => API.put(`/admin/${username}/netsuite-id`, formData)

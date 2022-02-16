@@ -14,7 +14,8 @@ import {
     CONFIRMUSERERROR,
     IMPORTUSER,
     IMPORTUSERERROR,
-    EXPORTCSV
+    EXPORTCSV,
+    UPDATEUSERNETSUITEID
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
   
@@ -189,5 +190,18 @@ export const exportCSV = () => async (dispatch) => {
     } catch (error) {
 
         dispatch({ type: EXPORTCSV, data: [] });
+    }
+};
+
+export const updateUserNetsuiteID = (username, formData) => async (dispatch) => {
+    try {
+        
+        const { data } = await api.updateUserNetsuiteID(username, formData);
+        
+        dispatch({ type: UPDATEUSERNETSUITEID, data });
+
+    } catch (error) {
+
+        console.log('Error Update User Netsuite ID')
     }
 };

@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { payment, paymentByTerms } from '../actions/payment';
 import { getCart } from '../actions/cart';
-import { getAccount, getFishbowlAccount } from '../actions/account';
+import { getAccount, getNetsuiteAccount } from '../actions/account';
 import { Link } from 'react-router-dom';
 
 export const PaymentContainer = () => {
@@ -48,7 +48,7 @@ export const PaymentContainer = () => {
         const user = JSON.parse(localStorage.getItem('profile'));
         // dispatch(getCart(user?.username));
         dispatch(getAccount(user?.username));
-        // dispatch(getFishbowlAccount(user?.username));
+        dispatch(getNetsuiteAccount(user?.username));
     },[]);
 
     useEffect(()=>{
@@ -56,7 +56,7 @@ export const PaymentContainer = () => {
     },[cart]);
 
     useEffect(()=>{
-        const paymentTerms = account?.fishbowlAccountData?.data?.paymentTerms?.toLowerCase();
+        const paymentTerms = account?.netsuiteAccountData?.terms?.refName?.toLowerCase();
         if (paymentTerms?.includes("net")) {
             setEnablePayByTerms(true);
         }
@@ -102,7 +102,7 @@ export const PaymentContainer = () => {
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"<"}<span> Checkout</span></Link>
                                 {/* disabled={enablePayByTerms ? false : true} */}
-                                <button className="btn proceed-btn" onClick={()=>handlePayment("term")}>
+                                <button className="btn proceed-btn" onClick={()=>handlePayment("term")}  disabled={enablePayByTerms ? false : true}>
                                     {isLoading ?
                                         <div className="spinner-border text-light" role="status">
                                             <span className="sr-only">Loading...</span>

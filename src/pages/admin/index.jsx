@@ -160,11 +160,11 @@ export const AdminDashboard = () => {
         //     document.getElementById("closeImportUserModal").click();
         // }
         if (exportCsv) {
-            const csvOptions = { 
+            const csvOptions = {
                 fieldSeparator: ',',
                 quoteStrings: '"',
                 decimalSeparator: '.',
-                showLabels: true, 
+                showLabels: true,
                 showTitle: true,
                 title: 'Custom Price List',
                 filename: 'Custom Price List',
@@ -175,12 +175,12 @@ export const AdminDashboard = () => {
 
             if (admin?.exportData.length > 0) {
                 const csvExporter = new ExportToCsv(csvOptions);
-    
+
                 csvExporter.generateCsv(admin?.exportData);
             } else {
                 alert('No Custom Price')
             }
-            
+
             setExportCsv(false);
         }
     }, [admin]);
@@ -199,7 +199,7 @@ export const AdminDashboard = () => {
           setFormData({ ...formData, state: "" })
         }
     }, [auth])
-    
+
     useEffect(() => {
         const selectedCountry = countries.filter(e => e.name === formData.country);
         if (formData.country !== "" && selectedCountry) {
@@ -237,17 +237,20 @@ export const AdminDashboard = () => {
                     {/* <button type="button" className="btn btn-primary import-btn" data-toggle="modal" data-target="#importUserModal" onClick={()=>openImportForm()}>
                         Import User
                     </button>
+                    */}
                     <button type="button" className="btn btn-success export-btn" onClick={()=>handleExport()}>
                         Export CSV
-                    </button> */}
+                    </button>
                 </div>
                 <div className="table-container">
                     <table className="table table-hover">
                         <thead className="thead-dark">
                             <tr>
                                 <th scope="col">Company Name</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Netsuite ID</th>
+                                <th scope="col">Netsuite Internal ID</th>
+                                <th scope="col">Customer ID</th>
                                 <th scope="col">AWS to Netsuite</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -257,9 +260,10 @@ export const AdminDashboard = () => {
                                 companies.map((user, index) => (
                                     <tr key={`user-key-${index}`}>
                                         <td>{user.company}</td>
+                                        <td>{user.email}</td>
                                         <td>
                                             {
-                                                (user.status === "CONFIRMED" || user.status === "RESET_REQUIRED") ? user.status : 
+                                                (user.status === "CONFIRMED" || user.status === "RESET_REQUIRED") ? user.status :
                                                 <button className="btn btn-success" onClick={()=>handleConfirmUser(user)} disabled={confirmLoading ? true : null}>
                                                     {
                                                         confirmLoading && user.username === selectedUser ?
@@ -268,7 +272,7 @@ export const AdminDashboard = () => {
                                                         </div>
                                                         :
                                                         'Confirm'
-                                                    }    
+                                                    }
                                                 </button>
                                             }
                                         </td>
@@ -276,9 +280,12 @@ export const AdminDashboard = () => {
                                             {user.netsuiteId}
                                         </td>
                                         <td>
-                                            {user.awsNetsuiteId ? 
-                                                <div className="text-info">Linked</div> 
-                                                : 
+                                            {user.customerId}
+                                        </td>
+                                        <td>
+                                            {user.awsNetsuiteId ?
+                                                <div className="text-info">Linked</div>
+                                                :
                                                 <button className="btn btn-secondary" onClick={()=>handleLinkUser(user)}>
                                                     {
                                                         linkLoading && user.username === selectedUser ?
@@ -362,7 +369,7 @@ export const AdminDashboard = () => {
                                         <label htmlFor="country">Country</label>
                                         <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} valueKey={'name'} />
                                     </div>
-                                    {formData.country && states?.length > 0 && 
+                                    {formData.country && states?.length > 0 &&
                                         <div className="form-group">
                                             <label htmlFor="state">State</label>
                                             <Dropdown id="state" label="State" name="state" value={formData.state} options={states} onChange={handleChange} valueKey={'code'} />

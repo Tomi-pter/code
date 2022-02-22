@@ -221,6 +221,10 @@
       line-height: 29px;
       color: #4f4f4f;
       border: 1px solid #4f4f4f;
+      border-radius: 0;
+      &:focus {
+        box-shadow: none;
+      }
       &:disabled {
         background: #f0f0f0;
         border: 0;

@@ -4,6 +4,7 @@ import EditIcon from '../../assets/img/Account/edit-icon.svg';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAvatar, putAccount, getAccount, updateEmail } from '../../actions/account';
 import { Alert } from 'react-bootstrap';
+import InputContact from 'react-phone-number-input/input';
 
 const defaultFormData = {
     'given_name': "",
@@ -24,6 +25,10 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
     const dispatch = useDispatch();
 
     const handleChange = (e) => {updateFormData({ ...formData, [e.target.name]: e.target.value})};
+
+    const contactChange = (value) => {
+        updateFormData({...formData, phone_number: value});
+    }
 
     const handleSubmit = (e) => {
         setIsLoading(true);
@@ -190,11 +195,19 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
                         {disable ?
                             <p>{account?.accountData?.phone_number}</p>
                             :
-                            <input
-                                name="phone_number"
-                                type="text"
+                            // <input
+                            //     name="phone_number"
+                            //     type="text"
+                            //     value={formData?.phone_number}
+                            //     onChange={handleChange}
+                            // />
+                            <InputContact
+                                country="US"
+                                international
+                                withCountryCallingCode
                                 value={formData?.phone_number}
-                                onChange={handleChange}
+                                className="form-control"
+                                onChange={contactChange}
                             />
                         }
                     </div>

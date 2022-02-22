@@ -14,7 +14,9 @@ import InputContact from 'react-phone-number-input/input';
 
 const defaultData = {
     mobileNumber: "",
-    address: "",
+    // address: "",
+    address1: "",
+    address2: "",
     company: "",
     city: "",
     state: "",
@@ -43,7 +45,7 @@ export const Addresses = ({ account }) => {
     const validation = useCallback(() => {
         const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
         const checkState = formData.state === "" && states.length > 0 ? false : true;
-        formData.mobileNumber !== "" && phoneCheck && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
+        formData.mobileNumber !== "" && phoneCheck && formData.address1 !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
     }, [formData, states]);
 
     const handleMakeDefaultAddress = (address) => {
@@ -81,7 +83,9 @@ export const Addresses = ({ account }) => {
         setSelectedAddress(address);
         setFormData({
             mobileNumber: address.details.mobileNumber,
-            address: address.details.address,
+            // address: address.details.address,
+            address1: address.details.address1,
+            address2: address.details.address2,
             company: address.details.company,
             city: address.details.city,
             postalCode: address.details.postalCode,
@@ -242,12 +246,26 @@ export const Addresses = ({ account }) => {
                     <div className="row">
                         <div className="col">
                             <div className="password-input form-group">
-                                <label htmlFor="address">Address</label>
+                                <label htmlFor="address">Address 1</label>
                                 <Input
-                                    label="Address"
-                                    name="address"
+                                    label="Address 1"
+                                    name="address1"
                                     type="text"
-                                    value={formData.address}
+                                    value={formData.address1}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <div className="password-input form-group">
+                                <label htmlFor="address">Address 2</label>
+                                <Input
+                                    label="Address 2"
+                                    name="address2"
+                                    type="text"
+                                    value={formData.address2}
                                     onChange={handleChange}
                                 />
                             </div>

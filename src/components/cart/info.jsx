@@ -14,7 +14,9 @@ const initialFormData = {
     // familyName: "",
     // email: "",
     mobileNumber: "",
-    address: "",
+    // address: "",
+    address1: "",
+    address2: "",
     company: "",
     city: "",
     state: "",
@@ -164,7 +166,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
     const validation = useCallback(() => {
         const phoneCheck = formatPhoneNumberIntl(formData.mobileNumber) && isPossiblePhoneNumber(formData.mobileNumber) ? true : false;
         const checkState = formData.state === "" && states.length > 0 ? false : true;
-        formData.mobileNumber !== "" && phoneCheck && formData.address !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
+        formData.mobileNumber !== "" && phoneCheck && formData.address1 !== "" && formData.city !== "" && formData.postalCode !== "" && formData.country !== "" && checkState ? setDisabled(false) : setDisabled(true);
     }, [formData, states])
 
     useEffect(() => {
@@ -191,7 +193,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                             <div className="d-flex align-items-center info-container">
                                                 <div className="info">
                                                     {/* {item.details.givenName +  " " + item?.details?.familyName} */}
-                                                    <p>{item.details?.address +  " " + item.details?.city +  " " + item.details?.state +  " " + item.details?.postalCode}</p>
+                                                    <p>{item.details?.address +  " " + item.details?.city +  " " + (item.details?.state || "") +  " " + item.details?.postalCode}</p>
                                                     <p>{item.details?.mobileNumber}</p>
                                                     <div className="d-flex align-items-center name">{defaultAddress?.addressId === item?.addressId && <div className="default">Default</div>}</div>
                                                     {/* <p>{item.details.email}</p> */}
@@ -230,7 +232,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                         </li>
                         <li>
                             <img src={require("../../assets/img/mdi_map-marker.svg")} alt="" />
-                            <span>{selectedShipping?.details?.address + ' ' + selectedShipping?.details?.city + ' ' + selectedShipping?.details?.state + ' ' + selectedShipping?.details?.postalCode} {defaultAddress?.addressId === selectedShipping?.addressId && <span className="default">Default</span>}</span>
+                            <span>{selectedShipping?.details?.address + ' ' + selectedShipping?.details?.city + ' ' + (selectedShipping?.details?.state || "") + ' ' + selectedShipping?.details?.postalCode} {defaultAddress?.addressId === selectedShipping?.addressId && <span className="default">Default</span>}</span>
                         </li>
                         <li>
                             <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
@@ -262,7 +264,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                                                 <div className="d-flex align-items-center info-container">
                                                     <div className="info">
                                                         {/* {item.details.givenName +  " " + item?.details?.familyName} */}
-                                                        <p>{item.details?.address +  " " + item.details?.city +  " " + item.details?.state +  " " + item.details?.postalCode}</p>
+                                                        <p>{item.details?.address +  " " + item.details?.city +  " " + (item.details?.state || "") +  " " + item.details?.postalCode}</p>
                                                         <p>{item.details?.mobileNumber}</p>
                                                         {/* <p>{item.details.email}</p> */}
                                                         <div className="d-flex align-items-center name">{defaultAddress?.addressId === item?.addressId &&  <div className="default">Default</div>}</div>
@@ -307,7 +309,7 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                         </li> */}
                         <li>
                             <img src={require("../../assets/img/mdi_map-marker.svg")} alt="" />
-                            <span>{selectedBilling?.details?.address + ' ' + selectedBilling?.details?.city + ' ' + selectedBilling?.details?.state + ' ' + selectedBilling?.details?.postalCode} {defaultAddress?.addressId === selectedBilling?.addressId && <span className="default">Default</span>}</span>
+                            <span>{selectedBilling?.details?.address + ' ' + selectedBilling?.details?.city + ' ' + (selectedBilling?.details?.state || "") + ' ' + selectedBilling?.details?.postalCode} {defaultAddress?.addressId === selectedBilling?.addressId && <span className="default">Default</span>}</span>
                         </li>
                         <li>
                             <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
@@ -354,12 +356,26 @@ export const CheckoutInfo = ({cart, selectedShipping, setSelectedShipping, selec
                             <div className="row">
                                 <div className="col">
                                     <div className="password-input form-group">
-                                        <label htmlFor="address">Address</label>
+                                        <label htmlFor="address">Address 1</label>
                                         <Input
-                                            label="Address"
-                                            name="address"
+                                            label="Address 1"
+                                            name="address1"
                                             type="text"
-                                            value={formData.address}
+                                            value={formData.address1}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col">
+                                    <div className="password-input form-group">
+                                        <label htmlFor="address">Address 2</label>
+                                        <Input
+                                            label="Address 2"
+                                            name="address2"
+                                            type="text"
+                                            value={formData.address2}
                                             onChange={handleChange}
                                         />
                                     </div>

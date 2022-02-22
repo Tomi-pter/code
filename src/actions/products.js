@@ -2,9 +2,9 @@ import { GETPRODUCTS, ERRORGETPRODUCTS, GETSEARCH, REQUESTPRICE, GETREQUESTPRICE
 
 import * as api from '../api/index.js';
 
-export const getProducts = (name, category, sortBy, sortOrder, page) => async(dispatch) => {
+export const getProducts = (name, category, sortBy, sortOrder, page, stockSort) => async(dispatch) => {
     try {
-        const { data } = await api.getProducts(name, category, sortBy, sortOrder, page);
+        const { data } = await api.getProducts(name, category, sortBy, sortOrder, page, stockSort);
         dispatch({ type: GETPRODUCTS, payload: data });
 
     } catch (error) {
@@ -13,10 +13,10 @@ export const getProducts = (name, category, sortBy, sortOrder, page) => async(di
     }
 };
 
-export const getFavoriteProducts = (username, name, sortBy, sortOrder, page) => async(dispatch) => {
+export const getFavoriteProducts = (username, name, sortBy, sortOrder, page, stockSort) => async(dispatch) => {
     try {
 
-        const { data } = await api.getFavoriteProducts(username, name, sortBy, sortOrder, page);
+        const { data } = await api.getFavoriteProducts(username, name, sortBy, sortOrder, page, stockSort);
 
         dispatch({ type: GETPRODUCTS, payload: data });
 

@@ -25,6 +25,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const [order, setOrder] = useState('ASC')
   const [pageNumber, setPageNumber] = useState(1)
   const [quantity, setQuantity] = useState(1)
+  const [sortStock, setSortStock] = useState(true)
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
   const totalPageCount = Math.ceil(products?.count / 12);
@@ -72,6 +73,17 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     }
     // dispatch(getProducts(null, category, filter, order, null));
     setSortBy(value);
+  }
+
+  const handleSortCheck = (e) => {
+    let value = e.target.checked || null
+    setIsLoading(true)
+    if (category === 'Favorites') {
+      dispatch(getFavoriteProducts(user?.username, null, filter, order, null, value))
+    } else {
+      dispatch(getProducts(null, category, filter, order, null, value))
+    }
+    setSortStock(value)
   }
 
   const handlePageClick = (data) => {
@@ -158,9 +170,9 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setPageNumber(1)
     if (category !== '' && page === 'shop') {
       if (category === 'Favorites') {
-        dispatch(getFavoriteProducts(user?.username, null, 'name', 'ASC', 1))
+        dispatch(getFavoriteProducts(user?.username, null, 'name', 'ASC', 1, sortStock))
       } else {
-        dispatch(getProducts(name, category, 'name', 'ASC', 1))
+        dispatch(getProducts(name, category, 'name', 'ASC', 1, sortStock))
       }
     }
   }, [category])
@@ -219,6 +231,11 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                 <span className="dropdown-item" onClick={() => {setSorting('price', 'DESC', '$ High - Low')}}>
                 $ High - Low
                 </span>
+                <hr/>
+                <div className="flex align-items-center dropdown-item">
+                  <input className="mr-2" type="checkbox" id="sortStock" name="sortStock" defaultChecked={sortStock} onChange={handleSortCheck} />
+                  <label className="mb-0" for="sortStock"> Stock</label>
+                </div>
               </div>
             </div>
           </div>

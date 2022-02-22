@@ -38,8 +38,8 @@ export const deleteAddressesById = (username, id) => API.delete(`/user/${usernam
 export const updateAddressesById = (username, id, formData) => API.put(`/user/${username}/addresses/${id}`, formData);
 export const makeDefaultAddress = (username, id) => API.put(`/user/${username}/addresses/${id}/default`);
 
-export const getProducts = (name, category, sortBy, sortOrder, page) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (sortBy ? `&sortBy=${sortBy}&order=${sortOrder}` : '') + (page ? `&page=${page}` : ''));
-export const getFavoriteProducts = (username, name, sortBy, sortOrder, page) => API.get(`/products/${username}/favorites` + (sortBy || page || name ? '?' : '') + (name ? `name=${name}` : '') + (name && sortBy ? '&' : '')  + (sortBy ? `sortBy=${sortBy}&order=${sortOrder}` : '') + (sortBy && page ? '&' : '') + (page ? `page=${page}` : ''));
+export const getProducts = (name, category, sortBy, sortOrder, page, stockSort) => API.get("/products?" + (name ? `name=${name}` : '') + (category ? `category=${category}` : '') + (sortBy ? `&sortBy=${sortBy}&order=${sortOrder}` : '') + (page ? `&page=${page}` : '') + (stockSort ? '&stockSort=true' : '&stockSort=false'));
+export const getFavoriteProducts = (username, name, sortBy, sortOrder, page, stockSort) => API.get(`/products/${username}/favorites` + (sortBy || page || name ? '?' : '') + (name ? `name=${name}` : '') + (name && sortBy ? '&' : '')  + (sortBy ? `sortBy=${sortBy}&order=${sortOrder}` : '') + (sortBy && page ? '&' : '') + (page ? `page=${page}` : '') + (stockSort ? '&stockSort=true' : '&stockSort=false'));
 export const getProduct = (id) => API.get(`/products/${id}`);
 export const getRequestPrice = (username) => API.get(`/user/${username}/request-pricing`);
 export const requestPrice = (username, formData) => API.post(`/user/${username}/request-pricing`, formData);

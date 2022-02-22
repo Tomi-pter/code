@@ -19,7 +19,7 @@ export const PaymentContainer = () => {
     const [selectedCard, setSelectedCard] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState('terms');
-    const [enablePayByTerms, setEnablePayByTerms] = useState(false);
+    // const [enablePayByTerms, setEnablePayByTerms] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -55,12 +55,12 @@ export const PaymentContainer = () => {
         if (!cart?.checkoutDetail) history.push("/checkout");
     },[cart]);
 
-    useEffect(()=>{
-        const paymentTerms = account?.netsuiteAccountData?.terms?.refName?.toLowerCase();
-        if (paymentTerms?.includes("net")) {
-            setEnablePayByTerms(true);
-        }
-    },[account]);
+    // useEffect(()=>{
+    //     const paymentTerms = account?.netsuiteAccountData?.terms?.refName?.toLowerCase();
+    //     if (paymentTerms?.includes("net")) {
+    //         setEnablePayByTerms(true);
+    //     }
+    // },[account]);
 
     return (
         <>
@@ -102,7 +102,7 @@ export const PaymentContainer = () => {
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"<"}<span> Checkout</span></Link>
                                 {/* disabled={enablePayByTerms ? false : true} */}
-                                <button className="btn proceed-btn" onClick={()=>handlePayment("term")}  disabled={enablePayByTerms ? false : true}>
+                                <button className="btn proceed-btn" onClick={()=>handlePayment("term")}>
                                     {isLoading ?
                                         <div className="spinner-border text-light" role="status">
                                             <span className="sr-only">Loading...</span>

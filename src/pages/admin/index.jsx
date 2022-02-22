@@ -286,7 +286,7 @@ export const AdminDashboard = () => {
                                             {user.awsNetsuiteId ?
                                                 <div className="text-info">Linked</div>
                                                 :
-                                                <button className="btn btn-secondary" onClick={()=>handleLinkUser(user)}>
+                                                <button className="btn btn-secondary" onClick={()=>handleLinkUser(user)} disabled={(!user.netsuiteId || user.netsuiteId === "") ? true : false}>
                                                     {
                                                         linkLoading && user.username === selectedUser ?
                                                         <div className="spinner-border text-light spinner-border-sm" role="status">

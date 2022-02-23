@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { DiscountForm } from './discountForm';
 
 import { checkout } from '../../actions/cart';
 
-export const OrderSummary = ({ selectedShipping, selectedBilling, cart, page }) => {
+export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
+    const cart = useSelector((state) => state.cart);
     const [discountCode, setDiscountCode] = useState('');
     const dispatch = useDispatch();
     const history = useHistory();

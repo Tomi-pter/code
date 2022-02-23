@@ -3,10 +3,10 @@ import * as actionType from '../constants/actionTypes';
 const cartReducer = (state = { cartData: [] }, action) => {
     switch (action.type) {
         case actionType.UPDATECART:
-        
+          
           return { ...state, cartData: action.payload, countData: action.payload };
         case actionType.UPDATECOUNT:
-        
+          
           return { ...state, countData: action.payload, cartData: action.payload };
         case actionType.CHECKOUTCART:
 

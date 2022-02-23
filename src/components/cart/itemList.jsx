@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { updateCart, removeCart } from '../../actions/cart';
 
 import NoImage from '../../assets/img/unavailable.svg'
 
-export const ItemList = ({ cart, page }) => {
+export const ItemList = ({ page }) => {
     const user = JSON.parse(localStorage.getItem('profile'));
+    const cart = useSelector((state) => state.cart);
     const [selectedItem, setSelectedItem] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -72,9 +74,9 @@ export const ItemList = ({ cart, page }) => {
                             {
                                 page === 'cart' &&
                                 <div className="d-flex justify-content-end action-container">
-                                    <a className="delete-btn" href="#!" onClick={() => handleDelete(cartItem)}>
+                                    <div className="delete-btn" onClick={() => handleDelete(cartItem)}>
                                         <img src={require("../../assets/img/delete_icon.svg")} alt="" />
-                                    </a>
+                                    </div>
                                 </div>
                             }
                             <div className="details-container">

@@ -25,6 +25,8 @@ export const HeaderNav = () => {
     const search = useSelector((state) => state.search);
     const avatar = useSelector((state) => state.account.avatarData);
     const [formData, setFormData] = useState({});
+    const [searchName, setSearchName] = useState('');
+    const [searchLoading, setSearchLoading] = useState(false);
     const [searchResults, setsearchResults] = useState(null);
     const [searchActive, setSearchActive] = useState();
     const searchInput = useRef(null);
@@ -63,25 +65,26 @@ export const HeaderNav = () => {
     };
 
     const handleChange = (e) => {
+        setSearchLoading(true)
         var element = document.getElementById("resultBox");
         if(element) element.style.display = "block"
-
         setFormData({ [e.target.name]: e.target.value })
-        if (e.target.value !== "") {
-            setsearchResults(null);
-            dispatch(getSearch(e.target.value));
-        }
+        setSearchName(e.target.value)
+        // if (e.target.value !== "") {
+        //     setsearchResults(null);
+        //     dispatch(getSearch(e.target.value));
+        // }
     };
 
 
     const handleChangeMobile = (e) => {
+        setSearchLoading(true)
         var element = document.getElementById("resultBoxMobile");
         if (element) element.style.display = "block"
         setFormData({ [e.target.name]: e.target.value })
-        if (e.target.value !== "") {
-            setsearchResults(null);
-            dispatch(getSearch(e.target.value));
-        }
+        setSearchName(e.target.value)
+        // setsearchResults(null);
+        // dispatch(getSearch(e.target.value));
     };
 
     const handleMouseEnter = () => {
@@ -126,7 +129,22 @@ export const HeaderNav = () => {
 
     useEffect(() => {
         setsearchResults(search);
+        setSearchLoading(false);
     }, [search])
+
+    useEffect(() => {
+        let changeTimer;
+        if (searchName !== "") {
+            changeTimer = setTimeout(() => {
+                setsearchResults(null);
+                dispatch(getSearch(searchName));
+            }, 5000)
+        }
+
+        return () => {
+            clearTimeout(changeTimer)
+        }
+    }, [searchName])
 
     // useEffect(() => {
     //     const cartIFrame = document.getElementById('hidden-iframe');
@@ -188,11 +206,22 @@ export const HeaderNav = () => {
                                 </form>
                                 {formData.name && formData.name !== '' &&
                                     <ul id="resultBox" className='results'>
-                                        { searchResults?.products?.length > 0 ? searchResults?.products?.map(searchResult => (
+                                            { 
+                                            searchLoading ? 
+                                            <li> 
+                                                <div className="spinner-container d-flex align-items-center justify-content-center">
+                                                    <div className="spinner-border text-primary" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            :
+                                            searchResults?.products?.length > 0 ? searchResults?.products?.map(searchResult => (
                                             <li key={searchResult.id} onClick={() => searchRedirect(searchResult.id)}>
                                                 <p >{searchResult.displayname}</p>
                                             </li>
-                                            )) : <li><p>Product Not Found</p></li>
+                                            )) : 
+                                            <li><p>Product Not Found</p></li>
                                         }
                                     </ul>
                                 }
@@ -270,10 +299,19 @@ export const HeaderNav = () => {
                                 {formData.name && formData.name !== '' &&
                                     <ul id="resultBoxMobile" className='results'>
                                         {
+                                            searchLoading ? 
+                                                <li> 
+                                                <div className="spinner-container d-flex align-items-center justify-content-center">
+                                                        <div className="spinner-border text-primary" role="status">
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            :
                                             search?.products?.length > 0 ?
                                             search?.products?.map(searchResult => (
-                                                <li key={searchResult.id}>
-                                                    <p onClick={() => { searchRedirect(searchResult.id) }}>{searchResult.name}</p>
+                                                <li key={searchResult.id} onClick={() => { searchRedirect(searchResult.id) }}>
+                                                    <p>{searchResult.displayname}</p>
                                                 </li>
                                             ))
                                             :

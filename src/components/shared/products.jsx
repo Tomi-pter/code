@@ -26,6 +26,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const [pageNumber, setPageNumber] = useState(1)
   const [quantity, setQuantity] = useState(1)
   const [sortStock, setSortStock] = useState(true)
+  const [search, setSearch] = useState('');
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
   const totalPageCount = Math.ceil(products?.count / 12);
@@ -105,8 +106,26 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   const handleSearchFav = (e) => {
     setIsLoading(true)
     const searchNDC = e.target.value.replaceAll("-", "");
-    dispatch(getFavoriteProducts(user?.username, searchNDC, filter, order, 1))
+    setSearch(searchNDC)
   };
+
+  useEffect(() => {
+    let changeTimer;
+    if (search !== "" && isLoading) {
+        changeTimer = setTimeout(() => {
+          dispatch(getFavoriteProducts(user?.username, search, filter, order, 1))
+        }, 5000)
+    }
+    if (search === "" && isLoading) {
+      changeTimer = setTimeout(() => {
+        dispatch(getFavoriteProducts(user?.username, null, 'name', 'ASC', 1, sortStock))
+      }, 5000)
+    }
+
+    return () => {
+        clearTimeout(changeTimer)
+    }
+}, [search])
 
   const handleRequestPrice = (product) => {
     const user = JSON.parse(localStorage.getItem('profile'))
@@ -183,6 +202,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
   }, [name])
 
   useEffect(() => {
+    setIsLoading(true)
     const user = JSON.parse(localStorage.getItem('profile'))
     dispatch(getCart(user?.username))
     dispatch(getCustomProducts(user?.username))

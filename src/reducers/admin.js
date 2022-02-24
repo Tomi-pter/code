@@ -18,7 +18,7 @@ import
     UPDATEUSERNETSUITEID
 } from '../constants/actionTypes';
 
-const adminReducer = (state = { users: [], customProducts: [] }, action) => {
+const adminReducer = (state = { users: [], customProducts: null }, action) => {
   switch (action.type) {
     case GETUSERS:
 

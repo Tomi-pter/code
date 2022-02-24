@@ -16,6 +16,7 @@ import { getCart, getCount } from '../../actions/cart';
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import { getAvatar } from '../../actions/account';
 import { getSearch } from '../../actions/products';
+import { getCustomProducts } from '../../actions/admin'
 import PPLogo from '../../assets/img/pp-logo.svg';
 
 export const HeaderNav = () => {
@@ -125,6 +126,10 @@ export const HeaderNav = () => {
             sendWPData();
         }
         setFormData({...formData, name: ''})
+
+        if (location.pathname === '/shop' || location.pathname === '/search' || location.pathname.includes('/product')) {
+            dispatch(getCustomProducts(localUser?.username))
+        }
     }, [location]);
 
     useEffect(() => {

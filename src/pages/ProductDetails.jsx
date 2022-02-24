@@ -81,24 +81,18 @@ export default props => {
     }
 
     useEffect(() => {
-        if (products.products?.length > 0 && admin?.customProducts?.length > 0) {
+        if (products.products?.length > 0 && admin?.customProducts) {
 
-            const customProductLookup = admin.customProducts.reduce((prods, prod) => {
-                 prods[prod.productId] = prod;
+            const productsWithCustomPrice = products?.products.map(prod => {
+                if (admin.customProducts[prod.id]) {
+                    prod.cost = admin.customProducts[prod.id];
+                    prod.favorite = true
+                }
 
-                 return prods;
-             }, {});
+                return { ...prod }
+            })
 
-             const productsWithCustomPrice = products.products.map(prod => {
-                 if (customProductLookup[prod.id] !== undefined) {
-                     prod.purchasePrice = customProductLookup[prod.id].price;
-                     prod.favorite = true
-                 }
-
-                 return { ...prod }
-             })
-
-             setCustomProducts(productsWithCustomPrice);
+            setCustomProducts(productsWithCustomPrice);
         } else {
             setCustomProducts(products.products);
         }
@@ -154,7 +148,7 @@ export default props => {
                                         }
                                     </p>
                                     {product?.favorite ?
-                                        <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.cost)}</h2>
+                                        <h2 className="price">${formatPrice(product?.cost)}</h2>
                                         :
                                         handleRequestedCheck(product?.ndc) ? 
                                             <p style={{ margin: '20px 0', color: 'green' }}>
@@ -219,7 +213,7 @@ export default props => {
                                             product?.favorite ?
                                                 <>
                                                     <div className="d-flex align-items-center justify-container-center">
-                                                        <h2 className="price">${customProducts && customProducts.length > 0 ? formatPrice(customProducts[0].purchasePrice) : formatPrice(product?.cost)}</h2>
+                                                        <h2 className="price">${formatPrice(product?.cost)}</h2>
                                                         {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
                                                     </div>
                                                     <div className="d-flex align-items-center justify-container-center qty-container">

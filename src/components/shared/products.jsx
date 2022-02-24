@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Product } from './product'
 import { useDispatch } from 'react-redux'
 import { getCart, addCart } from '../../actions/cart'
-import { getCustomProducts } from '../../actions/admin'
+// import { getCustomProducts } from '../../actions/admin'
 import { useSelector } from 'react-redux'
 import { getProducts, getFavoriteProducts, requestPrice, getRequestPrice } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
@@ -118,7 +118,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     }
     if (search === "" && isLoading) {
       changeTimer = setTimeout(() => {
-        dispatch(getFavoriteProducts(user?.username, null, 'name', 'ASC', 1, sortStock))
+        dispatch(getFavoriteProducts(user?.username, null, filter, order, 1, sortStock))
       }, 5000)
     }
 
@@ -142,16 +142,10 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
       if (category === 'Favorites') {
         setCustomProducts(products?.products);
       } else {
-        if (products?.products?.length > 0 && admin?.customProducts?.length > 0) {
-            const customProductLookup = admin.customProducts.reduce((prods, prod) => {
-                prods[prod.productId] = prod;
-
-                return prods;
-            }, {});
-
+        if (products?.products?.length > 0 && admin?.customProducts) {
             const productsWithCustomPrice = products?.products.map(prod => {
-                if (customProductLookup[prod.id] !== undefined) {
-                    prod.purchasePrice = customProductLookup[prod.id].price;
+                if (admin.customProducts[prod.id]) {
+                    prod.cost = admin.customProducts[prod.id];
                     prod.favorite = true
                 }
 
@@ -189,9 +183,9 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setPageNumber(1)
     if (category !== '' && page === 'shop') {
       if (category === 'Favorites') {
-        dispatch(getFavoriteProducts(user?.username, null, 'name', 'ASC', 1, sortStock))
+        dispatch(getFavoriteProducts(user?.username, null, filter, order, 1, sortStock))
       } else {
-        dispatch(getProducts(name, category, 'name', 'ASC', 1, sortStock))
+        dispatch(getProducts(name, category, filter, order, 1, sortStock))
       }
     }
   }, [category])
@@ -205,7 +199,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setIsLoading(true)
     const user = JSON.parse(localStorage.getItem('profile'))
     dispatch(getCart(user?.username))
-    dispatch(getCustomProducts(user?.username))
     dispatch(getRequestPrice(user?.username))
   }, [])
 

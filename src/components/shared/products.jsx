@@ -114,12 +114,12 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     if (search !== "" && isLoading) {
         changeTimer = setTimeout(() => {
           dispatch(getFavoriteProducts(user?.username, search, filter, order, 1))
-        }, 5000)
+      }, 1000)
     }
     if (search === "" && isLoading) {
       changeTimer = setTimeout(() => {
         dispatch(getFavoriteProducts(user?.username, null, filter, order, 1, sortStock))
-      }, 5000)
+    }, 1000)
     }
 
     return () => {
@@ -158,7 +158,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         }
       }
       setTotalProduct(products?.count)
-      
+
       if (products.requestedProductPrice) {
         setRequestedProductPrice(products.requestedProductPrice)
       }

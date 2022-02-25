@@ -143,7 +143,7 @@ export const HeaderNav = () => {
             changeTimer = setTimeout(() => {
                 setsearchResults(null);
                 dispatch(getSearch(searchName));
-            }, 5000)
+            }, 1000)
         }
 
         return () => {
@@ -211,9 +211,9 @@ export const HeaderNav = () => {
                                 </form>
                                 {formData.name && formData.name !== '' &&
                                     <ul id="resultBox" className='results'>
-                                            { 
-                                            searchLoading ? 
-                                            <li> 
+                                            {
+                                            searchLoading ?
+                                            <li>
                                                 <div className="spinner-container d-flex align-items-center justify-content-center">
                                                     <div className="spinner-border text-primary" role="status">
                                                         <span className="sr-only">Loading...</span>
@@ -225,7 +225,7 @@ export const HeaderNav = () => {
                                             <li key={searchResult.id} onClick={() => searchRedirect(searchResult.id)}>
                                                 <p >{searchResult.displayname}</p>
                                             </li>
-                                            )) : 
+                                            )) :
                                             <li><p>Product Not Found</p></li>
                                         }
                                     </ul>
@@ -304,8 +304,8 @@ export const HeaderNav = () => {
                                 {formData.name && formData.name !== '' &&
                                     <ul id="resultBoxMobile" className='results'>
                                         {
-                                            searchLoading ? 
-                                                <li> 
+                                            searchLoading ?
+                                                <li>
                                                 <div className="spinner-container d-flex align-items-center justify-content-center">
                                                         <div className="spinner-border text-primary" role="status">
                                                             <span className="sr-only">Loading...</span>

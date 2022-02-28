@@ -4,6 +4,42 @@ import NoImage from '../../assets/img/unavailable.svg'
 
 import { Link } from 'react-router-dom'
 
+const renderActionButton = (totalQuantityOnHand, selectedProduct, product, quantity, handleChange, addCart, isCartLoading) => {
+    if (totalQuantityOnHand <= 0) {
+        return <div className="buy-container d-flex">
+            <button style={{ minWidth: '140px'}}>
+                Contact Rep
+            </button>
+        </div>
+    }
+
+    return <div className="buy-container d-flex">
+            <input
+                className="qty for-list mr-2"
+                type="number"
+                min="1"
+                placeholder="1"
+                value={selectedProduct === product ? quantity : 1}
+                onChange={handleChange}
+            />
+            <button
+                className={
+                    'cart-btn ' +
+                    (selectedProduct === product && isCartLoading ? 'adding' : '')
+                }
+                onClick={() => addCart(product)}
+            >
+                {
+                    selectedProduct === product && isCartLoading
+                    ? <div className="spinner-border text-light" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                    : <></>
+                }
+            </button>
+        </div>
+}
+
 export const Product = ({
   view,
   product,
@@ -49,13 +85,13 @@ export const Product = ({
       const lastRequest = new Date(requestedCheck[0]?.lastRequested);
       const hour= 1000 * 60 * 60;
       const hourago = Date.now() - (hour * 24);
-  
+
       return lastRequest > hourago;
     } else {
       return false
     }
   }
-  
+
   return (
     <div className={view === 'list' ? ' col-12' : 'col-12 col-md-6 col-lg-4'}>
       <div
@@ -77,7 +113,7 @@ export const Product = ({
             <div className="header-name-wrapper">
               <p className="flex-fill list-header-name">
                 {product.displayname}
-                {(!product?.totalquantityonhand || product?.totalquantityonhand === "" || product?.totalquantityonhand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
+                {(!product?.totalquantityonhand || product?.totalquantityonhand === "" || product?.totalquantityonhand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock.</span>}
               </p>
             </div>
 
@@ -104,12 +140,12 @@ export const Product = ({
               {shopFont ? (
                   <p style={{ fontSize: '11.4183px !important' }}>
                     {product.displayname}
-                    {(!product?.totalquantityonhand || product?.totalquantityonhand === "" || product?.totalquantityonhand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
+                    {(!product?.totalquantityonhand || product?.totalquantityonhand === "" || product?.totalquantityonhand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock.</span>}
                   </p>
               ) : (
                   <p className="name">
                     {product.displayname}
-                    {(!product?.totalquantityonhand || product?.totalquantityonhand === "" || product?.totalquantityonhand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock. Please call for availability.</span>}
+                    {(!product?.totalquantityonhand || product?.totalquantityonhand === "" || product?.totalquantityonhand === "0.0") && <span style={{color: "red", fontSize: "12px"}}><br /> Item is out of stock.</span>}
                   </p>
               )}
               {view !== 'list' &&
@@ -150,56 +186,20 @@ export const Product = ({
                     </Link>{' '}
                     for Price
                   </span>
-                ) : (
-                  (selectedCategory === 'Favorites' || product.favorite) ?
+                ) :
                   <>$ { product.cost % 1 === 0 ? parseInt(product.cost) : product.cost }</>
-                  :
-                  handleRequestedCheck(product.ndc) ? 
-                  <span style={{ fontSize: '12.3295px', color: 'green' }}>
-                    Request Sent
-                  </span>
-                  :
-                  requestLoading && selectedProduct === product ? 
-                  <span style={{ fontSize: '12.3295px' }}>Requesting...</span>
-                  :
-                  <span style={{ fontSize: '12.3295px', textDecoration: 'underline', color: 'black', cursor: 'pointer' }} onClick={()=>requestPrice(product)}>
-                    Request for Price
-                  </span>
-                )}
+                }
               </p>
             </div>
             {auth ? (
               selectedCategory === 'Favorites' &&
               <>
-                <div className="buy-container d-flex">
-                  <input
-                    className="qty for-list mr-2"
-                    type="number"
-                    min="1"
-                    placeholder="1"
-                    value={selectedProduct === product ? quantity : 1}
-                    onChange={handleChange}
-                  />
-                  <button
-                    className={
-                      'cart-btn ' +
-                      (selectedProduct === product && isCartLoading ? 'adding' : '')
-                    }
-                    onClick={() => addCart(product)}
-                  >
-                    {selectedProduct === product && isCartLoading ? (
-                      <div className="spinner-border text-light" role="status">
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </button>
-
-                  </div>
+                  {
+                      renderActionButton(product?.totalquantityonhand, selectedProduct, product, quantity, handleChange, addCart, isCartLoading)
+                  }
                   <div className={'header-price-wrapper ' + (view === "list" ? 'header-price-wrapper-show' : 'd-none')}>
-                  <p className="list-header-price">$ {product.cost % 1 === 0 ? parseInt(product.cost) : product.cost}</p>
-                </div>
+                       <p className="list-header-price">$ {product.cost % 1 === 0 ? parseInt(product.cost) : product.cost}</p>
+                  </div>
               </>
            ) : (
               <>

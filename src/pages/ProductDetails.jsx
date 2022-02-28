@@ -73,11 +73,38 @@ export default props => {
           const lastRequest = new Date(requestedCheck[0]?.lastRequested);
           const hour= 1000 * 60 * 60;
           const hourago = Date.now() - (hour * 24);
-      
+
           return lastRequest > hourago;
         } else {
           return false
         }
+    }
+
+    const renderActionButton = (totalQuantityOnHand, quantity, setQuantity, handleAddCart, isLoading) => {
+        if (totalQuantityOnHand <= 0) {
+            return <button className="cart-btn">
+                Contact Sales Rep
+            </button>
+        }
+
+        return <>
+            <div className="d-flex align-items-center justify-container-center qty-container">
+                <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
+                <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
+                <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
+            </div>
+            <div className="d-flex align-items-center">
+                <button className="cart-btn" onClick={()=>handleAddCart()}>
+                    {isLoading ?
+                        <div className="spinner-border text-light" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                        :
+                        <>Add to cart</>
+                    }
+                </button>
+            </div>
+        </>
     }
 
     useEffect(() => {
@@ -131,37 +158,20 @@ export default props => {
                 <div className="container content">
                     {!products.errorGetProducts && product &&
                         <div className="d-block d-lg-flex align-items-start">
-                            {/* <div className={"details-container card " + (product?.customFields[staging ? 19 : 10] && product?.customFields[staging ? 19 : 10].value  === 'Pharmaceuticals' ?  'pharma-product' : product?.customFields[staging ? 19 : 10].value === 'Animal Health' ? 'vet-product' : 'medsurg-product')}> */}
                             <div className={"details-container card " + (product?.category ? 'pharma-product' : 'pharma-product')}>
                                 <div className="img-container">
                                 <img src={product.url  ? product.url : NoImage} alt="" />
                                 </div>
-
                                 <div className="d-block d-lg-none">
-
                                     <h3 className="name">{product?.displayname}</h3>
                                     <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ? '' : 'no-stock')}>
-                                        {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ?
+                                        {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ?
                                             ''
                                         :
-                                            "Item is out of stock. Please call for availability."
+                                            "Item is out of stock."
                                         }
                                     </p>
-                                    {product?.favorite ?
-                                        <h2 className="price">${formatPrice(product?.cost)}</h2>
-                                        :
-                                        handleRequestedCheck(product?.ndc) ? 
-                                            <p style={{ margin: '20px 0', color: 'green' }}>
-                                                Request Sent
-                                            </p>
-                                        :
-                                        requestLoading ?
-                                            <p style={{ margin: '20px 0' }}>Requesting...</p>
-                                        :
-                                            <p style={{ textDecoration: 'underline', color: 'black', cursor: 'pointer', margin: '20px 0' }} onClick={()=>handleRequestPrice(product)}>
-                                                Request for Price
-                                            </p>
-                                    }
+                                    <h2 className="price">${formatPrice(product?.cost)}</h2>
                                 </div>
 
                                 <p>Description: </p>
@@ -170,13 +180,9 @@ export default props => {
                                     {product.displayname}
                                 </p>
                                 <ul>
-                                    {/* <li>Item #: {product.customFields[13] && product.customFields[13].value ? product.customFields[13].value : 'N/A'}</li> */}
                                     <li>Item #: {product?.productNumber || 'N/A'}</li>
                                     <li>NDC:  {product?.ndc}</li>
-                                    {/* <li>Manufacturer:  {product.customFields[staging ? 15 : 3].value ? product.customFields[staging ? 15 : 3].value : 'N/A'}</li>
-                                    <li>Size:  {product.customFields[staging ? 17 : 6].value ? product.customFields[staging ? 17 : 6].value : 'N/A'}</li>
-                                    <li>Strength: {product.customFields[staging ? 18 : 9].value ? product.customFields[staging ? 18 : 9].value : 'N/A' }</li> */}
-                                     <li>Manufacturer:  {product?.manufacturer || 'N/A'}</li>
+                                    <li>Manufacturer:  {product?.manufacturer || 'N/A'}</li>
                                     <li>Size:  {product?.bottleSize || 'N/A'}</li>
                                     <li>Strength: {product?.drugStrength || 'N/A' }</li>
                                 </ul>
@@ -191,7 +197,6 @@ export default props => {
                                             <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                                         </div>
                                         <button className="cart-btn">Add to cart</button>
-
                                     </>
                                     : ''
                                 :
@@ -202,49 +207,29 @@ export default props => {
                             <div className="right-col">
                                 <div className="card d-none d-lg-block">
                                     <h3 className="name">{product?.displayname}</h3>
-                                    <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ? '' : 'no-stock')}>
-                                        {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ?
+                                    <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ? '' : 'no-stock')}>
+                                        {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ?
                                             ''
                                         :
-                                            "Item is out of stock. Please call for availability."
+                                            "Item is out of stock."
                                         }
                                     </p>
                                     { user ?
-                                            product?.favorite ?
-                                                <>
-                                                    <div className="d-flex align-items-center justify-container-center">
-                                                        <h2 className="price">${formatPrice(product?.cost)}</h2>
-                                                        {incart() > 0 && !isLoading && <span className="incart">{incart()} in cart</span>}
-                                                    </div>
-                                                    <div className="d-flex align-items-center justify-container-center qty-container">
-                                                        <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
-                                                        <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
-                                                        <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
-                                                    </div>
-                                                    <div className="d-flex align-items-center">
-                                                        <button className="cart-btn" onClick={()=>handleAddCart()}>
-                                                            {isLoading ?
-                                                                <div className="spinner-border text-light" role="status">
-                                                                    <span className="sr-only">Loading...</span>
-                                                                </div>
-                                                                :
-                                                                <>Add to cart</>
-                                                            }
-                                                        </button>
-                                                    </div>
-                                                </>
-                                            :
-                                            handleRequestedCheck(product?.ndc) ? 
-                                            <p style={{ color: 'green' }}>
-                                                Request Sent
-                                            </p>
-                                            :
-                                            requestLoading ?
-                                                <p>Requesting...</p>
-                                            :
-                                            <p style={{ textDecoration: 'underline', color: 'black', cursor: 'pointer' }} onClick={()=>handleRequestPrice(product)}>
-                                                Request for Price
-                                            </p>
+                                            <>
+                                                <div className="d-flex align-items-center justify-container-center">
+                                                    <h2 className="price">${formatPrice(product?.cost)}</h2>
+                                                    {
+                                                        incart() > 0
+                                                        && !isLoading
+                                                        && <span className="incart">
+                                                            {incart()} in cart
+                                                        </span>
+                                                    }
+                                                </div>
+                                                {
+                                                    renderActionButton(product?.totalquantityonhand, quantity, setQuantity, handleAddCart, isLoading)
+                                                }
+                                            </>
                                         :
                                             <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
                                     }

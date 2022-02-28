@@ -42,7 +42,7 @@ export const getProducts = (name, category, sortBy, sortOrder, page, stockSort) 
 export const getFavoriteProducts = (username, name, sortBy, sortOrder, page, stockSort) => API.get(`/products/${username}/favorites` + (sortBy || page || name ? '?' : '') + (name ? `name=${name}` : '') + (name && sortBy ? '&' : '')  + (sortBy ? `sortBy=${sortBy}&order=${sortOrder}` : '') + (sortBy && page ? '&' : '') + (page ? `page=${page}` : '') + (stockSort ? '&stockSort=true' : '&stockSort=false'));
 export const getProduct = (id) => API.get(`/products/${id}`);
 export const getRequestPrice = (username) => API.get(`/user/${username}/request-pricing`);
-export const requestPrice = (username, formData) => API.post(`/user/${username}/request-pricing`, formData);
+export const requestStock = (username, formData) => API.post(`/user/${username}/request-stock`, formData);
 
 export const getSearch = (name) => API.get("/products?" + (name ? `name=${name}` : ''));
 

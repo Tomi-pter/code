@@ -11,6 +11,7 @@ export default (props) => {
   const [view, setView] = useState('list');
   const [category, setCategory] = useState('');
   const auth = JSON.parse(localStorage.getItem('profile'));
+  const [isLoading, setIsLoading] = useState(false)
   const location = useLocation();
 
   const selectedCategory = () => {
@@ -36,10 +37,12 @@ export default (props) => {
 
   useEffect(() => {
     selectedCategory()
+    setIsLoading(true)
   }, [location])
 
   useEffect(() => {
     selectedCategory()
+    setIsLoading(true)
   }, [])
 
   return (
@@ -139,6 +142,8 @@ export default (props) => {
                         view={view}
                         setView={setView}
                         category={category}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
                       />
                   </div>
                 </div>

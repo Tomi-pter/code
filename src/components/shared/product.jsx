@@ -4,13 +4,18 @@ import NoImage from '../../assets/img/unavailable.svg'
 
 import { Link } from 'react-router-dom'
 
-const renderActionButton = (totalQuantityOnHand, selectedProduct, product, quantity, handleChange, addCart, isCartLoading) => {
-    if (totalQuantityOnHand <= 0) {
-        return <div className="buy-container d-flex">
-            <button style={{ minWidth: '140px'}}>
-                Contact Rep
+const renderActionButton = (selectedProduct, product, quantity, handleChange, addCart, isCartLoading, requestStock, requestLoading) => {
+    if (product?.totalquantityonhand <= 0) {
+        return <button className="btn btn-primary" style={{ minWidth: '140px', height: '40px'}} onClick={()=>requestStock(product)}>
+                {requestLoading && selectedProduct === product ? 
+                    <div className="spinner-border text-primary mr-0" style={{ width: '20px', height: '20px'}} role="contact rep">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                    : 
+                    'Contact Sales Rep'
+                }
             </button>
-        </div>
+        
     }
 
     return <div className="buy-container d-flex">
@@ -44,7 +49,7 @@ export const Product = ({
   view,
   product,
   addCart,
-  requestPrice,
+  requestStock,
   setSelectedProduct,
   selectedProduct,
   isLoading,
@@ -79,18 +84,18 @@ export const Product = ({
     setQuantity(parseInt(e.target.value))
   }
 
-  const handleRequestedCheck = (ndc) => {
-    const requestedCheck = requestedProductPrice.filter(item => item.ndc === ndc);
-    if (requestedCheck[0]) {
-      const lastRequest = new Date(requestedCheck[0]?.lastRequested);
-      const hour= 1000 * 60 * 60;
-      const hourago = Date.now() - (hour * 24);
+  // const handleRequestedCheck = (ndc) => {
+  //   const requestedCheck = requestedProductPrice.filter(item => item.ndc === ndc);
+  //   if (requestedCheck[0]) {
+  //     const lastRequest = new Date(requestedCheck[0]?.lastRequested);
+  //     const hour= 1000 * 60 * 60;
+  //     const hourago = Date.now() - (hour * 24);
 
-      return lastRequest > hourago;
-    } else {
-      return false
-    }
-  }
+  //     return lastRequest > hourago;
+  //   } else {
+  //     return false
+  //   }
+  // }
 
   return (
     <div className={view === 'list' ? ' col-12' : 'col-12 col-md-6 col-lg-4'}>
@@ -166,17 +171,7 @@ export const Product = ({
             </p>
             <div className="price-container">
               <p className="price">
-                {!auth && shopFont ? (
-                <span style={{ fontSize: '12.3295px' }}>
-                  <Link
-                    to="/login"
-                    style={{ textDecoration: 'underline', color: 'black' }}
-                  >
-                    Login
-                  </Link>{' '}
-                  for Price
-                </span>
-                ) : !auth ? (
+                {(!auth && shopFont || !auth) ? 
                   <span style={{ fontSize: '12.3295px' }}>
                     <Link
                       to="/login"
@@ -186,24 +181,15 @@ export const Product = ({
                     </Link>{' '}
                     for Price
                   </span>
-                ) :
+                :
                   <>$ { product.cost % 1 === 0 ? parseInt(product.cost) : product.cost }</>
                 }
               </p>
             </div>
-            {auth ? (
-              selectedCategory === 'Favorites' &&
-              <>
-                  {
-                      renderActionButton(product?.totalquantityonhand, selectedProduct, product, quantity, handleChange, addCart, isCartLoading)
-                  }
-                  <div className={'header-price-wrapper ' + (view === "list" ? 'header-price-wrapper-show' : 'd-none')}>
-                       <p className="list-header-price">$ {product.cost % 1 === 0 ? parseInt(product.cost) : product.cost}</p>
-                  </div>
-              </>
-           ) : (
-              <>
-               <span style={{ fontSize: '12.3295px' }} className="to-buy">
+            {auth ? 
+              renderActionButton(selectedProduct, product, quantity, handleChange, addCart, isCartLoading, requestStock, requestLoading)
+            :
+              <span style={{ fontSize: '12.3295px' }} className="to-buy">
                     <Link
                       to="/login"
                       style={{ textDecoration: 'underline', color: 'black' }}
@@ -211,10 +197,11 @@ export const Product = ({
                       Login
                     </Link>{' '}
                     to Buy
-                  </span>
-              </>
-            )}
-            <p className={'incart' + (auth && selectedCategory === 'Favorites' ? ' for-list' : ' d-none')} >{incart()}</p>
+              </span>
+            }
+            {
+              product?.totalquantityonhand > 0 && <p className={'incart' + (auth ? ' for-list' : ' d-none')} >{incart()}</p>
+            }
           </div>
         </div>
       </div>

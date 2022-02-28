@@ -1,4 +1,4 @@
-import { GETPRODUCTS, ERRORGETPRODUCTS, GETSEARCH, REQUESTPRICE, GETREQUESTPRICE } from '../constants/actionTypes';
+import { GETPRODUCTS, ERRORGETPRODUCTS, GETSEARCH, REQUESTSTOCK, GETREQUESTPRICE } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -50,11 +50,11 @@ export const getSearch = (name) => async(dispatch) => {
     }
 };
 
-export const requestPrice = (username, formData) => async(dispatch) => {
+export const requestStock = (username, formData) => async(dispatch) => {
     try {
-        const { data } = await api.requestPrice(username, formData);
+        const { data } = await api.requestStock(username, formData);
 
-        dispatch({ type: REQUESTPRICE, payload: {...formData, lastRequested: new Date().getTime()} });
+        dispatch({ type: REQUESTSTOCK, payload: {...formData, lastRequested: new Date().getTime()} });
 
     } catch (error) {
         console.log(error.message);

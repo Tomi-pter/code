@@ -4,19 +4,18 @@ import { useDispatch } from 'react-redux'
 import { getCart, addCart } from '../../actions/cart'
 // import { getCustomProducts } from '../../actions/admin'
 import { useSelector } from 'react-redux'
-import { getProducts, getFavoriteProducts, requestPrice, getRequestPrice } from '../../actions/products'
+import { getProducts, getFavoriteProducts, requestStock, getRequestPrice } from '../../actions/products'
 import ReactPaginate from 'react-paginate';
 import { useLocation } from 'react-router';
 import { Modal, Button } from "react-bootstrap";
 
-export const Products = ({ page, view, setView, name, shopFont, category }) => {
+export const Products = ({ page, view, setView, name, shopFont, category, isLoading, setIsLoading }) => {
   const products = useSelector((state) => state.products);
   const cart = useSelector((state) => state.cart)
   const admin = useSelector((state) => state.admin);
-  const [customProducts, setCustomProducts] = useState([]);
+  const [customProducts, setCustomProducts] = useState(null);
   const [requestedProductPrice, setRequestedProductPrice] = useState([])
   const [selectedProduct, setSelectedProduct] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
   const [isCartLoading, setIsCartLoading] = useState(false)
   const [requestLoading, setRequestLoading] = useState(false)
   const [requestSent, setRequestSent] = useState(false)
@@ -68,9 +67,9 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     setFilter(filter);
     setOrder(order);
     if (category === 'Favorites') {
-      dispatch(getFavoriteProducts(user?.username, null, filter, order, null))
+      dispatch(getFavoriteProducts(user?.username, null, filter, order, null, sortStock))
     } else {
-      dispatch(getProducts(null, category, filter, order, null))
+      dispatch(getProducts(null, category, filter, order, null, sortStock))
     }
     // dispatch(getProducts(null, category, filter, order, null));
     setSortBy(value);
@@ -96,9 +95,9 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
     if ((category !== '' && page === 'shop') || (page === 'search')) {
       if (category === 'Favorites') {
-        dispatch(getFavoriteProducts(user?.username, null, filter, order, increment))
+        dispatch(getFavoriteProducts(user?.username, null, filter, order, increment, sortStock))
       } else {
-        dispatch(getProducts(name, category, filter, order, increment))
+        dispatch(getProducts(name, category, filter, order, increment, sortStock))
       }
     }
   };
@@ -113,7 +112,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     let changeTimer;
     if (search !== "" && isLoading) {
         changeTimer = setTimeout(() => {
-          dispatch(getFavoriteProducts(user?.username, search, filter, order, 1))
+          dispatch(getFavoriteProducts(user?.username, search, filter, order, 1, sortStock))
       }, 1000)
     }
     if (search === "" && isLoading) {
@@ -127,7 +126,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     }
 }, [search])
 
-  const handleRequestPrice = (product) => {
+  const handleRequestStock = (product) => {
     const user = JSON.parse(localStorage.getItem('profile'))
     const formData = {
       ndc: product.ndc,
@@ -135,7 +134,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
     }
     setRequestLoading(true)
     setSelectedProduct(product)
-    dispatch(requestPrice(user?.username, formData))
+    dispatch(requestStock(user?.username, formData))
   }
 
   useEffect(() => {
@@ -163,7 +162,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
         setRequestedProductPrice(products.requestedProductPrice)
       }
 
-      if (requestLoading && products.requestPriceSuccess) {
+      if (requestLoading && products.requestStockSuccess) {
         setShow(true)
       }
 
@@ -179,6 +178,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   useEffect(() => {
     setIsLoading(true)
+    setCustomProducts(null)
     setTotalProduct(0)
     setPageNumber(1)
     if (category !== '' && page === 'shop') {
@@ -197,9 +197,9 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
 
   useEffect(() => {
     setIsLoading(true)
+    setCustomProducts(null)
     const user = JSON.parse(localStorage.getItem('profile'))
     dispatch(getCart(user?.username))
-    dispatch(getRequestPrice(user?.username))
   }, [])
 
   return (
@@ -286,14 +286,14 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           <div className="price-container" style={{minWidth: category !== 'Favorites' && '100px'}}>
             <p>Price</p>
           </div>
-          { category === 'Favorites' && <p className={'buy' + (!user ? ' buy-offline' : ' buy-online')} style={!user ? { minWidth: '90px' } : { minWidth: '145px' }}>Buy</p>}
-          <div className={'incart' + (!user || category !== 'Favorites' ? ' d-none' : ' d-block')}>
+          <p className={'buy' + (!user ? ' buy-offline' : ' buy-online')} style={!user ? { minWidth: '90px' } : { minWidth: '145px' }}>Buy</p>
+          <div className={'incart' + (!user ? ' d-none' : ' d-block')}>
             <p>In</p>
             <p>Cart</p>
           </div>
         </div>
         <div className="row">
-          {isLoading ?
+          {(isLoading || !customProducts) ?
             <div className="container-fluid">
               <div className="spinner-container d-flex align-items-center justify-content-center">
                 <div className="spinner-border text-primary" role="status">
@@ -302,12 +302,11 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
               </div>
             </div>
             :
-            (
-              totalProduct === 0  ?
+            totalProduct === 0  ?
               <div className="col-12 d-flex align-items-center justify-content-center text-center">
                 No Product
               </div>
-              :
+            :
               customProducts?.map((product) => (
                 <Product
                   shopFont={shopFont}
@@ -315,7 +314,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                   key={product.id}
                   product={product}
                   addCart={handleAddCart}
-                  requestPrice={handleRequestPrice}
+                  requestStock={handleRequestStock}
                   setSelectedProduct={setSelectedProduct}
                   selectedProduct={selectedProduct}
                   isLoading={isLoading}
@@ -331,7 +330,6 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
                   sortBy={sortBy}
                 />
               ))
-            )
           }
         </div>
       </div>
@@ -353,7 +351,7 @@ export const Products = ({ page, view, setView, name, shopFont, category }) => {
           <Modal.Title>Request Sent</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Thanks! A sales representative will be in touch with you shortly
+          Thanks! We will process your request.
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>

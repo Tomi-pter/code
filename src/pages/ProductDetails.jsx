@@ -5,7 +5,7 @@ import ImageProduct from '../assets/img/product-sample.png';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getProduct, requestPrice, getRequestPrice } from '../actions/products';
+import { getProduct, requestStock, getRequestPrice } from '../actions/products';
 import { getCustomProducts } from '../actions/admin'
 import { addCart } from '../actions/cart';
 import NoImage from '../assets/img/unavailable.svg';
@@ -20,6 +20,7 @@ export default props => {
     const products = useSelector((state) => state.products);
     const [product, setProduct] = useState(null);
     const [customProducts, setCustomProducts] = useState([]);
+    const [mainLoading, setMainLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [requestLoading, setRequestLoading] = useState(false)
     const [requestSent, setRequestSent] = useState(false)
@@ -57,14 +58,14 @@ export default props => {
         return n;
     }
 
-    const handleRequestPrice = (product) => {
+    const handleRequestStock = (product) => {
         const user = JSON.parse(localStorage.getItem('profile'))
         const formData = {
           ndc: product.ndc,
           productName: product.displayname
         }
         setRequestLoading(true)
-        dispatch(requestPrice(user?.username, formData))
+        dispatch(requestStock(user?.username, formData))
     }
 
     const handleRequestedCheck = (ndc) => {
@@ -80,10 +81,16 @@ export default props => {
         }
     }
 
-    const renderActionButton = (totalQuantityOnHand, quantity, setQuantity, handleAddCart, isLoading) => {
-        if (totalQuantityOnHand <= 0) {
-            return <button className="cart-btn">
-                Contact Sales Rep
+    const renderActionButton = (product, quantity, setQuantity, handleAddCart, isLoading, handleRequestStock, requestLoading) => {
+        if (product?.totalquantityonhand <= 0) {
+            return <button className="btn btn-primary" style={{ minWidth: '140px', height: '40px'}} onClick={()=>handleRequestStock(product)}>
+                {requestLoading ? 
+                    <div className="spinner-border text-primary" style={{ width: '20px', height: '20px'}} role="contact rep">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                    : 
+                    'Contact Sales Rep'
+                }
             </button>
         }
 
@@ -127,10 +134,11 @@ export default props => {
         if (products.requestedProductPrice) {
             setRequestedProductPrice(products.requestedProductPrice)
         }
-        if (requestLoading && products.requestPriceSuccess) {
+        if (requestLoading && products.requestStockSuccess) {
             // alert('Thanks! A sales representative will be in touch with you shortly');
             setShow(true)
         }
+        setMainLoading(false)
         setRequestLoading(false)
     }, [products, admin]);
 
@@ -138,7 +146,8 @@ export default props => {
         const id = props.match.params.id;
         dispatch(getProduct(id));
         dispatch(getCustomProducts(user?.username))
-        dispatch(getRequestPrice(user?.username))
+        setMainLoading(true)
+        // dispatch(getRequestPrice(user?.username))
     }, [dispatch, location]);
 
     useEffect(()=>{
@@ -156,89 +165,100 @@ export default props => {
             <HeaderNav />
             <div className="product-page">
                 <div className="container content">
-                    {!products.errorGetProducts && product &&
-                        <div className="d-block d-lg-flex align-items-start">
-                            <div className={"details-container card " + (product?.category ? 'pharma-product' : 'pharma-product')}>
-                                <div className="img-container">
-                                <img src={product.url  ? product.url : NoImage} alt="" />
-                                </div>
-                                <div className="d-block d-lg-none">
-                                    <h3 className="name">{product?.displayname}</h3>
-                                    <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ? '' : 'no-stock')}>
-                                        {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ?
-                                            ''
-                                        :
-                                            "Item is out of stock."
-                                        }
-                                    </p>
-                                    <h2 className="price">${formatPrice(product?.cost)}</h2>
-                                </div>
-
-                                <p>Description: </p>
-
-                                <p>
-                                    {product.displayname}
-                                </p>
-                                <ul>
-                                    <li>Item #: {product?.productNumber || 'N/A'}</li>
-                                    <li>NDC:  {product?.ndc}</li>
-                                    <li>Manufacturer:  {product?.manufacturer || 'N/A'}</li>
-                                    <li>Size:  {product?.bottleSize || 'N/A'}</li>
-                                    <li>Strength: {product?.drugStrength || 'N/A' }</li>
-                                </ul>
-
-                                <div className="d-block d-lg-none">
-                                { user ?
-                                    product.favorite ?
-                                    <>
-                                        <div className="d-flex align-items-center justify-container-center qty-container">
-                                            <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
-                                            <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
-                                            <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
-                                        </div>
-                                        <button className="cart-btn">Add to cart</button>
-                                    </>
-                                    : ''
-                                :
-                                <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
-                                }
-                                </div>
-                            </div>
-                            <div className="right-col">
-                                <div className="card d-none d-lg-block">
-                                    <h3 className="name">{product?.displayname}</h3>
-                                    <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ? '' : 'no-stock')}>
-                                        {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ?
-                                            ''
-                                        :
-                                            "Item is out of stock."
-                                        }
-                                    </p>
-                                    { user ?
-                                            <>
-                                                <div className="d-flex align-items-center justify-container-center">
-                                                    <h2 className="price">${formatPrice(product?.cost)}</h2>
-                                                    {
-                                                        incart() > 0
-                                                        && !isLoading
-                                                        && <span className="incart">
-                                                            {incart()} in cart
-                                                        </span>
-                                                    }
-                                                </div>
-                                                {
-                                                    renderActionButton(product?.totalquantityonhand, quantity, setQuantity, handleAddCart, isLoading)
-                                                }
-                                            </>
-                                        :
-                                            <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
-                                    }
-                                </div>
-                                {product?.totalquantityonhand !== "" && <NotificationBanner />}
+                    {
+                        mainLoading ?
+                        <div className="d-flex align-items-center justify-content-center" style={{minHeight: 'calc(100vh - 266px)', width: '100%'}}>
+                            <div className="spinner-border text-primary" role="main loading">
+                                <span className="sr-only">Loading...</span>
                             </div>
                         </div>
+                        :
+                        <>
+                            {!products.errorGetProducts && product &&
+                                <div className="d-block d-lg-flex align-items-start">
+                                    <div className={"details-container card " + (product?.category ? 'pharma-product' : 'pharma-product')}>
+                                        <div className="img-container">
+                                        <img src={product.url  ? product.url : NoImage} alt="" />
+                                        </div>
+                                        <div className="d-block d-lg-none">
+                                            <h3 className="name">{product?.displayname}</h3>
+                                            <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ? '' : 'no-stock')}>
+                                                {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ?
+                                                    ''
+                                                :
+                                                    "Item is out of stock."
+                                                }
+                                            </p>
+                                            <h2 className="price">${formatPrice(product?.cost)}</h2>
+                                        </div>
+
+                                        <p>Description: </p>
+
+                                        <p>
+                                            {product.displayname}
+                                        </p>
+                                        <ul>
+                                            <li>Item #: {product?.productNumber || 'N/A'}</li>
+                                            <li>NDC:  {product?.ndc}</li>
+                                            <li>Manufacturer:  {product?.manufacturer || 'N/A'}</li>
+                                            <li>Size:  {product?.bottleSize || 'N/A'}</li>
+                                            <li>Strength: {product?.drugStrength || 'N/A' }</li>
+                                        </ul>
+
+                                        <div className="d-block d-lg-none">
+                                        { user ?
+                                            product.favorite ?
+                                            <>
+                                                <div className="d-flex align-items-center justify-container-center qty-container">
+                                                    <button className="minus-btn" onClick={() => quantity === 1 ? null : setQuantity(quantity - 1)}>-</button>
+                                                    <input type="number" value={quantity} onChange={(e)=>setQuantity(parseInt(e.target.value))} />
+                                                    <button className="plus-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
+                                                </div>
+                                                <button className="cart-btn">Add to cart</button>
+                                            </>
+                                            : ''
+                                        :
+                                        <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
+                                        }
+                                        </div>
+                                    </div>
+                                    <div className="right-col">
+                                        <div className="card d-none d-lg-block">
+                                            <h3 className="name">{product?.displayname}</h3>
+                                            <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ? '' : 'no-stock')}>
+                                                {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ?
+                                                    ''
+                                                :
+                                                    "Item is out of stock."
+                                                }
+                                            </p>
+                                            { user ?
+                                                    <>
+                                                        <div className="d-flex align-items-center justify-container-center">
+                                                            <h2 className="price">${formatPrice(product?.cost)}</h2>
+                                                            {
+                                                                incart() > 0
+                                                                && !isLoading
+                                                                && <span className="incart">
+                                                                    {incart()} in cart
+                                                                </span>
+                                                            }
+                                                        </div>
+                                                        {
+                                                            renderActionButton(product, quantity, setQuantity, handleAddCart, isLoading, handleRequestStock, requestLoading)
+                                                        }
+                                                    </>
+                                                :
+                                                    <div className="logout-state"><Link to="/login">Login</Link>  for price</div>
+                                            }
+                                        </div>
+                                        {product?.totalquantityonhand !== "" && <NotificationBanner />}
+                                    </div>
+                                </div>
+                            }
+                            {products.errorGetProducts && <div className="text-center">Product Not Found</div>}
+                        </>
                     }
-                    {products.errorGetProducts && <div className="text-center">Product Not Found</div>}
                 </div>
             </div>
             <Footer />
@@ -247,7 +267,7 @@ export default props => {
                     <Modal.Title>Request Sent</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Thanks! A sales representative will be in touch with you shortly
+                    Thanks! We will process your request.
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>

@@ -24,6 +24,7 @@ export const HeaderNav = () => {
     const [user, setUser] = useState(null);
     const cart = useSelector((state) => state.cart);
     const search = useSelector((state) => state.search);
+    const admin = useSelector((state) => state.admin);
     const avatar = useSelector((state) => state.account.avatarData);
     const [formData, setFormData] = useState({});
     const [searchName, setSearchName] = useState('');
@@ -128,7 +129,7 @@ export const HeaderNav = () => {
         setFormData({...formData, name: ''})
 
         if (location.pathname === '/shop' || location.pathname === '/search' || location.pathname.includes('/product')) {
-            dispatch(getCustomProducts(localUser?.username))
+            !admin?.customProducts && dispatch(getCustomProducts(localUser?.username))
         }
     }, [location]);
 

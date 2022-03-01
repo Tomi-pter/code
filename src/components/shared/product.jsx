@@ -6,16 +6,17 @@ import { Link } from 'react-router-dom'
 
 const renderActionButton = (selectedProduct, product, quantity, handleChange, addCart, isCartLoading, requestStock, requestLoading) => {
     if (product?.totalquantityonhand <= 0) {
-        return <button className="btn btn-primary" style={{ minWidth: '177px', height: '40px'}} onClick={()=>requestStock(product)}>
-                {requestLoading && selectedProduct === product ? 
-                    <div className="spinner-border text-primary mr-0" style={{ width: '20px', height: '20px'}} role="contact rep">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                    : 
-                    'Contact Sales Rep'
-                }
-            </button>
-        
+        return <div>
+              <button className="btn btn-primary sale-rep-btn" onClick={()=>requestStock(product)}>
+                  {requestLoading && selectedProduct === product ? 
+                      <div className="spinner-border text-primary mr-0" style={{ width: '20px', height: '20px'}} role="contact rep">
+                          <span className="sr-only">Loading...</span>
+                      </div>
+                      : 
+                      'Contact Sales Rep'
+                  }
+              </button>
+            </div>
     }
 
     return <div className="buy-container d-flex">
@@ -199,9 +200,7 @@ export const Product = ({
                     to Buy
               </span>
             }
-            {
-              product?.totalquantityonhand > 0 && <p className={'incart' + (auth ? ' for-list' : ' d-none')} >{incart()}</p>
-            }
+            <p className={'incart' + (auth ? ' for-list' : ' d-none')} >{incart()}</p>
           </div>
         </div>
       </div>

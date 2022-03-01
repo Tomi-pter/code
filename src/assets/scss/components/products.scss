@@ -668,6 +668,8 @@
                 input {
                     // width: 79px;
                     // height: 32px;
+                    width: 50px;
+                    // height: 25px;
                     background: #ffffff;
                     border-radius: 5px;
                     border: 0;
@@ -679,6 +681,9 @@
                     color: #000000;
                     text-align: center;
                     margin-bottom: 10px;
+                    @include mediaQueries(mobile) {
+                        width: 100%;
+                    }
                     @include mediaQueries(pad) {
                         width: 100%;
                     }

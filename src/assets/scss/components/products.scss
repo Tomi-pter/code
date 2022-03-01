@@ -666,8 +666,8 @@
                     margin-right: 0;
                 }
                 input {
-                    width: 79px;
-                    height: 32px;
+                    // width: 79px;
+                    // height: 32px;
                     background: #ffffff;
                     border-radius: 5px;
                     border: 0;
@@ -679,6 +679,12 @@
                     color: #000000;
                     text-align: center;
                     margin-bottom: 10px;
+                    @include mediaQueries(pad) {
+                        width: 100%;
+                    }
+                    @include mediaQueries(padpro) {
+                        width: 100%;
+                    }
                 }
                 .cart-btn {
                     width: 79px;
@@ -779,6 +785,14 @@
             }
             .sale-rep-btn {
                 width: 106px;
+                @include mediaQueries(padpro) {
+                    width: unset;
+                    font-size: 13px;
+                }
+                @include mediaQueries(mobile) {
+                    width: unset;
+                    font-size: 13px;
+                }
             }
         }
     }

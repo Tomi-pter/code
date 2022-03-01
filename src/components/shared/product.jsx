@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const renderActionButton = (selectedProduct, product, quantity, handleChange, addCart, isCartLoading, requestStock, requestLoading) => {
     if (product?.totalquantityonhand <= 0) {
-        return <div>
+        return <div className="buy-container">
               <button className="btn btn-primary sale-rep-btn" onClick={()=>requestStock(product)}>
                   {requestLoading && selectedProduct === product ? 
                       <div className="spinner-border text-primary mr-0" style={{ width: '20px', height: '20px'}} role="contact rep">

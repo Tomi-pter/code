@@ -739,6 +739,8 @@
                 }
                 .company {
                     min-width: 125px;
+                    width: 125px;
+                    max-width: 125px;
                 }
                 .buy-container {
                     // min-width: 79px;
@@ -751,9 +753,11 @@
                     }
                 }
                 .size,
-                .price-container,
                 .incart {
                     min-width: 51px;
+                }
+                .price-container {
+                    min-width: 100px;
                 }
                 .strength {
                     min-width: 75px;

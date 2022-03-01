@@ -162,7 +162,7 @@ export const Products = ({ page, view, setView, name, shopFont, category, isLoad
         setRequestedProductPrice(products.requestedProductPrice)
       }
 
-      if (requestLoading && products.requestStockSuccess) {
+      if (requestLoading) {
         setShow(true)
       }
 
@@ -348,10 +348,10 @@ export const Products = ({ page, view, setView, name, shopFont, category, isLoad
       </div>
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Request Sent</Modal.Title>
+          <Modal.Title>{products.requestStockSuccess ? 'Request Sent' : 'Request Error'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Thanks! We will process your request.
+          {products.requestStockSuccess ? 'Thanks! We will process your request.' : 'Customer does not have a sales rep assigned.'}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>

@@ -1,4 +1,4 @@
-import { GETPRODUCTS, ERRORGETPRODUCTS, GETSEARCH, REQUESTSTOCK, GETREQUESTPRICE } from '../constants/actionTypes';
+import { GETPRODUCTS, ERRORGETPRODUCTS, GETSEARCH, REQUESTSTOCK, REQUESTSTOCKERROR, GETREQUESTPRICE } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -57,7 +57,7 @@ export const requestStock = (username, formData) => async(dispatch) => {
         dispatch({ type: REQUESTSTOCK, payload: {...formData, lastRequested: new Date().getTime()} });
 
     } catch (error) {
-        console.log(error.message);
+        dispatch({ type: REQUESTSTOCKERROR, payload: {message: error.message }});
     }
 };
 

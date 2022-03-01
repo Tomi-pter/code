@@ -1,4 +1,4 @@
-import { GETPRODUCTS, ERRORGETPRODUCTS, REQUESTSTOCK, GETREQUESTPRICE } from '../constants/actionTypes';
+import { GETPRODUCTS, ERRORGETPRODUCTS, REQUESTSTOCK, REQUESTSTOCKERROR, GETREQUESTPRICE } from '../constants/actionTypes';
 
 export default (state = {products: [], requestedProductPrice: []}, action) => {
   switch (action.type) {
@@ -14,6 +14,8 @@ export default (state = {products: [], requestedProductPrice: []}, action) => {
       state.requestedProductPrice.push(action.payload)
 
       return {...state, requestStockSuccess: true}
+    case REQUESTSTOCKERROR: 
+      return {...state, requestStockSuccess: false}
     default:
       return state;
   }

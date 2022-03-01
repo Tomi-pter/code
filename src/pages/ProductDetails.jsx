@@ -134,7 +134,7 @@ export default props => {
         if (products.requestedProductPrice) {
             setRequestedProductPrice(products.requestedProductPrice)
         }
-        if (requestLoading && products.requestStockSuccess) {
+        if (requestLoading) {
             // alert('Thanks! A sales representative will be in touch with you shortly');
             setShow(true)
         }
@@ -264,10 +264,10 @@ export default props => {
             <Footer />
             <Modal show={showModal} onHide={handleClose} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Request Sent</Modal.Title>
+                    <Modal.Title>{products.requestStockSuccess ? 'Request Sent' : 'Request Error'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Thanks! We will process your request.
+                    {products.requestStockSuccess ? 'Thanks! We will process your request.' : 'Customer does not have a sales rep assigned.'}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>

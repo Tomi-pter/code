@@ -9,6 +9,8 @@ export default props => {
     const [isLoading, setIsLoading] = useState(false);
     const query = new URLSearchParams(props.location.search);
     const name =  query.get('name') || "";
+
+    console.log(name)
     
     return (
         <>

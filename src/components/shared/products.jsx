@@ -69,7 +69,11 @@ export const Products = ({ page, view, setView, name, shopFont, category, isLoad
     if (category === 'Favorites') {
       dispatch(getFavoriteProducts(user?.username, null, filter, order, null, sortStock))
     } else {
-      dispatch(getProducts(null, category, filter, order, null, sortStock))
+      if (page === 'search') {
+        dispatch(getProducts(name, null, filter, order, null, sortStock))
+      } else {
+        dispatch(getProducts(null, category, filter, order, null, sortStock))
+      }
     }
     // dispatch(getProducts(null, category, filter, order, null));
     setSortBy(value);
@@ -81,7 +85,11 @@ export const Products = ({ page, view, setView, name, shopFont, category, isLoad
     if (category === 'Favorites') {
       dispatch(getFavoriteProducts(user?.username, null, filter, order, null, value))
     } else {
-      dispatch(getProducts(null, category, filter, order, null, value))
+      if (page === 'search') {
+        dispatch(getProducts(name, null, filter, order, null, value))
+      } else {
+        dispatch(getProducts(null, category, filter, order, null, value))
+      }
     }
     setSortStock(value)
   }
@@ -192,7 +200,7 @@ export const Products = ({ page, view, setView, name, shopFont, category, isLoad
 
   useEffect(() => {
     setIsLoading(true)
-    if (page === 'search') dispatch(getProducts(name))
+    if (page === 'search') dispatch(getProducts(name, null, filter, order, 1, sortStock))
   }, [name])
 
   useEffect(() => {

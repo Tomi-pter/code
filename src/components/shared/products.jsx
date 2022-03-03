@@ -351,7 +351,7 @@ export const Products = ({ page, view, setView, name, shopFont, category, isLoad
           <Modal.Title>{products.requestStockSuccess ? 'Request Sent' : 'Request Error'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {products.requestStockSuccess ? 'Thanks! We will process your request.' : 'Customer does not have a sales rep assigned.'}
+          {products.requestStockSuccess ? 'Thanks! A Sales Representative will be in touch with you shortly.' : 'Customer does not have a sales rep assigned.'}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>

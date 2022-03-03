@@ -84,11 +84,11 @@ export default props => {
     const renderActionButton = (product, quantity, setQuantity, handleAddCart, isLoading, handleRequestStock, requestLoading) => {
         if (product?.totalquantityonhand <= 0) {
             return <button className="btn btn-primary" style={{ minWidth: '140px', height: '40px'}} onClick={()=>handleRequestStock(product)}>
-                {requestLoading ? 
+                {requestLoading ?
                     <div className="spinner-border text-primary" style={{ width: '20px', height: '20px'}} role="contact rep">
                         <span className="sr-only">Loading...</span>
                     </div>
-                    : 
+                    :
                     'Contact Sales Rep'
                 }
             </button>
@@ -267,7 +267,7 @@ export default props => {
                     <Modal.Title>{products.requestStockSuccess ? 'Request Sent' : 'Request Error'}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {products.requestStockSuccess ? 'Thanks! We will process your request.' : 'Customer does not have a sales rep assigned.'}
+                    {products.requestStockSuccess ? 'Thanks! A Sales Representative will be in touch with you shortly.' : 'Customer does not have a sales rep assigned.'}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>

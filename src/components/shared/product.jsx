@@ -8,11 +8,11 @@ const renderActionButton = (selectedProduct, product, quantity, handleChange, ad
     if (product?.totalquantityonhand <= 0) {
         return <div className="buy-container">
               <button className="btn btn-primary sale-rep-btn" onClick={()=>requestStock(product)}>
-                  {requestLoading && selectedProduct === product ? 
+                  {requestLoading && selectedProduct === product ?
                       <div className="spinner-border text-primary mr-0" style={{ width: '20px', height: '20px'}} role="contact rep">
                           <span className="sr-only">Loading...</span>
                       </div>
-                      : 
+                      :
                       'Contact Sales Rep'
                   }
               </button>
@@ -44,6 +44,11 @@ const renderActionButton = (selectedProduct, product, quantity, handleChange, ad
                 }
             </button>
         </div>
+}
+
+const formatPrice = (price) => {
+    var n = parseFloat(price).toFixed(2);
+    return n;
 }
 
 export const Product = ({
@@ -172,7 +177,7 @@ export const Product = ({
             </p>
             <div className="price-container">
               <p className="price">
-                {(!auth && shopFont || !auth) ? 
+                {(!auth && shopFont || !auth) ?
                   <span style={{ fontSize: '12.3295px' }}>
                     <Link
                       to="/login"
@@ -183,11 +188,11 @@ export const Product = ({
                     for Price
                   </span>
                 :
-                  <>$ { product.cost % 1 === 0 ? parseInt(product.cost) : product.cost }</>
+                  <>$ { product.cost % 1 === 0 ? formatPrice(product.cost) : formatPrice(product.cost) }</>
                 }
               </p>
             </div>
-            {auth ? 
+            {auth ?
               renderActionButton(selectedProduct, product, quantity, handleChange, addCart, isCartLoading, requestStock, requestLoading)
             :
               <span style={{ fontSize: '12.3295px' }} className="to-buy">

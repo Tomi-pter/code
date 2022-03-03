@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 
 export default props => {
     const [view, setView] = useState('list');
+    const [isLoading, setIsLoading] = useState(false);
     const query = new URLSearchParams(props.location.search);
     const name =  query.get('name') || "";
     
@@ -22,6 +23,8 @@ export default props => {
                             view={view}
                             setView={setView}
                             name={name}
+                            isLoading={isLoading}
+                            setIsLoading={setIsLoading}
                         />
                 </div>
             </div>

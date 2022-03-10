@@ -12,6 +12,7 @@ export const OrdersHistory = () => {
     const user = JSON.parse(localStorage.getItem('profile'));
     const account = useSelector((state) => state.account);
     const [orders, setOrders] = useState([]);
+    const totalPageCount = Math.ceil(account?.ordersData?.count / 5);
     const [status, setStatus] = useState('All');
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -118,20 +119,24 @@ export const OrdersHistory = () => {
     }
 
     const handlePageClick = (data) => {
-        let s = status === 'All' ? null : status;
-        let p = data.selected + 1
+        setLoading(true);
+        // let s = status === 'All' ? null : status;
+        let p = data.selected + 1;
         setPage(p);
-        dispatch(getOrders(user?.username, s, page));
+        setOrders([]);
+        // dispatch(getOrders(user?.username, s, p));
     }
 
-    useEffect(()=>{
-        let s = status === 'All' ? null : status;
+    const handleStatusClick = (s) => {
         setLoading(true)
+        // let newStatus = s === 'All' ? null : s;
+        setStatus(s);
+        setPage(1);
         setOrders([]);
-        dispatch(getOrders(user?.username, s, page));
-    },[status]);
+        // dispatch(getOrders(user?.username, newStatus, 1));
+    }
 
-    useEffect(()=>{
+    useEffect(() => {
         if(account?.ordersData?.orders) {
             const sorted = account?.ordersData?.orders?.sort((a,b) => (a.salesOrderNumber < b.salesOrderNumber) ? 1 : ((b.salesOrderNumber < a.salesOrderNumber) ? -1 : 0));
             setOrders(sorted);
@@ -139,16 +144,22 @@ export const OrdersHistory = () => {
         setLoading(false)
     },[account]);
 
-    useEffect(()=>{
-        dispatch(getOrders(user?.username, null, 1));
+    useEffect(() => {
+        let s = status === 'All' ? null : status;
+        dispatch(getOrders(user?.username, s, page));
+    },[status, page]);
+
+    useEffect(() => {
+        // dispatch(getOrders(user?.username, null, 1));
+        setStatus('All')
     },[]);
 
     return (
         <>
             <ul className="nav align-item-center justify-content-around order-nav">
-                <li className={status === "All" ? "active" : ""} onClick={()=>setStatus('All')}>All</li>
-                <li className={status === "Processing" ? "active" : ""} onClick={()=>setStatus('Processing')}>Processing</li>
-                <li className={status === "Shipped" ? "active" : ""} onClick={()=>setStatus('Shipped')}>Shipped</li>
+                <li className={status === "All" ? "active" : ""}><div onClick={() => handleStatusClick('All')}>All</div></li>
+                <li className={status === "Processing" ? "active" : ""}><div onClick={() => handleStatusClick('Processing')}>Processing</div></li>
+                <li className={status === "Shipped" ? "active" : ""}><div onClick={() => handleStatusClick('Shipped')}>Shipped</div></li>
             </ul>
             <div className="orders">
                 {
@@ -168,22 +179,20 @@ export const OrdersHistory = () => {
                         renderOrder(order, index)
                     ))
                 }
-                {
-                    account?.ordersData?.count > 5 && !loading &&
-                    <div className="pagination-orders">
-                        <ReactPaginate
-                            previousLabel={'previous'}
-                            nextLabel={'next'}
-                            breakLabel={'...'}
-                            breakClassName={'break-me'}
-                            pageCount={Math.ceil(account?.ordersData?.count / 5) || 0}
-                            onPageChange={handlePageClick}
-                            containerClassName={account?.ordersData?.count === 0 ? 'pagination empty' : 'pagination'}
-                            activeClassName={'active'}
-                            initialPage={0}
-                        />
-                    </div>
-                }
+                <div className="pagination-orders">
+                    <ReactPaginate
+                        previousLabel={'previous'}
+                        nextLabel={'next'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={totalPageCount}
+                        onPageChange={handlePageClick}
+                        containerClassName={(account?.ordersData?.count === 0 || loading) ? 'pagination empty' : 'pagination'}
+                        activeClassName={'active'}
+                        // initialPage={0}
+                        forcePage={parseInt(page) - 1}
+                    />
+                </div>
             </div>
         </>
     )

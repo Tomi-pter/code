@@ -349,9 +349,10 @@ export const Products = ({ page, view, setView, name, shopFont, category, isLoad
           breakClassName={'break-me'}
           pageCount={totalPageCount}
           onPageChange={handlePageClick}
-          containerClassName={totalProduct === 0 ? 'pagination empty' : 'pagination'}
+          containerClassName={(totalProduct === 0 || isLoading) ? 'pagination empty' : 'pagination'}
           activeClassName={'active'}
-          initialPage={0}
+          // initialPage={0}
+          forcePage={parseInt(pageNumber) - 1}
         />
       </div>
       <Modal show={showModal} onHide={handleClose} centered>

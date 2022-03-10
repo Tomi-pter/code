@@ -9,6 +9,7 @@ import { checkout } from '../../actions/cart';
 export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
     const cart = useSelector((state) => state.cart);
     const [discountCode, setDiscountCode] = useState('');
+    const [customerRefNumber, setCustomerRefNumber] = useState('');
     const dispatch = useDispatch();
     const history = useHistory();
     const itemCount = cart.countData?.length > 0 ? cart.countData?.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
@@ -29,7 +30,8 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
             total,
             discountCode,
             selectedShipping,
-            selectedBilling
+            selectedBilling,
+            customerRefNumber
         }
         dispatch(checkout(checkoutDetail, history));
     }
@@ -53,12 +55,20 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
                 </li>
             </ul>
             {page === 'checkout' && 
-                <DiscountForm 
-                    cart={cart}
-                    discountCode={discountCode} 
-                    setDiscountCode={setDiscountCode} 
-                    discountAmount={discountAmount}
-                />
+                <>
+                    <div className="discount-container">
+                        <label>Reference Number</label>
+                        <div className="input-container">
+                            <input type="text" placeholder="Reference Number" value={customerRefNumber} onChange={(e) => setCustomerRefNumber(e.target.value)}  />
+                        </div>
+                    </div>
+                    <DiscountForm 
+                        cart={cart}
+                        discountCode={discountCode} 
+                        setDiscountCode={setDiscountCode} 
+                        discountAmount={discountAmount}
+                    />
+                </>
             }
             <div className="d-flex align-items-center justify-content-between total">
                 <span>Total</span>

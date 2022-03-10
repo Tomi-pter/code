@@ -30,6 +30,7 @@ export const PaymentContainer = () => {
         const amount = parseFloat(cart?.checkoutDetail?.total);
         const billingAddress = cart?.checkoutDetail?.selectedBilling;
         const shippingAddress = cart?.checkoutDetail?.selectedShipping;
+        const customerRefNumber = cart?.checkoutDetail?.customerRefNumber;
         const role = user.roles && user.AuthenticationResult ? 'admin' : 'user'
         const body = {
             code: cart?.discountDetail?.discount_data?.name,
@@ -39,6 +40,7 @@ export const PaymentContainer = () => {
             billingAddress,
             shippingAddress,
             accountData,
+            customerRefNumber,
             role
         }
         type === 'card' ? dispatch(payment(user?.username, body, history)) : dispatch(paymentByTerms(user?.username, body, history));

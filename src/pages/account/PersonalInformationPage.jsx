@@ -19,7 +19,7 @@ import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../actions/auth';
-import { getAccount, getOrders } from '../../actions/account';
+import { getAccount } from '../../actions/account';
 import { useParams } from "react-router-dom";
 
 export const PersonalInformationContainer = () => {

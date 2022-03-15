@@ -119,7 +119,7 @@ export const confirmUser = (formData, user) => async (dispatch) => {
     try {
         await api.confirmUser(formData);
 
-        const data = {...user, UserStatus: 'CONFIRMED'}
+        const data = {...user, UserStatus: 'CONFIRMED', status: 'CONFIRMED' }
         
         dispatch({ type: CONFIRMUSER, data });
     } catch (error) {

@@ -64,8 +64,8 @@ const adminReducer = (state = { users: [], customProducts: null }, action) => {
         return { ...state, adminLoginError: action?.data}
     case CONFIRMUSER:
         const userIndex = state.users.findIndex(user => user.username  === action.data.username);
-
-        if(userIndex !== -1) {
+        
+        if (userIndex !== -1) {
             state.users.splice(userIndex, 1, action.data);
         }
 

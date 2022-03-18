@@ -5,7 +5,7 @@ import ImageProduct from '../assets/img/product-sample.png';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getProduct, requestStock, getRequestPrice } from '../actions/products';
+import { getProductv2, requestStock, getFavProductsv2, getRequestPrice } from '../actions/products';
 import { getCustomProducts } from '../actions/admin'
 import { addCart } from '../actions/cart';
 import NoImage from '../assets/img/unavailable.svg';
@@ -42,7 +42,7 @@ export default props => {
         const newProduct = {
             product: {
                 productId: parseInt(product.id),
-                productName: product.displayname,
+                productName: product.name,
                 price: parseFloat(product.cost),
                 imageUrl: product.url,
                 quantity,
@@ -62,7 +62,7 @@ export default props => {
         const user = JSON.parse(localStorage.getItem('profile'))
         const formData = {
           ndc: product.ndc,
-          productName: product.displayname
+          productName: product.name
         }
         setRequestLoading(true)
         dispatch(requestStock(user?.username, formData))
@@ -115,40 +115,30 @@ export default props => {
     }
 
     useEffect(() => {
-        if (products.products?.length > 0 && admin?.customProducts) {
-
-            const productsWithCustomPrice = products?.products.map(prod => {
-                if (admin.customProducts[prod.id]) {
-                    prod.cost = admin.customProducts[prod.id];
-                    prod.favorite = true
-                }
-
-                return { ...prod }
-            })
-
-            setCustomProducts(productsWithCustomPrice);
-        } else {
-            setCustomProducts(products.products);
+        let id = props.match.params.id;
+        const { productsv2, favproductv2 } = products
+        if (productsv2 && favproductv2) {
+            let filterProduct = productsv2?.filter(prod => prod.id === parseInt(id))
+            let favproduct = favproductv2?.filter(prod => prod.id === parseInt(id))
+            if (filterProduct?.length > 0 && favproduct?.length > 0) {
+                setProduct({...filterProduct[0], favorite: true, cost: favproduct[0].cost})
+            } else {
+                setProduct(filterProduct[0])
+            }
         }
-        setProduct(products?.products[0])
         if (products.requestedProductPrice) {
             setRequestedProductPrice(products.requestedProductPrice)
         }
         if (requestLoading) {
-            // alert('Thanks! A sales representative will be in touch with you shortly');
             setShow(true)
         }
         setMainLoading(false)
         setRequestLoading(false)
-    }, [products, admin]);
+    }, [products]);
 
     useEffect(() => {
-        const id = props.match.params.id;
-        dispatch(getProduct(id));
-        dispatch(getCustomProducts(user?.username))
         setMainLoading(true)
-        // dispatch(getRequestPrice(user?.username))
-    }, [dispatch, location]);
+    }, [location]);
 
     useEffect(()=>{
         setTimeout(() => {
@@ -181,7 +171,7 @@ export default props => {
                                         <img src={product.url  ? product.url : NoImage} alt="" />
                                         </div>
                                         <div className="d-block d-lg-none">
-                                            <h3 className="name">{product?.displayname}</h3>
+                                            <h3 className="name">{product?.name}</h3>
                                             <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== "0.0") ? '' : 'no-stock')}>
                                                 {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ?
                                                     ''
@@ -195,7 +185,7 @@ export default props => {
                                         <p>Description: </p>
 
                                         <p>
-                                            {product.displayname}
+                                            {product.name}
                                         </p>
                                         <ul>
                                             <li>Item #: {product?.productNumber || 'N/A'}</li>
@@ -224,7 +214,7 @@ export default props => {
                                     </div>
                                     <div className="right-col">
                                         <div className="card d-none d-lg-block">
-                                            <h3 className="name">{product?.displayname}</h3>
+                                            <h3 className="name">{product?.name}</h3>
                                             <p className={"availability " + ((product?.totalquantityonhand && product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ? '' : 'no-stock')}>
                                                 {(product?.totalquantityonhand !== "" && product?.totalquantityonhand !== 0) ?
                                                     ''

@@ -1,6 +1,14 @@
-import { GETPRODUCTS, ERRORGETPRODUCTS, REQUESTSTOCK, REQUESTSTOCKERROR, GETREQUESTPRICE } from '../constants/actionTypes';
+import { 
+  GETPRODUCTS, 
+  ERRORGETPRODUCTS, 
+  REQUESTSTOCK, 
+  REQUESTSTOCKERROR, 
+  GETREQUESTPRICE, 
+  GETPRODUCTSV2,
+  GETFAVPRODUCTSV2
+} from '../constants/actionTypes';
 
-export default (state = {products: [], requestedProductPrice: []}, action) => {
+export default (state = {products: [], requestedProductPrice: [], productsv2: null, favproductv2: null}, action) => {
   switch (action.type) {
     case GETPRODUCTS:
       const {products, count} = action.payload
@@ -16,6 +24,10 @@ export default (state = {products: [], requestedProductPrice: []}, action) => {
       return {...state, requestStockSuccess: true}
     case REQUESTSTOCKERROR: 
       return {...state, requestStockSuccess: false}
+    case GETPRODUCTSV2:
+      return {...state, productsv2: action.payload};
+    case GETFAVPRODUCTSV2:
+      return {...state, favproductv2: action.payload};
     default:
       return state;
   }

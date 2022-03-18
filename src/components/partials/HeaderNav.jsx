@@ -12,6 +12,7 @@ import decode from 'jwt-decode';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getCart, getCount } from '../../actions/cart';
+import { getProductsv2, getFavProductsv2 } from '../../actions/products';
 
 import ProfilePic from '../../assets/img/Account/placeholder-dp.svg';
 import { getAvatar } from '../../actions/account';
@@ -26,6 +27,7 @@ export const HeaderNav = () => {
     const search = useSelector((state) => state.search);
     const admin = useSelector((state) => state.admin);
     const avatar = useSelector((state) => state.account.avatarData);
+    const productsData = useSelector((state) => state.products)
     const [formData, setFormData] = useState({});
     const [searchName, setSearchName] = useState('');
     const [searchLoading, setSearchLoading] = useState(false);
@@ -38,17 +40,7 @@ export const HeaderNav = () => {
 
     const searchRedirect = (id) => {
         history.push(`/product/${id}`);
-        // window.location.href = '/product/' + id;
     };
-
-    // const handleBlur = (e) => {
-    //     setTimeout(() => {
-    //         var element = document.getElementById("resultBox");
-    //         element.classList.remove('d-block');
-    //         element.classList.add('d-none');
-    //     }, 100);
-
-    // };
 
     const resetInputField = () => {
         searchInput.current.value = "";
@@ -62,7 +54,6 @@ export const HeaderNav = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // window.location.href = '/search?name=' + formData.name;
         history.push(`/search?name=${formData.name}`);
     };
 
@@ -72,10 +63,6 @@ export const HeaderNav = () => {
         if(element) element.style.display = "block"
         setFormData({ [e.target.name]: e.target.value })
         setSearchName(e.target.value)
-        // if (e.target.value !== "") {
-        //     setsearchResults(null);
-        //     dispatch(getSearch(e.target.value));
-        // }
     };
 
 
@@ -85,8 +72,6 @@ export const HeaderNav = () => {
         if (element) element.style.display = "block"
         setFormData({ [e.target.name]: e.target.value })
         setSearchName(e.target.value)
-        // setsearchResults(null);
-        // dispatch(getSearch(e.target.value));
     };
 
     const handleMouseEnter = () => {
@@ -139,11 +124,31 @@ export const HeaderNav = () => {
     }, [search])
 
     useEffect(() => {
-        let changeTimer;
+        // let changeTimer;
+        // if (searchName !== "") {
+        //     changeTimer = setTimeout(() => {
+        //         setsearchResults(null);
+        //         dispatch(getSearch(searchName));
+        //     }, 1000)
+        // }
+
+        // return () => {
+        //     clearTimeout(changeTimer)
+        // }
+        let searchResult, changeTimer
         if (searchName !== "") {
             changeTimer = setTimeout(() => {
-                setsearchResults(null);
-                dispatch(getSearch(searchName));
+                searchResult = productsData.productsv2.filter(product => product.name.toLowerCase().includes(searchName.toLowerCase()) || product.ndc.toLowerCase().includes(searchName.toLowerCase()))
+                for(let i=0; i <= productsData.favproductv2.length; i++) {
+                    let favProd = productsData.favproductv2[i]
+                    let prodIndex = searchResult.findIndex(prod => prod?.id  === favProd?.id);
+                    
+                    if (prodIndex !== -1) {
+                        searchResult.splice(prodIndex, 1, {...searchResult[prodIndex], favorite: true, cost: favProd.cost});
+                    }
+                }
+                setsearchResults(searchResult);
+                setSearchLoading(false);
             }, 1000)
         }
 
@@ -152,23 +157,16 @@ export const HeaderNav = () => {
         }
     }, [searchName])
 
-    // useEffect(() => {
-    //     const cartIFrame = document.getElementById('hidden-iframe');
-    //     if (user) {
-    //         const avatarData = avatar !== "" && !Array.isArray(avatar) ? avatar : `${process.env.REACT_APP_HOMEPAGE_URL}/wp-content/uploads/2021/05/placeholder-dp.svg`;
-    //         const sendData = { ...user, avatarData, cartCount: itemCount };
-    //         cartIFrame.contentWindow.postMessage(sendData, process.env.REACT_APP_HOMEPAGE_URL);
-    //     } else {
-    //         const cartIFrame = document.getElementById('hidden-iframe');
-    //         cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
-    //     }
-    // }, [user])
+    useEffect(() => {
+        const auth = JSON.parse(localStorage.getItem('profile'));
+        dispatch(getProductsv2())
+        dispatch(getFavProductsv2(auth?.username))
+    }, [])
 
     const sendWPData = () => {
         const cartIFrame = document.getElementById('hidden-iframe');
         if (location.pathname === '/login' || location.pathname === '/register') {
             const cartIFrame = document.getElementById('hidden-iframe');
-            // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), process.env.REACT_APP_HOMEPAGE_URL);
             cartIFrame.contentWindow.postMessage(null, process.env.REACT_APP_HOMEPAGE_URL);
         } else {
             const avatarData = avatar !== "" && !Array.isArray(avatar) ? avatar : `${process.env.REACT_APP_HOMEPAGE_URL}/wp-content/uploads/2021/05/placeholder-dp.svg`;
@@ -179,7 +177,6 @@ export const HeaderNav = () => {
 
     return (
         <nav className={location.pathname === '/login' || location.pathname === '/register' ? "navbar header-login header" : "sticky-top"}>
-            {/* <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" /> */}
             <iframe id="hidden-iframe" src={process.env.REACT_APP_HOMEPAGE_URL} height="200" width="300" title="Iframe Example" onLoad={sendWPData} />
             {location.pathname === '/login' || location.pathname === '/register' ?
                 <a href={process.env.REACT_APP_HOMEPAGE_URL}>
@@ -212,8 +209,8 @@ export const HeaderNav = () => {
                                 </form>
                                 {formData.name && formData.name !== '' &&
                                     <ul id="resultBox" className='results'>
-                                            {
-                                            searchLoading ?
+                                        {
+                                            searchLoading && !searchResults ?
                                             <li>
                                                 <div className="spinner-container d-flex align-items-center justify-content-center">
                                                     <div className="spinner-border text-primary" role="status">
@@ -222,9 +219,9 @@ export const HeaderNav = () => {
                                                 </div>
                                             </li>
                                             :
-                                            searchResults?.products?.length > 0 ? searchResults?.products?.map(searchResult => (
+                                            searchResults.length > 0 ? searchResults.map(searchResult => (
                                             <li key={searchResult.id} onClick={() => searchRedirect(searchResult.id)}>
-                                                <p >{searchResult.displayname}</p>
+                                                <p >{searchResult.name}</p>
                                             </li>
                                             )) :
                                             <li><p>Product Not Found</p></li>
@@ -305,23 +302,23 @@ export const HeaderNav = () => {
                                 {formData.name && formData.name !== '' &&
                                     <ul id="resultBoxMobile" className='results'>
                                         {
-                                            searchLoading ?
+                                            searchLoading && !searchResults ?
                                                 <li>
-                                                <div className="spinner-container d-flex align-items-center justify-content-center">
+                                                    <div className="spinner-container d-flex align-items-center justify-content-center">
                                                         <div className="spinner-border text-primary" role="status">
                                                             <span className="sr-only">Loading...</span>
                                                         </div>
                                                     </div>
                                                 </li>
                                             :
-                                            search?.products?.length > 0 ?
-                                            search?.products?.map(searchResult => (
-                                                <li key={searchResult.id} onClick={() => { searchRedirect(searchResult.id) }}>
-                                                    <p>{searchResult.displayname}</p>
-                                                </li>
-                                            ))
+                                            searchResults.length > 0 ?
+                                                searchResults.map(product => (
+                                                        <li key={product.id} onClick={() => { searchRedirect(product.id) }}>
+                                                            <p>{product.displayname}</p>
+                                                        </li>
+                                                    ))
                                             :
-                                            <li><p>Product Not Found</p></li>
+                                                <li><p>Product Not Found</p></li>
                                         }
                                     </ul>
                                 }

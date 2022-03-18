@@ -1,4 +1,13 @@
-import { GETPRODUCTS, ERRORGETPRODUCTS, GETSEARCH, REQUESTSTOCK, REQUESTSTOCKERROR, GETREQUESTPRICE } from '../constants/actionTypes';
+import { 
+    GETPRODUCTS, 
+    ERRORGETPRODUCTS, 
+    GETSEARCH, 
+    REQUESTSTOCK, 
+    REQUESTSTOCKERROR, 
+    GETREQUESTPRICE, 
+    GETPRODUCTSV2, 
+    GETFAVPRODUCTSV2 
+} from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -69,5 +78,40 @@ export const getRequestPrice = (username) => async(dispatch) => {
 
     } catch (error) {
         console.log(error.message);
+    }
+};
+
+export const getProductsv2 = () => async(dispatch) => {
+    try {
+        const { data } = await api.getProductsv2();
+
+        dispatch({ type: GETPRODUCTSV2, payload: data });
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getFavProductsv2 = (username) => async(dispatch) => {
+    try {
+        const { data } = await api.getFavProductsv2(username);
+
+        dispatch({ type: GETFAVPRODUCTSV2, payload: data });
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getProductv2 = (id) => async(dispatch) => {
+    try {
+        const { data } = await api.getProductv2(id);
+        
+        dispatch({ type: GETPRODUCTSV2, payload: data });
+
+    } catch (error) {
+
+        dispatch({ type: ERRORGETPRODUCTS, payload: error.response})
+        
     }
 };

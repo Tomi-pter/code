@@ -149,6 +149,12 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
   }, [productsData, category, sorting, stockSort, search])
 
   useEffect(() => {
+    setQuantity(1)
+    setSelectedProduct(null)
+    setIsLoading(false)
+  }, [cart])
+
+  useEffect(() => {
       // dispatch(getFavProductsv2(auth?.username))
       dispatch(getCart(auth?.username))
   }, [])

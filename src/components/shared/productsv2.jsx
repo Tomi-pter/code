@@ -146,6 +146,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
       const { productsv2, favproductv2 } = productsData
       setCurrentPage(1)
       productsv2 && favproductv2 && filterProducts()
+      setRequestLoading(false)
   }, [productsData, category, sorting, stockSort, search])
 
   useEffect(() => {

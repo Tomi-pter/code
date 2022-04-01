@@ -249,9 +249,8 @@ export const AdminDashboard = () => {
                                 <th scope="col">Company Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Netsuite Internal ID</th>
-                                <th scope="col">Customer ID</th>
-                                <th scope="col">AWS to Netsuite</th>
+                                <th scope="col">Internal ID</th>
+                                <th scope="col">Database ID</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -276,28 +275,8 @@ export const AdminDashboard = () => {
                                                 </button>
                                             }
                                         </td>
-                                        <td>
-                                            {user.netsuiteId}
-                                        </td>
-                                        <td>
-                                            {user.customerId}
-                                        </td>
-                                        <td>
-                                            {user.awsNetsuiteId ?
-                                                <div className="text-info">Linked</div>
-                                                :
-                                                <button className="btn btn-secondary" onClick={()=>handleLinkUser(user)} disabled={(!user.netsuiteId || user.netsuiteId === "") ? true : false}>
-                                                    {
-                                                        linkLoading && user.username === selectedUser ?
-                                                        <div className="spinner-border text-light spinner-border-sm" role="status">
-                                                            <span className="sr-only">Loading...</span>
-                                                        </div>
-                                                        :
-                                                        'Link'
-                                                    }
-                                                </button>
-                                            }
-                                        </td>
+                                        <td>{user.netsuiteId}</td>
+                                        <td>{user.awsNetsuiteId}</td>
                                         <td>
                                             {/* <Link to={`admin/${user.username}`} className="mr-5">View</Link> */}
                                             <button className="btn btn-primary" onClick={()=>handleLoginUser(user)} disabled={user.status === 'CONFIRMED' ? null : true}>Login</button>

@@ -81,6 +81,6 @@ export const exportCSV = () => API.get(`/custom-price/export`);
 export const updateUserNetsuiteID = (username, formData) => API.put(`/admin/${username}/netsuite-id`, formData)
 
 // PRODUCTS v2
-export const getProductsv2 = () => API.get(`/test/products`);
-export const getProductv2 = (productId) => API.get(`/test/products/${productId}`);
-export const getFavProductsv2 = (username) => API.get(`/test/products/${username}/favorites`);
+export const getProductsv2 = () => API.get(`/products`);
+export const getProductv2 = (productId) => API.get(`/products/${productId}`);
+export const getFavProductsv2 = (username) => API.get(`/products/${username}/favorites`);

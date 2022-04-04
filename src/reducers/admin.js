@@ -15,7 +15,9 @@ import
     IMPORTUSER,
     IMPORTUSERERROR,
     EXPORTCSV,
-    UPDATEUSERNETSUITEID
+    UPDATEUSERNETSUITEID,
+    SYNCCUSTOMPRICING,
+    SYNCCUSTOMPRICINGERROR
 } from '../constants/actionTypes';
 
 const adminReducer = (state = { users: [], customProducts: null }, action) => {
@@ -92,6 +94,10 @@ const adminReducer = (state = { users: [], customProducts: null }, action) => {
         }
 
         return { ...state, linkError: null }
+    case SYNCCUSTOMPRICING:
+        return { ...state, syncCustomPricingError: null }
+    case SYNCCUSTOMPRICINGERROR:
+        return { ...state, syncCustomPricingError: { msg: action.data} }
     default:
         return state;
   }

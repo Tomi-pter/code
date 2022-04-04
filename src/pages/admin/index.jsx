@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import { getUsers, loginAdminUser, confirmUser, importUser, exportCSV, updateUserNetsuiteID } from '../../actions/admin';
+import { getUsers, loginAdminUser, confirmUser, importUser, exportCSV, updateUserNetsuiteID, syncCustomPricing } from '../../actions/admin';
 import { getCountries, getStates } from '../../actions/auth';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -38,8 +38,11 @@ export const AdminDashboard = () => {
     const [companies, setCompanies] = useState([]);
     const [search, setSearch] = useState('');
     const [showError, setShowError] = useState(false);
+    const [alertType, setAlertType] = useState('error');
+    const [loginLoading, setLoginLoading] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [linkLoading, setLinkLoading] = useState(false);
+    const [syncLoading, setSyncLoading] = useState(false);
     const [selectedUser, setSelectedUser] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
     const [actionLoading, setActionLoading] = useState(false);
@@ -60,6 +63,8 @@ export const AdminDashboard = () => {
     const handleLoginUser = (user) => {
         const formData = {username: user.username}
         const profile = JSON.parse(localStorage.getItem('profile'));
+        setLoginLoading(true)
+        setSelectedUser(user.username)
         dispatch(loginAdminUser(formData, profile));
     }
 
@@ -86,6 +91,12 @@ export const AdminDashboard = () => {
         dispatch(updateUserNetsuiteID(user.username, formData));
     }
 
+    const handleSync = (user) => {
+        setSyncLoading(true)
+        setSelectedUser(user.username)
+        dispatch(syncCustomPricing(user.username))
+    }
+
     const openImportForm = () => {
         setFormData(initialState);
     }
@@ -106,6 +117,15 @@ export const AdminDashboard = () => {
     const handleExport = () => {
         setExportCsv(true);
         dispatch(exportCSV());
+    }
+
+    const handleAlert = (msg, type) => {
+        setErrorMsg(msg)
+        setShowError(true)
+        setAlertType(type)
+        setTimeout(function() {
+            setShowError(false)
+        }, 3000);
     }
 
     useEffect(() => {
@@ -143,19 +163,24 @@ export const AdminDashboard = () => {
     }, [search]);
 
     useEffect(() => {
-        if (admin.loginError || admin.confirmError) {
-            setErrorMsg(admin.loginError ? 'Let the user login atleast once!' : 'Error Confirming User!')
-            setShowError(true)
-            setTimeout(function() {
-                setShowError(false)
-            }, 3000);
+        if ((loginLoading && admin.loginError )|| (confirmLoading && admin.confirmError)) {
+            let msg = admin.loginError ? 'Let the user login atleast once!' : 'Error Confirming User!'
+            handleAlert(msg, 'error')
+        }
+        if (syncLoading && admin.syncCustomPricingError) {
+            handleAlert(admin.syncCustomPricingError.msg, 'error')
+        }
+        if (syncLoading && !admin.syncCustomPricingError) {
+            handleAlert('Custom price sync successfully!', 'success')
         }
         if (admin?.users) {
             setCompanies(admin.users)
         }
+        setLoginLoading(false)
         setConfirmLoading(false);
         setActionLoading(false);
         setLinkLoading(false);
+        setSyncLoading(false);
         // if (!admin.importError) {
         //     document.getElementById("closeImportUserModal").click();
         // }
@@ -276,10 +301,44 @@ export const AdminDashboard = () => {
                                             }
                                         </td>
                                         <td>{user.netsuiteId}</td>
-                                        <td>{user.awsNetsuiteId}</td>
                                         <td>
-                                            {/* <Link to={`admin/${user.username}`} className="mr-5">View</Link> */}
-                                            <button className="btn btn-primary" onClick={()=>handleLoginUser(user)} disabled={user.status === 'CONFIRMED' ? null : true}>Login</button>
+                                            {
+                                                user.awsNetsuiteId !== user.netsuiteId ?  
+                                                <button className="btn btn-info mr-2" onClick={()=>handleLinkUser(user)} disabled={linkLoading}>
+                                                    {
+                                                        linkLoading && user.username === selectedUser ?
+                                                        <div className="spinner-border text-light spinner-border-sm" role="status">
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                        :
+                                                        'Link'
+                                                    }
+                                                </button>
+                                                :
+                                                user.awsNetsuiteId
+                                            }
+                                        </td>
+                                        <td>
+                                            <button className="btn btn-secondary mr-2" onClick={()=>handleSync(user)} disabled={linkLoading}>
+                                                {
+                                                    syncLoading && user.username === selectedUser ?
+                                                    <div className="spinner-border text-light spinner-border-sm" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                    :
+                                                    'Sync'
+                                                }
+                                            </button>
+                                            <button className="btn btn-primary" onClick={()=>handleLoginUser(user)} disabled={user.status === 'CONFIRMED' ? null : true}>
+                                                 {
+                                                    loginLoading && user.username === selectedUser ?
+                                                    <div className="spinner-border text-light spinner-border-sm" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                    :
+                                                    'Login'
+                                                }
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
@@ -288,7 +347,7 @@ export const AdminDashboard = () => {
                     </table>
                 </div>
             </div>
-            <div id="toast" className={"toast alert alert-danger " + (showError ? 'show' : '')} role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" style={{position: 'absolute', bottom: '1rem', right: '1rem'}}>
+            <div id="toast" className={"toast alert " + (alertType === 'error' ? 'alert-danger ' : 'alert-success ') + (showError ? 'show' : '')} role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000" style={{position: 'absolute', bottom: '1rem', right: '1rem'}}>
                 {errorMsg}
             </div>
             {/* <div className="modal fade" id="importUserModal" tabIndex="-1" role="dialog" aria-labelledby="importUserTitle" aria-hidden="true">

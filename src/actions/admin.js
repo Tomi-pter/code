@@ -15,8 +15,11 @@ import {
     IMPORTUSER,
     IMPORTUSERERROR,
     EXPORTCSV,
-    UPDATEUSERNETSUITEID
+    UPDATEUSERNETSUITEID,
+    SYNCCUSTOMPRICING,
+    SYNCCUSTOMPRICINGERROR
 } from "../constants/actionTypes";
+
 import * as api from "../api/index.js";
   
 export const getUsers = () => async (dispatch) => {
@@ -203,5 +206,18 @@ export const updateUserNetsuiteID = (username, formData) => async (dispatch) => 
     } catch (error) {
 
         console.log('Error Update User Netsuite ID')
+    }
+};
+
+export const syncCustomPricing = (username) => async (dispatch) => {
+    try {
+        
+        const { data } = await api.syncCustomPricing(username);
+        
+        dispatch({ type: SYNCCUSTOMPRICING, data });
+
+    } catch (error) {
+
+        dispatch({ type: SYNCCUSTOMPRICINGERROR, data: 'Error syncing custom pricing!' });
     }
 };

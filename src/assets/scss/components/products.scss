@@ -774,7 +774,7 @@
                     min-width: 75px;
                 }
                 .price-container {
-                    .price,
+                    // .price,
                     .ppu {
                         @include mediaQueries(padpro) {
                             display: none;

@@ -14,7 +14,11 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
   const productsData = useSelector((state) => state.products)
   const cart = useSelector((state) => state.cart)
   const [filteredProducts, setFilteredProducts] = useState([])
-  const [sorting, setSorting] = useState({filter: 'name', order: 'ASC', sortBy: 'A-Z'})
+  const [filter, setFilter] = useState('name')
+  const [order, setOrder] = useState('ASC')
+  const [sortBy, setSortBy] = useState('A-Z')
+
+  // const [sorting, setSorting] = useState({filter: 'name', order: 'ASC', sortBy: 'A-Z'})
   const [stockSort, setStockSort] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const productPerPage = 10
@@ -34,20 +38,18 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
 
   const handleClose = () => setShow(false)
 
-  const filterProducts = () => {
+  const filterProducts = (sortOptions) => {
       let sorted, filtered
-      const { filter, order } = sorting
+      const { filter, order } = sortOptions
 
-      category === 'Favorites' && page === 'shop' ?
+      if (category === 'Favorites' && page === 'shop') {
         search !== '' ? 
           filtered = productsData.favproductv2.filter(product => product.name.toLowerCase().includes(search.toLowerCase()) || product.ndc.toLowerCase().includes(search.toLowerCase())) 
           : 
           filtered = productsData.favproductv2
-      :
-      page === 'shop' ? 
-        filtered = productsData.productsv2.filter(product => product.category.includes(category)) 
-        : 
-        filtered = productsData.productsv2.filter(product => product.name.toLowerCase().includes(name.toLowerCase()) || product.ndc.toLowerCase().includes(name.toLowerCase()))
+      }
+      if (category !== 'Favorites' && page === 'shop') filtered = productsData.productsv2.filter(product => product.category.includes(category))
+      if (page === 'search') filtered = productsData.productsv2.filter(product => product.name.toLowerCase().includes(name.toLowerCase()) || product.ndc.toLowerCase().includes(name.toLowerCase()))
       
       order === 'ASC' ?
       sorted = filtered.sort(function(a, b) { return (a[filter] > b[filter] ? 1 : (a[filter] === b[filter] ? 0 : -1)) })
@@ -91,7 +93,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
               cart={cart}
               category={product.category || ''}
               selectedCategory={category}
-              sortBy={sorting.sortBy}
+              sortBy={sortBy}
             />
           )
       }
@@ -145,12 +147,10 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
   useEffect(() => {
       const { productsv2, favproductv2 } = productsData
       setCurrentPage(1)
-      productsv2 && favproductv2 && filterProducts()
-      if (requestLoading) {
-        setShow(true)
-      }
+      requestLoading && setShow(true)
       setRequestLoading(false)
-  }, [productsData, category, sorting, stockSort, search])
+      productsv2 && favproductv2 && filterProducts({filter, order})
+  }, [productsData, category, stockSort, search])
 
   useEffect(() => {
     setQuantity(1)
@@ -189,20 +189,40 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                {sorting.sortBy}
+                {sortBy}
               </button>
               <div className="dropdown-menu" aria-labelledby="sortByDropdown">
-                <span className="dropdown-item" onClick={() => setSorting({filter: 'name', order: 'ASC', sortBy: 'A-Z'})}>
+                <span className="dropdown-item" onClick={() => { 
+                  setFilter('name');
+                  setOrder('ASC');
+                  setSortBy('A-Z');
+                  filterProducts({filter: 'name', order: 'ASC'});
+                }}>
                   A - Z
                 </span>
-                <span className="dropdown-item" onClick={() => setSorting({filter: 'name', order: 'DESC', sortBy: 'Z-A'})}>
+                <span className="dropdown-item" onClick={() => { 
+                  setFilter('name');
+                  setOrder('DESC');
+                  setSortBy('Z-A');
+                  filterProducts({filter: 'name', order: 'DESC'});
+                }}>
                   Z - A
                 </span>
 
-                <span className="dropdown-item" onClick={() => setSorting({filter: 'cost', order: 'ASC', sortBy: '$ Low - High'})}>
+                <span className="dropdown-item" onClick={() => { 
+                  setFilter('cost');
+                  setOrder('ASC');
+                  setSortBy('$ Low - High');
+                  filterProducts({filter: 'cost', order: 'ASC'});
+                }}>
                 $ Low - High
                 </span>
-                <span className="dropdown-item" onClick={() => setSorting({filter: 'cost', order: 'DESC', sortBy: '$ High - Low'})}>
+                <span className="dropdown-item" onClick={() => { 
+                  setFilter('cost');
+                  setOrder('DESC');
+                  setSortBy('$ High - Low');
+                  filterProducts({filter: 'cost', order: 'DESC'});
+                }}>
                 $ High - Low
                 </span>
                 <hr/>
@@ -214,7 +234,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
             </div>
           </div>
           <div className="d-flex align-items-center view">
-            <label>View:</label>
+            <label className="sort-label">View:</label>
             <button
               className={'grid-btn' + (view === 'grid' ? ' active' : '')}
               onClick={() => setView('grid')}

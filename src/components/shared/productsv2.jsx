@@ -150,7 +150,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
       requestLoading && setShow(true)
       setRequestLoading(false)
       productsv2 && favproductv2 && filterProducts({filter, order})
-  }, [productsData, category, stockSort, search])
+  }, [productsData, category, name, stockSort, search])
 
   useEffect(() => {
     setQuantity(1)

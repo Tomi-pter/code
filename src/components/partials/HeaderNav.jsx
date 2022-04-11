@@ -138,11 +138,19 @@ export const HeaderNav = () => {
         let searchResult, changeTimer
         if (searchName !== "") {
             changeTimer = setTimeout(() => {
-                searchResult = productsData.productsv2.filter(product => product.name.toLowerCase().includes(searchName.toLowerCase()) || product.ndc.toLowerCase().includes(searchName.toLowerCase()))
+                searchResult = productsData.productsv2.filter(product => {
+                    const { name, ndc } = product
+
+                    const lowerCaseName = searchName.toLowerCase()
+                    const ndcWithoutDash = ndc.split('-').join('')
+                    //search by product name or ndc using the name query params
+                    return (name.toLowerCase().includes(lowerCaseName)
+                    || ndcWithoutDash.includes(lowerCaseName.split('-').join('')))
+                })
                 for(let i=0; i <= productsData.favproductv2.length; i++) {
                     let favProd = productsData.favproductv2[i]
                     let prodIndex = searchResult.findIndex(prod => prod?.id  === favProd?.id);
-                    
+
                     if (prodIndex !== -1) {
                         searchResult.splice(prodIndex, 1, {...searchResult[prodIndex], favorite: true, cost: favProd.cost});
                     }

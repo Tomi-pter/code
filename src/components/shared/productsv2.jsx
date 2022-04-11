@@ -43,25 +43,33 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
       const { filter, order } = sortOptions
 
       if (category === 'Favorites' && page === 'shop') {
-        search !== '' ? 
-          filtered = productsData.favproductv2.filter(product => product.name.toLowerCase().includes(search.toLowerCase()) || product.ndc.toLowerCase().includes(search.toLowerCase())) 
-          : 
+        search !== '' ?
+          filtered = productsData.favproductv2.filter(product => {
+              const { name, ndc } = product
+
+              const lowerCaseName = search.toLowerCase()
+              const ndcWithoutDash = ndc.split('-').join('')
+              //search by product name or ndc using the name query params
+              return (name.toLowerCase().includes(lowerCaseName)
+              || ndcWithoutDash.includes(lowerCaseName.split('-').join('')))
+          })
+          :
           filtered = productsData.favproductv2
       }
       if (category !== 'Favorites' && page === 'shop') filtered = productsData.productsv2.filter(product => product.category.includes(category))
       if (page === 'search') filtered = productsData.productsv2.filter(product => product.name.toLowerCase().includes(name.toLowerCase()) || product.ndc.toLowerCase().includes(name.toLowerCase()))
-      
+
       order === 'ASC' ?
       sorted = filtered.sort(function(a, b) { return (a[filter] > b[filter] ? 1 : (a[filter] === b[filter] ? 0 : -1)) })
       :
       sorted = filtered.sort(function(a, b) { return (a[filter] > b[filter] ? -1 : (a[filter] === b[filter] ? 0 : 1)) })
-      
-      if(stockSort) sorted = sorted.filter(product => product.totalquantityonhand > 0).concat(sorted.filter(product => product.totalquantityonhand === 0))  
-      
+
+      if(stockSort) sorted = sorted.filter(product => product.totalquantityonhand > 0).concat(sorted.filter(product => product.totalquantityonhand === 0))
+
       for(let i=0; i <= productsData.favproductv2.length; i++) {
         let favProd = productsData.favproductv2[i]
         let prodIndex = sorted.findIndex(prod => prod?.id  === favProd?.id);
-        
+
         if (prodIndex !== -1) {
           sorted.splice(prodIndex, 1, {...sorted[prodIndex], favorite: true, cost: favProd.cost});
         }
@@ -192,7 +200,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
                 {sortBy}
               </button>
               <div className="dropdown-menu" aria-labelledby="sortByDropdown">
-                <span className="dropdown-item" onClick={() => { 
+                <span className="dropdown-item" onClick={() => {
                   setFilter('name');
                   setOrder('ASC');
                   setSortBy('A-Z');
@@ -200,7 +208,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
                 }}>
                   A - Z
                 </span>
-                <span className="dropdown-item" onClick={() => { 
+                <span className="dropdown-item" onClick={() => {
                   setFilter('name');
                   setOrder('DESC');
                   setSortBy('Z-A');
@@ -209,7 +217,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
                   Z - A
                 </span>
 
-                <span className="dropdown-item" onClick={() => { 
+                <span className="dropdown-item" onClick={() => {
                   setFilter('cost');
                   setOrder('ASC');
                   setSortBy('$ Low - High');
@@ -217,7 +225,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
                 }}>
                 $ Low - High
                 </span>
-                <span className="dropdown-item" onClick={() => { 
+                <span className="dropdown-item" onClick={() => {
                   setFilter('cost');
                   setOrder('DESC');
                   setSortBy('$ High - Low');
@@ -285,7 +293,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
             :
             filteredProducts.length === 0  ?
               <div className="col-12 d-flex align-items-center justify-content-center text-center">
-                No Product
+                Loading Products...
               </div>
             :
               renderPage()

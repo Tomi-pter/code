@@ -19,7 +19,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
   const [sortBy, setSortBy] = useState('A-Z')
 
   // const [sorting, setSorting] = useState({filter: 'name', order: 'ASC', sortBy: 'A-Z'})
-  const [stockSort, setStockSort] = useState(false)
+  const [stockSort, setStockSort] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const productPerPage = 10
   const numPages = Math.ceil(filteredProducts.length / productPerPage)
@@ -38,46 +38,73 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
 
   const handleClose = () => setShow(false)
 
-  const filterProducts = (sortOptions) => {
-      let sorted, filtered
-      const { filter, order } = sortOptions
+    const filterProducts = (sortOptions) => {
+        let sorted, filtered
+        const { filter, order } = sortOptions
 
-      if (category === 'Favorites' && page === 'shop') {
-        search !== '' ?
-          filtered = productsData.favproductv2.filter(product => {
-              const { name, ndc } = product
+        if (page === 'shop') {
 
-              const lowerCaseName = search.toLowerCase()
-              const ndcWithoutDash = ndc.split('-').join('')
-              //search by product name or ndc using the name query params
-              return (name.toLowerCase().includes(lowerCaseName)
-              || ndcWithoutDash.includes(lowerCaseName.split('-').join('')))
-          })
-          :
-          filtered = productsData.favproductv2
-      }
-      if (category !== 'Favorites' && page === 'shop') filtered = productsData.productsv2.filter(product => product.category.includes(category))
-      if (page === 'search') filtered = productsData.productsv2.filter(product => product.name.toLowerCase().includes(name.toLowerCase()) || product.ndc.toLowerCase().includes(name.toLowerCase()))
 
-      order === 'ASC' ?
-      sorted = filtered.sort(function(a, b) { return (a[filter] > b[filter] ? 1 : (a[filter] === b[filter] ? 0 : -1)) })
-      :
-      sorted = filtered.sort(function(a, b) { return (a[filter] > b[filter] ? -1 : (a[filter] === b[filter] ? 0 : 1)) })
+            if (category === 'Favorites') {
 
-      if(stockSort) sorted = sorted.filter(product => product.totalquantityonhand > 0).concat(sorted.filter(product => product.totalquantityonhand === 0))
 
-      for(let i=0; i <= productsData.favproductv2.length; i++) {
-        let favProd = productsData.favproductv2[i]
-        let prodIndex = sorted.findIndex(prod => prod?.id  === favProd?.id);
+                if (search === '') {
+                    filtered = productsData.favproductv2
+                }
+                else {
+                    filtered = productsData.favproductv2.filter(product => {
+                        const { name, ndc } = product
 
-        if (prodIndex !== -1) {
-          sorted.splice(prodIndex, 1, {...sorted[prodIndex], favorite: true, cost: favProd.cost});
+                        const lowerCaseName = search.toLowerCase()
+                        const ndcWithoutDash = ndc.split('-').join('')
+                        //search by product name or ndc using the name query params
+                        return (name.toLowerCase().includes(lowerCaseName)
+                        || ndcWithoutDash.includes(lowerCaseName.split('-').join('')))
+                    })
+                }
+
+
+            }
+            else {
+                filtered = productsData.productsv2.filter(product => product.category.includes(category))
+            }
+
+
         }
-      }
+        else {// search page
+            filtered = productsData.productsv2.filter(product => {
+                return (
+                    product.name.toLowerCase().includes(name.toLowerCase())
+                    || product.ndc.toLowerCase().includes(name.toLowerCase())
+                )
+            })
+        }
 
-      setFilteredProducts(sorted)
-      setIsLoading(false)
-  }
+        if (order === 'ASC') {
+            sorted = filtered.sort(function(a, b) { return (a[filter] > b[filter] ? 1 : (a[filter] === b[filter] ? 0 : -1)) })
+        }
+        else {
+            sorted = filtered.sort(function(a, b) { return (a[filter] > b[filter] ? -1 : (a[filter] === b[filter] ? 0 : 1)) })
+        }
+
+        if (stockSort) {
+            sorted = sorted
+                .filter(product => product.totalquantityonhand > 0)
+                .concat(sorted.filter(product => product.totalquantityonhand === 0))
+        }
+
+        for(let i=0; i <= productsData.favproductv2.length; i++) {
+            let favProd = productsData.favproductv2[i]
+            let prodIndex = sorted.findIndex(prod => prod?.id  === favProd?.id);
+
+            if (prodIndex !== -1) {
+                sorted.splice(prodIndex, 1, {...sorted[prodIndex], favorite: true, cost: favProd.cost});
+            }
+        }
+
+        setFilteredProducts(sorted)
+        setIsLoading(false)
+    }
 
   const renderPage = () => {
       let rows = []
@@ -293,7 +320,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
             :
             filteredProducts.length === 0  ?
               <div className="col-12 d-flex align-items-center justify-content-center text-center">
-                Loading Products...
+                Propagating Products...
               </div>
             :
               renderPage()

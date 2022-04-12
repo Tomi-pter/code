@@ -136,9 +136,10 @@ export const HeaderNav = () => {
         //     clearTimeout(changeTimer)
         // }
         let searchResult, changeTimer
+
         if (searchName !== "") {
             changeTimer = setTimeout(() => {
-                searchResult = productsData.productsv2.filter(product => {
+                searchResult = productsData.productsv2 && productsData.productsv2.filter(product => {
                     const { name, ndc } = product
 
                     const lowerCaseName = searchName.toLowerCase()
@@ -146,7 +147,8 @@ export const HeaderNav = () => {
                     //search by product name or ndc using the name query params
                     return (name.toLowerCase().includes(lowerCaseName)
                     || ndcWithoutDash.includes(lowerCaseName.split('-').join('')))
-                })
+                }) || []
+
                 for(let i=0; i <= productsData.favproductv2.length; i++) {
                     let favProd = productsData.favproductv2[i]
                     let prodIndex = searchResult.findIndex(prod => prod?.id  === favProd?.id);
@@ -155,6 +157,7 @@ export const HeaderNav = () => {
                         searchResult.splice(prodIndex, 1, {...searchResult[prodIndex], favorite: true, cost: favProd.cost});
                     }
                 }
+
                 setsearchResults(searchResult);
                 setSearchLoading(false);
             }, 1000)

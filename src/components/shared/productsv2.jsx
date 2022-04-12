@@ -53,13 +53,11 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
                 }
                 else {
                     filtered = productsData.favproductv2.filter(product => {
-                        const { name, ndc } = product
+                        const searchLowerCase = search.toLowerCase()
+                        const ndcWithoutDash = product.ndc.split('-').join('')
 
-                        const lowerCaseName = search.toLowerCase()
-                        const ndcWithoutDash = ndc.split('-').join('')
-                        //search by product name or ndc using the name query params
-                        return (name.toLowerCase().includes(lowerCaseName)
-                        || ndcWithoutDash.includes(lowerCaseName.split('-').join('')))
+                        return (product.name.toLowerCase().includes(searchLowerCase)
+                        || ndcWithoutDash.includes(searchLowerCase.split('-').join('')))
                     })
                 }
 
@@ -73,13 +71,13 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
         }
         else {// search page
             filtered = productsData.productsv2.filter(product => {
-                const { name, ndc } = product
+                const searchLowerCase = name.toLowerCase()
+                const ndcWithoutDash = product.ndc.split('-').join('')
 
-                const lowerCaseName = search.toLowerCase()
-                const ndcWithoutDash = ndc.split('-').join('')
-                //search by product name or ndc using the name query params
-                return (name.toLowerCase().includes(lowerCaseName)
-                || ndcWithoutDash.includes(lowerCaseName.split('-').join('')))
+                return (
+                    product.name.toLowerCase().includes(searchLowerCase)
+                    || ndcWithoutDash.toLowerCase().includes(searchLowerCase.split('-').join(''))
+                )
             })
         }
 

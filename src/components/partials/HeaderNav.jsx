@@ -208,7 +208,7 @@ export const HeaderNav = () => {
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     { user && <Link className="dropdown-item" href="#!" to="/shop?category=Favorites">My Favorites</Link> }
-                                    <Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">Pharmacies</Link>
+                                    <Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">Pharmaceutical</Link>
                                     <Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">Animal Health</Link>
                                     <Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">Medical/Surgical</Link>
                                 </div>
@@ -289,7 +289,7 @@ export const HeaderNav = () => {
                                     <Link className="dropdown-item" href={`${process.env.REACT_APP_HOMEPAGE_URL}/about-us`} to="">About Us</Link>
                                     <ul>Products
                                     { user && <li><Link className="dropdown-item" href="#!" to="/shop?category=Favorites">My Favorites</Link></li> }
-                                        <li><Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">Pharmacies</Link></li>
+                                        <li><Link className="dropdown-item" href="#!" to="/shop?category=Pharmaceuticals">Pharmaceutical</Link></li>
                                         <li><Link className="dropdown-item" href="#!" to="/shop?category=Animal Health">Animal Health</Link></li>
                                         <li><Link className="dropdown-item" href="#!" to="/shop?category=Medical Supplies">Medical/Surgical</Link></li>
                                     </ul>

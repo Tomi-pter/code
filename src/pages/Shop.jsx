@@ -72,7 +72,7 @@ export default (props) => {
                     value={category}
                   >
                     { auth && <option value="Favorites" >My Favorites</option>}
-                    <option value="Pharmaceuticals" >Pharmacies</option>
+                    <option value="Pharmaceuticals" >Pharmaceuticals</option>
                     <option
                       value="Animal Health">Animal Health</option>
                     <option
@@ -102,7 +102,7 @@ export default (props) => {
                       aria-expanded="false"
                       onClick={() => setCategory('Pharmaceuticals')}
                     >
-                      Pharmacies
+                      Pharmaceuticals
                     </button>
                     <button
                       id="animal-accordion-btn"

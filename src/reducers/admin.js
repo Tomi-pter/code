@@ -1,14 +1,14 @@
-import 
-{   GETUSERS, 
-    GETCUSTOMPRODUCTS, 
-    RESETCUSTOMPRODUCTS, 
-    CREATECUSTOMPRODUCT, 
+import
+{   GETUSERS,
+    GETCUSTOMPRODUCTS,
+    RESETCUSTOMPRODUCTS,
+    CREATECUSTOMPRODUCT,
     CUSTOMPRODUCTERROR,
-    UPDATECUSTOMPRODUCT, 
-    REMOVECUSTOMPRODUCT, 
-    LOGINADMINUSER, 
-    LOGINERROR, 
-    LOGINADMIN, 
+    UPDATECUSTOMPRODUCT,
+    REMOVECUSTOMPRODUCT,
+    LOGINADMINUSER,
+    LOGINERROR,
+    LOGINADMIN,
     LOGINADMINERROR,
     CONFIRMUSER,
     CONFIRMUSERERROR,
@@ -17,7 +17,9 @@ import
     EXPORTCSV,
     UPDATEUSERNETSUITEID,
     SYNCCUSTOMPRICING,
-    SYNCCUSTOMPRICINGERROR
+    SYNCCUSTOMPRICINGERROR,
+    SYNCPRODUCTS,
+    SYNCPRODUCTSERROR
 } from '../constants/actionTypes';
 
 const adminReducer = (state = { users: [], customProducts: null }, action) => {
@@ -47,17 +49,17 @@ const adminReducer = (state = { users: [], customProducts: null }, action) => {
         return { ...state, error: null};
     case REMOVECUSTOMPRODUCT:
         const newCustomProducts = state.customProducts.filter((product) => product.customPricingId !== action.id)
-      
+
         return { ...state, customProducts: newCustomProducts };
     case LOGINADMINUSER:
         if (action?.data?.success && action?.data?.AuthenticationResult?.AccessToken) {
           localStorage.setItem("profile", JSON.stringify({ ...action?.data, accessToken: action?.data?.AuthenticationResult?.AccessToken }));
         }
         return { ...state, authData: { ...action?.data, accessToken: action?.data?.AuthenticationResult?.AccessToken }, loginError: false };
-    case LOGINERROR: 
-    
+    case LOGINERROR:
+
         return { ...state, loginError: true };
-    case LOGINADMIN: 
+    case LOGINADMIN:
         localStorage.setItem("admin", JSON.stringify(action?.data));
 
         return { ...state, adminAuthData: action?.data, adminLoginError: null}
@@ -66,7 +68,7 @@ const adminReducer = (state = { users: [], customProducts: null }, action) => {
         return { ...state, adminLoginError: action?.data}
     case CONFIRMUSER:
         const userIndex = state.users.findIndex(user => user.username  === action.data.username);
-        
+
         if (userIndex !== -1) {
             state.users.splice(userIndex, 1, action.data);
         }
@@ -88,7 +90,7 @@ const adminReducer = (state = { users: [], customProducts: null }, action) => {
     case UPDATEUSERNETSUITEID:
         const netsuiteIndex = state.users.findIndex(user => user.username  === action.data.username);
         const newData = {...state.users[netsuiteIndex], awsNetsuiteId: action.data.netsuiteCustomerId}
-        
+
         if(netsuiteIndex !== -1) {
             state.users.splice(netsuiteIndex, 1, newData);
         }
@@ -98,6 +100,10 @@ const adminReducer = (state = { users: [], customProducts: null }, action) => {
         return { ...state, syncCustomPricingError: null }
     case SYNCCUSTOMPRICINGERROR:
         return { ...state, syncCustomPricingError: { msg: action.data} }
+    case SYNCPRODUCTS:
+        return { ...state, syncProductsError: null }
+    case SYNCPRODUCTSERROR:
+        return { ...state, syncProductsError: { msg: action.data} }
     default:
         return state;
   }

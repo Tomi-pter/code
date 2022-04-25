@@ -9,6 +9,7 @@ import {
   exportCSV,
   updateUserNetsuiteID,
   syncCustomPricing,
+  syncProducts
 } from "../../actions/admin";
 import { getCountries, getStates } from "../../actions/auth";
 import { useSelector } from "react-redux";
@@ -53,6 +54,7 @@ export const AdminDashboard = () => {
   const [loginLoading, setLoginLoading] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [linkLoading, setLinkLoading] = useState(false);
+  const [productSyncLoading, setProductSyncLoading] = useState(false);
   const [syncLoading, setSyncLoading] = useState(false);
   const [selectedUser, setSelectedUser] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -134,6 +136,11 @@ export const AdminDashboard = () => {
     setExportCsv(true);
     dispatch(exportCSV());
   };
+
+  const handleProductSync = () => {
+    setProductSyncLoading(true)
+    dispatch(syncProducts());
+  }
 
   const handleAlert = (msg, type) => {
     setErrorMsg(msg);
@@ -227,6 +234,7 @@ export const AdminDashboard = () => {
     setActionLoading(false);
     setLinkLoading(false);
     setSyncLoading(false);
+    setProductSyncLoading(false);
     setEditNetsuiteID(false);
     setNetsuiteID("");
     // if (!admin.importError) {
@@ -325,16 +333,30 @@ export const AdminDashboard = () => {
             />
           </div>
           {/* <button type="button" className="btn btn-primary import-btn" data-toggle="modal" data-target="#importUserModal" onClick={()=>openImportForm()}>
-                        Import User
-                    </button>
-                    */}
-          <button
-            type="button"
-            className="btn btn-success export-btn"
-            onClick={() => handleExport()}
-          >
-            Export CSV
-          </button>
+                    Import User
+                </button>
+
+              <button
+                type="button"
+                className="btn btn-success export-btn"
+                onClick={() => handleExport()}
+              >
+                Export CSV
+              </button>*/}
+            {
+            productSyncLoading
+            ? <div className="spinner-border admin-sync-btn">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            : <button
+                  type="button"
+                  className="btn btn-success export-btn"
+                  onClick={() => handleProductSync()}
+                >
+                    Sync Products
+                </button>
+            }
+
         </div>
         <div className="table-container">
           <table className="table table-hover">

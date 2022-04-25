@@ -8,7 +8,7 @@ import {
     REMOVECUSTOMPRODUCT,
     LOGINADMINUSER,
     LOGINERROR,
-    LOGINADMIN, 
+    LOGINADMIN,
     LOGINADMINERROR,
     CONFIRMUSER,
     CONFIRMUSERERROR,
@@ -17,11 +17,13 @@ import {
     EXPORTCSV,
     UPDATEUSERNETSUITEID,
     SYNCCUSTOMPRICING,
-    SYNCCUSTOMPRICINGERROR
+    SYNCCUSTOMPRICINGERROR,
+    SYNCPRODUCTS,
+    SYNCPRODUCTSERROR
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
-  
+
 export const getUsers = () => async (dispatch) => {
     try {
         const { data } = await api.getUsers();
@@ -79,7 +81,7 @@ export const updateCustomProduct = (id, formData) => async (dispatch) => {
 export const removeCustomProduct = (id) => async (dispatch) => {
     try {
         const { data } = await api.removeCustomProduct(id);
-        
+
         dispatch({ type: REMOVECUSTOMPRODUCT, id });
     } catch (error) {
         console.log(error);
@@ -92,9 +94,9 @@ export const loginAdminUser = (formData, profile) => async (dispatch) => {
             await api.logOut(profile.username);
             localStorage.removeItem('profile');
         }
-        
+
         const { data } = await api.loginAdminUser(formData);
-        
+
         dispatch({ type: LOGINADMINUSER, data });
 
         window.open("/shop", "_blank");
@@ -107,7 +109,7 @@ export const loginAdminUser = (formData, profile) => async (dispatch) => {
 export const loginAdmin = (formData, route) => async (dispatch) => {
     try {
         const { data } = await api.loginAdmin(formData);
-        
+
         dispatch({ type: LOGINADMIN, data });
 
         route.push("/admin");
@@ -123,7 +125,7 @@ export const confirmUser = (formData, user) => async (dispatch) => {
         await api.confirmUser(formData);
 
         const data = {...user, UserStatus: 'CONFIRMED', status: 'CONFIRMED' }
-        
+
         dispatch({ type: CONFIRMUSER, data });
     } catch (error) {
         const data = {success: false}
@@ -185,9 +187,9 @@ export const importUser = (formData) => async (dispatch) => {
 
 export const exportCSV = () => async (dispatch) => {
     try {
-        
+
         const { data } = await api.exportCSV();
-        
+
         dispatch({ type: EXPORTCSV, data });
 
     } catch (error) {
@@ -198,9 +200,9 @@ export const exportCSV = () => async (dispatch) => {
 
 export const updateUserNetsuiteID = (username, formData) => async (dispatch) => {
     try {
-        
+
         const { data } = await api.updateUserNetsuiteID(username, formData);
-        
+
         dispatch({ type: UPDATEUSERNETSUITEID, data });
 
     } catch (error) {
@@ -211,13 +213,26 @@ export const updateUserNetsuiteID = (username, formData) => async (dispatch) => 
 
 export const syncCustomPricing = (username) => async (dispatch) => {
     try {
-        
+
         const { data } = await api.syncCustomPricing(username);
-        
+
         dispatch({ type: SYNCCUSTOMPRICING, data });
 
     } catch (error) {
 
         dispatch({ type: SYNCCUSTOMPRICINGERROR, data: 'Error syncing custom pricing!' });
+    }
+};
+
+export const syncProducts = () => async (dispatch) => {
+    try {
+
+        const { data } = await api.syncProducts();
+
+        dispatch({ type: SYNCPRODUCTS, data });
+
+    } catch (error) {
+
+        dispatch({ type: SYNCPRODUCTSERROR, data: 'Error syncing products!' });
     }
 };

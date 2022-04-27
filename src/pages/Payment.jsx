@@ -14,8 +14,8 @@ import { getAccount, getNetsuiteAccount } from '../actions/account';
 import { Link } from 'react-router-dom';
 
 export const PaymentContainer = () => {
-    const cart = useSelector((state) => state.cart); 
-    const account = useSelector((state) => state.account);   
+    const cart = useSelector((state) => state.cart);
+    const account = useSelector((state) => state.account);
     const [selectedCard, setSelectedCard] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState('terms');
@@ -98,13 +98,13 @@ export const PaymentContainer = () => {
                                             </div>
                                             <img src={require("../assets/icon/card-active.svg")} alt="" />
                                         </div>
-                                    </div> 
+                                    </div>
                                 {/* } */}
                             </div>
                             <div className="d-flex align-items-center justify-content-end actions-container">
                                 <Link to="checkout" className="btn back-btn">{"<"}<span> Checkout</span></Link>
                                 {/* disabled={enablePayByTerms ? false : true} */}
-                                <button className="btn proceed-btn" onClick={()=>handlePayment("term")}>
+                                <button className="btn proceed-btn" onClick={()=>handlePayment("term")} disabled={isLoading}>
                                     {isLoading ?
                                         <div className="spinner-border text-light" role="status">
                                             <span className="sr-only">Loading...</span>

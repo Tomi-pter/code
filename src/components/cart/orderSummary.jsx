@@ -7,6 +7,19 @@ import { DiscountForm } from './discountForm';
 import { checkout } from '../../actions/cart';
 
 export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
+    /*
+        Obsolete Logic:
+        For orders greater than or equal to $150, free shipping
+        Otherwise, shipping fee is 15 of subtotal
+    */
+    const FREE_SHIPPING_TOTAL = 100
+    /*
+        New Logic:
+        Minimum for free shipping $100 (currently $150).
+        Every order under $100, $20 flat shipping fee (currently is 15% of the total order).
+    */
+
+
     const cart = useSelector((state) => state.cart);
     const [discountCode, setDiscountCode] = useState('');
     const [customerRefNumber, setCustomerRefNumber] = useState('');
@@ -15,8 +28,8 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
     const itemCount = cart.countData?.length > 0 ? cart.countData?.map(item => parseInt(item.quantity)).reduce((prev, next) => prev + next) : 0;
     const subTotalCalc = cart.countData?.length > 0 ? (cart.countData?.map(item => parseFloat(item.price) * item.quantity).reduce((prev, next) => prev + next)) : 0;
     const subTotal = parseFloat(subTotalCalc).toFixed(2);
-    const shipping = subTotal >= 150 ? 0 : ((15 / 100) * subTotal).toFixed(2);
-    const shippingCounter = subTotal >= 150 ? 0 : (150 - subTotal).toFixed(2);
+    const shipping = subTotal >= FREE_SHIPPING_TOTAL ? 0 : 20;
+    const shippingCounter = subTotal >= FREE_SHIPPING_TOTAL ? 0 : (FREE_SHIPPING_TOTAL - parseFloat(subTotal)).toFixed(2);
     const totalCalc = cart.countData?.length > 0 ? parseFloat(subTotal) + parseFloat(shipping) : 0;
     const total = parseFloat(totalCalc).toFixed(2);
     const discount = cart?.discountDetail?.discount_data?.percentage / 100; //discount decimal
@@ -54,7 +67,7 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
                     <p>${ shipping }</p>
                 </li>
             </ul>
-            {page === 'checkout' && 
+            {page === 'checkout' &&
                 <>
                     <div className="discount-container">
                         <label>Reference Number</label>
@@ -62,10 +75,10 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
                             <input type="text" placeholder="Reference Number" value={customerRefNumber} onChange={(e) => setCustomerRefNumber(e.target.value)}  />
                         </div>
                     </div>
-                    <DiscountForm 
+                    <DiscountForm
                         cart={cart}
-                        discountCode={discountCode} 
-                        setDiscountCode={setDiscountCode} 
+                        discountCode={discountCode}
+                        setDiscountCode={setDiscountCode}
                         discountAmount={discountAmount}
                     />
                 </>
@@ -75,8 +88,8 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
                 <span>${ finalTotal }</span>
             </div>
             <div className="d-flex justify-content-between actions-container">
-            {   page === 'cart' ? 
-                    cart.countData?.length > 0 ? 
+            {   page === 'cart' ?
+                    cart.countData?.length > 0 ?
                     <Link to="checkout" className="btn proceed-btn">
                         Proceed to Checkout
                     </Link>

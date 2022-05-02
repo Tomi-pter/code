@@ -125,15 +125,15 @@ export default props => {
             return ''
         }
 
-        return roundToFour(cost / sizeInString)
+        return roundToTwo(cost / sizeInString)
     }
 
     const getIntegerInStringArray = string => {
         return string.match(/[0-9\.,]+/g)
     }
 
-    const roundToFour = num => {
-        return +(Math.round(num + 'e+4')  + 'e-4');
+    const roundToTwo = num => {
+        return +(Math.round(num + 'e+2')  + 'e-2');
     }
 
     useEffect(() => {

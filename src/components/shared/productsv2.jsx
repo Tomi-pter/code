@@ -303,6 +303,7 @@ export const Productsv2 = ({ page, view, setView, name, shopFont, category, isLo
           <div className="price-container" style={{minWidth: category !== 'Favorites' && '100px'}}>
             <p>Price</p>
           </div>
+          <p className="size">PPU</p>
           <p className={'buy' + (!auth ? ' buy-offline' : ' buy-online')} style={!auth ? { minWidth: '90px' } : { minWidth: '145px' }}>Buy</p>
           <div className={'incart' + (!auth ? ' d-none' : ' d-block')}>
             <p>In</p>

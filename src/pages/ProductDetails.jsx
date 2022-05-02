@@ -114,6 +114,28 @@ export default props => {
         </>
     }
 
+    const getPricePerUnit = (bottleSize, cost) => {
+        if (!bottleSize) {
+            return ''
+        }
+
+        const sizeInString = getIntegerInStringArray(bottleSize)
+
+        if (sizeInString.length !== 1 || cost === 0) {
+            return ''
+        }
+
+        return roundToFour(cost / sizeInString)
+    }
+
+    const getIntegerInStringArray = string => {
+        return string.match(/[0-9\.,]+/g)
+    }
+
+    const roundToFour = num => {
+        return +(Math.round(num + 'e+4')  + 'e-4');
+    }
+
     useEffect(() => {
         let id = props.match.params.id;
         const { productsv2, favproductv2 } = products
@@ -192,6 +214,7 @@ export default props => {
                                             <li>NDC:  {product?.ndc}</li>
                                             <li>Manufacturer:  {product?.manufacturer || 'N/A'}</li>
                                             <li>Size:  {product?.bottleSize || 'N/A'}</li>
+                                            <li>Price per unit: $ {getPricePerUnit(product.bottleSize, product.cost)}</li>
                                             <li>Strength: {product?.drugStrength || 'N/A' }</li>
                                         </ul>
 

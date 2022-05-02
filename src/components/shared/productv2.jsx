@@ -51,6 +51,28 @@ const formatPrice = (price) => {
     return n;
 }
 
+const getPricePerUnit = (bottleSize, cost) => {
+    if (!bottleSize) {
+        return ''
+    }
+
+    const sizeInString = getIntegerInStringArray(bottleSize)
+
+    if (sizeInString.length !== 1 || cost === 0) {
+        return ''
+    }
+
+    return roundToFour(cost / sizeInString)
+}
+
+const getIntegerInStringArray = string => {
+    return string.match(/[0-9\.,]+/g)
+}
+
+const roundToFour = num => {
+    return +(Math.round(num + 'e+4')  + 'e-4');
+}
+
 export const Productv2 = ({
   view,
   product,
@@ -192,6 +214,9 @@ export const Productv2 = ({
                 }
               </p>
             </div>
+            <p className="size for-list">
+              {getPricePerUnit(product.bottleSize, product.cost)}
+            </p>
             {auth ?
               renderActionButton(selectedProduct, product, quantity, handleChange, addCart, isCartLoading, requestStock, requestLoading)
             :

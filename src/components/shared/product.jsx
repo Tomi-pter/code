@@ -215,7 +215,7 @@ export const Product = ({
               </p>
             </div>
             <p className="size for-list">
-              {getPricePerUnit(product.bottleSize, product.cost)}
+              $ {getPricePerUnit(product.bottleSize, product.cost)}
             </p>
             {auth ?
               renderActionButton(selectedProduct, product, quantity, handleChange, addCart, isCartLoading, requestStock, requestLoading)

@@ -9,6 +9,8 @@ import ReactPaginate from "react-paginate";
 
 import { Productv2 } from "./productv2";
 
+import fuzzysort from "fuzzysort";
+
 export const Productsv2 = ({
   page,
   view,
@@ -53,64 +55,60 @@ export const Productsv2 = ({
 
     if (page === "shop") {
       if (category === "Favorites") {
-        if (search === "") {
-          filtered = productsData.favproductv2;
-        } else {
-          filtered = productsData.favproductv2.filter((product) => {
-            const searchLowerCase = search.toLowerCase();
-            const ndcWithoutDash = product.ndc.split("-").join("");
-
-            return (
-              product.name.toLowerCase().includes(searchLowerCase) ||
-              ndcWithoutDash.includes(searchLowerCase.split("-").join(""))
-            );
-          });
-        }
+        filtered = fuzzysort.go(search, productsData.favproductv2, {
+          keys: ["name", "ndc"],
+          all: true,
+        });
       } else {
-        filtered = productsData.productsv2.filter((product) =>
-          product.category.includes(category)
-        );
+        filtered = fuzzysort.go(category, productsData.productsv2, {
+          keys: ["category"],
+        });
       }
     } else {
       // search page
-      filtered = productsData.productsv2.filter((product) => {
-        const searchLowerCase = name.toLowerCase();
-        const ndcWithoutDash = product.ndc.split("-").join("");
-
-        return (
-          product.name.toLowerCase().includes(searchLowerCase) ||
-          ndcWithoutDash
-            .toLowerCase()
-            .includes(searchLowerCase.split("-").join(""))
-        );
+      filtered = fuzzysort.go(name, productsData.productsv2, {
+        keys: ["name", "ndc"],
       });
     }
 
     if (order === "ASC") {
       sorted = filtered.sort(function (a, b) {
-        return a[filter] > b[filter] ? 1 : a[filter] === b[filter] ? 0 : -1;
+        return a.obj[filter] > b.obj[filter]
+          ? 1
+          : a.obj[filter] === b.obj[filter]
+          ? 0
+          : -1;
       });
     } else {
       sorted = filtered.sort(function (a, b) {
-        return a[filter] > b[filter] ? -1 : a[filter] === b[filter] ? 0 : 1;
+        return a.obj[filter] > b.obj[filter]
+          ? -1
+          : a.obj[filter] === b.obj[filter]
+          ? 0
+          : 1;
       });
     }
 
     if (stockSort) {
       sorted = sorted
-        .filter((product) => product.totalquantityonhand > 0)
-        .concat(sorted.filter((product) => product.totalquantityonhand === 0));
+        .filter((product) => product.obj.totalquantityonhand > 0)
+        .concat(
+          sorted.filter((product) => product.obj.totalquantityonhand === 0)
+        );
     }
 
     for (let i = 0; i <= productsData.favproductv2.length; i++) {
       let favProd = productsData.favproductv2[i];
-      let prodIndex = sorted.findIndex((prod) => prod?.id === favProd?.id);
+      let prodIndex = sorted.findIndex((prod) => prod?.obj?.id === favProd?.id);
 
       if (prodIndex !== -1) {
         sorted.splice(prodIndex, 1, {
           ...sorted[prodIndex],
-          favorite: true,
-          cost: favProd.cost,
+          obj: {
+            ...sorted[prodIndex].obj,
+            favorite: true,
+            cost: favProd.cost,
+          },
         });
       }
     }
@@ -131,8 +129,8 @@ export const Productsv2 = ({
         <Productv2
           shopFont={shopFont}
           view={view}
-          key={product.id}
-          product={product}
+          key={product.obj.id}
+          product={product.obj}
           addCart={handleAddCart}
           requestStock={handleRequestStock}
           setSelectedProduct={setSelectedProduct}
@@ -143,7 +141,7 @@ export const Productsv2 = ({
           quantity={quantity}
           setQuantity={setQuantity}
           cart={cart}
-          category={product.category || ""}
+          category={product.obj.category || ""}
           selectedCategory={category}
           sortBy={sortBy}
         />
@@ -182,6 +180,7 @@ export const Productsv2 = ({
 
   const handleSearchFav = (e) => {
     const searchNDC = e.target.value.replaceAll("-", "");
+    setIsLoading(false);
     setSearch(searchNDC);
   };
 
@@ -207,7 +206,7 @@ export const Productsv2 = ({
   useEffect(() => {
     setQuantity(1);
     setSelectedProduct(null);
-    setIsLoading(false);
+    // setIsLoading(false);
   }, [cart]);
 
   useEffect(() => {
@@ -368,20 +367,28 @@ export const Productsv2 = ({
           </div>
         </div>
         <div className="row">
-          {isLoading ? (
-            <div className="container-fluid">
-              <div className="spinner-container d-flex align-items-center justify-content-center">
+          {/* <div className="container-fluid">
+            <div className="spinner-container d-flex align-items-center justify-content-center">
                 <div className="spinner-border text-primary" role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              </div>
-            </div>
-          ) : filteredProducts.length === 0 ? (
+                   <span className="sr-only">Loading...</span>
+                 </div>
+               </div>
+             </div> */}
+          {isLoading && search !== "" && (
             <div className="col-12 d-flex align-items-center justify-content-center text-center">
-              Propagating Products...
+              Searching products...
             </div>
-          ) : (
-            renderPage()
+          )}
+          {isLoading && search === "" && (
+            <div className="col-12 d-flex align-items-center justify-content-center text-center">
+              Propagating products...
+            </div>
+          )}
+          {!isLoading && filteredProducts.length > 0 && renderPage()}
+          {!isLoading && filteredProducts.length === 0 && (
+            <div className="col-12 d-flex align-items-center justify-content-center text-center">
+              No Products
+            </div>
           )}
         </div>
       </div>

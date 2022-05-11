@@ -20,6 +20,7 @@
     "export-to-csv": "^0.2.1",
     "flatpickr": "^4.6.3",
     "formik": "^2.2.6",
+    "fuzzysort": "^1.9.0",
     "highlightjs": "^9.16.2",
     "jquery": "^3.4.1",
     "jquery-mask-plugin": "^1.14.16",

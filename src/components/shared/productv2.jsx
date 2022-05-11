@@ -215,7 +215,19 @@ export const Productv2 = ({
               </p>
             </div>
             <p className="size for-list">
-              $ {getPricePerUnit(product.bottleSize, product.cost)}
+                {
+                    auth
+                    ? <>{'$ ' + getPricePerUnit(product.bottleSize, product.cost)}</>
+                    : <span style={{ fontSize: '12.3295px' }}>
+                        <Link
+                            to="/login"
+                            style={{ textDecoration: 'underline', color: 'black' }}
+                        >
+                                Login
+                        </Link>{' '}
+                        for Price
+                    </span>
+                }
             </p>
             {auth ?
               renderActionButton(selectedProduct, product, quantity, handleChange, addCart, isCartLoading, requestStock, requestLoading)

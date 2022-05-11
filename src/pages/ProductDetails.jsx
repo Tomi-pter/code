@@ -214,7 +214,20 @@ export default props => {
                                             <li>NDC:  {product?.ndc}</li>
                                             <li>Manufacturer:  {product?.manufacturer || 'N/A'}</li>
                                             <li>Size:  {product?.bottleSize || 'N/A'}</li>
-                                            <li>Price per unit: $ {getPricePerUnit(product.bottleSize, product.cost)}</li>
+                                            <li>Price per unit: {
+                                                    user
+                                                    ? <> {'$ ' + getPricePerUnit(product.bottleSize, product.cost)} </>
+                                                    : <span style={{ fontSize: '12.3295px' }}>
+                                                        <Link
+                                                            to="/login"
+                                                            style={{ textDecoration: 'underline', color: 'black' }}
+                                                        >
+                                                                Login
+                                                        </Link>{' '}
+                                                        for Price
+                                                    </span>
+                                                }
+                                            </li>
                                             <li>Strength: {product?.drugStrength || 'N/A' }</li>
                                         </ul>
 

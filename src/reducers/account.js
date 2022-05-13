@@ -5,36 +5,53 @@ const initialState = {
   updatedAccountData: [],
   // accountOrders: [],
   ordersData: null,
-  avatarData: '',
+  avatarData: "",
   addressesData: [],
   changePassword: null,
   errorOldPass: null,
-  getAddressesById: []
+  getAddressesById: [],
 };
 
 const accountReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionType.GETACCOUNT:
-      return { ...state, accountData: action.data, changePassword: null, errorOldPass: null };
+      return {
+        ...state,
+        accountData: action.data,
+        changePassword: null,
+        errorOldPass: null,
+      };
     case actionType.GETNETSUITEACCOUNT:
       return { ...state, netsuiteAccountData: action.data };
     case actionType.GETORDERS:
       return { ...state, ordersData: action.data };
+    case actionType.GETORDER:
+      const orderIndex = state.ordersData.orders.findIndex(
+        (order) => order.id === action.data.id
+      );
+
+      if (orderIndex !== -1) {
+        state.ordersData.orders.splice(orderIndex, 1, action.data);
+      }
+      return {
+        ...state,
+        errorGetOrder: null,
+      };
     case actionType.PUTACCOUNT:
       const newData = {
         ...state.accountData,
-        'given_name': action.accountData.given_name,
-        'family_name': action.accountData.family_name,
-        'phone_number': action.accountData.phone_number,
-        'custom:company': action.accountData.company
-      }
+        given_name: action.accountData.given_name,
+        family_name: action.accountData.family_name,
+        phone_number: action.accountData.phone_number,
+        "custom:company": action.accountData.company,
+      };
       return { ...state, accountData: newData };
     case actionType.UPDATEEMAIL:
-        const newEmail = {
-          ...state.accountData,
-          'email': action.formData.newEmail
-        }
-        return { ...state, accountData: newEmail };
+      const newEmail = {
+        ...state.accountData,
+        email: action.formData.newEmail,
+      };
+      return { ...state, accountData: newEmail };
     case actionType.CHANGEPASSWORD:
       return { ...state, changePassword: action.data, errorOldPass: null };
     case actionType.ERROROLDPASS:
@@ -49,30 +66,43 @@ const accountReducer = (state = initialState, action) => {
       return { ...state, addressesData: action.data };
     case actionType.POSTADDRESSES:
       state.addressesData.push(action.data);
-      return { ...state, addAddressSuccess: true};
+      return { ...state, addAddressSuccess: true };
     case actionType.UPDATEADDRESSESBYID:
-      const index = state.addressesData.findIndex(address => address.addressId === action.data.addressId);
-      
-      if(index !== -1) {
-          state.addressesData.splice(index, 1, action.data);
+      const index = state.addressesData.findIndex(
+        (address) => address.addressId === action.data.addressId
+      );
+
+      if (index !== -1) {
+        state.addressesData.splice(index, 1, action.data);
       }
-      return { ...state, updateAddressSuccess: true};
+      return { ...state, updateAddressSuccess: true };
     case actionType.UPDATEDEFAULTADDRESS:
-      const prevDefault = state.addressesData.find(address => address.isDefault === true);
+      const prevDefault = state.addressesData.find(
+        (address) => address.isDefault === true
+      );
       if (prevDefault) {
-        const prevIndex = state.addressesData.findIndex(address => address.addressId === prevDefault.addressId);
-        if(prevIndex !== -1) {
-            state.addressesData.splice(prevIndex, 1, {...prevDefault, isDefault: false});
+        const prevIndex = state.addressesData.findIndex(
+          (address) => address.addressId === prevDefault.addressId
+        );
+        if (prevIndex !== -1) {
+          state.addressesData.splice(prevIndex, 1, {
+            ...prevDefault,
+            isDefault: false,
+          });
         }
       }
       const newDefault = action.data;
-      const newIndex = state.addressesData.findIndex(address => address.addressId === newDefault.addressId);
-      if(newIndex !== -1) {
-          state.addressesData.splice(newIndex, 1, newDefault);
+      const newIndex = state.addressesData.findIndex(
+        (address) => address.addressId === newDefault.addressId
+      );
+      if (newIndex !== -1) {
+        state.addressesData.splice(newIndex, 1, newDefault);
       }
-      return { ...state, updateAddressDefault: true};
+      return { ...state, updateAddressDefault: true };
     case actionType.DELETEADDRESSESBYID:
-      const newAddressesData = state.addressesData.filter((address) => address.addressId !== action.payload)
+      const newAddressesData = state.addressesData.filter(
+        (address) => address.addressId !== action.payload
+      );
       return { ...state, addressesData: newAddressesData };
     case actionType.GETADDRESSESBYID:
       return { ...state, getAddressesById: action.data };

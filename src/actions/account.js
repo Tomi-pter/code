@@ -2,6 +2,7 @@ import {
   GETACCOUNT,
   GETNETSUITEACCOUNT,
   GETORDERS,
+  GETORDER,
   GETAVATAR,
   POSTAVATAR,
   ERRORAVATAR,
@@ -14,7 +15,7 @@ import {
   DELETEADDRESSESBYID,
   UPDATEADDRESSESBYID,
   UPDATEDEFAULTADDRESS,
-  UPDATEEMAIL
+  UPDATEEMAIL,
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
@@ -28,7 +29,7 @@ export const getAccount = (username) => async (dispatch) => {
   }
 };
 
-export const getNetsuiteAccount = (username) =>  async (dispatch) => {
+export const getNetsuiteAccount = (username) => async (dispatch) => {
   try {
     const { data } = await api.getNetsuiteAccount(username);
     dispatch({ type: GETNETSUITEACCOUNT, data });
@@ -40,7 +41,7 @@ export const getNetsuiteAccount = (username) =>  async (dispatch) => {
 export const putAccount = (username, accountData) => async (dispatch) => {
   try {
     const { data } = await api.putAccount(username, accountData);
-    if (data.success) dispatch({ type: PUTACCOUNT, accountData});
+    if (data.success) dispatch({ type: PUTACCOUNT, accountData });
   } catch (error) {
     console.log(error);
   }
@@ -50,19 +51,32 @@ export const updateEmail = (username, formData) => async (dispatch) => {
   try {
     const { data } = await api.updateEmail(username, formData);
 
-    if (data.success) dispatch({ type: UPDATEEMAIL, formData});
-
+    if (data.success) dispatch({ type: UPDATEEMAIL, formData });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getOrders = (username, status, page) => async (dispatch) => {
-  try {
-    
-    const { data } = await api.getOrders(username, status, page);
-    dispatch({ type: GETORDERS, data });
+export const getOrders =
+  (username, status, page, soNumber) => async (dispatch) => {
+    try {
+      const { data } = await api.getOrders(username, status, page, soNumber);
+      dispatch({ type: GETORDERS, data });
+    } catch (error) {
+      const data = {
+        orders: [],
+        total: 0,
+        count: 0,
+      };
+      dispatch({ type: GETORDERS, data });
+    }
+  };
 
+export const getOrder = (username, orderID) => async (dispatch) => {
+  try {
+    const { data } = await api.getOrder(username, orderID);
+    console.log(data);
+    dispatch({ type: GETORDER, data });
   } catch (error) {
     console.log(error);
   }
@@ -104,10 +118,9 @@ export const changePassword = (username, formData) => async (dispatch) => {
 
 export const logOutResetPassword = (username, router) => async (dispatch) => {
   try {
-    const { data } = await api.logOut(username);
+    await api.logOut(username);
 
-    router.push('/login');
-    
+    router.push("/login");
   } catch (error) {
     console.log(error);
   }
@@ -128,7 +141,6 @@ export const getAddressesById = (username, id) => async (dispatch) => {
   try {
     const { data } = await api.getAddressesById(username, id);
     dispatch({ type: GETADDRESSESBYID, data });
-
   } catch (error) {
     console.log(error);
   }
@@ -137,9 +149,11 @@ export const getAddressesById = (username, id) => async (dispatch) => {
 export const addAddresses = (username, formData) => async (dispatch) => {
   try {
     const { data } = await api.addAddresses(username, formData);
-    
-    dispatch({ type: POSTADDRESSES, data: {details: data, isDefault: false} });
 
+    dispatch({
+      type: POSTADDRESSES,
+      data: { details: data, isDefault: false },
+    });
   } catch (error) {
     console.log(error);
   }
@@ -147,33 +161,35 @@ export const addAddresses = (username, formData) => async (dispatch) => {
 
 export const deleteAddressesById = (username, id) => async (dispatch) => {
   try {
-    const { data } = await api.deleteAddressesById(username, id);
+    await api.deleteAddressesById(username, id);
     dispatch({ type: DELETEADDRESSESBYID, payload: id });
-
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateAddressesById = (username, address, formData) => async (dispatch) => {
-  try {
-    const id = address.addressId
-    const {data} = await api.updateAddressesById(username, id, formData);
-    
-    dispatch({ type: UPDATEADDRESSESBYID, data: {...address, details: data} });
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const updateAddressesById =
+  (username, address, formData) => async (dispatch) => {
+    try {
+      const id = address.addressId;
+      const { data } = await api.updateAddressesById(username, id, formData);
+
+      dispatch({
+        type: UPDATEADDRESSESBYID,
+        data: { ...address, details: data },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const makeDefaultAddress = (username, address) => async (dispatch) => {
   try {
     const id = address.addressId;
     await api.makeDefaultAddress(username, id);
-    const data = {...address, isDefault: true} ;
+    const data = { ...address, isDefault: true };
     dispatch({ type: UPDATEDEFAULTADDRESS, data });
   } catch (error) {
     console.log(error);
   }
 };
-

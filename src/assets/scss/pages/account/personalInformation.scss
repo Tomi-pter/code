@@ -211,7 +211,8 @@
       color: #4f4f4f;
       margin-bottom: 7.5px;
     }
-    input, .form-group p {
+    input,
+    .form-group p {
       height: 30px;
       border: 0;
       outline: 0;
@@ -236,6 +237,20 @@
       margin-bottom: 0;
       padding: 1px 2px;
     }
+    .order-top-container {
+      margin-bottom: 20px;
+      h1 {
+        margin: 0;
+      }
+      .search-container {
+        width: 50%;
+      }
+      input {
+        border: 1px solid #d2ddec;
+        height: 100%;
+      }
+    }
+
     .order-nav {
       margin-bottom: 40px;
       li {
@@ -268,7 +283,7 @@
           }
           &:after {
             position: absolute;
-            content: '';
+            content: "";
             left: 0;
             right: 0;
             bottom: -2px;
@@ -401,9 +416,9 @@
       color: #16cfb0;
     }
     .addressesWrapper {
-      .mobile-addresses{
+      .mobile-addresses {
         border-bottom: 1px solid #ccc;
-        .fullName{
+        .fullName {
           font-size: 24px;
           font-weight: bold;
         }
@@ -849,7 +864,7 @@
       z-index: 1040;
       width: 100vw;
       height: 100vh;
-      background: rgba(18,38,63, 0.5);
+      background: rgba(18, 38, 63, 0.5);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -894,7 +909,11 @@
         text-align: center;
         color: #ffffff;
         &:hover {
-          background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
+          background: linear-gradient(
+            266.19deg,
+            #16cfb0 -15.44%,
+            #71d3f4 103.82%
+          );
           border-radius: 7.50055px;
         }
       }
@@ -908,10 +927,10 @@
     align-items: center;
     justify-content: center;
   }
-  .modal-header{
+  .modal-header {
     padding: 0;
     border: 0;
-    .close{
+    .close {
       // padding: 0;
     }
   }
@@ -1003,7 +1022,8 @@
       background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
       border-radius: 7.50055px;
     }
-    &:disabled, &:disabled:hover {
+    &:disabled,
+    &:disabled:hover {
       background: #f0f0f0 !important;
     }
   }
@@ -1048,11 +1068,13 @@
       width: 25px;
       height: 25px;
     }
-    &:disabled, &:disabled:hover {
-        background: #f0f0f0 !important;
+    &:disabled,
+    &:disabled:hover {
+      background: #f0f0f0 !important;
     }
-    &.loading:disabled, &.loading:disabled:hover {
-        background: #16cfb0;
+    &.loading:disabled,
+    &.loading:disabled:hover {
+      background: #16cfb0;
     }
   }
   .cancelAddressButton {
@@ -1146,11 +1168,7 @@
     text-align: center;
     color: #ffffff;
     &:hover {
-      background: linear-gradient(
-        266.19deg,
-        #16cfb0 -15.44%,
-        #71d3f4 103.82%
-      );
+      background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
     }
     .spinner-border {
       width: 20px;

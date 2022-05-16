@@ -42,8 +42,6 @@ export const OrdersHistory = () => {
       subTotal += price * quantity;
     }
 
-    console.log(items, subTotal);
-
     return subTotal.toFixed(2);
   };
 

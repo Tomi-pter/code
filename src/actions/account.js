@@ -75,7 +75,6 @@ export const getOrders =
 export const getOrder = (username, orderID) => async (dispatch) => {
   try {
     const { data } = await api.getOrder(username, orderID);
-    console.log(data);
     dispatch({ type: GETORDER, data });
   } catch (error) {
     console.log(error);

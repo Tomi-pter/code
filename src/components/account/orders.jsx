@@ -32,14 +32,17 @@ export const OrdersHistory = () => {
     });
   };
 
-  const calcSubTotal = (items) => {
+  const calcSubTotal = (order) => {
+    let items = order.details.items;
     let subTotal = 0;
 
     for (let i = 0; i < items.length; i++) {
       let price = items[i].price;
       let quantity = items[i].quantity;
-      subTotal = subTotal + price * quantity;
+      subTotal += price * quantity;
     }
+
+    console.log(items, subTotal);
 
     return subTotal.toFixed(2);
   };
@@ -82,7 +85,7 @@ export const OrdersHistory = () => {
                         <div className="date">{order.details.shippingFee}</div>
                     </div>
                 </div> */}
-        {order.details.items &&
+        {order.details.items.length > 0 &&
           order.details.items.map((item, index) => (
             <Link
               to={`/product/${item.productId}`}
@@ -111,7 +114,7 @@ export const OrdersHistory = () => {
             </Link>
           ))}
 
-        {!order.details.shippingFee && order.id !== selected && (
+        {order.details.items.length === 0 && order.id !== selected && (
           <button
             className="btn-secondary d-block ml-auto mr-auto"
             onClick={() => handleLoadMore(order.id)}
@@ -130,27 +133,28 @@ export const OrdersHistory = () => {
                     </div> */}
           {/* <div> */}
           {/* order.details.subTotal.toFixed(2) */}
+          {order.details.items.length > 0 && (
+            <div className="d-flex align-items-center justify-content-between">
+              <b>Subtotal:</b> <div>${calcSubTotal(order)}</div>
+            </div>
+          )}
 
-          {order.details.shippingFee && (
-            <>
-              <div className="d-flex align-items-center justify-content-between">
-                <b>Subtotal:</b> <div>${calcSubTotal(order.details.items)}</div>
-              </div>
-              <div className="d-flex align-items-center justify-content-between">
-                <div>Shipping Fee:</div>{" "}
-                <div>${order.details.shippingFee.toFixed(2)}</div>
-              </div>
-            </>
+          {order.details.shippingFee >= 0 && (
+            <div className="d-flex align-items-center justify-content-between">
+              <div>Shipping Fee:</div>
+              <div>${order.details.shippingFee.toFixed(2)}</div>
+            </div>
           )}
 
           {order.details.discount > 0 && (
             <div className="d-flex align-items-center justify-content-between">
-              <div>Discount:</div>{" "}
+              <div>Discount:</div>
               <div>${order.details.discount.toFixed(2)}</div>
             </div>
           )}
+
           <div className="d-flex align-items-center justify-content-between mt-5">
-            <div className="amount">Total:</div>{" "}
+            <div className="amount">Total:</div>
             <div>${order.details.total.toFixed(2)}</div>
           </div>
           {/* </div> */}

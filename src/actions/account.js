@@ -58,9 +58,16 @@ export const updateEmail = (username, formData) => async (dispatch) => {
 };
 
 export const getOrders =
-  (username, status, page, soNumber) => async (dispatch) => {
+  (username, status, page, search, searchBy, monthsAgo) => async (dispatch) => {
     try {
-      const { data } = await api.getOrders(username, status, page, soNumber);
+      const { data } = await api.getOrders(
+        username,
+        status,
+        page,
+        search,
+        searchBy,
+        monthsAgo
+      );
       dispatch({ type: GETORDERS, data });
     } catch (error) {
       const data = {

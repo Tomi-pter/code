@@ -243,7 +243,13 @@
         margin: 0;
       }
       .search-container {
-        width: 50%;
+        width: 60%;
+      }
+      .months-container {
+        width: 30%;
+      }
+      .dropdown-item {
+        cursor: pointer;
       }
       input {
         border: 1px solid #d2ddec;

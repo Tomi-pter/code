@@ -33,13 +33,30 @@ export const logOut = (username) => API.post(`/user/${username}/logout`);
 export const getAccount = (username) => API.get(`/user/${username}`);
 export const getNetsuiteAccount = (username) =>
   API.get(`/customers/${username}`);
-export const getOrders = (username, status, page, soNumber) =>
-  API.get(
-    `/${username}/orders?` +
-      (page ? `page=${page}` : "") +
-      (status ? `&status=${status}` : "") +
-      (soNumber ? `&soNumber=${soNumber}` : "")
-  );
+export const getOrders = (
+  username,
+  status,
+  page,
+  search,
+  searchBy,
+  monthsAgo
+) => {
+  if (searchBy === "order") {
+    return API.get(
+      `/${username}/orders?` +
+        (page ? `page=${page}` : "") +
+        (status ? `&status=${status}` : "") +
+        (search ? `&soNumber=${search}` : "")
+    );
+  } else {
+    return API.get(
+      `/${username}/orders/history?` +
+        (page ? `page=${page}` : "") +
+        (monthsAgo ? `&monthsAgo=${monthsAgo}` : "") +
+        (search ? `&productId=${search}` : "")
+    );
+  }
+};
 export const getOrder = (username, orderID) =>
   API.get(`/${username}/orders/${orderID}`);
 

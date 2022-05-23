@@ -19,6 +19,8 @@ export const OrdersHistory = () => {
   const [selected, setSelected] = useState("");
   const [getLoading, setGetLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [searchBy, setSearchBy] = useState("order");
+  const [monthsAgo, setMonthsAgo] = useState(1);
   const [delayTimer, setDelayTimer] = useState(null);
   const [disable, setDisable] = useState(false);
   const dispatch = useDispatch();
@@ -192,6 +194,16 @@ export const OrdersHistory = () => {
     setOrders([]);
   };
 
+  const changeSearchBy = (v) => {
+    if (v !== searchBy) {
+      v === "order" && setLoading(true);
+      setSearch("");
+      setMonthsAgo(1);
+      setOrders([]);
+      setSearchBy(v);
+    }
+  };
+
   useEffect(() => {
     if (account?.ordersData?.orders) {
       const sorted = account?.ordersData?.orders?.sort((a, b) =>
@@ -216,13 +228,17 @@ export const OrdersHistory = () => {
       setDelayTimer(
         setTimeout(function () {
           setDisable(true);
-          dispatch(getOrders(user?.username, s, page, search));
+          dispatch(
+            getOrders(user?.username, s, page, search, searchBy, monthsAgo)
+          );
         }, 3000)
       );
-    } else {
-      dispatch(getOrders(user?.username, s, page));
     }
-  }, [status, page, search]);
+    if (search === "" && searchBy === "order") {
+      setDisable(true);
+      dispatch(getOrders(user?.username, s, page, search, searchBy, monthsAgo));
+    }
+  }, [status, page, search, searchBy, monthsAgo]);
 
   useEffect(() => {
     // dispatch(getOrders(user?.username, null, 1));
@@ -231,40 +247,90 @@ export const OrdersHistory = () => {
 
   return (
     <>
+      <h1 className="title">Order History</h1>
       <div className="d-flex align-item-center justify-content-between order-top-container">
-        <h1 className="title">Order History</h1>
         <div className="search-container input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text" id="basic-addon1">
-              Search
-            </span>
+          <div class="input-group-prepend">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              disabled={disable}
+            >
+              Search by {searchBy}
+            </button>
+            <div class="dropdown-menu">
+              <div
+                class="dropdown-item"
+                onClick={() => changeSearchBy("order")}
+              >
+                by order
+              </div>
+              <div
+                class="dropdown-item"
+                onClick={() => changeSearchBy("product")}
+              >
+                by product
+              </div>
+            </div>
           </div>
           <input
             className="form-control"
             type="text"
             name="search"
             value={search}
-            placeholder="Order #"
+            placeholder={searchBy === "order" ? "Order #" : "Product id"}
             onChange={handleSearch}
             autoComplete="off"
             disabled={disable}
           />
         </div>
+        {searchBy === "product" && (
+          <div className="months-container input-group">
+            <input
+              className="form-control"
+              type="number"
+              name="monthsAgo"
+              value={monthsAgo}
+              min={1}
+              onChange={(e) => {
+                if (search !== "") {
+                  setLoading(true);
+                  setOrders([]);
+                  setPage(1);
+                }
+                setMonthsAgo(e.target.value);
+              }}
+              autoComplete="off"
+              disabled={disable}
+            />
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="basic-addon2">
+                Month{monthsAgo > 1 && "s"} Ago
+              </span>
+            </div>
+          </div>
+        )}
       </div>
       <div className="card">
-        <ul className="nav align-item-center justify-content-around order-nav">
-          <li className={status === "All" ? "active" : ""}>
-            <div onClick={() => handleStatusClick("All")}>All</div>
-          </li>
-          <li className={status === "Processing" ? "active" : ""}>
-            <div onClick={() => handleStatusClick("Processing")}>
-              Processing
-            </div>
-          </li>
-          <li className={status === "Shipped" ? "active" : ""}>
-            <div onClick={() => handleStatusClick("Shipped")}>Shipped</div>
-          </li>
-        </ul>
+        {searchBy === "order" && (
+          <ul className="nav align-item-center justify-content-around order-nav">
+            <li className={status === "All" ? "active" : ""}>
+              <div onClick={() => handleStatusClick("All")}>All</div>
+            </li>
+            <li className={status === "Processing" ? "active" : ""}>
+              <div onClick={() => handleStatusClick("Processing")}>
+                Processing
+              </div>
+            </li>
+            <li className={status === "Shipped" ? "active" : ""}>
+              <div onClick={() => handleStatusClick("Shipped")}>Shipped</div>
+            </li>
+          </ul>
+        )}
+
         <div className="orders">
           {orders.length === 0 ? (
             <div className="d-flex align-items-center justify-content-center orders-empty">
@@ -288,7 +354,9 @@ export const OrdersHistory = () => {
               pageCount={totalPageCount}
               onPageChange={handlePageClick}
               containerClassName={
-                account?.ordersData?.count === 0 || loading
+                account?.ordersData?.count === 0 ||
+                loading ||
+                orders.length === 0
                   ? "pagination empty"
                   : "pagination"
               }

@@ -153,6 +153,8 @@ export const confirmUser = (formData) =>
 export const importUser = (formData) =>
   API.post(`/admin/import-customer`, formData);
 export const exportCSV = () => API.get(`/custom-price/export`);
+export const createSubAccount = (formData) =>
+  API.post(`/admin/sub-signup`, formData);
 
 export const updateUserNetsuiteID = (username, formData) =>
   API.put(`/admin/${username}/netsuite-id`, formData);

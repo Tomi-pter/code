@@ -1,238 +1,251 @@
 import {
-    GETUSERS,
-    GETCUSTOMPRODUCTS,
-    RESETCUSTOMPRODUCTS,
-    CREATECUSTOMPRODUCT,
-    CUSTOMPRODUCTERROR,
-    UPDATECUSTOMPRODUCT,
-    REMOVECUSTOMPRODUCT,
-    LOGINADMINUSER,
-    LOGINERROR,
-    LOGINADMIN,
-    LOGINADMINERROR,
-    CONFIRMUSER,
-    CONFIRMUSERERROR,
-    IMPORTUSER,
-    IMPORTUSERERROR,
-    EXPORTCSV,
-    UPDATEUSERNETSUITEID,
-    SYNCCUSTOMPRICING,
-    SYNCCUSTOMPRICINGERROR,
-    SYNCPRODUCTS,
-    SYNCPRODUCTSERROR
+  GETUSERS,
+  GETCUSTOMPRODUCTS,
+  RESETCUSTOMPRODUCTS,
+  CREATECUSTOMPRODUCT,
+  CUSTOMPRODUCTERROR,
+  UPDATECUSTOMPRODUCT,
+  REMOVECUSTOMPRODUCT,
+  LOGINADMINUSER,
+  LOGINERROR,
+  LOGINADMIN,
+  LOGINADMINERROR,
+  CONFIRMUSER,
+  CONFIRMUSERERROR,
+  IMPORTUSER,
+  IMPORTUSERERROR,
+  EXPORTCSV,
+  UPDATEUSERNETSUITEID,
+  SYNCCUSTOMPRICING,
+  SYNCCUSTOMPRICINGERROR,
+  SYNCPRODUCTS,
+  SYNCPRODUCTSERROR,
+  CREATESUBACCOUNT,
+  CREATESUBACCOUNTERROR,
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
 
 export const getUsers = () => async (dispatch) => {
-    try {
-        const { data } = await api.getUsers();
+  try {
+    const { data } = await api.getUsers();
 
-        dispatch({ type: GETUSERS, data });
-    } catch (error) {
-        console.log(error);
-    }
+    dispatch({ type: GETUSERS, data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getCustomProducts = (username) => async (dispatch) => {
-    try {
-        const { data } = await api.getCustomProducts(username);
+  try {
+    const { data } = await api.getCustomProducts(username);
 
-        dispatch({ type: GETCUSTOMPRODUCTS, data });
-    } catch (error) {
-        console.log(error);
-    }
+    dispatch({ type: GETCUSTOMPRODUCTS, data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const resetCustomProducts = () => async (dispatch) => {
-    try {
-
-        dispatch({ type: RESETCUSTOMPRODUCTS });
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    dispatch({ type: RESETCUSTOMPRODUCTS });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const createCustomProduct = (formData) => async (dispatch) => {
-    try {
-        const { data } = await api.createCustomProduct(formData);
+  try {
+    const { data } = await api.createCustomProduct(formData);
 
-        dispatch({ type: CREATECUSTOMPRODUCT, data });
-    } catch (error) {
-        const data = error.response.data;
+    dispatch({ type: CREATECUSTOMPRODUCT, data });
+  } catch (error) {
+    const data = error.response.data;
 
-        dispatch({ type: CUSTOMPRODUCTERROR, data });
-    }
+    dispatch({ type: CUSTOMPRODUCTERROR, data });
+  }
 };
 
 export const updateCustomProduct = (id, formData) => async (dispatch) => {
-    try {
-        const { data } = await api.updateCustomProduct(id, formData);
+  try {
+    const { data } = await api.updateCustomProduct(id, formData);
 
-        dispatch({ type: UPDATECUSTOMPRODUCT, data });
-    } catch (error) {
-        // console.log(error);
-        const data = error.response.data;
+    dispatch({ type: UPDATECUSTOMPRODUCT, data });
+  } catch (error) {
+    // console.log(error);
+    const data = error.response.data;
 
-        dispatch({ type: CUSTOMPRODUCTERROR, data });
-    }
+    dispatch({ type: CUSTOMPRODUCTERROR, data });
+  }
 };
 
 export const removeCustomProduct = (id) => async (dispatch) => {
-    try {
-        const { data } = await api.removeCustomProduct(id);
+  try {
+    const { data } = await api.removeCustomProduct(id);
 
-        dispatch({ type: REMOVECUSTOMPRODUCT, id });
-    } catch (error) {
-        console.log(error);
-    }
+    dispatch({ type: REMOVECUSTOMPRODUCT, id });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const loginAdminUser = (formData, profile) => async (dispatch) => {
-    try {
-        if (profile) {
-            await api.logOut(profile.username);
-            localStorage.removeItem('profile');
-        }
-
-        const { data } = await api.loginAdminUser(formData);
-
-        dispatch({ type: LOGINADMINUSER, data });
-
-        window.open("/shop", "_blank");
-    } catch (error) {
-
-        dispatch({ type: LOGINERROR });
+  try {
+    if (profile) {
+      await api.logOut(profile.username);
+      localStorage.removeItem("profile");
     }
+
+    const { data } = await api.loginAdminUser(formData);
+
+    dispatch({ type: LOGINADMINUSER, data });
+
+    window.open("/shop", "_blank");
+  } catch (error) {
+    dispatch({ type: LOGINERROR });
+  }
 };
 
 export const loginAdmin = (formData, route) => async (dispatch) => {
-    try {
-        const { data } = await api.loginAdmin(formData);
+  try {
+    const { data } = await api.loginAdmin(formData);
 
-        dispatch({ type: LOGINADMIN, data });
+    dispatch({ type: LOGINADMIN, data });
 
-        route.push("/admin");
-    } catch (error) {
-
-        const { data } = error.response
-        dispatch({ type: LOGINADMINERROR, data });
-    }
+    route.push("/admin");
+  } catch (error) {
+    const { data } = error.response;
+    dispatch({ type: LOGINADMINERROR, data });
+  }
 };
 
 export const confirmUser = (formData, user) => async (dispatch) => {
-    try {
-        await api.confirmUser(formData);
+  try {
+    await api.confirmUser(formData);
 
-        const data = {...user, UserStatus: 'CONFIRMED', status: 'CONFIRMED' }
+    const data = { ...user, UserStatus: "CONFIRMED", status: "CONFIRMED" };
 
-        dispatch({ type: CONFIRMUSER, data });
-    } catch (error) {
-        const data = {success: false}
-        dispatch({ type: CONFIRMUSERERROR, data });
-    }
+    dispatch({ type: CONFIRMUSER, data });
+  } catch (error) {
+    const data = { success: false };
+    dispatch({ type: CONFIRMUSERERROR, data });
+  }
 };
 
 export const importUser = (formData) => async (dispatch) => {
-    try {
-        const { data } = await api.importUser(formData);
+  try {
+    const { data } = await api.importUser(formData);
 
-        const newData = {
-            "Username": data.userSub,
-            "Attributes": [
-                {
-                    "Name": "sub",
-                    "Value": data.userSub
-                },
-                {
-                    "Name": "email_verified",
-                    "Value": "false"
-                },
-                {
-                    "Name": "phone_number_verified",
-                    "Value": "false"
-                },
-                {
-                    "Name": "phone_number",
-                    "Value": formData.phoneNumber
-                },
-                {
-                    "Name": "given_name",
-                    "Value": formData.givenName
-                },
-                {
-                    "Name": "family_name",
-                    "Value": formData.familyName
-                },
-                {
-                    "Name": "email",
-                    "Value": formData.email
-                },
-                {
-                    "Name": "custom:company",
-                    "Value": formData.company
-                }
-            ],
-            "Enabled": true,
-            "UserStatus": "UNCONFIRMED"
-        }
+    const newData = {
+      Username: data.userSub,
+      Attributes: [
+        {
+          Name: "sub",
+          Value: data.userSub,
+        },
+        {
+          Name: "email_verified",
+          Value: "false",
+        },
+        {
+          Name: "phone_number_verified",
+          Value: "false",
+        },
+        {
+          Name: "phone_number",
+          Value: formData.phoneNumber,
+        },
+        {
+          Name: "given_name",
+          Value: formData.givenName,
+        },
+        {
+          Name: "family_name",
+          Value: formData.familyName,
+        },
+        {
+          Name: "email",
+          Value: formData.email,
+        },
+        {
+          Name: "custom:company",
+          Value: formData.company,
+        },
+      ],
+      Enabled: true,
+      UserStatus: "UNCONFIRMED",
+    };
 
-        dispatch({ type: IMPORTUSER, data: newData });
-
-    } catch (error) {
-        const { data } = error.response
-        dispatch({ type: IMPORTUSERERROR, data });
-    }
+    dispatch({ type: IMPORTUSER, data: newData });
+  } catch (error) {
+    const { data } = error.response;
+    dispatch({ type: IMPORTUSERERROR, data });
+  }
 };
 
 export const exportCSV = () => async (dispatch) => {
-    try {
+  try {
+    const { data } = await api.exportCSV();
 
-        const { data } = await api.exportCSV();
-
-        dispatch({ type: EXPORTCSV, data });
-
-    } catch (error) {
-
-        dispatch({ type: EXPORTCSV, data: [] });
-    }
+    dispatch({ type: EXPORTCSV, data });
+  } catch (error) {
+    dispatch({ type: EXPORTCSV, data: [] });
+  }
 };
 
-export const updateUserNetsuiteID = (username, formData) => async (dispatch) => {
+export const updateUserNetsuiteID =
+  (username, formData) => async (dispatch) => {
     try {
+      const { data } = await api.updateUserNetsuiteID(username, formData);
 
-        const { data } = await api.updateUserNetsuiteID(username, formData);
-
-        dispatch({ type: UPDATEUSERNETSUITEID, data });
-
+      dispatch({ type: UPDATEUSERNETSUITEID, data });
     } catch (error) {
-
-        console.log('Error Update User Netsuite ID')
+      console.log("Error Update User Netsuite ID");
     }
-};
+  };
 
 export const syncCustomPricing = (username) => async (dispatch) => {
-    try {
+  try {
+    const { data } = await api.syncCustomPricing(username);
 
-        const { data } = await api.syncCustomPricing(username);
-
-        dispatch({ type: SYNCCUSTOMPRICING, data });
-
-    } catch (error) {
-
-        dispatch({ type: SYNCCUSTOMPRICINGERROR, data: 'Error syncing custom pricing!' });
-    }
+    dispatch({ type: SYNCCUSTOMPRICING, data });
+  } catch (error) {
+    dispatch({
+      type: SYNCCUSTOMPRICINGERROR,
+      data: "Error syncing custom pricing!",
+    });
+  }
 };
 
 export const syncProducts = () => async (dispatch) => {
-    try {
+  try {
+    const { data } = await api.syncProducts();
 
-        const { data } = await api.syncProducts();
+    dispatch({ type: SYNCPRODUCTS, data });
+  } catch (error) {
+    dispatch({ type: SYNCPRODUCTSERROR, data: "Error syncing products!" });
+  }
+};
 
-        dispatch({ type: SYNCPRODUCTS, data });
+export const createSubAccount = (formData) => async (dispatch) => {
+  try {
+    const { data } = await api.createSubAccount(formData);
 
-    } catch (error) {
+    const newData = {
+      username: data.userSub,
+      email: formData.email,
+      company: formData.company,
+      status: "UNCONFIRMED",
+      subAccount: true,
+      netsuiteId: "",
+      customerId: "",
+      awsNetsuiteId: formData.netsuiteCustomerId,
+    };
 
-        dispatch({ type: SYNCPRODUCTSERROR, data: 'Error syncing products!' });
-    }
+    dispatch({ type: CREATESUBACCOUNT, data: newData });
+  } catch (error) {
+    const { data } = error.response;
+
+    dispatch({ type: CREATESUBACCOUNTERROR, data });
+  }
 };

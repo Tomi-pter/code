@@ -1,130 +1,130 @@
 .admin-pages {
-    min-height: 100vh;
-    .card {
-        min-height: calc(100vh - 100px);
-        max-height: calc(100vh - 100px);
-        padding: 30px;
-        margin-bottom: 0;
-        display: flex;
-        flex-direction: column;
+  min-height: 100vh;
+  .card {
+    min-height: calc(100vh - 100px);
+    max-height: calc(100vh - 100px);
+    padding: 30px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .form-login {
+    width: 400px;
+    min-height: unset !important;
+    padding: 50px 30px;
+  }
+  h1 {
+    margin-bottom: 20px !important;
+  }
+  .error {
+    min-height: 20px;
+    color: #f0506e;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .header {
+    height: 40px;
+    padding: 0;
+  }
+  .export-btn {
+    white-space: nowrap;
+    margin-left: 10px;
+  }
+  .admin-sync-btn {
+    white-space: nowrap;
+    margin-left: 10px;
+  }
+  .import-btn {
+    white-space: nowrap;
+  }
+  .table-container {
+    overflow: auto;
+    flex: auto;
+  }
+  table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  table tbody td {
+    &:last-child {
+      width: 200px;
+      min-width: 200px;
     }
-    .form-login {
-        width: 400px;
-        min-height: unset !important;
-        padding: 50px 30px;
+  }
+  .table-loader {
+    padding: 0;
+    width: 100%;
+    height: 200px;
+    .spinner-border {
+      width: 100px;
+      height: 100px;
     }
-    h1 {
-        margin-bottom: 20px !important;
+  }
+  .modal-body {
+    padding-top: 10px;
+  }
+  .error-msg {
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ndc-container {
+    position: relative;
+  }
+  .search-result-container {
+    max-height: 350px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffff;
+    // padding: 20px 0;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    z-index: 1;
+    overflow: auto;
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
     }
-    .error {
-        min-height: 20px;
-        color: #f0506e;
-        text-align: center;
-        margin-bottom: 15px;
+    li {
+      cursor: pointer;
+      padding: 20px;
+      &:hover {
+        color: #ffff;
+        background: #2c7be5;
+      }
     }
-    .header {
-        height: 40px;
-        padding: 0;
-    }
-    .export-btn {
-        white-space: nowrap;
-        margin-left: 10px;
-    }
-    .admin-sync-btn {
-        white-space: nowrap;
-        margin-left: 10px;
-    }
-    .import-btn {
-        white-space: nowrap;
-    }
-    .table-container {
-        overflow: auto;
-        flex: auto;
-    }
-    table thead th {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-    table tbody td {
-        &:last-child {
-            width: 200px;
-            min-width: 200px;
-        }
-    }
-    .table-loader {
-        padding: 0;
-        width: 100%;
-        height: 200px;
-        .spinner-border {
-            width: 100px;
-            height: 100px;
-        }
-    }
-    .modal-body {
-        padding-top: 10px;
-    }
-    .error-msg {
-        text-align: center;
-        font-size: 12px;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .ndc-container {
-        position: relative;
-    }
-    .search-result-container {
-        max-height: 350px;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: #ffff;
-        // padding: 20px 0;
-        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-        z-index: 1;
-        overflow: auto;
-        ul {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-        li {
-            cursor: pointer;
-            padding: 20px;
-            &:hover {
-                color: #ffff;
-                background: #2c7be5;
-            }
-        }
-    }
-    table .btn-success {
-        min-width: 100px;
-    }
-    /* width */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
+  }
+  table .btn-success {
+    min-width: 100px;
+  }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
 
-    /* Track */
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
 
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #888;
-    }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 
-    #importUserModal .modal-dialog {
-        width: 90%;
-        max-width: 1230px;
-    }
+  #userModal .modal-dialog {
+    width: 865px;
+    max-width: 1230px;
+  }
 }

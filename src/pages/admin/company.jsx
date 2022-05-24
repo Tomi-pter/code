@@ -2,17 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory, useLocation, useParams } from "react-router-dom";
 
 import {
-  //   getUsers,
   loginAdminUser,
   confirmUser,
   createSubAccount,
-  //   getCustomProducts,
-  //   resetCustomProducts,
-  //   createCustomProduct,
-  //   updateCustomProduct,
-  //   removeCustomProduct,
 } from "../../actions/admin";
-// import { getSearch } from "../../actions/products";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -24,8 +17,6 @@ import InputContact from "react-phone-number-input/input";
 
 import CheckGreen from "../../assets/icon/check-lgreen.svg";
 import XGray from "../../assets/icon/x-gray.svg";
-
-// const initialState = { ndc: "", price: "" };
 
 const initialState = {
   company: "",
@@ -42,8 +33,6 @@ const initialState = {
 export default (props) => {
   const { id } = useParams();
   const admin = useSelector((state) => state.admin);
-  //   const auth = useSelector((state) => state.auth);
-  //   const search = useSelector((state) => state.search);
   const [mainCompany, setMainCompany] = useState(null);
   const [companies, setCompanies] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
@@ -52,18 +41,6 @@ export default (props) => {
   const [errorMsg, setErrorMsg] = useState("");
   const [showError, setShowError] = useState(false);
   const [alertType, setAlertType] = useState("error");
-  //   const [products, setProducts] = useState([]);
-  //   const [username, setUsername] = useState("");
-  //   const [companyDetails, setCompanyDetails] = useState(null);
-  //   const [isLoading, setIsLoading] = useState(true);
-  //   const [actionLoading, setActionLoading] = useState(false);
-  //   const [formData, setFormData] = useState(initialState);
-  //   const [actionType, setActionType] = useState("add");
-  //   const [searchResult, setSearchResult] = useState([]);
-  //   const [searchSelect, setSearchSelect] = useState(false);
-  //   const [errorMsg, setErrorMsg] = useState("");
-  //   const [mainSearch, setMainSearch] = useState("");
-
   const [actionLoading, setActionLoading] = useState(false);
   const [formData, setFormData] = useState(initialState);
   const [isDisabled, setDisabled] = useState(true);
@@ -122,87 +99,6 @@ export default (props) => {
       setShowError(false);
     }, 3000);
   };
-
-  //   const handleAction = (action, product) => {
-  //     setErrorMsg("");
-  //     if (action === "add") {
-  //       setFormData({ ...initialState, username });
-  //     } else {
-  //       setFormData(product);
-  //     }
-  //     setActionType(action);
-  //   };
-
-  //   const handleChange = (e) => {
-  //     let value;
-  //     if (e.target.name === "ndc" && e.target.value !== "") {
-  //       setSearchSelect(false);
-  //       dispatch(getSearch(e.target.value));
-  //     }
-  //     e.target.name === "ndc"
-  //       ? (value = e.target.value)
-  //       : (value = parseFloat(e.target.value));
-  //     setFormData({ ...formData, [e.target.name]: value });
-  //   };
-
-  //   const handleSearchClick = (ndc) => {
-  //     setSearchSelect(true);
-  //     setFormData({ ...formData, ndc });
-  //   };
-
-  //   const handleSubmit = () => {
-  //     if (actionType === "add") {
-  //       setActionLoading(true);
-  //       dispatch(createCustomProduct(formData));
-  //     } else {
-  //       setActionLoading(true);
-  //       dispatch(updateCustomProduct(formData.customPricingId, formData));
-  //     }
-  //   };
-
-  //   const handleDelete = (product) => {
-  //     dispatch(removeCustomProduct(product.customPricingId));
-  //   };
-
-  //   useEffect(() => {
-  //     if (loginLoading && admin.loginError) {
-  //       let msg = "Let the user login atleast once!";
-  //       handleAlert(msg, "error");
-  //     }
-  //     // if (admin.error) {
-  //     //   setErrorMsg(admin?.error?.message);
-  //     // } else {
-  //     //   document.getElementById("closeModal").click();
-  //     //   setErrorMsg("");
-  //     // }
-  //     // const company = admin.users.filter((user) => user.Username === username);
-  //     // setCompanyDetails(company[0]);
-  //     // if (admin?.customProducts) setProducts(admin?.customProducts);
-  //     // setIsLoading(false);
-  //     // setActionLoading(false);
-  //     // setSearchResult([]);
-  //   }, [admin]);
-
-  //   const handleSearchChange = (e) => {
-  //     setMainSearch(e.target.value);
-  //   };
-
-  //   useEffect(() => {
-  //     if (mainSearch === "") {
-  //       setProducts(admin?.customProducts);
-  //     } else {
-  //       const filterProducts = admin?.customProducts.filter(
-  //         (product) =>
-  //           product.ndc.toLowerCase().includes(mainSearch.toLowerCase()) ||
-  //           product.productName.toLowerCase().includes(mainSearch.toLowerCase())
-  //       );
-  //       setProducts(filterProducts);
-  //     }
-  //   }, [mainSearch]);
-
-  //   useEffect(() => {
-  //     if (search?.products) setSearchResult(search?.products);
-  //   }, [search]);
 
   const handleSetData = (users) => {
     let mainCompany = users.filter(
@@ -266,6 +162,7 @@ export default (props) => {
     }
     setActionLoading(false);
     setConfirmLoading(false);
+    setLoginLoading(false);
     handleSetData(admin.users);
   }, [admin]);
 

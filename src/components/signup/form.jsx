@@ -67,6 +67,7 @@ export const Form = () => {
 
   useEffect(() => {
     setCountries(auth?.countriesData);
+
     if (auth?.statesData?.length > 0) {
       setStates(auth?.statesData);
     } else {
@@ -80,6 +81,13 @@ export const Form = () => {
       setSubmitted(false);
     }
   }, [auth]);
+
+  useEffect(() => {
+    if (formData.country === "") {
+      setFormData({ ...formData, country: "United States", countryCode: "US" });
+      dispatch(getStates("US"));
+    }
+  }, [countries]);
 
   useEffect(() => {
     const {

@@ -118,6 +118,12 @@ export const getRequestPrice = (username) =>
 export const requestStock = (username, formData) =>
   API.post(`/user/${username}/request-stock`, formData);
 
+export const getPreferred = (username) => API.get(`/favorites/${username}`);
+export const addPreferred = (username, formData) =>
+  API.post(`/favorites/${username}/add`, formData);
+export const removePreferred = (username, formData) =>
+  API.post(`/favorites/${username}/remove`, formData);
+
 export const getSearch = (name) =>
   API.get("/products?" + (name ? `name=${name}` : ""));
 

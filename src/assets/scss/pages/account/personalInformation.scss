@@ -379,6 +379,29 @@
         }
       }
     }
+    .order .card-header {
+      padding: 0;
+      height: auto;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      button::after {
+        content: "";
+        transition: all 0.3s ease;
+        min-width: 11.67px;
+        min-height: 7px;
+        background: url(/static/media/accordion-collapsed.87be3745.svg)
+          no-repeat center;
+        background-size: contain;
+      }
+      button:not(.collapsed) {
+        &::after {
+          transform: rotate(180deg);
+        }
+      }
+    }
     .saveButton {
       background: #16cfb0;
       border-radius: 7.5px;

@@ -69,50 +69,87 @@ export const OrdersHistory = () => {
           <div className="status">
             {order.details.shipComplete ? "Shipped" : "Processing"}
           </div>
-          {/* <div>
-                        <p>Discount: ${(order.details.discount / 100).toFixed(2)}</p>
-                        <p>Sub Total: ${(order.details.discount / 100).toFixed(2)}</p>
-                        <p className="amount">Total: ${(order.details.total / 100).toFixed(2)}</p>
-                    </div> */}
         </div>
-        {/* <div className="d-flex align-item-center justify-content-between date-status-container">
-                    <div className="date">Placed on {formatDate(order.details.dateOrdered)}</div>
-                    <div className="status">{order.status}</div>
+        {order.details.items.length > 0 && (
+          <div className="accordion" id={`detailsContainer${index}`}>
+            <div className="card">
+              <div className="card-header" id="headingOne">
+                <h2 className="mb-0">
+                  <button
+                    className="btn btn-link btn-block text-left"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target={`#details${index}`}
+                    aria-expanded="true"
+                    aria-controls={`details${index}`}
+                  >
+                    Order Details
+                  </button>
+                </h2>
+              </div>
+
+              <div
+                id={`details${index}`}
+                className="collapse show"
+                aria-labelledby="headingOne"
+                data-parent={`#detailsContainer${index}`}
+              >
+                <div className="card-body">
+                  {order.details.items.map((item, index) => (
+                    <Link
+                      to={`/product/${item.productId}`}
+                      key={`item-${index}`}
+                      className="d-flex align-items-center item"
+                    >
+                      <img
+                        width="50"
+                        src={item.imageUrl !== "" ? item.imageUrl : NoImage}
+                        alt=""
+                      />
+                      <div className="item-info">
+                        <p className="product-name">{item.productName}</p>
+                        {item.ndc ? <p>NDC: {item.ndc} </p> : ""}
+                        <p>Price: ${item.price}</p>
+                        <p>Quantity: {item.quantity}</p>
+                      </div>
+                      <div className="item-info-end text-left">
+                        {order.details.shipComplete && (
+                          <>
+                            <p className="text-left">Get by</p>
+                            <p className="text-left">
+                              {formatDate(order?.getBy)}
+                            </p>
+                          </>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                  <div className="mt-2">
+                    {order.details.items.length > 0 && (
+                      <div className="d-flex align-items-center justify-content-between">
+                        <b>Subtotal:</b> <div>${calcSubTotal(order)}</div>
+                      </div>
+                    )}
+
+                    {order.details.shippingFee >= 0 && (
+                      <div className="d-flex align-items-center justify-content-between">
+                        <div>Shipping Fee:</div>
+                        <div>${order.details.shippingFee.toFixed(2)}</div>
+                      </div>
+                    )}
+
+                    {order.details.discount > 0 && (
+                      <div className="d-flex align-items-center justify-content-between">
+                        <div>Discount:</div>
+                        <div>${order.details.discount.toFixed(2)}</div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="d-flex align-item-center justify-content-between">
-                    <div className="d-flex align-item-center">
-                        <div className="date">Shipping Fee:</div>
-                        <div className="date">{order.details.shippingFee}</div>
-                    </div>
-                </div> */}
-        {order.details.items.length > 0 &&
-          order.details.items.map((item, index) => (
-            <Link
-              to={`/product/${item.productId}`}
-              key={`item-${index}`}
-              className="d-flex align-items-center item"
-            >
-              <img
-                width="50"
-                src={item.imageUrl !== "" ? item.imageUrl : NoImage}
-                alt=""
-              />
-              <div className="item-info">
-                <p className="product-name">{item.productName}</p>
-                {item.ndc ? <p>NDC: {item.ndc} </p> : ""}
-                <p>Price: ${item.price}</p>
-                <p>Quantity: {item.quantity}</p>
               </div>
-              <div className="item-info-end text-left">
-                {order.details.shipComplete && (
-                  <>
-                    <p className="text-left">Get by</p>
-                    <p className="text-left">{formatDate(order?.getBy)}</p>
-                  </>
-                )}
-              </div>
-            </Link>
-          ))}
+            </div>
+          </div>
+        )}
 
         {order.details.items.length === 0 && order.id !== selected && (
           <button
@@ -126,33 +163,6 @@ export const OrdersHistory = () => {
           <div className="text-center">Loading more details...</div>
         )}
         <div className="mt-2">
-          {/* <div className="orderNo">
-                        <p className="d-flex">Order #{order.salesOrderNumber}</p>
-                        <p>Placed on {formatDate(order.details.dateOrdered)}</p>
-                        <div className="status">{order.status}</div>
-                    </div> */}
-          {/* <div> */}
-          {/* order.details.subTotal.toFixed(2) */}
-          {order.details.items.length > 0 && (
-            <div className="d-flex align-items-center justify-content-between">
-              <b>Subtotal:</b> <div>${calcSubTotal(order)}</div>
-            </div>
-          )}
-
-          {order.details.shippingFee >= 0 && (
-            <div className="d-flex align-items-center justify-content-between">
-              <div>Shipping Fee:</div>
-              <div>${order.details.shippingFee.toFixed(2)}</div>
-            </div>
-          )}
-
-          {order.details.discount > 0 && (
-            <div className="d-flex align-items-center justify-content-between">
-              <div>Discount:</div>
-              <div>${order.details.discount.toFixed(2)}</div>
-            </div>
-          )}
-
           <div className="d-flex align-items-center justify-content-between mt-5">
             <div className="amount">Total:</div>
             <div>${order.details.total.toFixed(2)}</div>
@@ -250,9 +260,9 @@ export const OrdersHistory = () => {
       <h1 className="title">Order History</h1>
       <div className="d-flex align-item-center justify-content-between order-top-container">
         <div className="search-container input-group">
-          <div class="input-group-prepend">
+          <div className="input-group-prepend">
             <button
-              class="btn btn-outline-secondary dropdown-toggle"
+              className="btn btn-outline-secondary dropdown-toggle"
               type="button"
               data-toggle="dropdown"
               aria-haspopup="true"
@@ -261,15 +271,15 @@ export const OrdersHistory = () => {
             >
               Search by {searchBy}
             </button>
-            <div class="dropdown-menu">
+            <div className="dropdown-menu">
               <div
-                class="dropdown-item"
+                className="dropdown-item"
                 onClick={() => changeSearchBy("order")}
               >
                 by order
               </div>
               <div
-                class="dropdown-item"
+                className="dropdown-item"
                 onClick={() => changeSearchBy("product")}
               >
                 by product

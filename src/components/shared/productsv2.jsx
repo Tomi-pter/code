@@ -50,7 +50,7 @@ export const Productsv2 = ({
   const handleClose = () => setShow(false);
 
   const filterProducts = (sortOptions) => {
-    let sorted, filtered;
+    let sorted, filtered, prefProducts, notPrefProducts;
     const { filter, order } = sortOptions;
 
     if (page === "shop") {
@@ -71,30 +71,79 @@ export const Productsv2 = ({
       });
     }
 
+    for (let i = 0; i <= productsData.prefproduct.length; i++) {
+      let prefProd = productsData.prefproduct[i];
+      let prefProdIndex = filtered.findIndex(
+        (prod) => prod?.obj?.id === prefProd?.productId
+      );
+
+      if (prefProdIndex !== -1) {
+        filtered.splice(prefProdIndex, 1, {
+          ...filtered[prefProdIndex],
+          obj: {
+            ...filtered[prefProdIndex].obj,
+            preferred: true,
+          },
+        });
+      }
+    }
+
+    prefProducts = filtered.filter((prod) => prod?.obj?.preferred);
+    notPrefProducts = filtered.filter((prod) => !prod?.obj?.preferred);
+
     if (order === "ASC") {
-      sorted = filtered.sort(function (a, b) {
+      prefProducts = prefProducts.sort(function (a, b) {
         return a.obj[filter] > b.obj[filter]
           ? 1
           : a.obj[filter] === b.obj[filter]
           ? 0
           : -1;
       });
+      notPrefProducts = notPrefProducts.sort(function (a, b) {
+        return a.obj[filter] > b.obj[filter]
+          ? 1
+          : a.obj[filter] === b.obj[filter]
+          ? 0
+          : -1;
+      });
+      sorted = prefProducts.concat(notPrefProducts);
     } else {
-      sorted = filtered.sort(function (a, b) {
+      prefProducts = prefProducts.sort(function (a, b) {
         return a.obj[filter] > b.obj[filter]
           ? -1
           : a.obj[filter] === b.obj[filter]
           ? 0
           : 1;
       });
+      notPrefProducts = notPrefProducts.sort(function (a, b) {
+        return a.obj[filter] > b.obj[filter]
+          ? -1
+          : a.obj[filter] === b.obj[filter]
+          ? 0
+          : 1;
+      });
+
+      sorted = prefProducts.concat(notPrefProducts);
     }
 
     if (stockSort) {
-      sorted = sorted
+      prefProducts = prefProducts
         .filter((product) => product.obj.totalquantityonhand > 0)
         .concat(
-          sorted.filter((product) => product.obj.totalquantityonhand === 0)
+          prefProducts.filter(
+            (product) => product.obj.totalquantityonhand === 0
+          )
         );
+
+      notPrefProducts = notPrefProducts
+        .filter((product) => product.obj.totalquantityonhand > 0)
+        .concat(
+          notPrefProducts.filter(
+            (product) => product.obj.totalquantityonhand === 0
+          )
+        );
+
+      sorted = prefProducts.concat(notPrefProducts);
     }
 
     for (let i = 0; i <= productsData.favproductv2.length; i++) {
@@ -196,11 +245,14 @@ export const Productsv2 = ({
   };
 
   useEffect(() => {
-    const { productsv2, favproductv2 } = productsData;
+    const { productsv2, favproductv2, prefproduct } = productsData;
     setCurrentPage(1);
     requestLoading && setShow(true);
     setRequestLoading(false);
-    productsv2 && favproductv2 && filterProducts({ filter, order });
+    productsv2 &&
+      favproductv2 &&
+      prefproduct &&
+      filterProducts({ filter, order });
   }, [productsData, category, name, stockSort, search]);
 
   useEffect(() => {

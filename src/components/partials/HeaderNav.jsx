@@ -12,7 +12,11 @@ import decode from "jwt-decode";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getCart, getCount } from "../../actions/cart";
-import { getProductsv2, getFavProductsv2 } from "../../actions/products";
+import {
+  getProductsv2,
+  getFavProductsv2,
+  getPreferred,
+} from "../../actions/products";
 
 import ProfilePic from "../../assets/img/Account/placeholder-dp.svg";
 import { getAvatar } from "../../actions/account";
@@ -142,24 +146,24 @@ export const HeaderNav = () => {
           keys: ["name", "ndc"],
         });
 
-        for (let i = 0; i <= productsData.favproductv2.length; i++) {
-          let favProd = productsData.favproductv2[i];
+        // for (let i = 0; i <= productsData.favproductv2.length; i++) {
+        //   let favProd = productsData.favproductv2[i];
 
-          let prodIndex = searchResult.findIndex(
-            (prod) => prod?.obj?.id === favProd?.id
-          );
+        //   let prodIndex = searchResult.findIndex(
+        //     (prod) => prod?.obj?.id === favProd?.id
+        //   );
 
-          if (prodIndex !== -1) {
-            searchResult.splice(prodIndex, 1, {
-              ...searchResult[prodIndex],
-              obj: {
-                ...searchResult[prodIndex].obj,
-                favorite: true,
-                cost: favProd.cost,
-              },
-            });
-          }
-        }
+        //   if (prodIndex !== -1) {
+        //     searchResult.splice(prodIndex, 1, {
+        //       ...searchResult[prodIndex],
+        //       obj: {
+        //         ...searchResult[prodIndex].obj,
+        //         favorite: true,
+        //         cost: favProd.cost,
+        //       },
+        //     });
+        //   }
+        // }
 
         setsearchResults(searchResult);
         setSearchLoading(false);
@@ -175,6 +179,7 @@ export const HeaderNav = () => {
     const auth = JSON.parse(localStorage.getItem("profile"));
     dispatch(getProductsv2());
     dispatch(getFavProductsv2(auth?.username));
+    dispatch(getPreferred(auth?.username));
   }, []);
 
   const sendWPData = () => {

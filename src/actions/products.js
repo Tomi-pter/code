@@ -1,117 +1,157 @@
-import { 
-    GETPRODUCTS, 
-    ERRORGETPRODUCTS, 
-    GETSEARCH, 
-    REQUESTSTOCK, 
-    REQUESTSTOCKERROR, 
-    GETREQUESTPRICE, 
-    GETPRODUCTSV2, 
-    GETFAVPRODUCTSV2 
-} from '../constants/actionTypes';
+import {
+  GETPRODUCTS,
+  ERRORGETPRODUCTS,
+  GETSEARCH,
+  REQUESTSTOCK,
+  REQUESTSTOCKERROR,
+  GETREQUESTPRICE,
+  GETPRODUCTSV2,
+  GETFAVPRODUCTSV2,
+  GETPREFERRED,
+  ADDPREFERRED,
+  ADDPREFERREDERROR,
+  REMOVEPREFERRED,
+  REMOVEPREFERREDERROR,
+} from "../constants/actionTypes";
 
-import * as api from '../api/index.js';
+import * as api from "../api/index.js";
 
-export const getProducts = (name, category, sortBy, sortOrder, page, stockSort) => async(dispatch) => {
+export const getProducts =
+  (name, category, sortBy, sortOrder, page, stockSort) => async (dispatch) => {
     try {
-        const { data } = await api.getProducts(name, category, sortBy, sortOrder, page, stockSort);
-        dispatch({ type: GETPRODUCTS, payload: data });
-
+      const { data } = await api.getProducts(
+        name,
+        category,
+        sortBy,
+        sortOrder,
+        page,
+        stockSort
+      );
+      dispatch({ type: GETPRODUCTS, payload: data });
     } catch (error) {
-        dispatch({ type: GETPRODUCTS, payload: {count: 0, products: []} });
-        // console.log('Error get products', error.message);
+      dispatch({ type: GETPRODUCTS, payload: { count: 0, products: [] } });
+      // console.log('Error get products', error.message);
     }
+  };
+
+export const getFavoriteProducts =
+  (username, name, sortBy, sortOrder, page, stockSort) => async (dispatch) => {
+    try {
+      const { data } = await api.getFavoriteProducts(
+        username,
+        name,
+        sortBy,
+        sortOrder,
+        page,
+        stockSort
+      );
+
+      dispatch({ type: GETPRODUCTS, payload: data });
+    } catch (error) {
+      dispatch({ type: GETPRODUCTS, payload: { count: 0, products: [] } });
+      // console.log('Error get products', error.message);
+    }
+  };
+
+export const getProduct = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.getProduct(id);
+
+    dispatch({ type: GETPRODUCTS, payload: { products: [data] } });
+  } catch (error) {
+    dispatch({ type: ERRORGETPRODUCTS, payload: error.response });
+  }
 };
 
-export const getFavoriteProducts = (username, name, sortBy, sortOrder, page, stockSort) => async(dispatch) => {
-    try {
+export const getSearch = (name) => async (dispatch) => {
+  try {
+    const { data } = await api.getSearch(name);
 
-        const { data } = await api.getFavoriteProducts(username, name, sortBy, sortOrder, page, stockSort);
-
-        dispatch({ type: GETPRODUCTS, payload: data });
-
-    } catch (error) {
-        dispatch({ type: GETPRODUCTS, payload: {count: 0, products: []} });
-        // console.log('Error get products', error.message);
-    }
+    dispatch({ type: GETSEARCH, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
-export const getProduct = (id) => async(dispatch) => {
-    try {
-        const { data } = await api.getProduct(id);
-        
-        dispatch({ type: GETPRODUCTS, payload: {products: [data]} });
+export const requestStock = (username, formData) => async (dispatch) => {
+  try {
+    const { data } = await api.requestStock(username, formData);
 
-    } catch (error) {
-
-        dispatch({ type: ERRORGETPRODUCTS, payload: error.response})
-        
-    }
+    dispatch({
+      type: REQUESTSTOCK,
+      payload: { ...formData, lastRequested: new Date().getTime() },
+    });
+  } catch (error) {
+    dispatch({ type: REQUESTSTOCKERROR, payload: { message: error.message } });
+  }
 };
 
-export const getSearch = (name) => async(dispatch) => {
-    try {
-        const { data } = await api.getSearch(name);
+export const getRequestPrice = (username) => async (dispatch) => {
+  try {
+    const { data } = await api.getRequestPrice(username);
 
-        dispatch({ type: GETSEARCH, payload: data });
-
-    } catch (error) {
-        console.log(error.message);
-    }
+    dispatch({ type: GETREQUESTPRICE, payload: data.products });
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
-export const requestStock = (username, formData) => async(dispatch) => {
-    try {
-        const { data } = await api.requestStock(username, formData);
+export const getProductsv2 = () => async (dispatch) => {
+  try {
+    const { data } = await api.getProductsv2();
 
-        dispatch({ type: REQUESTSTOCK, payload: {...formData, lastRequested: new Date().getTime()} });
-
-    } catch (error) {
-        dispatch({ type: REQUESTSTOCKERROR, payload: {message: error.message }});
-    }
+    dispatch({ type: GETPRODUCTSV2, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const getRequestPrice = (username) => async(dispatch) => {
-    try {
-        const { data } = await api.getRequestPrice(username);
+export const getFavProductsv2 = (username) => async (dispatch) => {
+  try {
+    const { data } = await api.getFavProductsv2(username);
 
-        dispatch({ type: GETREQUESTPRICE, payload: data.products });
-
-    } catch (error) {
-        console.log(error.message);
-    }
+    dispatch({ type: GETFAVPRODUCTSV2, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const getProductsv2 = () => async(dispatch) => {
-    try {
-        const { data } = await api.getProductsv2();
+export const getProductv2 = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.getProductv2(id);
 
-        dispatch({ type: GETPRODUCTSV2, payload: data });
+    dispatch({ type: GETPRODUCTSV2, payload: data });
+  } catch (error) {
+    dispatch({ type: ERRORGETPRODUCTS, payload: error.response });
+  }
+};
 
-    } catch (error) {
-        console.log(error)
-    }
-}
+export const getPreferred = (username) => async (dispatch) => {
+  try {
+    const { data } = await api.getPreferred(username);
 
-export const getFavProductsv2 = (username) => async(dispatch) => {
-    try {
-        const { data } = await api.getFavProductsv2(username);
+    dispatch({ type: GETPREFERRED, payload: data.items });
+  } catch (error) {
+    dispatch({ type: GETPREFERRED, payload: [] });
+  }
+};
 
-        dispatch({ type: GETFAVPRODUCTSV2, payload: data });
+export const addPreferred = (username, formData) => async (dispatch) => {
+  try {
+    const { data } = await api.addPreferred(username, formData);
 
-    } catch (error) {
-        console.log(error)
-    }
-}
+    dispatch({ type: ADDPREFERRED, payload: data.items });
+  } catch (error) {
+    dispatch({ type: ADDPREFERREDERROR, payload: error.response });
+  }
+};
 
-export const getProductv2 = (id) => async(dispatch) => {
-    try {
-        const { data } = await api.getProductv2(id);
-        
-        dispatch({ type: GETPRODUCTSV2, payload: data });
+export const removePreferred = (username, formData) => async (dispatch) => {
+  try {
+    const { data } = await api.removePreferred(username, formData);
 
-    } catch (error) {
-
-        dispatch({ type: ERRORGETPRODUCTS, payload: error.response})
-        
-    }
+    dispatch({ type: REMOVEPREFERRED, payload: data.items });
+  } catch (error) {
+    dispatch({ type: REMOVEPREFERREDERROR, payload: error.reponse });
+  }
 };

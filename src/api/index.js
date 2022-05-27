@@ -53,7 +53,7 @@ export const getOrders = (
       `/${username}/orders/history?` +
         (page ? `page=${page}` : "") +
         (monthsAgo ? `&monthsAgo=${monthsAgo}` : "") +
-        (search ? `&productId=${search}` : "")
+        (search ? `&ndc=${search}` : "")
     );
   }
 };

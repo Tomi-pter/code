@@ -281,7 +281,7 @@ export const OrdersHistory = () => {
             type="text"
             name="search"
             value={search}
-            placeholder={searchBy === "order" ? "Order #" : "Product id"}
+            placeholder={searchBy === "order" ? "Order #" : "NDC"}
             onChange={handleSearch}
             autoComplete="off"
             disabled={disable}

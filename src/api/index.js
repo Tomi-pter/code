@@ -153,6 +153,8 @@ export const payment = (username, formData) =>
   API.post(`/${username}/payment`, formData);
 export const paymentByTerms = (username, formData) =>
   API.post(`/${username}/pay-by-terms`, formData);
+export const paymentViaPaypal = (username, formData) =>
+  API.post(`/${username}/pay-via-paypal`, formData);
 
 // UPLOAD AVATAR
 export const getAvatar = (username) => API.get(`/user/${username}/photo`);

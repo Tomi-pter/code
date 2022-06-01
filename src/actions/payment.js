@@ -1,4 +1,4 @@
-import { PAYMENT } from "../constants/actionTypes";
+import { PAYMENT, PAYMENTERROR } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
 
@@ -10,9 +10,9 @@ export const payment = (username, formData, router) => async (dispatch) => {
 
     router.push("/payment-confirmation");
   } catch (error) {
-    const data = error.response.data;
+    // const data = error.response.data;
 
-    dispatch({ type: PAYMENT, data });
+    dispatch({ type: PAYMENTERROR, data: { msg: "payment error" } });
   }
 };
 
@@ -24,9 +24,9 @@ export const paymentByTerms =
 
       router.push("/payment-confirmation");
     } catch (error) {
-      const data = error.response.data;
+      // const data = error.response.data;
 
-      dispatch({ type: PAYMENT, data });
+      dispatch({ type: PAYMENTERROR, data: { msg: "payment error" } });
     }
   };
 
@@ -38,8 +38,8 @@ export const paymentViaPaypal =
 
       router.push("/payment-confirmation");
     } catch (error) {
-      const data = error.response.data;
+      // const data = error.response.data;
 
-      dispatch({ type: PAYMENT, data });
+      dispatch({ type: PAYMENTERROR, data: { msg: "payment error" } });
     }
   };

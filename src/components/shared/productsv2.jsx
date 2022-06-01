@@ -55,7 +55,23 @@ export const Productsv2 = ({
 
     if (page === "shop") {
       if (category === "Favorites") {
-        filtered = fuzzysort.go(search, productsData.favproductv2, {
+        filtered = productsData.favproductv2;
+
+        for (let i = 0; i < productsData.prefproduct.length; i++) {
+          let prefProd = productsData.prefproduct[i];
+          let prefProdIndex = productsData.productsv2.findIndex(
+            (prod) => prod?.id === prefProd?.productId
+          );
+          let favProdIndex = productsData.favproductv2.findIndex(
+            (prod) => prod?.id === prefProd?.productId
+          );
+
+          if (prefProdIndex !== -1 && favProdIndex === -1) {
+            filtered.push(productsData.productsv2[prefProdIndex]);
+          }
+        }
+
+        filtered = fuzzysort.go(search, filtered, {
           keys: ["name", "ndc"],
           all: true,
         });
@@ -71,7 +87,7 @@ export const Productsv2 = ({
       });
     }
 
-    for (let i = 0; i <= productsData.prefproduct.length; i++) {
+    for (let i = 0; i < productsData.prefproduct.length; i++) {
       let prefProd = productsData.prefproduct[i];
       let prefProdIndex = filtered.findIndex(
         (prod) => prod?.obj?.id === prefProd?.productId
@@ -146,7 +162,7 @@ export const Productsv2 = ({
       sorted = prefProducts.concat(notPrefProducts);
     }
 
-    for (let i = 0; i <= productsData.favproductv2.length; i++) {
+    for (let i = 0; i < productsData.favproductv2.length; i++) {
       let favProd = productsData.favproductv2[i];
       let prodIndex = sorted.findIndex((prod) => prod?.obj?.id === favProd?.id);
 

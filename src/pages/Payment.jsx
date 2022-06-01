@@ -16,9 +16,11 @@ import { Link } from "react-router-dom";
 export const PaymentContainer = () => {
   const cart = useSelector((state) => state.cart);
   const account = useSelector((state) => state.account);
+  const payment = useSelector((state) => state.payment);
   const [selectedCard, setSelectedCard] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMethod, setSelectedMethod] = useState("terms");
+  const [showError, setShowError] = useState(false);
   // const [enablePayByTerms, setEnablePayByTerms] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -50,14 +52,22 @@ export const PaymentContainer = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("profile"));
-    // dispatch(getCart(user?.username));
     dispatch(getAccount(user?.username));
-    // dispatch(getNetsuiteAccount(user?.username));
   }, []);
 
   useEffect(() => {
     if (!cart?.checkoutDetail) history.push("/checkout");
   }, [cart]);
+
+  useEffect(() => {
+    if (payment.paymentError) {
+      setShowError(true);
+      setTimeout(function () {
+        setShowError(false);
+      }, 3000);
+    }
+    setIsLoading(false);
+  }, [payment]);
 
   return (
     <>
@@ -157,6 +167,17 @@ export const PaymentContainer = () => {
               </p>
             </div>
           </div>
+        </div>
+        <div
+          id="toast"
+          className={"toast alert alert-danger " + (showError ? "show" : "")}
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          data-delay="2000"
+          style={{ position: "fixed", bottom: "1rem", right: "1rem" }}
+        >
+          Something went wrong. Please try again in a few minutes
         </div>
       </div>
       <Footer />

@@ -56,6 +56,7 @@ export const DEFAULTCARD = "DEFAULTCARD";
 export const REMOVECARD = "REMOVECARD";
 
 export const PAYMENT = "PAYMENT";
+export const PAYMENTERROR = "PAYMENTERROR";
 
 // Admin
 export const GETUSERS = "GETUSERS";

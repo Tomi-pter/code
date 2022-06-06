@@ -155,6 +155,9 @@ export const CheckoutInfo = ({
         setSelectedBilling(account?.addressesData[0]);
         if (!selectBilling) setSelectBilling(account?.addressesData[0]);
       }
+      if (account?.addressesData.length > 1) {
+        document.getElementById("shippingBtn").click();
+      }
     }
     setIsEdit(false);
     setEditId("");

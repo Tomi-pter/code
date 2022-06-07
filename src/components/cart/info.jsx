@@ -155,7 +155,11 @@ export const CheckoutInfo = ({
         setSelectedBilling(account?.addressesData[0]);
         if (!selectBilling) setSelectBilling(account?.addressesData[0]);
       }
-      if (account?.addressesData.length > 1) {
+      if (
+        account?.addressesData.length > 1 &&
+        !document.getElementById("infosCollapse").className.includes("show") &&
+        !selectedShipping
+      ) {
         document.getElementById("shippingBtn").click();
       }
     }
@@ -232,10 +236,15 @@ export const CheckoutInfo = ({
               aria-expanded="false"
               aria-controls="infosCollapse"
               onClick={() => shippingList("shipping")}
+              style={{
+                visibility: !selectedShipping ? "hidden" : "visible",
+                zIndex: !selectedShipping ? -1 : 0,
+              }}
             >
               <img src={Edit} alt="" />
             </button>
             <div className="toggle-menu collapse" id="infosCollapse">
+              {!selectedShipping && <h3>Please select shipping address</h3>}
               <ul className="infos-list">
                 {account?.addressesData?.map((item) => (
                   <li
@@ -245,7 +254,8 @@ export const CheckoutInfo = ({
                     <div
                       className={
                         "indicator " +
-                        (selectShipping?.addressId === item?.addressId
+                        (selectShipping &&
+                        selectShipping?.addressId === item?.addressId
                           ? "active"
                           : "")
                       }
@@ -317,12 +327,14 @@ export const CheckoutInfo = ({
                   onClick={() => {
                     document.getElementById("shippingBtn").click();
                   }}
+                  disabled={!selectShipping}
                 >
                   Cancel
                 </button>
                 <button
                   className="save-btn"
                   onClick={() => handleSelect("shipping", selectShipping)}
+                  disabled={!selectShipping}
                 >
                   Save
                 </button>

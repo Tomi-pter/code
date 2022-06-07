@@ -217,12 +217,15 @@
       background: #f4f4f4;
       box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.07);
       border-radius: 10px;
-      padding: 49px 35px;
+      padding: 30px 35px;
       position: absolute;
       top: 45px;
       left: 0;
       right: 0;
       z-index: 2;
+    }
+    h4 {
+      margin-bottom: 20px;
     }
     .infos-list {
       margin: 0;

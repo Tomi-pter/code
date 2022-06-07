@@ -265,29 +265,28 @@ export const HeaderNav = () => {
                   {user && (
                     <Link
                       className="dropdown-item"
-                      href="#!"
                       to="/shop?category=Favorites"
                     >
                       My Favorites
                     </Link>
                   )}
+                  <Link className="dropdown-item" to="/shop?category=For Sale">
+                    Deals
+                  </Link>
                   <Link
                     className="dropdown-item"
-                    href="#!"
                     to="/shop?category=Pharmaceuticals"
                   >
                     Pharmaceutical
                   </Link>
                   <Link
                     className="dropdown-item"
-                    href="#!"
                     to="/shop?category=Animal Health"
                   >
                     Animal Health
                   </Link>
                   <Link
                     className="dropdown-item"
-                    href="#!"
                     to="/shop?category=Medical Supplies"
                   >
                     Medical/Surgical

@@ -81,11 +81,13 @@ const getPricePerUnit = (bottleSize, cost) => {
 
   const sizeInString = getIntegerInStringArray(bottleSize);
 
-  if (sizeInString.length !== 1 || cost === 0) {
+  if (!sizeInString || sizeInString.length !== 1 || cost === 0) {
     return "";
   }
 
-  return roundToTwo(cost / sizeInString);
+  const ppu = roundToTwo(cost / sizeInString)
+
+  return `$ ${ppu}`
 };
 
 const getIntegerInStringArray = (string) => {
@@ -282,7 +284,7 @@ export const Productv2 = ({
             </div>
             <p className="size for-list">
               {auth ? (
-                <>{"$ " + getPricePerUnit(product.bottleSize, product.cost)}</>
+                <>{getPricePerUnit(product.bottleSize, product.cost)}</>
               ) : (
                 <span style={{ fontSize: "12.3295px" }}>
                   <Link

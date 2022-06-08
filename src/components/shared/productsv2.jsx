@@ -449,7 +449,7 @@ export const Productsv2 = ({
           )}
           {isLoading && search === "" && (
             <div className="col-12 d-flex align-items-center justify-content-center text-center">
-              Propagating products...
+              Loading products...
             </div>
           )}
           {!isLoading && filteredProducts.length > 0 && renderPage()}

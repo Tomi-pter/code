@@ -368,8 +368,8 @@ export const AdminDashboard = () => {
                 <th scope="col">Company Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Status</th>
-                <th scope="col">Internal ID</th>
-                <th scope="col">Database ID</th>
+                <th className="no-wrap" scope="col">Internal ID</th>
+                <th className="no-wrap" scope="col">Database ID</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>

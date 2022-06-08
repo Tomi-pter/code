@@ -41,6 +41,9 @@
     overflow: auto;
     flex: auto;
   }
+  .no-wrap {
+      white-space: nowrap;
+  }
   table thead th {
     position: sticky;
     top: 0;

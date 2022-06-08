@@ -84,7 +84,7 @@ export const ItemList = ({ page }) => {
                                     {cartItem.productName}
                                 </p>
                                 <p className="variant">
-                                    NDCs: {cartItem.ndc}
+                                    NDC: {cartItem.ndc}
                                 </p>
                                 <p className={"availability " + ((cartItem?.totalquantityonhand && cartItem?.totalquantityonhand !== "" && cartItem?.totalquantityonhand !== "0.0") ? '' : 'no-stock')}>
                                     {(cartItem?.totalquantityonhand !== "" && cartItem?.totalquantityonhand !== "0.0") ?

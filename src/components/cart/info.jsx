@@ -113,11 +113,11 @@ export const CheckoutInfo = ({
 
   const shippingList = (type) => {
     if (type === "shipping") {
-      if (document.getElementById("infosCollapse").className.includes("show"))
-        setSelectShipping(selectedShipping);
+      // if (document.getElementById("infosCollapse").className.includes("show"))
+      setSelectShipping(selectedShipping);
     } else {
-      if (document.getElementById("infosCollapse2").className.includes("show"))
-        setSelectBilling(selectedBilling);
+      // if (document.getElementById("infosCollapse2").className.includes("show"))
+      setSelectBilling(selectedBilling);
     }
   };
 
@@ -155,13 +155,13 @@ export const CheckoutInfo = ({
         setSelectedBilling(account?.addressesData[0]);
         if (!selectBilling) setSelectBilling(account?.addressesData[0]);
       }
-      if (
-        account?.addressesData.length > 1 &&
-        !document.getElementById("infosCollapse").className.includes("show") &&
-        !selectedShipping
-      ) {
-        document.getElementById("shippingBtn").click();
-      }
+      // if (
+      //   account?.addressesData.length > 1 &&
+      //   !document.getElementById("infosCollapse").className.includes("show") &&
+      //   !selectedShipping
+      // ) {
+      //   document.getElementById("shippingBtn").click();
+      // }
     }
     setIsEdit(false);
     setEditId("");
@@ -226,24 +226,67 @@ export const CheckoutInfo = ({
       <div className="customer-info">
         <div className="d-flex align-items-center justify-content-between title-container">
           <h1 className="title m-0">Shipping Address</h1>
-          <div className="toggle">
-            <button
-              className="main-edit-btn"
-              type="button"
-              id="shippingBtn"
-              data-toggle="collapse"
-              data-target="#infosCollapse"
-              aria-expanded="false"
-              aria-controls="infosCollapse"
-              onClick={() => shippingList("shipping")}
-              style={{
-                visibility: !selectedShipping ? "hidden" : "visible",
-                zIndex: !selectedShipping ? -1 : 0,
-              }}
+          <button
+            className="main-edit-btn"
+            type="button"
+            id="shippingBtn"
+            data-toggle="collapse"
+            data-target=".shipping-address-container"
+            aria-expanded="false"
+            aria-controls="shippingSelected shippingList"
+            onClick={() => shippingList("shipping")}
+            style={{
+              visibility: !selectedShipping ? "hidden" : "visible",
+              zIndex: !selectedShipping ? -1 : 0,
+            }}
+          >
+            <img src={Edit} alt="" />
+          </button>
+        </div>
+        {account?.addressesData.length > 0 ? (
+          <>
+            <ul
+              id="shippingSelected"
+              className={
+                "shipping-address-container info-list collapse " +
+                (account?.addressesData.length === 1 ? "show" : "")
+              }
             >
-              <img src={Edit} alt="" />
-            </button>
-            <div className="toggle-menu collapse" id="infosCollapse">
+              <li>
+                <img
+                  src={require("../../assets/img/mdi_map-marker.svg")}
+                  alt=""
+                />
+                {selectedShipping && (
+                  <span>
+                    {selectedShipping?.details?.address +
+                      " " +
+                      selectedShipping?.details?.city +
+                      " " +
+                      (selectedShipping?.details?.state || "") +
+                      " " +
+                      selectedShipping?.details?.postalCode}{" "}
+                    {defaultAddress?.addressId ===
+                      selectedShipping?.addressId && (
+                      <span className="default">Default</span>
+                    )}
+                  </span>
+                )}
+              </li>
+              <li>
+                <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
+                {selectedShipping && (
+                  <span>{selectedShipping?.details?.mobileNumber}</span>
+                )}
+              </li>
+            </ul>
+            <div
+              id="shippingList"
+              className={
+                "shipping-address-container collapse " +
+                (account?.addressesData.length > 1 ? "show" : "")
+              }
+            >
               {!selectedShipping && <h3>Please select shipping address</h3>}
               <ul className="infos-list">
                 {account?.addressesData?.map((item) => (
@@ -340,164 +383,30 @@ export const CheckoutInfo = ({
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-        <ul className="info-list">
-          <ul className="info-list">
-            <li>
-              {/* <img src={require("../../assets/img/mdi_account.svg")} alt="" />
-                            <span className="name">{selectedShipping?.details?.givenName + ' ' + selectedShipping?.details?.familyName}</span> */}
-            </li>
-
-            <li>
-              <img
-                src={require("../../assets/img/mdi_map-marker.svg")}
-                alt=""
-              />
-              {selectedShipping && (
-                <span>
-                  {selectedShipping?.details?.address +
-                    " " +
-                    selectedShipping?.details?.city +
-                    " " +
-                    (selectedShipping?.details?.state || "") +
-                    " " +
-                    selectedShipping?.details?.postalCode}{" "}
-                  {defaultAddress?.addressId ===
-                    selectedShipping?.addressId && (
-                    <span className="default">Default</span>
-                  )}
-                </span>
-              )}
-            </li>
-            <li>
-              <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
-              {selectedShipping && (
-                <span>{selectedShipping?.details?.mobileNumber}</span>
-              )}
-            </li>
-            {/* <li>
-                <img src={require("../../assets/img/mdi_email.svg")} alt="" />
-                <span>{selectedShipping?.details?.email}</span>
-            </li> */}
-          </ul>
-        </ul>
+          </>
+        ) : (
+          "Loading Address..."
+        )}
       </div>
       <div className="customer-info">
         <div className="d-flex align-items-center justify-content-between title-container m-0">
           <h1 className="title m-0">Billing Address</h1>
-          {!checked && (
-            <div className="toggle">
-              <button
-                className="main-edit-btn"
-                type="button"
-                id="billingBtn"
-                data-toggle="collapse"
-                data-target="#infosCollapse2"
-                aria-expanded="false"
-                aria-controls="infosCollapse2"
-                onClick={() => shippingList("billing")}
-                disabled={checked}
-              >
-                <img src={Edit} alt="" />
-              </button>
-              <div className="toggle-menu collapse" id="infosCollapse2">
-                <ul className="infos-list">
-                  {account?.addressesData.map((item) => (
-                    <li
-                      key={`key-billing-${item.addressId}`}
-                      onClick={() => setSelectBilling(item)}
-                    >
-                      <div
-                        className={
-                          "indicator " +
-                          (selectBilling?.addressId === item?.addressId
-                            ? "active"
-                            : "")
-                        }
-                      >
-                        <div className="center"></div>
-                      </div>
-                      <div className="d-flex align-items-center info-container">
-                        <div className="info">
-                          {/* {item.details.givenName +  " " + item?.details?.familyName} */}
-                          <p>
-                            {item.details?.address +
-                              " " +
-                              item.details?.city +
-                              " " +
-                              (item.details?.state || "") +
-                              " " +
-                              item.details?.postalCode}
-                          </p>
-                          <p>{item.details?.mobileNumber}</p>
-                          {/* <p>{item.details.email}</p> */}
-                          <div className="d-flex align-items-center name">
-                            {defaultAddress?.addressId === item?.addressId && (
-                              <div className="default">Default</div>
-                            )}
-                          </div>
-                          {item?.addressId &&
-                            defaultAddress?.addressId !== item?.addressId && (
-                              <button
-                                className="default-btn"
-                                onClick={() => handleMakeDefaultAddress(item)}
-                              >
-                                {isDefaultLoading &&
-                                isDefaultSelected.addressId ===
-                                  item.addressId ? (
-                                  <div
-                                    className="spinner-border text-success"
-                                    role="status"
-                                  >
-                                    <span className="sr-only">Loading...</span>
-                                  </div>
-                                ) : (
-                                  "Make Default"
-                                )}
-                              </button>
-                            )}
-                        </div>
-                        <button
-                          className="edit-btn"
-                          data-toggle="modal"
-                          data-target="#addAddressModal"
-                          onClick={() => handleEditAddress(item)}
-                        >
-                          Edit
-                        </button>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  className="add-btn"
-                  data-toggle="modal"
-                  data-target="#addAddressModal"
-                  onClick={() => handleAddAddress()}
-                >
-                  + Add New Address
-                </button>
-                <div className="d-flex align-items-center justify-content-between">
-                  {/* <button className="cancel-btn">Cancel</button> */}
-                  <button
-                    className="cancel-btn"
-                    onClick={() => {
-                      document.getElementById("billingBtn").click();
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="save-btn"
-                    onClick={() => handleSelect("billing", selectBilling)}
-                  >
-                    Save
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+          <button
+            className="main-edit-btn"
+            type="button"
+            id="billingBtn"
+            data-toggle="collapse"
+            data-target=".billing-address-container"
+            aria-expanded="false"
+            aria-controls="billingSelected billingList"
+            onClick={() => shippingList("billing")}
+            style={{
+              visibility: checked ? "hidden" : "visible",
+              zIndex: checked ? -1 : 0,
+            }}
+          >
+            <img src={Edit} alt="" />
+          </button>
         </div>
         <div className="checkbox-container">
           <input
@@ -506,47 +415,141 @@ export const CheckoutInfo = ({
             name="sameAddress"
             checked={checked}
             onChange={() => setChecked(!checked)}
+            disabled={!selectedShipping}
           />
           <label htmlFor="sameAddress">Same as shipping address</label>
         </div>
         {!checked && (
-          <ul className="info-list">
-            {/* <li>
-                            <img src={require("../../assets/img/mdi_account.svg")} alt="" />
-                            <span className="name">{selectedBilling?.details?.givenName + ' ' + selectedBilling?.details?.familyName}</span>
-                            
-                        </li> */}
-            <li>
-              <img
-                src={require("../../assets/img/mdi_map-marker.svg")}
-                alt=""
-              />
-              {selectedBilling && (
-                <span>
-                  {selectedBilling?.details?.address +
-                    " " +
-                    selectedBilling?.details?.city +
-                    " " +
-                    (selectedBilling?.details?.state || "") +
-                    " " +
-                    selectedBilling?.details?.postalCode}{" "}
-                  {defaultAddress?.addressId === selectedBilling?.addressId && (
-                    <span className="default">Default</span>
-                  )}
-                </span>
-              )}
-            </li>
-            <li>
-              <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
-              {selectedBilling && (
-                <span>{selectedBilling?.details?.mobileNumber}</span>
-              )}
-            </li>
-            {/* <li>
-                            <img src={require("../../assets/img/mdi_email.svg")} alt="" />
-                            <span>{selectedBilling?.details?.email}</span>
-                        </li> */}
-          </ul>
+          <>
+            <ul
+              id="billingSelected"
+              className="billing-address-container info-list show"
+            >
+              <li>
+                <img
+                  src={require("../../assets/img/mdi_map-marker.svg")}
+                  alt=""
+                />
+                {selectedBilling && (
+                  <span>
+                    {selectedBilling?.details?.address +
+                      " " +
+                      selectedBilling?.details?.city +
+                      " " +
+                      (selectedBilling?.details?.state || "") +
+                      " " +
+                      selectedBilling?.details?.postalCode}{" "}
+                    {defaultAddress?.addressId ===
+                      selectedBilling?.addressId && (
+                      <span className="default">Default</span>
+                    )}
+                  </span>
+                )}
+              </li>
+              <li>
+                <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
+                {selectedBilling && (
+                  <span>{selectedBilling?.details?.mobileNumber}</span>
+                )}
+              </li>
+            </ul>
+            <div
+              className="billing-address-container collapse"
+              id="billingList"
+            >
+              <ul className="infos-list">
+                {account?.addressesData.map((item) => (
+                  <li
+                    key={`key-billing-${item.addressId}`}
+                    onClick={() => setSelectBilling(item)}
+                  >
+                    <div
+                      className={
+                        "indicator " +
+                        (selectBilling?.addressId === item?.addressId
+                          ? "active"
+                          : "")
+                      }
+                    >
+                      <div className="center"></div>
+                    </div>
+                    <div className="d-flex align-items-center info-container">
+                      <div className="info">
+                        {/* {item.details.givenName +  " " + item?.details?.familyName} */}
+                        <p>
+                          {item.details?.address +
+                            " " +
+                            item.details?.city +
+                            " " +
+                            (item.details?.state || "") +
+                            " " +
+                            item.details?.postalCode}
+                        </p>
+                        <p>{item.details?.mobileNumber}</p>
+                        {/* <p>{item.details.email}</p> */}
+                        <div className="d-flex align-items-center name">
+                          {defaultAddress?.addressId === item?.addressId && (
+                            <div className="default">Default</div>
+                          )}
+                        </div>
+                        {item?.addressId &&
+                          defaultAddress?.addressId !== item?.addressId && (
+                            <button
+                              className="default-btn"
+                              onClick={() => handleMakeDefaultAddress(item)}
+                            >
+                              {isDefaultLoading &&
+                              isDefaultSelected.addressId === item.addressId ? (
+                                <div
+                                  className="spinner-border text-success"
+                                  role="status"
+                                >
+                                  <span className="sr-only">Loading...</span>
+                                </div>
+                              ) : (
+                                "Make Default"
+                              )}
+                            </button>
+                          )}
+                      </div>
+                      <button
+                        className="edit-btn"
+                        data-toggle="modal"
+                        data-target="#addAddressModal"
+                        onClick={() => handleEditAddress(item)}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <button
+                className="add-btn"
+                data-toggle="modal"
+                data-target="#addAddressModal"
+                onClick={() => handleAddAddress()}
+              >
+                + Add New Address
+              </button>
+              <div className="d-flex align-items-center justify-content-between">
+                <button
+                  className="cancel-btn"
+                  onClick={() => {
+                    document.getElementById("billingBtn").click();
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="save-btn"
+                  onClick={() => handleSelect("billing", selectBilling)}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </>
         )}
       </div>
       <div
@@ -563,32 +566,6 @@ export const CheckoutInfo = ({
               <h2 className="sub-title">
                 {isEdit ? "Edit Address" : "Add New Address"}
               </h2>
-              {/* <div className="row">
-                                <div className="col-12 col-sm-6">
-                                    <div className="password-input form-group">
-                                        <label htmlFor="givenName">First Name</label>
-                                        <Input
-                                            label="First Name"
-                                            name="givenName"
-                                            type="text"
-                                            value={formData.givenName}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-12 col-sm-6">
-                                    <div className="password-input form-group">
-                                        <label htmlFor="familyName">Last Name</label>
-                                        <Input
-                                            label="Last Name"
-                                            name="familyName"
-                                            type="text"
-                                            value={formData.familyName}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div> */}
               <div className="row">
                 <div className="col">
                   <div className="password-input form-group">

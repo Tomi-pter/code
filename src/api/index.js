@@ -188,6 +188,13 @@ export const syncCustomPricing = (username) =>
 
 export const syncProducts = () => API.post(`/sync/products`);
 
+export const getCustomProjectsNetsuite = (username) =>
+  API.get(`/custom-price/${username}/netsuite`);
+export const upsertCustomProjectsNetsuite = (username, formData) =>
+  API.post(`/custom-price/${username}/upsert`, formData);
+export const removeCustomProjectsNetsuite = (username, formData) =>
+  API.delete(`/custom-price/${username}/remove`, { data: formData });
+
 // PRODUCTS v2
 export const getProductsv2 = () => API.get(`/products`);
 export const getProductv2 = (productId) => API.get(`/products/${productId}`);

@@ -22,6 +22,12 @@ import {
   SYNCPRODUCTSERROR,
   CREATESUBACCOUNT,
   CREATESUBACCOUNTERROR,
+  GETCUSTOMPRODUCTNETSUITE,
+  UPSERTCUSTOMPRODUCTNETSUITE,
+  REMOVECUSTOMPRODUCTNETSUITE,
+  GETCUSTOMPRODUCTNETSUITEERROR,
+  UPSERTCUSTOMPRODUCTNETSUITEERROR,
+  REMOVECUSTOMPRODUCTNETSUITEERROR,
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
@@ -249,3 +255,37 @@ export const createSubAccount = (formData) => async (dispatch) => {
     dispatch({ type: CREATESUBACCOUNTERROR, data });
   }
 };
+
+export const getCustomProjectsNetsuite = (username) => async (dispatch) => {
+  try {
+    const { data } = await api.getCustomProjectsNetsuite(username);
+
+    dispatch({ type: GETCUSTOMPRODUCTNETSUITE, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const upsertCustomProjectsNetsuite =
+  (username, formData) => async (dispatch) => {
+    try {
+      await api.upsertCustomProjectsNetsuite(username, formData);
+
+      dispatch({ type: UPSERTCUSTOMPRODUCTNETSUITE, data: formData });
+    } catch (error) {
+      const data = error.response.data;
+
+      dispatch({ type: UPSERTCUSTOMPRODUCTNETSUITEERROR, data });
+    }
+  };
+
+export const removeCustomProjectsNetsuite =
+  (username, formData) => async (dispatch) => {
+    try {
+      await api.removeCustomProjectsNetsuite(username, formData);
+
+      dispatch({ type: REMOVECUSTOMPRODUCTNETSUITE, data: formData });
+    } catch (error) {
+      console.log(error);
+    }
+  };

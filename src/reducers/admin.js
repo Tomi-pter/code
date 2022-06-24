@@ -22,9 +22,18 @@ import {
   SYNCPRODUCTSERROR,
   CREATESUBACCOUNT,
   CREATESUBACCOUNTERROR,
+  GETCUSTOMPRODUCTNETSUITE,
+  UPSERTCUSTOMPRODUCTNETSUITE,
+  REMOVECUSTOMPRODUCTNETSUITE,
+  GETCUSTOMPRODUCTNETSUITEERROR,
+  UPSERTCUSTOMPRODUCTNETSUITEERROR,
+  REMOVECUSTOMPRODUCTNETSUITEERROR,
 } from "../constants/actionTypes";
 
-const adminReducer = (state = { users: [], customProducts: null }, action) => {
+const adminReducer = (
+  state = { users: [], customProducts: null, customProductNetsuite: [] },
+  action
+) => {
   switch (action.type) {
     case GETUSERS:
       return { ...state, users: action.data.Users };
@@ -130,6 +139,38 @@ const adminReducer = (state = { users: [], customProducts: null }, action) => {
       return { ...state, createSubAccountError: null };
     case CREATESUBACCOUNTERROR:
       return { ...state, createSubAccountError: action.data };
+    case GETCUSTOMPRODUCTNETSUITE:
+      return { ...state, customProductNetsuite: action.data };
+    case UPSERTCUSTOMPRODUCTNETSUITE:
+      const { productId, price } = action.data;
+      const upsertIndex = state.customProductNetsuite.findIndex(
+        (product) => product.item.id === productId
+      );
+
+      if (upsertIndex !== -1) {
+        const newData = state.customProductNetsuite[upsertIndex];
+        state.customProductNetsuite.splice(upsertIndex, 1, {
+          ...newData,
+          price,
+          item: { ...newData.item, id: productId },
+        });
+      } else {
+        const addData = {
+          price,
+          item: {
+            id: productId,
+          },
+        };
+        state.customProductNetsuite.push(addData);
+      }
+
+      return { ...state, upsertError: null };
+    case REMOVECUSTOMPRODUCTNETSUITE:
+      const removedCustomNetsuite = state.customProductNetsuite.filter(
+        (product) => product.item.id !== action.data.productId
+      );
+
+      return { ...state, customProductNetsuite: removedCustomNetsuite };
     default:
       return state;
   }

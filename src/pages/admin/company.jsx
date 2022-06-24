@@ -22,21 +22,22 @@ export default (props) => {
   };
 
   useEffect(() => {
-    admin?.users ? handleSetData(admin.users) : history.push("/admin");
+    // admin?.users ? handleSetData(admin.users) : history.push("/admin");
+    handleSetData(admin.users);
   }, [location]);
 
-  useEffect(() => {
-    !admin.users && history.push("/admin");
-  }, []);
+  // useEffect(() => {
+  //   !admin.users && history.push("/admin");
+  // }, []);
 
-  useEffect(
-    () => () => {
-      window.onunload = () => {
-        localStorage.removeItem("admin");
-      };
-    },
-    []
-  );
+  // useEffect(
+  //   () => () => {
+  //     window.onunload = () => {
+  //       localStorage.removeItem("admin");
+  //     };
+  //   },
+  //   []
+  // );
 
   return (
     <div className="d-flex align-items-center justify-content-center admin-pages">

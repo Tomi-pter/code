@@ -30,8 +30,8 @@ const initialFormData = {
   city: "",
   state: "",
   postalCode: "",
-  country: "",
-  countryCode: "",
+  country: "United States",
+  countryCode: "US",
 };
 
 export const CheckoutInfo = ({
@@ -85,13 +85,13 @@ export const CheckoutInfo = ({
 
   const handleAddAddress = () => {
     setIsEdit(false);
-    setStates([]);
+    // setStates([]);
     setFormData(initialFormData);
   };
 
   const handleEditAddress = (address) => {
     setIsEdit(true);
-    setStates([]);
+    // setStates([]);
     setFormData(address.details);
     setEditId(address.addressId);
     setEditAddress(address);
@@ -166,7 +166,7 @@ export const CheckoutInfo = ({
     setIsEdit(false);
     setEditId("");
     setEditAddress(null);
-    setStates([]);
+    // setStates([]);
     document.getElementById("closeAddressModal").click();
   }, [account]);
 
@@ -188,13 +188,19 @@ export const CheckoutInfo = ({
   }, [auth]);
 
   useEffect(() => {
-    const selectedCountry = countries.filter(
-      (e) => e.name === formData.country
-    );
-    if (formData.country !== "" && selectedCountry) {
-      const countryCode = selectedCountry[0]?.abbreviation;
-      setFormData({ ...formData, countryCode });
-      dispatch(getStates(countryCode));
+    if (formData.country !== "" && countries) {
+      const selectedCountry = countries.filter(
+        (e) => e.name === formData.country
+      );
+      if (selectedCountry.length > 0) {
+        console.log(selectedCountry);
+        const countryCode = selectedCountry[0]?.abbreviation;
+        setFormData({ ...formData, countryCode });
+        dispatch(getStates(countryCode));
+      } else {
+        setFormData({ ...formData, countryCode: "US" });
+        dispatch(getStates("US"));
+      }
     }
   }, [formData.country]);
 
@@ -658,7 +664,7 @@ export const CheckoutInfo = ({
                     {/* <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} /> */}
                   </div>
                 </div>
-                {states?.length > 0 && (
+                {formData.country !== "" && states.length > 0 && (
                   <div className="col-12 col-sm-6">
                     <div className="password-input form-group">
                       <label htmlFor="state">State</label>

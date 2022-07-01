@@ -575,9 +575,9 @@ export const CheckoutInfo = ({
               <div className="row">
                 <div className="col">
                   <div className="password-input form-group">
-                    <label htmlFor="address">Address 1</label>
+                    <label htmlFor="address">Address Line 1</label>
                     <Input
-                      label="Address 1"
+                      label="Address Line 1"
                       name="address1"
                       type="text"
                       value={formData.address1}
@@ -589,9 +589,9 @@ export const CheckoutInfo = ({
               <div className="row">
                 <div className="col">
                   <div className="password-input form-group">
-                    <label htmlFor="address">Address 2</label>
+                    <label htmlFor="address">Address Line 2</label>
                     <Input
-                      label="Address 2"
+                      label="Address Line 2"
                       name="address2"
                       type="text"
                       value={formData.address2}

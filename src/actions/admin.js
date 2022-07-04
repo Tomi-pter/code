@@ -286,6 +286,7 @@ export const removeCustomProjectsNetsuite =
 
       dispatch({ type: REMOVECUSTOMPRODUCTNETSUITE, data: formData });
     } catch (error) {
-      console.log(error);
+      const data = error.response.data;
+      dispatch({ type: REMOVECUSTOMPRODUCTNETSUITEERROR, data });
     }
   };

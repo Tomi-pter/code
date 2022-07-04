@@ -7,6 +7,7 @@ import {
 } from "../../actions/admin";
 
 import { useSelector, useDispatch } from "react-redux";
+import fuzzysort from "fuzzysort";
 
 const initialState = {
   price: "",
@@ -15,14 +16,28 @@ const initialState = {
 
 export const CustomPrice = ({ mainCompany }) => {
   const admin = useSelector((state) => state.admin);
+  const productsData = useSelector((state) => state.products);
+  const [search, setSearch] = useState({
+    id: "",
+  });
+  const [filterProducts, setFilterProducts] = useState([]);
+  const [openSuggestion, setOpenSuggestion] = useState(false);
   const [actionType, setActionType] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
   const [formData, setFormData] = useState(initialState);
   const [isDisabled, setDisabled] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [alertType, setAlertType] = useState("error");
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSearchChange = (e) => {
+    setOpenSuggestion(true);
+    setSearch({ ...search, id: e.target.value });
   };
 
   const handleSubmit = () => {
@@ -38,6 +53,44 @@ export const CustomPrice = ({ mainCompany }) => {
     dispatch(removeCustomProjectsNetsuite(mainCompany.username, payload));
   };
 
+  const handleSelectProduct = (product) => {
+    setFormData({ ...formData, productId: product.id });
+    setSearch({ ...search, id: product.id });
+    setFilterProducts([]);
+    setOpenSuggestion(false);
+  };
+
+  const handleAlert = (msg, type) => {
+    setErrorMsg(msg);
+    setShowError(true);
+    setAlertType(type);
+    setTimeout(function () {
+      setShowError(false);
+    }, 3000);
+  };
+
+  useEffect(() => {
+    let products, searchResult, changeTimer;
+
+    if (search.id !== "") {
+      changeTimer = setTimeout(() => {
+        products = productsData.productsv2.map((prod, key) => {
+          return { ...prod, id: prod.id.toString() };
+        });
+
+        searchResult = fuzzysort.go(search.id, products, {
+          keys: ["id", "name", "ndc"],
+        });
+
+        setFilterProducts(searchResult);
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(changeTimer);
+    };
+  }, [search]);
+
   useEffect(() => {
     const { price, productId } = formData;
     price !== "" && productId !== "" ? setDisabled(false) : setDisabled(true);
@@ -47,6 +100,10 @@ export const CustomPrice = ({ mainCompany }) => {
     if (actionLoading && !admin.upsertError) {
       document.getElementById("closeCustomPriceModal").click();
       setFormData(initialState);
+      setSearch({ ...search, id: "" });
+    }
+    if (admin.removeCustomError) {
+      handleAlert("Error deleting custom price. Try again later!", "error");
     }
     setActionLoading(false);
   }, [admin]);
@@ -99,6 +156,10 @@ export const CustomPrice = ({ mainCompany }) => {
                           price: product.price,
                           productId: product.item.id,
                         });
+                        setSearch({
+                          ...search,
+                          id: product.item.id,
+                        });
                       }}
                     >
                       Edit
@@ -127,6 +188,21 @@ export const CustomPrice = ({ mainCompany }) => {
             </tbody>
           </table>
         </div>
+      </div>
+      <div
+        id="toast"
+        className={
+          "toast alert " +
+          (alertType === "error" ? "alert-danger " : "alert-success ") +
+          (showError ? "show" : "")
+        }
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        data-delay="2000"
+        style={{ position: "fixed", bottom: "1rem", right: "1rem" }}
+      >
+        {errorMsg}
       </div>
       <div
         className="modal fade"
@@ -160,11 +236,26 @@ export const CustomPrice = ({ mainCompany }) => {
                     <input
                       type="text"
                       name="productId"
-                      value={formData.productId}
+                      value={search.id}
                       className="form-control"
                       id="productId"
-                      onChange={handleChange}
+                      onChange={handleSearchChange}
                     />
+                    {filterProducts.length > 0 && openSuggestion && (
+                      <div className="suggestions-container">
+                        <ul className="list-group">
+                          {filterProducts.map((product, key) => (
+                            <li
+                              key={`product${key}`}
+                              className="list-group-item"
+                              onClick={() => handleSelectProduct(product.obj)}
+                            >
+                              {product.obj.name}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="col-6">
@@ -181,8 +272,9 @@ export const CustomPrice = ({ mainCompany }) => {
                   </div>
                 </div>
                 <div className="col-12">
-                  <p className="text-danger text-small error-msg mb-3">
-                    {admin?.createSubAccountError?.message}
+                  <p className="text-danger text-small error-msg mb-3 ">
+                    {admin.upsertError &&
+                      "Error adding/updating custom price. Try again later!"}
                   </p>
                   <button
                     type="button"

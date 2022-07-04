@@ -11,6 +11,7 @@ import {
   syncCustomPricing,
   syncProducts,
 } from "../../actions/admin";
+import { getProductsv2 } from "../../actions/products";
 // import { getCountries, getStates } from "../../actions/auth";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -268,6 +269,7 @@ export const AdminDashboard = () => {
 
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(getProductsv2());
     // dispatch(getCountries());
   }, []);
 
@@ -368,8 +370,12 @@ export const AdminDashboard = () => {
                 <th scope="col">Company Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Status</th>
-                <th className="no-wrap" scope="col">Internal ID</th>
-                <th className="no-wrap" scope="col">Database ID</th>
+                <th className="no-wrap" scope="col">
+                  Internal ID
+                </th>
+                <th className="no-wrap" scope="col">
+                  Database ID
+                </th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>

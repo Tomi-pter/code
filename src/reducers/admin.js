@@ -165,12 +165,16 @@ const adminReducer = (
       }
 
       return { ...state, upsertError: null };
+    case UPSERTCUSTOMPRODUCTNETSUITEERROR:
+      return { ...state, upsertError: action.data, removeCustomError: null };
     case REMOVECUSTOMPRODUCTNETSUITE:
       const removedCustomNetsuite = state.customProductNetsuite.filter(
         (product) => product.item.id !== action.data.productId
       );
 
       return { ...state, customProductNetsuite: removedCustomNetsuite };
+    case REMOVECUSTOMPRODUCTNETSUITEERROR:
+      return { ...state, removeCustomError: action.data, upsertError: null };
     default:
       return state;
   }

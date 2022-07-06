@@ -114,6 +114,7 @@ export const Addresses = ({ account }) => {
       city: address.details.city,
       postalCode: address.details.postalCode,
       country: address.details.country,
+      countryCode: address.details.countryCode ? address.details.countryCode : "US",
       state: address.details.state,
     });
     setShowModal(true);

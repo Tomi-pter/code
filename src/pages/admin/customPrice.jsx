@@ -244,15 +244,19 @@ export const CustomPrice = ({ mainCompany }) => {
                     {filterProducts.length > 0 && openSuggestion && (
                       <div className="suggestions-container">
                         <ul className="list-group">
-                          {filterProducts.map((product, key) => (
-                            <li
-                              key={`product${key}`}
-                              className="list-group-item"
-                              onClick={() => handleSelectProduct(product.obj)}
-                            >
-                              {product.obj.name}
-                            </li>
-                          ))}
+                            {
+                                filterProducts.map((product, key) => {
+                                    return <li
+                                        key={`product${key}`}
+                                        className="list-group-item"
+                                        onClick={() => handleSelectProduct(product.obj)}
+                                    >
+                                        {
+                                            `${product.obj.ndc} - ${product.obj.name}`
+                                        }
+                                    </li>
+                                })
+                            }
                         </ul>
                       </div>
                     )}

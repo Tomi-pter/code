@@ -54,11 +54,11 @@ export default (props) => {
               Sub Accounts
             </a>
           </li>
-          <li class="nav-item">
+          {/* <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#custom-prices">
               Custom Prices
             </a>
-          </li>
+          </li> */}
         </ul>
 
         <div class="tab-content">

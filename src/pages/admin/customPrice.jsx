@@ -127,7 +127,7 @@ export const CustomPrice = ({ mainCompany }) => {
               setFormData(initialState);
             }}
           >
-            Add Cutom Price
+            Add Custom Price
           </button>
         </div>
         <div className="table-container">

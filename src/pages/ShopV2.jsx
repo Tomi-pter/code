@@ -19,37 +19,51 @@ export default (props) => {
     const animalBtn = document.getElementById("animal-accordion-btn");
     const medicalBtn = document.getElementById("medical-accordion-btn");
     const dealBtn = document.getElementById("deals-accordion-btn");
+    const specialsBtn = document.getElementById("specials-accordion-btn");
     const query = new URLSearchParams(props.location.search);
     const cat = query.get("category");
+
     if (cat && cat !== "") {
-      if (
-        cat === "Favorites" &&
-        favBtn?.className.split(" ")?.length === 2 &&
-        auth
-      ) {
-        favBtn.click();
-      } else {
+        if (
+            cat === "Favorites"
+            && favBtn?.className.split(" ")?.length === 2
+            && auth
+        ) {
+            favBtn.click();
+        }
+        else {
+            pharmaBtn.click();
+        }
+
+        if (
+            cat === "Pharmaceuticals"
+            && pharmaBtn.className.split(" ").length === 2
+        )
+            pharmaBtn.click();
+
+        if (
+            cat === "Animal Health"
+            && animalBtn.className.split(" ").length === 2
+        )
+            animalBtn.click();
+
+        if (
+            cat === "Medical Supplies"
+            && medicalBtn.className.split(" ").length === 2
+        )
+            medicalBtn.click();
+
+        if (cat === "For Sale" && dealBtn.className.split(" ").length === 2)
+            dealBtn.click();
+
+        if (
+            cat === "Weekly Specials"
+            && specialsBtn.className.split(" ").length === 2
+        )
+        specialsBtn.click();
+    }
+    else {
         pharmaBtn.click();
-      }
-      if (
-        cat === "Pharmaceuticals" &&
-        pharmaBtn.className.split(" ").length === 2
-      )
-        pharmaBtn.click();
-      if (
-        cat === "Animal Health" &&
-        animalBtn.className.split(" ").length === 2
-      )
-        animalBtn.click();
-      if (
-        cat === "Medical Supplies" &&
-        medicalBtn.className.split(" ").length === 2
-      )
-        medicalBtn.click();
-      if (cat === "For Sale" && dealBtn.className.split(" ").length === 2)
-        dealBtn.click();
-    } else {
-      pharmaBtn.click();
     }
   };
 
@@ -111,6 +125,20 @@ export default (props) => {
                       My Favorites
                     </button>
                   )}
+                  <button
+                    id="specials-accordion-btn"
+                    className={
+                      "accordion-button collapsed" +
+                      (category === "Weekly Specials" ? " active" : "")
+                    }
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#accordion6"
+                    aria-expanded="false"
+                    onClick={() => setCategory("Weekly Specials")}
+                  >
+                    Weekly Specials
+                  </button>
                   <button
                     id="deals-accordion-btn"
                     className={

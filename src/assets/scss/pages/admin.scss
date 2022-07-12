@@ -40,6 +40,10 @@
   .table-container {
     overflow: auto;
     flex: auto;
+    max-height: calc(100vh - 270px);
+    &.custom {
+      max-height: calc(100vh - 370px);
+    }
   }
   .no-wrap {
     white-space: nowrap;
@@ -128,6 +132,7 @@
   /* width */
   ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
   }
 
   /* Track */

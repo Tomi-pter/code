@@ -9,6 +9,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import fuzzysort from "fuzzysort";
 
+import NoImage from "../../assets/img/unavailable.svg";
+
 const initialState = {
   price: "",
   productId: "",
@@ -18,6 +20,7 @@ export const CustomPrice = ({ mainCompany }) => {
   const admin = useSelector((state) => state.admin);
   const productsData = useSelector((state) => state.products);
   const [search, setSearch] = useState({
+    ndc: "",
     id: "",
   });
   const [filterProducts, setFilterProducts] = useState([]);
@@ -36,8 +39,8 @@ export const CustomPrice = ({ mainCompany }) => {
   };
 
   const handleSearchChange = (e) => {
-    setOpenSuggestion(true);
-    setSearch({ ...search, id: e.target.value });
+    e.target.value !== "" ? setOpenSuggestion(true) : setOpenSuggestion(false);
+    setSearch({ ...search, ndc: e.target.value });
   };
 
   const handleSubmit = () => {
@@ -55,7 +58,7 @@ export const CustomPrice = ({ mainCompany }) => {
 
   const handleSelectProduct = (product) => {
     setFormData({ ...formData, productId: product.id });
-    setSearch({ ...search, id: product.id });
+    setSearch({ ...search, ndc: product.ndc, id: product.id });
     setFilterProducts([]);
     setOpenSuggestion(false);
   };
@@ -69,16 +72,45 @@ export const CustomPrice = ({ mainCompany }) => {
     }, 3000);
   };
 
+  const formatPrice = (price) => {
+    var n = parseFloat(price).toFixed(2);
+    return n;
+  };
+
+  const getIntegerInStringArray = (string) => {
+    return string.match(/[0-9\.,]+/g);
+  };
+
+  const roundToTwo = (num) => {
+    return +(Math.round(num + "e+2") + "e-2");
+  };
+
+  const getPricePerUnit = (bottleSize, cost) => {
+    if (!bottleSize) {
+      return "";
+    }
+
+    const sizeInString = getIntegerInStringArray(bottleSize);
+
+    if (!sizeInString || sizeInString.length !== 1 || cost === 0) {
+      return "";
+    }
+
+    const ppu = roundToTwo(cost / sizeInString);
+
+    return `$ ${ppu}`;
+  };
+
   useEffect(() => {
     let products, searchResult, changeTimer;
 
-    if (search.id !== "") {
+    if (search.ndc !== "") {
       changeTimer = setTimeout(() => {
         products = productsData.productsv2.map((prod, key) => {
           return { ...prod, id: prod.id.toString() };
         });
 
-        searchResult = fuzzysort.go(search.id, products, {
+        searchResult = fuzzysort.go(search.ndc, products, {
           keys: ["id", "name", "ndc"],
         });
 
@@ -116,73 +148,65 @@ export const CustomPrice = ({ mainCompany }) => {
     <>
       <div>
         <div className="d-flex align-items-center justify-content-between mt-4 mb-4 header">
-          <h2 className="m-0">Custom Prices</h2>
-          <button
-            type="button"
-            className="btn btn-primary"
-            data-toggle="modal"
-            data-target="#customPriceModal"
-            onClick={() => {
-              setActionType("add");
-              setFormData(initialState);
-            }}
-          >
-            Add Custom Price
-          </button>
+          <h2 className="m-0"></h2>
+          <div>
+            <button
+              type="button"
+              className="btn btn-primary mr-3"
+              data-toggle="modal"
+              data-target="#customProductPriceModal"
+            >
+              View Custom Prices
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              data-toggle="modal"
+              data-target="#customPriceModal"
+              onClick={() => {
+                setActionType("add");
+                setFormData(initialState);
+              }}
+            >
+              Add/Update Custom Price
+            </button>
+          </div>
         </div>
-        <div className="table-container">
+        <div className="table-container custom">
           <table className="table table-hover">
             <thead className="thead-dark">
               <tr>
-                <th scope="col">ID</th>
+                <th scope="col"></th>
+                <th scope="col">
+                  Item # <br /> NDC
+                </th>
+                <th scope="col">Name</th>
+                <th scope="col">Manufacturer</th>
+                <th scope="col">Size</th>
+                <th scope="col">Strength</th>
                 <th scope="col">Price</th>
-                <th scope="col">Action</th>
+                <th scope="col">PPU</th>
               </tr>
             </thead>
             <tbody>
-              {admin.customProductNetsuite.map((product, index) => (
+              {productsData.productsv2.map((product, index) => (
                 <tr key={`product${index}`}>
-                  <td>{product.item.id}</td>
-                  <td>${product.price}</td>
                   <td>
-                    <button
-                      className="btn btn-primary"
-                      data-toggle="modal"
-                      data-target="#customPriceModal"
-                      onClick={() => {
-                        setActionType("edit");
-                        setFormData({
-                          ...formData,
-                          price: product.price,
-                          productId: product.item.id,
-                        });
-                        setSearch({
-                          ...search,
-                          id: product.item.id,
-                        });
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger ml-4"
-                      disabled={actionLoading}
-                      onClick={() => handleDelete(product.item.id)}
-                    >
-                      {actionLoading &&
-                      formData.productId === product.item.id &&
-                      actionType === "delete" ? (
-                        <div
-                          className="spinner-border text-light spinner-border-sm"
-                          role="status"
-                        >
-                          <span className="sr-only">Loading...</span>
-                        </div>
-                      ) : (
-                        "Delete"
-                      )}
-                    </button>
+                    <img
+                      width={65}
+                      src={product.url ? product.url : NoImage}
+                      alt=""
+                    />
                   </td>
+                  <td>
+                    {product.productNumber} <br /> {product.ndc}
+                  </td>
+                  <td>{product.name}</td>
+                  <td>{product.manufacturer}</td>
+                  <td>{product.bottleSize}</td>
+                  <td>{product.drugStrength}</td>
+                  <td>${formatPrice(product.cost)}</td>
+                  <td>{getPricePerUnit(product.bottleSize, product.cost)}</td>
                 </tr>
               ))}
             </tbody>
@@ -216,7 +240,7 @@ export const CustomPrice = ({ mainCompany }) => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="userTitle">
-                Custom Price
+                Add/Update Custom Price
               </h5>
               <button
                 id="closeCustomPriceModal"
@@ -232,11 +256,11 @@ export const CustomPrice = ({ mainCompany }) => {
               <div className="row">
                 <div className="col-6">
                   <div className="form-group">
-                    <label htmlFor="productId">ID</label>
+                    <label htmlFor="productId">NDC</label>
                     <input
                       type="text"
                       name="productId"
-                      value={search.id}
+                      value={search.ndc}
                       className="form-control"
                       id="productId"
                       onChange={handleSearchChange}
@@ -244,19 +268,17 @@ export const CustomPrice = ({ mainCompany }) => {
                     {filterProducts.length > 0 && openSuggestion && (
                       <div className="suggestions-container">
                         <ul className="list-group">
-                            {
-                                filterProducts.map((product, key) => {
-                                    return <li
-                                        key={`product${key}`}
-                                        className="list-group-item"
-                                        onClick={() => handleSelectProduct(product.obj)}
-                                    >
-                                        {
-                                            `${product.obj.ndc} - ${product.obj.name}`
-                                        }
-                                    </li>
-                                })
-                            }
+                          {filterProducts.map((product, key) => {
+                            return (
+                              <li
+                                key={`product${key}`}
+                                className="list-group-item"
+                                onClick={() => handleSelectProduct(product.obj)}
+                              >
+                                {`${product.obj.ndc} - ${product.obj.name}`}
+                              </li>
+                            );
+                          })}
                         </ul>
                       </div>
                     )}
@@ -297,6 +319,93 @@ export const CustomPrice = ({ mainCompany }) => {
                     {actionType === "edit" ? "Save" : "Create"}
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="customProductPriceModal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="userTitle"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="userTitle">
+                Custom Prices
+              </h5>
+              <button
+                id="closeCustomProductPriceModal"
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="table-container">
+                <table className="table table-hover">
+                  <thead className="thead-dark">
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Price</th>
+                      {/* <th scope="col">Action</th> */}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {admin.customProductNetsuite.map((product, index) => (
+                      <tr key={`customproduct${index}`}>
+                        <td>{product.item.id}</td>
+                        <td>${product.price}</td>
+                        {/* <td>
+                          <button
+                            className="btn btn-primary"
+                            data-toggle="modal"
+                            data-target="#customPriceModal"
+                            onClick={() => {
+                              setActionType("edit");
+                              setFormData({
+                                ...formData,
+                                price: product.price,
+                                productId: product.item.id,
+                              });
+                              setSearch({
+                                ...search,
+                                id: product.item.id,
+                              });
+                            }}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn-danger ml-4"
+                            disabled={actionLoading}
+                            onClick={() => handleDelete(product.item.id)}
+                          >
+                            {actionLoading &&
+                            formData.productId === product.item.id &&
+                            actionType === "delete" ? (
+                              <div
+                                className="spinner-border text-light spinner-border-sm"
+                                role="status"
+                              >
+                                <span className="sr-only">Loading...</span>
+                              </div>
+                            ) : (
+                              "Delete"
+                            )}
+                          </button>
+                        </td> */}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

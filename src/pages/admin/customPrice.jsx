@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import fuzzysort from "fuzzysort";
 
 import NoImage from "../../assets/img/unavailable.svg";
+import EditIcon from "../../assets/img/Account/edit-icon.svg";
+import DeleteIcon from "../../assets/img/Account/delete-icon.svg";
 
 const initialState = {
   price: "",
@@ -19,29 +21,21 @@ const initialState = {
 export const CustomPrice = ({ mainCompany }) => {
   const admin = useSelector((state) => state.admin);
   const productsData = useSelector((state) => state.products);
-  const [search, setSearch] = useState({
-    ndc: "",
-    id: "",
-  });
-  const [filterProducts, setFilterProducts] = useState([]);
-  const [openSuggestion, setOpenSuggestion] = useState(false);
+  const [search, setSearch] = useState("");
+  const [filterCustomPrice, setFilterCustomPrice] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [actionType, setActionType] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
   const [formData, setFormData] = useState(initialState);
-  const [isDisabled, setDisabled] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [showError, setShowError] = useState(false);
   const [alertType, setAlertType] = useState("error");
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
-  const handleSearchChange = (e) => {
-    e.target.value !== "" ? setOpenSuggestion(true) : setOpenSuggestion(false);
-    setSearch({ ...search, ndc: e.target.value });
-  };
+  const handleSearchChange = (e) => setSearch(e.target.value);
 
   const handleSubmit = () => {
     setActionLoading(true);
@@ -49,18 +43,13 @@ export const CustomPrice = ({ mainCompany }) => {
   };
 
   const handleDelete = (id) => {
-    setActionType("delete");
-    setActionLoading(true);
-    setFormData({ ...formData, productId: id });
-    let payload = { productId: id };
-    dispatch(removeCustomProjectsNetsuite(mainCompany.username, payload));
-  };
-
-  const handleSelectProduct = (product) => {
-    setFormData({ ...formData, productId: product.id });
-    setSearch({ ...search, ndc: product.ndc, id: product.id });
-    setFilterProducts([]);
-    setOpenSuggestion(false);
+    if (window.confirm("Remove custom price for this product?") == true) {
+      setFormData({ ...formData, productId: id });
+      setActionType("delete");
+      setActionLoading(true);
+      let payload = { productId: id };
+      dispatch(removeCustomProjectsNetsuite(mainCompany.username, payload));
+    }
   };
 
   const handleAlert = (msg, type) => {
@@ -102,41 +91,50 @@ export const CustomPrice = ({ mainCompany }) => {
   };
 
   useEffect(() => {
-    let products, searchResult, changeTimer;
+    let products, searchResult;
 
-    if (search.ndc !== "") {
-      changeTimer = setTimeout(() => {
-        products = productsData.productsv2.map((prod, key) => {
-          return { ...prod, id: prod.id.toString() };
-        });
+    products = productsData.productsv2.map((prod, key) => {
+      let customIndex = admin.customProductNetsuite.findIndex(
+        (custom) => custom.item.id === prod.id.toString()
+      );
 
-        searchResult = fuzzysort.go(search.ndc, products, {
-          keys: ["id", "name", "ndc"],
-        });
+      if (customIndex !== -1) {
+        return {
+          ...prod,
+          id: prod.id.toString(),
+          customPrice: admin.customProductNetsuite[customIndex].price,
+        };
+      }
 
-        setFilterProducts(searchResult);
-      }, 1000);
+      return { ...prod, id: prod.id.toString() };
+    });
+
+    if (filterCustomPrice) {
+      products = products.filter((prod) => prod.customPrice);
     }
 
-    return () => {
-      clearTimeout(changeTimer);
-    };
-  }, [search]);
+    searchResult = fuzzysort.go(search, products, {
+      keys: ["id", "name", "ndc", "productNumber"],
+      all: true,
+    });
 
-  useEffect(() => {
-    const { price, productId } = formData;
-    price !== "" && productId !== "" ? setDisabled(false) : setDisabled(true);
-  }, [formData]);
+    setFilteredProducts(searchResult);
+  }, [search, admin, filterCustomPrice]);
 
   useEffect(() => {
     if (actionLoading && !admin.upsertError) {
-      document.getElementById("closeCustomPriceModal").click();
-      setFormData(initialState);
-      setSearch({ ...search, id: "" });
+      handleAlert("Adding/updating custom price successfully!", "success");
+    }
+    if (admin.upsertError) {
+      handleAlert(
+        "Error adding/updating custom price. Try again later!",
+        "error"
+      );
     }
     if (admin.removeCustomError) {
       handleAlert("Error deleting custom price. Try again later!", "error");
     }
+    setFormData(initialState);
     setActionLoading(false);
   }, [admin]);
 
@@ -148,28 +146,36 @@ export const CustomPrice = ({ mainCompany }) => {
     <>
       <div>
         <div className="d-flex align-items-center justify-content-between mt-4 mb-4 header">
-          <h2 className="m-0"></h2>
-          <div>
-            <button
-              type="button"
-              className="btn btn-primary mr-3"
-              data-toggle="modal"
-              data-target="#customProductPriceModal"
-            >
-              View Custom Prices
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              data-toggle="modal"
-              data-target="#customPriceModal"
-              onClick={() => {
-                setActionType("add");
-                setFormData(initialState);
-              }}
-            >
-              Add/Update Custom Price
-            </button>
+          <h2 className="m-0">All Products</h2>
+          <div className="w-50 filter-container d-flex align-items-center">
+            <div className="search-container input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="basic-addon1">
+                  Search
+                </span>
+              </div>
+              <input
+                className="form-control"
+                type="text"
+                name="search"
+                value={search}
+                placeholder="id/name/ndc/product number"
+                onChange={handleSearchChange}
+                autoComplete="off"
+              />
+            </div>
+            <div class="custom-control custom-switch no-wrap ml-5">
+              <input
+                type="checkbox"
+                className="custom-control-input"
+                id="customSwitch2"
+                checked={filterCustomPrice}
+                onChange={(e) => setFilterCustomPrice(e.target.checked)}
+              />
+              <label className="custom-control-label" htmlFor="customSwitch2">
+                Filter with custom price
+              </label>
+            </div>
           </div>
         </div>
         <div className="table-container custom">
@@ -184,29 +190,135 @@ export const CustomPrice = ({ mainCompany }) => {
                 <th scope="col">Manufacturer</th>
                 <th scope="col">Size</th>
                 <th scope="col">Strength</th>
-                <th scope="col">Price</th>
-                <th scope="col">PPU</th>
+                <th scope="col">
+                  Price <br /> PPU
+                </th>
+                <th scope="col">Custom Price</th>
               </tr>
             </thead>
             <tbody>
-              {productsData.productsv2.map((product, index) => (
+              {filteredProducts.map((product, index) => (
                 <tr key={`product${index}`}>
                   <td>
                     <img
-                      width={65}
-                      src={product.url ? product.url : NoImage}
+                      width={40}
+                      src={product.obj.url ? product.obj.url : NoImage}
                       alt=""
                     />
                   </td>
                   <td>
-                    {product.productNumber} <br /> {product.ndc}
+                    {product.obj.productNumber} <br /> {product.obj.ndc}
                   </td>
-                  <td>{product.name}</td>
-                  <td>{product.manufacturer}</td>
-                  <td>{product.bottleSize}</td>
-                  <td>{product.drugStrength}</td>
-                  <td>${formatPrice(product.cost)}</td>
-                  <td>{getPricePerUnit(product.bottleSize, product.cost)}</td>
+                  <td>{product.obj.name}</td>
+                  <td>{product.obj.manufacturer}</td>
+                  <td>{product.obj.bottleSize}</td>
+                  <td>{product.obj.drugStrength}</td>
+                  <td>
+                    ${formatPrice(product.obj.cost)} <br />
+                    {getPricePerUnit(product.obj.bottleSize, product.obj.cost)}
+                  </td>
+                  <td>
+                    {product.obj.id === formData.productId &&
+                    actionType === "edit" ? (
+                      <>
+                        <input
+                          className="form-control mb-2"
+                          type="text"
+                          name="price"
+                          value={formData.price}
+                          placeholder=""
+                          onChange={handleChange}
+                          autoComplete="off"
+                          disabled={actionLoading}
+                        />
+                        <div className="d-flex justify-content-between align-items-center">
+                          <button
+                            className="btn btn-link"
+                            onClick={() => handleSubmit()}
+                            disabled={actionLoading}
+                          >
+                            {actionLoading ? (
+                              <div
+                                className="spinner-border text-primary spinner-border-sm"
+                                role="status"
+                              >
+                                <span className="sr-only">Loading...</span>
+                              </div>
+                            ) : (
+                              "Save"
+                            )}
+                          </button>
+                          <button
+                            className="btn btn-link ml-2"
+                            onClick={() => {
+                              setActionType("");
+                              setFormData({
+                                ...formData,
+                                productId: "",
+                                price: "",
+                              });
+                            }}
+                            disabled={actionLoading}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="d-flex align-items-center justify-content-between">
+                        {product.obj.customPrice &&
+                          `$${product.obj.customPrice}`}
+                        <div className="d-flex align-items-center ml-2">
+                          <button
+                            className="btn btn-link "
+                            onClick={() => {
+                              setActionType("edit");
+                              setFormData({
+                                ...formData,
+                                productId: product.obj.id,
+                                price: product.obj.customPrice || "0",
+                              });
+                            }}
+                            disabled={actionLoading}
+                          >
+                            {product.obj.customPrice ? (
+                              <img
+                                className="edit-icon"
+                                src={EditIcon}
+                                alt=""
+                              />
+                            ) : (
+                              "Add"
+                            )}
+                          </button>
+                          {product.obj.customPrice && (
+                            <button
+                              className="btn btn-link ml-2"
+                              onClick={() => handleDelete(product.obj.id)}
+                              disabled={actionLoading}
+                            >
+                              {actionLoading &&
+                              actionType === "delete" &&
+                              product.obj.id === formData.productId ? (
+                                <div
+                                  className="spinner-border text-danger spinner-border-sm ml-2"
+                                  role="status"
+                                >
+                                  <span className="sr-only">Loading...</span>
+                                </div>
+                              ) : (
+                                <img
+                                  className="delete-icon"
+                                  src={DeleteIcon}
+                                  alt=""
+                                />
+                              )}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -227,189 +339,6 @@ export const CustomPrice = ({ mainCompany }) => {
         style={{ position: "fixed", bottom: "1rem", right: "1rem" }}
       >
         {errorMsg}
-      </div>
-      <div
-        className="modal fade"
-        id="customPriceModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="userTitle"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="userTitle">
-                Add/Update Custom Price
-              </h5>
-              <button
-                id="closeCustomPriceModal"
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <div className="row">
-                <div className="col-6">
-                  <div className="form-group">
-                    <label htmlFor="productId">NDC</label>
-                    <input
-                      type="text"
-                      name="productId"
-                      value={search.ndc}
-                      className="form-control"
-                      id="productId"
-                      onChange={handleSearchChange}
-                    />
-                    {filterProducts.length > 0 && openSuggestion && (
-                      <div className="suggestions-container">
-                        <ul className="list-group">
-                          {filterProducts.map((product, key) => {
-                            return (
-                              <li
-                                key={`product${key}`}
-                                className="list-group-item"
-                                onClick={() => handleSelectProduct(product.obj)}
-                              >
-                                {`${product.obj.ndc} - ${product.obj.name}`}
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className="col-6">
-                  <div className="form-group">
-                    <label htmlFor="price">Price</label>
-                    <input
-                      type="text"
-                      name="price"
-                      value={formData.price}
-                      className="form-control"
-                      id="price"
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="col-12">
-                  <p className="text-danger text-small error-msg mb-3 ">
-                    {admin.upsertError &&
-                      "Error adding/updating custom price. Try again later!"}
-                  </p>
-                  <button
-                    type="button"
-                    className="btn btn-primary d-flex align-items-center justify-content-center w-100"
-                    onClick={handleSubmit}
-                    disabled={isDisabled || actionLoading}
-                  >
-                    {actionLoading && (
-                      <div
-                        className="spinner-border text-light spinner-border-sm mr-3"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    )}
-                    {actionType === "edit" ? "Save" : "Create"}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="modal fade"
-        id="customProductPriceModal"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="userTitle"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="userTitle">
-                Custom Prices
-              </h5>
-              <button
-                id="closeCustomProductPriceModal"
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body">
-              <div className="table-container">
-                <table className="table table-hover">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Price</th>
-                      {/* <th scope="col">Action</th> */}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {admin.customProductNetsuite.map((product, index) => (
-                      <tr key={`customproduct${index}`}>
-                        <td>{product.item.id}</td>
-                        <td>${product.price}</td>
-                        {/* <td>
-                          <button
-                            className="btn btn-primary"
-                            data-toggle="modal"
-                            data-target="#customPriceModal"
-                            onClick={() => {
-                              setActionType("edit");
-                              setFormData({
-                                ...formData,
-                                price: product.price,
-                                productId: product.item.id,
-                              });
-                              setSearch({
-                                ...search,
-                                id: product.item.id,
-                              });
-                            }}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            className="btn btn-danger ml-4"
-                            disabled={actionLoading}
-                            onClick={() => handleDelete(product.item.id)}
-                          >
-                            {actionLoading &&
-                            formData.productId === product.item.id &&
-                            actionType === "delete" ? (
-                              <div
-                                className="spinner-border text-light spinner-border-sm"
-                                role="status"
-                              >
-                                <span className="sr-only">Loading...</span>
-                              </div>
-                            ) : (
-                              "Delete"
-                            )}
-                          </button>
-                        </td> */}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

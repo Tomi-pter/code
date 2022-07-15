@@ -42,22 +42,24 @@ export default (props) => {
             pharmaBtn.click();
 
         if (
-            cat === "Animal Health"
+            (cat === "Animal Health" || cat === "animalhealth")
             && animalBtn.className.split(" ").length === 2
         )
             animalBtn.click();
 
         if (
-            cat === "Medical Supplies"
+            (cat === "Medical Supplies" || cat === "medicalsupplies")
             && medicalBtn.className.split(" ").length === 2
         )
             medicalBtn.click();
 
-        if (cat === "For Sale" && dealBtn.className.split(" ").length === 2)
+        if (
+            (cat === "For Sale" || cat === "forsale") 
+            && dealBtn.className.split(" ").length === 2)
             dealBtn.click();
 
         if (
-            cat === "Weekly Specials"
+            (cat === "Weekly Specials" || cat === "weeklyspecials")
             && specialsBtn.className.split(" ").length === 2
         )
         specialsBtn.click();

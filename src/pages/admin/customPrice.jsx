@@ -93,7 +93,7 @@ export const CustomPrice = ({ mainCompany }) => {
   useEffect(() => {
     let products, searchResult;
 
-    products = productsData.productsv2.map((prod, key) => {
+    products = productsData.productsv2 && productsData.productsv2.map((prod, key) => {
       let customIndex = admin.customProductNetsuite.findIndex(
         (custom) => custom.item.id === prod.id.toString()
       );

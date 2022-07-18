@@ -20,10 +20,7 @@ const initialState = {
 
 export const CustomPrice = ({ mainCompany }) => {
   const admin = useSelector((state) => state.admin);
-  const productsData = useSelector((state) => {
-    console.log(state)
-    return state.products
-  });
+  const productsData = useSelector((state) => state.products);
   const [search, setSearch] = useState("");
   const [filterCustomPrice, setFilterCustomPrice] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -95,34 +92,41 @@ export const CustomPrice = ({ mainCompany }) => {
 
   useEffect(() => {
     if (admin.customProductNetsuite && productsData.adminProducts) {
-      let products, searchResult;
+      let products, searchResult, changeTimer;
 
-      products = productsData.adminProducts.map((prod, key) => {
-        let customIndex = admin.customProductNetsuite.findIndex(
-          (custom) => custom.item.id === prod.id.toString()
-        );
-
-        if (customIndex !== -1) {
-          return {
-            ...prod,
-            id: prod.id.toString(),
-            customPrice: admin.customProductNetsuite[customIndex].price,
-          };
-        }
-
-        return { ...prod, id: prod.id.toString() };
-      });
-
-      if (filterCustomPrice) {
-        products = products.filter((prod) => prod.customPrice);
-      }
-
-      searchResult = fuzzysort.go(search, products, {
-        keys: ["id", "name", "ndc", "productNumber"],
-        all: true,
-      });
-
-      setFilteredProducts(searchResult);
+      changeTimer = setTimeout(() => {
+        products = productsData.adminProducts.map((prod, key) => {
+            let customIndex = admin.customProductNetsuite.findIndex(
+              (custom) => custom.item.id === prod.id.toString()
+            );
+    
+            if (customIndex !== -1) {
+              return {
+                ...prod,
+                id: prod.id.toString(),
+                customPrice: admin.customProductNetsuite[customIndex].price,
+              };
+            }
+    
+            return { ...prod, id: prod.id.toString() };
+          });
+    
+          if (filterCustomPrice) {
+            products = products.filter((prod) => prod.customPrice);
+          }
+    
+    
+          searchResult = fuzzysort.go(search, products, {
+            keys: ["id", "name", "ndc", "productNumber"],
+            all: true,
+          });
+    
+          setFilteredProducts(searchResult);
+      }, 1000);
+      
+      return () => {
+        clearTimeout(changeTimer);
+      };
     }
   }, [search, admin, filterCustomPrice]);
 

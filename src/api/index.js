@@ -197,6 +197,7 @@ export const removeCustomProjectsNetsuite = (username, formData) =>
 
 // PRODUCTS v2
 export const getProductsv2 = () => API.get(`/products`);
+export const getAdminProducts = () => API.get(`/products?mode=admin`)
 export const getProductv2 = (productId) => API.get(`/products/${productId}`);
 export const getFavProductsv2 = (username) =>
   API.get(`/products/${username}/favorites`);

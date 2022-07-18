@@ -11,7 +11,7 @@ import {
   syncCustomPricing,
   syncProducts,
 } from "../../actions/admin";
-import { getProductsv2 } from "../../actions/products";
+import { getAdminProducts } from "../../actions/products";
 // import { getCountries, getStates } from "../../actions/auth";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -269,7 +269,7 @@ export const AdminDashboard = () => {
 
   useEffect(() => {
     dispatch(getUsers());
-    dispatch(getProductsv2());
+    dispatch(getAdminProducts());
     // dispatch(getCountries());
   }, []);
 

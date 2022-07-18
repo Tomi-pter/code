@@ -1,5 +1,6 @@
 import {
   GETPRODUCTS,
+  GETADMINPRODUCTS,
   ERRORGETPRODUCTS,
   REQUESTSTOCK,
   REQUESTSTOCKERROR,
@@ -19,6 +20,7 @@ export default (
     requestedProductPrice: [],
     productsv2: null,
     favproductv2: null,
+    adminProducts: null,
     prefproduct: [],
   },
   action
@@ -40,6 +42,8 @@ export default (
       return { ...state, requestStockSuccess: false };
     case GETPRODUCTSV2:
       return { ...state, productsv2: action.payload };
+    case GETADMINPRODUCTS:
+      return { ...state, adminProducts: action.payload };
     case GETFAVPRODUCTSV2:
       return { ...state, favproductv2: action.payload };
     case GETPREFERRED:

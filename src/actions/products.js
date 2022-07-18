@@ -1,5 +1,6 @@
 import {
   GETPRODUCTS,
+  GETADMINPRODUCTS,
   ERRORGETPRODUCTS,
   GETSEARCH,
   REQUESTSTOCK,
@@ -11,7 +12,7 @@ import {
   ADDPREFERRED,
   ADDPREFERREDERROR,
   REMOVEPREFERRED,
-  REMOVEPREFERREDERROR,
+  REMOVEPREFERREDERROR
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
@@ -105,6 +106,16 @@ export const getProductsv2 = () => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const getAdminProducts = () => async (dispatch) => {
+    try {
+      const { data } = await api.getAdminProducts();
+  
+      dispatch({ type: GETADMINPRODUCTS, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const getFavProductsv2 = (username) => async (dispatch) => {
   try {

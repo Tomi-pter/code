@@ -20,7 +20,10 @@ const initialState = {
 
 export const CustomPrice = ({ mainCompany }) => {
   const admin = useSelector((state) => state.admin);
-  const productsData = useSelector((state) => state.products);
+  const productsData = useSelector((state) => {
+    console.log(state)
+    return state.products
+  });
   const [search, setSearch] = useState("");
   const [filterCustomPrice, setFilterCustomPrice] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -91,10 +94,10 @@ export const CustomPrice = ({ mainCompany }) => {
   };
 
   useEffect(() => {
-    if (admin.customProductNetsuite && productsData.productsv2) {
+    if (admin.customProductNetsuite && productsData.adminProducts) {
       let products, searchResult;
 
-      products = productsData.productsv2.map((prod, key) => {
+      products = productsData.adminProducts.map((prod, key) => {
         let customIndex = admin.customProductNetsuite.findIndex(
           (custom) => custom.item.id === prod.id.toString()
         );

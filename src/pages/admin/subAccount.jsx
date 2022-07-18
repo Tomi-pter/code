@@ -173,7 +173,7 @@ export const SubAccount = ({ mainCompany }) => {
             Add Sub Account
           </button>
         </div>
-        <div className="table-container">
+        <div className="table-container custom">
           <table className="table table-hover">
             <thead className="thead-dark">
               <tr>

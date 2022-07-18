@@ -91,34 +91,36 @@ export const CustomPrice = ({ mainCompany }) => {
   };
 
   useEffect(() => {
-    let products, searchResult;
+    if (admin.customProductNetsuite && productsData.productsv2) {
+      let products, searchResult;
 
-    products = productsData.productsv2 && productsData.productsv2.map((prod, key) => {
-      let customIndex = admin.customProductNetsuite.findIndex(
-        (custom) => custom.item.id === prod.id.toString()
-      );
+      products = productsData.productsv2.map((prod, key) => {
+        let customIndex = admin.customProductNetsuite.findIndex(
+          (custom) => custom.item.id === prod.id.toString()
+        );
 
-      if (customIndex !== -1) {
-        return {
-          ...prod,
-          id: prod.id.toString(),
-          customPrice: admin.customProductNetsuite[customIndex].price,
-        };
+        if (customIndex !== -1) {
+          return {
+            ...prod,
+            id: prod.id.toString(),
+            customPrice: admin.customProductNetsuite[customIndex].price,
+          };
+        }
+
+        return { ...prod, id: prod.id.toString() };
+      });
+
+      if (filterCustomPrice) {
+        products = products.filter((prod) => prod.customPrice);
       }
 
-      return { ...prod, id: prod.id.toString() };
-    });
+      searchResult = fuzzysort.go(search, products, {
+        keys: ["id", "name", "ndc", "productNumber"],
+        all: true,
+      });
 
-    if (filterCustomPrice) {
-      products = products.filter((prod) => prod.customPrice);
+      setFilteredProducts(searchResult);
     }
-
-    searchResult = fuzzysort.go(search, products, {
-      keys: ["id", "name", "ndc", "productNumber"],
-      all: true,
-    });
-
-    setFilteredProducts(searchResult);
   }, [search, admin, filterCustomPrice]);
 
   useEffect(() => {

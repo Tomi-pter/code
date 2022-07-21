@@ -48,6 +48,9 @@ export const Form = () => {
   const checkCharacter = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/.test(
     formData.password
   );
+  const checkConfirmation =
+    formData.password !== "" &&
+    formData.confirm_password.includes(formData.password);
   const [isLoading, setIsLoading] = useState(false);
   const [isDisabled, setDisabled] = useState(true);
   const [submitted, setSubmitted] = useState(false);
@@ -304,6 +307,7 @@ export const Form = () => {
                   )}{" "}
                   Use a symbol (e.g. !@#$)
                 </p>
+
                 <Input
                   label="Confirm Password"
                   name="confirm_password"
@@ -311,6 +315,23 @@ export const Form = () => {
                   value={formData.confirm_password}
                   onChange={onChange}
                 />
+                <p
+                  className={
+                    "password-validation " + (checkConfirmation ? "valid" : "")
+                  }
+                >
+                  {checkConfirmation ? (
+                    <>
+                      <img src={CheckGreen} alt="" />
+                      Input password matched
+                    </>
+                  ) : (
+                    <>
+                      <img src={XGray} alt="" />
+                      Input password does not matched
+                    </>
+                  )}{" "}
+                </p>
               </div>
               <p
                 className={

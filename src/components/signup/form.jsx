@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import {
   formatPhoneNumberIntl,
   isPossiblePhoneNumber,
@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckGreen from "../../assets/icon/check-lgreen.svg";
 import XGray from "../../assets/icon/x-gray.svg";
 import SignupImage from "../../assets/img/signup-img.png";
+import PPLogo from "../../assets/img/pp-logo.svg";
 
 const defaultData = {
   givenName: "",
@@ -154,7 +155,18 @@ export const Form = () => {
       <div className="d-flex">
         <div className="form-container">
           <div className="form">
-            <h3>Sign Up</h3>
+            <h3 className="text-center">Getting Started</h3>
+            <div className="text-center desc">
+              <p>
+                <b>We're happy you're here.</b>
+              </p>
+              <p>
+                Don't have an account? <b>Enter your information below.</b>
+              </p>
+              <p>
+                Have an account? <Link to="/login">Sign in here.</Link>
+              </p>
+            </div>
             {/* <h4>Basic Information</h4> */}
             <div className="">
               <Input
@@ -316,13 +328,17 @@ export const Form = () => {
                     <span className="sr-only">Loading...</span>
                   </div>
                 ) : (
-                  <>Submit</>
+                  "SUBMIT"
                 )}
               </button>
             </div>
           </div>
         </div>
-        <img className="signup-img" src={SignupImage} alt="" />
+        <div className="d-flex align-items-center justify-content-center flex-column signup-img">
+          <img className="logo" src={PPLogo} alt="" />
+          <p>The pharmaceutical wholesaler you trust.</p>
+        </div>
+        {/* <img className="signup-img" src={SignupImage} alt="" /> */}
       </div>
     </div>
   );

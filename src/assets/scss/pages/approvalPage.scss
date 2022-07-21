@@ -6,27 +6,29 @@
   min-height: calc(100vh - 266px);
   padding: 90px 0;
   .card {
-    width: 660px;
-    min-height: 399.25px;
-    background: #fff;
+    width: 450px;
+    // min-height: 399.25px;
+    color: #fff;
     border-radius: 7.5px;
     margin: 0;
+    background-color: #0098ff;
+    padding: 30px;
   }
-  img{
-      margin-bottom: 28.25px;
+  img {
+    margin-bottom: 28.25px;
   }
   p {
-    font-family: "Axiforma Bold", sans-serif;
+    // font-family: "Axiforma Bold", sans-serif;
     font-style: normal;
     font-weight: 800;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  h2 {
     font-size: 28px;
     line-height: 47px;
-    text-align: center;
-    color: #4f4f4f;
-  }
-  h1 {
-    font-size: 75px;
-    line-height: 125px;
   }
   .buttonWrapper {
     margin-top: 90px;
@@ -47,7 +49,7 @@
     background: #16cfb0;
     border-radius: 7.5px;
     color: #ffffff;
-    margin-left: 60px;
+    // margin-left: 60px;
   }
   .secondaryButton {
     background: #ffffff;
@@ -64,17 +66,17 @@
     .card {
       width: 100%;
     }
-    h1 {
-      font-size: 50px;
-      line-height: 80px;
+    h2 {
+      font-size: 22px;
+      line-height: 47px;
     }
     .buttonWrapper {
       justify-content: space-between !important;
     }
-    .secondaryButton,
-    .primaryButton {
-      width: 45%;
-      margin: 0;
-    }
+    // .secondaryButton,
+    // .primaryButton {
+    //   width: 45%;
+    //   margin: 0;
+    // }
   }
 }

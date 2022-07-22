@@ -195,6 +195,8 @@ export const upsertCustomProjectsNetsuite = (username, formData) =>
 export const removeCustomProjectsNetsuite = (username, formData) =>
   API.delete(`/custom-price/${username}/remove`, { data: formData });
 
+export const getOrderLogs = () => API.get(`/admin/order-logs`)
+
 // PRODUCTS v2
 export const getProductsv2 = () => API.get(`/products`);
 export const getAdminProducts = () => API.get(`/products?mode=admin`)

@@ -28,6 +28,7 @@ import {
   GETCUSTOMPRODUCTNETSUITEERROR,
   UPSERTCUSTOMPRODUCTNETSUITEERROR,
   REMOVECUSTOMPRODUCTNETSUITEERROR,
+  GETORDERLOGS
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
@@ -290,3 +291,13 @@ export const removeCustomProjectsNetsuite =
       dispatch({ type: REMOVECUSTOMPRODUCTNETSUITEERROR, data });
     }
   };
+
+    export const getOrderLogs = () => async (dispatch) => {
+        try {
+            const { data } = await api.getOrderLogs();
+
+            dispatch({ type: GETORDERLOGS, data });
+        } catch (error) {
+            console.log(error);
+        }
+    };

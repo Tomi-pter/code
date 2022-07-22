@@ -28,10 +28,11 @@ import {
   GETCUSTOMPRODUCTNETSUITEERROR,
   UPSERTCUSTOMPRODUCTNETSUITEERROR,
   REMOVECUSTOMPRODUCTNETSUITEERROR,
+  GETORDERLOGS,
 } from "../constants/actionTypes";
 
 const adminReducer = (
-  state = { users: [], customProducts: null, customProductNetsuite: [] },
+  state = { users: [], customProducts: null, customProductNetsuite: [], logs: [] },
   action
 ) => {
   switch (action.type) {
@@ -175,6 +176,9 @@ const adminReducer = (
       return { ...state, customProductNetsuite: removedCustomNetsuite };
     case REMOVECUSTOMPRODUCTNETSUITEERROR:
       return { ...state, removeCustomError: action.data, upsertError: null };
+    case GETORDERLOGS: {
+        return { ...state, logs: action.data }
+    }
     default:
       return state;
   }

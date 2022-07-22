@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Router, useHistory } from "react-router-dom";
 
 import {
   getUsers,
@@ -362,6 +362,14 @@ export const AdminDashboard = () => {
               "Sync Products"
             )}
           </button>
+          <a
+            href="/admin/logs"
+            type="button"
+            className="btn btn-primary ml-2"
+            target="_blank"
+          >
+            Logs
+          </a>
         </div>
         <div className="table-container">
           <table className="table table-hover">

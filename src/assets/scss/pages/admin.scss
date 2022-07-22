@@ -46,6 +46,9 @@
   .no-wrap {
     white-space: nowrap;
   }
+  .table-container.custom-logs {
+    max-height: calc(100vh - 310px);
+  }
   .table-container.custom {
     max-height: calc(100vh - 370px);
     table thead th,

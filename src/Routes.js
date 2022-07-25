@@ -17,6 +17,7 @@ import AdminLogin from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/admin";
 import Company from "./pages/admin/company";
 import OrderLogs from "./pages/admin/logs"
+import OrderLogs2 from "./pages/admin/logs2"
 
 import { ProtectedRoutes } from "./components/protectedRoutes";
 import { AdminProtectedRoutes } from "./components/adminProtectedRoutes";
@@ -39,7 +40,7 @@ export default ({ childProps }) => (
       <Route path="/product/:id" component={Product} />
       <Route path="/admin/login" component={AdminLogin} />
       <AdminProtectedRoutes exact path="/admin" component={AdminDashboard} />
-      <AdminProtectedRoutes exact path="/admin/logs" component={OrderLogs} />
+      <AdminProtectedRoutes exact path="/admin/logs" component={OrderLogs2} />
       <AdminProtectedRoutes path="/admin/:id" component={Company} />
       <ProtectedRoutes
         path="/account"

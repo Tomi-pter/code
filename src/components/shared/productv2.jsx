@@ -85,9 +85,9 @@ const getPricePerUnit = (bottleSize, cost) => {
     return "";
   }
 
-  const ppu = roundToTwo(cost / sizeInString)
+  const ppu = roundToTwo(cost / sizeInString);
 
-  return `$ ${ppu}`
+  return `$ ${ppu}`;
 };
 
 const getIntegerInStringArray = (string) => {
@@ -207,7 +207,7 @@ export const Productv2 = ({
           <div className="img-container">
             <div>
               <img
-                src={product.url ? product.url : NoImage}
+                src={product.imageUrl ? product.imageUrl : NoImage}
                 alt=""
                 onClick={() => viewProduct(product.id)}
               />

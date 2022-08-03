@@ -18,6 +18,9 @@ import XGray from "../../assets/icon/x-gray.svg";
 import SignupImage from "../../assets/img/signup-img.png";
 import PPLogo from "../../assets/img/pp-logo.svg";
 
+import Flatpickr from "react-flatpickr";
+import moment from "moment";
+
 const defaultData = {
   givenName: "",
   familyName: "",
@@ -29,6 +32,10 @@ const defaultData = {
   company: "",
   city: "",
   state: "",
+  stateLicenseNumber: "",
+  stateLicenseExpirationDate: "",
+  dea: "",
+  deaExpiry: "",
   postalCode: "",
   country: "",
   countryCode: "",
@@ -66,7 +73,17 @@ export const Form = () => {
   const submit = () => {
     setIsLoading(true);
     setSubmitted(true);
-    dispatch(signUp(formData));
+    let stringStateExpirationDate = moment(
+      formData.stateLicenseExpirationDate
+    ).format("YYYY-MM-DD");
+    let stringDeaExpiry = moment(formData.deaExpiry).format("YYYY-MM-DD");
+    dispatch(
+      signUp({
+        ...formData,
+        stateLicenseExpirationDate: stringStateExpirationDate,
+        deaExpiry: stringDeaExpiry,
+      })
+    );
   };
 
   useEffect(() => {
@@ -104,6 +121,8 @@ export const Form = () => {
       state,
       postalCode,
       country,
+      stateLicenseNumber,
+      stateLicenseExpirationDate,
       email,
       password,
       confirm_password,
@@ -129,6 +148,8 @@ export const Form = () => {
     postalCode &&
     country &&
     checkState &&
+    stateLicenseNumber &&
+    stateLicenseExpirationDate &&
     email &&
     password &&
     emailCheck &&
@@ -232,7 +253,6 @@ export const Form = () => {
                 onChange={onChange}
                 valueKey={"name"}
               />
-              {/* {formData.country && states?.length > 0 && ( */}
               <Dropdown
                 id="state"
                 label="State"
@@ -242,7 +262,46 @@ export const Form = () => {
                 onChange={onChange}
                 valueKey={"code"}
               />
-              {/* )} */}
+              <Input
+                label="State License #"
+                name="stateLicenseNumber"
+                type="text"
+                value={formData.stateLicenseNumber}
+                onChange={onChange}
+              />
+              <div className="form-group">
+                <Flatpickr
+                  className="form-control"
+                  value={formData.stateLicenseExpirationDate}
+                  placeholder="State License Expiry Date"
+                  onChange={([date]) => {
+                    setFormData({
+                      ...formData,
+                      stateLicenseExpirationDate: date,
+                    });
+                  }}
+                />
+              </div>
+              <Input
+                label="DEA (Optional)"
+                name="dea"
+                type="text"
+                value={formData.dea}
+                onChange={onChange}
+              />
+              <div className="form-group">
+                <Flatpickr
+                  className="form-control"
+                  value={formData.deaExpiry}
+                  placeholder="State License Expiry Date"
+                  onChange={([date]) => {
+                    setFormData({
+                      ...formData,
+                      deaExpiry: date,
+                    });
+                  }}
+                />
+              </div>
               <Input
                 label="Email"
                 name="email"

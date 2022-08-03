@@ -222,7 +222,7 @@ export const Productsv2 = ({
         productId: parseInt(product.id),
         productName: product.name,
         price: parseFloat(product.cost),
-        imageUrl: product.url,
+        imageUrl: product.imageUrl,
         quantity,
         ndc: product.ndc,
       },

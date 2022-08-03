@@ -98,8 +98,9 @@
     margin-bottom: 30px;
   }
   input,
-  select {
-    background: #f0f0f0;
+  select,
+  .flatpickr-input {
+    background: #f0f0f0 !important;
     border: none;
     border-radius: 0;
     font-style: normal;

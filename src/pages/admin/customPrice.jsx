@@ -96,34 +96,33 @@ export const CustomPrice = ({ mainCompany }) => {
 
       changeTimer = setTimeout(() => {
         products = productsData.adminProducts.map((prod, key) => {
-            let customIndex = admin.customProductNetsuite.findIndex(
-              (custom) => custom.item.id === prod.id.toString()
-            );
-    
-            if (customIndex !== -1) {
-              return {
-                ...prod,
-                id: prod.id.toString(),
-                customPrice: admin.customProductNetsuite[customIndex].price,
-              };
-            }
-    
-            return { ...prod, id: prod.id.toString() };
-          });
-    
-          if (filterCustomPrice) {
-            products = products.filter((prod) => prod.customPrice);
+          let customIndex = admin.customProductNetsuite.findIndex(
+            (custom) => custom.item.id === prod.id.toString()
+          );
+
+          if (customIndex !== -1) {
+            return {
+              ...prod,
+              id: prod.id.toString(),
+              customPrice: admin.customProductNetsuite[customIndex].price,
+            };
           }
-    
-    
-          searchResult = fuzzysort.go(search, products, {
-            keys: ["id", "name", "ndc", "productNumber"],
-            all: true,
-          });
-    
-          setFilteredProducts(searchResult);
+
+          return { ...prod, id: prod.id.toString() };
+        });
+
+        if (filterCustomPrice) {
+          products = products.filter((prod) => prod.customPrice);
+        }
+
+        searchResult = fuzzysort.go(search, products, {
+          keys: ["id", "name", "ndc", "productNumber"],
+          all: true,
+        });
+
+        setFilteredProducts(searchResult);
       }, 1000);
-      
+
       return () => {
         clearTimeout(changeTimer);
       };
@@ -211,7 +210,9 @@ export const CustomPrice = ({ mainCompany }) => {
                   <td>
                     <img
                       width={40}
-                      src={product.obj.url ? product.obj.url : NoImage}
+                      src={
+                        product.obj.imageUrl ? product.obj.imageUrl : NoImage
+                      }
                       alt=""
                     />
                   </td>

@@ -598,6 +598,8 @@
       .img-container img {
         margin: 0;
         width: 65px;
+        height: 55px;
+        object-fit: contain;
         @include mediaQueries(padpro) {
           width: 100%;
         }
@@ -825,6 +827,7 @@
       display: flex;
       flex-direction: column;
       flex: auto;
+      position: relative;
     }
     .details-container {
       flex: auto;

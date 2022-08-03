@@ -120,6 +120,14 @@ export const CustomPrice = ({ mainCompany }) => {
           all: true,
         });
 
+        searchResult = searchResult.sort(function (a, b) {
+          return a.obj.name > b.obj.name
+            ? 1
+            : a.obj.name === b.obj.name
+            ? 0
+            : -1;
+        });
+
         setFilteredProducts(searchResult);
       }, 1000);
 

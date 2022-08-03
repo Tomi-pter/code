@@ -61,6 +61,7 @@ export const Form = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isDisabled, setDisabled] = useState(true);
   const [submitted, setSubmitted] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -191,7 +192,6 @@ export const Form = () => {
                 Have an account? <Link to="/login">Sign in here.</Link>
               </p>
             </div>
-            {/* <h4>Basic Information</h4> */}
             <div className="">
               <Input
                 label="First Name"
@@ -309,7 +309,7 @@ export const Form = () => {
                 value={formData.email}
                 onChange={onChange}
               />
-              <div className="password-container">
+              <div className="form-group password-container">
                 <Input
                   label="Password"
                   name="password"
@@ -392,6 +392,23 @@ export const Form = () => {
                   )}{" "}
                 </p>
               </div>
+              <div>
+                <label className="checkbox">
+                  I accept{" "}
+                  <a
+                    target="_blank"
+                    href="https://www.premierpharma.com/privacy-policy/"
+                  >
+                    Terms and Conditions
+                  </a>
+                  <input
+                    type="checkbox"
+                    checked={acceptTerms}
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
               <p
                 className={
                   "text-center error " +
@@ -402,7 +419,11 @@ export const Form = () => {
               </p>
             </div>
             <div className="d-flex align-items-center justify-content-end nav">
-              <button className="submit" onClick={submit} disabled={isDisabled}>
+              <button
+                className="submit"
+                onClick={submit}
+                disabled={isDisabled || !acceptTerms}
+              >
                 {isLoading ? (
                   <div className="spinner-border text-light" role="status">
                     <span className="sr-only">Loading...</span>

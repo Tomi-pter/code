@@ -137,7 +137,7 @@ export default props => {
     }, [])
 
     useEffect(() => {
-        setLogs(admin.logs)
+        setLogs(admin.logs.sort((a, b) => a.dateOrdered - b.dateOrdered).reverse())
     }, [admin])
     /* End of loading logs */
 
@@ -145,7 +145,7 @@ export default props => {
         <div className="d-flex align-items-center justify-content-center admin-pages">
             <div className="card container">
                 <div className="d-flex align-items-center justify-content-between mb-4 header">
-                    <h2 className="m-0">Logs</h2>
+                    <h2 className="m-0">Order Logs</h2>
                 </div>
                 <div className="table-container custom-logs">
                     <Styles>

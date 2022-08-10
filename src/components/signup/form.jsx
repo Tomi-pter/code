@@ -293,7 +293,7 @@ export const Form = () => {
                 <Flatpickr
                   className="form-control"
                   value={formData.deaExpiry}
-                  placeholder="State License Expiry Date"
+                  placeholder="DEA Expiry Date"
                   onChange={([date]) => {
                     setFormData({
                       ...formData,

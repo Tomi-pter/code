@@ -192,7 +192,7 @@ export default props => {
                                 <div className="d-block d-lg-flex align-items-start">
                                     <div className={"details-container card " + (product?.category ? 'pharma-product' : 'pharma-product')}>
                                         <div className="img-container">
-                                        <img src={product.url  ? product.url : NoImage} alt="" />
+                                        <img src={product.imageUrl  ? product.imageUrl : NoImage} alt="" />
                                         </div>
                                         <div className="d-block d-lg-none">
                                             <h3 className="name">{product?.name}</h3>

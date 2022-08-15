@@ -492,13 +492,15 @@
               }
             }
             @include mediaQueries(padpro) {
-              max-width: 25%;
+              max-width: 20%;
+              margin-right: 20px;
             }
             @include mediaQueries(pad) {
-              max-width: 40%;
+              max-width: 20%;
+              margin-right: 20px;
             }
             @include mediaQueries(mobile) {
-              max-width: 25%;
+              max-width: 35%;
               margin-right: 20px;
             }
           }
@@ -598,7 +600,7 @@
       .img-container img {
         margin: 0;
         width: 65px;
-        height: 55px;
+        height: 100%;
         object-fit: contain;
         @include mediaQueries(padpro) {
           width: 100%;
@@ -857,6 +859,18 @@
       z-index: 1;
       top: 10px;
       left: 5px;
+
+      @include mediaQueries(mobile) {
+        align-items: flex-start;
+      }
+
+      @include mediaQueries(pad) {
+        align-items: flex-start;
+      }
+
+      @include mediaQueries(padpro) {
+        align-items: flex-start;
+      }
 
       cursor: pointer;
       &.preferred:before {

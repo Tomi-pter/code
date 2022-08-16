@@ -244,6 +244,9 @@
       }
       .search-container {
         width: 60%;
+        @include mediaQueries(mobile) {
+          width: 100%;
+        }
       }
       .months-container {
         width: 30%;

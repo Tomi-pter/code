@@ -123,12 +123,10 @@ export const HeaderNav = () => {
     setFormData({ ...formData, name: "" });
 
     if (
-      location.pathname === "/shop" ||
-      location.pathname === "/search" ||
-      location.pathname.includes("/product")
+      ["shop", "search", "product"].includes(location.pathname.split("/")[1]) &&
+      !admin?.customProducts
     ) {
-      !admin?.customProducts &&
-        dispatch(getCustomProducts(localUser?.username));
+      dispatch(getCustomProducts(localUser?.username));
     }
   }, [location]);
 
@@ -146,25 +144,6 @@ export const HeaderNav = () => {
           keys: ["name", "ndc"],
         });
 
-        // for (let i = 0; i <= productsData.favproductv2.length; i++) {
-        //   let favProd = productsData.favproductv2[i];
-
-        //   let prodIndex = searchResult.findIndex(
-        //     (prod) => prod?.obj?.id === favProd?.id
-        //   );
-
-        //   if (prodIndex !== -1) {
-        //     searchResult.splice(prodIndex, 1, {
-        //       ...searchResult[prodIndex],
-        //       obj: {
-        //         ...searchResult[prodIndex].obj,
-        //         favorite: true,
-        //         cost: favProd.cost,
-        //       },
-        //     });
-        //   }
-        // }
-
         setsearchResults(searchResult);
         setSearchLoading(false);
       }, 1000);
@@ -177,9 +156,15 @@ export const HeaderNav = () => {
 
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem("profile"));
-    dispatch(getProductsv2());
-    dispatch(getFavProductsv2(auth?.username));
-    dispatch(getPreferred(auth?.username));
+
+    if (
+      ["shop", "search", "product"].includes(location.pathname.split("/")[1]) &&
+      !productsData.count
+    ) {
+      dispatch(getProductsv2());
+      dispatch(getFavProductsv2(auth?.username));
+      dispatch(getPreferred(auth?.username));
+    }
   }, []);
 
   const sendWPData = () => {
@@ -270,7 +255,10 @@ export const HeaderNav = () => {
                       My Favorites
                     </Link>
                   )}
-                  <Link className="dropdown-item" to="/shop?category=Weekly Specials">
+                  <Link
+                    className="dropdown-item"
+                    to="/shop?category=Weekly Specials"
+                  >
                     Weekly Specials
                   </Link>
                   <Link className="dropdown-item" to="/shop?category=For Sale">

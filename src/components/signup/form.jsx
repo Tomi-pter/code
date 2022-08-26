@@ -36,6 +36,9 @@ const defaultData = {
   stateLicenseExpirationDate: "",
   dea: "",
   deaExpiry: "",
+  apEmail: "",
+  apContact: "",
+  apPhone: "",
   postalCode: "",
   country: "",
   countryCode: "",
@@ -70,6 +73,8 @@ export const Form = () => {
 
   const contactChange = (value) =>
     setFormData({ ...formData, phoneNumber: value });
+  const apContactChange = (value) =>
+    setFormData({ ...formData, apPhone: value });
 
   const submit = () => {
     setIsLoading(true);
@@ -262,6 +267,7 @@ export const Form = () => {
                 onChange={onChange}
                 valueKey={"code"}
               />
+              <div class="dropdown-divider mb-4"></div>
               <Input
                 label="State License #"
                 name="stateLicenseNumber"
@@ -302,6 +308,32 @@ export const Form = () => {
                   }}
                 />
               </div>
+              <div class="dropdown-divider mb-4"></div>
+              <Input
+                label="Accounts Payable Email"
+                name="apEmail"
+                type="text"
+                value={formData.apEmail}
+                onChange={onChange}
+              />
+              <Input
+                label="Accounts Payable Contact"
+                name="apContact"
+                type="text"
+                value={formData.apContact}
+                onChange={onChange}
+              />
+              <div className="form-group">
+                <InputContact
+                  country="US"
+                  international
+                  withCountryCallingCode
+                  value={formData.apPhone}
+                  onChange={apContactChange}
+                  className="form-control"
+                />
+              </div>
+              <div class="dropdown-divider mb-4"></div>
               <Input
                 label="Email"
                 name="email"

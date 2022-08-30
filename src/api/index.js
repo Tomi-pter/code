@@ -23,6 +23,7 @@ export const forgotPassword = (username) =>
 export const getCountries = () => API.get(`/countries`);
 export const getStates = (countryCode) =>
   API.get(`/states?countryCode=${countryCode}`);
+export const getMethodsOfCollection = () => API.get(`/methods-of-collection`)
 
 export const verifyAccount = (formData) =>
   API.post(`/user/${formData.email}/verify?code=${formData.code}`);

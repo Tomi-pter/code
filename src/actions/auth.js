@@ -7,6 +7,7 @@ import {
   CONFIRMFORGOTPASSWORD,
   GETCOUNTRIES,
   GETSTATES,
+  GETMETHODSOFCOLLECTION
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 export const logIn = (formData, router) => async (dispatch) => {
@@ -131,4 +132,15 @@ export const getStates = (countryCode) => async (dispatch) => {
     const data = error?.response?.data;
     console.log(data);
   }
+};
+
+export const getMethodsOfCollection = () => async (dispatch) => {
+    try {
+      const { data } = await api.getMethodsOfCollection();
+
+      dispatch({ type: GETMETHODSOFCOLLECTION, data });
+    } catch (error) {
+      const data = error?.response?.data;
+      console.log(data);
+    }
 };

@@ -25,6 +25,8 @@ const authReducer = (state = { authData: null }, action) => {
       return { ...state, countriesData: action.data, authData: {...state.authData, message: ''} }
     case actionType.GETSTATES:
       return { ...state, statesData: action.data }
+    case actionType.GETMETHODSOFCOLLECTION:
+      return { ...state, methodsOfCollectionData: action.data }
     default:
       return state;
   }

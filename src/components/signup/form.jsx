@@ -9,7 +9,7 @@ import InputContact from "react-phone-number-input/input";
 import Input from "../shared/input";
 import Dropdown from "../shared/dropdown";
 
-import { getCountries, getStates } from "../../actions/auth";
+import { getCountries, getStates, getMethodsOfCollection } from "../../actions/auth";
 import { signUp } from "../../actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -39,6 +39,7 @@ const defaultData = {
   apEmail: "",
   apContact: "",
   apPhone: "",
+  methodOfCollection: "",
   postalCode: "",
   country: "",
   countryCode: "",
@@ -51,6 +52,7 @@ export const Form = () => {
   const auth = useSelector((state) => state.auth);
   const [formData, setFormData] = useState(defaultData);
   const [countries, setCountries] = useState([]);
+  const [methodsOfCollection, setMethodsOfCollection] = useState([])
   const [states, setStates] = useState([]);
   const checkPasswordLenght = formData.password.length >= 8 ? true : false;
   const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(formData.password);
@@ -94,6 +96,7 @@ export const Form = () => {
 
   useEffect(() => {
     setCountries(auth?.countriesData);
+    setMethodsOfCollection(auth?.methodsOfCollectionData);
 
     if (auth?.statesData?.length > 0) {
       setStates(auth?.statesData);
@@ -178,6 +181,7 @@ export const Form = () => {
 
   useEffect(() => {
     dispatch(getCountries());
+    dispatch(getMethodsOfCollection());
   }, []);
 
   return (
@@ -332,6 +336,19 @@ export const Form = () => {
                   onChange={apContactChange}
                   className="form-control"
                 />
+              </div>
+              <Dropdown
+                label="Preferred Collection Method"
+                name="methodOfCollection"
+                value={formData.methodOfCollection}
+                options={methodsOfCollection}
+                onChange={onChange}
+                valueKey={"id"}
+              />
+              <div className="desc">
+                <p>
+                    * If paying by ACH/CC, we will contact you separately for more details.
+                </p>
               </div>
               <div class="dropdown-divider mb-4"></div>
               <Input

@@ -28,7 +28,11 @@ import {
   GETCUSTOMPRODUCTNETSUITEERROR,
   UPSERTCUSTOMPRODUCTNETSUITEERROR,
   REMOVECUSTOMPRODUCTNETSUITEERROR,
-  GETORDERLOGS
+  GETORDERLOGS,
+  GETPRODUCTQUEUE,
+  UPSERTPRODUCTTOQUEUE,
+  GETAUTOMATIONDATE,
+  SETAUTOMATIONDATE
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
@@ -292,12 +296,56 @@ export const removeCustomProjectsNetsuite =
     }
   };
 
-    export const getOrderLogs = () => async (dispatch) => {
-        try {
-            const { data } = await api.getOrderLogs();
+export const getOrderLogs = () => async (dispatch) => {
+    try {
+        const { data } = await api.getOrderLogs();
 
-            dispatch({ type: GETORDERLOGS, data });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+        dispatch({ type: GETORDERLOGS, data });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getProductQueue = () => async (dispatch) => {
+    try {
+        const { data } = await api.getProductQueue()
+
+        dispatch({ type: GETPRODUCTQUEUE, data })
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const upsertProductToQueue = product => async (dispatch) => {
+    try {
+        const { data } = await api.upsertProductToQueue(product)
+
+        dispatch({ type: UPSERTPRODUCTTOQUEUE, data })
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const getAutomationDate = () => async (dispatch) => {
+    try {
+        const { data } = await api.getAutomationDate()
+
+        dispatch({ type: GETAUTOMATIONDATE, data })
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const setAutomationDate = automationDate => async (dispatch) => {
+    try {
+        const { data } = await api.setAutomationDate(automationDate)
+
+        dispatch({ type: SETAUTOMATIONDATE, data })
+    }
+    catch (error) {
+        console.log(error)
+    }
+}

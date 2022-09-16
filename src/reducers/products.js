@@ -1,4 +1,5 @@
 import {
+  GETCATEGORIES,
   GETPRODUCTS,
   GETADMINPRODUCTS,
   ERRORGETPRODUCTS,
@@ -16,6 +17,7 @@ import {
 
 export default (
   state = {
+    categories: [],
     products: [],
     requestedProductPrice: [],
     productsv2: null,
@@ -26,6 +28,8 @@ export default (
   action
 ) => {
   switch (action.type) {
+    case GETCATEGORIES:
+      return { ...state, categories: action.payload };
     case GETPRODUCTS:
       const { products, count } = action.payload;
 

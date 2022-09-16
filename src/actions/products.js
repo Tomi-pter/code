@@ -1,4 +1,5 @@
 import {
+  GETCATEGORIES,
   GETPRODUCTS,
   GETADMINPRODUCTS,
   ERRORGETPRODUCTS,
@@ -16,6 +17,17 @@ import {
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
+
+export const getCategories = () => async (dispatch) =>  {
+    try {
+        const { data } = await api.getCategories()
+
+        dispatch({ type: GETCATEGORIES, payload: data })
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
 
 export const getProducts =
   (name, category, sortBy, sortOrder, page, stockSort) => async (dispatch) => {

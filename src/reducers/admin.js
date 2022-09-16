@@ -29,10 +29,14 @@ import {
   UPSERTCUSTOMPRODUCTNETSUITEERROR,
   REMOVECUSTOMPRODUCTNETSUITEERROR,
   GETORDERLOGS,
+  GETPRODUCTQUEUE,
+  UPSERTPRODUCTTOQUEUE,
+  GETAUTOMATIONDATE,
+  SETAUTOMATIONDATE,
 } from "../constants/actionTypes";
 
 const adminReducer = (
-  state = { users: [], customProducts: null, customProductNetsuite: [], logs: [] },
+  state = { users: [], customProducts: null, customProductNetsuite: [], logs: [], productQueue: [], cronMinutes: null, cronHours: null, cronDayOfWeek: null },
   action
 ) => {
   switch (action.type) {
@@ -179,6 +183,46 @@ const adminReducer = (
     case GETORDERLOGS: {
         return { ...state, logs: action.data }
     }
+    case GETPRODUCTQUEUE:
+        return { ...state, productQueue: action.data }
+    case UPSERTPRODUCTTOQUEUE:
+        const { id, name, category, oldPrice, newPrice } = action.data
+
+        const PQUpsertIndex = state.productQueue.findIndex(
+            (product) => product.id === id
+        )
+
+        if (PQUpsertIndex !== -1) {//
+            const newProductQueueItem = state.productQueue[PQUpsertIndex]
+
+            state.productQueue.splice(
+                PQUpsertIndex,
+                1,
+                { 
+                    ...newProductQueueItem,
+                    newPrice: newPrice
+                }
+            )
+        }
+        else {//does not exist 
+            state.productQueue.push({
+                id,
+                name,
+                category,
+                oldPrice,
+                newPrice
+            })
+        }
+
+        return { ...state }
+    case GETAUTOMATIONDATE:
+        const { minutes, hours, dayOfWeek } = action.data
+
+        return { ...state, cronMinutes: minutes, cronHours: hours, cronDayOfWeek: dayOfWeek }
+    case SETAUTOMATIONDATE:
+        const { newMinutes, newHours, newDayOfWeek } = action.data
+        
+        return { ...state, cronMinutes: minutes, cronHours: hours, cronDayOfWeek: dayOfWeek }
     default:
       return state;
   }

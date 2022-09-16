@@ -198,7 +198,13 @@ export const removeCustomProjectsNetsuite = (username, formData) =>
 
 export const getOrderLogs = () => API.get(`/admin/order-logs`)
 
+export const getProductQueue = () => API.get(`/product-queue`)
+export const upsertProductToQueue = (product) => API.post(`/product-queue`, product)
+
+export const getAutomationDate = () => API.get(`/admin/automation-date`)
+export const setAutomationDate = automationDate => API.post(`/admin/automation-date`, automationDate)
 // PRODUCTS v2
+export const getCategories = () => API.get(`/products/categories`)
 export const getProductsv2 = () => API.get(`/products`);
 export const getAdminProducts = () => API.get(`/products?mode=admin`)
 export const getProductv2 = (productId) => API.get(`/products/${productId}`);

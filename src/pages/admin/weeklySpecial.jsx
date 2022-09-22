@@ -385,7 +385,7 @@ export default props => {
                                         {product.name}
                                     </td>
                                     <td role="cell">
-                                        {product.category}
+                                        {categoryMap[product.category]}
                                     </td>
                                     <td role="cell">
                                         {product.oldPrice}

@@ -65,6 +65,10 @@ export const OrdersHistory = () => {
               </p>
             )}
             <p>Placed on {formatDate(order.details.dateOrdered)}</p>
+            <p>
+              Shipping Address: Park In St. Morning Village St. August St.
+              Window Village
+            </p>
           </div>
           <div className="status">
             {order.details.shipComplete ? "Shipped" : "Processing"}

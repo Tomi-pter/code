@@ -16,9 +16,9 @@ import { CartContainer } from "./pages/Cart";
 import AdminLogin from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/admin";
 import Company from "./pages/admin/company";
-import OrderLogs from "./pages/admin/logs"
-import OrderLogs2 from "./pages/admin/logs2"
-import WeeklySpecial from './pages/admin/weeklySpecial'
+import OrderLogs from "./pages/admin/logs";
+import OrderLogs2 from "./pages/admin/logs2";
+import WeeklySpecial from "./pages/admin/weeklySpecial";
 
 import { ProtectedRoutes } from "./components/protectedRoutes";
 import { AdminProtectedRoutes } from "./components/adminProtectedRoutes";
@@ -40,10 +40,10 @@ export default ({ childProps }) => (
       </Route>
       <Route path="/product/:id" component={Product} />
       <Route path="/admin/login" component={AdminLogin} />
-      <AdminProtectedRoutes exact path="/admin" component={AdminDashboard} />
-      <AdminProtectedRoutes exact path="/admin/logs" component={OrderLogs2} />
+      <AdminProtectedRoutes path="/admin" component={AdminDashboard} />
+      {/* <AdminProtectedRoutes exact path="/admin/logs" component={OrderLogs2} />
       <AdminProtectedRoutes exact path="/admin/weekly-specials" component={WeeklySpecial} />
-      <AdminProtectedRoutes path="/admin/:id" component={Company} />
+      <AdminProtectedRoutes path="/admin/:id" component={Company} /> */}
       <ProtectedRoutes
         path="/account"
         component={PersonalInformationContainer}

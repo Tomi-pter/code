@@ -163,7 +163,7 @@ export const CustomPrice = ({ mainCompany }) => {
       <div>
         <div className="d-flex align-items-center justify-content-between mt-4 mb-4 header">
           <h2 className="m-0">All Products</h2>
-          <div className="w-50 filter-container d-flex align-items-center">
+          <div className="w-75 filter-container d-flex align-items-center">
             <div className="search-container input-group">
               <div className="input-group-prepend">
                 <span className="input-group-text" id="basic-addon1">

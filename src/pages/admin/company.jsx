@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useHistory, useParams } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
@@ -11,39 +11,26 @@ export default (props) => {
   const admin = useSelector((state) => state.admin);
   const [mainCompany, setMainCompany] = useState(null);
 
-  const history = useHistory;
+  const history = useHistory();
   const location = useLocation();
 
   const handleSetData = (users) => {
     let mainCompany = users.filter(
       (user) => user.awsNetsuiteId === id && !user.subAccount
     );
+    if (!mainCompany[0]) history.push("/admin/companies");
     setMainCompany(mainCompany[0]);
   };
 
   useEffect(() => {
-    // admin?.users ? handleSetData(admin.users) : history.push("/admin");
     handleSetData(admin.users);
   }, [location]);
-
-  // useEffect(() => {
-  //   !admin.users && history.push("/admin");
-  // }, []);
-
-  // useEffect(
-  //   () => () => {
-  //     window.onunload = () => {
-  //       localStorage.removeItem("admin");
-  //     };
-  //   },
-  //   []
-  // );
 
   return (
     <div className="d-flex align-items-center justify-content-center admin-pages">
       <div className="card container">
         <div className="d-flex align-items-center justify-content-between mb-4 header">
-          <Link to={`/admin`}>{"< Back"}</Link>
+          <Link to={`/admin/companies`}>{"< Back"}</Link>
           <h2 className="m-0">{mainCompany && `${mainCompany.company}`}</h2>
           <div></div>
         </div>

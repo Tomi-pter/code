@@ -38,8 +38,6 @@ export const SubAccount = ({ mainCompany }) => {
   const [companies, setCompanies] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [enableUserLoading, setEnableUserLoading] = useState(false)
-  const [disableUserLoading, setDisableUserLoading] = useState(false)
   const [loginLoading, setLoginLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [showError, setShowError] = useState(false);
@@ -85,18 +83,18 @@ export const SubAccount = ({ mainCompany }) => {
   };
 
   const handleEnableUser = (user) => {
-    setEnableUserLoading(true)
-    setSelectedUser(user.username)
-
-    dispatch(enableUser(user))
-  }
+    dispatch(enableUser(user));
+    handleAlert("User Updated successfully!", "success");
+  };
 
   const handleDisableUser = (user) => {
-    setDisableUserLoading(true)
-    setSelectedUser(user.username)
+    dispatch(disableUser(user));
+    handleAlert("User Updated successfully!", "success");
+  };
 
-    dispatch(disableUser(user))
-  }
+  const handleUpdateUser = (user, e) => {
+    e.target.checked ? handleEnableUser(user) : handleDisableUser(user);
+  };
 
   const handleLoginUser = (user) => {
     const formData = { username: user.username };
@@ -173,8 +171,6 @@ export const SubAccount = ({ mainCompany }) => {
     }
     setActionLoading(false);
     setConfirmLoading(false);
-    setEnableUserLoading(false)
-    setDisableUserLoading(false)
     setLoginLoading(false);
     handleSetData(admin.users);
   }, [admin]);
@@ -201,6 +197,7 @@ export const SubAccount = ({ mainCompany }) => {
                 <th scope="col">Email</th>
                 <th scope="col">Status</th>
                 <th scope="col">Database ID</th>
+                <th scope="col">Enable</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -233,49 +230,23 @@ export const SubAccount = ({ mainCompany }) => {
                     )}
                   </td>
                   <td>{user.awsNetsuiteId}</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      aria-label="Enable User"
+                      defaultChecked={user.isEnabled}
+                      onChange={(e) => handleUpdateUser(user, e)}
+                    />
+                  </td>
                   <td className="no-wrap">
-                    {
-                        user.isEnabled === true
-                        
-                            ? 
-                                <button
-                                    className="btn btn-danger mr-2"
-                                    onClick={() => handleDisableUser(user)}
-                                >
-                                    {
-                                        disableUserLoading
-                                        && user.username === selectedUser
-                                        ? <div
-                                                className="spinner-border text-light spinner-border-sm"
-                                                role="status"
-                                            >
-                                                <span className="sr-only">Loading...</span>
-                                            </div>
-                                        : 'Disable'
-                                    }
-                                </button>
-                            : 
-                                <button
-                                    className="btn btn-success mr-2"
-                                    onClick={() => handleEnableUser(user)}
-                                >
-                                    {
-                                        enableUserLoading
-                                        && user.username === selectedUser
-                                        ? <div
-                                                className="spinner-border text-light spinner-border-sm"
-                                                role="status"
-                                            >
-                                                <span className="sr-only">Loading...</span>
-                                            </div>
-                                        : 'Enable'
-                                    }
-                                </button>
-                    }
                     <button
                       className="btn btn-primary"
                       onClick={() => handleLoginUser(user)}
-                      disabled={(user.isEnabled && user.status === "CONFIRMED") ? null : true}
+                      disabled={
+                        user.isEnabled && user.status === "CONFIRMED"
+                          ? null
+                          : true
+                      }
                     >
                       {loginLoading && user.username === selectedUser ? (
                         <div

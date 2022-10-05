@@ -47,6 +47,10 @@ export const OrdersHistory = () => {
     return subTotal.toFixed(2);
   };
 
+  const formatShipping = (text) => {
+    return <div>{text}</div>;
+  };
+
   const renderOrder = (order, index) => {
     return (
       <div key={`key-${index}`} className="order">
@@ -65,9 +69,8 @@ export const OrdersHistory = () => {
               </p>
             )}
             <p>Placed on {formatDate(order.details.dateOrdered)}</p>
-            <p>
-              Shipping Address: Park In St. Morning Village St. August St.
-              Window Village
+            <p className="shipping">
+              Shipping Address: {formatShipping(order.details.shippingAddress)}
             </p>
           </div>
           <div className="status">

@@ -12,6 +12,10 @@ import {
   LOGINADMINERROR,
   CONFIRMUSER,
   CONFIRMUSERERROR,
+  ENABLEUSER,
+  ENABLEUSERERROR,
+  DISABLEUSER,
+  DISABLEUSERERROR,
   IMPORTUSER,
   IMPORTUSERERROR,
   EXPORTCSV,
@@ -108,6 +112,30 @@ const adminReducer = (
       return { ...state, confirmError: null };
     case CONFIRMUSERERROR:
       return { ...state, confirmError: action?.data };
+    case ENABLEUSER:
+        const enableUserIndex = state.users.findIndex(
+            (user) => user.username === action.data.username
+        );
+    
+        if (enableUserIndex !== -1) {
+            state.users.splice(enableUserIndex, 1, action.data);
+        }
+
+        return { ...state, enableUserError: null }
+    case ENABLEUSERERROR:
+        return { ...state, enableUserError: action?.data }
+    case DISABLEUSER:
+        const disableUserIndex = state.users.findIndex(
+            (user) => user.username === action.data.username
+        );
+    
+        if (disableUserIndex !== -1) {
+            state.users.splice(disableUserIndex, 1, action.data);
+        }
+
+        return { ...state, disableUserError: null }
+    case DISABLEUSERERROR:
+        return { ...state, disableUserError: action?.data }
     case IMPORTUSER:
       state.users.unshift(action.data);
 

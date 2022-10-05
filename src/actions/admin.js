@@ -12,6 +12,10 @@ import {
   LOGINADMINERROR,
   CONFIRMUSER,
   CONFIRMUSERERROR,
+  ENABLEUSER,
+  ENABLEUSERERROR,
+  DISABLEUSER,
+  DISABLEUSERERROR,
   IMPORTUSER,
   IMPORTUSERERROR,
   EXPORTCSV,
@@ -142,6 +146,34 @@ export const confirmUser = (formData, user) => async (dispatch) => {
     dispatch({ type: CONFIRMUSERERROR, data });
   }
 };
+
+export const enableUser = (user) => async (dispatch) => {
+    try {
+        const response = await api.enableUser(user.username)
+
+        const data = { ...user, isEnabled: response.user.Enabled }
+
+        dispatch({ type: ENABLEUSER, data })
+    }
+    catch (error) {
+        const data = { success: false }
+        dispatch({ type: ENABLEUSERERROR, data })
+    }
+}
+
+export const disableUser = (user) => async (dispatch) => {
+    try {
+        const response = await api.disableUser(user.username)
+
+        const data = { ...user, isEnabled: response.user.Enabled }
+
+        dispatch({ type: DISABLEUSER, data })
+    }
+    catch (error) {
+        const data = { success: false }
+        dispatch({ type: DISABLEUSERERROR, data })
+    }
+}
 
 export const importUser = (formData) => async (dispatch) => {
   try {

@@ -17,6 +17,8 @@ import {
   getUsers,
   loginAdminUser,
   confirmUser,
+  enableUser,
+  disableUser,
   updateUserNetsuiteID,
   syncCustomPricing,
   syncProducts,
@@ -34,6 +36,8 @@ export const AdminDashboard = () => {
   const [alertType, setAlertType] = useState("error");
   const [loginLoading, setLoginLoading] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [enableUserLoading, setEnableUserLoading] = useState(false)
+  const [disableUserLoading, setDisableUserLoading] = useState(false)
   const [linkLoading, setLinkLoading] = useState(false);
   const [productSyncLoading, setProductSyncLoading] = useState(false);
   const [syncLoading, setSyncLoading] = useState(false);
@@ -68,6 +72,20 @@ export const AdminDashboard = () => {
     const formData = { username: user.username };
     dispatch(confirmUser(formData, user));
   };
+
+  const handleEnableUser = (user) => {
+    setEnableUserLoading(true)
+    setSelectedUser(user.username)
+
+    dispatch(enableUser(user))
+  }
+
+  const handleDisableUser = (user) => {
+    setDisableUserLoading(true)
+    setSelectedUser(user.username)
+
+    dispatch(disableUser(user))
+  }
 
   const handleLinkUser = (user) => {
     setLinkLoading(true);
@@ -129,6 +147,8 @@ export const AdminDashboard = () => {
     }
     setLoginLoading(false);
     setConfirmLoading(false);
+    setEnableUserLoading(false)
+    setDisableUserLoading(false)
     setLinkLoading(false);
     setSyncLoading(false);
     setProductSyncLoading(false);
@@ -309,7 +329,7 @@ export const AdminDashboard = () => {
                           )}
                         </td>
                         <td>{user.netsuiteId}</td>
-                        <td>
+                        <td className="no-wrap">
                           {editNetsuiteID && user.username === selectedUser ? (
                             <div className="d-flex">
                               <input
@@ -365,9 +385,9 @@ export const AdminDashboard = () => {
                             </>
                           )}
                         </td>
-                        <td>
+                        <td class="no-wrap">
                           <button
-                            className="btn btn-secondary mr-2"
+                            className="btn btn-secondary mr-4"
                             onClick={() => handleSync(user)}
                             disabled={linkLoading}
                           >
@@ -382,11 +402,50 @@ export const AdminDashboard = () => {
                               "Sync"
                             )}
                           </button>
+                            {
+                                user.isEnabled === true
+                                
+                                    ? 
+                                        <button
+                                            className="btn btn-danger mr-2"
+                                            onClick={() => handleDisableUser(user)}
+                                        >
+                                            {
+                                                disableUserLoading
+                                                && user.username === selectedUser
+                                                ? <div
+                                                        className="spinner-border text-light spinner-border-sm"
+                                                        role="status"
+                                                    >
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                : 'Disable'
+                                            }
+                                        </button>
+                                    : 
+                                        <button
+                                            className="btn btn-success mr-2"
+                                            onClick={() => handleEnableUser(user)}
+                                        >
+                                            {
+                                                enableUserLoading
+                                                && user.username === selectedUser
+                                                ? <div
+                                                        className="spinner-border text-light spinner-border-sm"
+                                                        role="status"
+                                                    >
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                : 'Enable'
+                                            }
+                                        </button>
+                            }
                           <button
                             className="btn btn-primary"
                             onClick={() => handleLoginUser(user)}
-                            disabled={user.status === "CONFIRMED" ? null : true}
+                            disabled={(user.isEnabled && user.status === "CONFIRMED") ? null : true}
                           >
+                            
                             {loginLoading && user.username === selectedUser ? (
                               <div
                                 className="spinner-border text-light spinner-border-sm"

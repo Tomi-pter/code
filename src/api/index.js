@@ -176,6 +176,13 @@ export const loginAdminUser = (formData) =>
 export const loginAdmin = (formData) => API.post(`/admin/login`, formData);
 export const confirmUser = (formData) =>
   API.post(`/admin/confirm-user`, formData);
+export const enableUser = (username) => {
+    API.post(`/admin/${username}/enable`)
+}
+export const disableUser = (username) => {
+    API.post(`/admin/${username}/disable`)
+}
+
 export const importUser = (formData) =>
   API.post(`/admin/import-customer`, formData);
 export const exportCSV = () => API.get(`/custom-price/export`);

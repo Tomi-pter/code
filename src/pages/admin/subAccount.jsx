@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import {
   loginAdminUser,
   confirmUser,
+  enableUser,
+  disableUser,
   createSubAccount,
 } from "../../actions/admin";
 
@@ -36,6 +38,8 @@ export const SubAccount = ({ mainCompany }) => {
   const [companies, setCompanies] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [enableUserLoading, setEnableUserLoading] = useState(false)
+  const [disableUserLoading, setDisableUserLoading] = useState(false)
   const [loginLoading, setLoginLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [showError, setShowError] = useState(false);
@@ -79,6 +83,20 @@ export const SubAccount = ({ mainCompany }) => {
     const formData = { username: user.username };
     dispatch(confirmUser(formData, user));
   };
+
+  const handleEnableUser = (user) => {
+    setEnableUserLoading(true)
+    setSelectedUser(user.username)
+
+    dispatch(enableUser(user))
+  }
+
+  const handleDisableUser = (user) => {
+    setDisableUserLoading(true)
+    setSelectedUser(user.username)
+
+    dispatch(disableUser(user))
+  }
 
   const handleLoginUser = (user) => {
     const formData = { username: user.username };
@@ -155,6 +173,8 @@ export const SubAccount = ({ mainCompany }) => {
     }
     setActionLoading(false);
     setConfirmLoading(false);
+    setEnableUserLoading(false)
+    setDisableUserLoading(false)
     setLoginLoading(false);
     handleSetData(admin.users);
   }, [admin]);
@@ -213,11 +233,49 @@ export const SubAccount = ({ mainCompany }) => {
                     )}
                   </td>
                   <td>{user.awsNetsuiteId}</td>
-                  <td>
+                  <td className="no-wrap">
+                    {
+                        user.isEnabled === true
+                        
+                            ? 
+                                <button
+                                    className="btn btn-danger mr-2"
+                                    onClick={() => handleDisableUser(user)}
+                                >
+                                    {
+                                        disableUserLoading
+                                        && user.username === selectedUser
+                                        ? <div
+                                                className="spinner-border text-light spinner-border-sm"
+                                                role="status"
+                                            >
+                                                <span className="sr-only">Loading...</span>
+                                            </div>
+                                        : 'Disable'
+                                    }
+                                </button>
+                            : 
+                                <button
+                                    className="btn btn-success mr-2"
+                                    onClick={() => handleEnableUser(user)}
+                                >
+                                    {
+                                        enableUserLoading
+                                        && user.username === selectedUser
+                                        ? <div
+                                                className="spinner-border text-light spinner-border-sm"
+                                                role="status"
+                                            >
+                                                <span className="sr-only">Loading...</span>
+                                            </div>
+                                        : 'Enable'
+                                    }
+                                </button>
+                    }
                     <button
                       className="btn btn-primary"
                       onClick={() => handleLoginUser(user)}
-                      disabled={user.status === "CONFIRMED" ? null : true}
+                      disabled={(user.isEnabled && user.status === "CONFIRMED") ? null : true}
                     >
                       {loginLoading && user.username === selectedUser ? (
                         <div

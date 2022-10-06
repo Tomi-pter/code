@@ -7,6 +7,7 @@ import {
   addAddresses,
   updateAddressesById,
   makeDefaultAddress,
+  makeDefaultAddressBilling,
 } from "../../actions/account";
 import Edit from "../../assets/icon/pencil.svg";
 import Input from "../shared/input";
@@ -47,6 +48,7 @@ export const CheckoutInfo = ({
   const [selectBilling, setSelectBilling] = useState(null);
   const [checked, setChecked] = useState(true);
   const [defaultAddress, setDefaultAddress] = useState(null);
+  const [defaultAddressBilling, setDefaultAddressBilling] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDefaultSelected, setIsDefaultSelected] = useState(null);
   const [isDefaultLoading, setIsDefaultLoading] = useState(false);
@@ -104,6 +106,13 @@ export const CheckoutInfo = ({
     dispatch(makeDefaultAddress(user?.username, address));
   };
 
+  const handleMakeDefaultAddressBilling = (address) => {
+    setIsDefaultSelected(address);
+    setIsDefaultLoading(true);
+    const user = JSON.parse(localStorage.getItem("profile"));
+    dispatch(makeDefaultAddressBilling(user?.username, address));
+  };
+
   const contactChange = (value) => {
     setFormData({ ...formData, mobileNumber: value });
   };
@@ -133,9 +142,13 @@ export const CheckoutInfo = ({
     setIsDefaultLoading(false);
     setIsDefaultSelected(null);
     const isDefaultAddress = account?.addressesData?.find(
-      (address) => address.isDefault === true
+      (address) => address.isDefaultShipping === true
+    );
+    const isDefaultAddressBilling = account?.addressesData?.find(
+      (address) => address.isDefaultBilling === true
     );
     setDefaultAddress(isDefaultAddress);
+    setDefaultAddressBilling(isDefaultAddressBilling);
 
     if (cart?.checkoutDetail) {
       setSelectedShipping(cart?.checkoutDetail?.selectedShipping);
@@ -274,7 +287,11 @@ export const CheckoutInfo = ({
                       selectedShipping?.details?.postalCode}{" "}
                     {defaultAddress?.addressId ===
                       selectedShipping?.addressId && (
-                      <span className="default">Default</span>
+                      <span className="default mr-3">Default</span>
+                    )}
+                    {defaultAddressBilling?.addressId ===
+                      selectedShipping?.addressId && (
+                      <span className="default">Default Billing</span>
                     )}
                   </span>
                 )}
@@ -328,27 +345,57 @@ export const CheckoutInfo = ({
                           {defaultAddress?.addressId === item?.addressId && (
                             <div className="default">Default</div>
                           )}
+                          {defaultAddressBilling?.addressId ===
+                            item?.addressId && (
+                            <div className="default ml-3">Default Billing</div>
+                          )}
                         </div>
                         {/* <p>{item.details.email}</p> */}
-                        {item?.addressId &&
-                          defaultAddress?.addressId !== item?.addressId && (
-                            <button
-                              className="default-btn"
-                              onClick={() => handleMakeDefaultAddress(item)}
-                            >
-                              {isDefaultLoading &&
-                              isDefaultSelected.addressId === item.addressId ? (
-                                <div
-                                  className="spinner-border text-success"
-                                  role="status"
-                                >
-                                  <span className="sr-only">Loading...</span>
-                                </div>
-                              ) : (
-                                "Make Default"
-                              )}
-                            </button>
-                          )}
+                        <div className="d-flex mt-3">
+                          {item?.addressId &&
+                            defaultAddress?.addressId !== item?.addressId && (
+                              <button
+                                className="default-btn mr-3"
+                                onClick={() => handleMakeDefaultAddress(item)}
+                              >
+                                {isDefaultLoading &&
+                                isDefaultSelected.addressId ===
+                                  item.addressId ? (
+                                  <div
+                                    className="spinner-border text-success"
+                                    role="status"
+                                  >
+                                    <span className="sr-only">Loading...</span>
+                                  </div>
+                                ) : (
+                                  "Make Default"
+                                )}
+                              </button>
+                            )}
+                          {item?.addressId &&
+                            defaultAddressBilling?.addressId !==
+                              item?.addressId && (
+                              <button
+                                className="default-btn"
+                                onClick={() =>
+                                  handleMakeDefaultAddressBilling(item)
+                                }
+                              >
+                                {isDefaultLoading &&
+                                isDefaultSelected.addressId ===
+                                  item.addressId ? (
+                                  <div
+                                    className="spinner-border text-success"
+                                    role="status"
+                                  >
+                                    <span className="sr-only">Loading...</span>
+                                  </div>
+                                ) : (
+                                  "Make Default Billing"
+                                )}
+                              </button>
+                            )}
+                        </div>
                       </div>
                       <button
                         className="edit-btn"
@@ -447,7 +494,11 @@ export const CheckoutInfo = ({
                       selectedBilling?.details?.postalCode}{" "}
                     {defaultAddress?.addressId ===
                       selectedBilling?.addressId && (
-                      <span className="default">Default</span>
+                      <span className="default mr-3">Default</span>
+                    )}
+                    {defaultAddressBilling?.addressId ===
+                      selectedBilling?.addressId && (
+                      <span className="default">Default Billing</span>
                     )}
                   </span>
                 )}
@@ -497,26 +548,56 @@ export const CheckoutInfo = ({
                           {defaultAddress?.addressId === item?.addressId && (
                             <div className="default">Default</div>
                           )}
-                        </div>
-                        {item?.addressId &&
-                          defaultAddress?.addressId !== item?.addressId && (
-                            <button
-                              className="default-btn"
-                              onClick={() => handleMakeDefaultAddress(item)}
-                            >
-                              {isDefaultLoading &&
-                              isDefaultSelected.addressId === item.addressId ? (
-                                <div
-                                  className="spinner-border text-success"
-                                  role="status"
-                                >
-                                  <span className="sr-only">Loading...</span>
-                                </div>
-                              ) : (
-                                "Make Default"
-                              )}
-                            </button>
+                          {defaultAddressBilling?.addressId ===
+                            item?.addressId && (
+                            <div className="default ml-3">Default Billing</div>
                           )}
+                        </div>
+                        <div className="d-flex mt-3">
+                          {item?.addressId &&
+                            defaultAddress?.addressId !== item?.addressId && (
+                              <button
+                                className="default-btn mr-3"
+                                onClick={() => handleMakeDefaultAddress(item)}
+                              >
+                                {isDefaultLoading &&
+                                isDefaultSelected.addressId ===
+                                  item.addressId ? (
+                                  <div
+                                    className="spinner-border text-success"
+                                    role="status"
+                                  >
+                                    <span className="sr-only">Loading...</span>
+                                  </div>
+                                ) : (
+                                  "Make Default"
+                                )}
+                              </button>
+                            )}
+                          {item?.addressId &&
+                            defaultAddressBilling?.addressId !==
+                              item?.addressId && (
+                              <button
+                                className="default-btn"
+                                onClick={() =>
+                                  handleMakeDefaultAddressBilling(item)
+                                }
+                              >
+                                {isDefaultLoading &&
+                                isDefaultSelected.addressId ===
+                                  item.addressId ? (
+                                  <div
+                                    className="spinner-border text-success"
+                                    role="status"
+                                  >
+                                    <span className="sr-only">Loading...</span>
+                                  </div>
+                                ) : (
+                                  "Make Default Billing"
+                                )}
+                              </button>
+                            )}
+                        </div>
                       </div>
                       <button
                         className="edit-btn"

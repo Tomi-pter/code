@@ -46,6 +46,16 @@ const accountReducer = (state = initialState, action) => {
         "custom:company": action.accountData.company,
       };
       return { ...state, accountData: newData };
+    case actionType.PUTLICENSE:
+      const newLicenseData = {
+        ...state.accountData,
+        stateLicenseNumber: action.licenseData.stateLicenseNumber,
+        stateLicenseExpirationDate:
+          action.licenseData.stateLicenseExpirationDate,
+        dea: action.licenseData.dea,
+        deaExpiry: action.licenseData.deaExpiry,
+      };
+      return { ...state, accountData: newLicenseData };
     case actionType.UPDATEEMAIL:
       const newEmail = {
         ...state.accountData,

@@ -16,6 +16,7 @@ import {
   UPDATEADDRESSESBYID,
   UPDATEDEFAULTADDRESS,
   UPDATEEMAIL,
+  PUTLICENSE,
 } from "../constants/actionTypes";
 import * as api from "../api/index.js";
 
@@ -42,6 +43,16 @@ export const putAccount = (username, accountData) => async (dispatch) => {
   try {
     const { data } = await api.putAccount(username, accountData);
     if (data.success) dispatch({ type: PUTACCOUNT, accountData });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const putLicense = (username, licenseData) => async (dispatch) => {
+  try {
+    const { data } = await api.putLicense(username, licenseData);
+
+    if (data.success) dispatch({ type: PUTLICENSE, licenseData });
   } catch (error) {
     console.log(error);
   }
@@ -158,7 +169,11 @@ export const addAddresses = (username, formData) => async (dispatch) => {
 
     dispatch({
       type: POSTADDRESSES,
-      data: { details: data, isDefault: false },
+      data: {
+        details: data,
+        isDefaultShipping: false,
+        isDefaultBilling: false,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -193,9 +208,21 @@ export const makeDefaultAddress = (username, address) => async (dispatch) => {
   try {
     const id = address.addressId;
     await api.makeDefaultAddress(username, id);
-    const data = { ...address, isDefault: true };
+    const data = { ...address, isDefaultShipping: true };
     dispatch({ type: UPDATEDEFAULTADDRESS, data });
   } catch (error) {
     console.log(error);
   }
 };
+
+export const makeDefaultAddressBilling =
+  (username, address) => async (dispatch) => {
+    try {
+      const id = address.addressId;
+      await api.makeDefaultAddressBilling(username, id);
+      const data = { ...address, isDefaultBilling: true };
+      dispatch({ type: UPDATEDEFAULTADDRESS, data });
+    } catch (error) {
+      console.log(error);
+    }
+  };

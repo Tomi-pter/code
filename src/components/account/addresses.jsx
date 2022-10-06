@@ -10,6 +10,7 @@ import {
   deleteAddressesById,
   updateAddressesById,
   makeDefaultAddress,
+  makeDefaultAddressBilling,
 } from "../../actions/account";
 import { getCountries, getStates } from "../../actions/auth";
 import Input from "../shared/input";
@@ -44,6 +45,7 @@ export const Addresses = ({ account }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [defaultAddress, setDefaultAddress] = useState(null);
+  const [defaultAddressBilling, setDefaultAddressBilling] = useState(null);
   const [isDefaultSelected, setIsDefaultSelected] = useState(null);
   const [isDefaultLoading, setIsDefaultLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -74,6 +76,12 @@ export const Addresses = ({ account }) => {
     setIsDefaultSelected(address);
     setIsDefaultLoading(true);
     dispatch(makeDefaultAddress(user?.username, address));
+  };
+
+  const handleMakeDefaultAddressBilling = (address) => {
+    setIsDefaultSelected(address);
+    setIsDefaultLoading(true);
+    dispatch(makeDefaultAddressBilling(user?.username, address));
   };
 
   const handleChange = (e) => {
@@ -114,7 +122,9 @@ export const Addresses = ({ account }) => {
       city: address.details.city,
       postalCode: address.details.postalCode,
       country: address.details.country,
-      countryCode: address.details.countryCode ? address.details.countryCode : "US",
+      countryCode: address.details.countryCode
+        ? address.details.countryCode
+        : "US",
       state: address.details.state,
     });
     setShowModal(true);
@@ -128,9 +138,13 @@ export const Addresses = ({ account }) => {
 
   useEffect(() => {
     const isDefaultAddress = account?.addressesData?.find(
-      (address) => address.isDefault === true
+      (address) => address.isDefaultShipping === true
+    );
+    const isDefaultAddressBilling = account?.addressesData?.find(
+      (address) => address.isDefaultBilling === true
     );
     setDefaultAddress(isDefaultAddress);
+    setDefaultAddressBilling(isDefaultAddressBilling);
     setShowModal(false);
     setFormData(defaultData);
     setSelectedAddress(null);
@@ -251,25 +265,45 @@ export const Addresses = ({ account }) => {
                 {defaultAddress?.addressId === item?.addressId && (
                   <div className="default">Default</div>
                 )}
-                {item?.addressId &&
-                  defaultAddress?.addressId !== item?.addressId && (
-                    <button
-                      className="default-btn"
-                      onClick={() => handleMakeDefaultAddress(item)}
-                    >
-                      {isDefaultLoading &&
-                      isDefaultSelected?.addressId === item.addressId ? (
-                        <div
-                          className="spinner-border text-success"
-                          role="status"
-                        >
-                          <span className="sr-only">Loading...</span>
-                        </div>
-                      ) : (
-                        "Make Default"
-                      )}
-                    </button>
-                  )}
+                {defaultAddress?.addressId !== item?.addressId && (
+                  <button
+                    className="default-btn"
+                    onClick={() => handleMakeDefaultAddress(item)}
+                  >
+                    {isDefaultLoading &&
+                    isDefaultSelected?.addressId === item.addressId ? (
+                      <div
+                        className="spinner-border text-success"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      "Make Default"
+                    )}
+                  </button>
+                )}
+                {defaultAddressBilling?.addressId === item?.addressId && (
+                  <div className="default mt-3">Default Billing</div>
+                )}
+                {defaultAddressBilling?.addressId !== item?.addressId && (
+                  <button
+                    className="default-btn mt-3"
+                    onClick={() => handleMakeDefaultAddressBilling(item)}
+                  >
+                    {isDefaultLoading &&
+                    isDefaultSelected?.addressId === item.addressId ? (
+                      <div
+                        className="spinner-border text-success"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      "Make Default Billing"
+                    )}
+                  </button>
+                )}
               </td>
               <td className="d-none d-lg-table-cell">
                 <div className="d-flex align-items-center">

@@ -212,7 +212,8 @@
       margin-bottom: 7.5px;
     }
     input,
-    .form-group p {
+    .form-group p,
+    .ant-picker {
       height: 30px;
       border: 0;
       outline: 0;
@@ -230,6 +231,12 @@
         background: #f0f0f0;
         border: 0;
       }
+    }
+    .ant-picker {
+      padding: 1px 2px;
+    }
+    .ant-picker input {
+      border: 0 !important;
     }
     .form-group p {
       background: #f0f0f0;
@@ -723,15 +730,15 @@
               border: 0;
               .default,
               .default-btn {
-                width: 121px;
-                min-width: 121px;
+                width: 125px;
+                min-width: 125px;
                 height: 27px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 font-style: normal;
                 font-weight: normal;
-                font-size: 13.5px;
+                font-size: 12px;
                 line-height: 21px;
                 text-align: center;
               }
@@ -745,7 +752,7 @@
                 color: #16cfb0;
                 border: 1.5px solid #16cfb0;
                 background: transparent;
-                padding: 0 10px;
+                padding: 0 1px;
                 .spinner-border {
                   width: 20px;
                   height: 20px;
@@ -1189,6 +1196,7 @@
       border: 0;
     }
   }
+
   .saveButton {
     background: #16cfb0;
     border-radius: 7.5px;

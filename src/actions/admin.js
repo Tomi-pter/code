@@ -36,7 +36,7 @@ import {
   GETPRODUCTQUEUE,
   UPSERTPRODUCTTOQUEUE,
   GETAUTOMATIONDATE,
-  SETAUTOMATIONDATE
+  SETAUTOMATIONDATE,
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
@@ -148,32 +148,30 @@ export const confirmUser = (formData, user) => async (dispatch) => {
 };
 
 export const enableUser = (user) => async (dispatch) => {
-    try {
-        const response = await api.enableUser(user.username)
+  try {
+    const response = await api.enableUser(user.username);
 
-        const data = { ...user, isEnabled: response.user.Enabled }
+    const data = { ...user, isEnabled: true };
 
-        dispatch({ type: ENABLEUSER, data })
-    }
-    catch (error) {
-        const data = { success: false }
-        dispatch({ type: ENABLEUSERERROR, data })
-    }
-}
+    dispatch({ type: ENABLEUSER, data });
+  } catch (error) {
+    const data = { success: false };
+    dispatch({ type: ENABLEUSERERROR, data });
+  }
+};
 
 export const disableUser = (user) => async (dispatch) => {
-    try {
-        const response = await api.disableUser(user.username)
+  try {
+    const response = await api.disableUser(user.username);
 
-        const data = { ...user, isEnabled: response.user.Enabled }
+    const data = { ...user, isEnabled: false };
 
-        dispatch({ type: DISABLEUSER, data })
-    }
-    catch (error) {
-        const data = { success: false }
-        dispatch({ type: DISABLEUSERERROR, data })
-    }
-}
+    dispatch({ type: DISABLEUSER, data });
+  } catch (error) {
+    const data = { success: false };
+    dispatch({ type: DISABLEUSERERROR, data });
+  }
+};
 
 export const importUser = (formData) => async (dispatch) => {
   try {
@@ -329,55 +327,51 @@ export const removeCustomProjectsNetsuite =
   };
 
 export const getOrderLogs = () => async (dispatch) => {
-    try {
-        const { data } = await api.getOrderLogs();
+  try {
+    const { data } = await api.getOrderLogs();
 
-        dispatch({ type: GETORDERLOGS, data });
-    } catch (error) {
-        console.log(error);
-    }
-}
+    dispatch({ type: GETORDERLOGS, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getProductQueue = () => async (dispatch) => {
-    try {
-        const { data } = await api.getProductQueue()
+  try {
+    const { data } = await api.getProductQueue();
 
-        dispatch({ type: GETPRODUCTQUEUE, data })
-    }
-    catch (error) {
-        console.log(error)
-    }
-}
+    dispatch({ type: GETPRODUCTQUEUE, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export const upsertProductToQueue = product => async (dispatch) => {
-    try {
-        const { data } = await api.upsertProductToQueue(product)
+export const upsertProductToQueue = (product) => async (dispatch) => {
+  try {
+    const { data } = await api.upsertProductToQueue(product);
 
-        dispatch({ type: UPSERTPRODUCTTOQUEUE, data })
-    }
-    catch (error) {
-        console.log(error)
-    }
-}
+    dispatch({ type: UPSERTPRODUCTTOQUEUE, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getAutomationDate = () => async (dispatch) => {
-    try {
-        const { data } = await api.getAutomationDate()
+  try {
+    const { data } = await api.getAutomationDate();
 
-        dispatch({ type: GETAUTOMATIONDATE, data })
-    }
-    catch (error) {
-        console.log(error)
-    }
-}
+    dispatch({ type: GETAUTOMATIONDATE, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-export const setAutomationDate = automationDate => async (dispatch) => {
-    try {
-        const { data } = await api.setAutomationDate(automationDate)
+export const setAutomationDate = (automationDate) => async (dispatch) => {
+  try {
+    const { data } = await api.setAutomationDate(automationDate);
 
-        dispatch({ type: SETAUTOMATIONDATE, data })
-    }
-    catch (error) {
-        console.log(error)
-    }
-}
+    dispatch({ type: SETAUTOMATIONDATE, data });
+  } catch (error) {
+    console.log(error);
+  }
+};

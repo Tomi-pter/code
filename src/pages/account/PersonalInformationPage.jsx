@@ -1,43 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, Link } from "react-router-dom";
-import { Button } from "antd";
 import { HeaderNav } from "../../components/partials/HeaderNav";
 import { Footer } from "../../components/partials/Footer";
 import { PersonalInfo } from "../../components/account/personalInfo";
+import { License } from "../../components/account/license";
 import { Addresses } from "../../components/account/addresses";
 import { OrdersHistory } from "../../components/account/orders";
-import { Cards } from "../../components/account/cards";
 import { Changepassword } from "../../components/account/changePassword";
 import AccountUser from "../../assets/img/Account/user-icon.svg";
 import CartIcon from "../../assets/img/Account/mdi_cart.svg";
 import LogOutIcon from "../../assets/img/Account/mdi_logout-variant.svg";
 import SecurityIcon from "../../assets/img/Account/security.svg";
-// import MasterCardIcon from '../../assets/img/Payment/master-card-logo.svg';
-import ProductPlaceholder from "../../assets/img/product-placeholder-order.svg";
 import { Helmet } from "react-helmet";
 
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../actions/auth";
 import { getAccount } from "../../actions/account";
-import { useParams } from "react-router-dom";
 
 export const PersonalInformationContainer = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
-  const [disable, setDisable] = useState(true);
-  const [selectedCard, setSelectedCard] = useState("");
-  const [accountData, setAccountData] = useState("");
+  const account = useSelector((state) => state.account);
   const [isOpen, setOpen] = useState(true);
   const [activeTab, setActiveTab] = useState("");
   const dispatch = useDispatch();
-  const account = useSelector((state) => state.account);
   const history = useHistory();
-  const { id } = useParams();
 
   const handleLogout = () => {
-    // var cartIFrame = document.getElementById('hidden-iframe');
-    // // localStorage.removeItem('profile');
-    // cartIFrame.contentWindow.postMessage(localStorage.removeItem('profile'), 'https://premierpharma.wpengine.com');
     dispatch(logOut(user?.username, history));
   };
 
@@ -111,17 +99,26 @@ export const PersonalInformationContainer = () => {
                               <a
                                 className=""
                                 data-toggle="pill"
-                                href="#my-addresses"
+                                href="#my-license"
                                 role="tab"
                                 aria-controls="pills-home-2"
+                                aria-selected="true"
+                              >
+                                My License
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                className=""
+                                data-toggle="pill"
+                                href="#my-addresses"
+                                role="tab"
+                                aria-controls="pills-home-3"
                                 aria-selected="false"
                               >
                                 My Address Book
                               </a>
                             </li>
-                            {/* <li >
-                                                            <a className="" data-toggle="pill" href="#payment-options" role="tab" aria-controls="pills-home-3" aria-selected="false">Payment Options</a>
-                                                        </li> */}
                           </ul>
                         </span>
                       </span>
@@ -170,37 +167,34 @@ export const PersonalInformationContainer = () => {
                   aria-labelledby="pills-home-tab"
                 >
                   <h1 className="title">Personal Information</h1>
-                  <div className="card tab-content" id="pills-tab-1Content">
+                  <div className="card tab-content" id="pills-tab-1">
                     <div
                       className="tab-pane fade show active"
                       id="my-profile"
                       role="tabpanel"
                       aria-labelledby="pills-home-1"
                     >
-                      <PersonalInfo
-                        disable={disable}
-                        setDisable={setDisable}
-                        account={account}
-                        accountData={accountData}
-                        setAccountData={setAccountData}
-                      />
+                      <PersonalInfo account={account} />
+                    </div>
+                    <div
+                      className="tab-pane fade show"
+                      id="my-license"
+                      role="tabpanel"
+                      aria-labelledby="pills-home-2"
+                    >
+                      <License account={account} />
                     </div>
                     <div
                       className="tab-pane fade show"
                       id="my-addresses"
                       role="tabpanel"
-                      aria-labelledby="pills-home-2"
+                      aria-labelledby="pills-home-3"
                     >
                       <Addresses
                         key={account.addressesData}
                         account={account}
-                        accountData={accountData}
-                        setAccountData={setAccountData}
                       />
                     </div>
-                    {/* <div className="tab-pane fade show" id="payment-options" role="tabpanel" aria-labelledby="pills-home-3">
-                                            <Cards selectedCard={selectedCard} setSelectedCard={setSelectedCard} page='account' />
-                                        </div> */}
                   </div>
                 </div>
                 <div

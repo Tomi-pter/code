@@ -23,7 +23,7 @@ export const forgotPassword = (username) =>
 export const getCountries = () => API.get(`/countries`);
 export const getStates = (countryCode) =>
   API.get(`/states?countryCode=${countryCode}`);
-export const getMethodsOfCollection = () => API.get(`/methods-of-collection`)
+export const getMethodsOfCollection = () => API.get(`/methods-of-collection`);
 
 export const verifyAccount = (formData) =>
   API.post(`/user/${formData.email}/verify?code=${formData.code}`);
@@ -63,6 +63,8 @@ export const getOrder = (username, orderID) =>
 
 export const putAccount = (username, accountData) =>
   API.put(`/user/${username}`, accountData);
+export const putLicense = (username, licenseData) =>
+  API.put(`/user/${username}/license`, licenseData);
 export const updateEmail = (username, formData) =>
   API.put(`/user/${username}/change-email`, formData);
 
@@ -78,6 +80,9 @@ export const updateAddressesById = (username, id, formData) =>
   API.put(`/user/${username}/addresses/${id}`, formData);
 export const makeDefaultAddress = (username, id) =>
   API.put(`/user/${username}/addresses/${id}/default`);
+export const makeDefaultAddressBilling = (username, id) => {
+  API.put(`/user/${username}/addresses/${id}/default-billing`);
+};
 
 export const getProducts = (
   name,
@@ -177,11 +182,11 @@ export const loginAdmin = (formData) => API.post(`/admin/login`, formData);
 export const confirmUser = (formData) =>
   API.post(`/admin/confirm-user`, formData);
 export const enableUser = (username) => {
-    API.post(`/admin/${username}/enable`)
-}
+  API.post(`/admin/${username}/enable`);
+};
 export const disableUser = (username) => {
-    API.post(`/admin/${username}/disable`)
-}
+  API.post(`/admin/${username}/disable`);
+};
 
 export const importUser = (formData) =>
   API.post(`/admin/import-customer`, formData);
@@ -203,17 +208,19 @@ export const upsertCustomProjectsNetsuite = (username, formData) =>
 export const removeCustomProjectsNetsuite = (username, formData) =>
   API.delete(`/custom-price/${username}/remove`, { data: formData });
 
-export const getOrderLogs = () => API.get(`/admin/order-logs`)
+export const getOrderLogs = () => API.get(`/admin/order-logs`);
 
-export const getProductQueue = () => API.get(`/product-queue`)
-export const upsertProductToQueue = (product) => API.post(`/product-queue`, product)
+export const getProductQueue = () => API.get(`/product-queue`);
+export const upsertProductToQueue = (product) =>
+  API.post(`/product-queue`, product);
 
-export const getAutomationDate = () => API.get(`/admin/automation-date`)
-export const setAutomationDate = automationDate => API.post(`/admin/automation-date`, automationDate)
+export const getAutomationDate = () => API.get(`/admin/automation-date`);
+export const setAutomationDate = (automationDate) =>
+  API.post(`/admin/automation-date`, automationDate);
 // PRODUCTS v2
-export const getCategories = () => API.get(`/products/categories`)
+export const getCategories = () => API.get(`/products/categories`);
 export const getProductsv2 = () => API.get(`/products`);
-export const getAdminProducts = () => API.get(`/products?mode=admin`)
+export const getAdminProducts = () => API.get(`/products?mode=admin`);
 export const getProductv2 = (productId) => API.get(`/products/${productId}`);
 export const getFavProductsv2 = (username) =>
   API.get(`/products/${username}/favorites`);

@@ -18,8 +18,9 @@ const defaultFormData = {
   company: "",
 };
 
-export const PersonalInfo = ({ account, disable, setDisable }) => {
+export const PersonalInfo = ({ account }) => {
   const [showError, setShowError] = useState(false);
+  const [disable, setDisable] = useState(true);
   const user = JSON.parse(localStorage.getItem("profile"));
   const [formData, updateFormData] = useState(defaultFormData);
   const [avatarLoading, setAvatarLoading] = useState(false);
@@ -125,7 +126,7 @@ export const PersonalInfo = ({ account, disable, setDisable }) => {
   }, [avatarPic]);
 
   useEffect(() => {
-    dispatch(getAccount(user?.username));
+    // dispatch(getAccount(user?.username));
     dispatch(getAvatar(user?.username));
   }, [dispatch]);
 

@@ -48,7 +48,7 @@ export const OrdersHistory = () => {
   };
 
   const formatShipping = (text) => {
-    return <div>{text}</div>;
+    return <span>{text}</span>;
   };
 
   const renderOrder = (order, index) => {

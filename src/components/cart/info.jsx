@@ -343,11 +343,11 @@ export const CheckoutInfo = ({
                         <p>{item.details?.mobileNumber}</p>
                         <div className="d-flex align-items-center name">
                           {defaultAddress?.addressId === item?.addressId && (
-                            <div className="default">Default</div>
+                            <div className="default mr-3">Default</div>
                           )}
                           {defaultAddressBilling?.addressId ===
                             item?.addressId && (
-                            <div className="default ml-3">Default Billing</div>
+                            <div className="default">Default Billing</div>
                           )}
                         </div>
                         {/* <p>{item.details.email}</p> */}

@@ -109,6 +109,29 @@ const accountReducer = (state = initialState, action) => {
         state.addressesData.splice(newIndex, 1, newDefault);
       }
       return { ...state, updateAddressDefault: true };
+    case actionType.UPDATEDEFAULTADDRESSBILLING:
+      const prevDefaultBilling = state.addressesData.find(
+        (address) => address.isDefaultBilling === true
+      );
+      if (prevDefaultBilling) {
+        const prevIndex = state.addressesData.findIndex(
+          (address) => address.addressId === prevDefaultBilling.addressId
+        );
+        if (prevIndex !== -1) {
+          state.addressesData.splice(prevIndex, 1, {
+            ...prevDefaultBilling,
+            isDefaultBilling: false,
+          });
+        }
+      }
+      const newDefaultBilling = action.data;
+      const newIndexBilling = state.addressesData.findIndex(
+        (address) => address.addressId === newDefaultBilling.addressId
+      );
+      if (newIndexBilling !== -1) {
+        state.addressesData.splice(newIndexBilling, 1, newDefaultBilling);
+      }
+      return { ...state, updateAddressDefaultBilling: true };
     case actionType.DELETEADDRESSESBYID:
       const newAddressesData = state.addressesData.filter(
         (address) => address.addressId !== action.payload

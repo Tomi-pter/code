@@ -15,6 +15,7 @@ import {
   DELETEADDRESSESBYID,
   UPDATEADDRESSESBYID,
   UPDATEDEFAULTADDRESS,
+  UPDATEDEFAULTADDRESSBILLING,
   UPDATEEMAIL,
   PUTLICENSE,
 } from "../constants/actionTypes";
@@ -221,7 +222,7 @@ export const makeDefaultAddressBilling =
       const id = address.addressId;
       await api.makeDefaultAddressBilling(username, id);
       const data = { ...address, isDefaultBilling: true };
-      dispatch({ type: UPDATEDEFAULTADDRESS, data });
+      dispatch({ type: UPDATEDEFAULTADDRESSBILLING, data });
     } catch (error) {
       console.log(error);
     }

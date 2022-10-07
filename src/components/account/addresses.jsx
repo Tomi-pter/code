@@ -230,7 +230,7 @@ export const Addresses = ({ account }) => {
                               <span className="sr-only">Loading...</span>
                             </div>
                           ) : (
-                            "Make Default"
+                            "Set as Default"
                           )}
                         </button>
                       )}
@@ -279,7 +279,7 @@ export const Addresses = ({ account }) => {
                         <span className="sr-only">Loading...</span>
                       </div>
                     ) : (
-                      "Make Default"
+                      "Set as Default"
                     )}
                   </button>
                 )}
@@ -300,7 +300,7 @@ export const Addresses = ({ account }) => {
                         <span className="sr-only">Loading...</span>
                       </div>
                     ) : (
-                      "Make Default Billing"
+                      "Set as Default Billing"
                     )}
                   </button>
                 )}

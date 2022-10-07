@@ -46,7 +46,7 @@ export const CheckoutInfo = ({
   const auth = useSelector((state) => state.auth);
   const [selectShipping, setSelectShipping] = useState(null);
   const [selectBilling, setSelectBilling] = useState(null);
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [defaultAddress, setDefaultAddress] = useState(null);
   const [defaultAddressBilling, setDefaultAddressBilling] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -368,7 +368,7 @@ export const CheckoutInfo = ({
                                     <span className="sr-only">Loading...</span>
                                   </div>
                                 ) : (
-                                  "Make Default"
+                                  "Set as Default"
                                 )}
                               </button>
                             )}
@@ -391,7 +391,7 @@ export const CheckoutInfo = ({
                                     <span className="sr-only">Loading...</span>
                                   </div>
                                 ) : (
-                                  "Make Default Billing"
+                                  "Set as Default Billing"
                                 )}
                               </button>
                             )}
@@ -570,7 +570,7 @@ export const CheckoutInfo = ({
                                     <span className="sr-only">Loading...</span>
                                   </div>
                                 ) : (
-                                  "Make Default"
+                                  "Set as Default"
                                 )}
                               </button>
                             )}
@@ -593,7 +593,7 @@ export const CheckoutInfo = ({
                                     <span className="sr-only">Loading...</span>
                                   </div>
                                 ) : (
-                                  "Make Default Billing"
+                                  "Set as Default Billing"
                                 )}
                               </button>
                             )}

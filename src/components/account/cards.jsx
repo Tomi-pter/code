@@ -151,7 +151,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                                     </div>
                                                                     :
                                                                     <>
-                                                                        Make Default
+                                                                        Set as Default
                                                                     </>
                                                                 }
                                                             </button>
@@ -187,7 +187,7 @@ export const Cards = ({ selectedCard, setSelectedCard, page }) => {
                                                                 </div>
                                                                 :
                                                                 <>
-                                                                    Make Default
+                                                                    Set as Default
                                                     </>
                                                             }
                                                         </button>

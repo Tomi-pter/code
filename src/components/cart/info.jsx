@@ -68,7 +68,11 @@ export const CheckoutInfo = ({
         setSelectBilling(address);
         setSelectedBilling(address);
       }
+
       document.getElementById("shippingBtn").click();
+      if (!checked && !selectedBilling) {
+        document.getElementById("billingBtn").click();
+      }
     } else {
       setSelectedBilling(address);
       document.getElementById("billingBtn").click();

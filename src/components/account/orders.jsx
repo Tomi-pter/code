@@ -48,7 +48,7 @@ export const OrdersHistory = () => {
   };
 
   const formatShipping = (text) => {
-    return <span>{text}</span>;
+    return <span> {text.replaceAll("\n", ", ")}</span>;
   };
 
   const renderOrder = (order, index) => {
@@ -69,9 +69,6 @@ export const OrdersHistory = () => {
               </p>
             )}
             <p>Placed on {formatDate(order.details.dateOrdered)}</p>
-            <p className="shipping">
-              Shipping Address: {formatShipping(order.details.shippingAddress)}
-            </p>
           </div>
           <div className="status">
             {order.details.shipComplete ? "Shipped" : "Processing"}
@@ -151,6 +148,11 @@ export const OrdersHistory = () => {
                         <div>${order.details.discount.toFixed(2)}</div>
                       </div>
                     )}
+
+                    <p className="shipping mt-3">
+                      Shipping Address:
+                      {formatShipping(order.details.shippingAddress)}
+                    </p>
                   </div>
                 </div>
               </div>

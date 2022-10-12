@@ -19,53 +19,52 @@ export default (props) => {
     const animalBtn = document.getElementById("animal-accordion-btn");
     const medicalBtn = document.getElementById("medical-accordion-btn");
     const dealBtn = document.getElementById("deals-accordion-btn");
-    const specialsBtn = document.getElementById("specials-accordion-btn");
+    // const specialsBtn = document.getElementById("specials-accordion-btn");
     const query = new URLSearchParams(props.location.search);
     const cat = query.get("category");
 
     if (cat && cat !== "") {
-        if (
-            cat === "Favorites"
-            && favBtn?.className.split(" ")?.length === 2
-            && auth
-        ) {
-            favBtn.click();
-        }
-        else {
-            pharmaBtn.click();
-        }
-
-        if (
-            cat === "Pharmaceuticals"
-            && pharmaBtn.className.split(" ").length === 2
-        )
-            pharmaBtn.click();
-
-        if (
-            (cat === "Animal Health" || cat === "animalhealth")
-            && animalBtn.className.split(" ").length === 2
-        )
-            animalBtn.click();
-
-        if (
-            (cat === "Medical Supplies" || cat === "medicalsupplies")
-            && medicalBtn.className.split(" ").length === 2
-        )
-            medicalBtn.click();
-
-        if (
-            (cat === "For Sale" || cat === "forsale") 
-            && dealBtn.className.split(" ").length === 2)
-            dealBtn.click();
-
-        if (
-            (cat === "Weekly Specials" || cat === "weeklyspecials")
-            && specialsBtn.className.split(" ").length === 2
-        )
-        specialsBtn.click();
-    }
-    else {
+      if (
+        cat === "Favorites" &&
+        favBtn?.className.split(" ")?.length === 2 &&
+        auth
+      ) {
+        favBtn.click();
+      } else {
         pharmaBtn.click();
+      }
+
+      if (
+        cat === "Pharmaceuticals" &&
+        pharmaBtn.className.split(" ").length === 2
+      )
+        pharmaBtn.click();
+
+      if (
+        (cat === "Animal Health" || cat === "animalhealth") &&
+        animalBtn.className.split(" ").length === 2
+      )
+        animalBtn.click();
+
+      if (
+        (cat === "Medical Supplies" || cat === "medicalsupplies") &&
+        medicalBtn.className.split(" ").length === 2
+      )
+        medicalBtn.click();
+
+      if (
+        (cat === "For Sale" || cat === "forsale") &&
+        dealBtn.className.split(" ").length === 2
+      )
+        dealBtn.click();
+
+      // if (
+      //   (cat === "Weekly Specials" || cat === "weeklyspecials") &&
+      //   specialsBtn.className.split(" ").length === 2
+      // )
+      //   specialsBtn.click();
+    } else {
+      pharmaBtn.click();
     }
   };
 
@@ -127,7 +126,7 @@ export default (props) => {
                       My Favorites
                     </button>
                   )}
-                  <button
+                  {/* <button
                     id="specials-accordion-btn"
                     className={
                       "accordion-button collapsed" +
@@ -140,7 +139,7 @@ export default (props) => {
                     onClick={() => setCategory("Weekly Specials")}
                   >
                     Weekly Specials
-                  </button>
+                  </button> */}
                   <button
                     id="deals-accordion-btn"
                     className={

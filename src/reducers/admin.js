@@ -1,5 +1,6 @@
 import {
   GETUSERS,
+  GETUSER,
   GETCUSTOMPRODUCTS,
   RESETCUSTOMPRODUCTS,
   CREATECUSTOMPRODUCT,
@@ -29,7 +30,6 @@ import {
   GETCUSTOMPRODUCTNETSUITE,
   UPSERTCUSTOMPRODUCTNETSUITE,
   REMOVECUSTOMPRODUCTNETSUITE,
-  GETCUSTOMPRODUCTNETSUITEERROR,
   UPSERTCUSTOMPRODUCTNETSUITEERROR,
   REMOVECUSTOMPRODUCTNETSUITEERROR,
   GETORDERLOGS,
@@ -40,12 +40,31 @@ import {
 } from "../constants/actionTypes";
 
 const adminReducer = (
-  state = { users: [], customProducts: null, customProductNetsuite: [], logs: [], productQueue: [], cronMinutes: null, cronHours: null, cronDayOfWeek: null },
+  state = {
+    users: [],
+    customProducts: null,
+    customProductNetsuite: [],
+    logs: [],
+    productQueue: [],
+    cronMinutes: null,
+    cronHours: null,
+    cronDayOfWeek: null,
+  },
   action
 ) => {
   switch (action.type) {
     case GETUSERS:
       return { ...state, users: action.data.Users };
+    case GETUSER:
+      const getUserIndex = state.users.findIndex(
+        (user) => user.username === action.data.username
+      );
+
+      if (getUserIndex !== -1) {
+        state.users.splice(getUserIndex, 1, action.data);
+      }
+
+      return { ...state, getUserError: null };
     case GETCUSTOMPRODUCTS:
       return { ...state, customProducts: action.data, loginError: false };
     case RESETCUSTOMPRODUCTS:
@@ -113,29 +132,29 @@ const adminReducer = (
     case CONFIRMUSERERROR:
       return { ...state, confirmError: action?.data };
     case ENABLEUSER:
-        const enableUserIndex = state.users.findIndex(
-            (user) => user.username === action.data.username
-        );
-    
-        if (enableUserIndex !== -1) {
-            state.users.splice(enableUserIndex, 1, action.data);
-        }
+      const enableUserIndex = state.users.findIndex(
+        (user) => user.username === action.data.username
+      );
 
-        return { ...state, enableUserError: null }
+      if (enableUserIndex !== -1) {
+        state.users.splice(enableUserIndex, 1, action.data);
+      }
+
+      return { ...state, enableUserError: null };
     case ENABLEUSERERROR:
-        return { ...state, enableUserError: action?.data }
+      return { ...state, enableUserError: action?.data };
     case DISABLEUSER:
-        const disableUserIndex = state.users.findIndex(
-            (user) => user.username === action.data.username
-        );
-    
-        if (disableUserIndex !== -1) {
-            state.users.splice(disableUserIndex, 1, action.data);
-        }
+      const disableUserIndex = state.users.findIndex(
+        (user) => user.username === action.data.username
+      );
 
-        return { ...state, disableUserError: null }
+      if (disableUserIndex !== -1) {
+        state.users.splice(disableUserIndex, 1, action.data);
+      }
+
+      return { ...state, disableUserError: null };
     case DISABLEUSERERROR:
-        return { ...state, disableUserError: action?.data }
+      return { ...state, disableUserError: action?.data };
     case IMPORTUSER:
       state.users.unshift(action.data);
 
@@ -209,48 +228,55 @@ const adminReducer = (
     case REMOVECUSTOMPRODUCTNETSUITEERROR:
       return { ...state, removeCustomError: action.data, upsertError: null };
     case GETORDERLOGS: {
-        return { ...state, logs: action.data }
+      return { ...state, logs: action.data };
     }
     case GETPRODUCTQUEUE:
-        return { ...state, productQueue: action.data }
+      return { ...state, productQueue: action.data };
     case UPSERTPRODUCTTOQUEUE:
-        const { id, name, category, oldPrice, newPrice } = action.data
+      const { id, name, category, oldPrice, newPrice } = action.data;
 
-        const PQUpsertIndex = state.productQueue.findIndex(
-            (product) => product.id === id
-        )
+      const PQUpsertIndex = state.productQueue.findIndex(
+        (product) => product.id === id
+      );
 
-        if (PQUpsertIndex !== -1) {//
-            const newProductQueueItem = state.productQueue[PQUpsertIndex]
+      if (PQUpsertIndex !== -1) {
+        //
+        const newProductQueueItem = state.productQueue[PQUpsertIndex];
 
-            state.productQueue.splice(
-                PQUpsertIndex,
-                1,
-                { 
-                    ...newProductQueueItem,
-                    newPrice: newPrice
-                }
-            )
-        }
-        else {//does not exist 
-            state.productQueue.push({
-                id,
-                name,
-                category,
-                oldPrice,
-                newPrice
-            })
-        }
+        state.productQueue.splice(PQUpsertIndex, 1, {
+          ...newProductQueueItem,
+          newPrice: newPrice,
+        });
+      } else {
+        //does not exist
+        state.productQueue.push({
+          id,
+          name,
+          category,
+          oldPrice,
+          newPrice,
+        });
+      }
 
-        return { ...state }
+      return { ...state };
     case GETAUTOMATIONDATE:
-        const { minutes, hours, dayOfWeek } = action.data
+      const { minutes, hours, dayOfWeek } = action.data;
 
-        return { ...state, cronMinutes: minutes, cronHours: hours, cronDayOfWeek: dayOfWeek }
+      return {
+        ...state,
+        cronMinutes: minutes,
+        cronHours: hours,
+        cronDayOfWeek: dayOfWeek,
+      };
     case SETAUTOMATIONDATE:
-        const { newMinutes, newHours, newDayOfWeek } = action.data
-        
-        return { ...state, cronMinutes: minutes, cronHours: hours, cronDayOfWeek: dayOfWeek }
+      const { newMinutes, newHours, newDayOfWeek } = action.data;
+
+      return {
+        ...state,
+        cronMinutes: minutes,
+        cronHours: hours,
+        cronDayOfWeek: dayOfWeek,
+      };
     default:
       return state;
   }

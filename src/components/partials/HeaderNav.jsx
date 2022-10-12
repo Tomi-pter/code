@@ -255,12 +255,12 @@ export const HeaderNav = () => {
                       My Favorites
                     </Link>
                   )}
-                  <Link
+                  {/* <Link
                     className="dropdown-item"
                     to="/shop?category=Weekly Specials"
                   >
                     Weekly Specials
-                  </Link>
+                  </Link> */}
                   <Link className="dropdown-item" to="/shop?category=For Sale">
                     Deals
                   </Link>

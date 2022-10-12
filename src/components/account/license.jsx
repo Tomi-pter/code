@@ -80,7 +80,7 @@ export const License = ({ account }) => {
         <div className="col-lg-6">
           <div className="form-group d-flex flex-column">
             <label htmlFor="stateLicenseExpirationDate">
-              State License Epiration Date
+              State License Expiration Date
             </label>
             {disable ? (
               <p>{account?.accountData?.stateLicenseExpirationDate || ""}</p>

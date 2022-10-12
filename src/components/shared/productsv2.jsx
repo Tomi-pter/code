@@ -274,6 +274,7 @@ export const Productsv2 = ({
   useEffect(() => {
     setQuantity(1);
     setSelectedProduct(null);
+    setIsCartLoading(false);
     // setIsLoading(false);
   }, [cart]);
 

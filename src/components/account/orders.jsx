@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import NoImage from "../../assets/img/unavailable.svg";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getOrders, getOrder } from "../../actions/account";
+import { getOrders, getOrder, getPedigree } from "../../actions/account";
 
 import ReactPaginate from "react-paginate";
 
@@ -63,6 +63,7 @@ export const OrdersHistory = () => {
                 <a
                   href={`https://www.fedex.com/fedextrack/?trknbr=${order.trackingNumber}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   #{order.trackingNumber}
                 </a>
@@ -74,7 +75,8 @@ export const OrdersHistory = () => {
             {order.details.shipComplete ? "Shipped" : "Processing"}
           </div>
         </div>
-        {order.details.items.length > 0 && (
+
+        {order.details.items.length > 0 && status !== "Pedigree" && (
           <div className="accordion" id={`detailsContainer${index}`}>
             <div className="card">
               <div className="card-header" id="headingOne">
@@ -160,23 +162,47 @@ export const OrdersHistory = () => {
           </div>
         )}
 
-        {order.details.items.length === 0 && order.id !== selected && (
-          <button
-            className="btn-secondary d-block ml-auto mr-auto"
-            onClick={() => handleLoadMore(order.id)}
-          >
-            Load more details
-          </button>
-        )}
+        {order.pedigrees &&
+          status === "Pedigree" &&
+          order.pedigrees.map((pedigree) => (
+            <div
+              key={pedigree.id}
+              className="d-flex justify-content-between align-items-center"
+            >
+              {pedigree.name}
+              <a href={pedigree.url} target="_blank" rel="noopener noreferrer">
+                Open
+              </a>
+            </div>
+          ))}
+
+        {((order.details.items.length === 0 && status !== "Pedigree") ||
+          (!order.pedigrees && status === "Pedigree")) &&
+          order.id !== selected && (
+            <button
+              className="btn-secondary d-block ml-auto mr-auto"
+              onClick={() =>
+                status !== "Pedigree"
+                  ? handleLoadMore(order.id)
+                  : handleGetPedigree(order.id, order.salesOrderNumber)
+              }
+            >
+              {status !== "Pedigree" ? "Load more details" : "Get Pedigree"}
+            </button>
+          )}
+
         {getLoading && order.id === selected && (
-          <div className="text-center">Loading more details...</div>
+          <div className="text-center">
+            {status !== "Pedigree"
+              ? "Loading more details..."
+              : "Loading pedigree..."}
+          </div>
         )}
         <div className="mt-2">
           <div className="d-flex align-items-center justify-content-between mt-5">
             <div className="amount">Total:</div>
             <div>${order.details.total.toFixed(2)}</div>
           </div>
-          {/* </div> */}
         </div>
       </div>
     );
@@ -204,6 +230,12 @@ export const OrdersHistory = () => {
     setSelected(orderID);
     setGetLoading(true);
     dispatch(getOrder(user?.username, orderID));
+  };
+
+  const handleGetPedigree = (orderId, salesOrderNumber) => {
+    setSelected(orderId);
+    setGetLoading(true);
+    dispatch(getPedigree(user?.username, salesOrderNumber));
   };
 
   const handleSearch = (e) => {
@@ -241,7 +273,7 @@ export const OrdersHistory = () => {
   }, [account]);
 
   useEffect(() => {
-    let s = status === "All" ? null : status;
+    let s = ["All", "Pedigree"].includes(status) ? null : status;
     if (search !== "") {
       clearTimeout(delayTimer);
       setDelayTimer(
@@ -346,6 +378,11 @@ export const OrdersHistory = () => {
             </li>
             <li className={status === "Shipped" ? "active" : ""}>
               <div onClick={() => handleStatusClick("Shipped")}>Shipped</div>
+            </li>
+            <li className={status === "Pedigree" ? "active" : ""}>
+              <div onClick={() => handleStatusClick("Pedigree")}>
+                T3 Pedigree
+              </div>
             </li>
           </ul>
         )}

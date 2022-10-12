@@ -61,6 +61,9 @@ export const getOrders = (
 export const getOrder = (username, orderID) =>
   API.get(`/${username}/orders/${orderID}`);
 
+export const getPedigree = (username, salesOrderNumber) =>
+  API.get(`/${username}/sales-order/${salesOrderNumber}/pedigree`);
+
 export const putAccount = (username, accountData) =>
   API.put(`/user/${username}`, accountData);
 export const putLicense = (username, licenseData) =>

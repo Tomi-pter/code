@@ -37,6 +37,24 @@ const accountReducer = (state = initialState, action) => {
         ...state,
         errorGetOrder: null,
       };
+    case actionType.GETPEDIGREE:
+      const orderPedigreeIndex = state.ordersData.orders.findIndex(
+        (order) => order.salesOrderNumber === action.data.salesOrderNumber
+      );
+
+      const newOrderData = {
+        ...state.ordersData.orders[orderPedigreeIndex],
+        pedigrees: action.data.pedigrees,
+      };
+
+      if (orderPedigreeIndex !== -1) {
+        state.ordersData.orders.splice(orderPedigreeIndex, 1, newOrderData);
+      }
+
+      return {
+        ...state,
+        errorGetOrderPedigree: null,
+      };
     case actionType.PUTACCOUNT:
       const newData = {
         ...state.accountData,

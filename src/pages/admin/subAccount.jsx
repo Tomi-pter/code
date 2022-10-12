@@ -7,6 +7,7 @@ import {
   enableUser,
   disableUser,
   createSubAccount,
+  getUser,
 } from "../../actions/admin";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -45,6 +46,8 @@ export const SubAccount = ({ mainCompany }) => {
   const [actionLoading, setActionLoading] = useState(false);
   const [formData, setFormData] = useState(initialState);
   const [isDisabled, setDisabled] = useState(true);
+  const [infoLoading, setInfoLoading] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
 
   const checkPasswordLenght = formData.password.length >= 8 ? true : false;
   const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(formData.password);
@@ -102,6 +105,13 @@ export const SubAccount = ({ mainCompany }) => {
     setLoginLoading(true);
     setSelectedUser(user.username);
     dispatch(loginAdminUser(formData, profile));
+  };
+
+  const handleGetInfo = (user) => {
+    setUserInfo(null);
+    setInfoLoading(true);
+    setSelectedUser(user.username);
+    dispatch(getUser(user));
   };
 
   const handleAlert = (msg, type) => {
@@ -168,6 +178,14 @@ export const SubAccount = ({ mainCompany }) => {
     if (actionLoading && !admin.createSubAccountError) {
       document.getElementById("closeImportUserModal").click();
       setFormData(initialState);
+    }
+    if (infoLoading && selectedUser !== "") {
+      const selectedUserInfo = admin.users.find(
+        (u) => u.username === selectedUser
+      );
+
+      setUserInfo(selectedUserInfo);
+      setInfoLoading(false);
     }
     setActionLoading(false);
     setConfirmLoading(false);
@@ -258,6 +276,14 @@ export const SubAccount = ({ mainCompany }) => {
                       ) : (
                         "Login"
                       )}
+                    </button>
+                    <button
+                      className="btn btn-success ml-3"
+                      onClick={() => handleGetInfo(user)}
+                      data-toggle="modal"
+                      data-target="#infoModal"
+                    >
+                      Info
                     </button>
                   </td>
                 </tr>
@@ -473,6 +499,77 @@ export const SubAccount = ({ mainCompany }) => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="infoModal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="userName"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            {!infoLoading ? (
+              <>
+                <div className="modal-header">
+                  <h3 className="modal-title" id="userName">
+                    {userInfo?.company}
+                  </h3>
+                  <button
+                    id="closeInfoModal"
+                    type="button"
+                    className="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <div className="row">
+                    <div className="col-5">
+                      <p>
+                        Name:{" "}
+                        {`${userInfo?.information?.given_name} ${userInfo?.information?.family_name}`}
+                      </p>
+                      <p>Email: {userInfo?.information?.email} </p>
+                      <p>
+                        Phone Number: {userInfo?.information?.phone_number}{" "}
+                      </p>
+                    </div>
+                    <div className="col-7">
+                      <p>
+                        State License:{" "}
+                        {userInfo?.information?.stateLicenseNumber}
+                      </p>
+                      <p>
+                        State License Expiration Date:{" "}
+                        {userInfo?.information?.stateLicenseExpirationDate}
+                      </p>
+                      <p>DEA: {userInfo?.information?.dea} </p>
+                      <p>
+                        DEA Expiration Date: {userInfo?.information?.deaExpiry}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div
+                className="modal-body d-flex align-items-center justify-content-center"
+                style={{ minHeight: "400px" }}
+              >
+                <div
+                  className="spinner-border text-light spinner-border-lg"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

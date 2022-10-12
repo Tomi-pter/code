@@ -3,6 +3,7 @@ import {
   GETNETSUITEACCOUNT,
   GETORDERS,
   GETORDER,
+  GETPEDIGREE,
   GETAVATAR,
   POSTAVATAR,
   ERRORAVATAR,
@@ -95,6 +96,18 @@ export const getOrder = (username, orderID) => async (dispatch) => {
   try {
     const { data } = await api.getOrder(username, orderID);
     dispatch({ type: GETORDER, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPedigree = (username, salesOrderNumber) => async (dispatch) => {
+  try {
+    const { data: pedigrees } = await api.getPedigree(
+      username,
+      salesOrderNumber
+    );
+    dispatch({ type: GETPEDIGREE, data: { pedigrees, salesOrderNumber } });
   } catch (error) {
     console.log(error);
   }

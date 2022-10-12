@@ -1,5 +1,6 @@
 import {
   GETUSERS,
+  GETUSER,
   GETCUSTOMPRODUCTS,
   RESETCUSTOMPRODUCTS,
   CREATECUSTOMPRODUCT,
@@ -29,7 +30,6 @@ import {
   GETCUSTOMPRODUCTNETSUITE,
   UPSERTCUSTOMPRODUCTNETSUITE,
   REMOVECUSTOMPRODUCTNETSUITE,
-  GETCUSTOMPRODUCTNETSUITEERROR,
   UPSERTCUSTOMPRODUCTNETSUITEERROR,
   REMOVECUSTOMPRODUCTNETSUITEERROR,
   GETORDERLOGS,
@@ -46,6 +46,18 @@ export const getUsers = () => async (dispatch) => {
     const { data } = await api.getUsers();
 
     dispatch({ type: GETUSERS, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUser = (user) => async (dispatch) => {
+  try {
+    const { data: userInfo } = await api.getAccount(user.username);
+
+    const newData = { ...user, information: userInfo };
+
+    dispatch({ type: GETUSER, data: newData });
   } catch (error) {
     console.log(error);
   }
@@ -96,7 +108,7 @@ export const updateCustomProduct = (id, formData) => async (dispatch) => {
 
 export const removeCustomProduct = (id) => async (dispatch) => {
   try {
-    const { data } = await api.removeCustomProduct(id);
+    await api.removeCustomProduct(id);
 
     dispatch({ type: REMOVECUSTOMPRODUCT, id });
   } catch (error) {
@@ -149,7 +161,7 @@ export const confirmUser = (formData, user) => async (dispatch) => {
 
 export const enableUser = (user) => async (dispatch) => {
   try {
-    const response = await api.enableUser(user.username);
+    await api.enableUser(user.username);
 
     const data = { ...user, isEnabled: true };
 
@@ -162,7 +174,7 @@ export const enableUser = (user) => async (dispatch) => {
 
 export const disableUser = (user) => async (dispatch) => {
   try {
-    const response = await api.disableUser(user.username);
+    await api.disableUser(user.username);
 
     const data = { ...user, isEnabled: false };
 

@@ -81,17 +81,17 @@ export const Form = () => {
   const submit = () => {
     setIsLoading(true);
     setSubmitted(true);
-    let stringStateExpirationDate = moment(
-      formData.stateLicenseExpirationDate
-    ).format("YYYY-MM-DD");
-    let stringDeaExpiry = moment(formData.deaExpiry).format("YYYY-MM-DD");
-    dispatch(
-      signUp({
+    //State License Number & Expiration is required
+    let form = {
         ...formData,
-        stateLicenseExpirationDate: stringStateExpirationDate,
-        deaExpiry: stringDeaExpiry,
-      })
-    );
+        stateLicenseExpirationDate: moment(formData.stateLicenseExpirationDate).format('YYYY-MM-DD')
+    }
+    //DEA Number & Expiration is optional
+    if (formData.deaExpiry !== '') {
+        form.deaExpiry = moment(formData.stateLicenseExpirationDate).format('YYYY-MM-DD')
+    }
+
+    dispatch(signUp(form))
   };
 
   useEffect(() => {
@@ -202,6 +202,7 @@ export const Form = () => {
               </p>
             </div>
             <div className="">
+                {console.log(formData)}
               <Input
                 label="First Name"
                 name="givenName"
@@ -284,6 +285,7 @@ export const Form = () => {
                   className="form-control"
                   value={formData.stateLicenseExpirationDate}
                   placeholder="State License Expiry Date"
+                  options={{ minDate: 'today' }}
                   onChange={([date]) => {
                     setFormData({
                       ...formData,
@@ -304,6 +306,7 @@ export const Form = () => {
                   className="form-control"
                   value={formData.deaExpiry}
                   placeholder="DEA Expiry Date"
+                  options={{ minDate: 'today' }}
                   onChange={([date]) => {
                     setFormData({
                       ...formData,

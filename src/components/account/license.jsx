@@ -25,7 +25,7 @@ export const License = ({ account }) => {
   };
 
   const handleDateChange = (date, dateString, name) => {
-    updateFormData({ ...formData, [name]: dateString });
+    updateFormData({ ...formData, [name]: moment(dateString).format('YYYY-MM-DD') });
   };
 
   const handleSubmit = (e) => {

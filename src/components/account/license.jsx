@@ -24,9 +24,15 @@ export const License = ({ account }) => {
     updateFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleDateChange = (date, dateString, name) => {
-    updateFormData({ ...formData, [name]: moment(dateString).format('YYYY-MM-DD') });
-  };
+    const handleDateChange = (date, dateString, name) => {
+        let dateValue = moment(dateString).format('YYYY-MM-DD');
+
+        if (date === null && dateString === '') {
+            dateValue = ''
+        }
+
+        updateFormData({ ...formData, [name]: dateValue });
+    };
 
   const handleSubmit = (e) => {
     setIsLoading(true);
@@ -85,20 +91,20 @@ export const License = ({ account }) => {
             {disable ? (
               <p>{account?.accountData?.stateLicenseExpirationDate || ""}</p>
             ) : (
-              <DatePicker
-                value={
-                  formData.stateLicenseExpirationDate !== ""
-                    ? moment(formData.stateLicenseExpirationDate)
-                    : moment()
-                }
-                onChange={(date, dateString) =>
-                  handleDateChange(
-                    date,
-                    dateString,
-                    "stateLicenseExpirationDate"
-                  )
-                }
-              />
+                <DatePicker
+                    value={
+                        formData.stateLicenseExpirationDate !== ''
+                            ? moment(formData.stateLicenseExpirationDate)
+                            : ''
+                    }
+                    onChange={(date, dateString) =>{
+                        handleDateChange(
+                            date,
+                            dateString,
+                            "stateLicenseExpirationDate"
+                        )
+                    }}
+                />
             )}
           </div>
         </div>
@@ -120,20 +126,20 @@ export const License = ({ account }) => {
         <div className="col-lg-6">
           <div className="form-group d-flex flex-column">
             <label htmlFor="deaExpiry">DEA Expiry</label>
-            {disable ? (
-              <p>{account?.accountData?.deaExpiry || ""}</p>
-            ) : (
-              <DatePicker
-                value={
-                  formData.deaExpiry !== ""
-                    ? moment(formData.deaExpiry)
-                    : moment()
-                }
-                onChange={(date, dateString) =>
-                  handleDateChange(date, dateString, "deaExpiry")
-                }
-              />
-            )}
+            {
+                disable
+                ? <p>{account?.accountData?.deaExpiry || ''}</p>
+                : <DatePicker
+                    value={
+                    formData.deaExpiry !== ''
+                        ? moment(formData.deaExpiry)
+                        : ''
+                    }
+                    onChange={(date, dateString) =>
+                        handleDateChange(date, dateString, 'deaExpiry')
+                    }
+                />
+            }
           </div>
         </div>
       </div>

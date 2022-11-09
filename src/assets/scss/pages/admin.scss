@@ -161,6 +161,27 @@
   .tab-pane {
     max-width: 100%;
   }
+
+  .pricing-group-table {
+    min-height: calc(100vh - 319px);
+    max-height: calc(100vh - 319px);
+    overflow: auto;
+  }
+
+  .add-pricing-group {
+    gap: 20px;
+  }
+
+  .group-search-product:focus-within {
+    .product-list-container {
+      display: block;
+    }
+  }
+
+  .group-search-product .product-list-container {
+    display: none;
+    bottom: 100%;
+  }
   /* width */
   ::-webkit-scrollbar {
     width: 8px;

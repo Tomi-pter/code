@@ -220,6 +220,19 @@ export const upsertProductToQueue = (product) =>
 export const getAutomationDate = () => API.get(`/admin/automation-date`);
 export const setAutomationDate = (automationDate) =>
   API.post(`/admin/automation-date`, automationDate);
+
+export const getGroupPricing = () => API.get(`/group-pricing`);
+export const getGroupPricingById = (groupPricingId) =>
+  API.get(`/group-pricing/${groupPricingId}`);
+export const createGroupPricing = (formData) =>
+  API.post(`/group-pricing`, formData);
+export const addGroupPricingProduct = (groupPricingId, formData) =>
+  API.post(`/group-pricing/${groupPricingId}`, formData);
+export const editGroupPricingProduct = (groupPricingId, productId, formData) =>
+  API.put(`/group-pricing/${groupPricingId}/update/${productId}`, formData);
+export const deleteGroupPricingProduct = (groupPricingId, productId) =>
+  API.delete(`/group-pricing/${groupPricingId}/remove/${productId}`);
+
 // PRODUCTS v2
 export const getCategories = () => API.get(`/products/categories`);
 export const getProductsv2 = () => API.get(`/products`);

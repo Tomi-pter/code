@@ -12,6 +12,7 @@ import { AdminProtectedRoutes } from "../../components/adminProtectedRoutes";
 import Company from "../../pages/admin/company";
 import OrderLogs2 from "../../pages/admin/logs2";
 import WeeklySpecial from "../../pages/admin/weeklySpecial";
+import GroupPricing from "../../pages/admin/groupPricing";
 
 import {
   getUsers,
@@ -222,6 +223,15 @@ export const AdminDashboard = () => {
                 activeClassName="active"
               >
                 Weekly Special
+              </NavLink>
+            </li>
+            <li class="nav-item">
+              <NavLink
+                className="nav-link"
+                to="/admin/group-pricing"
+                activeClassName="active"
+              >
+                Group Pricing
               </NavLink>
             </li>
           </ul>
@@ -449,6 +459,10 @@ export const AdminDashboard = () => {
           <AdminProtectedRoutes
             path="/admin/companies/:id"
             component={Company}
+          />
+          <AdminProtectedRoutes
+            path="/admin/group-pricing"
+            component={GroupPricing}
           />
         </Switch>
 

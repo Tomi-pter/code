@@ -37,6 +37,12 @@ import {
   UPSERTPRODUCTTOQUEUE,
   GETAUTOMATIONDATE,
   SETAUTOMATIONDATE,
+  GETGROUPPRICING,
+  GETGROUPPRICINGBYID,
+  CREATEGROUPPRICING,
+  ADDGROUPPRICINGPRODUCT,
+  EDITGROUPPRICINGPRODUCT,
+  DELETEGROUPPRICINGPRODUCT,
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
@@ -141,8 +147,10 @@ export const loginAdmin = (formData, route) => async (dispatch) => {
 
     route.push("/admin");
   } catch (error) {
-    const { data } = error.response;
-    dispatch({ type: LOGINADMINERROR, data });
+    dispatch({
+      type: LOGINADMINERROR,
+      data: { message: "Login Error. Try again later!" },
+    });
   }
 };
 
@@ -387,3 +395,67 @@ export const setAutomationDate = (automationDate) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const getGroupPricing = () => async (dispatch) => {
+  try {
+    const { data } = await api.getGroupPricing();
+
+    dispatch({ type: GETGROUPPRICING, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createGroupPricing = (formData) => async (dispatch) => {
+  try {
+    const { data } = await api.createGroupPricing(formData);
+
+    dispatch({ type: CREATEGROUPPRICING, data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const addGroupPricingProduct =
+  (groupPricingId, formData) => async (dispatch) => {
+    try {
+      await api.addGroupPricingProduct(groupPricingId, formData);
+
+      dispatch({
+        type: ADDGROUPPRICINGPRODUCT,
+        data: { groupPricingId, product: formData },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const editGroupPricingProduct =
+  (groupPricingId, productId, formData) => async (dispatch) => {
+    try {
+      await api.editGroupPricingProduct(groupPricingId, productId, {
+        price: formData.price,
+      });
+
+      dispatch({
+        type: EDITGROUPPRICINGPRODUCT,
+        data: { groupPricingId, productId, product: formData },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const deleteGroupPricingProduct =
+  (groupPricingId, productId) => async (dispatch) => {
+    try {
+      await api.deleteGroupPricingProduct(groupPricingId, productId);
+
+      dispatch({
+        type: DELETEGROUPPRICINGPRODUCT,
+        data: { groupPricingId, productId },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };

@@ -53,7 +53,7 @@ export default (props) => {
         medicalBtn.click();
 
       if (
-        (cat === "For Sale" || cat === "forsale") &&
+        (cat === "Specials" || cat === "specials") &&
         dealBtn.className.split(" ").length === 2
       )
         dealBtn.click();
@@ -103,7 +103,7 @@ export default (props) => {
                     value={category}
                   >
                     {auth && <option value="Favorites">My Favorites</option>}
-                    <option value="For Sale">Specials</option>
+                    <option value="Specials">Specials</option>
                     <option value="Pharmaceuticals">Pharmaceuticals</option>
                     <option value="Animal Health">Animal Health</option>
                     <option value="Medical Supplies">Medical/Surgical</option>
@@ -144,13 +144,13 @@ export default (props) => {
                     id="deals-accordion-btn"
                     className={
                       "accordion-button collapsed" +
-                      (category === "For Sale" ? " active" : "")
+                      (category === "Specials" ? " active" : "")
                     }
                     type="button"
                     data-toggle="collapse"
                     data-target="#accordion5"
                     aria-expanded="false"
-                    onClick={() => setCategory("For Sale")}
+                    onClick={() => setCategory("Specials")}
                   >
                     Specials
                   </button>

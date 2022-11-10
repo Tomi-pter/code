@@ -92,7 +92,7 @@ const getIntegerInStringArray = (string) => {
 };
 
 const roundToTwo = (num) => {
-  return +(Math.round(num + "e+2") + "e-2");
+  return +(Math.round(num + "e+3") + "e-3");
 };
 
 export const Product = ({

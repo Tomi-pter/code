@@ -54,7 +54,7 @@ export default (props) => {
     const productToAdd = {
       ...formData.product,
       productId: parseInt(formData.product.productId),
-      price: parseInt(formData.newPrice),
+      price: parseFloat(formData.newPrice),
     };
     dispatch(addGroupPricingProduct(groupId, productToAdd));
   };
@@ -230,7 +230,7 @@ export default (props) => {
                                         product.productId,
                                         {
                                           ...selectedProduct,
-                                          price: parseInt(
+                                          price: parseFloat(
                                             selectedProduct.price
                                           ),
                                         }

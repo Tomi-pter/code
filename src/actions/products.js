@@ -92,7 +92,7 @@ export const requestStock = (username, formData) => async (dispatch) => {
 
     dispatch({
       type: REQUESTSTOCK,
-      payload: { ...formData, lastRequested: new Date().getTime() },
+      payload: { ...formData, salesRep: data.salesRep, lastRequested: new Date().getTime() },
     });
   } catch (error) {
     dispatch({ type: REQUESTSTOCKERROR, payload: { message: error.message } });

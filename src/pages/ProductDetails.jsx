@@ -417,9 +417,11 @@ export default (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {products.requestStockSuccess
-            ? "Thanks! A Sales Representative will be in touch with you shortly."
-            : "Customer does not have a sales rep assigned."}
+          {
+            products.requestStockSuccess
+              ? `Thanks! ${ products.salesRep === null ? 'A Sales Representative' : `Sales Representative ${products.salesRep}`} will be in touch with you shortly.`
+              : "Customer does not have a sales rep assigned."
+          }
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>

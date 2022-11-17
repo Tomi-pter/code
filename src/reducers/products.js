@@ -24,6 +24,7 @@ export default (
     favproductv2: null,
     adminProducts: null,
     prefproduct: [],
+    salesRep: null
   },
   action
 ) => {
@@ -39,9 +40,11 @@ export default (
     case GETREQUESTPRICE:
       return { ...state, requestedProductPrice: action.payload };
     case REQUESTSTOCK:
+      const { salesRep } = action.payload
+
       state.requestedProductPrice.push(action.payload);
 
-      return { ...state, requestStockSuccess: true };
+      return { ...state, requestStockSuccess: true, salesRep: salesRep };
     case REQUESTSTOCKERROR:
       return { ...state, requestStockSuccess: false };
     case GETPRODUCTSV2:

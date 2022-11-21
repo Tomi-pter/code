@@ -43,6 +43,8 @@ import {
   ADDGROUPPRICINGPRODUCT,
   EDITGROUPPRICINGPRODUCT,
   DELETEGROUPPRICINGPRODUCT,
+  ADDGROUPPRICINGUSER,
+  REMOVEGROUPPRICINGUSER,
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
@@ -454,6 +456,34 @@ export const deleteGroupPricingProduct =
       dispatch({
         type: DELETEGROUPPRICINGPRODUCT,
         data: { groupPricingId, productId },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const addGroupPricingUser =
+  (user, groupPricingId) => async (dispatch) => {
+    try {
+      await api.addGroupPricingUser(user.username, { groupPricingId });
+
+      dispatch({
+        type: ADDGROUPPRICINGUSER,
+        data: { user, groupPricingId },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const removeGroupPricingUser =
+  (user, groupPricingId) => async (dispatch) => {
+    try {
+      await api.removeGroupPricingUser(user.username, { groupPricingId });
+
+      dispatch({
+        type: REMOVEGROUPPRICINGUSER,
+        data: { user, groupPricingId },
       });
     } catch (error) {
       console.log(error);

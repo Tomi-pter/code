@@ -43,6 +43,8 @@ import {
   ADDGROUPPRICINGPRODUCT,
   EDITGROUPPRICINGPRODUCT,
   DELETEGROUPPRICINGPRODUCT,
+  ADDGROUPPRICINGUSER,
+  REMOVEGROUPPRICINGUSER,
 } from "../constants/actionTypes";
 
 const adminReducer = (
@@ -351,6 +353,27 @@ const adminReducer = (
       }
 
       return { ...state, deleteGroupPricingProductError: null };
+    case ADDGROUPPRICINGUSER:
+      const groupAddUserIndex = state.users.findIndex(
+        (user) => user.username === action.data.user.username
+      );
+
+      if (groupAddUserIndex !== -1) {
+        state.users[groupAddUserIndex].groupPricingId =
+          action.data.groupPricingId;
+      }
+
+      return { ...state, addGroupPricingUserError: null };
+    case REMOVEGROUPPRICINGUSER:
+      const groupRemoveUserIndex = state.users.findIndex(
+        (user) => user.username === action.data.user.username
+      );
+
+      if (groupRemoveUserIndex !== -1) {
+        state.users[groupRemoveUserIndex].groupPricingId = "";
+      }
+
+      return { ...state, removeGroupPricingUserError: null };
     default:
       return state;
   }

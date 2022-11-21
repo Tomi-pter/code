@@ -197,8 +197,8 @@ export const AdminDashboard = () => {
     <div className="d-flex align-items-center justify-content-center admin-pages main-admin">
       <div className="container">
         <div className="d-flex align-items-center justify-content-between mt-3 mb-4 header">
-          <ul class="w-100 nav nav-tabs main-nav">
-            <li class="nav-item">
+          <ul className="w-100 nav nav-tabs main-nav">
+            <li className="nav-item">
               <NavLink
                 className="nav-link"
                 to="/admin/companies"
@@ -207,7 +207,7 @@ export const AdminDashboard = () => {
                 Companies
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink
                 className="nav-link"
                 to="/admin/logs"
@@ -216,7 +216,7 @@ export const AdminDashboard = () => {
                 Order Logs
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink
                 className="nav-link"
                 to="/admin/weekly-specials"
@@ -225,7 +225,7 @@ export const AdminDashboard = () => {
                 Weekly Special
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink
                 className="nav-link"
                 to="/admin/group-pricing"
@@ -401,7 +401,7 @@ export const AdminDashboard = () => {
                             onChange={(e) => handleUpdateUser(user, e)}
                           />
                         </td>
-                        <td class="no-wrap">
+                        <td className="no-wrap">
                           <button
                             className="btn btn-secondary mr-4"
                             onClick={() => handleSync(user)}

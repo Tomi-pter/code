@@ -232,6 +232,10 @@ export const editGroupPricingProduct = (groupPricingId, productId, formData) =>
   API.put(`/group-pricing/${groupPricingId}/update/${productId}`, formData);
 export const deleteGroupPricingProduct = (groupPricingId, productId) =>
   API.delete(`/group-pricing/${groupPricingId}/remove/${productId}`);
+export const addGroupPricingUser = (username, formData) =>
+  API.post(`/user/${username}/add-to-group`, formData);
+export const removeGroupPricingUser = (username, formData) =>
+  API.post(`/user/${username}/remove-from-group`, formData);
 
 // PRODUCTS v2
 export const getCategories = () => API.get(`/products/categories`);

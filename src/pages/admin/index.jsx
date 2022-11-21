@@ -45,6 +45,7 @@ export const AdminDashboard = () => {
   const [exportCsv, setExportCsv] = useState(false);
   const [editNetsuiteID, setEditNetsuiteID] = useState(false);
   const [netsuiteID, setNetsuiteID] = useState("");
+  const [filterDisabledUser, setFilterDisabledUser] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -114,15 +115,20 @@ export const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    if (search === "") {
-      setCompanies(admin?.users);
-    } else {
-      const filterCompanies = admin?.users.filter((user) =>
+    let filterCompanies = admin?.users.filter((user) => !user.subAccount);
+
+    if (search !== "") {
+      filterCompanies = filterCompanies.filter((user) =>
         user.company.toLowerCase().includes(search.toLowerCase())
       );
-      setCompanies(filterCompanies);
     }
-  }, [search]);
+
+    if (filterDisabledUser) {
+      filterCompanies = filterCompanies.filter((user) => user.isEnabled);
+    }
+
+    setCompanies(filterCompanies);
+  }, [search, filterDisabledUser, admin]);
 
   useEffect(() => {
     if (
@@ -140,10 +146,7 @@ export const AdminDashboard = () => {
     if (syncLoading && !admin.syncCustomPricingError) {
       handleAlert("Custom price sync successfully!", "success");
     }
-    if (admin?.users) {
-      let mainCompanies = admin?.users.filter((user) => !user.subAccount);
-      setCompanies(mainCompanies);
-    }
+
     setLoginLoading(false);
     setConfirmLoading(false);
     setLinkLoading(false);
@@ -267,6 +270,21 @@ export const AdminDashboard = () => {
                     onChange={handleSearchChange}
                     autoComplete="off"
                   />
+                </div>
+                <div class="custom-control custom-switch no-wrap ml-5">
+                  <input
+                    type="checkbox"
+                    className="custom-control-input"
+                    id="customSwitch3"
+                    checked={filterDisabledUser}
+                    onChange={(e) => setFilterDisabledUser(e.target.checked)}
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor="customSwitch3"
+                  >
+                    Filter disabled user
+                  </label>
                 </div>
                 <button
                   type="button"
@@ -397,7 +415,7 @@ export const AdminDashboard = () => {
                           <input
                             type="checkbox"
                             aria-label="Enable User"
-                            defaultChecked={user.isEnabled}
+                            checked={user.isEnabled}
                             onChange={(e) => handleUpdateUser(user, e)}
                           />
                         </td>

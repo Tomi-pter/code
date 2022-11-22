@@ -307,7 +307,7 @@ export const Group = ({ group, index }) => {
               <div
                 className="product-list-container list-group list-group-flush card position-absolute m-0 w-100 px-0 py-3"
                 style={{
-                  minHeight: "calc(100vh - 500px)",
+                  minHeight: "max-content",
                   maxHeight: "calc(100vh - 500px)",
                   overflow: "auto",
                 }}
@@ -406,7 +406,7 @@ export const Group = ({ group, index }) => {
               <div
                 className="product-list-container list-group list-group-flush card position-absolute m-0 w-100 px-0 py-3"
                 style={{
-                  minHeight: "calc(100vh - 500px)",
+                  minHeight: "max-content",
                   maxHeight: "calc(100vh - 500px)",
                   overflow: "auto",
                 }}

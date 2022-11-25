@@ -8,6 +8,18 @@ export default (props) => {
   const [newGroupName, setNewGroupName] = useState("");
   const dispatch = useDispatch();
 
+  const checkDuplicate = () => {
+    let duplicate = null;
+
+    if (admin.groupPricingList && newGroupName !== "") {
+      duplicate = admin.groupPricingList.find(
+        (group) => group.name === newGroupName
+      );
+    }
+
+    return duplicate;
+  };
+
   useEffect(() => {
     setNewGroupName("");
   }, [admin]);
@@ -29,8 +41,8 @@ export default (props) => {
               style={{
                 flex: "auto",
                 overflow: "auto",
-                minHeight: "calc(100vh - 310px)",
-                maxHeight: "calc(100vh - 310px)",
+                minHeight: "calc(100vh - 325px)",
+                maxHeight: "calc(100vh - 325px)",
                 flexWrap: "nowrap",
               }}
             >
@@ -46,6 +58,9 @@ export default (props) => {
               ))}
             </nav>
             <div className="mt-auto">
+              {checkDuplicate() && (
+                <span className="text-danger">Group already exist.</span>
+              )}
               <input
                 className="form-control"
                 type="text"
@@ -55,7 +70,7 @@ export default (props) => {
               />
               <button
                 className="btn btn-primary w-100 mt-3"
-                disabled={newGroupName === ""}
+                disabled={newGroupName === "" || checkDuplicate()}
                 onClick={() => {
                   const newGroupData = {
                     name: newGroupName,

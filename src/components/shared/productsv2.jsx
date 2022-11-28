@@ -262,7 +262,7 @@ export const Productsv2 = ({
 
   useEffect(() => {
     const { productsv2, favproductv2, prefproduct } = productsData;
-    setCurrentPage(1);
+    !requestLoading && setCurrentPage(1);
     requestLoading && setShow(true);
     setRequestLoading(false);
     productsv2 &&
@@ -487,11 +487,13 @@ export const Productsv2 = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {
-            productsData.requestStockSuccess
-              ? `Thanks! ${ productsData.salesRep === null ? 'A Sales Representative' : `Sales Representative ${productsData.salesRep}`} will be in touch with you shortly.`
-              : "Customer does not have a sales rep assigned."
-          }
+          {productsData.requestStockSuccess
+            ? `Thanks! ${
+                productsData.salesRep === null
+                  ? "A Sales Representative"
+                  : `Sales Representative ${productsData.salesRep}`
+              } will be in touch with you shortly.`
+            : "Customer does not have a sales rep assigned."}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>

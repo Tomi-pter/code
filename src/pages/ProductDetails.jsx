@@ -417,11 +417,14 @@ export default (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {
-            products.requestStockSuccess
-              ? `Thanks! ${ products.salesRep === null ? 'A Sales Representative' : `Sales Representative ${products.salesRep}`} will be in touch with you shortly.`
-              : "Customer does not have a sales rep assigned."
-          }
+            {console.log(products)}
+            {
+                products.requestStockSuccess
+                    ? products.salesRep === undefined//If customer is not assigned with a sales rep, they will send an email to sales@premierpharma.com
+                        ? `Thanks! sales@premierpharma.com will be in touch with you shortly.`
+                        : `Sales Representative ${products.salesRep} will be in touch with you shortly.`
+                    : 'Please try again'
+            }
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>

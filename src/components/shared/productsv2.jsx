@@ -487,13 +487,14 @@ export const Productsv2 = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {productsData.requestStockSuccess
-            ? `Thanks! ${
-                productsData.salesRep === null
-                  ? "A Sales Representative"
-                  : `Sales Representative ${productsData.salesRep}`
-              } will be in touch with you shortly.`
-            : "Customer does not have a sales rep assigned."}
+            {console.log(productsData)}
+            {
+                productsData.requestStockSuccess
+                    ? productsData.salesRep === undefined//If customer is not assigned with a sales rep, they will send an email to sales@premierpharma.com
+                        ? `Thanks! sales@premierpharma.com will be in touch with you shortly.`
+                        : `Sales Representative ${productsData.salesRep} will be in touch with you shortly.`
+                    : 'Please try again'
+            }
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>

@@ -131,7 +131,6 @@ export const postAvatar = (username, image) => async (dispatch) => {
   try {
     const { data } = await api.postAvatar(username, image);
     dispatch({ type: POSTAVATAR, data });
-    console.log(data);
   } catch (error) {
     console.log(error);
   }

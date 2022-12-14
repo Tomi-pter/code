@@ -51,7 +51,7 @@ export const Productsv2 = ({
 
   const filterProducts = (sortOptions) => {
     let sorted, filtered, prefProducts, notPrefProducts;
-    const { filter, order } = sortOptions;
+    const { filter, order, bestMatch } = sortOptions;
 
     if (page === "shop") {
       if (category === "Favorites") {
@@ -107,39 +107,51 @@ export const Productsv2 = ({
     prefProducts = filtered.filter((prod) => prod?.obj?.preferred);
     notPrefProducts = filtered.filter((prod) => !prod?.obj?.preferred);
 
-    if (order === "ASC") {
+    if (bestMatch) {
       prefProducts = prefProducts.sort(function (a, b) {
-        return a.obj[filter] > b.obj[filter]
-          ? 1
-          : a.obj[filter] === b.obj[filter]
-          ? 0
-          : -1;
+        return a.score > b.score ? -1 : a.score === b.score ? 0 : 1;
       });
       notPrefProducts = notPrefProducts.sort(function (a, b) {
-        return a.obj[filter] > b.obj[filter]
-          ? 1
-          : a.obj[filter] === b.obj[filter]
-          ? 0
-          : -1;
-      });
-      sorted = prefProducts.concat(notPrefProducts);
-    } else {
-      prefProducts = prefProducts.sort(function (a, b) {
-        return a.obj[filter] > b.obj[filter]
-          ? -1
-          : a.obj[filter] === b.obj[filter]
-          ? 0
-          : 1;
-      });
-      notPrefProducts = notPrefProducts.sort(function (a, b) {
-        return a.obj[filter] > b.obj[filter]
-          ? -1
-          : a.obj[filter] === b.obj[filter]
-          ? 0
-          : 1;
+        return a.score > b.score ? -1 : a.score === b.score ? 0 : 1;
       });
 
       sorted = prefProducts.concat(notPrefProducts);
+    }
+    if (!bestMatch) {
+      if (order === "ASC") {
+        prefProducts = prefProducts.sort(function (a, b) {
+          return a.obj[filter] > b.obj[filter]
+            ? 1
+            : a.obj[filter] === b.obj[filter]
+            ? 0
+            : -1;
+        });
+        notPrefProducts = notPrefProducts.sort(function (a, b) {
+          return a.obj[filter] > b.obj[filter]
+            ? 1
+            : a.obj[filter] === b.obj[filter]
+            ? 0
+            : -1;
+        });
+        sorted = prefProducts.concat(notPrefProducts);
+      } else {
+        prefProducts = prefProducts.sort(function (a, b) {
+          return a.obj[filter] > b.obj[filter]
+            ? -1
+            : a.obj[filter] === b.obj[filter]
+            ? 0
+            : 1;
+        });
+        notPrefProducts = notPrefProducts.sort(function (a, b) {
+          return a.obj[filter] > b.obj[filter]
+            ? -1
+            : a.obj[filter] === b.obj[filter]
+            ? 0
+            : 1;
+        });
+
+        sorted = prefProducts.concat(notPrefProducts);
+      }
     }
 
     if (stockSort) {
@@ -265,10 +277,13 @@ export const Productsv2 = ({
     !requestLoading && setCurrentPage(1);
     requestLoading && setShow(true);
     setRequestLoading(false);
-    productsv2 &&
-      favproductv2 &&
-      prefproduct &&
-      filterProducts({ filter, order });
+    if (productsv2 && favproductv2 && prefproduct) {
+      if (sortBy === "Best Match") {
+        filterProducts({ filter, order, bestMatch: true });
+      } else {
+        filterProducts({ filter, order, bestMatch: false });
+      }
+    }
   }, [productsData, category, name, stockSort, search]);
 
   useEffect(() => {
@@ -320,13 +335,35 @@ export const Productsv2 = ({
                 {sortBy}
               </button>
               <div className="dropdown-menu" aria-labelledby="sortByDropdown">
+                {page !== "shop" && (
+                  <span
+                    className="dropdown-item"
+                    onClick={() => {
+                      setFilter("name");
+                      setOrder("ASC");
+                      setSortBy("Best Match");
+                      filterProducts({
+                        filter: "name",
+                        order: "ASC",
+                        bestMatch: true,
+                      });
+                    }}
+                  >
+                    Best Match
+                  </span>
+                )}
+
                 <span
                   className="dropdown-item"
                   onClick={() => {
                     setFilter("name");
                     setOrder("ASC");
                     setSortBy("A-Z");
-                    filterProducts({ filter: "name", order: "ASC" });
+                    filterProducts({
+                      filter: "name",
+                      order: "ASC",
+                      bestMatch: false,
+                    });
                   }}
                 >
                   A - Z
@@ -337,7 +374,11 @@ export const Productsv2 = ({
                     setFilter("name");
                     setOrder("DESC");
                     setSortBy("Z-A");
-                    filterProducts({ filter: "name", order: "DESC" });
+                    filterProducts({
+                      filter: "name",
+                      order: "DESC",
+                      bestMatch: false,
+                    });
                   }}
                 >
                   Z - A
@@ -349,7 +390,11 @@ export const Productsv2 = ({
                     setFilter("cost");
                     setOrder("ASC");
                     setSortBy("$ Low - High");
-                    filterProducts({ filter: "cost", order: "ASC" });
+                    filterProducts({
+                      filter: "cost",
+                      order: "ASC",
+                      bestMatch: false,
+                    });
                   }}
                 >
                   $ Low - High
@@ -360,7 +405,11 @@ export const Productsv2 = ({
                     setFilter("cost");
                     setOrder("DESC");
                     setSortBy("$ High - Low");
-                    filterProducts({ filter: "cost", order: "DESC" });
+                    filterProducts({
+                      filter: "cost",
+                      order: "DESC",
+                      bestMatch: false,
+                    });
                   }}
                 >
                   $ High - Low
@@ -487,14 +536,11 @@ export const Productsv2 = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {console.log(productsData)}
-            {
-                productsData.requestStockSuccess
-                    ? productsData.salesRep === undefined//If customer is not assigned with a sales rep, they will send an email to sales@premierpharma.com
-                        ? `Thanks! sales@premierpharma.com will be in touch with you shortly.`
-                        : `Sales Representative ${productsData.salesRep} will be in touch with you shortly.`
-                    : 'Please try again'
-            }
+          {productsData.requestStockSuccess
+            ? productsData.salesRep === undefined //If customer is not assigned with a sales rep, they will send an email to sales@premierpharma.com
+              ? `Thanks! sales@premierpharma.com will be in touch with you shortly.`
+              : `Sales Representative ${productsData.salesRep} will be in touch with you shortly.`
+            : "Please try again"}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>

@@ -104,74 +104,98 @@ export const Productsv2 = ({
       }
     }
 
-    prefProducts = filtered.filter((prod) => prod?.obj?.preferred);
-    notPrefProducts = filtered.filter((prod) => !prod?.obj?.preferred);
+    // prefProducts = filtered.filter((prod) => prod?.obj?.preferred);
+    // notPrefProducts = filtered.filter((prod) => !prod?.obj?.preferred);
 
     if (bestMatch) {
-      prefProducts = prefProducts.sort(function (a, b) {
-        return a.score > b.score ? -1 : a.score === b.score ? 0 : 1;
-      });
-      notPrefProducts = notPrefProducts.sort(function (a, b) {
-        return a.score > b.score ? -1 : a.score === b.score ? 0 : 1;
-      });
+      // prefProducts = prefProducts.sort(function (a, b) {
+      //   return a.score > b.score ? -1 : a.score === b.score ? 0 : 1;
+      // });
+      // notPrefProducts = notPrefProducts.sort(function (a, b) {
+      //   return a.score > b.score ? -1 : a.score === b.score ? 0 : 1;
+      // });
 
-      sorted = prefProducts.concat(notPrefProducts);
+      // sorted = prefProducts.concat(notPrefProducts);
+
+      sorted = filtered.sort(function (a, b) {
+        return a.score > b.score ? -1 : a.score === b.score ? 0 : 1;
+      });
     }
     if (!bestMatch) {
       if (order === "ASC") {
-        prefProducts = prefProducts.sort(function (a, b) {
-          return a.obj[filter] > b.obj[filter]
-            ? 1
-            : a.obj[filter] === b.obj[filter]
-            ? 0
-            : -1;
-        });
-        notPrefProducts = notPrefProducts.sort(function (a, b) {
-          return a.obj[filter] > b.obj[filter]
-            ? 1
-            : a.obj[filter] === b.obj[filter]
-            ? 0
-            : -1;
-        });
-        sorted = prefProducts.concat(notPrefProducts);
-      } else {
-        prefProducts = prefProducts.sort(function (a, b) {
-          return a.obj[filter] > b.obj[filter]
-            ? -1
-            : a.obj[filter] === b.obj[filter]
-            ? 0
-            : 1;
-        });
-        notPrefProducts = notPrefProducts.sort(function (a, b) {
-          return a.obj[filter] > b.obj[filter]
-            ? -1
-            : a.obj[filter] === b.obj[filter]
-            ? 0
-            : 1;
-        });
+        // prefProducts = prefProducts.sort(function (a, b) {
+        //   return a.obj[filter] > b.obj[filter]
+        //     ? 1
+        //     : a.obj[filter] === b.obj[filter]
+        //     ? 0
+        //     : -1;
+        // });
+        // notPrefProducts = notPrefProducts.sort(function (a, b) {
+        //   return a.obj[filter] > b.obj[filter]
+        //     ? 1
+        //     : a.obj[filter] === b.obj[filter]
+        //     ? 0
+        //     : -1;
+        // });
+        // sorted = prefProducts.concat(notPrefProducts);
 
-        sorted = prefProducts.concat(notPrefProducts);
+        sorted = filtered.sort(function (a, b) {
+          return a.obj[filter] > b.obj[filter]
+            ? 1
+            : a.obj[filter] === b.obj[filter]
+            ? 0
+            : -1;
+        });
+      } else {
+        // prefProducts = prefProducts.sort(function (a, b) {
+        //   return a.obj[filter] > b.obj[filter]
+        //     ? -1
+        //     : a.obj[filter] === b.obj[filter]
+        //     ? 0
+        //     : 1;
+        // });
+        // notPrefProducts = notPrefProducts.sort(function (a, b) {
+        //   return a.obj[filter] > b.obj[filter]
+        //     ? -1
+        //     : a.obj[filter] === b.obj[filter]
+        //     ? 0
+        //     : 1;
+        // });
+
+        // sorted = prefProducts.concat(notPrefProducts);
+        sorted = filtered.sort(function (a, b) {
+          return a.obj[filter] > b.obj[filter]
+            ? -1
+            : a.obj[filter] === b.obj[filter]
+            ? 0
+            : 1;
+        });
       }
     }
 
     if (stockSort) {
-      prefProducts = prefProducts
+      // prefProducts = prefProducts
+      //   .filter((product) => product.obj.totalquantityonhand > 0)
+      //   .concat(
+      //     prefProducts.filter(
+      //       (product) => product.obj.totalquantityonhand === 0
+      //     )
+      //   );
+
+      // notPrefProducts = notPrefProducts
+      //   .filter((product) => product.obj.totalquantityonhand > 0)
+      //   .concat(
+      //     notPrefProducts.filter(
+      //       (product) => product.obj.totalquantityonhand === 0
+      //     )
+      //   );
+
+      // sorted = prefProducts.concat(notPrefProducts);
+      sorted = sorted
         .filter((product) => product.obj.totalquantityonhand > 0)
         .concat(
-          prefProducts.filter(
-            (product) => product.obj.totalquantityonhand === 0
-          )
+          sorted.filter((product) => product.obj.totalquantityonhand === 0)
         );
-
-      notPrefProducts = notPrefProducts
-        .filter((product) => product.obj.totalquantityonhand > 0)
-        .concat(
-          notPrefProducts.filter(
-            (product) => product.obj.totalquantityonhand === 0
-          )
-        );
-
-      sorted = prefProducts.concat(notPrefProducts);
     }
 
     for (let i = 0; i < productsData.favproductv2.length; i++) {

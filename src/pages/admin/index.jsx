@@ -26,7 +26,6 @@ import {
 } from "../../actions/admin";
 import { getAdminProducts } from "../../actions/products";
 import { useSelector, useDispatch } from "react-redux";
-
 import { ExportToCsv } from "export-to-csv";
 
 export const AdminDashboard = () => {
@@ -324,10 +323,15 @@ export const AdminDashboard = () => {
                   <tbody>
                     {companies.map((user, index) => (
                       <tr key={`user-key-${index}`}>
-                        <td>
+                        <td className="d-flex align-items-center justify-content-between">
                           <Link to={`/admin/companies/${user.awsNetsuiteId}`}>
                             {user.company}
                           </Link>
+                          {
+                            user.groupPricingId.length
+                            ? <img src={require("../../assets/icon/group.png")} alt="" height={24} width={24}/>
+                            : <></>
+                          }
                         </td>
                         <td>{user.email}</td>
                         <td>

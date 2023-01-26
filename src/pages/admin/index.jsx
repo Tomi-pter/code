@@ -321,14 +321,14 @@ export const AdminDashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {companies.map((user, index) => (
-                      <tr key={`user-key-${index}`}>
+                    {companies.map((user, index) => {
+                        return <tr key={`user-key-${index}`}>
                         <td className="d-flex align-items-center justify-content-between">
                           <Link to={`/admin/companies/${user.awsNetsuiteId}`}>
                             {user.company}
                           </Link>
                           {
-                            user.groupPricingId.length
+                            user.groupPricingId
                             ? <img src={require("../../assets/icon/group.png")} alt="" height={24} width={24}/>
                             : <></>
                           }
@@ -461,8 +461,8 @@ export const AdminDashboard = () => {
                             )}
                           </button>
                         </td>
-                      </tr>
-                    ))}
+                        </tr>
+                    })}
                   </tbody>
                 </table>
               </div>

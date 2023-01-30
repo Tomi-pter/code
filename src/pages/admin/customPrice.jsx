@@ -180,7 +180,7 @@ export const CustomPrice = ({ mainCompany }) => {
                 autoComplete="off"
               />
             </div>
-            <div class="custom-control custom-switch no-wrap ml-5">
+            <div className="custom-control custom-switch no-wrap ml-5">
               <input
                 type="checkbox"
                 className="custom-control-input"

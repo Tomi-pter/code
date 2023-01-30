@@ -270,7 +270,7 @@ export const AdminDashboard = () => {
                     autoComplete="off"
                   />
                 </div>
-                <div class="custom-control custom-switch no-wrap ml-5">
+                <div className="custom-control custom-switch no-wrap ml-5">
                   <input
                     type="checkbox"
                     className="custom-control-input"
@@ -322,59 +322,35 @@ export const AdminDashboard = () => {
                   </thead>
                   <tbody>
                     {companies.map((user, index) => {
-                        return <tr key={`user-key-${index}`}>
-                        <td className="d-flex align-items-center justify-content-between">
-                          <Link to={`/admin/companies/${user.awsNetsuiteId}`}>
-                            {user.company}
-                          </Link>
-                          {
-                            user.groupPricingId
-                            ? <img src={require("../../assets/icon/group.png")} alt="" height={24} width={24}/>
-                            : <></>
-                          }
-                        </td>
-                        <td>{user.email}</td>
-                        <td>
-                          {user.status === "CONFIRMED" ||
-                          user.status === "RESET_REQUIRED" ? (
-                            user.status
-                          ) : (
-                            <button
-                              className="btn btn-success"
-                              onClick={() => handleConfirmUser(user)}
-                              disabled={confirmLoading ? true : null}
-                            >
-                              {confirmLoading &&
-                              user.username === selectedUser ? (
-                                <div
-                                  className="spinner-border text-light spinner-border-sm"
-                                  role="status"
-                                >
-                                  <span className="sr-only">Loading...</span>
-                                </div>
-                              ) : (
-                                "Confirm"
-                              )}
-                            </button>
-                          )}
-                        </td>
-                        <td>{user.netsuiteId}</td>
-                        <td className="no-wrap">
-                          {editNetsuiteID && user.username === selectedUser ? (
-                            <div className="d-flex">
-                              <input
-                                type="text"
-                                className="form-control"
-                                value={netsuiteID}
-                                onChange={(e) => setNetsuiteID(e.target.value)}
-                                style={{ width: "100px" }}
+                      return (
+                        <tr key={`user-key-${index}`}>
+                          <td className="d-flex align-items-center justify-content-between">
+                            <Link to={`/admin/companies/${user.awsNetsuiteId}`}>
+                              {user.company}
+                            </Link>
+                            {user.groupPricingId ? (
+                              <img
+                                src={require("../../assets/icon/group.png")}
+                                alt=""
+                                height={24}
+                                width={24}
                               />
+                            ) : (
+                              <></>
+                            )}
+                          </td>
+                          <td>{user.email}</td>
+                          <td>
+                            {user.status === "CONFIRMED" ||
+                            user.status === "RESET_REQUIRED" ? (
+                              user.status
+                            ) : (
                               <button
-                                className="btn btn-info ml-2"
-                                onClick={() => handleLinkUser(user)}
-                                disabled={linkLoading}
+                                className="btn btn-success"
+                                onClick={() => handleConfirmUser(user)}
+                                disabled={confirmLoading ? true : null}
                               >
-                                {linkLoading &&
+                                {confirmLoading &&
                                 user.username === selectedUser ? (
                                   <div
                                     className="spinner-border text-light spinner-border-sm"
@@ -383,85 +359,122 @@ export const AdminDashboard = () => {
                                     <span className="sr-only">Loading...</span>
                                   </div>
                                 ) : (
-                                  "Save"
+                                  "Confirm"
                                 )}
                               </button>
-                              <button
-                                className="btn btn-danger ml-2"
-                                onClick={() => {
-                                  setEditNetsuiteID(false);
-                                  setNetsuiteID("");
-                                  setSelectedUser("");
-                                }}
-                                disabled={linkLoading}
-                              >
-                                Cancel
-                              </button>
-                            </div>
-                          ) : (
-                            <>
-                              {user.awsNetsuiteId}
-                              <button
-                                className="btn btn-link ml-2"
-                                onClick={() => {
-                                  setEditNetsuiteID(true);
-                                  setNetsuiteID(user.awsNetsuiteId);
-                                  setSelectedUser(user.username);
-                                }}
-                                disabled={linkLoading}
-                              >
-                                Edit
-                              </button>
-                            </>
-                          )}
-                        </td>
-                        <td>
-                          <input
-                            type="checkbox"
-                            aria-label="Enable User"
-                            checked={user.isEnabled}
-                            onChange={(e) => handleUpdateUser(user, e)}
-                          />
-                        </td>
-                        <td className="no-wrap">
-                          <button
-                            className="btn btn-secondary mr-4"
-                            onClick={() => handleSync(user)}
-                            disabled={linkLoading}
-                          >
-                            {syncLoading && user.username === selectedUser ? (
-                              <div
-                                className="spinner-border text-light spinner-border-sm"
-                                role="status"
-                              >
-                                <span className="sr-only">Loading...</span>
+                            )}
+                          </td>
+                          <td>{user.netsuiteId}</td>
+                          <td className="no-wrap">
+                            {editNetsuiteID &&
+                            user.username === selectedUser ? (
+                              <div className="d-flex">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  value={netsuiteID}
+                                  onChange={(e) =>
+                                    setNetsuiteID(e.target.value)
+                                  }
+                                  style={{ width: "100px" }}
+                                />
+                                <button
+                                  className="btn btn-info ml-2"
+                                  onClick={() => handleLinkUser(user)}
+                                  disabled={linkLoading}
+                                >
+                                  {linkLoading &&
+                                  user.username === selectedUser ? (
+                                    <div
+                                      className="spinner-border text-light spinner-border-sm"
+                                      role="status"
+                                    >
+                                      <span className="sr-only">
+                                        Loading...
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    "Save"
+                                  )}
+                                </button>
+                                <button
+                                  className="btn btn-danger ml-2"
+                                  onClick={() => {
+                                    setEditNetsuiteID(false);
+                                    setNetsuiteID("");
+                                    setSelectedUser("");
+                                  }}
+                                  disabled={linkLoading}
+                                >
+                                  Cancel
+                                </button>
                               </div>
                             ) : (
-                              "Sync"
+                              <>
+                                {user.awsNetsuiteId}
+                                <button
+                                  className="btn btn-link ml-2"
+                                  onClick={() => {
+                                    setEditNetsuiteID(true);
+                                    setNetsuiteID(user.awsNetsuiteId);
+                                    setSelectedUser(user.username);
+                                  }}
+                                  disabled={linkLoading}
+                                >
+                                  Edit
+                                </button>
+                              </>
                             )}
-                          </button>
-                          <button
-                            className="btn btn-primary"
-                            onClick={() => handleLoginUser(user)}
-                            disabled={
-                              user.isEnabled && user.status === "CONFIRMED"
-                                ? null
-                                : true
-                            }
-                          >
-                            {loginLoading && user.username === selectedUser ? (
-                              <div
-                                className="spinner-border text-light spinner-border-sm"
-                                role="status"
-                              >
-                                <span className="sr-only">Loading...</span>
-                              </div>
-                            ) : (
-                              "Login"
-                            )}
-                          </button>
-                        </td>
+                          </td>
+                          <td>
+                            <input
+                              type="checkbox"
+                              aria-label="Enable User"
+                              checked={user.isEnabled}
+                              onChange={(e) => handleUpdateUser(user, e)}
+                            />
+                          </td>
+                          <td className="no-wrap">
+                            <button
+                              className="btn btn-secondary mr-4"
+                              onClick={() => handleSync(user)}
+                              disabled={linkLoading}
+                            >
+                              {syncLoading && user.username === selectedUser ? (
+                                <div
+                                  className="spinner-border text-light spinner-border-sm"
+                                  role="status"
+                                >
+                                  <span className="sr-only">Loading...</span>
+                                </div>
+                              ) : (
+                                "Sync"
+                              )}
+                            </button>
+                            <button
+                              className="btn btn-primary"
+                              onClick={() => handleLoginUser(user)}
+                              disabled={
+                                user.isEnabled && user.status === "CONFIRMED"
+                                  ? null
+                                  : true
+                              }
+                            >
+                              {loginLoading &&
+                              user.username === selectedUser ? (
+                                <div
+                                  className="spinner-border text-light spinner-border-sm"
+                                  role="status"
+                                >
+                                  <span className="sr-only">Loading...</span>
+                                </div>
+                              ) : (
+                                "Login"
+                              )}
+                            </button>
+                          </td>
                         </tr>
+                      );
                     })}
                   </tbody>
                 </table>

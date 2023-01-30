@@ -35,24 +35,28 @@ export default (props) => {
           <div></div>
         </div>
 
-        <ul class="nav nav-tabs justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#sub-accounts">
+        <ul className="nav nav-tabs justify-content-center">
+          <li className="nav-item">
+            <a
+              className="nav-link active"
+              data-toggle="tab"
+              href="#sub-accounts"
+            >
               Sub Accounts
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#custom-prices">
+          <li className="nav-item">
+            <a className="nav-link" data-toggle="tab" href="#custom-prices">
               Custom Prices
             </a>
           </li>
         </ul>
 
-        <div class="tab-content">
-          <div class="tab-pane container active" id="sub-accounts">
+        <div className="tab-content">
+          <div className="tab-pane container active" id="sub-accounts">
             <SubAccount mainCompany={mainCompany} />
           </div>
-          <div class="tab-pane container fade" id="custom-prices">
+          <div className="tab-pane container fade" id="custom-prices">
             <CustomPrice mainCompany={mainCompany} />
           </div>
         </div>

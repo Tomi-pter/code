@@ -10,9 +10,9 @@ export const payment = (username, formData, router) => async (dispatch) => {
 
     router.push("/payment-confirmation");
   } catch (error) {
-    // const data = error.response.data;
+    const { data } = error.response;
 
-    dispatch({ type: PAYMENTERROR, data: { msg: "payment error" } });
+    dispatch({ type: PAYMENTERROR, data: { msg: data } });
   }
 };
 
@@ -24,9 +24,9 @@ export const paymentByTerms =
 
       router.push("/payment-confirmation");
     } catch (error) {
-      // const data = error.response.data;
+      const { data } = error.response;
 
-      dispatch({ type: PAYMENTERROR, data: { msg: "payment error" } });
+      dispatch({ type: PAYMENTERROR, data: { msg: data } });
     }
   };
 
@@ -38,8 +38,8 @@ export const paymentViaPaypal =
 
       router.push("/payment-confirmation");
     } catch (error) {
-      // const data = error.response.data;
+      const { data } = error.response;
 
-      dispatch({ type: PAYMENTERROR, data: { msg: "payment error" } });
+      dispatch({ type: PAYMENTERROR, data: { msg: data } });
     }
   };

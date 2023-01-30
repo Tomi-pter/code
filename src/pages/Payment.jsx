@@ -64,7 +64,7 @@ export const PaymentContainer = () => {
       setShowError(true);
       setTimeout(function () {
         setShowError(false);
-      }, 3000);
+      }, 7000);
     }
     setIsLoading(false);
   }, [payment]);
@@ -177,7 +177,7 @@ export const PaymentContainer = () => {
           data-delay="2000"
           style={{ position: "fixed", bottom: "1rem", right: "1rem" }}
         >
-          Something went wrong. Please try again in a few minutes
+            {  payment.errorMessage }
         </div>
       </div>
       <Footer />

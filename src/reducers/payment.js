@@ -5,7 +5,7 @@ const paymentReducer = (state = { paymentData: null }, action) => {
     case actionType.PAYMENT:
       return { ...state, paymentData: action.data, paymentError: false };
     case actionType.PAYMENTERROR:
-      return { ...state, paymentData: null, paymentError: true };
+      return { ...state, paymentData: null, paymentError: true, errorMessage: action?.data?.msg };
     default:
       return state;
   }

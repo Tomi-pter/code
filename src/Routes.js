@@ -15,10 +15,10 @@ import ApprovalPage from "./components/signup/approval-page";
 import { CartContainer } from "./pages/Cart";
 import AdminLogin from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/admin";
-import Company from "./pages/admin/company";
-import OrderLogs from "./pages/admin/logs";
-import OrderLogs2 from "./pages/admin/logs2";
-import WeeklySpecial from "./pages/admin/weeklySpecial";
+// import Company from "./pages/admin/company";
+// import OrderLogs from "./pages/admin/logs";
+// import OrderLogs2 from "./pages/admin/logs2";
+// import WeeklySpecial from "./pages/admin/weeklySpecial";
 
 import { ProtectedRoutes } from "./components/protectedRoutes";
 import { AdminProtectedRoutes } from "./components/adminProtectedRoutes";

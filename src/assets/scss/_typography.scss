@@ -3,22 +3,26 @@
 //     src: url('../font/Axiforma_Regular.otf');
 // }
 @font-face {
-    font-family: 'Axiforma';
-    src: url('../font/Axiforma_Light.otf');
+  font-family: "Axiforma";
+  src: url("../font/Axiforma_Light.otf");
 }
 @font-face {
-    font-family: 'Axiforma Bold';
-    src: url('../font/Axiforma_Bold.otf');
+  font-family: "Axiforma Bold";
+  src: url("../font/Axiforma_Bold.otf");
 }
 
 * {
-    font-family: 'Axiforma';
+  font-family: "Axiforma";
+  font-display: swap;
 }
 
-h1, h2, h3, h4 {
-    font-family: 'Axiforma Bold';
-    font-style: normal;
-    font-weight: 700;
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Axiforma Bold";
+  font-style: normal;
+  font-weight: 700;
 }
 
 // h1 {

@@ -448,7 +448,7 @@ export const Productsv2 = ({
                     defaultChecked={stockSort}
                     onChange={handleSortCheck}
                   />
-                  <label className="mb-0" htmlFor="sortStock">
+                  <label className="sort-stock-label mb-0" htmlFor="sortStock">
                     {" "}
                     Stock
                   </label>

@@ -197,7 +197,24 @@ export const SubAccount = ({ mainCompany }) => {
     <>
       <div>
         <div className="d-flex align-items-center justify-content-between mt-4 mb-4 header">
-          <h2 className="m-0">Sub accounts</h2>
+            <div className="d-flex align-items-center justify-content-between">
+                <h2 className="m-0">
+                    Sub accounts
+                </h2>
+                <>
+                    {
+                        mainCompany && mainCompany.groupPricingId
+                        ? <div
+                            className="d-flex align-items-center justify-content-between mb-0"
+                        >
+                            <div class="alert alert-light" style={{ 'margin-bottom': '0px'}}>
+                                This account has a group pricing applied. All accounts under this account will share the same group pricing
+                            </div>
+                        </div>
+                        : <></>
+                    }
+                </>
+            </div>
           <button
             type="button"
             className="btn btn-primary"

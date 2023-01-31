@@ -226,6 +226,8 @@ export const getGroupPricingById = (groupPricingId) =>
   API.get(`/group-pricing/${groupPricingId}`);
 export const createGroupPricing = (formData) =>
   API.post(`/group-pricing`, formData);
+export const deleteGroupPricing = (groupPricingId) =>
+  API.delete(`/group-pricing/${groupPricingId}`);
 export const addGroupPricingProduct = (groupPricingId, formData) =>
   API.post(`/group-pricing/${groupPricingId}`, formData);
 export const editGroupPricingProduct = (groupPricingId, productId, formData) =>

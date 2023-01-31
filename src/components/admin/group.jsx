@@ -174,6 +174,9 @@ export const Group = ({ group, index }) => {
             Users
           </a>
         </nav>
+        <button className="btn btn-danger ml-2">
+            Delete Group
+        </button>
       </div>
       <div className="tab-content">
         <div

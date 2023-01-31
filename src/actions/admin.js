@@ -40,6 +40,7 @@ import {
   GETGROUPPRICING,
   GETGROUPPRICINGBYID,
   CREATEGROUPPRICING,
+  DELETEGROUPPRICING,
   ADDGROUPPRICINGPRODUCT,
   EDITGROUPPRICINGPRODUCT,
   DELETEGROUPPRICINGPRODUCT,
@@ -417,6 +418,20 @@ export const createGroupPricing = (formData) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const deleteGroupPricing = (groupPricingId) => async (dispatch ) => {
+    try {
+        await api.deleteGroupPricing(groupPricingId)
+
+      dispatch({
+        type: DELETEGROUPPRICING,
+        data: { groupPricingId },
+      });
+    }
+    catch (error) {
+        console.log(error)
+    }
+} 
 
 export const addGroupPricingProduct =
   (groupPricingId, formData) => async (dispatch) => {

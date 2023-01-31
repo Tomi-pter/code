@@ -13,6 +13,7 @@ import {
   ADDPREFERREDERROR,
   REMOVEPREFERRED,
   REMOVEPREFERREDERROR,
+  GETSHORTDATED,
 } from "../constants/actionTypes";
 
 export default (
@@ -24,7 +25,8 @@ export default (
     favproductv2: null,
     adminProducts: null,
     prefproduct: [],
-    salesRep: null
+    salesRep: null,
+    shortDatedProducts: [],
   },
   action
 ) => {
@@ -40,7 +42,7 @@ export default (
     case GETREQUESTPRICE:
       return { ...state, requestedProductPrice: action.payload };
     case REQUESTSTOCK:
-      const { salesRep } = action.payload
+      const { salesRep } = action.payload;
 
       state.requestedProductPrice.push(action.payload);
 
@@ -67,6 +69,8 @@ export default (
       };
     case REMOVEPREFERREDERROR:
       return { ...state, removePrefferedError: action.payload };
+    case GETSHORTDATED:
+      return { ...state, shortDatedProducts: action.payload };
     default:
       return state;
   }

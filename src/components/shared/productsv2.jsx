@@ -75,7 +75,16 @@ export const Productsv2 = ({
           keys: ["name", "ndc"],
           all: true,
         });
-      } else {
+      }
+
+      if (category === "Specials") {
+        filtered = fuzzysort.go("", productsData.shortDatedProducts, {
+          keys: ["name", "ndc"],
+          all: true,
+        });
+      }
+
+      if (!["Favorites", "Specials"].includes(category)) {
         filtered = fuzzysort.go(category, productsData.productsv2, {
           keys: ["category"],
         });
@@ -297,11 +306,12 @@ export const Productsv2 = ({
   };
 
   useEffect(() => {
-    const { productsv2, favproductv2, prefproduct } = productsData;
+    const { productsv2, favproductv2, prefproduct, shortDatedProducts } =
+      productsData;
     !requestLoading && setCurrentPage(1);
     requestLoading && setShow(true);
     setRequestLoading(false);
-    if (productsv2 && favproductv2 && prefproduct) {
+    if (productsv2 && favproductv2 && prefproduct && shortDatedProducts) {
       if (sortBy === "Best Match") {
         filterProducts({ filter, order, bestMatch: true });
       } else {

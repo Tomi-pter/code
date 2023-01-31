@@ -127,6 +127,8 @@ export const getRequestPrice = (username) =>
 export const requestStock = (username, formData) =>
   API.post(`/user/${username}/request-stock`, formData);
 
+export const getShortDated = () => API.get(`/products/short-dated`);
+
 export const getPreferred = (username) => API.get(`/favorites/${username}`);
 export const addPreferred = (username, formData) =>
   API.post(`/favorites/${username}/add`, formData);

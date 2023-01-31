@@ -13,21 +13,21 @@ import {
   ADDPREFERRED,
   ADDPREFERREDERROR,
   REMOVEPREFERRED,
-  REMOVEPREFERREDERROR
+  REMOVEPREFERREDERROR,
+  GETSHORTDATED,
 } from "../constants/actionTypes";
 
 import * as api from "../api/index.js";
 
-export const getCategories = () => async (dispatch) =>  {
-    try {
-        const { data } = await api.getCategories()
+export const getCategories = () => async (dispatch) => {
+  try {
+    const { data } = await api.getCategories();
 
-        dispatch({ type: GETCATEGORIES, payload: data })
-    }
-    catch (error) {
-        console.log(error)
-    }
-}
+    dispatch({ type: GETCATEGORIES, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getProducts =
   (name, category, sortBy, sortOrder, page, stockSort) => async (dispatch) => {
@@ -92,7 +92,11 @@ export const requestStock = (username, formData) => async (dispatch) => {
 
     dispatch({
       type: REQUESTSTOCK,
-      payload: { ...formData, salesRep: data.salesRep, lastRequested: new Date().getTime() },
+      payload: {
+        ...formData,
+        salesRep: data.salesRep,
+        lastRequested: new Date().getTime(),
+      },
     });
   } catch (error) {
     dispatch({ type: REQUESTSTOCKERROR, payload: { message: error.message } });
@@ -120,14 +124,14 @@ export const getProductsv2 = () => async (dispatch) => {
 };
 
 export const getAdminProducts = () => async (dispatch) => {
-    try {
-      const { data } = await api.getAdminProducts();
-  
-      dispatch({ type: GETADMINPRODUCTS, payload: data });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  try {
+    const { data } = await api.getAdminProducts();
+
+    dispatch({ type: GETADMINPRODUCTS, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getFavProductsv2 = (username) => async (dispatch) => {
   try {
@@ -176,5 +180,15 @@ export const removePreferred = (username, formData) => async (dispatch) => {
     dispatch({ type: REMOVEPREFERRED, payload: data.items });
   } catch (error) {
     dispatch({ type: REMOVEPREFERREDERROR, payload: error.reponse });
+  }
+};
+
+export const getShortDated = () => async (dispatch) => {
+  try {
+    const { data } = await api.getShortDated();
+
+    dispatch({ type: GETSHORTDATED, payload: data });
+  } catch (error) {
+    console.log(error);
   }
 };

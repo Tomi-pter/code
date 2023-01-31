@@ -16,6 +16,7 @@ import {
   getProductsv2,
   getFavProductsv2,
   getPreferred,
+  getShortDated,
 } from "../../actions/products";
 
 import ProfilePic from "../../assets/img/Account/placeholder-dp.svg";
@@ -164,6 +165,7 @@ export const HeaderNav = () => {
       dispatch(getProductsv2());
       dispatch(getFavProductsv2(auth?.username));
       dispatch(getPreferred(auth?.username));
+      dispatch(getShortDated());
     }
   }, []);
 

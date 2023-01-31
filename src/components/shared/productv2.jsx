@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 import NoImage from "../../assets/img/unavailable.svg";
+import moment from "moment/moment";
 
 import { Link } from "react-router-dom";
 
@@ -188,6 +189,13 @@ export const Productv2 = ({
             <div className="header-name-wrapper">
               <p className="flex-fill list-header-name">
                 {product.name}
+                {selectedCategory === "Specials" && (
+                  <span>
+                    <br />
+                    Expire Date:{" "}
+                    {moment(product.expirationDate).format("MMMM DD, YYYY")}
+                  </span>
+                )}
                 {(!product?.totalquantityonhand ||
                   product?.totalquantityonhand === "" ||
                   product?.totalquantityonhand === "0.0") && (
@@ -228,6 +236,13 @@ export const Productv2 = ({
               {shopFont ? (
                 <p style={{ fontSize: "11.4183px !important" }}>
                   {product.name}
+                  {selectedCategory === "Specials" && (
+                    <span>
+                      <br />
+                      Expire Date:
+                      {moment(product.expirationDate).format("MMMM DD, YYYY")}
+                    </span>
+                  )}
                   {(!product?.totalquantityonhand ||
                     product?.totalquantityonhand === "" ||
                     product?.totalquantityonhand === "0.0") && (
@@ -239,6 +254,13 @@ export const Productv2 = ({
               ) : (
                 <p className="name">
                   {product.name}
+                  {selectedCategory === "Specials" && (
+                    <span>
+                      <br />
+                      Expire Date:
+                      {moment(product.expirationDate).format("MMMM DD, YYYY")}
+                    </span>
+                  )}
                   {(!product?.totalquantityonhand ||
                     product?.totalquantityonhand === "" ||
                     product?.totalquantityonhand === "0.0") && (

@@ -6,6 +6,7 @@ import {
   deleteGroupPricingProduct,
   addGroupPricingUser,
   removeGroupPricingUser,
+  deleteGroupPricing,
 } from "../../actions/admin";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -152,7 +153,6 @@ export const Group = ({ group, index }) => {
 
   return (
     <div
-      key={`groupData${index}`}
       id={`group${index}`}
       className={"tab-pane fade " + (index === 0 ? "in active show" : "")}
     >
@@ -162,27 +162,114 @@ export const Group = ({ group, index }) => {
           <a
             data-toggle="pill"
             className="nav-link active"
-            href={`#groupProducts${index}`}
-          >
-            Products
-          </a>
-          <a
-            data-toggle="pill"
-            className="nav-link"
             href={`#groupUsers${index}`}
           >
             Users
           </a>
+          <a
+            data-toggle="pill"
+            className="nav-link"
+            href={`#groupProducts${index}`}
+          >
+            Products
+          </a>
         </nav>
-        <button className="btn btn-danger ml-2">
-            Delete Group
+        <button
+          className="btn btn-danger ml-2"
+          onClick={() => dispatch(deleteGroupPricing(group.id))}
+        >
+          Delete Group
         </button>
       </div>
       <div className="tab-content">
-        <div
-          className="tab-pane fade in active show"
-          id={`groupProducts${index}`}
-        >
+        <div className="tab-pane fade in active show" id={`groupUsers${index}`}>
+          <div className="pricing-group-table">
+            <table className="table table-hover">
+              <thead className="thead-dark">
+                <tr>
+                  <th className="no-wrap" scope="col">
+                    User Name
+                  </th>
+                  <th className="no-wrap" scope="col">
+                    Email
+                  </th>
+                  <th className="no-wrap" scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {admin.users
+                  .filter(
+                    (u) =>
+                      u.groupPricingId && u.groupPricingId.includes(group.id)
+                  )
+                  .map((user, userIndex) => (
+                    <tr key={`groupUser${index}${userIndex}`}>
+                      <td>{user.company}</td>
+                      <td>{user.email}</td>
+                      <td className="no-wrap">
+                        <button
+                          className="btn btn-danger ml-2"
+                          onClick={() => {
+                            dispatch(
+                              removeGroupPricingUser(user, user.groupPricingId)
+                            );
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="d-flex align-items-end justify-content-between add-pricing-group">
+            <div className="position-relative group-search-product w-75">
+              <label>User</label>
+              <input
+                className="form-control"
+                type="text"
+                placeholder={admin.users ? "user" : "loading users..."}
+                value={searchUser}
+                onChange={handleSearchUserChange}
+                disabled={!admin.users}
+              />
+              <div
+                className="product-list-container list-group list-group-flush card position-absolute m-0 w-100 px-0 py-3"
+                style={{
+                  minHeight: "max-content",
+                  maxHeight: "calc(100vh - 500px)",
+                  overflow: "auto",
+                }}
+              >
+                {filteredUsers.map((userData, userDataIndex) => (
+                  <a
+                    href="#"
+                    className={
+                      "list-group-item list-group-item-action px-3 " +
+                      (selectedUser &&
+                      selectedUser.username === userData.obj.username
+                        ? "active"
+                        : "")
+                    }
+                    key={`user${index}${userDataIndex}`}
+                    onClick={() => selectUser(userData.obj)}
+                  >
+                    {userData.obj.company}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <button
+              className="btn btn-primary w-50"
+              onClick={() => handleAddUser(group.id)}
+              disabled={!selectedUser}
+            >
+              Add User
+            </button>
+          </div>
+        </div>
+        <div className="tab-pane fade" id={`groupProducts${index}`}>
           <div className="pricing-group-table">
             <table className="table table-hover">
               <thead className="thead-dark">
@@ -351,93 +438,6 @@ export const Group = ({ group, index }) => {
               disabled={!formData.product || formData.newPrice < 1}
             >
               Add Product
-            </button>
-          </div>
-        </div>
-        <div className="tab-pane fade" id={`groupUsers${index}`}>
-          <div className="pricing-group-table">
-            <table className="table table-hover">
-              <thead className="thead-dark">
-                <tr>
-                  <th className="no-wrap" scope="col">
-                    User Name
-                  </th>
-                  <th className="no-wrap" scope="col">
-                    Email
-                  </th>
-                  <th className="no-wrap" scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {admin.users
-                  .filter(
-                    (u) =>
-                      u.groupPricingId && u.groupPricingId.includes(group.id)
-                  )
-                  .map((user, userIndex) => (
-                    <tr key={`groupUser${index}${userIndex}`}>
-                      <td>{user.company}</td>
-                      <td>{user.email}</td>
-                      <td className="no-wrap">
-                        <button
-                          className="btn btn-danger ml-2"
-                          onClick={() => {
-                            dispatch(
-                              removeGroupPricingUser(user, user.groupPricingId)
-                            );
-                          }}
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="d-flex align-items-end justify-content-between add-pricing-group">
-            <div className="position-relative group-search-product w-75">
-              <label>User</label>
-              <input
-                className="form-control"
-                type="text"
-                placeholder={admin.users ? "user" : "loading users..."}
-                value={searchUser}
-                onChange={handleSearchUserChange}
-                disabled={!admin.users}
-              />
-              <div
-                className="product-list-container list-group list-group-flush card position-absolute m-0 w-100 px-0 py-3"
-                style={{
-                  minHeight: "max-content",
-                  maxHeight: "calc(100vh - 500px)",
-                  overflow: "auto",
-                }}
-              >
-                {filteredUsers.map((userData, userDataIndex) => (
-                  <a
-                    href="#"
-                    className={
-                      "list-group-item list-group-item-action px-3 " +
-                      (selectedUser &&
-                      selectedUser.username === userData.obj.username
-                        ? "active"
-                        : "")
-                    }
-                    key={`user${index}${userDataIndex}`}
-                    onClick={() => selectUser(userData.obj)}
-                  >
-                    {userData.obj.company}
-                  </a>
-                ))}
-              </div>
-            </div>
-            <button
-              className="btn btn-primary w-50"
-              onClick={() => handleAddUser(group.id)}
-              disabled={!selectedUser}
-            >
-              Add User
             </button>
           </div>
         </div>

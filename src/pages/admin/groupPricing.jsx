@@ -87,7 +87,7 @@ export default (props) => {
         <div className="col-9">
           <div className="tab-content">
             {admin.groupPricingList.map((group, index) => (
-              <Group group={group} index={index} />
+              <Group group={group} index={index} key={`groupData${index}`} />
             ))}
           </div>
         </div>

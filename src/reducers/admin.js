@@ -40,6 +40,7 @@ import {
   GETGROUPPRICING,
   GETGROUPPRICINGBYID,
   CREATEGROUPPRICING,
+  DELETEGROUPPRICING,
   ADDGROUPPRICINGPRODUCT,
   EDITGROUPPRICINGPRODUCT,
   DELETEGROUPPRICINGPRODUCT,
@@ -292,6 +293,12 @@ const adminReducer = (
       state.groupPricingList.push(action.data);
 
       return { ...state, createGroupPricingError: null };
+    case DELETEGROUPPRICING:
+      const newGroupPricing = state.groupPricingList.filter(
+        (group) => group.id !== action.data.groupPricingId
+      );
+
+      return { ...state, groupPricingList: newGroupPricing };
     case ADDGROUPPRICINGPRODUCT:
       const groupIndex = state.groupPricingList.findIndex(
         (group) => group.id === action.data.groupPricingId

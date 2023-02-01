@@ -55,6 +55,9 @@ export default (props) => {
         imageUrl: product.url,
         quantity,
         ndc: product.ndc,
+        category: product.category,
+        expirationDate: product.expirationDate,
+        lotName: product.lotName
       },
     };
     setIsLoading(true);

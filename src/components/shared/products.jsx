@@ -68,6 +68,9 @@ export const Products = ({
         imageUrl: product.imageUrl,
         quantity,
         ndc: product.ndc,
+        category: product.category,
+        expirationDate: product.expirationDate,
+        lotName: product.lotName
       },
     };
     setIsCartLoading(true);

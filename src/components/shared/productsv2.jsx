@@ -262,6 +262,7 @@ export const Productsv2 = ({
 
   const handleAddCart = (product) => {
     const user = JSON.parse(localStorage.getItem("profile"));
+
     const newProduct = {
       product: {
         productId: parseInt(product.id),
@@ -270,6 +271,9 @@ export const Productsv2 = ({
         imageUrl: product.imageUrl,
         quantity,
         ndc: product.ndc,
+        category: product.category,
+        expirationDate: product.expirationDate,
+        lotName: product.lotName
       },
     };
     setIsCartLoading(true);

@@ -264,7 +264,7 @@ export const HeaderNav = () => {
                     Weekly Specials
                   </Link> */}
                   <Link className="dropdown-item" to="/shop?category=Specials">
-                    Specials
+                    Short Dated
                   </Link>
                   <Link
                     className="dropdown-item"

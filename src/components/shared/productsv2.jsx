@@ -207,19 +207,23 @@ export const Productsv2 = ({
         );
     }
 
-    for (let i = 0; i < productsData.favproductv2.length; i++) {
-      let favProd = productsData.favproductv2[i];
-      let prodIndex = sorted.findIndex((prod) => prod?.obj?.id === favProd?.id);
+    if (productsData.favproductv2) {
+      for (let i = 0; i < productsData.favproductv2.length; i++) {
+        let favProd = productsData.favproductv2[i];
+        let prodIndex = sorted.findIndex(
+          (prod) => prod?.obj?.id === favProd?.id
+        );
 
-      if (prodIndex !== -1) {
-        sorted.splice(prodIndex, 1, {
-          ...sorted[prodIndex],
-          obj: {
-            ...sorted[prodIndex].obj,
-            favorite: true,
-            cost: favProd.cost,
-          },
-        });
+        if (prodIndex !== -1) {
+          sorted.splice(prodIndex, 1, {
+            ...sorted[prodIndex],
+            obj: {
+              ...sorted[prodIndex].obj,
+              favorite: true,
+              cost: favProd.cost,
+            },
+          });
+        }
       }
     }
 
@@ -273,7 +277,7 @@ export const Productsv2 = ({
         ndc: product.ndc,
         category: product.category,
         expirationDate: product.expirationDate,
-        lotName: product.lotName
+        lotName: product.lotName,
       },
     };
     setIsCartLoading(true);
@@ -315,7 +319,15 @@ export const Productsv2 = ({
     !requestLoading && setCurrentPage(1);
     requestLoading && setShow(true);
     setRequestLoading(false);
-    if (productsv2 && favproductv2 && prefproduct && shortDatedProducts) {
+
+    if (
+      (productsv2 &&
+        favproductv2 &&
+        prefproduct &&
+        shortDatedProducts &&
+        auth?.username) ||
+      (productsv2 && shortDatedProducts && !auth?.username)
+    ) {
       if (sortBy === "Best Match") {
         filterProducts({ filter, order, bestMatch: true });
       } else {

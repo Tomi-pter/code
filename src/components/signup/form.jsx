@@ -9,13 +9,17 @@ import InputContact from "react-phone-number-input/input";
 import Input from "../shared/input";
 import Dropdown from "../shared/dropdown";
 
-import { getCountries, getStates, getMethodsOfCollection } from "../../actions/auth";
+import {
+  getCountries,
+  getStates,
+  getMethodsOfCollection,
+} from "../../actions/auth";
 import { signUp } from "../../actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 import CheckGreen from "../../assets/icon/check-lgreen.svg";
 import XGray from "../../assets/icon/x-gray.svg";
-import SignupImage from "../../assets/img/signup-img.png";
+// import SignupImage from "../../assets/img/signup-img.png";
 import PPLogo from "../../assets/img/pp-logo.svg";
 
 import Flatpickr from "react-flatpickr";
@@ -52,7 +56,7 @@ export const Form = () => {
   const auth = useSelector((state) => state.auth);
   const [formData, setFormData] = useState(defaultData);
   const [countries, setCountries] = useState([]);
-  const [methodsOfCollection, setMethodsOfCollection] = useState([])
+  const [methodsOfCollection, setMethodsOfCollection] = useState([]);
   const [states, setStates] = useState([]);
   const checkPasswordLenght = formData.password.length >= 8 ? true : false;
   const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(formData.password);
@@ -83,15 +87,19 @@ export const Form = () => {
     setSubmitted(true);
     //State License Number & Expiration is required
     let form = {
-        ...formData,
-        stateLicenseExpirationDate: moment(formData.stateLicenseExpirationDate).format('YYYY-MM-DD')
-    }
+      ...formData,
+      stateLicenseExpirationDate: moment(
+        formData.stateLicenseExpirationDate
+      ).format("YYYY-MM-DD"),
+    };
     //DEA Number & Expiration is optional
-    if (formData.deaExpiry !== '') {
-        form.deaExpiry = moment(formData.stateLicenseExpirationDate).format('YYYY-MM-DD')
+    if (formData.deaExpiry !== "") {
+      form.deaExpiry = moment(formData.stateLicenseExpirationDate).format(
+        "YYYY-MM-DD"
+      );
     }
 
-    dispatch(signUp(form))
+    dispatch(signUp(form));
   };
 
   useEffect(() => {
@@ -202,7 +210,6 @@ export const Form = () => {
               </p>
             </div>
             <div className="">
-                {console.log(formData)}
               <Input
                 label="First Name"
                 name="givenName"
@@ -285,7 +292,7 @@ export const Form = () => {
                   className="form-control"
                   value={formData.stateLicenseExpirationDate}
                   placeholder="State License Expiry Date"
-                  options={{ minDate: 'today' }}
+                  options={{ minDate: "today" }}
                   onChange={([date]) => {
                     setFormData({
                       ...formData,
@@ -306,7 +313,7 @@ export const Form = () => {
                   className="form-control"
                   value={formData.deaExpiry}
                   placeholder="DEA Expiry Date"
-                  options={{ minDate: 'today' }}
+                  options={{ minDate: "today" }}
                   onChange={([date]) => {
                     setFormData({
                       ...formData,
@@ -350,7 +357,8 @@ export const Form = () => {
               />
               <div className="desc">
                 <p>
-                    * If paying by ACH/CC, we will contact you separately for more details.
+                  * If paying by ACH/CC, we will contact you separately for more
+                  details.
                 </p>
               </div>
               <div class="dropdown-divider mb-4"></div>

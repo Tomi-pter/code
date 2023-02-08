@@ -1,10 +1,10 @@
 import React from "react";
 import { HeaderNav } from "../components/partials/HeaderNav";
 import { Footer } from "../components/partials/Footer";
-import SignupImage from "../assets/img/signup-img.png";
+// import SignupImage from "../assets/img/signup-img.png";
 import { Helmet } from "react-helmet";
 
-import MultiStepForm from "../components/signup/multi-step-form";
+// import MultiStepForm from "../components/signup/multi-step-form";
 import { Form } from "../components/signup/form";
 
 export const SignUpContainer = () => {

@@ -108,12 +108,12 @@ export const LoginContainer = () => {
           {forgotPass ? "Forgot Password" : "Log In"} | Premier Pharmaceuticals
         </title>
       </Helmet>
-      <HeaderNav />
+      {/* <HeaderNav /> */}
       {auth.authData?.accountStatus === "UNCONFIRMED" ? (
         history.push("/approval-page")
       ) : (
-        <div className="container-fluid d-flex align-items-center login">
-          <div className="container d-flex align-items-center justify-content-end">
+        <div className="container-fluid d-flex login">
+          <div className="container d-flex align-items-center justify-content-center">
             <div className="card mb-0">
               <div className="card-body d-flex align-items-center justify-content-center">
                 {forgotPass ? (
@@ -246,7 +246,7 @@ export const LoginContainer = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit}>
-                    <h3 className="text-center">Log in</h3>
+                    <h3 className="text-center">Welcome back!</h3>
                     {/* <h4 className="text-center">Lorem Ipsum</h4> */}
                     <p
                       className={
@@ -257,32 +257,36 @@ export const LoginContainer = () => {
                       {auth.authData?.message}
                     </p>
                     <Input
-                      label="Email"
+                      label="Enter your email"
                       name="email"
                       type="email"
                       onChange={handleChange}
                       required
                     />
-                    <div className="forgot-pass d-flex justify-content-end">
+                    <Input
+                      label="Enter your password"
+                      name="password"
+                      type="password"
+                      className="password"
+                      onChange={handleChange}
+                      required
+                    />
+                    <div className="forgot-pass d-flex justify-content-end mb-4">
                       <a href="#" onClick={() => setForgotpass(true)}>
                         Forgot Password?
                       </a>
                     </div>
-                    <Input
-                      label="Password"
-                      name="password"
-                      type="password"
-                      onChange={handleChange}
-                      required
-                    />
+                    <button className="login-button w-100">
+                      Sign In
+                    </button>
                     <div className="signup-container d-flex align-items-center justify-content-between">
-                      <div className="d-none d-sm-block">
+                      <div className="container d-flex align-items-center justify-content-center">
                         <span className="signup-text">
                           Don’t have an account?{" "}
-                          <Link to="/register">SIGN UP</Link>
+                          <Link to="/register">Become a Partner</Link>
                         </span>
                       </div>
-                      <button
+                      {/* <button
                         type="submit"
                         className="btn submit-button"
                         disabled={isDisabled}
@@ -297,7 +301,7 @@ export const LoginContainer = () => {
                         ) : (
                           <>Submit</>
                         )}
-                      </button>
+                      </button> */}
                     </div>
                   </form>
                 )}
@@ -306,7 +310,7 @@ export const LoginContainer = () => {
           </div>
         </div>
       )}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

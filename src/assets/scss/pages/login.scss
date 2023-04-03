@@ -1,12 +1,22 @@
 .login {
-  background: url("../../img/login-bg.png") no-repeat left;
-  background-size: 42% 100%;
+    background: url("../../img/login-bg.png") no-repeat top center fixed;
+    background-size: 100% 512px;
   padding: 135px 0 126px 0;
   min-height: calc(100vh - 155px);
+
+  .login-button{
+    background-color: #054FF0;
+    height: 45px;
+    border-radius: 40px;
+    padding: 12px 16px 12px 16px;
+    border: none;
+  }
+
   .card-body {
     padding: 0;
     width: 765px;
     min-height: 490px;
+    box-shadow: 0px 4px 104px 0px #0000000D;
   }
   h3 {
     font-style: normal;
@@ -35,21 +45,31 @@
     width: 484.23px;
   }
   input {
-    width: 100%;
-    height: 41px;
-    background: #f0f0f0;
+    height: 53px;
+    width: 480px;
+    left: 0px;
+    top: 27px;
+    border-radius: 40px;
+    padding: 16px 14px 16px 14px;
+    background-color: #F4F5F6;
     border: none;
-    border-radius: 0;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 32px;
-    color: #000000;
-    &::placeholder {
-      color: #828282;
-      font-weight: bold;
-    }
   }
+//   input {
+//     width: 100%;
+//     height: 41px;
+//     background: #f0f0f0;
+//     border: none;
+//     border-radius: 0;
+//     font-style: normal;
+//     font-weight: normal;
+//     font-size: 20px;
+//     line-height: 32px;
+//     color: #000000;
+//     &::placeholder {
+//       color: #828282;
+//       font-weight: bold;
+//     }
+//   }
   button {
     width: 140.74px;
     height: 39.71px;

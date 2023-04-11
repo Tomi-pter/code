@@ -204,27 +204,27 @@ export const LoginContainer = () => {
                           </div>
                         </div>
                       ) : (
-                        <div>
-                          <h2> Change Password</h2>
+                        <div className='d-flex flex-column align-items-center justify-content-center'>
+                          <h3>Forgot Password</h3>
                           <p className="emailDesc">
-                            Enter the email address associated with your account
-                            and we’ll send you a code to confirm your password
-                            reset request.
+                          Don’t worry sometimes people can forget too, enter your email and we will send you a password reset link.
                           </p>
                           <div className="form-group">
-                            <label>Email</label>
-                            <Input
-                              className="email-input "
-                              label="Email"
-                              name="fEmail"
-                              type="email"
-                              value={fEmail}
-                              onChange={setforgotFormData}
-                              required
-                            />
+                            <div className="input-wrapper">
+                                <label>Email</label>
+                                <Input
+                                className="email-input "
+                                label="Email"
+                                name="fEmail"
+                                type="email"
+                                value={fEmail}
+                                onChange={setforgotFormData}
+                                required
+                                />
+                            </div>
                             <div className="emailSubmitWrapper">
                               <button
-                                className="continueButton"
+                                className="continueButton w-100"
                                 disabled={continueButton}
                                 onClick={handFotgotPassword}
                               >
@@ -246,8 +246,8 @@ export const LoginContainer = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit}>
-                    <h3 className="text-center">Welcome back!</h3>
-                    {/* <h4 className="text-center">Lorem Ipsum</h4> */}
+                    <h3 className="text-center">Welcome Back!</h3>
+
                     <p
                       className={
                         "text-center error " +
@@ -256,28 +256,36 @@ export const LoginContainer = () => {
                     >
                       {auth.authData?.message}
                     </p>
-                    <Input
-                      label="Enter your email"
-                      name="email"
-                      type="email"
-                      onChange={handleChange}
-                      required
-                    />
-                    <Input
-                      label="Enter your password"
-                      name="password"
-                      type="password"
-                      className="password"
-                      onChange={handleChange}
-                      required
-                    />
+                    <div className="input-wrapper">
+                        <label>Email</label>
+                        <Input
+                            label="Enter your email"
+                            name="email"
+                            type="email"
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    
+                    <div className="input-wrapper">
+                        <label>Password</label>
+                        <Input
+                            label="Enter your password"
+                            name="password"
+                            type="password"
+                            className="password"
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    
                     <div className="forgot-pass d-flex justify-content-end mb-4">
                       <a href="#" onClick={() => setForgotpass(true)}>
                         Forgot Password?
                       </a>
                     </div>
                     <button className="login-button w-100">
-                      Sign In
+                      Sign in
                     </button>
                     <div className="signup-container d-flex align-items-center justify-content-between">
                       <div className="container d-flex align-items-center justify-content-center">

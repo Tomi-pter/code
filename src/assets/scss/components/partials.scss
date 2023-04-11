@@ -5,7 +5,7 @@
     margin-bottom: 0;
     &.main {
         border: none;
-        background: #f6f9fe;
+        background: linear-gradient(180deg, #CCDCFF 0%, rgba(204, 220, 255, 0) 100%);
         filter: drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.07));
     }
     &.header-login {

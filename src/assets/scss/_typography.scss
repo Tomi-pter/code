@@ -1,28 +1,31 @@
-// @font-face {
-//     font-family: 'Axiforma';
-//     src: url('../font/Axiforma_Regular.otf');
-// }
 @font-face {
-  font-family: "Axiforma";
-  src: url("../font/Axiforma_Light.otf");
+    font-family: "Helvetica Neue LT Pro";
+    src: url("../font/HelveticaNeueLTPro_Light.otf");
 }
 @font-face {
-  font-family: "Axiforma Bold";
-  src: url("../font/Axiforma_Bold.otf");
+    font-family: "Helvetica Neue LT Pro Bold";
+    src: url("../font/HelveticaNeueLTPro_Bold.otf");
 }
 
 * {
-  font-family: "Axiforma";
-  font-display: swap;
+    font-family: "Helvetica Neue LT Pro";
+    font-display: swap;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-family: "Axiforma Bold";
-  font-style: normal;
-  font-weight: 700;
+    font-family: "Helvetica Neue LT Pro Bold";
+    font-style: normal;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 48px;
+    line-height: 58px;
+    letter-spacing: 0em;
+    text-align: center;
 }
 
 // h1 {

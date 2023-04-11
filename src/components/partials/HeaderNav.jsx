@@ -224,8 +224,8 @@ export const HeaderNav = () => {
               <img
                 className="logo"
                 src={Logo}
-                width="152.25"
-                height="46.49"
+                width="182"
+                height="26.15"
                 alt=""
               />
             </a>
@@ -234,7 +234,7 @@ export const HeaderNav = () => {
                 className="desktop-link"
                 href={`${process.env.REACT_APP_HOMEPAGE_URL}/about-us`}
               >
-                About Us
+                About
               </a>
               <div className="desktop-link dropdown">
                 <a
@@ -290,9 +290,22 @@ export const HeaderNav = () => {
                 className="desktop-link"
                 href={`${process.env.REACT_APP_HOMEPAGE_URL}/contact-us`}
               >
-                Contact Us
+                Contact
               </a>
-              <div
+              <a
+                className="desktop-link"
+                href={`${process.env.REACT_APP_HOMEPAGE_URL}/consulting`}
+              >
+                Consulting
+              </a>
+              <a
+                className="desktop-link"
+                href={`${process.env.REACT_APP_HOMEPAGE_URL}/faq`}
+              >
+                FAQ
+              </a>
+              <div className="divider"></div>
+              {/* <div
                 className="search-container"
                 onMouseLeave={handleMouseLeave}
                 onMouseEnter={handleMouseEnter}
@@ -340,7 +353,7 @@ export const HeaderNav = () => {
                     )}
                   </ul>
                 )}
-              </div>
+              </div> */}
 
               {user ? (
                 <>

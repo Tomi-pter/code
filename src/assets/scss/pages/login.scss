@@ -10,30 +10,20 @@
     border-radius: 40px;
     padding: 12px 16px 12px 16px;
     border: none;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
   }
 
   .card-body {
-    padding: 0;
+    padding: 64px 0;
     width: 765px;
     min-height: 490px;
     box-shadow: 0px 4px 104px 0px #0000000D;
-  }
-  h3 {
-    font-style: normal;
-    font-weight: 800;
-    font-size: 27px;
-    line-height: 45px;
-    text-align: center;
-    color: #000000;
-    margin-bottom: 11px;
-  }
-  h4 {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 33px;
-    color: #0098ff;
-    margin-bottom: 10px;
   }
   .error {
     min-height: 22px;
@@ -42,34 +32,37 @@
     color: #e63757;
   }
   form {
-    width: 484.23px;
-  }
-  input {
-    height: 53px;
     width: 480px;
-    left: 0px;
-    top: 27px;
-    border-radius: 40px;
-    padding: 16px 14px 16px 14px;
-    background-color: #F4F5F6;
-    border: none;
+
+    .input-wrapper {
+        label {
+            margin-left: 15px;
+            font-size: 16px;
+            line-height: 21px;
+            letter-spacing: 0px;
+            text-align: left;
+            color: #3B4453;
+        }
+        input {
+            height: 53px;
+            width: 480px;
+            left: 0px;
+            top: 27px;
+            border-radius: 40px;
+            padding: 16px 14px 16px 14px;
+            background-color: #F4F5F6;
+            border: none;
+        }
+        input::placeholder {
+            font-size: 16px;
+            line-height: 21px;
+            letter-spacing: 0px;
+            text-align: left;
+            color: #707784;
+        }
+    }
   }
-//   input {
-//     width: 100%;
-//     height: 41px;
-//     background: #f0f0f0;
-//     border: none;
-//     border-radius: 0;
-//     font-style: normal;
-//     font-weight: normal;
-//     font-size: 20px;
-//     line-height: 32px;
-//     color: #000000;
-//     &::placeholder {
-//       color: #828282;
-//       font-weight: bold;
-//     }
-//   }
+
   button {
     width: 140.74px;
     height: 39.71px;
@@ -87,7 +80,7 @@
     padding: 0;
     &:hover {
       color: #ffffff;
-      background: darken($color: #16cfb0, $amount: 2);
+      opacity: 0.8;
     }
     &:focus {
       box-shadow: none;
@@ -109,10 +102,13 @@
       font-weight: normal;
       font-size: 16px;
       line-height: 25px;
-      color: #828282;
+      color: #181818;
       a {
-        font-family: "Axiforma Bold";
-        color: #828282;
+        color: #054FF0;
+        text-decoration: underline;
+        &:hover {
+            opacity: 0.8;
+        }
       }
     }
   }
@@ -174,9 +170,9 @@
       font-style: normal;
       font-weight: normal;
       font-size: 14px;
-      line-height: 22px;
-
-      color: #4f4f4f;
+      line-height: 21px;
+      text-decoration: underline;
+      color: #054FF0;
       &:hover {
         opacity: 0.8;
       }
@@ -187,8 +183,40 @@
     @include mediaQueries(mobile) {
       padding: 0;
     }
+    .input-wrapper {
+        label {
+            margin-left: 15px;
+            font-size: 16px;
+            line-height: 21px;
+            letter-spacing: 0px;
+            text-align: left;
+            color: #3B4453;
+        }
+        input {
+            height: 53px;
+            width: 480px;
+            left: 0px;
+            top: 27px;
+            border-radius: 40px;
+            padding: 16px 14px 16px 14px;
+            background-color: #F4F5F6;
+            border: none;
+        }
+        input::placeholder {
+            font-size: 16px;
+            line-height: 21px;
+            letter-spacing: 0px;
+            text-align: left;
+            color: #707784;
+        }
+    }
     .emailDesc {
-      margin-bottom: 45px;
+        font-size: 16px;
+        line-height: 24px;
+        max-width: 406px;
+        text-align: center;
+        color: #181818;
+        margin-bottom: 32px;
     }
     .email-input {
       margin-bottom: 61px;
@@ -198,26 +226,21 @@
     }
     .emailSubmitWrapper {
       .continueButton {
-        background: #16cfb0;
-        border-radius: 7.5px;
-        max-width: 100%;
-        width: 100%;
-        min-height: 36px;
-        border: 0;
-        font-family: "Axiforma Bold";
-        font-style: normal;
-        font-weight: 600;
-        font-size: 15px;
-        line-height: 24px;
+        background-color: #054FF0;
+        height: 45px;
+        border-radius: 40px;
+        padding: 12px 16px 12px 16px;
+        border: none;
+
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 21px;
+        letter-spacing: 0em;
         text-align: center;
-        color: #ffffff;
+        color: #FFFFFF;
         &:hover {
-          background: linear-gradient(
-            266.19deg,
-            #16cfb0 -15.44%,
-            #71d3f4 103.82%
-          );
-          border-radius: 7.50055px;
+          opacity: 0.8;
+          cursor: pointer;
         }
       }
     }

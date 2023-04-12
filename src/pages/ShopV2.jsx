@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { HeaderNav } from "../components/partials/HeaderNav";
 import { NotificationBanner } from "../components/shared/warningNotification";
@@ -84,7 +84,52 @@ export default (props) => {
         <title>Shop | Premier Pharmaceuticals</title>
       </Helmet>
       <HeaderNav />
-      <div className="shop-page">
+      <div className="shop-page px-4">
+        <div className="shop-header container-fluid py-4">
+            <h1>Best Available Nature-Based Products</h1>
+
+            <div className="shop-categories container-fluid d-flex flex-row">
+                <Link className="category-button" to='#'>All Products</Link>
+                <Link className="category-button" to='#'>My Favorites</Link>
+                <Link className="category-button" to='#'>Short Dated</Link>
+                <Link className="category-button" to='#'>Pharmaceuticals</Link>
+                <Link className="category-button" to='#'>Animal Health</Link>
+                <Link className="category-button" to='#'>Medical/Surgical</Link>
+            </div>
+
+            <div className="shop-controls d-flex flex-row align-items-center justify-content-between">
+                <h2>All Products</h2>
+                <div className="d-flex flex-row">
+                    <>Search</>
+                    <>Sort</>
+                    <>Grid/List View</>
+                </div>
+            </div>
+        </div>
+
+        <div className="container-fluid">
+            <div className="content">
+                    <NotificationBanner />
+                    <div className="products-container">
+                        <div
+                            className={
+                            "products" + (view === "list" ? " list-view" : "")
+                            }
+                        >
+                            <Productsv2
+                                page="shop"
+                                shopFont={true}
+                                view={view}
+                                setView={setView}
+                                category={category}
+                                isLoading={isLoading}
+                                setIsLoading={setIsLoading}
+                            />
+                        </div>
+                    </div>
+                </div>
+        </div>
+
         <div className="container-fluid shop-category">
           <div className="products-col">
             <div className="content-container">
@@ -198,7 +243,7 @@ export default (props) => {
                   </button>
                 </div>
               </div>
-              <div className="content">
+              {/* <div className="content">
                 <NotificationBanner />
                 <div className="products-container">
                   <div
@@ -217,7 +262,7 @@ export default (props) => {
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { ShippingCounter } from "../../components/shared/shippingCounter";
 import Logo from "../../assets/img/logo.svg";
-import Cart from "../../assets/icon/cart-green.svg";
+import Cart from "../../assets/icon/cart-blue.svg";
 import BurgerMenu from "../../assets/icon/burger-menu.svg";
 import SearchClear from "../../assets/icon/search-clear.svg";
 import mobileSearch from "../../assets/icon/search-green-ico.svg";
@@ -304,7 +304,7 @@ export const HeaderNav = () => {
               >
                 FAQ
               </a>
-              <div className="divider"></div>
+              <div class="divider"></div>
               {/* <div
                 className="search-container"
                 onMouseLeave={handleMouseLeave}
@@ -358,8 +358,11 @@ export const HeaderNav = () => {
               {user ? (
                 <>
                   <Link to="/cart" className="cart-btn">
-                    <img src={Cart} alt="" width="27.5" height="27.5" />
-                    <div className="count">{itemCount}</div>
+                    <div className="d-flex flex-row align-items-center justify-content-center">
+                        <img src={Cart} alt="" width="27.5" height="27.5" />
+                        <p className="m-0 ml-3">My Cart</p>
+                        <div className="count ml-3">{itemCount}</div>
+                    </div>
                   </Link>
                   <div className="mobile-search-div">
                     {searchActive ? (
@@ -375,12 +378,13 @@ export const HeaderNav = () => {
                     )}
                   </div>
                   <Link to="/account" className="account-btn">
-                    <div className="profileWrapper">
+                    <div className="profileWrapper d-flex flex-row align-items-center justify-items-center">
                       {avatar !== "" && !Array.isArray(avatar) ? (
                         <img className="profilePic" src={avatar} />
                       ) : (
                         <img className="profilePic" src={ProfilePic} alt="" />
                       )}
+                      <p className="m-0 ml-3">My Account</p>
                     </div>
                   </Link>
                 </>

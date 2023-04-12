@@ -5,7 +5,7 @@
     margin-bottom: 0;
     &.main {
         border: none;
-        background: linear-gradient(180deg, #CCDCFF 0%, rgba(204, 220, 255, 0) 100%);
+        background: #F1F5F8;
         filter: drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.07));
     }
     &.header-login {
@@ -29,13 +29,22 @@
         display: flex;
         align-items: center;
         .profilePic {
-            max-width: 42.75px;
-            max-height: 42.75px;
-            width: 42.75px;
-            height: 42.75px;
+            width: 24px;
+            height: auto;
             border-radius: 100%;
             object-fit: cover;
         }
+        p {
+            //styleName: B2 - Regular;
+            font-size: 16px;
+            line-height: 21px;
+            letter-spacing: 0px;
+            text-align: left;
+            color: #054FF0;
+        }
+    }
+    .account-btn:hover p {
+        text-decoration: underline;
     }
     .right-col {
         flex: auto;
@@ -94,6 +103,18 @@
                 }
             }
         }
+        .cart-btn {
+            p {
+                font-size: 16px;
+                line-height: 21px;
+                letter-spacing: 0px;
+                text-align: left;
+                color: #054FF0;
+            }
+        }
+        .cart-btn:hover p {
+            text-decoration: underline;
+        }
         .count {
             width: 18.75px;
             height: 18.75px;
@@ -107,18 +128,13 @@
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            position: absolute;
-            top: -8px;
-            right: -8px;
         }
         .account-btn {
-            width: 42.75px;
-            height: 42.75px;
-            // background: #16cfb0;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 48px;
+            width: 196px;
+            border-radius: 40px;
+            padding: 12px 24px 12px 24px;
+            border: 1px solid #054FF0;
         }
         .login-btn {
             width: 123px;

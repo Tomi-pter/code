@@ -84,11 +84,11 @@ export default (props) => {
         <title>Shop | Premier Pharmaceuticals</title>
       </Helmet>
       <HeaderNav />
-      <div className="shop-page px-4">
-        <div className="shop-header container-fluid py-4">
+      <div className="shop-page">
+        <div className="shop-header container-fluid px-4">
             <h1>Best Available Nature-Based Products</h1>
 
-            <div className="shop-categories container-fluid d-flex flex-row">
+            <div className="shop-categories container-fluid d-flex">
                 <Link className="category-button" to='#'>All Products</Link>
                 <Link className="category-button" to='#'>My Favorites</Link>
                 <Link className="category-button" to='#'>Short Dated</Link>
@@ -107,7 +107,7 @@ export default (props) => {
             </div>
         </div>
 
-        <div className="container-fluid">
+        <div className="container-fluid px-4">
             <div className="content">
                     <NotificationBanner />
                     <div className="products-container">

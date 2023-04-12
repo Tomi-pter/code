@@ -195,7 +195,7 @@ export const HeaderNav = () => {
       className={
         location.pathname === "/login" || location.pathname === "/register"
           ? "navbar header-login header"
-          : "sticky-top"
+          : "fixed-top"
       }
     >
       <iframe
@@ -358,12 +358,14 @@ export const HeaderNav = () => {
               {user ? (
                 <>
                   <Link to="/cart" className="cart-btn">
-                    <div className="d-flex flex-row align-items-center justify-content-center">
-                        <img src={Cart} alt="" width="27.5" height="27.5" />
-                        <p className="m-0 ml-3">My Cart</p>
-                        <div className="count ml-3">{itemCount}</div>
-                    </div>
-                  </Link>
+                        <div className="d-flex flex-row align-items-center justify-content-center">
+                            <div className="d-flex flex-row align-items-center justify-content-center">
+                                <img src={Cart} alt="" width="27.5" height="27.5" />
+                                <p className="m-0 ml-3">My Cart</p>
+                                <div className="count ml-3">{itemCount}</div>
+                            </div>
+                        </div>
+                   </Link>
                   <div className="mobile-search-div">
                     {searchActive ? (
                       <img

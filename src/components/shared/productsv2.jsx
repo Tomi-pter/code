@@ -505,7 +505,7 @@ export const Productsv2 = ({
         </div>
       </div>
       <div className={"products" + (view === "list" ? " list-view" : "")}>
-        <div className="list-header">
+        {/* <div className="list-header">
           <div className="no-container">
             <p>Item #</p>
             <p>NDC</p>
@@ -533,7 +533,7 @@ export const Productsv2 = ({
             <p>In</p>
             <p>Cart</p>
           </div>
-        </div>
+        </div> */}
         <div className="row">
           {/* <div className="container-fluid">
             <div className="spinner-container d-flex align-items-center justify-content-center">

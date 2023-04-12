@@ -5,7 +5,7 @@
     margin-bottom: 0;
     &.main {
         border: none;
-        background: #F1F5F8;
+        background: transparent;
         filter: drop-shadow(0px 10px 40px rgba(0, 0, 0, 0.07));
     }
     &.header-login {
@@ -13,6 +13,13 @@
         top: 0;
         left: 0;
         right: 0;
+    }
+    .divider {
+        margin-left: 30px;
+        height: 37px;
+        min-width: 1px;
+        border-radius: 8px;
+        background-color: #181818;
     }
     .mobile-search {
         display: none;
@@ -134,7 +141,7 @@
             width: 196px;
             border-radius: 40px;
             padding: 12px 24px 12px 24px;
-            border: 1px solid #054FF0;
+            border: 2px solid #054FF0;
         }
         .login-btn {
             width: 123px;

@@ -9,6 +9,8 @@ import ReactPaginate from "react-paginate";
 
 import { Productv2 } from "./productv2";
 
+import NoImage from "../../assets/img/unavailable.svg";
+
 import fuzzysort from "fuzzysort";
 
 export const Productsv2 = ({

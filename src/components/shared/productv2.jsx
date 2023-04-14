@@ -170,183 +170,277 @@ export const Productv2 = ({
 
   return (
     <div className={view === "list" ? " col-12" : "col-12 col-md-6 col-lg-4"}>
-      <div
-        className={
-          "product " +
-          (category === "Pharmaceuticals"
-            ? "pharma-product"
-            : category === "Animal Health"
-            ? "vet-product"
-            : "medsurg-product")
-        }
-      >
-        <div className="mobile-wrapper">
-          <div
-            className={
-              "mobile-list-header " + (view === "list" ? " d-flex" : "d-none")
-            }
-          >
-            <div className="header-name-wrapper">
-              <p className="flex-fill list-header-name">
-                {product.name}
-                {selectedCategory === "Specials" && (
-                  <span>
-                    <br />
-                    Expire Date:{" "}
-                    {moment(product.expirationDate).format("MMMM DD, YYYY")}
-                  </span>
-                )}
-                {(!product?.totalquantityonhand ||
-                  product?.totalquantityonhand === "" ||
-                  product?.totalquantityonhand === "0.0") && (
-                  <span style={{ color: "red", fontSize: "12px" }}>
-                    <br /> Item is out of stock.
-                  </span>
-                )}
-              </p>
+        <div
+        >
+
+            {/* <div className="mobile-wrapper">
+                <div className={ "mobile-list-header " + (view === "list" ? " d-flex" : "d-none") }>
+                    <div className="header-name-wrapper">
+                        <p className="flex-fill list-header-name">
+                            {product.name}
+                            
+                            {
+                                selectedCategory === "Specials"
+                                && <span>
+                                    <br />
+                                    Expire Date:{" "}
+                                    { moment(product.expirationDate).format("MMMM DD, YYYY") }
+                                </span>
+                            
+                            }
+
+                            {
+                                (
+                                    !product?.totalquantityonhand
+                                    || product?.totalquantityonhand === ""
+                                    || product?.totalquantityonhand === "0.0"
+                                ) && <span style={{ color: "red", fontSize: "12px" }}>
+                                        <br /> Item is out of stock.
+                                    </span>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div> */}
+
+            <div className="product-row d-flex align-items-center justify-content-between col-12">
+                <div className="product-image-container  d-flex align-items-center">
+                    <img src={product.imageUrl ? product.imageUrl : NoImage}
+                        alt=""
+                        onClick={() => viewProduct(product.id)}
+                    />
+                </div>
+                <div className="product-details d-flex flex-column align-items-start w-100">
+                    <h5>{product.name}</h5>
+                    <span className="category d-flex align-items-center justify-content-center">{product.category}</span>
+                    <div className="d-flex flex-row align-items-center justify-content-between w-100">
+                        <div className="product-number d-flex flex-row align-items-center justify-content-between">
+                            <label>Item</label>
+                            <span>{product.productNumber || "N/A"}</span>
+                        </div>
+                        <div className="product-ndc d-flex flex-row align-items-center justify-content-between">
+                            <label>NDC</label>
+                            <span>{product.ndc}</span>
+                        </div>
+                        <div className="product-manufacturer d-flex flex-row align-items-center justify-content-between">
+                            <label>Manufacturer</label>
+                            <span>{product.manufacturer || "N/A"}</span>
+                        </div>
+                    </div>
+                    <div className="d-flex flex-row align-items-center justify-content-between w-100">
+                        <div className="product-strength d-flex flex-row align-items-center justify-content-between">
+                            <label>Strength</label>
+                            <span>{product.drugStrength || "N/A"}</span>
+                        </div>
+                        <div className="product-size d-flex flex-row align-items-center justify-content-between">
+                            <label>Size</label>
+                            <span>{product.bottleSize || "N/A"}</span>
+                        </div>
+                        <div className="product-ppu d-flex flex-row align-items-center justify-content-between">
+                            <label>Price Per Unit</label>
+                            {
+                                ((!auth && shopFont) || !auth)
+                                ? <span style={{ fontSize: "12.3295px" }}>
+                                        <Link
+                                            to="/login"
+                                            style={{ textDecoration: "underline", color: "black" }}
+                                        >
+                                            Login
+                                        </Link>{" "}
+                                        for Price
+                                    </span>
+                                : <span>
+                                    ${" "}
+                                    { formatPrice(product.cost) }
+                                </span>
+                            }
+                        </div>
+                    </div>
+
+                    {
+                        selectedCategory === "Specials"
+                        && <span>
+                            <br />
+                            Expire Date: { moment(product.expirationDate).format("MMMM DD, YYYY") }
+                        </span>
+                    }
+
+                    {
+                        (
+                            !product?.totalquantityonhand 
+                            || product?.totalquantityonhand === "" 
+                            || product?.totalquantityonhand === "0.0"
+                        )
+                        && <span style={{ color: "red", fontSize: "12px" }}>
+                            <br /> Item is out of stock.
+                        </span>
+                    }
+                </div>
+                <div className="product-actions d-flex flex-column align-items-start justify-content-between">
+                    <div className="product-price">$ 3.97</div>
+                    <div className="product-buttons d-flex flex-row">
+                        <button className="add-to-cart">Add to Cart</button>
+                        <button className="favorite"></button>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div className={"product-details-container"}>
-          <div
-            className={"star " + (product.preferred ? "preferred" : "")}
-            onClick={() => setPrefered(product)}
-          ></div>
-          <div className="img-container">
-            <div>
-              <img
-                src={product.imageUrl ? product.imageUrl : NoImage}
-                alt=""
-                onClick={() => viewProduct(product.id)}
-              />
-            </div>
-          </div>
-          <div className="details-container">
-            <div className="no-container for-list">
-              <p className="item-no">{product.productNumber || "N/A"}</p>
-              <p className="ndc">{product.ndc}</p>
-            </div>
-            <div
-              className="name-container"
-              onClick={() => viewProduct(product.id)}
-              style={{
-                minHeight: view === "list" || shopFont ? "0px" : "12vh",
-              }}
-            >
-              {shopFont ? (
-                <p style={{ fontSize: "11.4183px !important" }}>
-                  {product.name}
-                  {selectedCategory === "Specials" && (
-                    <span>
-                      <br />
-                      Expire Date:
-                      {moment(product.expirationDate).format("MMMM DD, YYYY")}
-                    </span>
-                  )}
-                  {(!product?.totalquantityonhand ||
-                    product?.totalquantityonhand === "" ||
-                    product?.totalquantityonhand === "0.0") && (
-                    <span style={{ color: "red", fontSize: "12px" }}>
-                      <br /> Item is out of stock.
-                    </span>
-                  )}
-                </p>
-              ) : (
-                <p className="name">
-                  {product.name}
-                  {selectedCategory === "Specials" && (
-                    <span>
-                      <br />
-                      Expire Date:
-                      {moment(product.expirationDate).format("MMMM DD, YYYY")}
-                    </span>
-                  )}
-                  {(!product?.totalquantityonhand ||
-                    product?.totalquantityonhand === "" ||
-                    product?.totalquantityonhand === "0.0") && (
-                    <span style={{ color: "red", fontSize: "12px" }}>
-                      <br /> Item is out of stock.
-                    </span>
-                  )}
-                </p>
-              )}
-              {view !== "list" && (
-                <>
-                  <p className="mb-0">
-                    ITEM #: {product.productNumber || "N/A"}
-                  </p>
-                  <p>NDC: {product.ndc}</p>
-                </>
-              )}
-            </div>
-            <p className="company for-list">{product.manufacturer || "N/A"}</p>
-            <p className="size for-list">{product.bottleSize || "N/A"}</p>
-            <p className="strength for-list">{product.drugStrength || "N/A"}</p>
-            <div className="price-container">
-              <p className="price">
-                {(!auth && shopFont) || !auth ? (
-                  <span style={{ fontSize: "12.3295px" }}>
-                    <Link
-                      to="/login"
-                      style={{ textDecoration: "underline", color: "black" }}
+            {/* <div className={"product-details-container"}>
+                <div className={"star " + (product.preferred ? "preferred" : "")} onClick={() => setPrefered(product)}></div>
+
+                <div className="img-container">
+                    <div>
+                        <img
+                            src={product.imageUrl ? product.imageUrl : NoImage}
+                            alt=""
+                            onClick={() => viewProduct(product.id)}
+                        />
+                    </div>
+                </div>
+
+                <div className="details-container">
+                    <div className="no-container for-list">
+                        <p className="item-no">{product.productNumber || "N/A"}</p>
+                        <p className="ndc">{product.ndc}</p>
+                    </div>
+
+                    <div
+                        className="name-container"
+                        onClick={() => viewProduct(product.id)}
+                        style={{
+                            minHeight: view === "list" || shopFont ? "0px" : "12vh",
+                        }}
                     >
-                      Login
-                    </Link>{" "}
-                    for Price
-                  </span>
-                ) : (
-                  <>
-                    ${" "}
-                    {product.cost % 1 === 0
-                      ? formatPrice(product.cost)
-                      : formatPrice(product.cost)}
-                  </>
-                )}
-              </p>
-            </div>
-            <p className="size for-list">
-              {auth ? (
-                <>{getPricePerUnit(product.bottleSize, product.cost)}</>
-              ) : (
-                <span style={{ fontSize: "12.3295px" }}>
-                  <Link
-                    to="/login"
-                    style={{ textDecoration: "underline", color: "black" }}
-                  >
-                    Login
-                  </Link>{" "}
-                  for Price
-                </span>
-              )}
-            </p>
-            {auth ? (
-              renderActionButton(
-                selectedProduct,
-                product,
-                quantity,
-                handleChange,
-                addCart,
-                isCartLoading,
-                requestStock,
-                requestLoading
-              )
-            ) : (
-              <span style={{ fontSize: "12.3295px" }} className="to-buy">
-                <Link
-                  to="/login"
-                  style={{ textDecoration: "underline", color: "black" }}
-                >
-                  Login
-                </Link>{" "}
-                to Buy
-              </span>
-            )}
-            <p className={"incart" + (auth ? " for-list" : " d-none")}>
-              {incart()}
-            </p>
-          </div>
+                        {
+                            shopFont
+                            ? <>
+                                <p style={{ fontSize: "11.4183px !important" }}>
+                                    {product.name}
+
+                                    {
+                                        selectedCategory === "Specials"
+                                        && <span>
+                                            <br />
+                                            Expire Date: { moment(product.expirationDate).format("MMMM DD, YYYY") }
+                                        </span>
+                                    }
+
+                                    {
+                                        (
+                                            !product?.totalquantityonhand 
+                                            || product?.totalquantityonhand === "" 
+                                            || product?.totalquantityonhand === "0.0"
+                                        )
+                                        && <span style={{ color: "red", fontSize: "12px" }}>
+                                            <br /> Item is out of stock.
+                                        </span>
+                                    }
+                                </p>
+                            </>
+                            : <p className="name">
+                                {product.name}
+
+                                {
+                                    selectedCategory === "Specials"
+                                    && <span>
+                                        <br />
+                                        Expire Date:{moment(product.expirationDate).format("MMMM DD, YYYY")}
+                                    </span>
+                                }
+
+                                {
+                                    (
+                                        !product?.totalquantityonhand 
+                                        || product?.totalquantityonhand === "" 
+                                        || product?.totalquantityonhand === "0.0"
+                                    )
+                                    && <span style={{ color: "red", fontSize: "12px" }}>
+                                        <br /> Item is out of stock.
+                                    </span>
+                                }
+                            </p>
+                        }
+
+                        {
+                            view !== "list"
+                            && <>
+                                <p className="mb-0">
+                                    ITEM #: {product.productNumber || "N/A"}
+                                </p>
+                                <p>NDC: {product.ndc}</p>
+                            </>
+                        }
+                    </div>
+
+                    <p className="company for-list">{product.manufacturer || "N/A"}</p>
+                    <p className="size for-list">{product.bottleSize || "N/A"}</p>
+                    <p className="strength for-list">{product.drugStrength || "N/A"}</p>
+
+                    <div className="price-container">
+                        <p className="price">
+                            {
+                                ((!auth && shopFont) || !auth)
+                                ? <span style={{ fontSize: "12.3295px" }}>
+                                        <Link
+                                            to="/login"
+                                            style={{ textDecoration: "underline", color: "black" }}
+                                        >
+                                            Login
+                                        </Link>{" "}
+                                        for Price
+                                    </span>
+                                : <>
+                                    ${" "}
+                                    { formatPrice(product.cost) }
+                                </>
+                            }
+                        </p>
+                    </div>
+
+                    <p className="size for-list">
+                        {
+                            auth
+                            ? <>{getPricePerUnit(product.bottleSize, product.cost)}</>
+                            : <span style={{ fontSize: "12.3295px" }}>
+                                <Link
+                                    to="/login"
+                                    style={{ textDecoration: "underline", color: "black" }}
+                                >
+                                    Login
+                                </Link>{" "}
+                                for Price
+                            </span>
+                        }
+                    </p>
+
+                    {
+                        auth
+                        ? renderActionButton(
+                            selectedProduct,
+                            product,
+                            quantity,
+                            handleChange,
+                            addCart,
+                            isCartLoading,
+                            requestStock,
+                            requestLoading
+                            )
+                        : <span style={{ fontSize: "12.3295px" }} className="to-buy">
+                            <Link
+                                to="/login"
+                                style={{ textDecoration: "underline", color: "black" }}
+                            >
+                                Login
+                            </Link>{" "}
+                            to Buy
+                        </span>
+                    }
+
+                    <p className={"incart" + (auth ? " for-list" : " d-none")}>
+                        { incart() }
+                    </p>
+                </div>
+            </div> */}
         </div>
-      </div>
     </div>
   );
 };

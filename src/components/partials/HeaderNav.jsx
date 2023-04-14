@@ -28,6 +28,8 @@ import PPLogo from "../../assets/img/pp-logo.svg";
 import fuzzysort from "fuzzysort";
 
 export const HeaderNav = () => {
+  const [scrolled, setScrolled] = useState(false);
+
   const location = useLocation();
   const [user, setUser] = useState(null);
   const cart = useSelector((state) => state.cart);
@@ -137,6 +139,22 @@ export const HeaderNav = () => {
   }, [search]);
 
   useEffect(() => {
+    function handleScroll() {
+      if (window.scrollY > 100) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     let searchResult, changeTimer;
 
     if (searchName !== "") {
@@ -219,7 +237,7 @@ export const HeaderNav = () => {
       ) : (
         <>
           <ShippingCounter cart={cart} path={location.pathname} />
-          <div className="navbar d-flex align-items-center header main">
+          <div className={`navbar d-flex align-items-center header main ${scrolled ? " scrolled" : ""}`}>
             <a href={process.env.REACT_APP_HOMEPAGE_URL}>
               <img
                 className="logo"

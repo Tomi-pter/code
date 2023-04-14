@@ -220,6 +220,9 @@
       display: none;
     }
     &.list-view {
+      .col-12:not(:last-child) {
+        margin-bottom: 30px;
+      }
       .col-4 {
         width: 100%;
         max-width: unset !important;
@@ -818,11 +821,125 @@
       }
     }
   }
+
+    .product-row {
+        border: 1px solid #CED9DB;
+        height: 315px;
+        border-radius: 40px;
+        padding: 48px 57px 48px 57px;
+
+        & > *:not(:last-child) {
+            margin-right: 60px;
+        }
+
+        .product-image-container {
+            height: 200px;
+            width: 200px;
+            border-radius: 25px;
+        }
+
+        .product-details {
+            & > div:not(:last-child) {
+                margin-bottom: 18px;
+            }
+
+            .category {
+                margin-bottom: 32px;
+            }
+
+            h5 {
+                color: #1C1C1C;
+            }
+
+            label {
+                margin: 0;
+                color: #4F4F4F;
+            }
+
+            span: {
+                color: #0D1834;
+            }
+
+            .category {
+                background: #CED9DB;
+                height: 25px;
+                width: 137px;
+                border-radius: 8px;
+                padding: 6px 16px 6px 16px;
+                line-height: 15px;
+                color: #0D1834;
+                white-space: nowrap;
+            }
+
+            .product-number,
+            .product-manufacturer,
+            .product-strength,
+            .product-ppu {
+                height: 41px;
+                width: 240px;
+                border-radius: 20px;
+                padding: 10px 20px 10px 20px;
+                background-color: #F6F5F3;
+            }
+
+            .product-ndc,
+            .product-size {
+                width: 158px;
+                height: 21px;
+            }
+        }
+
+        .product-actions {
+            padding: 33px 28px;
+            height: 220px;
+            width: 314px;
+            border-radius: 0px 30px 30px 0px;
+            background: #F6F5F3;
+
+            .product-price {
+                font-family: 'Helvetica Neue LT Pro';
+                font-size: 32px;
+                font-weight: 700;
+                line-height: 40px;
+                text-align: left;
+                color: #1C1C1C;
+            }
+
+            .product-buttons {
+                .add-to-cart {
+                    height: 40px;
+                    width: 191px;
+                    border-radius: 40px;
+                    background: #054FF0;
+                    border: 1px solid #054FF0;
+                    color: #FFFFFF;
+                }
+
+                .add-to-cart:hover {
+                    opacity: 0.8;
+                }
+
+                .favorite {
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 40px;
+                    background: #FFFFFF;
+                    border: none;
+                }
+
+                & > *:not(:last-child) {
+                    margin-right: 23px;
+                }
+            }
+        }
+    }
+
   .products:not(.list-view) .row > div {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     .product {
       flex: 1;
       display: flex;

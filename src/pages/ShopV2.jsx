@@ -8,7 +8,7 @@ import { Productsv2 } from "../components/shared/productsv2";
 
 export default (props) => {
   const auth = JSON.parse(localStorage.getItem("profile"));
-  const [view, setView] = useState("list");
+  const [view, setView] = useState("grid");
   const [isLoading, setIsLoading] = useState(false);
   const [category, setCategory] = useState("Pharmaceuticals");
   const location = useLocation();
@@ -89,12 +89,11 @@ export default (props) => {
             <h1>Best Available Nature-Based Products</h1>
 
             <div className="shop-categories container-fluid d-flex">
-                <Link className="category-button" to='#'>All Products</Link>
-                <Link className="category-button" to='#'>My Favorites</Link>
-                <Link className="category-button" to='#'>Short Dated</Link>
-                <Link className="category-button" to='#'>Pharmaceuticals</Link>
-                <Link className="category-button" to='#'>Animal Health</Link>
-                <Link className="category-button" to='#'>Medical/Surgical</Link>
+                <button className="category-button" onClick={() => setCategory("Favorites")}>My Favorites</button>
+                <button className="category-button" onClick={() => setCategory("Specials")}>Short Dated</button>
+                <button className="category-button" onClick={() => setCategory("Pharmaceuticals")}>Pharmaceuticals</button>
+                <button className="category-button" onClick={() => setCategory("Animal Health")}>Animal Health</button>
+                <button className="category-button" onClick={() => setCategory("Medical Supplies")}>Medical/Surgical</button>
             </div>
 
             <div className="shop-controls d-flex flex-row align-items-center justify-content-between">
@@ -109,25 +108,25 @@ export default (props) => {
 
         <div className="container-fluid px-4">
             <div className="content">
-                    <NotificationBanner />
-                    <div className="products-container">
-                        <div
-                            className={
-                            "products" + (view === "list" ? " list-view" : "")
-                            }
-                        >
-                            <Productsv2
-                                page="shop"
-                                shopFont={true}
-                                view={view}
-                                setView={setView}
-                                category={category}
-                                isLoading={isLoading}
-                                setIsLoading={setIsLoading}
-                            />
-                        </div>
+                <NotificationBanner />
+                <div className="products-container">
+                    <div
+                        className={
+                        "products" + (view === "list" ? " list-view" : "")
+                        }
+                    >
+                        <Productsv2
+                            page="shop"
+                            shopFont={true}
+                            view={view}
+                            setView={setView}
+                            category={category}
+                            isLoading={isLoading}
+                            setIsLoading={setIsLoading}
+                        />
                     </div>
                 </div>
+            </div>
         </div>
 
         <div className="container-fluid shop-category">
@@ -171,7 +170,7 @@ export default (props) => {
                       My Favorites
                     </button>
                   )}
-                  {/* <button
+                  <button
                     id="specials-accordion-btn"
                     className={
                       "accordion-button collapsed" +
@@ -184,7 +183,7 @@ export default (props) => {
                     onClick={() => setCategory("Weekly Specials")}
                   >
                     Weekly Specials
-                  </button> */}
+                  </button>
                   <button
                     id="deals-accordion-btn"
                     className={
@@ -243,6 +242,7 @@ export default (props) => {
                   </button>
                 </div>
               </div>
+              {/* Original Product Row Location */}
               {/* <div className="content">
                 <NotificationBanner />
                 <div className="products-container">

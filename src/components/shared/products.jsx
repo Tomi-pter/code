@@ -463,7 +463,6 @@ export const Products = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {console.log(products)}
             {
                 products.requestStockSuccess
                     ? products.salesRep === undefined//If customer is not assigned with a sales rep, they will send an email to sales@premierpharma.com

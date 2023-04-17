@@ -231,21 +231,24 @@ export default (props) => {
         <title>Product | Premier Pharmaceuticals</title>
       </Helmet>
       <HeaderNav />
-      <div className="product-page">
+
+      {/* <div className="product-page">
         <div className="container content">
-          {mainLoading ? (
-            <div
-              className="d-flex align-items-center justify-content-center"
-              style={{ minHeight: "calc(100vh - 266px)", width: "100%" }}
+          {
+            mainLoading
+            ? <div
+                className="d-flex align-items-center justify-content-center"
+                style={{ minHeight: "calc(100vh - 266px)", width: "100%" }}
             >
-              <div className="spinner-border text-primary" role="main loading">
-                <span className="sr-only">Loading...</span>
-              </div>
-            </div>
-          ) : (
-            <>
-              {!products.errorGetProducts && product && (
-                <div className="d-block d-lg-flex align-items-start">
+                    <div className="spinner-border text-primary" role="main loading">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            : <>
+              {
+                !products.errorGetProducts
+                && product
+                && <div className="d-block d-lg-flex align-items-start">
                   <div
                     className={
                       "details-container card " +
@@ -404,14 +407,174 @@ export default (props) => {
                     )}
                   </div>
                 </div>
-              )}
-              {products.errorGetProducts && (
+              }
+
+              {
+                products.errorGetProducts &&
                 <div className="text-center">Product Not Found</div>
-              )}
+              }
             </>
-          )}
+          }
+        </div>
+      </div> */}
+      
+      <div className="product-page">
+        <div className="container-fluid">
+            {
+                mainLoading
+                ? <>
+                    <div
+                        className="d-flex align-items-center justify-content-center"
+                        style={{ minHeight: "calc(100vh - 266px)", width: "100%" }}
+                    >
+                        <div className="spinner-border text-primary" role="main loading">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </>
+                : <>
+                    {
+                        !products.errorGetProducts
+                        && product
+                        && <div className="d-flex align-items-start justify-content-center col-12">
+                            <div className="d-flex align-items-center justify-content-center w-100 col-6">
+                                <div className="img-container d-flex align-items-center justify-content-center">
+                                    <img
+                                        src={product.imageUrl ? product.imageUrl : NoImage}
+                                        alt=""
+                                    />
+                                </div>
+                            </div>
+                            <div className="d-flex flex-column w-100 col-6">
+                                <div className="product-information d-flex mb-3">
+                                    <div className="product-header d-flex flex-column w-100">
+                                        <h3>{product?.name}</h3>
+                                        <div className="d-flex align-items-center justify-content-start mb-2">
+                                            <span className="product-category">
+                                                Category: {product?.category}
+                                            </span>
+
+                                            <div className="d-flex align-items-center ml-3">
+                                                {
+                                                    incart() > 0
+                                                    && !isLoading
+                                                    && <span className="incart d-flex align-items-center mb-2">{ incart() } in cart</span>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="price-container d-flex flex-row align-items-center justify-content-start">
+                                            <div className="product-price d-flex flex-row align-items-center justify-content-center">
+                                                ${formatPrice(product?.cost)}
+                                            </div>
+                                            <div className="product-ppu d-flex align-items-center justify-content-center">
+                                                <label>&nbsp;{`/ Price per unit:`}&nbsp;</label>
+                                                <span>
+                                                    {
+                                                        user
+                                                            ? <>
+                                                                {" "}
+                                                                { getPricePerUnit(product.bottleSize, product.cost) }
+                                                                {" "}
+                                                            </>
+                                                            : <span style={{ fontSize: "12.3295px" }}>
+                                                                <Link
+                                                                    to="/login"
+                                                                    style={{
+                                                                        textDecoration: "underline",
+                                                                        color: "black",
+                                                                    }}
+                                                                >
+                                                                    Login
+                                                                </Link>
+                                                                {" "}for Price
+                                                            </span>
+                                                    }
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="product-details d-flex flex-column">
+                                            <div className="product-number d-flex flex-row align-items-center justify-content-start">
+                                                <label>Item</label>
+                                                <span>{product?.productNumber || "N/A"}</span>
+                                            </div>
+                                            <div className="product-ndc d-flex flex-row align-items-center justify-content-start">
+                                                <label>NDC</label>
+                                                <span>{product?.ndc}</span>
+                                            </div>
+                                            <div className="product-manufacturer d-flex flex-row align-items-center justify-content-start">
+                                                <label>Manufacturer</label>
+                                                <span>{product?.manufacturer || "N/A"}</span>
+                                            </div>
+                                            <div className="product-size d-flex flex-row align-items-center justify-content-start">
+                                                <label>Size</label>
+                                                <span>{product?.bottleSize || "N/A"}</span>
+                                            </div>
+                                            <div className="product-ppu d-flex flex-row align-items-center justify-content-start">
+                                                <label>Per Unit</label>
+                                                <span>
+                                                    {
+                                                        user
+                                                            ? <>
+                                                                {" "}
+                                                                { getPricePerUnit(product.bottleSize, product.cost) }
+                                                                {" "}
+                                                            </>
+                                                            : <span style={{ fontSize: "12.3295px" }}>
+                                                                <Link
+                                                                    to="/login"
+                                                                    style={{
+                                                                        textDecoration: "underline",
+                                                                        color: "black",
+                                                                    }}
+                                                                >
+                                                                    Login
+                                                                </Link>
+                                                                {" "}for Price
+                                                            </span>
+                                                    }
+                                                </span>
+                                            </div>
+                                            <div className="product-strength d-flex flex-row align-items-center justify-content-start">
+                                                <label>Strength</label>
+                                                <span>{product?.drugStrength || "N/A"}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button className="favorite-btn"></button>
+                                </div>
+                                {
+                                    user
+                                    ?<>
+                                        <div className="product-actions d-flex align-items-center justify-content-between">
+                                            {
+                                                renderActionButton(
+                                                    product,
+                                                    quantity,
+                                                    setQuantity,
+                                                    handleAddCart,
+                                                    isLoading,
+                                                    handleRequestStock,
+                                                    requestLoading
+                                                )
+                                            }
+                                        </div>
+                                    </> 
+                                    : <div className="logout-state d-flex justify-content-end">
+                                        <Link to="/login">Login</Link> for price
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    {
+                        products.errorGetProducts && <div className="text-center">Product Not Found</div>
+                    }
+                </>
+            }
         </div>
       </div>
+
       <Footer />
       <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header closeButton>
@@ -420,7 +583,6 @@ export default (props) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {console.log(products)}
             {
                 products.requestStockSuccess
                     ? products.salesRep === undefined//If customer is not assigned with a sales rep, they will send an email to sales@premierpharma.com

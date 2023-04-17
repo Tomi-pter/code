@@ -181,7 +181,7 @@ export const Productv2 = ({
             // }
         >
 
-            {/* <div className="product-row d-flex align-items-center justify-content-between col-12">
+            <div className="product-row d-flex align-items-center justify-content-between col-12">
                 <div className="product-image-container  d-flex align-items-center">
                     <img src={product.imageUrl ? product.imageUrl : NoImage}
                         alt=""
@@ -299,10 +299,10 @@ export const Productv2 = ({
                         <button className="favorite "></button>
                     </div>
                 </div>
-            </div> */}
+            </div>
 
             {/* Grid View */}
-            <div className="product-container d-flex flex-column align-items-start justify-content-between">
+            {/* <div className="product-container d-flex flex-column align-items-start justify-content-between">
                 <div className="product-image-container  d-flex align-items-center">
                     <img src={product.imageUrl ? product.imageUrl : NoImage}
                         alt=""
@@ -331,7 +331,7 @@ export const Productv2 = ({
                 <div className="product-actions d-flex flex-column align-items-start justify-content-between">
                     Actions
                 </div>
-            </div>
+            </div> */}
 
             {/* <div className="mobile-wrapper">
                 <div className={ "mobile-list-header " + (view === "list" ? " d-flex" : "d-none") }>

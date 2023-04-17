@@ -8,7 +8,7 @@ import { Productsv2 } from "../components/shared/productsv2";
 
 export default (props) => {
   const auth = JSON.parse(localStorage.getItem("profile"));
-  const [view, setView] = useState("grid");
+  const [view, setView] = useState("list");
   const [isLoading, setIsLoading] = useState(false);
   const [category, setCategory] = useState("Pharmaceuticals");
   const location = useLocation();

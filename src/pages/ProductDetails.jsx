@@ -232,7 +232,7 @@ export default (props) => {
       </Helmet>
       <HeaderNav />
 
-      {/* <div className="product-page">
+      <div className="product-page">
         <div className="container content">
           {
             mainLoading
@@ -416,9 +416,9 @@ export default (props) => {
             </>
           }
         </div>
-      </div> */}
+      </div>
       
-      <div className="product-page">
+      {/* <div className="product-page">
         <div className="container-fluid">
             {
                 mainLoading
@@ -573,7 +573,7 @@ export default (props) => {
                 </>
             }
         </div>
-      </div>
+      </div> */}
 
       <Footer />
       <Modal show={showModal} onHide={handleClose} centered>

@@ -130,7 +130,6 @@ export default (props) => {
               </div>
               <div className="content">
                 <NotificationBanner />
-                <div className="products-container">
                   <div
                     className={
                       'products' + (view === 'list' ? ' list-view' : '')
@@ -146,7 +145,6 @@ export default (props) => {
                         setIsLoading={setIsLoading}
                       />
                   </div>
-                </div>
               </div>
             </div>
           </div>

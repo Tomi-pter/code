@@ -168,6 +168,9 @@ export const Productv2 = ({
   //   }
   // }
 
+    
+
+
   return (
     <div className={view === "list" ? " col-12" : "col-12 col-md-6 col-lg-3"}>
         <div 
@@ -181,157 +184,160 @@ export const Productv2 = ({
             // }
         >
 
-            <div className="product-row d-flex align-items-center justify-content-between col-12">
-                <div className="product-image-container  d-flex align-items-center">
-                    <img src={product.imageUrl ? product.imageUrl : NoImage}
-                        alt=""
-                        onClick={() => viewProduct(product.id)}
-                    />
-                </div>
-                <div className="product-details d-flex flex-column align-items-start w-100">
-                    <div className="product-name"><h5>{product.name}</h5></div>
-                    <span className="category d-flex align-items-center justify-content-center">
-                        {product.category}
-                    </span>
-                    <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                        <div className="product-number d-flex flex-row align-items-center justify-content-between">
-                            <label>Item</label>
-                            <span>{product.productNumber || "N/A"}</span>
+            {
+                view === "list"
+                    ? <div className="product-row d-flex align-items-center justify-content-between col-12">
+                        <div className="product-image-container  d-flex align-items-center">
+                            <img src={product.imageUrl ? product.imageUrl : NoImage}
+                                alt=""
+                                onClick={() => viewProduct(product.id)}
+                            />
                         </div>
-                        <div className="product-ndc d-flex flex-row align-items-center justify-content-between">
-                            <label>NDC</label>
-                            <span>{product.ndc}</span>
-                        </div>
-                        <div className="product-manufacturer d-flex flex-row align-items-center justify-content-between">
-                            <label>Manufacturer</label>
-                            <span>{product.manufacturer || "N/A"}</span>
-                        </div>
-                    </div>
-                    <div className="d-flex flex-row align-items-center justify-content-between w-100">
-                        <div className="product-strength d-flex flex-row align-items-center justify-content-between">
-                            <label>Strength</label>
-                            <span>{product.drugStrength || "N/A"}</span>
-                        </div>
-                        <div className="product-size d-flex flex-row align-items-center justify-content-between">
-                            <label>Size</label>
-                            <span>{product.bottleSize || "N/A"}</span>
-                        </div>
-                        <div className="product-ppu d-flex flex-row align-items-center justify-content-between">
-                            <label>Price Per Unit</label>
+                        <div className="product-details d-flex flex-column align-items-start w-100">
+                            <div className="product-name"><h5>{product.name}</h5></div>
+                            <span className="category d-flex align-items-center justify-content-center">
+                                {product.category}
+                            </span>
+                            <div className="d-flex flex-row align-items-center justify-content-between w-100">
+                                <div className="product-number d-flex flex-row align-items-center justify-content-between">
+                                    <label>Item</label>
+                                    <span>{product.productNumber || "N/A"}</span>
+                                </div>
+                                <div className="product-ndc d-flex flex-row align-items-center justify-content-between">
+                                    <label>NDC</label>
+                                    <span>{product.ndc}</span>
+                                </div>
+                                <div className="product-manufacturer d-flex flex-row align-items-center justify-content-between">
+                                    <label>Manufacturer</label>
+                                    <span>{product.manufacturer || "N/A"}</span>
+                                </div>
+                            </div>
+                            <div className="d-flex flex-row align-items-center justify-content-between w-100">
+                                <div className="product-strength d-flex flex-row align-items-center justify-content-between">
+                                    <label>Strength</label>
+                                    <span>{product.drugStrength || "N/A"}</span>
+                                </div>
+                                <div className="product-size d-flex flex-row align-items-center justify-content-between">
+                                    <label>Size</label>
+                                    <span>{product.bottleSize || "N/A"}</span>
+                                </div>
+                                <div className="product-ppu d-flex flex-row align-items-center justify-content-between">
+                                    <label>Price Per Unit</label>
+                                    {
+                                        auth
+                                        ? <>{getPricePerUnit(product.bottleSize, product.cost)}</>
+                                        : <span style={{ fontSize: "12.3295px" }}>
+                                            <Link
+                                                to="/login"
+                                                style={{ textDecoration: "underline", color: "black" }}
+                                            >
+                                                Login
+                                            </Link>{" "}
+                                            for Price
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+
                             {
-                                auth
-                                ? <>{getPricePerUnit(product.bottleSize, product.cost)}</>
-                                : <span style={{ fontSize: "12.3295px" }}>
-                                    <Link
-                                        to="/login"
-                                        style={{ textDecoration: "underline", color: "black" }}
-                                    >
-                                        Login
-                                    </Link>{" "}
-                                    for Price
+                                selectedCategory === "Specials"
+                                && <span>
+                                    <br />
+                                    Expire Date: { moment(product.expirationDate).format("MMMM DD, YYYY") }
+                                </span>
+                            }
+
+                            {
+                                (
+                                    !product?.totalquantityonhand
+                                    || product?.totalquantityonhand === ""
+                                    || product?.totalquantityonhand === "0.0"
+                                )
+                                && <span style={{ color: "red", fontSize: "12px" }}>
+                                    <br /> Item is out of stock.
                                 </span>
                             }
                         </div>
-                    </div>
-
-                    {
-                        selectedCategory === "Specials"
-                        && <span>
-                            <br />
-                            Expire Date: { moment(product.expirationDate).format("MMMM DD, YYYY") }
-                        </span>
-                    }
-
-                    {
-                        (
-                            !product?.totalquantityonhand 
-                            || product?.totalquantityonhand === "" 
-                            || product?.totalquantityonhand === "0.0"
-                        )
-                        && <span style={{ color: "red", fontSize: "12px" }}>
-                            <br /> Item is out of stock.
-                        </span>
-                    }
-                </div>
-                <div className="product-actions d-flex flex-column align-items-start justify-content-between">
-                    <div className="product-price">
-                        {
-                            ((!auth && shopFont) || !auth)
-                            ? <span style={{ fontSize: "12.3295px" }}>
-                                    <Link
-                                        to="/login"
-                                        style={{ textDecoration: "underline", color: "black" }}
-                                    >
-                                        Login
-                                    </Link>{" "}
-                                    for Price
-                                </span>
-                            : <span>
-                                ${" "}
-                                { formatPrice(product.cost) }
-                            </span>
-                        }
-                    </div>
-                    <div className="product-buttons d-flex flex-row">
-                        {
-                            auth
-                            ? renderActionButton(
-                                selectedProduct,
-                                product,
-                                quantity,
-                                handleChange,
-                                addCart,
-                                isCartLoading,
-                                requestStock,
-                                requestLoading
-                                )
-                            : <span style={{ fontSize: "12.3295px" }} className="to-buy">
-                                <Link
-                                    to="/login"
-                                    style={{ textDecoration: "underline", color: "black" }}
-                                >
-                                    Login
-                                </Link>{" "}
-                                to Buy
-                            </span>
-                        }
-                        <div className={"star " + (product.preferred ? "preferred" : "")} onClick={() => setPrefered(product)}></div>
-                        <button className="favorite "></button>
-                    </div>
-                </div>
-            </div>
-
-            {/* Grid View */}
-            {/* <div className="product-container d-flex flex-column align-items-start justify-content-between">
-                <div className="product-image-container  d-flex align-items-center">
-                    <img src={product.imageUrl ? product.imageUrl : NoImage}
-                        alt=""
-                        onClick={() => viewProduct(product.id)}
-                    />
-                </div>
-
-                <hr className="w-100"/>
-
-                <div className="product-details d-flex flex-column align-items-start w-100">
-                    <div className="d-flex flex-row align-items-start justify-content-between w-100">
-                        <div className="product-name">ACETAMINOPHEN INJECTION </div>
-                        <div className="product-price">$99.50</div>
-                    </div>
-                    <div className="d-flex flex-row align-items-start justify-content-between w-100">
-                        <div className="category">Medical Supplies</div>
-                        <div className="product-ppu d-flex flex-column align-items-end">
-                            <label>Price per unit:</label>
-                            <span>$ 0.04</span>
+                        <div className="product-actions d-flex flex-column align-items-start justify-content-between">
+                            <div className="product-price">
+                                {
+                                    ((!auth && shopFont) || !auth)
+                                    ? <span style={{ fontSize: "12.3295px" }}>
+                                            <Link
+                                                to="/login"
+                                                style={{ textDecoration: "underline", color: "black" }}
+                                            >
+                                                Login
+                                            </Link>{" "}
+                                            for Price
+                                        </span>
+                                    : <span>
+                                        ${" "}
+                                        { formatPrice(product.cost) }
+                                    </span>
+                                }
+                            </div>
+                            <div className="product-buttons d-flex flex-row">
+                                {
+                                    auth
+                                    ? renderActionButton(
+                                        selectedProduct,
+                                        product,
+                                        quantity,
+                                        handleChange,
+                                        addCart,
+                                        isCartLoading,
+                                        requestStock,
+                                        requestLoading
+                                        )
+                                    : <span style={{ fontSize: "12.3295px" }} className="to-buy">
+                                        <Link
+                                            to="/login"
+                                            style={{ textDecoration: "underline", color: "black" }}
+                                        >
+                                            Login
+                                        </Link>{" "}
+                                        to Buy
+                                    </span>
+                                }
+                                <div className={"star " + (product.preferred ? "preferred" : "")} onClick={() => setPrefered(product)}></div>
+                                <button className="favorite "></button>
+                            </div>
                         </div>
                     </div>
-                    <div className="product-size">
-                        <span>625mg / 180 Tablets</span>
+                    : <div className="product-container d-flex flex-column align-items-start justify-content-between">
+                    <div className="product-image-container  d-flex align-items-center">
+                        <img src={product.imageUrl ? product.imageUrl : NoImage}
+                            alt=""
+                            onClick={() => viewProduct(product.id)}
+                        />
+                    </div>
+            
+                    <hr className="w-100"/>
+            
+                    <div className="product-details d-flex flex-column align-items-start w-100">
+                        <div className="d-flex flex-row align-items-start justify-content-between w-100">
+                            <div className="product-name">{product.name}</div>
+                            <div className="product-price">
+                                <span>{`$ ${formatPrice(product.cost)}`}</span>
+                            </div>
+                        </div>
+                        <div className="d-flex flex-row align-items-start justify-content-between w-100">
+                            <div className="category">{product.category}</div>
+                            <div className="product-ppu d-flex flex-column align-items-end">
+                                <label>Price per unit:</label>
+                                <span>{getPricePerUnit(product.bottleSize, product.cost)}</span>
+                            </div>
+                        </div>
+                        <div className="product-size">
+                            <span>{product.bottleSize || "N/A"}</span>
+                        </div>
+                    </div>
+                    <div className="product-actions d-flex flex-column align-items-start justify-content-between">
+                        Actions
                     </div>
                 </div>
-                <div className="product-actions d-flex flex-column align-items-start justify-content-between">
-                    Actions
-                </div>
-            </div> */}
+            }
 
             {/* <div className="mobile-wrapper">
                 <div className={ "mobile-list-header " + (view === "list" ? " d-flex" : "d-none") }>
@@ -405,8 +411,8 @@ export const Productv2 = ({
 
                                     {
                                         (
-                                            !product?.totalquantityonhand 
-                                            || product?.totalquantityonhand === "" 
+                                            !product?.totalquantityonhand
+                                            || product?.totalquantityonhand === ""
                                             || product?.totalquantityonhand === "0.0"
                                         )
                                         && <span style={{ color: "red", fontSize: "12px" }}>
@@ -428,8 +434,8 @@ export const Productv2 = ({
 
                                 {
                                     (
-                                        !product?.totalquantityonhand 
-                                        || product?.totalquantityonhand === "" 
+                                        !product?.totalquantityonhand
+                                        || product?.totalquantityonhand === ""
                                         || product?.totalquantityonhand === "0.0"
                                     )
                                     && <span style={{ color: "red", fontSize: "12px" }}>

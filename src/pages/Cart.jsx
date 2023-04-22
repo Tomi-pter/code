@@ -14,8 +14,12 @@ export const CartContainer = () => {
                 <title>Cart | Premier Pharmaceuticals</title>
             </Helmet>
             <HeaderNav />
+            <div className="cart-header d-flex align-items-center justify-content-between">
+                <span>Shopping Cart</span>
+                <button className='back-btn'>Back to products</button>
+            </div>
             <div className="container-fluid cart-page">
-                <h1 className="title">My Cart</h1>
+                {/* <h1 className="title">My Cart</h1> */}
                 <NotificationBanner />
                 <div className="main-content-container d-flex align-items-start">
                     <div className="cart-items">

@@ -1,4 +1,11 @@
 .products-container {
+    h2 {
+        font-size: 64px;
+        text-align: left;
+        color: #0D1834;
+        margin-bottom: 0;
+    }
+
   .spinner-container {
     min-height: 500px;
     .spinner-border {
@@ -8,7 +15,6 @@
   }
   .search-container {
     position: relative;
-    margin-left: 25px;
     @include mediaQueries(mobile) {
       width: 100%;
       margin-left: 0;
@@ -17,13 +23,16 @@
     }
     input {
       width: 300px;
-      background: transparent;
-      border-radius: 0;
-      outline: 0;
-      border: none;
-      border-bottom: 1px solid #000000;
+      background: #FFFFFF;
+      border-radius: 56px;
+      margin-right: 38px;
+      height: 67px;
+      width: 367px;
+      border-radius: 56px;
+      padding: 24px 33px 24px 33px;
+      border: 1px solid #CED9DB;
       padding: 5px 25px 5px 20px;
-      background: url("../../icon/search.svg") no-repeat 98% center;
+      background: url("../../icon/search.svg") no-repeat 90% center;
       @include mediaQueries(mobile) {
         width: 100%;
       }
@@ -31,8 +40,7 @@
   }
   .top-details {
     padding: 0 0 19px 0;
-    margin-bottom: 40px;
-    border-bottom: 1px solid #e0e0e0;
+
     @include mediaQueries(padpro) {
       // display: block !important;
     }
@@ -88,8 +96,6 @@
       }
     }
     .filter-view-container {
-      margin-left: 20px;
-      min-width: 370px;
       // height: 67px;
       @include mediaQueries(pad) {
         margin-left: 0;
@@ -103,15 +109,25 @@
       }
     }
     .sort-by {
-      margin-right: 25px;
-      flex: 1;
-      @include mediaQueries(pad) {
-        // flex: 1;
-      }
-      @include mediaQueries(mobile) {
+        font-family: 'Helvetica Neue LT Pro';
+        height: 67px;
+        border-radius: 56px;
+        width: 209px;
+        background: #EFEFEF;
+
+        padding: 24px 50px;
+        white-space: nowrap;
+        margin-right: 38px;
         flex: 1;
-        order: 2;
-      }
+
+        @include mediaQueries(pad) {
+            // flex: 1;
+        }
+
+        @include mediaQueries(mobile) {
+            flex: 1;
+            order: 2;
+        }
     }
     .view {
       @include mediaQueries(mobile) {
@@ -120,13 +136,12 @@
     }
     .sort-label {
       font-style: normal;
-      font-family: "Axiforma Bold";
+      font-family: "Helvetica Neue LT Pro";
       font-weight: normal;
       font-size: 18px;
       line-height: 41px;
       color: #000000;
       margin-bottom: 0;
-      margin-right: 20px;
       @include mediaQueries(pad) {
         label {
           font-size: 18px;
@@ -147,7 +162,7 @@
       border: 0;
       text-transform: capitalize;
       outline: 0;
-      font-family: "Axiforma Bold";
+      font-family: "Helvetica Neue LT Pro";
       font-style: normal;
       font-weight: normal;
       font-size: 15px;
@@ -838,6 +853,10 @@
             border-radius: 25px;
         }
 
+        .product-image-container:hover {
+            cursor: pointer;
+        }
+
         .product-details {
             & > div:not(:last-child) {
                 margin-bottom: 18px;
@@ -903,6 +922,7 @@
                 line-height: 40px;
                 text-align: left;
                 color: #1C1C1C;
+                white-space: nowrap;
             }
 
             .product-buttons {
@@ -936,6 +956,7 @@
 
     .product-container {
         max-width: 293px;
+        margin-bottom: 56px;
 
         .product-image-container {
             height: 284px;
@@ -943,6 +964,10 @@
             border-radius: 25px;
             background: #F6F5F3;
             padding: 39px 43px;
+        }
+
+        .product-image-container:hover {
+            cursor: pointer;
         }
 
         hr {
@@ -960,6 +985,7 @@
                 line-height: 21px;
                 text-align: left;
                 color: #0D1834;
+                max-width: 230px;
             }
             .product-price {
                 font-size: 16px;
@@ -967,16 +993,16 @@
                 line-height: 21px;
                 text-align: right;
                 color: #0D1834;
+                white-space: nowrap;
             }
             .category {
                 background: #CED9DB;
-                height: 25px;
                 width: auto;
                 border-radius: 8px;
                 padding: 6px 16px 6px 16px;
                 line-height: 15px;
                 color: #0D1834;
-                white-space: nowrap;
+                max-width: 170px;
             }
             .product-ppu {
                 font-size: 14px;
@@ -1175,7 +1201,9 @@
 .pagination-products,
 .pagination-orders,
 .pagination-logs {
-  margin-top: 38px;
+  margin-top: 40px;
+  margin-bottom: 100px;
+
   ul {
     display: block;
     text-align: center;

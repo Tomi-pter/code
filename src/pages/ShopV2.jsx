@@ -14,12 +14,12 @@ export default (props) => {
   const location = useLocation();
 
   const selectedCategory = () => {
-    const favBtn = document.getElementById("favorites-accordion-btn");
-    const pharmaBtn = document.getElementById("pharmacy-accordion-btn");
-    const animalBtn = document.getElementById("animal-accordion-btn");
-    const medicalBtn = document.getElementById("medical-accordion-btn");
-    const dealBtn = document.getElementById("deals-accordion-btn");
-    // const specialsBtn = document.getElementById("specials-accordion-btn");
+    const favBtn = document.getElementById("favorites-btn");
+    const pharmaBtn = document.getElementById("pharmacy-btn");
+    const animalBtn = document.getElementById("animal-btn");
+    const medicalBtn = document.getElementById("medical-btn");
+    const dealBtn = document.getElementById("deals-btn");
+    // const specialsBtn = document.getElementById("specials-btn");
     const query = new URLSearchParams(props.location.search);
     const cat = query.get("category");
 
@@ -80,193 +80,47 @@ export default (props) => {
 
   return (
     <>
-      <Helmet>
-        <title>Shop | Premier Pharmaceuticals</title>
-      </Helmet>
-      <HeaderNav />
-      <div className="shop-page">
-        <div className="shop-header container-fluid px-4">
-            <h1>Best Available Nature-Based Products</h1>
-
-            <div className="shop-categories container-fluid d-flex">
-                <button className="category-button" onClick={() => setCategory("Favorites")}>My Favorites</button>
-                <button className="category-button" onClick={() => setCategory("Specials")}>Short Dated</button>
-                <button className="category-button" onClick={() => setCategory("Pharmaceuticals")}>Pharmaceuticals</button>
-                <button className="category-button" onClick={() => setCategory("Animal Health")}>Animal Health</button>
-                <button className="category-button" onClick={() => setCategory("Medical Supplies")}>Medical/Surgical</button>
-            </div>
-
-            <div className="shop-controls d-flex flex-row align-items-center justify-content-between">
-                <h2>All Products</h2>
-                <div className="d-flex flex-row">
-                    <>Search</>
-                    <>Sort</>
-                    <>Grid/List View</>
-                </div>
-            </div>
-        </div>
-
-        <div className="container-fluid px-4">
-            <div className="content">
-                <NotificationBanner />
-                <div className="products-container">
-                    <div
-                        className={
-                        "products" + (view === "list" ? " list-view" : "")
-                        }
-                    >
-                        <Productsv2
-                            page="shop"
-                            shopFont={true}
-                            view={view}
-                            setView={setView}
-                            category={category}
-                            isLoading={isLoading}
-                            setIsLoading={setIsLoading}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div className="container-fluid shop-category">
-          <div className="products-col">
-            <div className="content-container">
-              <div className="content-category">
-                <h3>Products</h3>
-              </div>
-              <div className="filter-col">
-                <div className="product-category">
-                  <select
-                    className="select-category form-control"
-                    id="categoryType"
-                    onChange={(e) => {
-                      const selectedCategory = e.target.value;
-                      setCategory(selectedCategory);
-                    }}
-                    value={category}
-                  >
-                    {auth && <option value="Favorites">My Favorites</option>}
-                    <option value="Specials">Short Dated</option>
-                    <option value="Pharmaceuticals">Pharmaceuticals</option>
-                    <option value="Animal Health">Animal Health</option>
-                    <option value="Medical Supplies">Medical/Surgical</option>
-                  </select>
-                </div>
-                <div className="category d-flex align-items-center justify-content-between">
-                  {auth && (
-                    <button
-                      id="favorites-accordion-btn"
-                      className={
-                        "accordion-button collapsed" +
-                        (category === "Favorites" ? " active" : "")
-                      }
-                      type="button"
-                      data-toggle="collapse"
-                      data-target="#accordion4"
-                      aria-expanded="false"
-                      onClick={() => setCategory("Favorites")}
-                    >
-                      My Favorites
+        <Helmet>
+            <title>Shop | Premier Pharmaceuticals</title>
+        </Helmet>
+        <HeaderNav />
+        <div className="shop-page">
+            <div className="shop-header container-fluid px-4">
+                <h1>Best Available<br/>Nature-Based Products</h1>
+                <div className="shop-categories container-fluid d-flex">
+                    <button id="favorites-btn" className={"category-button" + (category === "Favorites" ? " active" : "")} onClick={() => setCategory("Favorites")}>
+                        My Favorites
                     </button>
-                  )}
-                  <button
-                    id="specials-accordion-btn"
-                    className={
-                      "accordion-button collapsed" +
-                      (category === "Weekly Specials" ? " active" : "")
-                    }
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#accordion6"
-                    aria-expanded="false"
-                    onClick={() => setCategory("Weekly Specials")}
-                  >
-                    Weekly Specials
-                  </button>
-                  <button
-                    id="deals-accordion-btn"
-                    className={
-                      "accordion-button collapsed" +
-                      (category === "Specials" ? " active" : "")
-                    }
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#accordion5"
-                    aria-expanded="false"
-                    onClick={() => setCategory("Specials")}
-                  >
-                    Short Dated
-                  </button>
-                  <button
-                    id="pharmacy-accordion-btn"
-                    className={
-                      "accordion-button collapsed" +
-                      (category === "Pharmaceuticals" ? " active" : "")
-                    }
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#accordion1"
-                    aria-expanded="false"
-                    onClick={() => setCategory("Pharmaceuticals")}
-                  >
-                    Pharmaceuticals
-                  </button>
-                  <button
-                    id="animal-accordion-btn"
-                    className={
-                      "accordion-button collapsed" +
-                      (category === "Animal Health" ? " active" : "")
-                    }
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#accordion2"
-                    aria-expanded="false"
-                    onClick={() => setCategory("Animal Health")}
-                  >
-                    Animal Health
-                  </button>
-                  <button
-                    id="medical-accordion-btn"
-                    className={
-                      "accordion-button collapsed" +
-                      (category === "Medical Supplies" ? " active" : "")
-                    }
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#accordion3"
-                    aria-expanded="false"
-                    onClick={() => setCategory("Medical Supplies")}
-                  >
-                    Medical/Surgical
-                  </button>
+                    <button id="deals-btn" className={"category-button" + (category === "Specials" ? " active" : "")} onClick={() => setCategory("Specials")}>
+                        Short Dated
+                    </button>
+                    <button id="pharmacy-btn" className={"category-button" + (category === "Pharmaceuticals" ? " active" : "")} onClick={() => setCategory("Pharmaceuticals")}>
+                        Pharmaceuticals
+                    </button>
+                    <button id="animal-btn" className={"category-button" + (category === "Animal Health" ? " active" : "")} onClick={() => setCategory("Animal Health")}>
+                        Animal Health
+                    </button>
+                    <button id="medical-btn" className={"category-button" + (category === "Medical Supplies" ? " active" : "")} onClick={() => setCategory("Medical Supplies")}>
+                        Medical/Surgical
+                    </button>
                 </div>
-              </div>
-              {/* Original Product Row Location */}
-              {/* <div className="content">
-                <NotificationBanner />
-                <div className="products-container">
-                  <div
-                    className={
-                      "products" + (view === "list" ? " list-view" : "")
-                    }
-                  >
-                    <Productsv2
-                      page="shop"
-                      shopFont={true}
-                      view={view}
-                      setView={setView}
-                      category={category}
-                      isLoading={isLoading}
-                      setIsLoading={setIsLoading}
-                    />
-                  </div>
-                </div>
-              </div> */}
             </div>
-          </div>
+
+            <div className="container-fluid px-4">
+                <div className="content">
+                    <NotificationBanner />
+                    <Productsv2
+                        page="shop"
+                        shopFont={true}
+                        view={view}
+                        setView={setView}
+                        category={category}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                    />
+                </div>
+            </div>
         </div>
-      </div>
       <Footer />
     </>
   );

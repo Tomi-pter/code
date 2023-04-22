@@ -11,7 +11,7 @@
         }
 
         .shop-categories {
-            padding-bottom: 120px;
+            padding-bottom: 40px;
 
             .category-button {
                 height: 48px;
@@ -33,18 +33,6 @@
             }
             .category-button:hover {
                 cursor: pointer;
-            }
-        }
-
-        .shop-controls {
-            h2 {
-                font-family: 'Helvetica Neue LT Pro';
-                font-size: 64px;
-                font-weight: 400;
-                line-height: 64px;
-                letter-spacing: -0.02em;
-                text-align: left;
-                color: #0D1834;
             }
         }
     }
@@ -322,7 +310,6 @@
                     .products.list-view {
                         .list-header {
                             padding: 0 20px 0 100px;
-                            div {}
                             p {
                                 font-size: 13px;
                             }

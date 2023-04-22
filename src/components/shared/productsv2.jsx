@@ -364,137 +364,16 @@ export const Productsv2 = ({
             Search Results for <q>{name}</q>
           </h3>
         ) : (
-          <p className="total-products">
-            {isLoading
-              ? "Showing..."
-              : filteredProducts.length === 0
-              ? ""
-              : `Showing ${startCount} - ${totalInPage} of ${filteredProducts.length} products`}
-          </p>
+        //   <p className="total-products">
+        //     {isLoading
+        //       ? "Showing..."
+        //       : filteredProducts.length === 0
+        //       ? ""
+        //       : `Showing ${startCount} - ${totalInPage} of ${filteredProducts.length} products`}
+        //   </p>
+          <h2>All Products</h2>
         )}
         <div className="d-flex align-items-center filter-view-container">
-          <div className="d-flex align-items-center sort-by">
-            <label className="sort-label">Sort by:</label>
-            <div className="dropdown">
-              <button
-                className="dropdown-toggle "
-                type="button"
-                id="sortByDropdown"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                {sortBy}
-              </button>
-              <div className="dropdown-menu" aria-labelledby="sortByDropdown">
-                {page !== "shop" && (
-                  <span
-                    className="dropdown-item"
-                    onClick={() => {
-                      setFilter("name");
-                      setOrder("ASC");
-                      setSortBy("Best Match");
-                      filterProducts({
-                        filter: "name",
-                        order: "ASC",
-                        bestMatch: true,
-                      });
-                    }}
-                  >
-                    Best Match
-                  </span>
-                )}
-
-                <span
-                  className="dropdown-item"
-                  onClick={() => {
-                    setFilter("name");
-                    setOrder("ASC");
-                    setSortBy("A-Z");
-                    filterProducts({
-                      filter: "name",
-                      order: "ASC",
-                      bestMatch: false,
-                    });
-                  }}
-                >
-                  A - Z
-                </span>
-                <span
-                  className="dropdown-item"
-                  onClick={() => {
-                    setFilter("name");
-                    setOrder("DESC");
-                    setSortBy("Z-A");
-                    filterProducts({
-                      filter: "name",
-                      order: "DESC",
-                      bestMatch: false,
-                    });
-                  }}
-                >
-                  Z - A
-                </span>
-
-                <span
-                  className="dropdown-item"
-                  onClick={() => {
-                    setFilter("cost");
-                    setOrder("ASC");
-                    setSortBy("$ Low - High");
-                    filterProducts({
-                      filter: "cost",
-                      order: "ASC",
-                      bestMatch: false,
-                    });
-                  }}
-                >
-                  $ Low - High
-                </span>
-                <span
-                  className="dropdown-item"
-                  onClick={() => {
-                    setFilter("cost");
-                    setOrder("DESC");
-                    setSortBy("$ High - Low");
-                    filterProducts({
-                      filter: "cost",
-                      order: "DESC",
-                      bestMatch: false,
-                    });
-                  }}
-                >
-                  $ High - Low
-                </span>
-                <hr />
-                <div className="flex align-items-center dropdown-item">
-                  <input
-                    className="mr-2"
-                    type="checkbox"
-                    id="sortStock"
-                    name="sortStock"
-                    defaultChecked={stockSort}
-                    onChange={handleSortCheck}
-                  />
-                  <label className="sort-stock-label mb-0" htmlFor="sortStock">
-                    {" "}
-                    Stock
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="d-flex align-items-center view">
-            <label className="sort-label">View:</label>
-            <button
-              className={"grid-btn" + (view === "grid" ? " active" : "")}
-              onClick={() => setView("grid")}
-            ></button>
-            <button
-              className={"list-btn" + (view === "list" ? " active" : "")}
-              onClick={() => setView("list")}
-            ></button>
-          </div>
           {page === "shop" && category === "Favorites" && (
             <div className="search-container">
               <input
@@ -504,6 +383,128 @@ export const Productsv2 = ({
               />
             </div>
           )}
+          <div className="d-flex align-items-center sort-by">
+            <label className="sort-label d-flex">Sort by:
+                <div className="dropdown">
+                <button
+                    className="dropdown-toggle "
+                    type="button"
+                    id="sortByDropdown"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
+                    {sortBy}
+                </button>
+                <div className="dropdown-menu" aria-labelledby="sortByDropdown">
+                    {page !== "shop" && (
+                    <span
+                        className="dropdown-item"
+                        onClick={() => {
+                        setFilter("name");
+                        setOrder("ASC");
+                        setSortBy("Best Match");
+                        filterProducts({
+                            filter: "name",
+                            order: "ASC",
+                            bestMatch: true,
+                        });
+                        }}
+                    >
+                        Best Match
+                    </span>
+                    )}
+
+                    <span
+                    className="dropdown-item"
+                    onClick={() => {
+                        setFilter("name");
+                        setOrder("ASC");
+                        setSortBy("A-Z");
+                        filterProducts({
+                        filter: "name",
+                        order: "ASC",
+                        bestMatch: false,
+                        });
+                    }}
+                    >
+                    A - Z
+                    </span>
+                    <span
+                    className="dropdown-item"
+                    onClick={() => {
+                        setFilter("name");
+                        setOrder("DESC");
+                        setSortBy("Z-A");
+                        filterProducts({
+                        filter: "name",
+                        order: "DESC",
+                        bestMatch: false,
+                        });
+                    }}
+                    >
+                    Z - A
+                    </span>
+
+                    <span
+                    className="dropdown-item"
+                    onClick={() => {
+                        setFilter("cost");
+                        setOrder("ASC");
+                        setSortBy("$ Low - High");
+                        filterProducts({
+                        filter: "cost",
+                        order: "ASC",
+                        bestMatch: false,
+                        });
+                    }}
+                    >
+                    $ Low - High
+                    </span>
+                    <span
+                    className="dropdown-item"
+                    onClick={() => {
+                        setFilter("cost");
+                        setOrder("DESC");
+                        setSortBy("$ High - Low");
+                        filterProducts({
+                        filter: "cost",
+                        order: "DESC",
+                        bestMatch: false,
+                        });
+                    }}
+                    >
+                    $ High - Low
+                    </span>
+                    <hr />
+                    <div className="flex align-items-center dropdown-item">
+                    <input
+                        className="mr-2"
+                        type="checkbox"
+                        id="sortStock"
+                        name="sortStock"
+                        defaultChecked={stockSort}
+                        onChange={handleSortCheck}
+                    />
+                    <label className="sort-stock-label mb-0" htmlFor="sortStock">
+                        {" "}
+                        Stock
+                    </label>
+                    </div>
+                </div>
+                </div>
+            </label>
+          </div>
+          <div className="d-flex align-items-center view">
+            <button
+              className={"grid-btn" + (view === "grid" ? " active" : "")}
+              onClick={() => setView("grid")}
+            ></button>
+            <button
+              className={"list-btn" + (view === "list" ? " active" : "")}
+              onClick={() => setView("list")}
+            ></button>
+          </div>
         </div>
       </div>
       <div className={"products" + (view === "list" ? " list-view" : "")}>

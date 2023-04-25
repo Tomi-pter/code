@@ -80,62 +80,50 @@ export const PaymentContainer = () => {
         <div className="main-content-container d-flex align-items-start">
           <div className="payments-container">
             <div className="payments">
-              <h1 className="title">Payment Methods</h1>
-              <ul className="nav nav-tabs">
-                <li>
-                  <a
-                    data-toggle="tab"
-                    href="#terms"
-                    className="active"
-                    onClick={() => setSelectedMethod("terms")}
-                  >
-                    Pay by Terms
-                  </a>
-                </li>
-                <li>
-                  <a
-                    data-toggle="tab"
-                    href="#paypal"
-                    className=""
-                    onClick={() => setSelectedMethod("paypal")}
-                  >
-                    Pay via Paypal
-                  </a>
-                </li>
-              </ul>
+                <h2>Payment Method</h2>
+                <label>Choose what service you want for your transaction</label>
+                <ul className="nav nav-tabs">
+                    <li>
+                        <a
+                            data-toggle="tab"
+                            href="#terms"
+                            className="active"
+                            onClick={() => setSelectedMethod("terms")}
+                        >
+                            Pay by Terms
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            data-toggle="tab"
+                            href="#paypal"
+                            className=""
+                            onClick={() => setSelectedMethod("paypal")}
+                        >
+                            Pay via Paypal
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div className="payments">
               <div className="tab-content">
                 {/* id="terms" className="tab-pane fade active show" */}
-                <div>
-                  <div className="d-flex align-items-center justify-content-between terms-copy">
+                <div className="d-flex align-items-center justify-content-between terms-copy">
                     <div className="mr-5">
-                      <h2>REMINDER</h2>
-                      <ul>
-                        <li>
-                          If payment terms have already been established you
-                          will receive an invoice via email once the order has
-                          been processed.
-                        </li>
-                        <li>
-                          If payment terms have not been established, you agree
-                          that within 24 hours Premier Pharmaceuticals will
-                          confirm your eligibility to use this payment option.
-                          Your dedicated sales rep will contact you with
-                          confirmation.
-                        </li>
-                        <li>
-                          We are working on adding payments by credit card, but
-                          currently cannot process them. In the meantime,
-                          Premier Pharmaceuticals is happy to offer 30 day
-                          payment terms for all orders.
-                        </li>
-                      </ul>
+                        <h6>REMINDER</h6>
+                        <ul>
+                            <li>
+                                If payment terms have already been established you will receive an invoice via email once the order has been processed.
+                            </li>
+                            <li>
+                                If payment terms have not been established, you agree that within 24 hours Premier Pharmaceuticals will confirm your eligibility to use this payment option. Your dedicated sales rep will contact you with confirmation.
+                            </li>
+                            <li>
+                                We are working on adding payments by credit card, but currently cannot process them. In the meantime, Premier Pharmaceuticals is happy to offer 30 day payment terms for all orders.
+                            </li>
+                        </ul>
                     </div>
-                    <img
-                      src={require("../assets/icon/card-active.svg")}
-                      alt=""
-                    />
                   </div>
-                </div>
               </div>
               <div className="d-flex align-items-center justify-content-end actions-container">
                 <Link to="checkout" className="btn back-btn">

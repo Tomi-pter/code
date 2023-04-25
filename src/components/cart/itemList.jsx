@@ -61,13 +61,8 @@ export const ItemList = ({ page }) => {
   }, [cart]);
 
   return (
-    <div>
-      {(!cart.countData || cart.countData?.length <= 0) && (
-        <div className="d-flex align-items-center justify-content-center cart-empty">
-          Your Cart is Empty
-        </div>
-      )}
-      {cart.countData?.map((cartItem) => (
+    <>
+      {/* {cart.countData?.map((cartItem) => (
         <div
           key={`key` + cartItem.productId}
           className="product d-flex align-items-center"
@@ -159,7 +154,108 @@ export const ItemList = ({ page }) => {
             </div>
           </div>
         </div>
-      ))}
-    </div>
+      ))} */}
+
+        <table className="w-100">
+            <thead>
+                <tr className="table-header">
+                    <th>
+                        <div className="d-flex align-items-center justify-content-start">Item No / NDC</div>
+                    </th>
+                    <th>
+                        <div className="d-flex align-items-center justify-content-start">
+                            Description
+                        </div>
+                    </th>
+                    <th>
+                        <div className="d-flex align-items-center justify-content-start">Manufacturer</div>
+                    </th>
+                    <th>
+                        <div className="d-flex align-items-center justify-content-start">
+                            Size
+                        </div>
+                    </th>
+                    <th>
+                        <div className="d-flex align-items-center justify-content-start">
+                            Price
+                        </div>
+                    </th>
+                    <th>
+                        <div className="d-flex align-items-center justify-content-start">
+                            Qty
+                        </div>
+                    </th>
+                    <th>
+                        <div className="d-flex align-items-center justify-content-start">
+                            Action
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    cart.countData?.map(cartItem => {
+                        return <tr key={cartItem.productId}>
+                            {
+                                isLoading
+                                && selectedItem === cartItem
+                                && <div className="loader-container">
+                                    <div className="spinner-border text-light" role="status">
+                                        <span className="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            }
+                            <td className="d-flex flex-column align-items-start justify-content-center">
+                                <div className="product-number">Product Number</div>
+                                <div className="product-ndc">NDC: {cartItem.ndc}</div>
+                            </td>
+                            <td>
+                                <div className="product-name">
+                                    {cartItem.productName}
+                                </div>
+                            </td>
+                            <td>
+                                <div className="product-manufacturer">
+                                    Manufacturer
+                                </div>
+                            </td>
+                            <td>
+                                <div className="product-size d-flex align-items-center justify-content-center">
+                                    Size
+                                </div>
+                            </td>
+                            <td>
+                                <div className="product-price">
+                                    $ {cartItem.price}
+                                </div>
+                            </td>
+                            <td>
+                                <div className="product-quantity d-flex align-items-center justify-content-center">
+                                    {cartItem.quantity}
+                                </div>
+                            </td>
+                            <td>
+                                <div
+                                    className="delete-btn d-flex align-items-center justify-content-center"
+                                    onClick={() => handleDelete(cartItem)}
+                                >
+                                <img
+                                    src={require("../../assets/img/delete_icon.svg")}
+                                    alt=""
+                                />
+                                </div>
+                            </td>
+                        </tr>
+                    })
+                }
+            </tbody>
+        </table>
+        {
+            (!cart.countData || cart.countData?.length <= 0)
+            && <div className="d-flex align-items-center justify-content-center cart-empty">
+                Your Cart is Empty
+            </div>
+        }
+    </>
   );
 };

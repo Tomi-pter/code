@@ -168,6 +168,10 @@ export const Productv2 = ({
   //   }
   // }
 
+  const FavoriteButton = ({ preferred, onClick }) => {
+
+  }
+
     
 
 
@@ -300,8 +304,9 @@ export const Productv2 = ({
                                         to Buy
                                     </span>
                                 }
-                                <div className={"star " + (product.preferred ? "preferred" : "")} onClick={() => setPrefered(product)}></div>
-                                <button className="favorite "></button>
+                                <div className={"favorite-btn " + (product.preferred ? "preferred" : "")} onClick={() => setPrefered(product)}>
+                                    <span className="heart-icon"></span>
+                                </div>
                             </div>
                         </div>
                     </div>

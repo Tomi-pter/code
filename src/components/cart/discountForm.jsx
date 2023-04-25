@@ -23,22 +23,27 @@ export const DiscountForm = ({ cart, discountCode, setDiscountCode, discountAmou
 
     return (
         <div className="discount-container">
-            <label>Discount Code</label>
-            <div className="input-container">
-                <input type="text" placeholder="Code" value={discountCode} onChange={(e) => setDiscountCode(e.target.value)}  />
-                <button onClick={handleSubmit}>Apply</button>
-                <div className="icon-container">
-                    {cart?.discountDetail &&
-                        <>
-                            { !cart?.discountDetail?.error ?
-                                <img src={require("../../assets/icon/check-green.svg")} alt="" />
-                                :
-                                <img src={require("../../assets/icon/x-red.svg")} alt="" />
-                            }
-                        </>
-                    }
+            <h2>Have a voucher?</h2>
+            <div className="d-flex align-items-center justify-content-between">
+                <div className="input-container">
+                    <input type="text" placeholder="Code" value={discountCode} onChange={(e) => setDiscountCode(e.target.value)}  />
+                    <div className="icon-container">
+                        {cart?.discountDetail &&
+                            <>
+                                { !cart?.discountDetail?.error ?
+                                    <img src={require("../../assets/icon/check-green.svg")} alt="" />
+                                    :
+                                    <img src={require("../../assets/icon/x-red.svg")} alt="" />
+                                }
+                            </>
+                        }
+                    </div>
                 </div>
+                <button onClick={handleSubmit}>Apply</button>
             </div>
+
+            {/* This is the discount info that appears after entering the  */}
+
             {cart?.discountDetail &&
                 <>
                     { !cart?.discountDetail?.message && !cart?.discountDetail?.error ?
@@ -47,7 +52,7 @@ export const DiscountForm = ({ cart, discountCode, setDiscountCode, discountAmou
                             <span className="msg success">Code Accepted!</span>
                             <div className="d-flex align-items-center justify-content-between discount-value">
                                 <span>Discount ({cart?.discountDetail?.percent_off}%)</span>
-                                <span>-${discountAmount}</span>
+                                <span className="discount-amount">-${discountAmount}</span>
                             </div>
                         </>
                         :

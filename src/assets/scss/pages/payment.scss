@@ -13,23 +13,30 @@
     flex: auto;
     margin-right: 30px;
     .payments {
-      background: hsl(0, 0%, 100%);
-      box-shadow: 0px 7.5px 30px rgba(0, 0, 0, 0.07);
-      border-radius: 3.75px;
-      padding: 40px 50px 28px 50px;
+        background: #FFFFFF;
+        box-shadow: 0px 7.5px 30px rgba(0, 0, 0, 0.07);
+        border-radius: 20px;
+        padding: 48px 20px;
+
+        label {
+            margin-bottom: 56px;
+        }
     }
     .nav-tabs {
       border-bottom: 0;
-      margin-bottom: 69px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
+
+      li:first-child {
+        margin-right: 20px;
+      }
     }
     .nav-tabs li {
       border: 3.75px solid #71D3F4;
       box-sizing: border-box;
       border-radius: 15px;
-      margin-right: 70px; 
+
       a {
         width: 209px;
         height: 117px;
@@ -63,18 +70,26 @@
     }
     
     .terms-copy {
-      border: 1.5px solid #37B34A;
-      box-sizing: border-box;
-      border-radius: 7.5px;
-      padding: 40px 40px 80px 40px;
-      li {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 29px;
-        color: #000000;
-        margin-bottom: 10px;
-      }
+        box-sizing: border-box;
+        border-radius: 20px;
+        padding: 48px 20px;
+
+        h6 {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 22px;
+            text-align: left;
+            color: #F2994A;
+        }
+
+        li {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 20px;
+            line-height: 29px;
+            color: #000000;
+            margin-bottom: 10px;
+        }
     }
     .actions-container {
       margin-top: 56px;

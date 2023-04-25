@@ -322,7 +322,7 @@ export const HeaderNav = () => {
               >
                 FAQ
               </a>
-              <div class="divider"></div>
+              <div className="divider"></div>
               {/* <div
                 className="search-container"
                 onMouseLeave={handleMouseLeave}

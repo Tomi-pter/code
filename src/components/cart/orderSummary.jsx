@@ -66,88 +66,92 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
     dispatch(checkout(checkoutDetail, history));
   };
 
-  return (
-    <div className="order-summary">
-      <h1 className="title">Order Summary</h1>
-      <ul className="summary-list">
-        <li>
-          <div>
-            <p>Subtotal ({itemCount} items)</p>
-          </div>
-          <p>${subTotal}</p>
-        </li>
-        <li>
-          <div>
-            <p>Shipping Fee</p>
-            {shipping < 100 && (
-              <span>Add ${shippingCounter} for free shipping</span>
-            )}
-          </div>
-          <p>${shipping}</p>
-        </li>
-      </ul>
-      {page === "checkout" && (
-        <>
-          <div className="discount-container">
-            <label>Reference Number</label>
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="Reference Number"
-                value={customerRefNumber}
-                onChange={(e) => setCustomerRefNumber(e.target.value)}
-              />
+    return <>
+        {
+            (page === "checkout" || page === "cart")
+            && <>
+                <div className="discount-container">
+                    <h2>Reference / PO (Optional)</h2>
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            placeholder="Reference Number"
+                            value={customerRefNumber}
+                            onChange={(e) => setCustomerRefNumber(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <DiscountForm
+                    cart={cart}
+                    discountCode={discountCode}
+                    setDiscountCode={setDiscountCode}
+                    discountAmount={discountAmount}
+                />
+            </>
+        }
+
+        <div className="order-summary">
+            <div className="d-flex align-items-center justify-content-between mb-5">
+                <h2>Order Summary</h2>
+                <span className="item-count">{itemCount} items</span>
             </div>
-          </div>
-          <DiscountForm
-            cart={cart}
-            discountCode={discountCode}
-            setDiscountCode={setDiscountCode}
-            discountAmount={discountAmount}
-          />
-        </>
-      )}
-      <div className="d-flex align-items-center justify-content-between total">
-        <span>Total</span>
-        <span>${finalTotal}</span>
-      </div>
-      <div className="d-flex justify-content-between actions-container">
-        {page === "cart" ? (
-          cart.countData?.length > 0 ? (
-            <Link to="checkout" className="btn proceed-btn">
-              Proceed to Checkout
-            </Link>
-          ) : (
-            <Link
-              to="/"
-              onClick={(event) => event.preventDefault()}
-              className="btn proceed-btn disabled"
-            >
-              Proceed to Checkout
-            </Link>
-          )
-        ) : (
-          <>
-            <Link
-              to={page === "checkout" ? "cart" : "checkout"}
-              className="btn back-btn"
-            >
-              {"<"}
-              <span>Back</span>
-            </Link>
-            <button
-              className={
-                "proceed-btn place-order " +
-                (!selectedShipping ? "disabled" : "")
-              }
-              onClick={handleCheckout}
-              disabled={!selectedShipping || !selectedBilling}
-            >
-              Place Order
-            </button>
-          </>
-        )}
-      </div>
-    </div>
-  );
+            <ul className="summary-list">
+                <li>
+                    <div>
+                        <p>Subtotal</p>
+                    </div>
+                    <p>${subTotal}</p>
+                </li>
+                <li>
+                    <div>
+                        <p>Shipping Fee</p>
+                        { shipping < 100 && <span>Add ${shippingCounter} for free shipping</span> }
+                    </div>
+                    <p>${shipping}</p>
+                </li>
+            </ul>
+            <div className="d-flex align-items-center justify-content-between total">
+                <label>Total</label>
+                <span>${finalTotal}</span>
+            </div>
+            <div className="d-flex flex-column justify-content-between actions-container">
+                {page === "cart" ? (
+                    cart.countData?.length > 0 ? (
+                        <Link to="checkout" className="btn proceed-btn">
+                            Proceed to Payment
+                        </Link>
+                    ) : (
+                        <Link
+                            to="/"
+                            onClick={(event) => event.preventDefault()}
+                            className="btn proceed-btn disabled"
+                        >
+                            Proceed to Payment
+                        </Link>
+                    )
+                    ) : (
+                    <>
+                        <Link
+                            to={page === "checkout" ? "cart" : "checkout"}
+                            className="btn back-btn mb-3"
+                        >
+                            {"<"}
+                            <span>Back</span>
+                        </Link>
+                        <button
+                            className={
+                                "proceed-btn place-order " +
+                                (!selectedShipping ? "disabled" : "")
+                            }
+                            onClick={handleCheckout}
+                            disabled={!selectedShipping || !selectedBilling}
+                        >
+                            Place Order
+                        </button>
+                    </>
+                )}
+            </div>
+        </div>
+    </>
+  
 };

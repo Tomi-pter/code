@@ -4,8 +4,8 @@ import { Footer } from "../components/partials/Footer";
 // import SignupImage from "../assets/img/signup-img.png";
 import { Helmet } from "react-helmet";
 
-// import MultiStepForm from "../components/signup/multi-step-form";
-import { Form } from "../components/signup/form";
+import MultiStepForm from "../components/signup/multi-step-form";
+// import { Form } from "../components/signup/form";
 
 export const SignUpContainer = () => {
   return (
@@ -13,11 +13,10 @@ export const SignUpContainer = () => {
       <Helmet>
         <title>Sign Up | Premier Pharmaceuticals</title>
       </Helmet>
-      <HeaderNav />
       <div className="container-fluid d-flex align-items-center signup">
-        <div className="container signup-wrapper">
-          {/* <MultiStepForm /> */}
-          <Form />
+        <div className="container d-flex align-items-center justify-content-center">
+          <MultiStepForm />
+          {/* <Form /> */}
           {/* <div className="newsletterWrapper d-flex align-items-center justify-content-center mt-5">
             <div className="emailWrapper">
               <h2>Want to learn more about how Premier Pharmaceuticals can help?</h2>
@@ -33,7 +32,7 @@ export const SignUpContainer = () => {
               </div> */}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

@@ -1,15 +1,19 @@
 import React from "react";
 import { useForm, useStep } from "react-hooks-helper";
 
-import Basic from "./basic";
+import Basic from "./multistep/basic";
+import Licensing from "./multistep/licensing";
+import Account from "./multistep/account";
+
+// import Basic from "./basic";
 import Address from "./address";
 // import Document from "./document";
-import Account from "./account";
+// import Account from "./account";
 import Verification from "./verification";
 
 const steps = [
   { id: "basic" },
-  { id: "address" },
+  { id: "licensing" },
   { id: "account" },
   { id: "verification" }
 ];
@@ -41,8 +45,8 @@ const MultiStepForm = ({ images }) => {
   switch (id) {
     case "basic":
       return <Basic {...props} />;
-    case "address":
-      return <Address {...props} />;
+    case "licensing":
+      return <Licensing {...props} />;
     case "account":
       return <Account {...props} />;
     default:

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { HeaderNav } from "../components/partials/HeaderNav";
 import { Footer } from "../components/partials/Footer";
 import { Cards } from "../components/account/cards";
@@ -11,7 +12,10 @@ import { useHistory } from "react-router";
 import { paymentByTerms, paymentViaPaypal } from "../actions/payment";
 import { getCart } from "../actions/cart";
 import { getAccount, getNetsuiteAccount } from "../actions/account";
-import { Link } from "react-router-dom";
+
+import Mastercard from "../assets/img/mastercard.svg";
+import Visa from "../assets/img/visa.svg";
+import Paypal from "../assets/img/paypal.svg";
 
 export const PaymentContainer = () => {
   const cart = useSelector((state) => state.cart);
@@ -75,86 +79,117 @@ export const PaymentContainer = () => {
         <title>Payment | Premier Pharmaceuticals</title>
       </Helmet>
       <HeaderNav />
+        <div className="cart-header container-fluid d-flex align-items-center justify-content-between">
+            <span>Make Payment</span>
+            <Link to="/checkout" className='back-btn'>
+                {"<"}
+                &nbsp;&nbsp;Back to shipping
+            </Link>
+        </div>
       <div className="container-fluid payment-page">
-        <h1 className="title">Payment</h1>
         <div className="main-content-container d-flex align-items-start">
-          <div className="payments-container">
-            <div className="payments">
-                <h2>Payment Method</h2>
-                <label>Choose what service you want for your transaction</label>
-                <ul className="nav nav-tabs">
-                    <li>
-                        <a
-                            data-toggle="tab"
-                            href="#terms"
-                            className="active"
-                            onClick={() => setSelectedMethod("terms")}
-                        >
-                            Pay by Terms
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            data-toggle="tab"
-                            href="#paypal"
-                            className=""
-                            onClick={() => setSelectedMethod("paypal")}
-                        >
-                            Pay via Paypal
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div className="payments">
-              <div className="tab-content">
-                {/* id="terms" className="tab-pane fade active show" */}
-                <div className="d-flex align-items-center justify-content-between terms-copy">
-                    <div className="mr-5">
-                        <h6>REMINDER</h6>
-                        <ul>
-                            <li>
-                                If payment terms have already been established you will receive an invoice via email once the order has been processed.
-                            </li>
-                            <li>
-                                If payment terms have not been established, you agree that within 24 hours Premier Pharmaceuticals will confirm your eligibility to use this payment option. Your dedicated sales rep will contact you with confirmation.
-                            </li>
-                            <li>
-                                We are working on adding payments by credit card, but currently cannot process them. In the meantime, Premier Pharmaceuticals is happy to offer 30 day payment terms for all orders.
-                            </li>
-                        </ul>
+            <div className="payments-container">
+                <div className="payments mb-4">
+                    <h2>Payment Method</h2>
+                    <label>Choose what service you want for your transaction</label>
+
+                    <ul className="nav nav-tabs">
+                        <li>
+                            <a
+                                data-toggle="tab"
+                                href="#terms"
+                                className="active"
+                                onClick={() => setSelectedMethod("terms")}
+                            >
+                                <div className="d-flex flex-column align-items-center justify-content-center">
+                                    <div className="d-flex align-items-center justify-content-between w-100 mb-4">
+                                        <span className="payment-title">Pay by Terms</span>
+                                        <div className="logo-container">
+                                            <img src={Mastercard} alt='Master Icon'/>
+                                            <img src={Visa} alt='Master Icon'/>
+                                        </div>
+                                    </div>
+                                    <span className="payment-description">
+                                        You can use all credit card service. We can accept Visa and Master Card.
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                data-toggle="tab"
+                                href="#paypal"
+                                className=""
+                                onClick={() => setSelectedMethod("paypal")}
+                            >
+                                <div className="d-flex flex-column align-items-center justify-content-center">
+                                    <div className="d-flex align-items-center justify-content-between w-100 mb-4">
+                                        <span className="payment-title">Paypal</span>
+                                        <div className="logo-container">
+                                            <img src={Paypal} alt='Paypal Icon'/>
+                                        </div>
+                                    </div>
+                                    <span className="payment-description">
+                                        Documentation that details how and when you pay for your products
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div className="payments">
+                    <div className="tab-content">
+                        {/* id="terms" className="tab-pane fade active show" */}
+                        <div className="terms-copy d-flex align-items-center justify-content-between">
+                            <div className="mr-5">
+                                <h6>REMINDER</h6>
+                                <ul>
+                                    <li>
+                                        If payment terms have already been established you will receive an invoice via email once the order has been processed.
+                                    </li>
+                                    <li>
+                                        If payment terms have not been established, you agree that within 24 hours Premier Pharmaceuticals will confirm your eligibility to use this payment option. Your dedicated sales rep will contact you with confirmation.
+                                    </li>
+                                    <li>
+                                        We are working on adding payments by credit card, but currently cannot process them. In the meantime, Premier Pharmaceuticals is happy to offer 30 day payment terms for all orders.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-              </div>
-              <div className="d-flex align-items-center justify-content-end actions-container">
-                <Link to="checkout" className="btn back-btn">
-                  {"<"}
-                  <span> Checkout</span>
-                </Link>
-                {/* disabled={enablePayByTerms ? false : true} */}
-                <button
-                  className="btn proceed-btn"
-                  onClick={() => handlePayment()}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <div className="spinner-border text-light" role="status">
-                      <span className="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div className="d-flex flex-column">
+                <div className="total-container">
+                    <h1 className="title">Total Amount</h1>
+                    <div className="d-flex align-items-end justify-content-center">
+                    <p className="amount">
+                        ${cart?.checkoutDetail?.finalTotal} <span> USD</span>
+                    </p>
                     </div>
-                  ) : (
-                    "Place Order"
-                  )}
-                </button>
-              </div>
+                </div>
+
+                <div className="d-flex align-items-center justify-content-end actions-container">
+                    <Link to="checkout" className="btn back-btn">
+                        {"<"}
+                        <span> Shipping</span>
+                    </Link>
+                    {/* disabled={enablePayByTerms ? false : true} */}
+                    <button
+                        className="btn proceed-btn"
+                        onClick={() => handlePayment()}
+                        disabled={isLoading}
+                        >
+                        {isLoading ? (
+                            <div className="spinner-border text-light" role="status">
+                            <span className="sr-only">Loading...</span>
+                            </div>
+                        ) : (
+                            "Finalize Order"
+                        )}
+                    </button>
+                </div>
             </div>
-          </div>
-          <div className="total-container">
-            <h1 className="title">Total Amount</h1>
-            <div className="d-flex align-items-end justify-content-center">
-              <p className="amount">
-                {cart?.checkoutDetail?.finalTotal} <span> USD</span>
-              </p>
-            </div>
-          </div>
         </div>
         <div
           id="toast"

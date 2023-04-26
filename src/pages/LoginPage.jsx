@@ -213,13 +213,13 @@ export const LoginContainer = () => {
                             <div className="input-wrapper">
                                 <label>Email</label>
                                 <Input
-                                className="email-input "
-                                label="Email"
-                                name="fEmail"
-                                type="email"
-                                value={fEmail}
-                                onChange={setforgotFormData}
-                                required
+                                    className="email-input "
+                                    label="Email"
+                                    name="fEmail"
+                                    type="email"
+                                    value={fEmail}
+                                    onChange={setforgotFormData}
+                                    required
                                 />
                             </div>
                             <div className="emailSubmitWrapper">

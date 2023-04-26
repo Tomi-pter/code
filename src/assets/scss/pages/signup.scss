@@ -1,4 +1,6 @@
 .signup {
+  background: url("../../img/login-bg.png") no-repeat top center fixed;
+  background-size: 100% 512px;
   min-height: calc(100vh - 155px);
   padding: 135px 0 78px 0;
   // .signup-wrapper {
@@ -7,10 +9,112 @@
   //     width: 100%;
   //   }
   // }
-  .card {
-    width: 100%;
-    min-height: 528px;
-  }
+    .card {
+        width: 100%;
+        min-height: 528px;
+        padding: 64px;
+        width: 628px;
+        gap: 32px;
+
+        hr {
+            margin: 0;
+        }
+
+        h4 {
+            font-family: "Helvetica Neue LT Pro";
+            font-size: 32px;
+            font-weight: 400;
+            line-height: 48px;
+            letter-spacing: 0em;
+            text-align: left;
+
+            color: #0D1834;
+        }
+
+        .signup-header {
+            gap: 12px;
+
+            h2 {
+                font-size: 48px;
+                font-weight: 700;
+                line-height: 58px;
+                letter-spacing: 0em;
+                text-align: center;
+                color: #0D1834;
+            }
+
+            a {
+                font-size: 16px;
+                font-weight: 400;
+                letter-spacing: 0em;
+                text-align: center;
+                color: #054FF0;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .input-wrapper {
+            label {
+                font-family: "Helvetica Neue LT Pro";
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 21px;
+                letter-spacing: 0em;
+                text-align: left;
+                color: #181818;
+
+                margin-left: 15px;
+            }
+            input {
+                height: 53px;
+                left: 0px;
+                top: 27px;
+                border-radius: 40px;
+                padding: 16px 14px;
+                background-color: #F4F5F6;
+                border: none;
+            }
+            input::placeholder {
+                font-family: "Helvetica Neue LT Pro";
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 21px;
+                letter-spacing: 0px;
+                text-align: left;
+                color: #707784;
+            }
+        }
+
+        .next-btn {
+            height: 45px;
+            border: none;
+            border-radius: 40px;
+            padding: 12px 16px;
+            background: #054FF0;
+
+            font-size: 16px;
+            line-height: 21px;
+            letter-spacing: 0em;
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .checkbox-container {
+            input[type="checkbox"] {
+                margin-right: 13px;
+            }
+
+            a {
+                color: #054FF0;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        }
+    }
   // .signup-img {
   //   width: 50%;
   //   border-top-right-radius: 0.5rem;
@@ -94,9 +198,6 @@
     background: none;
     color: #e63757;
   }
-  .form-group {
-    margin-bottom: 30px;
-  }
   input:not([type="checkbox"]),
   select,
   .flatpickr-input {
@@ -140,7 +241,6 @@
       margin-bottom: 10px;
     }
   }
-  button,
   .resend {
     width: 170px;
     height: 42.75px;
@@ -192,13 +292,15 @@
     display: block;
     position: relative;
     padding-left: 35px;
-    margin-bottom: 12px;
+    margin-bottom: 0;
     cursor: pointer;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 20px;
-    line-height: 32px;
-    color: #000000;
+
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0em;
+    text-align: left;
+
+
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -217,8 +319,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 25px;
-    width: 25px;
+    height: 13px;
+    width: 13px;
     background-color: #eee;
   }
 

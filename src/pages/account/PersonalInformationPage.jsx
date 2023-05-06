@@ -41,180 +41,160 @@ export const PersonalInformationContainer = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Account | Premier Pharmaceuticals</title>
-      </Helmet>
-      <HeaderNav />
-      <div className="personalInformationWrapper">
-        <div className="container">
-          <div className="d-flex align-items-start flex-column flex-lg-row">
-            <div className="side-nav">
-              <h1 className="title">Account</h1>
-              <div className="card">
-                <ul
-                  className="nav nav-tabs flex-column"
-                  id="pills-tab"
-                  role="tablist"
-                >
-                  <li className="primary-nav">
-                    <button
-                      data-toggle="tab"
-                      href="#personal-profile"
-                      className={`accordion-title flex-column align-items-start primary-link ${
-                        activeTab ? "" : "active"
-                      } ${isOpen ? "open" : ""}`}
-                    >
-                      <span>
-                        <img src={AccountUser} alt="" />
-                        Personal Information{" "}
-                        <span
-                          className="caret"
-                          onClick={() => setOpen(!isOpen)}
-                        ></span>
-                      </span>
-                      <span
-                        className={`accordion-item  ${
-                          !isOpen ? "collapsed" : ""
-                        }`}
-                      >
-                        <span className="accordion-content">
-                          <ul
-                            className="sub-nav nav flex-column mb-3 text-left"
-                            id="pills-tab-1"
-                            role="tablist"
-                          >
-                            <li>
-                              <a
-                                className="active"
-                                data-toggle="pill"
-                                href="#my-profile"
-                                role="tab"
-                                aria-controls="pills-home-1"
-                                aria-selected="true"
-                              >
-                                My Profile
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                className=""
-                                data-toggle="pill"
-                                href="#my-license"
-                                role="tab"
-                                aria-controls="pills-home-2"
-                                aria-selected="true"
-                              >
-                                My License
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                className=""
-                                data-toggle="pill"
-                                href="#my-addresses"
-                                role="tab"
-                                aria-controls="pills-home-3"
-                                aria-selected="false"
-                              >
-                                My Address Book
-                              </a>
-                            </li>
-                          </ul>
-                        </span>
-                      </span>
-                    </button>
-                  </li>
-                  <li className="primary-nav">
-                    <a
-                      data-toggle="tab"
-                      href="#order-history"
-                      className={`primary-link ${activeTab ? "active" : ""} `}
-                    >
-                      <img src={CartIcon} alt="" />
-                      Order History
-                    </a>
-                  </li>
-                  <li className="primary-nav">
-                    <a
-                      data-toggle="tab"
-                      href="#security"
-                      className="primary-link "
-                    >
-                      <img src={SecurityIcon} alt="" />
-                      Security
-                    </a>
-                  </li>
-                  <li className="primary-nav">
-                    <a
-                      data-toggle="tab"
-                      href="#!"
-                      onClick={handleLogout}
-                      className="primary-link "
-                    >
-                      <img src={LogOutIcon} alt="" />
-                      Log Out
-                    </a>
-                  </li>
-                </ul>
-              </div>
+        <Helmet>
+            <title>Account | Premier Pharmaceuticals</title>
+        </Helmet>
+        <HeaderNav />
+        <div className="personalInformationWrapper">
+            <div className="container">
+                <div className="d-flex align-items-start flex-column flex-lg-row">
+                    <div className="side-nav">
+                        <h1 className="title">Account</h1>
+                        <div className="card">
+                            <ul
+                                className="nav nav-tabs flex-column"
+                                id="pills-tab"
+                                role="tablist"
+                            >
+                                <li className="primary-nav">
+                                    <a
+                                        data-toggle="tab"
+                                        href="#personal-profile"
+                                        className={`primary-link ${activeTab ? "" : "active"} `}
+                                    >
+                                    <img src={AccountUser} alt="" />
+                                        Personal Information{" "}
+                                    </a>
+                                </li>
+                                <li className="primary-nav">
+                                    <a
+                                        data-toggle="tab"
+                                        href="#order-history"
+                                        className={`primary-link ${activeTab ? "active" : ""} `}
+                                    >
+                                    <img src={CartIcon} alt="" />
+                                        Order History
+                                    </a>
+                                </li>
+                                <li className="primary-nav">
+                                    <a
+                                        data-toggle="tab"
+                                        href="#security"
+                                        className="primary-link "
+                                    >
+                                    <img src={SecurityIcon} alt="" />
+                                        Security
+                                    </a>
+                                </li>
+                                <li className="primary-nav">
+                                    <a
+                                        data-toggle="tab"
+                                        href="#!"
+                                        onClick={handleLogout}
+                                        className="primary-link "
+                                    >
+                                    <img src={LogOutIcon} alt="" />
+                                        Log Out
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="information">
+                        <div id="pills-tabContent" className="tab-content" >
+                            <div
+                                className={`tab-pane fade ${activeTab ? "" : "active show"}`}
+                                id="personal-profile"
+                                role="tabpanel"
+                                aria-labelledby="pills-home-tab"
+                            >
+                                <ul class="nav nav-tabs">
+                                    <li>
+                                        <a
+                                            className="nav-tab active"
+                                            data-toggle="pill"
+                                            href="#my-profile"
+                                            role="tab"
+                                            aria-controls="pills-home-1"
+                                            aria-selected="true"
+                                        >
+                                            My Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            className="nav-tab"
+                                            data-toggle="pill"
+                                            href="#my-license"
+                                            role="tab"
+                                            aria-controls="pills-home-2"
+                                            aria-selected="true"
+                                        >
+                                            My License
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            className="nav-tab"
+                                            data-toggle="pill"
+                                            href="#my-addresses"
+                                            role="tab"
+                                            aria-controls="pills-home-3"
+                                            aria-selected="false"
+                                        >
+                                            My Address Book
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div className="card tab-content" id="pills-tab-1">
+                                    <div
+                                        className="tab-pane fade show active"
+                                        id="my-profile"
+                                        role="tabpanel"
+                                        aria-labelledby="pills-home-1"
+                                    >
+                                        <PersonalInfo account={account} />
+                                    </div>
+                                    <div
+                                        className="tab-pane fade show"
+                                        id="my-license"
+                                        role="tabpanel"
+                                        aria-labelledby="pills-home-2"
+                                    >
+                                        <License account={account} />
+                                    </div>
+                                    <div
+                                        className="tab-pane fade show"
+                                        id="my-addresses"
+                                        role="tabpanel"
+                                        aria-labelledby="pills-home-3"
+                                    >
+                                        <Addresses
+                                            key={account.addressesData}
+                                            account={account}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                id="order-history"
+                                className={`tab-pane fade ${activeTab ? "active show" : ""}`}
+                            >
+                                <OrdersHistory />
+                            </div>
+                            <div id="security" className="tab-pane fade">
+                                <h1 className="title">Security</h1>
+                                <div className="card">
+                                    <Changepassword account={account} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="information">
-              <div className="tab-content" id="pills-tabContent">
-                <div
-                  className={`tab-pane fade ${activeTab ? "" : "active show"}`}
-                  id="personal-profile"
-                  role="tabpanel"
-                  aria-labelledby="pills-home-tab"
-                >
-                  <h1 className="title">Personal Information</h1>
-                  <div className="card tab-content" id="pills-tab-1">
-                    <div
-                      className="tab-pane fade show active"
-                      id="my-profile"
-                      role="tabpanel"
-                      aria-labelledby="pills-home-1"
-                    >
-                      <PersonalInfo account={account} />
-                    </div>
-                    <div
-                      className="tab-pane fade show"
-                      id="my-license"
-                      role="tabpanel"
-                      aria-labelledby="pills-home-2"
-                    >
-                      <License account={account} />
-                    </div>
-                    <div
-                      className="tab-pane fade show"
-                      id="my-addresses"
-                      role="tabpanel"
-                      aria-labelledby="pills-home-3"
-                    >
-                      <Addresses
-                        key={account.addressesData}
-                        account={account}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  id="order-history"
-                  className={`tab-pane fade ${activeTab ? "active show" : ""}`}
-                >
-                  <OrdersHistory />
-                </div>
-                <div id="security" className="tab-pane fade">
-                  <h1 className="title">Security</h1>
-                  <div className="card">
-                    <Changepassword account={account} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-      <Footer />
+        <Footer />
     </>
   );
 };

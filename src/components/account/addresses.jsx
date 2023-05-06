@@ -22,6 +22,11 @@ import {
 } from "react-phone-number-input";
 import InputContact from "react-phone-number-input/input";
 
+import ProfilePic from "../../assets/img/Account/placeholder-dp.svg";
+import AddressIcon from "../../assets/img/address-icon.svg";
+import StarIcon from "../../assets/img/star.svg";
+import OptionsIcon from "../../assets/img/options.svg";
+
 const defaultData = {
   mobileNumber: "",
   // address: "",
@@ -194,161 +199,254 @@ export const Addresses = ({ account }) => {
 
   return (
     <div className="addressesWrapper">
-      <h2 className="sub-title">My Address Book</h2>
-      <table className="table ">
-        <thead>
-          <tr>
-            <th scope="col">Address Details</th>
-            <th scope="col" className="d-none d-lg-table-cell"></th>
-            <th scope="col" className="d-none d-lg-table-cell"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {account.addressesData?.map((item, index) => (
-            <tr key={index}>
-              <td className="w-100">
-                {/* <p className="mb-0">{item?.details?.givenName + ' ' + item?.details?.familyName}</p> */}
-                <p className="mb-0">{item?.details?.address}</p>
-                <p className="mb-0">{item?.details?.mobileNumber}</p>
-                <div className="d-flex d-lg-none mt-5 align-items-center justify-content-between">
-                  <div>
-                    {defaultAddress?.addressId === item?.addressId && (
-                      <div className="default">Default</div>
-                    )}
-                    {item?.addressId &&
-                      defaultAddress?.addressId !== item?.addressId && (
-                        <button
-                          className="default-btn"
-                          onClick={() => handleMakeDefaultAddress(item)}
-                        >
-                          {isDefaultLoading &&
-                          isDefaultSelected?.addressId === item.addressId ? (
-                            <div
-                              className="spinner-border text-success"
-                              role="status"
-                            >
-                              <span className="sr-only">Loading...</span>
+        <div className='address-container d-flex flex-column justify-content-center mb-4'>
+            <h2>Address List</h2>
+            <div className='address-list'>
+                {
+                    account.addressesData?.map(address => <div className='address-item d-flex align-items-center justify-content-between col-12'>
+                        <div className='address-icon d-flex align-items-center justify-content-center'>
+                            <img src={AddressIcon} alt='Address Icon'/>
+                        </div>
+                        <div className='address-details d-flex flex-column'>
+                            <p>{ address?.details?.address }</p>
+                            <p>{ address?.details?.mobileNumber }</p>
+                        </div>
+                        <div className="icon-container d-flex flex-column align-items-center">
+                            {
+                                defaultAddress?.addressId === address?.addressId
+                                && <div className='default-icon d-flex align-items-center justify-content-center'>
+                                    <img src={StarIcon} alt='Star Icon'/>
+                                    <span>Default</span>
+                                </div>
+                            }
+
+                            {
+                                defaultAddressBilling?.addressId === address?.addressId
+                                && <div className='default-icon d-flex align-items-center justify-content-center'>
+                                    <img src={StarIcon} alt='Star Icon'/>
+                                    <span>Billing</span>
+                                </div>
+                            }
+
+                            
+                        </div>
+                        <div className='options-icon d-flex align-items-center justify-content-center p-3'>
+                            <div class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-option-vertical"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {
+                                        address?.addressId
+                                        && defaultAddress?.addressId !== address?.addressId
+                                        && <li>
+                                            <a onClick={() => handleMakeDefaultAddress(address)}>
+                                                {
+                                                    isDefaultLoading
+                                                    && isDefaultSelected?.addressId === address.addressId
+                                                        ? <div
+                                                            className="spinner-border text-success"
+                                                            role="status"
+                                                        >
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                        : <>Set as Default</>
+                                                }
+                                            </a>
+                                        </li>
+                                    }
+
+                                    {
+                                        defaultAddressBilling?.addressId !== address?.addressId
+                                        && <li>
+                                            <a onClick={() => handleMakeDefaultAddressBilling(address)}>
+                                                {
+                                                    isDefaultLoading
+                                                    && isDefaultSelected?.addressId === address.addressId
+                                                        ? <div
+                                                            className="spinner-border text-success"
+                                                            role="status"
+                                                        >
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                        : <>Set as Default Billing</>
+                                                }
+                                            </a>
+                                        </li>
+
+                                    }
+
+                                    <li>
+                                        <a onClick={() => editAddress(address)}>
+                                            Edit Address
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a onClick={() => removeAddress(address)}>
+                                            Delete Address
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                          ) : (
-                            "Set as Default"
-                          )}
-                        </button>
-                      )}
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <div
-                      className="edit-wrapper mr-4"
-                      onClick={() => editAddress(item)}
+                        </div>
+                    </div>)
+                }
+            </div>
+        </div>
+
+        {/* <table className="table ">
+            <thead>
+            <tr>
+                <th scope="col">Address Details</th>
+                <th scope="col" className="d-none d-lg-table-cell"></th>
+                <th scope="col" className="d-none d-lg-table-cell"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {account.addressesData?.map((item, index) => (
+                <tr key={index}>
+                <td className="w-100">
+                    <p className="mb-0">{item?.details?.address}</p>
+                    <p className="mb-0">{item?.details?.mobileNumber}</p>
+                    <div className="d-flex d-lg-none mt-5 align-items-center justify-content-between">
+                    <div>
+                        {defaultAddress?.addressId === item?.addressId && (
+                        <div className="default">Default</div>
+                        )}
+                        {item?.addressId &&
+                        defaultAddress?.addressId !== item?.addressId && (
+                            <button
+                            className="default-btn"
+                            onClick={() => handleMakeDefaultAddress(item)}
+                            >
+                            {isDefaultLoading &&
+                            isDefaultSelected?.addressId === item.addressId ? (
+                                <div
+                                className="spinner-border text-success"
+                                role="status"
+                                >
+                                <span className="sr-only">Loading...</span>
+                                </div>
+                            ) : (
+                                "Set as Default"
+                            )}
+                            </button>
+                        )}
+                    </div>
+                    <div className="d-flex align-items-center">
+                        <div
+                        className="edit-wrapper mr-4"
+                        onClick={() => editAddress(item)}
+                        >
+                        <img className="edit-icon" src={EditIcon} alt="" />
+                        </div>
+                        {isDeleteLoading &&
+                        selectedAddress.addressId === item.addressId ? (
+                        <div
+                            className="spinner-border text-danger delete-spinner"
+                            role="status"
+                        >
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                        ) : (
+                        <div
+                            className="edit-wrapper"
+                            onClick={() => removeAddress(item)}
+                        >
+                            <img className="delete-icon" src={DeleteIcon} alt="" />
+                        </div>
+                        )}
+                    </div>
+                    </div>
+                </td>
+                <td className="d-none d-lg-table-cell">
+                    {defaultAddress?.addressId === item?.addressId && (
+                    <div className="default">Default</div>
+                    )}
+                    {defaultAddress?.addressId !== item?.addressId && (
+                    <button
+                        className="default-btn"
+                        onClick={() => handleMakeDefaultAddress(item)}
                     >
-                      <img className="edit-icon" src={EditIcon} alt="" />
+                        {isDefaultLoading &&
+                        isDefaultSelected?.addressId === item.addressId ? (
+                        <div
+                            className="spinner-border text-success"
+                            role="status"
+                        >
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                        ) : (
+                        "Set as Default"
+                        )}
+                    </button>
+                    )}
+                    {defaultAddressBilling?.addressId === item?.addressId && (
+                    <div className="default mt-3">Default Billing</div>
+                    )}
+                    {defaultAddressBilling?.addressId !== item?.addressId && (
+                    <button
+                        className="default-btn mt-3"
+                        onClick={() => handleMakeDefaultAddressBilling(item)}
+                    >
+                        {isDefaultLoading &&
+                        isDefaultSelected?.addressId === item.addressId ? (
+                        <div
+                            className="spinner-border text-success"
+                            role="status"
+                        >
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                        ) : (
+                        "Set as Default Billing"
+                        )}
+                    </button>
+                    )}
+                </td>
+                <td className="d-none d-lg-table-cell">
+                    <div className="d-flex align-items-center">
+                    <div
+                        className="edit-wrapper mr-4"
+                        onClick={() => editAddress(item)}
+                    >
+                        <img className="edit-icon" src={EditIcon} alt="" />
                     </div>
                     {isDeleteLoading &&
                     selectedAddress.addressId === item.addressId ? (
-                      <div
+                        <div
                         className="spinner-border text-danger delete-spinner"
                         role="status"
-                      >
+                        >
                         <span className="sr-only">Loading...</span>
-                      </div>
+                        </div>
                     ) : (
-                      <div
+                        <div
                         className="edit-wrapper"
                         onClick={() => removeAddress(item)}
-                      >
+                        >
                         <img className="delete-icon" src={DeleteIcon} alt="" />
-                      </div>
+                        </div>
                     )}
-                  </div>
-                </div>
-              </td>
-              <td className="d-none d-lg-table-cell">
-                {defaultAddress?.addressId === item?.addressId && (
-                  <div className="default">Default</div>
-                )}
-                {defaultAddress?.addressId !== item?.addressId && (
-                  <button
-                    className="default-btn"
-                    onClick={() => handleMakeDefaultAddress(item)}
-                  >
-                    {isDefaultLoading &&
-                    isDefaultSelected?.addressId === item.addressId ? (
-                      <div
-                        className="spinner-border text-success"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      "Set as Default"
-                    )}
-                  </button>
-                )}
-                {defaultAddressBilling?.addressId === item?.addressId && (
-                  <div className="default mt-3">Default Billing</div>
-                )}
-                {defaultAddressBilling?.addressId !== item?.addressId && (
-                  <button
-                    className="default-btn mt-3"
-                    onClick={() => handleMakeDefaultAddressBilling(item)}
-                  >
-                    {isDefaultLoading &&
-                    isDefaultSelected?.addressId === item.addressId ? (
-                      <div
-                        className="spinner-border text-success"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      "Set as Default Billing"
-                    )}
-                  </button>
-                )}
-              </td>
-              <td className="d-none d-lg-table-cell">
-                <div className="d-flex align-items-center">
-                  <div
-                    className="edit-wrapper mr-4"
-                    onClick={() => editAddress(item)}
-                  >
-                    <img className="edit-icon" src={EditIcon} alt="" />
-                  </div>
-                  {isDeleteLoading &&
-                  selectedAddress.addressId === item.addressId ? (
-                    <div
-                      className="spinner-border text-danger delete-spinner"
-                      role="status"
-                    >
-                      <span className="sr-only">Loading...</span>
                     </div>
-                  ) : (
-                    <div
-                      className="edit-wrapper"
-                      onClick={() => removeAddress(item)}
-                    >
-                      <img className="delete-icon" src={DeleteIcon} alt="" />
-                    </div>
-                  )}
-                </div>
-              </td>
-            </tr>
-          ))}
-          {!account?.addressesData && account?.addressesData?.length === 0 && (
-            <tr>
-              <td colSpan="3" className="text-center">
-                No Addresses
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      <div className="col-12 d-flex align-items-center justify-content-end">
-        <div>
-          <button className="addAddressButton" onClick={() => addAddress()}>
-            + Add New Address
-          </button>
+                </td>
+                </tr>
+            ))}
+
+            {!account?.addressesData && account?.addressesData?.length === 0 && (
+                <tr>
+                <td colSpan="3" className="text-center">
+                    No Addresses
+                </td>
+                </tr>
+            )}
+            </tbody>
+        </table> */}
+
+        <div className="col-12 d-flex align-items-center">
+            <button className="addAddressButton" onClick={() => addAddress()}>
+                Add Address
+            </button>
         </div>
-      </div>
 
       <Modal
         id="addAddressModal"

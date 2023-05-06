@@ -250,7 +250,7 @@ export const CheckoutInfo = ({
   }, [validation]);
 
     return <>
-        {/* <div className='customer-info mb-4'>
+        <div className='customer-info mb-4'>
             <div className='personal-info d-flex align-items-center'>
                 <div className='profile-image-container mr-2'>
                     <img className="profilePic" src={ProfilePic} />
@@ -327,7 +327,7 @@ export const CheckoutInfo = ({
                     <label htmlFor="sameAddress">Use same shipping address</label>
                 </div>
             </div>
-        </div> */}
+        </div>
         <div className="customer-info">
             <div className="d-flex align-items-center justify-content-between title-container">
             <h1 className="title m-0">Shipping Address</h1>

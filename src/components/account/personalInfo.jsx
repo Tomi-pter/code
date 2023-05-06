@@ -132,226 +132,265 @@ export const PersonalInfo = ({ account }) => {
 
   return (
     <>
-      <Alert
-        variant="danger"
-        show={showError}
-        onClose={() => setShowError(false)}
-        dismissible
-      >
-        <p style={{ margin: 0 }}>
-          This file is too large to upload. The maximum supported file size are:
-          1MB.
-        </p>
-      </Alert>
-      <div className="d-flex align-items-center justify-content-between profile-container">
-        <div className="d-flex align-items-center">
-          <div className="avatar-wrapper position-relative">
-            {avatarLoading && <div className="avatar-loader "></div>}
-            {avatarPic !== "" ? (
-              <img className="profilePic mr-4" src={avatarPic} />
-            ) : (
-              <img className="profilePic mr-4" src={ProfilePic} alt="" />
-            )}
-          </div>
-          {account.accountData.given_name && (
+        <Alert
+            variant="danger"
+            show={showError}
+            onClose={() => setShowError(false)}
+            dismissible
+        >
+            <p style={{ margin: 0 }}>
+                This file is too large to upload. The maximum supported file size are:
+                1MB.
+            </p>
+        </Alert>
+        <div className="d-flex flex-column justify-content-between profile-container">
+            <div className="d-flex flex-row align-items-start justify-content-between">
+                <h1 className="title">Personal Information</h1>
+
+                {
+                    account.accountData.given_name
+                    && <div className="edit-wrapper" onClick={toggleEdit}>
+                        <img className="edit-icon" src={EditIcon} alt="" />
+                    </div>
+                }
+            </div>
+
+            <div className="d-flex align-items-center mb-4">
+                <div className="avatar-wrapper position-relative">
+                    { avatarLoading && <div className="avatar-loader "></div> }
+
+                    {
+                        avatarPic !== ""
+                        ? <img className="profilePic mr-4" src={avatarPic} />
+                        : <img className="profilePic mr-4" src={ProfilePic} alt="" />
+                    }
+                </div>
+
+                {
+                    account.accountData.given_name
+                    && <div>
+                        <p className="name">
+                            {account.accountData?.given_name +
+                            " " +
+                            account.accountData?.family_name}{" "}
+                        </p>
+
+                        <div className="d-flex flex-row email-container">
+                            {
+                                account.accountData.subAccount
+                                ? <div className="d-flex flex-row">
+                                    <label>Email: </label>
+                                    <small
+                                        className="d-flex align-items-center"
+                                        data-toggle="modal"
+                                        data-target="#emailChangeModal"
+                                    >
+                                        { account.accountData?.email }
+                                    </small>
+
+                                    <div className="divider" />
+
+                                    <label>Phone: </label>
+                                    <small
+                                        className="d-flex align-items-center"
+                                    >
+                                        { account.accountData?.phone_number }
+                                    </small>
+
+                                </div>
+                                : <div className="d-flex flex-row">
+                                    <label>Email: </label>
+                                    <small
+                                        className="d-flex align-items-center"
+                                        data-toggle="modal"
+                                        data-target="#emailChangeModal"
+                                        onClick={() => setNewEmail(account.accountData?.email)}
+                                    >
+                                        { account.accountData?.email }
+                                        <img
+                                            className="ml-2"
+                                            src={EditIcon}
+                                            alt=""
+                                            width="13"
+                                            height="13"
+                                        />
+                                    </small>
+                                </div>
+                            }
+                        </div>
+
+
+                        <input
+                            style={{ display: "none" }}
+                            ref={inputFile}
+                            onChange={handleFileUpload}
+                            type="file"
+                            accept="image/*"
+                        />
+                    </div>
+                }
+            </div>
+
             <div>
-              <p className="mb-0 name">
-                {account.accountData?.given_name +
-                  " " +
-                  account.accountData?.family_name}{" "}
-              </p>
-              {account.accountData.subAccount ? (
-                <small
-                  className="d-flex align-items-center"
-                  data-toggle="modal"
-                  data-target="#emailChangeModal"
-                >
-                  {account.accountData?.email}
-                </small>
-              ) : (
-                <small
-                  className="d-flex align-items-center"
-                  data-toggle="modal"
-                  data-target="#emailChangeModal"
-                  onClick={() => setNewEmail(account.accountData?.email)}
-                >
-                  {account.accountData?.email}
+                <div className="change-btn" onClick={onButtonClick}>
+                    Upload New Picture
+                </div>
+            </div>
+        </div>
 
-                  <img
-                    className="ml-2"
-                    src={EditIcon}
-                    alt=""
-                    width="13"
-                    height="13"
-                  />
-                </small>
-              )}
+        <hr/>
 
-              <input
-                style={{ display: "none" }}
-                ref={inputFile}
-                onChange={handleFileUpload}
-                type="file"
-                accept="image/*"
-              />
-              <div className="change-btn" onClick={onButtonClick}>
-                Change Profile Photo
-              </div>
+        <div className="row">
+            <div className="col-lg-6">
+                <div className="form-group d-flex flex-column">
+                    <label htmlFor="given_name">First Name</label>
+                    {
+                        disable
+                        ? <p>{account?.accountData?.given_name}</p>
+                        : <input
+                            value={formData?.given_name}
+                            name="given_name"
+                            type="text"
+                            onChange={handleChange}
+                        />
+                    }
+                </div>
             </div>
-          )}
-        </div>
-        {account.accountData.given_name && (
-          <div className="edit-wrapper" onClick={toggleEdit}>
-            <img className="edit-icon" src={EditIcon} alt="" />
-          </div>
-        )}
-      </div>
-      <h2 className="sub-title">Account Information</h2>
-      <div className="row">
-        <div className="col-lg-6">
-          <div className="form-group d-flex flex-column">
-            <label htmlFor="given_name">First Name</label>
-            {disable ? (
-              <p>{account?.accountData?.given_name}</p>
-            ) : (
-              <input
-                value={formData?.given_name}
-                name="given_name"
-                type="text"
-                onChange={handleChange}
-              />
-            )}
-          </div>
-        </div>
-        <div className="col-lg-6">
-          <div className="form-group d-flex flex-column">
-            <label htmlFor="family_name">Last Name</label>
-            {disable ? (
-              <p>{account?.accountData?.family_name}</p>
-            ) : (
-              <input
-                name="family_name"
-                type="text"
-                value={formData?.family_name}
-                onChange={handleChange}
-              />
-            )}
-          </div>
-        </div>
-        <div className="col-lg-6">
-          <div className="form-group d-flex flex-column">
-            <label htmlFor="phone_number">Mobile Number</label>
-            {disable ? (
-              <p>{account?.accountData?.phone_number}</p>
-            ) : (
-              // <input
-              //     name="phone_number"
-              //     type="text"
-              //     value={formData?.phone_number}
-              //     onChange={handleChange}
-              // />
-              <InputContact
-                country="US"
-                international
-                withCountryCallingCode
-                value={formData?.phone_number}
-                className="form-control"
-                onChange={contactChange}
-              />
-            )}
-          </div>
-        </div>
-        <div className="col-lg-6">
-          <div className="form-group d-flex flex-column">
-            <label htmlFor="company">Company Name</label>
-            {disable ? (
-              <p>{account?.accountData["custom:company"]}</p>
-            ) : (
-              <input
-                name="company"
-                type="text"
-                value={formData?.company}
-                onChange={handleChange}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-      {!disable && (
-        <div className="row  align-items-center justify-content-end">
-          <button
-            className="cancelButton"
-            onClick={toggleCancel}
-            disabled={isLoading}
-          >
-            Cancel
-          </button>
-          <button
-            className="saveButton"
-            onClick={handleSubmit}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="spinner-border text-light" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-            ) : (
-              "Save"
-            )}
-          </button>
-        </div>
-      )}
-      <div
-        className="modal fade"
-        id="emailChangeModal"
-        role="dialog"
-        aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLongTitle">
-                Change Email
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-                id="emailChangeModalClose"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div className="col-lg-6">
+                <div className="form-group d-flex flex-column">
+                    <label htmlFor="family_name">Last Name</label>
+                    {
+                        disable
+                        ? <p>{account?.accountData?.family_name}</p>
+                        : <input
+                            name="family_name"
+                            type="text"
+                            value={formData?.family_name}
+                            onChange={handleChange}
+                        />
+                    }
+                </div>
             </div>
-            <div className="modal-body">
-              <div className="form-group d-flex flex-column">
-                <label htmlFor="email">Email</label>
-                <input
-                  value={newEmail}
-                  name="newEmail"
-                  type="email"
-                  onChange={handleEmailChange}
-                />
-              </div>
-              <button
-                type="button"
-                className="btn btn-primary float-right saveButton"
-                onClick={handleSaveNewEmail}
-                disabled={disableEmailSave()}
-              >
-                {isLoading ? (
-                  <div className="spinner-border text-light" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                ) : (
-                  "Save"
-                )}
-              </button>
+            <div className="col-lg-6">
+                <div className="form-group d-flex flex-column">
+                    <label htmlFor="phone_number">Mobile Number</label>
+                    {
+                        disable
+                        ? <p>{account?.accountData?.phone_number}</p>
+                        : <InputContact
+                            country="US"
+                            international
+                            withCountryCallingCode
+                            value={formData?.phone_number}
+                            className="form-control"
+                            onChange={contactChange}
+                        />
+                        // <input
+                        //     name="phone_number"
+                        //     type="text"
+                        //     value={formData?.phone_number}
+                        //     onChange={handleChange}
+                        // />
+                    }
+                </div>
             </div>
-          </div>
+            <div className="col-lg-6">
+                <div className="form-group d-flex flex-column">
+                    <label htmlFor="company">Company Name</label>
+                    {
+                        disable
+                        ? <p>{account?.accountData["custom:company"]}</p>
+                        : <input
+                            name="company"
+                            type="text"
+                            value={formData?.company}
+                            onChange={handleChange}
+                        />
+                    }
+                </div>
+            </div>
         </div>
-      </div>
+        {
+            !disable
+            && <div className="row  align-items-center justify-content-start">
+                <button
+                    className="cancelButton"
+                    onClick={toggleCancel}
+                    disabled={isLoading}
+                >
+                    Discard
+                </button>
+                <button
+                    className="saveButton ml-2"
+                    onClick={handleSubmit}
+                    disabled={isLoading}
+                >
+                    {
+                        isLoading
+                            ? <div className="spinner-border text-light" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                            : <>
+                                {"Save"}
+                            </>
+                    }
+                </button>
+            </div>
+        }
+
+        <div
+            className="modal fade"
+            id="emailChangeModal"
+            role="dialog"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true"
+        >
+            <div className="modal-dialog modal-dialog-centered" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLongTitle">
+                            Change Email
+                        </h5>
+                        <button
+                            type="button"
+                            className="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                            id="emailChangeModalClose"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <div className="form-group d-flex flex-column">
+                            <label htmlFor="email">Email</label>
+                            <input
+                            value={newEmail}
+                            name="newEmail"
+                            type="email"
+                            onChange={handleEmailChange}
+                            />
+                        </div>
+                        <button
+                            type="button"
+                            className="btn btn-primary float-right saveButton"
+                            onClick={handleSaveNewEmail}
+                            disabled={disableEmailSave()}
+                        >
+                            {
+                                isLoading
+                                ? <div className="spinner-border text-light" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                                : <>
+                                    {"Save"}
+                                </>
+                            }
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </>
   );
 };

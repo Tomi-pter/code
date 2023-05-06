@@ -143,30 +143,33 @@ export const License = ({ account }) => {
           </div>
         </div>
       </div>
-      {!disable && (
-        <div className="row  align-items-center justify-content-end">
-          <button
-            className="cancelButton"
-            onClick={toggleCancel}
-            disabled={isLoading}
-          >
-            Cancel
-          </button>
-          <button
-            className="saveButton"
-            onClick={handleSubmit}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="spinner-border text-light" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-            ) : (
-              "Save"
-            )}
-          </button>
+      {
+        !disable
+        && <div className="d-flex flex-row align-items-center justify-content-start">
+            <button
+                className="saveButton"
+                onClick={handleSubmit}
+                disabled={isLoading}
+            >
+                {
+                    isLoading
+                    ? <div className="spinner-border text-light" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                    : <>
+                        {"Save"}
+                    </>
+                }
+            </button>
+            <button
+                className="cancelButton ml-2"
+                onClick={toggleCancel}
+                disabled={isLoading}
+            >
+                Discard
+            </button>
         </div>
-      )}
+      }
     </>
   );
 };

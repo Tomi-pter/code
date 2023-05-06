@@ -51,162 +51,185 @@ export const OrdersHistory = () => {
     return <span> {text.replaceAll("\n", ", ")}</span>;
   };
 
-  const renderOrder = (order, index) => {
-    return (
-      <div key={`key-${index}`} className="order">
-        <div className="d-flex align-items-start justify-content-between date-status-container">
-          <div className="orderNo">
-            <p className="d-flex">Order #{order.salesOrderNumber}</p>
-            {order.trackingNumber && (
-              <p>
-                Tracking{" "}
-                <a
-                  href={`https://www.fedex.com/fedextrack/?trknbr=${order.trackingNumber}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  #{order.trackingNumber}
-                </a>
-              </p>
-            )}
-            <p>Placed on {formatDate(order.details.dateOrdered)}</p>
-          </div>
-          <div className="status">
-            {order.details.shipComplete ? "Shipped" : "Processing"}
-          </div>
-        </div>
-
-        {order.details.items.length > 0 && status !== "Pedigree" && (
-          <div className="accordion" id={`detailsContainer${index}`}>
-            <div className="card">
-              <div className="card-header" id="headingOne">
-                <h2 className="mb-0">
-                  <button
-                    className="btn btn-link btn-block text-left"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target={`#details${index}`}
-                    aria-expanded="true"
-                    aria-controls={`details${index}`}
-                  >
-                    Order Details
-                  </button>
-                </h2>
-              </div>
-
-              <div
-                id={`details${index}`}
-                className="collapse show"
-                aria-labelledby="headingOne"
-                data-parent={`#detailsContainer${index}`}
-              >
-                <div className="card-body">
-                  {order.details.items.map((item, index) => (
-                    <Link
-                      to={`/product/${item.productId}`}
-                      key={`item-${index}`}
-                      className="d-flex align-items-center item"
-                    >
-                      <img
-                        width="50"
-                        src={item.imageUrl !== "" ? item.imageUrl : NoImage}
-                        alt=""
-                      />
-                      <div className="item-info">
-                        <p className="product-name">{item.productName}</p>
-                        {item.ndc ? <p>NDC: {item.ndc} </p> : ""}
-                        <p>Price: ${item.price}</p>
-                        <p>Quantity: {item.quantity}</p>
-                      </div>
-                      <div className="item-info-end text-left">
-                        {order.details.shipComplete && (
-                          <>
-                            <p className="text-left">Get by</p>
-                            <p className="text-left">
-                              {formatDate(order?.getBy)}
-                            </p>
-                          </>
-                        )}
-                      </div>
-                    </Link>
-                  ))}
-                  <div className="mt-2">
-                    {order.details.items.length > 0 && (
-                      <div className="d-flex align-items-center justify-content-between">
-                        <b>Subtotal:</b> <div>${calcSubTotal(order)}</div>
-                      </div>
-                    )}
-
-                    {order.details.shippingFee >= 0 && (
-                      <div className="d-flex align-items-center justify-content-between">
-                        <div>Shipping Fee:</div>
-                        <div>${order.details.shippingFee.toFixed(2)}</div>
-                      </div>
-                    )}
-
-                    {order.details.discount > 0 && (
-                      <div className="d-flex align-items-center justify-content-between">
-                        <div>Discount:</div>
-                        <div>${order.details.discount.toFixed(2)}</div>
-                      </div>
-                    )}
-
-                    <p className="shipping mt-3">
-                      Shipping Address:
-                      {formatShipping(order.details.shippingAddress)}
-                    </p>
-                  </div>
+    const renderOrder = (order, index) => {
+        return <div key={`key-${index}`} className="card order">
+            <div className="d-flex align-items-start justify-content-between date-status-container">
+                <div className="order-number-container d-flex flex-row align-items-center">
+                    <p className="order-number d-flex m-0">Order #{order.salesOrderNumber}</p>
+                    {
+                        order.trackingNumber
+                        && <p>
+                            Tracking{" "}
+                            <a
+                                href={`https://www.fedex.com/fedextrack/?trknbr=${order.trackingNumber}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                #{order.trackingNumber}
+                            </a>
+                        </p>
+                    }
+                    <p className="date-ordered m-0">{formatDate(order.details.dateOrdered)}</p>
                 </div>
-              </div>
+                <div className={`status ${order.details.shipComplete ? 'shipped': 'processing'}`} >
+                    {order.details.shipComplete ? "Shipped" : "Processing"}
+                </div>
             </div>
-          </div>
-        )}
 
-        {order.pedigrees &&
-          status === "Pedigree" &&
-          order.pedigrees.map((pedigree) => (
-            <div
-              key={pedigree.id}
-              className="d-flex justify-content-between align-items-center"
-            >
-              {pedigree.name}
-              <a href={pedigree.url} target="_blank" rel="noopener noreferrer">
-                Open
-              </a>
+            {
+                order.details.items.length > 0
+                && status !== "Pedigree"
+                && <div className="accordion" id={`detailsContainer${index}`}>
+                <div className="order-details card">
+                    <div className="card-header" id="headingOne">
+                        <h2 className="mb-0">
+                            <button
+                                className="btn btn-block text-left"
+                                type="button"
+                                data-toggle="collapse"
+                                data-target={`#details${index}`}
+                                aria-expanded="true"
+                                aria-controls={`details${index}`}
+                            >
+                                Order Details
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div
+                        id={`details${index}`}
+                        className="collapse show"
+                        aria-labelledby="headingOne"
+                        data-parent={`#detailsContainer${index}`}
+                    >
+                        <div className="card-body">
+                            {
+                                order.details.items.map((item, index) => <Link
+                                        to={`/product/${item.productId}`}
+                                        key={`item-${index}`}
+                                        className="item d-flex align-items-center "
+                                    >
+                                        <div className="image-container d-flex align-items-center justify-content-center">
+                                            <img
+                                                width='50'
+                                                src={item.imageUrl !== "" ? item.imageUrl : NoImage}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div className="item-info">
+                                            <div className="d-flex flex-row align-items-center justify-content-between">
+
+                                            </div>
+                                            <p className="product-name">{item.productName}</p>
+                                            {
+                                                item.ndc
+                                                ? <p className="product-ndc">NDC: {item.ndc} </p>
+                                                : <></>
+                                            }
+                                            <p>Price: ${item.price}</p>
+                                            <p>Quantity: {item.quantity}</p>
+                                        </div>
+                                        <div className="item-info-end text-left">
+                                            {
+                                                order.details.shipComplete
+                                                && <>
+                                                    <p className="text-left">Get by</p>
+                                                    <p className="text-left">
+                                                    {formatDate(order?.getBy)}
+                                                    </p>
+                                                </>
+                                            }
+                                        </div>
+                                    </Link>
+                                )
+                            }
+
+                            <div className="mt-2">
+                                {
+                                    order.details.items.length > 0
+                                    && <div className="d-flex align-items-center justify-content-between">
+                                        <b>Subtotal:</b> <div>${calcSubTotal(order)}</div>
+                                    </div>
+                                }
+
+                                {
+                                    order.details.shippingFee >= 0
+                                    && <div className="d-flex align-items-center justify-content-between">
+                                        <div>Shipping Fee:</div>
+                                        <div>${order.details.shippingFee.toFixed(2)}</div>
+                                    </div>
+                                }
+
+                                {
+                                    order.details.discount > 0
+                                    && <div className="d-flex align-items-center justify-content-between">
+                                        <div>Discount:</div>
+                                        <div>${order.details.discount.toFixed(2)}</div>
+                                    </div>
+                                }
+
+                                <p className="shipping mt-3">
+                                    Shipping Address:
+                                    {formatShipping(order.details.shippingAddress)}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          ))}
+            }
 
-        {((order.details.items.length === 0 && status !== "Pedigree") ||
-          (!order.pedigrees && status === "Pedigree")) &&
-          order.id !== selected && (
-            <button
-              className="btn-secondary d-block ml-auto mr-auto"
-              onClick={() =>
-                status !== "Pedigree"
-                  ? handleLoadMore(order.id)
-                  : handleGetPedigree(order.id, order.salesOrderNumber)
-              }
-            >
-              {status !== "Pedigree" ? "Load more details" : "Get Pedigree"}
-            </button>
-          )}
+            {
+                order.pedigrees
+                && status === "Pedigree"
+                && order.pedigrees.map((pedigree) => <div
+                    key={pedigree.id}
+                    className="d-flex justify-content-between align-items-center"
+                >
+                    {pedigree.name}
+                    <a href={pedigree.url} target="_blank" rel="noopener noreferrer">
+                        Open
+                    </a>
+                </div>
+            )
+            }
 
-        {getLoading && order.id === selected && (
-          <div className="text-center">
-            {status !== "Pedigree"
-              ? "Loading more details..."
-              : "Loading pedigree..."}
-          </div>
-        )}
-        <div className="mt-2">
-          <div className="d-flex align-items-center justify-content-between mt-5">
-            <div className="amount">Total:</div>
-            <div>${order.details.total.toFixed(2)}</div>
-          </div>
+            {
+                (
+                    (order.details.items.length === 0 && status !== "Pedigree")
+                    || (!order.pedigrees && status === "Pedigree")
+                )
+                && order.id !== selected
+                && <button
+                    className="load-btn d-block ml-auto mr-auto"
+                    onClick={() =>
+                        status !== "Pedigree"
+                        ? handleLoadMore(order.id)
+                        : handleGetPedigree(order.id, order.salesOrderNumber)
+                    }
+                >
+                    {status !== "Pedigree" ? "Load more details" : "Get Pedigree"}
+                </button>
+            }
+
+            {
+                getLoading && order.id === selected
+                && <div className="text-center">
+                    {
+                        status !== "Pedigree"
+                        ? "Loading details..."
+                        : "Loading pedigree..."
+                    }
+                </div>
+            }
+            <div className="mt-2">
+            <div className="d-flex align-items-center justify-content-between mt-5">
+                <div className="amount">Total:</div>
+                <div>${order.details.total.toFixed(2)}</div>
+            </div>
+            </div>
         </div>
-      </div>
-    );
-  };
+    };
 
   const handlePageClick = (data) => {
     setLoading(true);
@@ -365,7 +388,7 @@ export const OrdersHistory = () => {
           </div>
         )}
       </div>
-      <div className="card">
+      <div>
         {searchBy === "order" && (
           <ul className="nav align-item-center justify-content-around order-nav">
             <li className={status === "All" ? "active" : ""}>

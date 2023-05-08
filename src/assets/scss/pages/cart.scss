@@ -303,7 +303,7 @@
 
         .customer-info {
             .personal-info {
-                margin-bottom: 56px;
+                margin-bottom: 24px;
 
                 .profile-image-container {
                     .profilePic {
@@ -325,13 +325,21 @@
                 }
             }
 
-            .address-container {
-                h2 {
-                    font-size: 24px;
-                    font-weight: 400;
-                    line-height: 26px;
-                    text-align: left;
-                    color:#0D1834;
+            #shippingList {
+                gap: 20px;
+            }
+
+            .address-container,
+            .shipping-address-container {
+                .title-container {
+                    h2 {
+                        margin: 0;
+                        font-size: 24px;
+                        font-weight: 400;
+                        line-height: 26px;
+                        text-align: left;
+                        color:#0D1834;
+                    }
                 }
 
                 .address-list {
@@ -340,15 +348,20 @@
                     gap: 12px;
 
                     .address-item {
-                        flex-basis: calc(50% - 10px);
+                        flex-basis: calc(50% - 100px);
+                        gap: 8px;
                         height: 66px;
 
                         border-radius: 40px;
                         padding: 9px 8px;
                         background: #F6F5F3;
+                        border: 2px solid transparent;
 
                         & > * {
                             padding: 0;
+                        }
+                        &.selected {
+                            border: 2px solid #054FF0;
                         }
                         .address-icon {
                             img {
@@ -360,21 +373,62 @@
                             font-size: 14px;
                             text-align: left;
                             color:#181818;
+                            width: 270px;
+
+                            p {
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                margin: 0;
+                            }
                         }
-                        .default-icon {
-                            gap: 6px;
+                        .icon-container {
+                            width: 72px;
+                            gap: 8px;
+    
+                            .default-icon {
+                                gap: 6px;
+        
+                                height: 20px;
+                                width: 100%;
+                                border-radius: 25px;
+                                background: #0D1834;
+        
+                                font-size: 12px;
+                                font-weight: 400;
+                                line-height: 24px;
+                                letter-spacing: -0.20000000298023224px;
+                                text-align: left;
+                                color: #FFFFFF;
+        
+                                img {
+                                    width: 8px;
+                                }
+                            }
+                            
+                        }
+                        .options-icon {
+                            ul {
+                                border: none;
+                                padding: 8px;
+                        
+                                li {
+                                    padding: 0 8px;
+                                }
+                            }
 
-                            height: 20px;
-                            border-radius: 25px;
-                            padding: 4px 8px;
-                            background: #0D1834;
-
-                            font-size: 12px;
-                            text-align: left;
-                            color: #FFFFFF;
-
-                            img {
-                                width: 8px;
+                            .dropdown-menu {
+                                width: 180px;
+    
+                                li {
+                                    a {
+                                        color: #0D1834;
+                                        font-size: 15px;
+                                    }
+                                    &:hover {
+                                        color: #054FF0;
+                                    }  
+                                }
                             }
                         }
                     }
@@ -395,7 +449,7 @@
 
                 .checkbox-container {
                     input[type="checkbox"]:checked + label {
-                        color: #27AE60;
+                        color: #0D1834;
                     }
                 }
             }
@@ -551,50 +605,60 @@
       }
     }
     .add-btn {
-      border: 0;
-      outline: 0;
-      background: none;
-      font-style: normal;
-      font-weight: 800;
-      font-size: 17.5772px;
-      line-height: 29px;
-      text-decoration-line: underline;
-      color: #4f4f4f;
-      padding: 0;
-      margin: 22px 0 50px 39px;
+        border: 2px solid #054FF0;
+        border-radius: 40px;
+        padding: 10px 32px;
+        height: 41px;
+        
+        font-size: 14px;
+        text-align: center;
+        background: #054FF0;
+        color: #FFFFFF;
+
+        &:hover {
+            border: 2px solid #054FF0;
+            color: #054FF0;
+            background: #FFFFFF;
+        }
     }
     .cancel-btn,
     .save-btn {
-      width: 146px;
-      height: 60px;
-      box-sizing: border-box;
-      border-radius: 7.5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      outline: 0;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 15px;
-      line-height: 24px;
+        width: 146px;
+        height: 60px;
+        box-sizing: border-box;
+        border-radius: 7.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        outline: 0;
+        line-height: 24px;
+        cursor: pointer;
     }
     .cancel-btn {
-      border: 2px solid #16cfb0;
-      color: #16cfb0;
-      background: transparent;
+        background: transparent;
+        border: none;
+        font-size: 14px;
+        line-height: 21px;
+        text-align: center;
+        color: #181818;
     }
     .save-btn {
-      border: 0;
-      background: #16cfb0;
-      color: #ffffff;
-      &:hover {
-        background: linear-gradient(
-          266.19deg,
-          #16cfb0 -15.44%,
-          #71d3f4 103.82%
-        );
-      }
+        border: 2px solid #054FF0;
+        border-radius: 40px;
+        padding: 10px 32px;
+        height: 41px;
+        
+        font-size: 14px;
+        text-align: center;
+        background: #054FF0;
+        color: #FFFFFF;
+
+        &:hover {
+            border: 2px solid #054FF0;
+            color: #054FF0;
+            background: #FFFFFF;
+        }
     }
   }
   .main-edit-btn {

@@ -732,144 +732,150 @@ export const CheckoutInfo = ({
             <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
                 <div className="modal-body">
-                <h2 className="sub-title">
-                    {isEdit ? "Edit Address" : "Add New Address"}
-                </h2>
-                <div className="row">
-                    <div className="col">
-                    <div className="password-input form-group">
-                        <label htmlFor="address">Address Line 1</label>
-                        <Input
-                        label="Address Line 1"
-                        name="address1"
-                        type="text"
-                        value={formData.address1}
-                        onChange={handleChange}
-                        />
-                    </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                    <div className="password-input form-group">
-                        <label htmlFor="address">Address Line 2</label>
-                        <Input
-                        label="Address Line 2"
-                        name="address2"
-                        type="text"
-                        value={formData.address2}
-                        onChange={handleChange}
-                        />
-                    </div>
-                    </div>
-                </div>
-                <div className="row">
-                    {/* <div className="col-12 col-sm-6">
-                                        <label htmlFor="email">Email</label>
-                                        <Input
-                                            label="Email"
-                                            name="email"
-                                            type="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                        />
-                                    </div> */}
-                    <div className="col-12">
-                    <div className="password-input form-group">
-                        <label htmlFor="address">Phone Number</label>
-                        <InputContact
-                        country="US"
-                        international
-                        withCountryCallingCode
-                        value={formData.mobileNumber}
-                        className="form-control"
-                        onChange={contactChange}
-                        />
-                    </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 col-sm-6">
-                    <div className="password-input form-group">
-                        <label htmlFor="city">City</label>
-                        <Input
-                        label="City"
-                        name="city"
-                        type="text"
-                        value={formData.city}
-                        onChange={handleChange}
-                        />
-                    </div>
-                    </div>
-                    <div className="col-12 col-sm-6">
-                    <div className="password-input form-group">
-                        <label htmlFor="postalCode">Postal Code</label>
-                        <Input
-                        label="Postal"
-                        name="postalCode"
-                        type="text"
-                        value={formData.postalCode}
-                        onChange={handleChange}
-                        />
-                    </div>
-                    </div>
-                    <div className="col-12 col-sm-6">
-                    <div className="password-input form-group">
-                        <label htmlFor="country">Country</label>
-                        <Dropdown
-                        label="Country"
-                        name="country"
-                        value={formData.country}
-                        options={countries}
-                        onChange={handleChange}
-                        valueKey={"name"}
-                        />
-                        {/* <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} /> */}
-                    </div>
-                    </div>
-                    {formData.country !== "" && states.length > 0 && (
-                    <div className="col-12 col-sm-6">
+                    <h2 className="modal-header">
+                        {isEdit ? "Edit Address" : "Add New Address"}
+                    </h2>
+                    <div className="row">
+                        <div className="col">
                         <div className="password-input form-group">
-                        <label htmlFor="state">State</label>
-                        <Dropdown
-                            id="state"
-                            label="State"
-                            name="state"
-                            value={formData.state}
-                            options={states}
-                            onChange={handleChange}
-                            valueKey={"code"}
-                        />
-                        {/* <Dropdown label="State" name="state" value={formData.state} options={states} onChange={handleChange} /> */}
+                            <label htmlFor="address">Address Line 1</label>
+                            <Input
+                                label="Address Line 1"
+                                name="address1"
+                                type="text"
+                                value={formData.address1}
+                                onChange={handleChange}
+                            />
+                        </div>
                         </div>
                     </div>
-                    )}
-                </div>
-                <div className="button-wrapper d-flex align-items-center justify-content-end">
-                    <button
-                    className="cancelCardButton close"
-                    data-dismiss="modal"
-                    id="closeAddressModal"
-                    aria-label="Close"
-                    >
-                    Cancel
-                    </button>
-                    <button
-                    className={"addCardButton " + (isLoading ? "loading" : "")}
-                    onClick={handleSubmit}
-                    disabled={isDisabled && !isLoading}
-                    >
-                    {isLoading ? (
-                        <div className="spinner-border text-light" role="status">
-                        <span className="sr-only">Loading...</span>
+                    <div className="row">
+                        <div className="col">
+                        <div className="password-input form-group">
+                            <label htmlFor="address">Address Line 2</label>
+                            <Input
+                                label="Address Line 2"
+                                name="address2"
+                                type="text"
+                                value={formData.address2}
+                                onChange={handleChange}
+                            />
                         </div>
-                    ) : isEdit ? (
-                        "Save"
-                    ) : (
-                        "Add"
-                    )}
-                    </button>
-                </div>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        {/* <div className="col-12 col-sm-6">
+                                            <label htmlFor="email">Email</label>
+                                            <Input
+                                                label="Email"
+                                                name="email"
+                                                type="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                            />
+                                        </div> */}
+                        <div className="col-12">
+                        <div className="password-input form-group">
+                            <label htmlFor="address">Phone Number</label>
+                            <InputContact
+                            country="US"
+                            international
+                            withCountryCallingCode
+                            value={formData.mobileNumber}
+                            className="form-control"
+                            onChange={contactChange}
+                            />
+                        </div>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-12 col-sm-6">
+                            <div className="password-input form-group">
+                                <label htmlFor="city">City</label>
+                                <Input
+                                label="City"
+                                name="city"
+                                type="text"
+                                value={formData.city}
+                                onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-12 col-sm-6">
+                            <div className="password-input form-group">
+                                <label htmlFor="postalCode">Postal Code</label>
+                                <Input
+                                label="Postal"
+                                name="postalCode"
+                                type="text"
+                                value={formData.postalCode}
+                                onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-12 col-sm-6">
+                            <div className="password-input form-group">
+                                <label htmlFor="country">Country</label>
+                                <Dropdown
+                                label="Country"
+                                name="country"
+                                value={formData.country}
+                                options={countries}
+                                onChange={handleChange}
+                                valueKey={"name"}
+                                />
+                                {/* <Dropdown label="Country" name="country" value={formData.country} options={countries} onChange={handleChange} /> */}
+                            </div>
+                        </div>
+
+                        {
+                            formData.country !== ""
+                            && states.length > 0
+                            && <div className="col-12 col-sm-6">
+                                <div className="password-input form-group">
+                                <label htmlFor="state">State</label>
+                                <Dropdown
+                                    id="state"
+                                    label="State"
+                                    name="state"
+                                    value={formData.state}
+                                    options={states}
+                                    onChange={handleChange}
+                                    valueKey={"code"}
+                                />
+                                {/* <Dropdown label="State" name="state" value={formData.state} options={states} onChange={handleChange} /> */}
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div className="button-wrapper d-flex align-items-center justify-content-start">
+                        <button
+                            className={"addCardButton " + (isLoading ? "loading" : "")}
+                            onClick={handleSubmit}
+                            disabled={isDisabled && !isLoading}
+                        >
+                            {
+                                isLoading
+                                ? <div className="spinner-border text-light" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                                : isEdit
+                                    ? <>{"Save Changes"}</>
+                                    : <>{"Add"}</>
+                            }
+                        </button>
+                        <button
+                            className="cancelCardButton close ml-2"
+                            data-dismiss="modal"
+                            id="closeAddressModal"
+                            aria-label="Close"
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </div>
             </div>
             </div>

@@ -312,16 +312,9 @@ export const PersonalInfo = ({ account }) => {
         </div>
         {
             !disable
-            && <div className="row  align-items-center justify-content-start">
+            && <div className="row align-items-center justify-content-start ml-1">
                 <button
-                    className="cancelButton"
-                    onClick={toggleCancel}
-                    disabled={isLoading}
-                >
-                    Discard
-                </button>
-                <button
-                    className="saveButton ml-2"
+                    className="saveButton"
                     onClick={handleSubmit}
                     disabled={isLoading}
                 >
@@ -331,9 +324,16 @@ export const PersonalInfo = ({ account }) => {
                                 <span className="sr-only">Loading...</span>
                             </div>
                             : <>
-                                {"Save"}
+                                {"Save Changes"}
                             </>
                     }
+                </button>
+                <button
+                    className="cancelButton ml-2"
+                    onClick={toggleCancel}
+                    disabled={isLoading}
+                >
+                    Discard
                 </button>
             </div>
         }

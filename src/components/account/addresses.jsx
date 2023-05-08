@@ -442,7 +442,7 @@ export const Addresses = ({ account }) => {
             </tbody>
         </table> */}
 
-        <div className="col-12 d-flex align-items-center">
+        <div className="col-12 d-flex align-items-center p-0">
             <button className="addAddressButton" onClick={() => addAddress()}>
                 Add Address
             </button>
@@ -455,7 +455,7 @@ export const Addresses = ({ account }) => {
         onHide={handleCloseModal}
       >
         <Modal.Body>
-          <h2 className="sub-title">
+          <h2 className="modal-header">
             {isEdit ? "Edit Address" : "Add New Address"}
           </h2>
           <div className="row">
@@ -501,86 +501,90 @@ export const Addresses = ({ account }) => {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-12 col-sm-6">
-              <div className="password-input form-group">
-                <label htmlFor="city">City</label>
-                <Input
-                  label="City"
-                  name="city"
-                  type="text"
-                  value={formData.city}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <div className="col-12 col-sm-6">
-              <div className="password-input form-group">
-                <label htmlFor="postalCode">Postal Code</label>
-                <Input
-                  label="Postal"
-                  name="postalCode"
-                  type="text"
-                  value={formData.postalCode}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-            <div className="col-12 col-sm-6">
-              <div className="password-input form-group">
-                <label htmlFor="country">Country</label>
-                <Dropdown
-                  label="Country"
-                  name="country"
-                  value={formData.country}
-                  options={countries}
-                  onChange={handleChange}
-                  valueKey={"name"}
-                />
-              </div>
-            </div>
-            {states?.length > 0 && (
-              <div className="col-12 col-sm-6">
-                <div className="password-input form-group">
-                  <label htmlFor="state">State</label>
-                  <Dropdown
-                    id="state"
-                    label="State"
-                    name="state"
-                    value={formData.state}
-                    options={states}
-                    onChange={handleChange}
-                    valueKey={"code"}
-                  />
+
+            <div className="row">
+                <div className="col-12 col-sm-6">
+                    <div className="password-input form-group">
+                        <label htmlFor="city">City</label>
+                        <Input
+                        label="City"
+                        name="city"
+                        type="text"
+                        value={formData.city}
+                        onChange={handleChange}
+                        />
+                    </div>
                 </div>
-              </div>
-            )}
-          </div>
-          <div className="button-wrapper d-flex align-items-center justify-content-end">
-            <button
-              className="cancelAddressButton close"
-              onClick={handleCloseModal}
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              Cancel
-            </button>
-            <button
-              className={"saveAddressesButton " + (isLoading ? "loading" : "")}
-              onClick={handleSubmit}
-              disabled={isDisabled && !isLoading}
-            >
-              {isLoading ? (
-                <div className="spinner-border text-light" role="status">
-                  <span className="sr-only">Loading...</span>
+
+                <div className="col-12 col-sm-6">
+                    <div className="password-input form-group">
+                        <label htmlFor="postalCode">Postal Code</label>
+                        <Input
+                        label="Postal"
+                        name="postalCode"
+                        type="text"
+                        value={formData.postalCode}
+                        onChange={handleChange}
+                        />
+                    </div>
                 </div>
-              ) : isEdit ? (
-                "Save"
-              ) : (
-                "Add"
-              )}
-            </button>
-          </div>
+
+                <div className="col-12 col-sm-6">
+                    <div className="password-input form-group">
+                        <label htmlFor="country">Country</label>
+                        <Dropdown
+                            label="Country"
+                            name="country"
+                            value={formData.country}
+                            options={countries}
+                            onChange={handleChange}
+                            valueKey={"name"}
+                        />
+                    </div>
+                </div>
+
+                {
+                    states?.length > 0
+                    && <div className="col-12 col-sm-6">
+                        <div className="password-input form-group">
+                            <label htmlFor="state">State</label>
+                            <Dropdown
+                                id="state"
+                                label="State"
+                                name="state"
+                                value={formData.state}
+                                options={states}
+                                onChange={handleChange}
+                                valueKey={"code"}
+                            />
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div className="button-wrapper d-flex align-items-center justify-content-start">
+                <button
+                    className={"saveAddressesButton " + (isLoading ? "loading" : "")}
+                    onClick={handleSubmit}
+                    disabled={isDisabled && !isLoading}
+                >
+                    {isLoading ? <div className="spinner-border text-light" role="status">
+                        <span className="sr-only">Loading...</span>
+                        </div>
+                    : isEdit
+                        ? <>{"Save Changes"}</>
+                        : <>{"Add Address"}</>
+                    }
+                </button>
+                <button
+                    className="cancelAddressButton close ml-2"
+                    onClick={handleCloseModal}
+                    data-dismiss="modal"
+                    aria-label="Close"
+                >
+                    Cancel
+                </button>
+            </div>
         </Modal.Body>
       </Modal>
     </div>

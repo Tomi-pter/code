@@ -94,141 +94,133 @@ export const Changepassword = () => {
     validation();
   }, [validation]);
 
-  return (
-    <>
-      <div className="changePasswordWrapper">
+    return <div className="changePasswordWrapper">
         <h2 className="sub-title">Login Details</h2>
+
         <div className="password-wrapper d-flex align-items-center justify-content-between">
-          <div className="pl-5">Password</div>
-          <div>
-            <button
-              className="changePasswordButton"
-              onClick={() => setShowModal(true)}
-            >
-              Change Password
-            </button>
-          </div>
-        </div>
-        <Modal
-          id="changePasswordModal"
-          className="modalWrapper"
-          show={showModal}
-          onHide={handleClose}
-        >
-          <Modal.Header closeButton></Modal.Header>
-          <Modal.Body>
+            <div className="pl-5">Password</div>
             <div>
-              <h2 className="sub-title">Enter New Password</h2>
-              <div className="password-input form-group">
-                <label htmlFor="oldPassword">Old Password</label>
-                <Input
-                  label="Old Password"
-                  name="oldPassword"
-                  type="password"
-                  value={formData.oldPassword}
-                  onChange={handleChange}
-                />
-                <p className={"invalidPassword "}>
-                  {errorMess ? errorMess : ""}
-                </p>
-              </div>
-              <div className="password-input form-group">
-                <label htmlFor="confirmNewPassword">New Password</label>
-                <Input
-                  label="Password"
-                  name="newPassword"
-                  type="password"
-                  value={formData.newPassword}
-                  onChange={handleChange}
-                />
-                <p
-                  className={
-                    "password-validation " +
-                    (checkPasswordLenght ? "valid" : "")
-                  }
+                <button
+                className="changePasswordButton"
+                onClick={() => setShowModal(true)}
                 >
-                  {checkPasswordLenght ? (
-                    <img src={CheckGreen} alt="" />
-                  ) : (
-                    <img src={XGray} alt="" />
-                  )}{" "}
-                  Use 8 or more characters
-                </p>
-                <p
-                  className={
-                    "password-validation " + (checkLetters ? "valid" : "")
-                  }
-                >
-                  {checkLetters ? (
-                    <img src={CheckGreen} alt="" />
-                  ) : (
-                    <img src={XGray} alt="" />
-                  )}{" "}
-                  Use upper and lower case letters
-                </p>
-                <p
-                  className={
-                    "password-validation " + (checkNumber ? "valid" : "")
-                  }
-                >
-                  {checkNumber ? (
-                    <img src={CheckGreen} alt="" />
-                  ) : (
-                    <img src={XGray} alt="" />
-                  )}{" "}
-                  Use a number (e.g. 1234)
-                </p>
-                <p
-                  className={
-                    "password-validation " + (checkCharacter ? "valid" : "")
-                  }
-                >
-                  {checkCharacter ? (
-                    <img src={CheckGreen} alt="" />
-                  ) : (
-                    <img src={XGray} alt="" />
-                  )}{" "}
-                  Use a symbol (e.g. !@#$)
-                </p>
-              </div>
+                Change Password
+                </button>
+            </div>
+        </div>
+
+        <Modal
+            id="changePasswordModal"
+            className="modalWrapper"
+            show={showModal}
+            onHide={handleClose}
+        >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+            <div>
+                <h2 className="sub-title">Enter New Password</h2>
+                <div className="password-input form-group">
+                    <label htmlFor="oldPassword">Old Password</label>
+                    <Input
+                        label="Old Password"
+                        name="oldPassword"
+                        type="password"
+                        value={formData.oldPassword}
+                        onChange={handleChange}
+                    />
+                    <p className={"invalidPassword "}>
+                        {errorMess ? errorMess : ""}
+                    </p>
+                </div>
+                <div className="password-input form-group">
+                    <label htmlFor="confirmNewPassword">New Password</label>
+                    <Input
+                        label="Password"
+                        name="newPassword"
+                        type="password"
+                        value={formData.newPassword}
+                        onChange={handleChange}
+                    />
+                    <p
+                        className={
+                            "password-validation " +
+                            (checkPasswordLenght ? "valid" : "")
+                        }
+                    >
+                        {
+                            checkPasswordLenght
+                                ? <img src={CheckGreen} alt="" />
+                                : <img src={XGray} alt="" />
+                        }{" "}
+                        Use 8 or more characters
+                    </p>
+                    <p
+                        className={
+                            "password-validation " + (checkLetters ? "valid" : "")
+                        }
+                    >
+                        {
+                            checkLetters
+                                ? <img src={CheckGreen} alt="" />
+                                : <img src={XGray} alt="" />
+                        }{" "}
+                        Use upper and lower case letters
+                    </p>
+                    <p className={"password-validation " + (checkNumber ? "valid" : "")}>
+                        {
+                            checkNumber
+                                ? <img src={CheckGreen} alt="" />
+                                : <img src={XGray} alt="" />
+                        }{" "}
+                        Use a number (e.g. 1234)
+                    </p>
+                    <p className={"password-validation " + (checkCharacter ? "valid" : "")}>
+                        {
+                            checkCharacter
+                                ? <img src={CheckGreen} alt="" />
+                                : <img src={XGray} alt="" />
+                        }{" "}
+                        Use a symbol (e.g. !@#$)
+                    </p>
+                </div>
             </div>
             <div className="d-flex align-items-center justify-content-end nav">
-              <button
+            <button
                 className="changePasswordButton"
                 onClick={submit}
                 disabled={isDisabled}
-              >
-                {isLoading ? (
-                  <div className="spinner-border text-light" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                ) : (
-                  <>Reset Password</>
-                )}
-              </button>
+            >
+                {
+                    isLoading
+                        ? <div className="spinner-border text-light" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    : <>{"Reset Password"}</>
+                }
+            </button>
             </div>
-          </Modal.Body>
+        </Modal.Body>
         </Modal>
-        {emailPass && (
-          <div className="checkEmail-container">
-            <div className="contentWrapper text-center">
-              <div>
-                <img
-                  className="emailIcon"
-                  alt="email icon"
-                  src={PasswordChangeIcon}
-                />
-                <h2>Password successfully updated</h2>
-                <div className="emailSubmitWrapper">
-                  <button className="continueButton" onClick={resetSession}>
-                    Continue
-                  </button>
+
+        {
+            emailPass
+            && <div className="checkEmail-container">
+                <div className="contentWrapper text-center">
+                <div>
+                    <img
+                    className="emailIcon"
+                    alt="email icon"
+                    src={PasswordChangeIcon}
+                    />
+                    <h2>Password successfully updated</h2>
+                    <div className="emailSubmitWrapper">
+                    <button className="continueButton" onClick={resetSession}>
+                        Continue
+                    </button>
+                    </div>
                 </div>
-              </div>
+                </div>
             </div>
-          </div>
-        )}
-      </div>
-    </>
-  );
+        }
+    </div>
 };

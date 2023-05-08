@@ -61,7 +61,7 @@ export const License = ({ account }) => {
 
   return (
     <>
-      <div className="d-flex justify-content-between sub-title">
+      <div className="d-flex justify-content-between sub-title mb-4">
         <h2 className="m-0">State License Information</h2>
         <div className="edit-wrapper" onClick={toggleEdit}>
           <img className="edit-icon" src={EditIcon} alt="" />
@@ -157,7 +157,7 @@ export const License = ({ account }) => {
                         <span className="sr-only">Loading...</span>
                     </div>
                     : <>
-                        {"Save"}
+                        {"Save Changes"}
                     </>
                 }
             </button>

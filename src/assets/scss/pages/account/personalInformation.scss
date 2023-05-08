@@ -1174,177 +1174,190 @@
 }
 
 .modalWrapper {
-  &.change-success .modal-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .modal-header {
-    padding: 0;
-    border: 0;
-    .close {
-      // padding: 0;
+    &.change-success .modal-body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-  }
-  .modal-dialog {
-    max-width: 745px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex !important;
-    align-items: center !important;
-    height: 100%;
-    padding: 0 10px;
-    .modal-content {
-      min-height: 481px;
-      width: 100%;
-      padding: 55px 60px 43px 60px;
-      border-radius: 0;
-      @include mediaQueries(mobile) {
-        padding: 40px 16px;
-      }
-      .modal-body {
+    .modal-header {
         padding: 0;
-        // .checkEmail-container {
-        //   .emailIcon {
-        //     margin-bottom: 32px;
-        //   }
-        //   h2 {
-        //     margin-bottom: 15px;
-        //   }
-        // }
-        input,
-        select {
-          background: #f0f0f0;
-          border-radius: 0;
-          border: 0;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 18px;
-          line-height: 29px;
-          color: #4f4f4f;
-          min-height: 42px;
+        border: 0;
+    }
+    .modal-dialog {
+        max-width: 745px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex !important;
+        align-items: center !important;
+        height: 100%;
+        padding: 0 10px;
+
+        .modal-content {
+            min-height: 481px;
+            width: 100%;
+            height: 640px;
+            border-radius: 12px;
+            padding: 24px;
+
+            @include mediaQueries(mobile) {
+                padding: 40px 16px;
+            }
+
+            .modal-body {
+                padding: 0;
+
+                .modal-header {
+                    font-family: Helvetica Neue LT Pro;
+                    font-size: 32px;
+                    line-height: 48px;
+                    text-align: left;
+                    color: #0D1834;
+                }
+
+                input,
+                select {
+                    min-height: 44px;
+                    border-radius: 40px;
+                    padding: 13px 14px 13px 14px;
+                    background: #F4F5F6;
+                    border: none;
+                    box-shadow: 0px 1px 0px 0px #0000000D;
+                }
+
+                label {
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0.01em;
+                    text-align: left;
+                    color: #181818;
+                }
+            }
         }
-      }
     }
-  }
-  .invalidPassword {
-    margin-bottom: 5px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 22px;
-    color: #ff3333;
-    display: flex;
-    align-items: center;
-  }
-  .password-validation {
-    margin-bottom: 5px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 22px;
-    color: #bdbdbd;
-    display: flex;
-    align-items: center;
-    &.valid {
-      color: #37b34a;
+
+    .invalidPassword {
+        margin-bottom: 5px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 22px;
+        color: #ff3333;
+        display: flex;
+        align-items: center;
     }
-    img {
-      margin-right: 8px;
+
+    .password-validation {
+        margin-bottom: 5px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 22px;
+        color: #bdbdbd;
+        display: flex;
+        align-items: center;
+        &.valid {
+        color: #37b34a;
+        }
+        img {
+        margin-right: 8px;
+        }
+        &:last-of-type {
+        margin-bottom: 10px;
+        }
     }
-    &:last-of-type {
-      margin-bottom: 10px;
+
+    .changePasswordButton {
+        background: #16cfb0;
+        border-radius: 7.5px;
+        min-width: 163px;
+        min-height: 36px;
+        border: 0;
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 24px;
+        text-align: center;
+        color: #ffffff;
+        margin-left: 20px;
+
+        &:hover {
+            background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
+            border-radius: 7.50055px;
+        }
+        &:disabled,
+        &:disabled:hover {
+            background: #f0f0f0 !important;
+        }
     }
-  }
-  .changePasswordButton {
-    background: #16cfb0;
-    border-radius: 7.5px;
-    min-width: 163px;
-    min-height: 36px;
-    border: 0;
-    font-family: "Axiforma Bold";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 24px;
-    text-align: center;
-    color: #ffffff;
-    margin-left: 20px;
-    &:hover {
-      background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
-      border-radius: 7.50055px;
+    .continueButton {
+        background: #16cfb0;
+        border-radius: 7.5px;
+        max-width: 100%;
+        width: 100%;
+        min-height: 36px;
+        border: 0;
+        font-family: "Axiforma Bold";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 24px;
+        text-align: center;
+        color: #ffffff;
+
+        &:hover {
+            background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
+            border-radius: 7.50055px;
+        }
     }
-    &:disabled,
-    &:disabled:hover {
-      background: #f0f0f0 !important;
+    .saveAddressesButton {
+        border: 2px solid #054FF0;
+        border-radius: 40px;
+        padding: 10px 32px;
+        height: 41px;
+        
+        font-size: 16px;
+        text-align: center;
+        background: #054FF0;
+        color: #FFFFFF;
+
+        &:hover {
+            border: 2px solid #054FF0;
+            color: #054FF0;
+            background: #FFFFFF;
+        }
+
+        &:disabled,
+        &:disabled:hover {
+            background: #f0f0f0 !important;
+            border: none;
+            color: #181818;
+            opacity: 0.5;
+        }
+
+        &.loading:disabled,
+        &.loading:disabled:hover {
+            background: #054FF0;
+        }
+
+        .spinner-border {
+            width: 25px;
+            height: 25px;
+        }
     }
-  }
-  .continueButton {
-    background: #16cfb0;
-    border-radius: 7.5px;
-    max-width: 100%;
-    width: 100%;
-    min-height: 36px;
-    border: 0;
-    font-family: "Axiforma Bold";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 24px;
-    text-align: center;
-    color: #ffffff;
-    &:hover {
-      background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
-      border-radius: 7.50055px;
+    .cancelAddressButton {
+        padding: 10px 12px;
+        background: transparent;
+        border: none;
+        font-size: 16px;
+        line-height: 24px;
+        text-align: center;
+        color: #181818;
+        font-weight: 400 !important;
+        opacity: 1 !important;
     }
-  }
-  .saveAddressesButton {
-    background: #16cfb0;
-    border-radius: 7.5px;
-    min-width: 127px;
-    min-height: 36px;
-    border: 0;
-    font-family: "Axiforma Bold";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 24px;
-    text-align: center;
-    color: #ffffff;
-    margin-left: 20px;
-    &:hover {
-      background: linear-gradient(266.19deg, #16cfb0 -15.44%, #71d3f4 103.82%);
-      border-radius: 7.50055px;
-    }
-    .spinner-border {
-      width: 25px;
-      height: 25px;
-    }
-    &:disabled,
-    &:disabled:hover {
-      background: #f0f0f0 !important;
-    }
-    &.loading:disabled,
-    &.loading:disabled:hover {
-      background: #16cfb0;
-    }
-  }
-  .cancelAddressButton {
-    background: transparent;
-    border: 2px solid #16cfb0;
-    box-sizing: border-box;
-    border-radius: 7.5px;
-    min-width: 127px;
-    min-height: 36px;
-    font-family: "Axiforma Bold";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 24px;
-    text-align: center;
-    color: #16cfb0;
-  }
 }
+
 #loading-circle-container {
   position: relative;
 }

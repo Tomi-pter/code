@@ -1,74 +1,84 @@
 .payment-confirmation {
-  background-image: url("../../img/Payment/payment-bg.svg");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  min-height: calc(100vh - 266px);
-  padding: 90px 0;
-  .card {
-    width: 660px;
-    height: 359.25px;
-    background: #0098FF;
-    border-radius: 7.5px;
-    margin: 0;
-  }
-  p, h1 {
-    font-style: normal;
-    font-weight: 800;
-    color: #F2F2F2;
-  }
-  p {
-    font-size: 26px;
-    line-height: 43px;
-  }
-  h1 {
-    font-size: 75px;
-    line-height: 125px;
-  }
-  .buttonWrapper {
-    margin-top: 90px;
-  }
-  .primaryButton, .secondaryButton {
-    width: 223.5px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 24px;
-  }
-  .primaryButton {
-    background: #16CFB0;
-    border-radius: 7.5px;
-    color: #FFFFFF;
-    margin-left: 60px;
-  }
-  .secondaryButton {
-    background: #FFFFFF;
-    border: 0.75px solid #21E8DE;
-    box-sizing: border-box;
-    border-radius: 7.5px;
-    color: #21E8DE;
-    margin-right: 60px;
-  }
+    background-color: #F1F5F8;
+    height: 100vh;
 
-  @include mediaQueries(mobile) {
-    padding: 50px 16px;
-    > div, .card {
-      width: 100%;
+    img {
+        margin-bottom: 42px;
     }
-    h1 {
-      font-size: 50px;
-      line-height: 80px;
+    p {
+        font-size: 24px;
+        line-height: 29px;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: #0D1834;
+
+        max-width: 590px;
+        margin-bottom: 32px;
     }
+    h2 {
+        font-size: 48px;
+        line-height: 58px;
+        letter-spacing: -1px;
+        text-align: left;
+        color: #054FF0;
+    }
+
     .buttonWrapper {
-      justify-content: space-between !important;
+        margin-top: 90px;
     }
-    .secondaryButton, .primaryButton {
-      width: 45%;
-      margin: 0;
+
+    .primaryButton, .secondaryButton {
+        height: 48px;
+        width: 219px;
+        border-radius: 40px;
+        padding: 12px 32px;
+
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: 0em;
+        text-align: center;
     }
-  }
+    .primaryButton {
+        background-color: #054FF0;
+        color: #F1F5F8;
+        border: 2px solid #054FF0;
+        margin-right: 8px;
+
+        &:hover {
+            background-color: #F1F5F8;
+            color: #054FF0;
+            text-decoration: underline;
+        }
+    }
+    .secondaryButton {
+        background-color: #F1F5F8;
+        color: #054FF0;
+        border: 2px solid #054FF0;
+
+        &:hover {
+            background-color: #0D1834;
+            color: #F1F5F8;
+            border: 2px solid #0D1834;
+            text-decoration: underline;
+        }
+    }
+
+    @include mediaQueries(mobile) {
+        padding: 50px 16px;
+
+        > div, .card {
+            width: 100%;
+        }
+        h2 {
+            font-size: 50px;
+            line-height: 80px;
+        }
+        .buttonWrapper {
+            justify-content: space-between !important;
+        }
+        .secondaryButton, .primaryButton {
+            width: 45%;
+            margin: 0;
+        }
+    }
 }

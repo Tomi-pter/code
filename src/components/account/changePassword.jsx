@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
 import Input from "../shared/input";
-import PasswordChangeIcon from "../../assets/img/Account/password-change.svg";
+import PasswordChangeIcon from "../../assets/img/Account/password.svg";
 import { changePassword } from "../../actions/account";
 import CheckGreen from "../../assets/icon/check-lgreen.svg";
 import XGray from "../../assets/icon/x-gray.svg";
@@ -101,8 +101,8 @@ export const Changepassword = () => {
             <div className="pl-5">Password</div>
             <div>
                 <button
-                className="changePasswordButton"
-                onClick={() => setShowModal(true)}
+                    className="changePasswordButton"
+                    onClick={() => setShowModal(true)}
                 >
                 Change Password
                 </button>
@@ -185,19 +185,21 @@ export const Changepassword = () => {
                 </div>
             </div>
             <div className="d-flex align-items-center justify-content-end nav">
-            <button
-                className="changePasswordButton"
-                onClick={submit}
-                disabled={isDisabled}
-            >
-                {
-                    isLoading
-                        ? <div className="spinner-border text-light" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    : <>{"Reset Password"}</>
-                }
-            </button>
+                <div>
+                    <button
+                        className="changePasswordButton"
+                        onClick={submit}
+                        disabled={isDisabled}
+                    >
+                        {
+                            isLoading
+                                ? <div className="spinner-border text-light" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            : <>{"Reset Password"}</>
+                        }
+                    </button>
+                </div>
             </div>
         </Modal.Body>
         </Modal>
@@ -206,19 +208,18 @@ export const Changepassword = () => {
             emailPass
             && <div className="checkEmail-container">
                 <div className="contentWrapper text-center">
-                <div>
                     <img
-                    className="emailIcon"
-                    alt="email icon"
-                    src={PasswordChangeIcon}
+                        className="emailIcon"
+                        alt="email icon"
+                        src={PasswordChangeIcon}
                     />
-                    <h2>Password successfully updated</h2>
+                    <h2>Password completely set</h2>
+                    <p>You have set a new password. Remember to keep it saved!</p>
                     <div className="emailSubmitWrapper">
-                    <button className="continueButton" onClick={resetSession}>
-                        Continue
-                    </button>
+                        <button className="continueButton" onClick={resetSession}>
+                            Thank You
+                        </button>
                     </div>
-                </div>
                 </div>
             </div>
         }

@@ -120,7 +120,7 @@ export default function Basic ({ formData, setFormData, navigation, onChange }) 
             <span>We're happy you're here.</span>
             <div className="d-flex">
                 <span>Already have an account? &nbsp;</span>
-                <a>Login</a>
+                <a href='/login'>Login</a>
             </div>
         </div>
 

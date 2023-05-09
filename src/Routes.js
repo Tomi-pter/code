@@ -35,6 +35,7 @@ export default ({ childProps }) => (
       <Route path="/shop" component={ShopV2} />
       <Route path="/shopv2" component={Shop} />
       <Route path="/approval-page" component={ApprovalPage} />
+      <Route path="/tite" component={PaymentConfirmationContainer} />
       <Route exact path="/product">
         <Redirect to="/shop" />
       </Route>

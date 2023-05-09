@@ -322,8 +322,7 @@ export const HeaderNav = () => {
               >
                 FAQ
               </a>
-              <div className="divider"></div>
-              {/* <div
+              <div
                 className="search-container"
                 onMouseLeave={handleMouseLeave}
                 onMouseEnter={handleMouseEnter}
@@ -371,7 +370,9 @@ export const HeaderNav = () => {
                     )}
                   </ul>
                 )}
-              </div> */}
+              </div>
+
+              <div className="divider"></div>
 
               {user ? (
                 <>

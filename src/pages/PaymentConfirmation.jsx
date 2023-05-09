@@ -1,7 +1,5 @@
-import React, {useEffect} from 'react';
-import { HeaderNav } from '../components/partials/HeaderNav';
-import { Footer } from '../components/partials/Footer';
-import PaymentConfirmedImg from '../assets/img/Payment/default-check-icon.svg'
+import React, { useEffect } from 'react';
+import PaymentConfirmedImg from '../assets/img/Payment/order.svg'
 import { Link, useHistory } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 
@@ -15,39 +13,32 @@ export const PaymentConfirmationContainer = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    useEffect(()=>{
-        if (!payment?.paymentData) {
-            history.push("/cart")
-        } else {
-            dispatch(clearCart())
-        }
-    },[payment, history]);
+    // useEffect(()=>{
+    //     if (!payment?.paymentData) {
+    //         history.push("/cart")
+    //     } else {
+    //         dispatch(clearCart())
+    //     }
+    // },[payment, history]);
 
-    return (
-        <>
-            <Helmet>
-                <title>Payment Confirmation | Premier Pharmaceuticals</title>
-            </Helmet>
-            <HeaderNav />
-            <div className="d-flex align-items-center justify-content-center payment-confirmation">
-                <div>
-                    <div className="d-flex flex-column align-items-center justify-content-center card">
-                        <p className="payment-text">Payment Complete</p>
-                        <img src={PaymentConfirmedImg} alt="" />
-                        <h1 className="thankyou-text">Thank You</h1>
-                        <p className="purchase-text">for your purchase</p>
-                    </div>
-                    <div className="buttonWrapper d-flex align-items-center justify-content-center">
-                        <Link to="/account?order-history" className="secondaryButton">
-                            View Order
-                        </Link>
-                        <Link to="/shop" className="primaryButton">
-                            Back to browse
-                        </Link>
-                    </div>
-                </div>
+    return <>
+        <Helmet>
+            <title>Payment Confirmation | Premier Pharmaceuticals</title>
+        </Helmet>
+        <div className="payment-confirmation d-flex flex-column align-items-center justify-content-center">
+            <div className="d-flex flex-column align-items-center justify-content-center">
+                <img src={PaymentConfirmedImg} alt="" />
+                <h2>Your Order is complete</h2>
+                <p>We have processed your payment! Thank you for your purchase.</p>
             </div>
-            <Footer />
-        </>
-    )
+            <div className="buttonWrapper d-flex align-items-center justify-content-center">
+                <Link to="/account?order-history" className="primaryButton">
+                    View Order
+                </Link>
+                <Link to="/shop" className="secondaryButton">
+                    Back to browse
+                </Link>
+            </div>
+        </div>
+    </>
 }

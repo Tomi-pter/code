@@ -1,14 +1,38 @@
 .signup {
-  background: url("../../img/login-bg.png") no-repeat top center fixed;
-  background-size: 100% 512px;
-  min-height: calc(100vh - 155px);
-  padding: 135px 0 78px 0;
-  // .signup-wrapper {
-  //   width: 50%;
-  //   @include mediaQueries(mobile) {
-  //     width: 100%;
-  //   }
-  // }
+    background: url("../../img/login-bg.png") no-repeat top center fixed;
+    background-size: 100% 512px;
+    min-height: calc(100vh - 155px);
+    padding: 95px 0 78px 0;
+    // .signup-wrapper {
+    //   width: 50%;
+    //   @include mediaQueries(mobile) {
+    //     width: 100%;
+    //   }
+    // }
+    .logo-container {
+        margin-bottom: 65px;
+    }
+
+    .signup-progress {
+        height: 56px;
+        width: 484px;
+        border-radius: 80px;
+        padding: 0px 24px;
+        margin-bottom: 32px;
+
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: 0px;
+        text-align: left;
+        color: #0D1834;
+
+        background: #CED9DB;
+
+        .step {
+            gap: 12px;
+        }
+    }
+
     .card {
         width: 100%;
         min-height: 528px;

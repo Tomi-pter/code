@@ -10,7 +10,9 @@ import { Helmet } from "react-helmet";
 
 import Input from "../components/shared/input";
 import decode from "jwt-decode";
+
 import PasswordChangeIcon from "../assets/img/Account/password-change.svg";
+import Logo from "../assets/img/logo-white.svg";
 
 const initialState = { email: "", password: "", code: "" };
 const initialForgotState = {
@@ -103,221 +105,224 @@ export const LoginContainer = () => {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {forgotPass ? "Forgot Password" : "Log In"} | Premier Pharmaceuticals
-        </title>
-      </Helmet>
-      {/* <HeaderNav /> */}
-      {auth.authData?.accountStatus === "UNCONFIRMED" ? (
-        history.push("/approval-page")
-      ) : (
-        <div className="container-fluid d-flex login">
-          <div className="container d-flex align-items-center justify-content-center">
-            <div className="card mb-0">
-              <div className="card-body d-flex align-items-center justify-content-center">
-                {forgotPass ? (
-                  <div>
-                    <div className="forgotPassWrapper">
-                      {successForgot ? (
-                        <div className="checkEmail-container d-flex align-items-center justify-content-center">
-                          <div className="contentWrapper text-center">
-                            <img
-                              className="emailIcon"
-                              src={PasswordChangeIcon}
-                            />
-                            <h2>Password successfully updated</h2>
-                            <div className="emailSubmitWrapper">
-                              <button
-                                className="continueButton"
-                                onClick={() => {
-                                  setForgotpass(false);
-                                  setSuccessForgot(false);
-                                  setOTP(false);
-                                }}
-                              >
-                                Continue
-                              </button>
+        <Helmet>
+            <title>
+                { forgotPass ? "Forgot Password" : "Log In" } | Premier Pharmaceuticals
+            </title>
+        </Helmet>
+        {/* <HeaderNav /> */}
+        {
+            auth.authData?.accountStatus === "UNCONFIRMED"
+                ? history.push("/approval-page")
+                : <div className="login container-fluid d-flex flex-column align-items-center justify-content-center">
+                    <div className="logo-container">
+                        <img height={40} src={Logo}/>
+                    </div>
+                    <div className="container d-flex align-items-center justify-content-center">
+                        <div className="card mb-0">
+                            <div className="card-body d-flex align-items-center justify-content-center">
+                                {
+                                    forgotPass
+                                        ? <div>
+                                            <div className="forgotPassWrapper">
+                                                {
+                                                    successForgot
+                                                        ? <div className="checkEmail-container d-flex align-items-center justify-content-center">
+                                                    <div className="contentWrapper text-center">
+                                                        <img
+                                                            className="emailIcon"
+                                                            src={PasswordChangeIcon}
+                                                        />
+                                                        <h2>Password successfully updated</h2>
+                                                        <div className="emailSubmitWrapper">
+                                                            <button
+                                                                className="continueButton"
+                                                                onClick={() => {
+                                                                    setForgotpass(false);
+                                                                    setSuccessForgot(false);
+                                                                    setOTP(false);
+                                                                }}
+                                                            >
+                                                                Continue
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                            </div>
+                                                        : OTP
+                                                            ? <div>
+                                                        <h2>Verification</h2>
+                                                        <p className="">
+                                                            Please verify your account so you can reset your
+                                                            password. We’ve sent a confirmation code to {fEmail}
+                                                        </p>
+                                                        <div className="form-group">
+                                                            <Input
+                                                                label="Confirmation Code"
+                                                                name="code"
+                                                                type="text"
+                                                                value={code}
+                                                                onChange={setforgotFormData}
+                                                                required
+                                                            />
+                                                        </div>
+                                                        <h2>Enter New Password</h2>
+                                                        <div className="form-group">
+                                                            <label>New Password</label>
+                                                            <Input
+                                                                label="New Password"
+                                                                name="password"
+                                                                type="password"
+                                                                value={password}
+                                                                onChange={setforgotFormData}
+                                                                required
+                                                            />
+                                                        </div>
+                                                        <div className="form-group">
+                                                            <label>Confirm Password</label>
+                                                            <Input
+                                                                label="Confirm New Password"
+                                                                name="passwordConfirmation"
+                                                                type="password"
+                                                                value={passwordConfirmation}
+                                                                onChange={setforgotFormData}
+                                                                required
+                                                            />
+                                                        </div>
+                                                        <p
+                                                            className={
+                                                                "text-center error " +
+                                                                auth.forgotPasswordData?.message
+                                                                    ? "alert-danger"
+                                                                    : ""
+                                                            }
+                                                        >
+                                                            {
+                                                                auth.forgotPasswordData == "Passwords do not match"
+                                                                    ? auth.forgotPasswordData
+                                                                    : auth.forgotPasswordData?.message
+                                                            }
+                                                        </p>
+                                                        <div className="emailSubmitWrapper">
+                                                            <button
+                                                                className="continueButton"
+                                                                disabled={continueButton}
+                                                                onClick={submit}
+                                                            >
+                                                                Continue
+                                                            </button>
+                                                        </div>
+                                                            </div>
+                                                            : <div className='d-flex flex-column align-items-center justify-content-center'>
+                                                        <h3>Forgot Password</h3>
+                                                        <p className="emailDesc">
+                                                            Don’t worry sometimes people can forget too, enter your email and we will send you a password reset link.
+                                                        </p>
+                                                        <div className="form-group">
+                                                            <div className="input-wrapper">
+                                                                <label>Email</label>
+                                                                <Input
+                                                                    className="email-input "
+                                                                    label="Email"
+                                                                    name="fEmail"
+                                                                    type="email"
+                                                                    value={fEmail}
+                                                                    onChange={setforgotFormData}
+                                                                    required
+                                                                />
+                                                            </div>
+                                                            <div className="emailSubmitWrapper">
+                                                            <button
+                                                                className="continueButton w-100"
+                                                                disabled={continueButton}
+                                                                onClick={handFotgotPassword}
+                                                            >
+                                                                Continue
+                                                            </button>
+                                                            </div>
+                                                        </div>
+                                                        <p
+                                                            className={
+                                                                "text-center error " +
+                                                                (errorMessage ? "alert-danger" : "")
+                                                            }
+                                                        >
+                                                            {errorMessage}
+                                                        </p>
+                                                            </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        : <form onSubmit={handleSubmit}>
+                                                <h3 className="text-center">Welcome Back!</h3>
+                                                <p className={
+                                                        "text-center error " +
+                                                        (auth.authData?.message ? "alert-danger" : "")
+                                                    }
+                                                >
+                                                    {auth.authData?.message}
+                                                </p>
+                                                <div className="input-wrapper">
+                                                    <label>Email</label>
+                                                    <Input
+                                                        label="Enter your email"
+                                                        name="email"
+                                                        type="email"
+                                                        onChange={handleChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                
+                                                <div className="input-wrapper">
+                                                    <label>Password</label>
+                                                    <Input
+                                                        label="Enter your password"
+                                                        name="password"
+                                                        type="password"
+                                                        className="password"
+                                                        onChange={handleChange}
+                                                        required
+                                                    />
+                                                </div>
+                                                
+                                                <div className="forgot-pass d-flex justify-content-end mb-4">
+                                                <a href="#" onClick={() => setForgotpass(true)}>
+                                                    Forgot Password?
+                                                </a>
+                                                </div>
+                                                <button className="login-button w-100">
+                                                    Sign in
+                                                </button>
+                                                <div className="signup-container d-flex align-items-center justify-content-between">
+                                                    <div className="container d-flex align-items-center justify-content-center">
+                                                        <span className="signup-text">
+                                                            Don’t have an account?{" "}
+                                                            <Link to="/register">Become a Partner</Link>
+                                                        </span>
+                                                    </div>
+                                                    {/* <button
+                                                        type="submit"
+                                                        className="btn submit-button"
+                                                        disabled={isDisabled}
+                                                    >
+                                                        {isLoading ? (
+                                                        <div
+                                                            className="spinner-border text-light"
+                                                            role="status"
+                                                        >
+                                                            <span className="sr-only">Loading...</span>
+                                                        </div>
+                                                        ) : (
+                                                        <>Submit</>
+                                                        )}
+                                                    </button> */}
+                                                </div>
+                                        </form>
+                                }
                             </div>
-                          </div>
                         </div>
-                      ) : OTP ? (
-                        <div>
-                          <h2>Verification</h2>
-                          <p className="">
-                            Please verify your account so you can reset your
-                            password. We’ve sent a confirmation code to {fEmail}
-                          </p>
-                          <div className="form-group">
-                            <Input
-                              label="Confirmation Code"
-                              name="code"
-                              type="text"
-                              value={code}
-                              onChange={setforgotFormData}
-                              required
-                            />
-                          </div>
-                          <h2>Enter New Password</h2>
-                          <div className="form-group">
-                            <label>New Password</label>
-                            <Input
-                              label="New Password"
-                              name="password"
-                              type="password"
-                              value={password}
-                              onChange={setforgotFormData}
-                              required
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label>Confirm Password</label>
-                            <Input
-                              label="Confirm New Password"
-                              name="passwordConfirmation"
-                              type="password"
-                              value={passwordConfirmation}
-                              onChange={setforgotFormData}
-                              required
-                            />
-                          </div>
-                          <p
-                            className={
-                              "text-center error " +
-                              (auth.forgotPasswordData?.message
-                                ? "alert-danger"
-                                : "")
-                            }
-                          >
-                            {auth.forgotPasswordData == "Passwords do not match"
-                              ? auth.forgotPasswordData
-                              : auth.forgotPasswordData?.message}
-                          </p>
-                          <div className="emailSubmitWrapper">
-                            <button
-                              className="continueButton"
-                              disabled={continueButton}
-                              onClick={submit}
-                            >
-                              Continue
-                            </button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className='d-flex flex-column align-items-center justify-content-center'>
-                          <h3>Forgot Password</h3>
-                          <p className="emailDesc">
-                          Don’t worry sometimes people can forget too, enter your email and we will send you a password reset link.
-                          </p>
-                          <div className="form-group">
-                            <div className="input-wrapper">
-                                <label>Email</label>
-                                <Input
-                                    className="email-input "
-                                    label="Email"
-                                    name="fEmail"
-                                    type="email"
-                                    value={fEmail}
-                                    onChange={setforgotFormData}
-                                    required
-                                />
-                            </div>
-                            <div className="emailSubmitWrapper">
-                              <button
-                                className="continueButton w-100"
-                                disabled={continueButton}
-                                onClick={handFotgotPassword}
-                              >
-                                Continue
-                              </button>
-                            </div>
-                          </div>
-                          <p
-                            className={
-                              "text-center error " +
-                              (errorMessage ? "alert-danger" : "")
-                            }
-                          >
-                            {errorMessage}
-                          </p>
-                        </div>
-                      )}
                     </div>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit}>
-                    <h3 className="text-center">Welcome Back!</h3>
-
-                    <p
-                      className={
-                        "text-center error " +
-                        (auth.authData?.message ? "alert-danger" : "")
-                      }
-                    >
-                      {auth.authData?.message}
-                    </p>
-                    <div className="input-wrapper">
-                        <label>Email</label>
-                        <Input
-                            label="Enter your email"
-                            name="email"
-                            type="email"
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    
-                    <div className="input-wrapper">
-                        <label>Password</label>
-                        <Input
-                            label="Enter your password"
-                            name="password"
-                            type="password"
-                            className="password"
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    
-                    <div className="forgot-pass d-flex justify-content-end mb-4">
-                      <a href="#" onClick={() => setForgotpass(true)}>
-                        Forgot Password?
-                      </a>
-                    </div>
-                    <button className="login-button w-100">
-                      Sign in
-                    </button>
-                    <div className="signup-container d-flex align-items-center justify-content-between">
-                      <div className="container d-flex align-items-center justify-content-center">
-                        <span className="signup-text">
-                          Don’t have an account?{" "}
-                          <Link to="/register">Become a Partner</Link>
-                        </span>
-                      </div>
-                      {/* <button
-                        type="submit"
-                        className="btn submit-button"
-                        disabled={isDisabled}
-                      >
-                        {isLoading ? (
-                          <div
-                            className="spinner-border text-light"
-                            role="status"
-                          >
-                            <span className="sr-only">Loading...</span>
-                          </div>
-                        ) : (
-                          <>Submit</>
-                        )}
-                      </button> */}
-                    </div>
-                  </form>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+                </div>
+        }
       {/* <Footer /> */}
     </>
   );

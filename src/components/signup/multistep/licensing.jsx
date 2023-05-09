@@ -1,11 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
+import {
+    formatPhoneNumberIntl,
+    isPossiblePhoneNumber,
+} from "react-phone-number-input";
+
+import Flatpickr from "react-flatpickr";
 import Input from "../../shared/input";
 
-export default function Licensing ({ setForm, formData, navigation }) {
+export default function Licensing ({ formData, setFormData, navigation, onChange }) {
     const [isDisabled, setDisabled] = useState(false);
 
-    const { previous, next } = navigation;
+    const { next } = navigation;
+
+    const validation = useCallback(() => {
+		// const phoneCheck = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(phoneNumber);
+		const phoneCheck =
+			formatPhoneNumberIntl(formData.phoneNumber) &&
+			isPossiblePhoneNumber(formData.phoneNumber)
+				? true
+				: false;
+
+		formData.givenName &&
+		formData.familyName &&
+		formData.phoneNumber &&
+		phoneCheck &&
+		formData.company &&
+		formData.address &&
+		formData.city &&
+		formData.postalCode &&
+		formData.country &&
+		formData.state &&
+		formData.apEmail &&
+		formData.apContact &&
+		formData.apPhone &&
+		formData.methodOfCollection &&
+        formData.stateLicenseNumber &&
+        formData.stateLicenseExpirationDate
+			? setDisabled(false)
+			: setDisabled(true);
+	}, [formData]);
+
+    useEffect(() => {
+        validation();
+    }, [validation])
 
     return <div className="card mb-0">
         <div className="signup-header d-flex flex-column align-items-center justify-content-center">
@@ -16,38 +54,51 @@ export default function Licensing ({ setForm, formData, navigation }) {
                 <label>State License</label>
                 <Input
                     type="text"
-                    name="givenName"
+                    name="stateLicenseNumber"
                     label="Enter State License Number"
-                    // onChange={handleChange}
+                    value={formData.stateLicenseNumber}
+                    onChange={onChange}
                     required
                 />
             </div>
             <div className="input-wrapper">
-                <label>Expiry Date</label>
-                <Input
-                    type="text"
-                    name="familyName"
-                    label="Enter License Expiry Date"
-                    // onChange={handleChange}
-                    required
+                <label>State License Expiry Date</label>
+                <Flatpickr
+                    className="form-control"
+                    value={formData.stateLicenseExpirationDate}
+                    placeholder="State License Expiry Date"
+                    options={{ minDate: "today" }}
+                    onChange={([date]) => {
+                        setFormData({
+                            ...formData,
+                            stateLicenseExpirationDate: date
+                        });
+                    }}
                 />
             </div>
             <div className="input-wrapper">
                 <label>Drug Enforcement Administration</label>
                 <Input
                     type="text"
-                    name="givenName"
+                    name="dea"
                     label="DEA (optional)"
-                    required
+                    value={formData.dea}
+                    onChange={onChange}
                 />
             </div>
             <div className="input-wrapper">
-                <label>Expiry Date</label>
-                <Input
-                    type="text"
-                    name="familyName"
-                    label="Enter DEA Expiry Date"
-                    // onChange={handleChange}
+                <label>DEA Expiry Date</label>
+                <Flatpickr
+                    className="form-control"
+                    value={formData.deaExpiry}
+                    placeholder="DEA Expiry Date"
+                    options={{ minDate: "today" }}
+                    onChange={([date]) => {
+                        setFormData({
+                            ...formData,
+                            deaExpiry: date
+                        });
+                    }}
                 />
             </div>
         </div>

@@ -17,6 +17,13 @@ import Mastercard from "../assets/img/mastercard.svg";
 import Visa from "../assets/img/visa.svg";
 import Paypal from "../assets/img/paypal.svg";
 
+import Arrow from "../assets/img/Cart/Arrow.svg"
+import DoneArrow from "../assets/img/Cart/DoneArrow.svg"
+import Done from "../assets/img/Cart/Done.svg"
+
+import CartStep3 from "../assets/img/Cart/CartStep3.svg"
+import CartStep4Next from "../assets/img/Cart/CartStep4Next.svg"
+
 export const PaymentContainer = () => {
   const cart = useSelector((state) => state.cart);
   const account = useSelector((state) => state.account);
@@ -89,6 +96,33 @@ export const PaymentContainer = () => {
       <div className="container-fluid payment-page">
         <div className="main-content-container d-flex align-items-start">
             <div className="payments-container">
+                <div className="cart-progress d-flex align-items-center justify-content-between">
+                    <div className="step d-flex align-items-center justify-content-center">
+                        <img height={20} width={20} src={Done}/>
+                        <span>Cart</span>
+                    </div>
+                    <div>
+                        <img height={14} src={DoneArrow}/>
+                    </div>
+                    <div className="step d-flex align-items-center justify-content-center">
+                        <img height={20} width={20} src={Done}/>
+                        <span>Shipping Information</span>
+                    </div>
+                    <div>
+                        <img height={14} src={DoneArrow}/>
+                    </div>
+                    <div className="step d-flex align-items-center justify-content-center">
+                        <img height={20} width={20} src={CartStep3}/>
+                        <span>Make Payment</span>
+                    </div>
+                    <div>
+                        <img height={14} src={Arrow}/>
+                    </div>
+                    <div className="step d-flex align-items-center justify-content-center">
+                        <img height={20} width={20} src={CartStep4Next}/>
+                        <span>Complete</span>
+                    </div>
+                </div>
                 <div className="payments mb-4">
                     <h2>Payment Method</h2>
                     <label>Choose what service you want for your transaction</label>

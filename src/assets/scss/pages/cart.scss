@@ -45,6 +45,24 @@
     .cart-items-container {
         margin-right: 30px;
 
+        .cart-progress {
+            margin-bottom: 48px;
+            height: 56px;
+            border-radius: 20px;
+            padding: 0px 24px;
+            background: #0D1834;
+
+            font-size: 16px;
+            line-height: 21px;
+            letter-spacing: 0px;
+            text-align: left;
+            color: #FFFFFF;
+
+            .step {
+                padding: 18px;
+                gap: 12px;
+            }
+        }
         .cart-items {
             flex: auto;
             border-radius: 20px;

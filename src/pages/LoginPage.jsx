@@ -127,27 +127,26 @@ export const LoginContainer = () => {
                                             <div className="forgotPassWrapper">
                                                 {
                                                     successForgot
-                                                        ? <div className="checkEmail-container d-flex align-items-center justify-content-center">
-                                                    <div className="contentWrapper text-center">
-                                                        <img
-                                                            className="emailIcon"
-                                                            src={PasswordChangeIcon}
-                                                        />
-                                                        <h2>Password successfully updated</h2>
-                                                        <div className="emailSubmitWrapper">
-                                                            <button
-                                                                className="continueButton"
-                                                                onClick={() => {
-                                                                    setForgotpass(false);
-                                                                    setSuccessForgot(false);
-                                                                    setOTP(false);
-                                                                }}
-                                                            >
-                                                                Continue
-                                                            </button>
-                                                        </div>
-                                                    </div>
+                                                        ? <div className="checkEmail-container">
+                                                            <div className="contentWrapper text-center">
+                                                                <img
+                                                                    className="emailIcon"
+                                                                    alt="email icon"
+                                                                    src={PasswordChangeIcon}
+                                                                />
+                                                                <h2>Password completely set</h2>
+                                                                <p>You have set a new password. Remember to keep it saved!</p>
+                                                                <div className="emailSubmitWrapper">
+                                                                    <button className="continueButton" onClick={() => {
+                                                                            setForgotpass(false);
+                                                                            setSuccessForgot(false);
+                                                                            setOTP(false);
+                                                                        }}>
+                                                                        Thank You
+                                                                    </button>
+                                                                </div>
                                                             </div>
+                                                        </div>
                                                         : OTP
                                                             ? <div>
                                                         <h2>Verification</h2>

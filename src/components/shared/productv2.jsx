@@ -63,7 +63,7 @@ const renderActionButton = (
             <span className="sr-only">Loading...</span>
           </div>
         ) : (
-          <>Add to cart</>
+          <>Add</>
         )}
       </button>
     </div>
@@ -363,8 +363,29 @@ export const Productv2 = ({
                             <span>{product.bottleSize || "N/A"}</span>
                         </div>
                     </div>
-                    <div className="product-actions d-flex flex-column align-items-start justify-content-between">
-                        Actions
+                    <div className="product-actions d-flex align-items-center justify-content-end w-100">
+                        {
+                            auth
+                            ? renderActionButton(
+                                selectedProduct,
+                                product,
+                                quantity,
+                                handleChange,
+                                addCart,
+                                isCartLoading,
+                                requestStock,
+                                requestLoading
+                            )
+                            : <span style={{ fontSize: "12.3295px" }} className="to-buy">
+                                <Link
+                                    to="/login"
+                                    style={{ textDecoration: "underline", color: "black" }}
+                                >
+                                    Login
+                                </Link>{" "}
+                                to Buy
+                            </span>
+                        }
                     </div>
                 </div>
             }

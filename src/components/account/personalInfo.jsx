@@ -149,8 +149,9 @@ export const PersonalInfo = ({ account }) => {
 
                 {
                     account.accountData.given_name
-                    && <div className="edit-wrapper" onClick={toggleEdit}>
+                    && <div className="edit-wrapper d-flex align-items-start justify-content-center" onClick={toggleEdit}>
                         <img className="edit-icon" src={EditIcon} alt="" />
+                        <span>Edit Info</span>
                     </div>
                 }
             </div>

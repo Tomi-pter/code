@@ -200,6 +200,10 @@
                 right: 20px;
             }
             .delete-btn {
+                height: 38px;
+                width: 38px;
+                border-radius: 4px;
+                background: #FDEAE8;
                 cursor: pointer;
             }
             .delete-btn img {
@@ -426,26 +430,27 @@
                             
                         }
                         .options-icon {
-                            ul {
-                                border: none;
-                                padding: 8px;
-                        
+                            .dropdown-menu {
+                                width: 200px;
+                                padding: 0;
+
                                 li {
                                     padding: 0 8px;
-                                }
-                            }
+                                    margin: 0;
 
-                            .dropdown-menu {
-                                width: 180px;
-    
-                                li {
                                     a {
+                                        padding: 8px 4px;
                                         color: #0D1834;
-                                        font-size: 15px;
+                                        font-size: 14px;
+
+                                        &:hover {
+                                            color: #054FF0;
+                                        }  
                                     }
-                                    &:hover {
-                                        color: #054FF0;
-                                    }  
+                                    
+                                }
+                                li:not(:last-child) {
+                                    border-bottom: 1px solid #CED9DB;
                                 }
                             }
                         }

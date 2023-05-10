@@ -272,437 +272,139 @@ export const CheckoutInfo = ({
             </div>
 
             <div className='address-container d-flex flex-column justify-content-center'>
-                <div className="title-container d-flex align-items-center justify-content-between">
-                    <h2>Shipping Address</h2>
-                    <button
-                        className="main-edit-btn"
-                        type="button"
-                        id="shippingBtn"
-                        data-toggle="collapse"
-                        data-target=".shipping-address-container"
-                        aria-expanded="false"
-                        aria-controls="shippingSelected shippingList"
-                        onClick={() => shippingList("shipping")}
-                        style={{
-                            display: `${!selectedShipping ? "none" : "block"}`
-                        }}
-                    >
-                        <img src={Edit} alt="" />
-                    </button>
-                </div>
-
-                {
-                    account?.addressesData.length > 0
-                        ? <>
-                            <ul
-                                id="shippingSelected"
-                                className={
-                                    "shipping-address-container info-list collapse " +
-                                    (account?.addressesData.length === 1 ? "show" : "")
+                <h2>Select Shipping Address</h2>
+                <div className='address-list'>
+                    {
+                        account?.addressesData?.map(address => <a className='address-item d-flex align-items-center justify-content-between col-12' onClick={() => alert('Tangina mo')}>
+                            <div className='address-icon d-flex align-items-center justify-content-center'>
+                                <img src={AddressIcon} alt='Address Icon'/>
+                            </div>
+                            <div className='address-details d-flex flex-column'>
+                                <p>{ address?.details?.address }</p>
+                                <p>{ address?.details?.mobileNumber }</p>
+                            </div>
+                            <div className="icon-container d-flex flex-column align-items-center">
+                                {
+                                    defaultAddress?.addressId === address?.addressId
+                                    && <div className='default-icon d-flex align-items-center justify-content-center'>
+                                        <img src={StarIcon} alt='Star Icon'/>
+                                        <span>Default</span>
+                                    </div>
                                 }
-                            >
-                                <li>
-                                    <img
-                                        src={require("../../assets/img/mdi_map-marker.svg")}
-                                        alt=""
-                                    />
-                                    {
-                                        selectedShipping
-                                        && <span>
-                                        {
-                                            selectedShipping?.details?.address
-                                            + " " +
-                                            selectedShipping?.details?.city
-                                            + " " +
-                                            (selectedShipping?.details?.state || "")
-                                            + " " +
-                                            selectedShipping?.details?.postalCode
-                                        }{" "}
 
-                                        {
-                                            defaultAddress?.addressId === selectedShipping?.addressId
-                                            && <span className="default mr-3">Default</span>
-                                        }
-
-                                        {
-                                            defaultAddressBilling?.addressId === selectedShipping?.addressId
-                                            && <span className="default">Default Billing</span>
-                                        }
-                                        </span>
-                                    }
-                                </li>
-                                <li>
-                                    <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
-                                    {
-                                        selectedShipping
-                                        && <span>{selectedShipping?.details?.mobileNumber}</span>
-                                    }
-                                </li>
-                            </ul>
-                            <div
-                                id="shippingList"
-                                className={
-                                    "shipping-address-container collapse " +
-                                    (account?.addressesData.length > 1 ? "show" : "")
+                                {
+                                    defaultAddressBilling?.addressId === address?.addressId
+                                    && <div className='default-icon d-flex align-items-center justify-content-center'>
+                                        <img src={StarIcon} alt='Star Icon'/>
+                                        <span>Billing</span>
+                                    </div>
                                 }
-                            >
-                                <div className='address-list mb-4'>
-                                    {
-                                        account?.addressesData?.map(address => <a
-                                                key={`key-${address?.addressId}`}
-                                                className={'address-item d-flex align-items-center justify-content-between col-12 '  + (
-                                                    selectShipping
-                                                    && selectShipping?.addressId === address?.addressId
-                                                        ? "selected"
-                                                        : ""
-                                                )}
-                                                onClick={() => setSelectShipping(address)}
-                                            >
-                                            <div className='address-icon d-flex align-items-center justify-content-center'>
-                                                <img src={AddressIcon} alt='Address Icon'/>
-                                            </div>
-                                            <div className='address-details d-flex flex-column'>
-                                                <p>{ address?.details?.address }</p>
-                                                <p>{ address?.details?.mobileNumber }</p>
-                                            </div>
-                                            <div className="icon-container d-flex flex-column align-items-center">
-                                                {
-                                                    defaultAddress?.addressId === address?.addressId
-                                                    && <div className='default-icon d-flex align-items-center justify-content-center'>
-                                                        <img src={StarIcon} alt='Star Icon'/>
-                                                        <span>Default</span>
-                                                    </div>
-                                                }
 
-                                                {
-                                                    defaultAddressBilling?.addressId === address?.addressId
-                                                    && <div className='default-icon d-flex align-items-center justify-content-center'>
-                                                        <img src={StarIcon} alt='Star Icon'/>
-                                                        <span>Billing</span>
-                                                    </div>
-                                                }
-
-                                                
-                                            </div>
-                                            <div className='options-icon d-flex align-items-center justify-content-center p-3'>
-                                                <div class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                        <span class="glyphicon glyphicon-option-vertical"></span>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        {
-                                                            address?.addressId
-                                                            && defaultAddress?.addressId !== address?.addressId
-                                                            && <li>
-                                                                <a onClick={() => handleMakeDefaultAddress(address)}>
-                                                                    {
-                                                                        isDefaultLoading
-                                                                        && isDefaultSelected?.addressId === address.addressId
-                                                                            ? <div
-                                                                                className="spinner-border text-success"
-                                                                                role="status"
-                                                                            >
-                                                                                <span className="sr-only">Loading...</span>
-                                                                            </div>
-                                                                            : <>Set as Default</>
-                                                                    }
-                                                                </a>
-                                                            </li>
-                                                        }
-
-                                                        {
-                                                            defaultAddressBilling?.addressId !== address?.addressId
-                                                            && <li>
-                                                                <a onClick={() => handleMakeDefaultAddressBilling(address)}>
-                                                                    {
-                                                                        isDefaultLoading
-                                                                        && isDefaultSelected?.addressId === address.addressId
-                                                                            ? <div
-                                                                                className="spinner-border text-success"
-                                                                                role="status"
-                                                                            >
-                                                                                <span className="sr-only">Loading...</span>
-                                                                            </div>
-                                                                            : <>Set as Default Billing</>
-                                                                    }
-                                                                </a>
-                                                            </li>
-
-                                                        }
-
-                                                        <li>
-                                                            <a
-                                                                className="edit-btn"
-                                                                data-toggle="modal"
-                                                                data-target="#addAddressModal"
-                                                                onClick={() => handleEditAddress(address)}
+                                
+                            </div>
+                            <div className='options-icon d-flex align-items-center justify-content-center p-3'>
+                                <div class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-option-vertical"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        {
+                                            address?.addressId
+                                            && defaultAddress?.addressId !== address?.addressId
+                                            && <li>
+                                                <a onClick={() => handleMakeDefaultAddress(address)}>
+                                                    {
+                                                        isDefaultLoading
+                                                        && isDefaultSelected?.addressId === address.addressId
+                                                            ? <div
+                                                                className="spinner-border text-success"
+                                                                role="status"
                                                             >
-                                                                Edit Address
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </a>)
-                                    }
-                                </div>
-                                {/* <button
-                                    className="add-btn"
-                                    data-toggle="modal"
-                                    data-target="#addAddressModal"
-                                    onClick={() => handleAddAddress()}
-                                >
-                                    Add New Address
-                                </button> */}
-                                <div className="d-flex align-items-center justify-content-between">
-                                    <button
-                                        className="cancel-btn"
-                                        onClick={() => {
-                                            document.getElementById("shippingBtn").click();
-                                        }}
-                                        disabled={!selectShipping}
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        className="save-btn"
-                                        onClick={() => handleSelect("shipping", selectShipping)}
-                                        disabled={!selectShipping}
-                                    >
-                                        Save
-                                    </button>
+                                                                <span className="sr-only">Loading...</span>
+                                                            </div>
+                                                            : <>Set as Default</>
+                                                    }
+                                                </a>
+                                            </li>
+                                        }
+
+                                        {
+                                            defaultAddressBilling?.addressId !== address?.addressId
+                                            && <li>
+                                                <a onClick={() => handleMakeDefaultAddressBilling(address)}>
+                                                    {
+                                                        isDefaultLoading
+                                                        && isDefaultSelected?.addressId === address.addressId
+                                                            ? <div
+                                                                className="spinner-border text-success"
+                                                                role="status"
+                                                            >
+                                                                <span className="sr-only">Loading...</span>
+                                                            </div>
+                                                            : <>Set as Default Billing</>
+                                                    }
+                                                </a>
+                                            </li>
+
+                                        }
+
+                                        <li>
+                                            <a onClick={() => editAddress(address)}>
+                                                Edit Address
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                        </>
-                        : <>{"Loading Address..."}</>
-                }
+                        </a>)
+                    }
+                </div>
             </div>
 
             <hr/>
 
             <div className='address-container d-flex flex-column justify-content-center'>
-                <div className='title-container d-flex align-items-start justify-content-between'>
+                <div className='d-flex align-items-start justify-content-between'>
                     <h2>Billing Address</h2>
-                    <button
-                        className="main-edit-btn"
-                        type="button"
-                        id="billingBtn"
-                        data-toggle="collapse"
-                        data-target=".billing-address-container"
-                        aria-expanded="false"
-                        aria-controls="billingSelected billingList"
-                        onClick={() => shippingList("billing")}
-                        style={{
-                            display: `${!selectedBilling ? "none" : "block"}`
-                        }}
-                    >
-                        <img src={Edit} alt="" />
+                    <button className='edit-btn'>
+                        Edit Info
                     </button>
                 </div>
                 <div className="checkbox-container">
                     <input
                         type="checkbox"
                         id="sameAddress"
-                        name="sameAddress"
-                        checked={checked}
-                        onChange={() => setChecked(!checked)}
-                        disabled={!selectedShipping}
                     />
-                    <label htmlFor="sameAddress">Same as shipping address</label>
+                    <label htmlFor="sameAddress">Use same shipping address</label>
                 </div>
-                {
-                    !checked
-                    && <>
-                        <ul
-                            id="billingSelected"
-                            className="billing-address-container info-list show"
-                        >
-                            <li>
-                                <img
-                                    src={require("../../assets/img/mdi_map-marker.svg")}
-                                    alt=""
-                                />
-                                {
-                                    selectedBilling
-                                    && <span>
-                                        {
-                                            selectedBilling?.details?.address
-                                            + " " +
-                                            selectedBilling?.details?.city
-                                            + " " +
-                                            (selectedBilling?.details?.state || "")
-                                            + " " +
-                                            selectedBilling?.details?.postalCode}{" "}
-
-                                            {
-                                                defaultAddress?.addressId === selectedBilling?.addressId
-                                                && <span className="default mr-3">Default</span>
-                                            }
-
-                                            {
-                                                defaultAddressBilling?.addressId === selectedBilling?.addressId
-                                                && <span className="default">Default Billing</span>
-                                            }
-                                    </span>
-                                }
-                            </li>
-                            <li>
-                                <img src={require("../../assets/img/mdi_phone.svg")} alt="" />
-                                {
-                                    selectedBilling
-                                    && <span>{selectedBilling?.details?.mobileNumber}</span>
-                                }
-                            </li>
-                        </ul>
-
-                        <div
-                            className="billing-address-container collapse"
-                            id="billingList"
-                        >
-                            <div className='address-list'>
-                                {
-                                    account?.addressesData?.map(address => <a
-                                            key={`key-billing-${address?.addressId}`}
-                                            className={'address-item d-flex align-items-center justify-content-between col-12 '  + (
-                                                selectBilling
-                                                && selectBilling?.addressId === address?.addressId
-                                                    ? "selected"
-                                                    : ""
-                                            )}
-                                            onClick={() => setSelectBilling(address)}
-                                        >
-                                        <div className='address-icon d-flex align-items-center justify-content-center'>
-                                            <img src={AddressIcon} alt='Address Icon'/>
-                                        </div>
-                                        <div className='address-details d-flex flex-column'>
-                                            <p>{ address?.details?.address }</p>
-                                            <p>{ address?.details?.mobileNumber }</p>
-                                        </div>
-                                        <div className="icon-container d-flex flex-column align-items-center">
-                                            {
-                                                defaultAddress?.addressId === address?.addressId
-                                                && <div className='default-icon d-flex align-items-center justify-content-center'>
-                                                    <img src={StarIcon} alt='Star Icon'/>
-                                                    <span>Default</span>
-                                                </div>
-                                            }
-
-                                            {
-                                                defaultAddressBilling?.addressId === address?.addressId
-                                                && <div className='default-icon d-flex align-items-center justify-content-center'>
-                                                    <img src={StarIcon} alt='Star Icon'/>
-                                                    <span>Billing</span>
-                                                </div>
-                                            }
-                                        </div>
-                                        <div className='options-icon d-flex align-items-center justify-content-center p-3'>
-                                            <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                                    <span class="glyphicon glyphicon-option-vertical"></span>
-                                                </a>
-                                                <ul class="dropdown-menu">
-                                                    {
-                                                        address?.addressId
-                                                        && defaultAddress?.addressId !== address?.addressId
-                                                        && <li>
-                                                            <a onClick={() => handleMakeDefaultAddress(address)}>
-                                                                {
-                                                                    isDefaultLoading
-                                                                    && isDefaultSelected?.addressId === address.addressId
-                                                                        ? <div
-                                                                            className="spinner-border text-success"
-                                                                            role="status"
-                                                                        >
-                                                                            <span className="sr-only">Loading...</span>
-                                                                        </div>
-                                                                        : <>Set as Default</>
-                                                                }
-                                                            </a>
-                                                        </li>
-                                                    }
-
-                                                    {
-                                                        defaultAddressBilling?.addressId !== address?.addressId
-                                                        && <li>
-                                                            <a onClick={() => handleMakeDefaultAddressBilling(address)}>
-                                                                {
-                                                                    isDefaultLoading
-                                                                    && isDefaultSelected?.addressId === address.addressId
-                                                                        ? <div
-                                                                            className="spinner-border text-success"
-                                                                            role="status"
-                                                                        >
-                                                                            <span className="sr-only">Loading...</span>
-                                                                        </div>
-                                                                        : <>Set as Default Billing</>
-                                                                }
-                                                            </a>
-                                                        </li>
-
-                                                    }
-
-                                                    <li>
-                                                        <a
-                                                            className="edit-btn"
-                                                            data-toggle="modal"
-                                                            data-target="#addAddressModal"
-                                                            onClick={() => handleEditAddress(address)}
-                                                        >
-                                                            Edit Address
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </a>)
-                                }
-                            </div>
-                            <div className="d-flex align-items-center justify-content-between">
-                                <button
-                                    className="cancel-btn"
-                                    onClick={() => {
-                                        document.getElementById("billingBtn").click();
-                                    }}
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    className="save-btn"
-                                    onClick={() => handleSelect("billing", selectBilling)}
-                                >
-                                    Save
-                                </button>
-                            </div>
-                        </div>
-                    </>
-                }
             </div>
         </div>
 
-        {/* <div className="customer-info">
+        <div className="customer-info">
             <div className="d-flex align-items-center justify-content-between title-container">
-            <h1 className="title m-0">Shipping Address</h1>
-            <button
-                className="main-edit-btn"
-                type="button"
-                id="shippingBtn"
-                data-toggle="collapse"
-                data-target=".shipping-address-container"
-                aria-expanded="false"
-                aria-controls="shippingSelected shippingList"
-                onClick={() => shippingList("shipping")}
-                style={{
-                    visibility: !selectedShipping ? "hidden" : "visible",
-                    zIndex: !selectedShipping ? -1 : 0,
-                }}
-            >
-                <img src={Edit} alt="" />
-            </button>
+                <h1 className="title m-0">Shipping Address</h1>
+                <button
+                    className="main-edit-btn"
+                    type="button"
+                    id="shippingBtn"
+                    data-toggle="collapse"
+                    data-target=".shipping-address-container"
+                    aria-expanded="false"
+                    aria-controls="shippingSelected shippingList"
+                    onClick={() => shippingList("shipping")}
+                    style={{
+                        visibility: !selectedShipping ? "hidden" : "visible",
+                        zIndex: !selectedShipping ? -1 : 0,
+                    }}
+                >
+                    <img src={Edit} alt="" />
+                </button>
             </div>
             {
                 account?.addressesData.length > 0
                 ? <>
-                    <ul id="shippingSelected"
+                    <ul
+                        id="shippingSelected"
                         className={
                             "shipping-address-container info-list collapse " +
                             (account?.addressesData.length === 1 ? "show" : "")
@@ -762,15 +464,15 @@ export const CheckoutInfo = ({
                                 onClick={() => setSelectShipping(item)}
                             >
                                 <div
-                                className={
-                                    "indicator " +
-                                    (
-                                        selectShipping
-                                        && selectShipping?.addressId === item?.addressId
-                                            ? "active"
-                                            : ""
-                                    )
-                                }
+                                    className={
+                                        "indicator " +
+                                        (
+                                            selectShipping
+                                            && selectShipping?.addressId === item?.addressId
+                                                ? "active"
+                                                : ""
+                                        )
+                                    }
                                 >
                                 <div className="center"></div>
                                 </div>
@@ -878,7 +580,7 @@ export const CheckoutInfo = ({
                                 onClick={() => handleSelect("shipping", selectShipping)}
                                 disabled={!selectShipping}
                             >
-                                Save
+                            Save
                             </button>
                         </div>
                     </div>
@@ -1081,7 +783,7 @@ export const CheckoutInfo = ({
                 </div>
             </>
             )}
-        </div> */}
+        </div>
         <div
             className="modal fade"
             id="addAddressModal"

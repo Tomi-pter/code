@@ -184,7 +184,7 @@ export const Changepassword = () => {
                     </p>
                 </div>
             </div>
-            <div className="d-flex align-items-center justify-content-end nav">
+            <div className="d-flex align-items-center justify-content-start nav">
                 <div>
                     <button
                         className="changePasswordButton"
@@ -196,7 +196,7 @@ export const Changepassword = () => {
                                 ? <div className="spinner-border text-light" role="status">
                                     <span className="sr-only">Loading...</span>
                                 </div>
-                            : <>{"Reset Password"}</>
+                            : <>{"Change Password"}</>
                         }
                     </button>
                 </div>

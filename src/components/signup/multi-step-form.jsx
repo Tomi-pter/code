@@ -85,7 +85,7 @@ export const MultiStepForm = () => {
                         <span>Step 3</span>
                     </div>
                 </div>
-                <Basic {...props} />;
+                <Basic {...props} />
             </div>
         case "licensing":
             return <div className="d-flex flex-column align-items-center justify-content-center">
@@ -109,7 +109,7 @@ export const MultiStepForm = () => {
                             <span>Step 3</span>
                         </div>
                     </div>
-                    <Licensing {...props} />;
+                    <Licensing {...props} />
                 </div>
         case "account":
             return <div className="d-flex flex-column align-items-center justify-content-center">
@@ -133,7 +133,7 @@ export const MultiStepForm = () => {
                         <span>Step 3</span>
                     </div>
                 </div>
-                <Account {...props} />;
+                <Account {...props} />
             </div>
         default:
             return null;

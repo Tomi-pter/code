@@ -63,8 +63,9 @@ export const License = ({ account }) => {
     <>
       <div className="d-flex justify-content-between sub-title mb-4">
         <h2 className="m-0">State License Information</h2>
-        <div className="edit-wrapper" onClick={toggleEdit}>
-          <img className="edit-icon" src={EditIcon} alt="" />
+        <div className="edit-wrapper d-flex align-items-start justify-content-center" onClick={toggleEdit}>
+            <img className="edit-icon" src={EditIcon} alt="" />
+            <span>Edit Info</span>
         </div>
       </div>
       <div className="row">

@@ -181,6 +181,11 @@ export default function Account ({ formData, setFormData, navigation, onChange }
 			</div>
 			<div className="checkbox-container d-flex align-items-center">
                 <label className="checkbox">
+                    <input
+                        type="checkbox"
+                        checked={acceptTerms}
+                        onChange={(e) => setAcceptTerms(e.target.checked)}
+                    />
                     I accept{" "}
                     <a
                         target="_blank"
@@ -188,12 +193,6 @@ export default function Account ({ formData, setFormData, navigation, onChange }
                     >
                         Terms and Conditions
                     </a>
-                    <input
-                        type="checkbox"
-                        checked={acceptTerms}
-                        onChange={(e) => setAcceptTerms(e.target.checked)}
-                    />
-                    <span class="checkmark"></span>
                 </label>
 			</div>
             <p

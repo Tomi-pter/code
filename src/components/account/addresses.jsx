@@ -236,6 +236,12 @@ export const Addresses = ({ account }) => {
                                     <span class="glyphicon glyphicon-option-vertical"></span>
                                 </a>
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a onClick={() => editAddress(address)}>
+                                            Edit Address
+                                        </a>
+                                    </li>
+
                                     {
                                         address?.addressId
                                         && defaultAddress?.addressId !== address?.addressId
@@ -277,12 +283,7 @@ export const Addresses = ({ account }) => {
                                     }
 
                                     <li>
-                                        <a onClick={() => editAddress(address)}>
-                                            Edit Address
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a onClick={() => removeAddress(address)}>
+                                        <a className="delete-option" onClick={() => removeAddress(address)}>
                                             Delete Address
                                         </a>
                                     </li>

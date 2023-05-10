@@ -136,6 +136,7 @@
 
         .checkbox-container {
             input[type="checkbox"] {
+                width: 15px;
                 margin-right: 13px;
             }
 
@@ -323,7 +324,6 @@
   .checkbox {
     display: block;
     position: relative;
-    padding-left: 35px;
     margin-bottom: 0;
     cursor: pointer;
 
@@ -337,14 +337,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-
-  .checkbox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
   }
 
   .checkmark {

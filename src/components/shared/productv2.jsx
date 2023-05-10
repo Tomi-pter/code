@@ -281,6 +281,31 @@ export const Productv2 = ({
                                     </span>
                                 }
                             </div>
+                            <div className="d-flex align-items-center justify-container-center qty-container">
+                                <button
+                                    className="minus-btn"
+                                    onClick={() =>
+                                    quantity === 1
+                                        ? null
+                                        : setQuantity(quantity - 1)
+                                    }
+                                >
+                                    -
+                                </button>
+                                <input
+                                    type="number"
+                                    value={quantity}
+                                    onChange={(e) =>
+                                    setQuantity(parseInt(e.target.value))
+                                    }
+                                />
+                                <button
+                                    className="plus-btn"
+                                    onClick={() => setQuantity(quantity + 1)}
+                                >
+                                    +
+                                </button>
+                            </div>
                             <div className="product-buttons d-flex flex-row">
                                 {
                                     auth

@@ -9,7 +9,7 @@ import {
   makeDefaultAddress,
   makeDefaultAddressBilling,
 } from "../../actions/account";
-import Edit from "../../assets/icon/pencil.svg";
+import Edit from "../../assets/img/Account/edit-icon.svg";
 import Input from "../shared/input";
 import Dropdown from "../shared/dropdown";
 import InputContact from "react-phone-number-input/input";
@@ -287,7 +287,10 @@ export const CheckoutInfo = ({
                             display: `${!selectedShipping ? "none" : "block"}`
                         }}
                     >
-                        <img src={Edit} alt="" />
+                        <div className="edit-wrapper d-flex align-items-center justify-content-center">
+                            <img src={Edit} alt="" />
+                            <span>Edit Info</span>
+                        </div>
                     </button>
                 </div>
 
@@ -390,6 +393,16 @@ export const CheckoutInfo = ({
                                                         <span class="glyphicon glyphicon-option-vertical"></span>
                                                     </a>
                                                     <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a
+                                                                data-toggle="modal"
+                                                                data-target="#addAddressModal"
+                                                                onClick={() => handleEditAddress(address)}
+                                                            >
+                                                                Edit Address
+                                                            </a>
+                                                        </li>
+
                                                         {
                                                             address?.addressId
                                                             && defaultAddress?.addressId !== address?.addressId
@@ -429,17 +442,6 @@ export const CheckoutInfo = ({
                                                             </li>
 
                                                         }
-
-                                                        <li>
-                                                            <a
-                                                                className="edit-btn"
-                                                                data-toggle="modal"
-                                                                data-target="#addAddressModal"
-                                                                onClick={() => handleEditAddress(address)}
-                                                            >
-                                                                Edit Address
-                                                            </a>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -496,7 +498,10 @@ export const CheckoutInfo = ({
                             display: `${!selectedBilling ? "none" : "block"}`
                         }}
                     >
-                        <img src={Edit} alt="" />
+                        <div className="edit-wrapper d-flex align-items-center justify-content-center">
+                            <img src={Edit} alt="" />
+                            <span>Edit Info</span>
+                        </div>
                     </button>
                 </div>
                 <div className="checkbox-container">
@@ -601,6 +606,16 @@ export const CheckoutInfo = ({
                                                     <span class="glyphicon glyphicon-option-vertical"></span>
                                                 </a>
                                                 <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a
+                                                            data-toggle="modal"
+                                                            data-target="#addAddressModal"
+                                                            onClick={() => handleEditAddress(address)}
+                                                        >
+                                                            Edit Address
+                                                        </a>
+                                                    </li>
+
                                                     {
                                                         address?.addressId
                                                         && defaultAddress?.addressId !== address?.addressId
@@ -640,17 +655,6 @@ export const CheckoutInfo = ({
                                                         </li>
 
                                                     }
-
-                                                    <li>
-                                                        <a
-                                                            className="edit-btn"
-                                                            data-toggle="modal"
-                                                            data-target="#addAddressModal"
-                                                            onClick={() => handleEditAddress(address)}
-                                                        >
-                                                            Edit Address
-                                                        </a>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -1234,7 +1238,7 @@ export const CheckoutInfo = ({
                             id="closeAddressModal"
                             aria-label="Close"
                         >
-                            Cancel
+                            Discard
                         </button>
                     </div>
                 </div>

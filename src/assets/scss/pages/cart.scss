@@ -362,6 +362,18 @@
                         text-align: left;
                         color:#0D1834;
                     }
+
+                    .edit-wrapper {
+                        gap: 10px;
+                        padding: 8px 4px;
+                        border-radius: 8px;
+                        border: 2px solid #0D1834;
+                        cursor: pointer;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
                 }
 
                 .address-list {
@@ -971,87 +983,84 @@
             background: #0D1834;
         }
     }
-  #addAddressModal {
-    // .card {
-    //     background: #fff;
-    //     border: 0;
-    //     box-shadow: none;
-    // }
-    input,
-    select {
-      background: #f0f0f0;
-      border-radius: 0;
-      border: 0;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 18px;
-      line-height: 29px;
-      color: #4f4f4f;
-    }
-    .error {
-      min-height: 22px;
-      color: #ed4337;
-    }
-    .add-error {
-      min-height: 22px;
-      margin-bottom: 10px;
-      background: none;
-      color: #ed4337;
-    }
-    .button-wrapper {
-      margin-top: 66px;
-      .addCardButton,
-      .cancelCardButton {
-        font-family: "Axiforma Bold";
-        font-style: normal;
-        font-weight: 600;
-        font-size: 15px;
-        line-height: 24px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .addCardButton {
-        background: #16cfb0;
-        border-radius: 7.5px;
-        min-width: 127px;
-        min-height: 36px;
-        border: 0;
-        color: #ffffff;
-        margin-left: 20px;
-        &:hover {
-          background: linear-gradient(
-            266.19deg,
-            #16cfb0 -15.44%,
-            #71d3f4 103.82%
-          );
-          border-radius: 7.50055px;
+    #addAddressModal {
+        h2.modal-header {
+            padding: 0;
+            font-family: Helvetica Neue LT Pro;
+            font-size: 32px;
+            font-weight: 400;
+            line-height: 48px;
+            letter-spacing: -0.03em;
+            text-align: left;
+            border: none;
         }
-        .spinner-border {
-          width: 30px;
-          height: 30px;
+        input,
+        select {
+            height: 44px;
+            border-radius: 40px;
+            padding: 13px 14px;
+            box-shadow: 0px 1px 0px 0px #0000000D;
         }
-        &:disabled,
-        &:disabled:hover {
-          background: #f0f0f0;
+        .error {
+            min-height: 22px;
+            color: #ed4337;
         }
-        &.loading:disabled,
-        &.loading:disabled:hover {
-          background: #16cfb0;
+        .add-error {
+            min-height: 22px;
+            margin-bottom: 10px;
+            background: none;
+            color: #ed4337;
         }
-      }
-      .cancelCardButton {
-        background: transparent;
-        border: 2px solid #16cfb0;
-        box-sizing: border-box;
-        border-radius: 7.5px;
-        min-width: 127px;
-        min-height: 36px;
-        color: #16cfb0;
-        opacity: 1;
-      }
-    }
+        .button-wrapper {
+            .addCardButton,
+            .cancelCardButton {
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: -0.03em;
+                text-align: center;
+                background: #054FF0;
+                border: 2px solid #054FF0;
+                color: #FFFFFF;
+                padding: 11px 32px;
+                border-radius: 40px;
+                padding: 12px 32px;
+
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .addCardButton {
+                padding: 11px 32px;
+                border-radius: 40px;
+                padding: 12px 32px;
+                
+
+                &:hover {
+                    background: #0D1834;
+                    border: 2px solid #0D1834;
+                }
+                .spinner-border {
+                    width: 30px;
+                    height: 30px;
+                }
+                &:disabled,
+                &:disabled:hover {
+                    background: #f0f0f0;
+                }
+                &.loading:disabled,
+                &.loading:disabled:hover {
+                    background: #16cfb0;
+                }
+            }
+            .cancelCardButton {
+                border: none;
+                background: transparent;
+                color: #0D1834;
+                text-decoration: underline;
+            }
+        }
   }
   @include mediaQueries(padpro) {
     .main-content-container {

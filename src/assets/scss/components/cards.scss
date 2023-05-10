@@ -131,6 +131,7 @@
             line-height: 24px;
             text-align: center;
             color: #ffffff;
+
             &:not(:disabled):hover {
                 background: linear-gradient(
                     266.19deg,
@@ -217,7 +218,6 @@
                 min-height: 36px;
                 border: 0;
                 color: #ffffff;
-                margin-left: 20px;
                 &:hover {
                     background: linear-gradient(
                     266.19deg,

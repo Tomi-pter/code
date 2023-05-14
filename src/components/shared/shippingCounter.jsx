@@ -15,7 +15,7 @@ export const ShippingCounter = ({ cart, path }) => {
     const subTotal = cart.cartData?.length > 0 ? (cart.cartData?.map(item => parseFloat(item.price) * item.quantity).reduce((prev, next) => prev + next)).toFixed(2) : 0;
     const shippingCounter = subTotal >= FREE_SHIPPING_TOTAL ? 0 : (FREE_SHIPPING_TOTAL - parseFloat(subTotal)).toFixed(2);
     const percentage = subTotal >= FREE_SHIPPING_TOTAL ? 100 : (subTotal / FREE_SHIPPING_TOTAL) * 100;
-    const visible = path === '/cart' || path === '/checkout' || path === '/shop' || path === '/search' ? true : false
+    const visible = path === '/cart' || path === '/shop' || path === '/search' ? true : false
 
     return (
         <div className={"shipping-counter d-flex flex-column " + (visible ? '' : 'hidden')}>

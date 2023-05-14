@@ -32,16 +32,18 @@
 }
 
 .cart-page {
-  padding: 69px 30px 0 30px;
-  min-height: calc(100vh - 266px);
-  .title {
-    font-style: normal;
-    font-weight: 800;
-    font-size: 26.25px;
-    line-height: 44px;
-    color: #4f4f4f;
-    margin-bottom: 17px;
-  }
+    padding: 69px 30px 0 30px;
+    min-height: calc(100vh - 266px);
+
+    .title {
+        font-style: normal;
+        font-weight: 800;
+        font-size: 26.25px;
+        line-height: 44px;
+        color: #4f4f4f;
+        margin-bottom: 17px;
+    }
+
     .cart-items-container {
         margin-right: 30px;
 
@@ -68,7 +70,8 @@
             border-radius: 20px;
             padding: 24px;
             background: #FFFFFF;
-        
+            box-shadow: 0px 4px 104px 0px #0000000D;
+
             table {
                 font-family: 'Helvetica Neue LT Pro';
                 font-size: 14px;
@@ -324,6 +327,8 @@
         }
 
         .customer-info {
+            box-shadow: 0px 4px 104px 0px #0000000D;
+
             .personal-info {
                 margin-bottom: 24px;
 
@@ -496,17 +501,17 @@
     }
   
   
-  .order-summary {
-    width: 480px;
-    background: #FFFFFF;
-    padding: 20px;
-    border-radius: 20px;
-  }
-  .customer-info {
-    background: #FFFFFF;
-    padding: 20px;
-    border-radius: 20px;
-  }
+    .order-summary {
+        width: 480px;
+        background: #FFFFFF;
+        padding: 20px;
+        border-radius: 20px;
+    }
+    .customer-info {
+        background: #FFFFFF;
+        padding: 20px;
+        border-radius: 20px;
+    }
   
   .title-container {
     position: relative;
@@ -770,6 +775,7 @@
         padding: 20px;
         border-radius: 20px;
         margin-bottom: 30px;
+        box-shadow: 0px 4px 104px 0px #0000000D;
 
         h2 {
             font-size: 20px;
@@ -871,73 +877,74 @@
             }
         }
     }
-  .order-summary {
-    margin-bottom: 30px;
+    .order-summary {
+        margin-bottom: 30px;
+        box-shadow: 0px 4px 104px 0px #0000000D;
 
-    h2 {
-        font-size: 24px;
-        font-weight: 400;
-        line-height: 40px;
-        text-align: left;
-        color: #0D1834;
+        h2 {
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 40px;
+            text-align: left;
+            color: #0D1834;
 
-        margin-bottom: 0;
-    }
-    .item-count {
-        height: 27px;
-        width: auto;
-        border-radius: 4px;
-        padding: 8px 12px;
-        background: #CED9DB;
-    }
+            margin-bottom: 0;
+        }
+        .item-count {
+            height: 27px;
+            width: auto;
+            border-radius: 4px;
+            padding: 8px 12px;
+            background: #CED9DB;
+        }
 
-    .summary-list {
-      list-style: none;
-      padding-left: 0;
-      margin-bottom: 30px;
-      li {
-        width: 100%;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        font-style: normal;
-        font-weight: normal;
+        .summary-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 30px;
+        li {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            font-style: normal;
+            font-weight: normal;
 
-        color: #181818;
-        font-family: Helvetica Neue LT Pro;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 21px;
-        text-align: left;
-
-        line-height: 29px;
-        margin-bottom: 15px;
-      }
-      li p {
-        margin-bottom: 0;
-      }
-      li span {
-        font-size: 12px;
-        line-height: 19px;
-        margin-top: 15px;
-      }
-    }
-    .total {
-        label {
+            color: #181818;
+            font-family: Helvetica Neue LT Pro;
             font-size: 16px;
             font-weight: 400;
             line-height: 21px;
-            letter-spacing: 0px;
             text-align: left;
+
+            line-height: 29px;
+            margin-bottom: 15px;
         }
-        span {
-            font-size: 16px;
-            font-weight: 700;
+        li p {
+            margin-bottom: 0;
+        }
+        li span {
+            font-size: 12px;
             line-height: 19px;
-            letter-spacing: 0em;
+            margin-top: 15px;
+        }
+        }
+        .total {
+            label {
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 21px;
+                letter-spacing: 0px;
+                text-align: left;
+            }
+            span {
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 19px;
+                letter-spacing: 0em;
+            }
         }
     }
-  }
   .actions-container {
     margin-top: 22px;
   }

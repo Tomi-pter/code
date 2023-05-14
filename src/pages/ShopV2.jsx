@@ -24,47 +24,45 @@ export default (props) => {
     const cat = query.get("category");
 
     if (cat && cat !== "") {
-      if (
-        cat === "Favorites" &&
-        favBtn?.className.split(" ")?.length === 2 &&
-        auth
-      ) {
-        favBtn.click();
-      } else {
-        pharmaBtn.click();
-      }
+        if (
+            cat === "Favorites"
+            && auth
+        ) {
+            favBtn.click();
+        }
 
-      if (
-        cat === "Pharmaceuticals" &&
-        pharmaBtn.className.split(" ").length === 2
-      )
-        pharmaBtn.click();
+        if (
+            cat === "Pharmaceuticals"
+        ) {
+            pharmaBtn.click();
+        }
 
-      if (
-        (cat === "Animal Health" || cat === "animalhealth") &&
-        animalBtn.className.split(" ").length === 2
-      )
-        animalBtn.click();
+        if (
+            (cat === "Animal Health" || cat === "animalhealth")
+        ) {
+            animalBtn.click();
+        }
 
-      if (
-        (cat === "Medical Supplies" || cat === "medicalsupplies") &&
-        medicalBtn.className.split(" ").length === 2
-      )
-        medicalBtn.click();
+        if (
+            (cat === "Medical Supplies" || cat === "medicalsupplies")
+        ) {
+            medicalBtn.click();
+        }
 
-      if (
-        (cat === "Specials" || cat === "specials") &&
-        dealBtn.className.split(" ").length === 2
-      )
-        dealBtn.click();
+        if (
+            (cat === "Specials" || cat === "specials")
+        ) {
+            dealBtn.click();
+        }
 
       // if (
       //   (cat === "Weekly Specials" || cat === "weeklyspecials") &&
       //   specialsBtn.className.split(" ").length === 2
       // )
       //   specialsBtn.click();
-    } else {
-      pharmaBtn.click();
+    }
+    else {
+        pharmaBtn.click();
     }
   };
 

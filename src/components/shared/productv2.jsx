@@ -18,28 +18,26 @@ const renderActionButton = (
   requestStock,
   requestLoading
 ) => {
-  if (product?.totalquantityonhand <= 0) {
-    return (
-      <div className="buy-container">
-        <button
-          className="btn btn-primary sale-rep-btn"
-          onClick={() => requestStock(product)}
-        >
-          {requestLoading && selectedProduct === product ? (
-            <div
-              className="spinner-border text-primary mr-0"
-              style={{ width: "20px", height: "20px" }}
-              role="contact rep"
+    if (product?.totalquantityonhand <= 0) {
+        return <div className="buy-container">
+            <button
+                className="btn btn-primary sale-rep-btn"
+                onClick={() => requestStock(product)}
             >
-              <span className="sr-only">Loading...</span>
-            </div>
-          ) : (
-            "Contact Sales Rep"
-          )}
-        </button>
-      </div>
-    );
-  }
+                {
+                    requestLoading && selectedProduct === product
+                    ? <div
+                        className="spinner-border text-primary mr-0"
+                        style={{ width: "20px", height: "20px" }}
+                        role="contact rep"
+                    >
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                    : <>Contact Sales Rep</>
+                }
+            </button>
+        </div>
+    }
 
   return (
     <div className="buy-container d-flex">

@@ -1,22 +1,37 @@
 .shipping-counter {
     width: 100%;
     height: 75.75px;
+    padding: 8px 32px;
+    gap: 4px;
     background: #C2D5FF;
-    padding: 0 30px;
+
     position: sticky;
     top: 0;
+
     &.hidden {
         height: 0;
-        overflow: hidden;
+        padding: 0;
+        visibility: hidden;
     }
     h1 {
-        font-style: normal;
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 30px;
-        color: #FFFFFF;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 26px;
+        text-align: left;
+        color: #0D1834;
+
         margin-bottom: 0;
     }
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 26px;
+        text-align: left;
+        color: #0D1834;
+
+        margin-bottom: 0;
+    }
+
     .counter-container {
         flex: auto;
         @include mediaQueries (mobile) {
@@ -24,40 +39,54 @@
         }
     }
     .progress-container {
-        padding: 0 40px 0 100px;
         @include mediaQueries (mobile) {
             padding: 0;
         }
     }
-    p {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 13.5px;
-        line-height: 21px;
-        color: #FFFFFF;
-        margin-bottom: 0;
-        text-align: center;
-    }
     span {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 13.5px;
-        line-height: 21px;
-        color: #FFFFFF;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 26px;
+        text-align: left;
+
+        color: #0D1834;
     }
     .progress {
         flex: auto;
-        height: 11.25px;
-        background: #FFFFFF;
+        height: 8px;
+        background: #ACC5FD;
         border-radius: 7.5px;
         margin: 0 30px 0 12px;
+        overflow: visible;
+
+        .percent {
+            background: #054FF0;
+            border-radius: 7.5px;
+            transition: width 2s;
+        }
+        .price-circle {
+            padding: 3px 9px;
+            border-radius: 32px;
+            background: #FFFFFF;
+            height: 28px;
+            width: auto;
+            margin: -10px;
+          
+            .price {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 26px;
+                letter-spacing: -0.20000000298023224px;
+                text-align: left;
+                
+                margin: 0;
+                color: #054FF0;
+            }
+          }
+          
+
         @include mediaQueries (mobile) {
             margin: 0;
         }
-    }
-    .percent {
-        background: #0098FF;
-        border-radius: 7.5px;
-        transition: width 2s;
     }
 }

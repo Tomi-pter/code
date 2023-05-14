@@ -18,14 +18,19 @@ export const ShippingCounter = ({ cart, path }) => {
     const visible = path === '/cart' || path === '/checkout' || path === '/shop' || path === '/search' ? true : false
 
     return (
-        <div className={"d-flex align-items-center shipping-counter " + (visible ? '' : 'hidden')}>
-            <h1>Free shipping tracker</h1>
-            <div className="counter-container">
+        <div className={"shipping-counter d-flex flex-column " + (visible ? '' : 'hidden')}>
+            <div className="shipping-label d-flex justify-content-between">
+                <h1>FREE SHIPPING TRACKER</h1>
                 <p>Add ${shippingCounter} more for FREE SHIPPING</p>
+            </div>
+            <div className="counter-container">
                 <div className="d-flex align-items-center justify-content-between progress-container">
                     <span className="d-none d-md-block">$0</span>
                     <div className="progress">
                         <div className="percent" style={{width: `${percentage}%`}}></div>
+                        <div className="price-circle" style={{ left: `${percentage}%` }}>
+                            <span className="price">${subTotal}</span>
+                        </div>
                     </div>
                     <span className="d-none d-md-block">$100</span>
                 </div>

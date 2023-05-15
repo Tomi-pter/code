@@ -206,28 +206,30 @@ export const ItemList = ({ page }) => {
                                 </div>
                             }
                             <td className="d-flex flex-column align-items-start justify-content-center">
-                                <div className="product-number">Product Number</div>
+                                <span className="product-number">{cartItem.productNumber}</span>
                                 <div className="product-ndc">NDC: {cartItem.ndc}</div>
                             </td>
                             <td>
-                                <div className="product-name">
+                                <span className="product-name">
                                     {cartItem.productName}
+                                </span>
+                            </td>
+                            <td>
+                                <span className="product-manufacturer">
+                                    {cartItem.manufacturer}
+                                </span>
+                            </td>
+                            <td>
+                                <div className="d-flex align-items-center">
+                                    <span className="product-size">
+                                        {cartItem.bottleSize}
+                                    </span>
                                 </div>
                             </td>
                             <td>
-                                <div className="product-manufacturer">
-                                    Manufacturer
-                                </div>
-                            </td>
-                            <td>
-                                <div className="product-size d-flex align-items-center justify-content-center">
-                                    Size
-                                </div>
-                            </td>
-                            <td>
-                                <div className="product-price">
+                                <span className="product-price">
                                     $ {cartItem.price}
-                                </div>
+                                </span>
                             </td>
                             <td>
                                 <div className="product-quantity d-flex align-items-center justify-content-center">
@@ -235,15 +237,15 @@ export const ItemList = ({ page }) => {
                                 </div>
                             </td>
                             <td>
-                                <div
+                                <span
                                     className="delete-btn d-flex align-items-center justify-content-center"
                                     onClick={() => handleDelete(cartItem)}
                                 >
-                                <img
-                                    src={require("../../assets/img/delete_icon.svg")}
-                                    alt=""
-                                />
-                                </div>
+                                    <img
+                                        src={require("../../assets/img/delete_icon.svg")}
+                                        alt=""
+                                    />
+                                </span>
                             </td>
                         </tr>
                     })

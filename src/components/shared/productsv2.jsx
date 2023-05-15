@@ -270,18 +270,22 @@ export const Productsv2 = ({
     const user = JSON.parse(localStorage.getItem("profile"));
 
     const newProduct = {
-      product: {
-        productId: parseInt(product.id),
-        productName: product.name,
-        price: parseFloat(product.cost),
-        imageUrl: product.imageUrl,
-        quantity,
-        ndc: product.ndc,
-        category: product.category,
-        expirationDate: product.expirationDate,
-        lotName: product.lotName,
-      },
+        product: {
+            productId: parseInt(product.id),
+            productName: product.name,
+            productNumber: product.productNumber,
+            price: parseFloat(product.cost),
+            imageUrl: product.imageUrl,
+            quantity,
+            ndc: product.ndc,
+            bottleSize: product.bottleSize,
+            manufacturer: product.manufacturer,
+            category: product.category,
+            expirationDate: product.expirationDate,
+            lotName: product.lotName,
+        }
     };
+
     setIsCartLoading(true);
     setSelectedProduct(product);
     dispatch(addCart(user?.username, newProduct));

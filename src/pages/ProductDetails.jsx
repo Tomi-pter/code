@@ -48,17 +48,20 @@ export default (props) => {
 
   const handleAddCart = () => {
     const newProduct = {
-      product: {
-        productId: parseInt(product.id),
-        productName: product.name,
-        price: parseFloat(product.cost),
-        imageUrl: product.url,
-        quantity,
-        ndc: product.ndc,
-        category: product.category,
-        expirationDate: product.expirationDate,
-        lotName: product.lotName
-      },
+        product: {
+            productId: parseInt(product.id),
+            productName: product.name,
+            productNumber: product.productNumber,
+            price: parseFloat(product.cost),
+            imageUrl: product.imageUrl,
+            quantity,
+            ndc: product.ndc,
+            bottleSize: product.bottleSize,
+            manufacturer: product.manufacturer,
+            category: product.category,
+            expirationDate: product.expirationDate,
+            lotName: product.lotName,
+        }
     };
     setIsLoading(true);
     dispatch(addCart(user?.username, newProduct));

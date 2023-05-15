@@ -856,19 +856,20 @@
   }
 
     .product-row {
+        background: #FFFFFF;
         border: 1px solid #CED9DB;
         height: 315px;
         border-radius: 40px;
         padding: 48px 57px 48px 57px;
+        gap: 60px;
 
-        & > *:not(:last-child) {
-            margin-right: 60px;
-        }
 
         .product-image-container {
             height: 200px;
             width: 200px;
             border-radius: 25px;
+            background: #CED9DB;
+            padding: 24px;
         }
 
         .product-image-container:hover {
@@ -912,11 +913,20 @@
             .product-manufacturer,
             .product-strength,
             .product-ppu {
+                gap: 10px;
                 height: 41px;
                 width: 240px;
                 border-radius: 20px;
                 padding: 10px 20px 10px 20px;
                 background-color: #F6F5F3;
+            }
+
+            .product-manufacturer {
+                span {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
 
             .product-ndc,

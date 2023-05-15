@@ -169,10 +169,7 @@ export const Productv2 = ({
   const FavoriteButton = ({ preferred, onClick }) => {
 
   }
-
-    
-
-
+  console.log(product)
   return (
     <div className={view === "list" ? " col-12" : "col-12 col-md-6 col-lg-3"}>
         <div 

@@ -1012,60 +1012,67 @@
                     width: 40px;
                     background: #FFFFFF;
                     border-radius: 40px;
-                    border: 2px solid #007aff;
                     position: relative;
+                    box-shadow: 0px 4px 104px 0px #0000000D;
                     cursor: pointer;
-                    transition: all 0.3s ease;
-                  
-                    .heart-icon {
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        width: 20px;
-                        height: 20px;
-                        border: 2px solid #007aff;
-                        border-radius: 50%;
-                        transition: all 0.3s ease;
-                  
-                        &:before {
-                            content: "";
-                            position: absolute;
-                            top: -2px;
-                            left: -2px;
-                            width: 100%;
-                            height: 100%;
-                            border-radius: 50%;
-                            border: 2px solid transparent;
-                            transition: all 0.3s ease;
-                        }
-                  
-                        &:after {
-                            content: "";
-                            position: absolute;
-                            top: 4px;
-                            left: 0;
-                            width: 16px;
-                            height: 16px;
-                            border-radius: 50%;
-                            background-color: #007aff;
-                            transform: scaleY(0);
-                            transform-origin: bottom;
-                            transition: all 0.3s ease;
-                        }
-                    }
-                  
-                    &.preferred {
-                        .heart-icon {
-                            &:before {
-                                border-color: #007aff;
-                            }
                     
-                            &:after {
-                                transform: scaleY(1);
-                            }
-                        }
+                    .fadeIn {
+                        animation: fadeInAnimation 2s;
                     }
+                    
+                    @keyframes fadeInAnimation {
+                        from { opacity: 0; }
+                        to   { opacity: 1; }
+                    }
+                    // .heart-icon {
+                    //     position: absolute;
+                    //     top: 50%;
+                    //     left: 50%;
+                    //     transform: translate(-50%, -50%);
+                    //     width: 20px;
+                    //     height: 20px;
+                    //     border: 2px solid #007aff;
+                    //     border-radius: 50%;
+                    //     transition: all 0.3s ease;
+                  
+                    //     &:before {
+                    //         content: "";
+                    //         position: absolute;
+                    //         top: -2px;
+                    //         left: -2px;
+                    //         width: 100%;
+                    //         height: 100%;
+                    //         border-radius: 50%;
+                    //         border: 2px solid transparent;
+                    //         transition: all 0.3s ease;
+                    //     }
+                  
+                    //     &:after {
+                    //         content: "";
+                    //         position: absolute;
+                    //         top: 4px;
+                    //         left: 0;
+                    //         width: 16px;
+                    //         height: 16px;
+                    //         border-radius: 50%;
+                    //         background-color: #007aff;
+                    //         transform: scaleY(0);
+                    //         transform-origin: bottom;
+                    //         transition: all 0.3s ease;
+                    //     }
+                    // }
+                  
+                    // &.preferred {
+                    //     .heart-icon {
+                    //         &:before {
+                    //             border-color: #007aff;
+                    //         }
+                    
+                    //         &:after {
+                    //             transform: scaleY(1);
+                    //         }
+                    //     }
+                    // }
                 }
 
                 & > *:not(:last-child) {

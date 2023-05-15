@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router";
 import NoImage from "../../assets/img/unavailable.svg";
+import FavoriteOutlined from "../../assets/img/favorite-outline.png";
+import FavoriteFilled from "../../assets/img/favorite-filled.png";
 import moment from "moment/moment";
 
 import { Link } from "react-router-dom";
@@ -324,8 +326,9 @@ export const Productv2 = ({
                                         to Buy
                                     </span>
                                 }
-                                <div className={"favorite-btn " + (product.preferred ? "preferred" : "")} onClick={() => setPrefered(product)}>
-                                    <span className="heart-icon"></span>
+                                <div className={"favorite-btn fadeIn d-flex align-items-center justify-content-center"} onClick={() => setPrefered(product)}>
+                                    <img src={product.preferred ? FavoriteFilled : FavoriteOutlined} height={20} width={20} alt=''/>
+                                    {/* <span className="heart-icon"></span> */}
                                 </div>
                             </div>
                         </div>

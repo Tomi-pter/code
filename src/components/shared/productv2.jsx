@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
-import NoImage from "../../assets/img/unavailable.svg";
+import NoImage from "../../assets/img/product-placeholder.png";
 import FavoriteOutlined from "../../assets/img/favorite-outline.png";
 import FavoriteFilled from "../../assets/img/favorite-filled.png";
 import moment from "moment/moment";

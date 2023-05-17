@@ -334,7 +334,7 @@ export const Productv2 = ({
                         </div>
                     </div>
                     : <div className="product-container d-flex flex-column align-items-start justify-content-between">
-                    <div className="product-image-container  d-flex align-items-center">
+                    <div className="product-image-container d-flex align-items-center justify-content-center">
                         <img src={product.imageUrl ? product.imageUrl : NoImage}
                             alt=""
                             onClick={() => viewProduct(product.id)}

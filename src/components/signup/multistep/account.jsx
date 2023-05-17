@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { signUp } from "../../../actions/auth";
@@ -17,6 +18,7 @@ import moment from "moment";
 
 export default function Account ({ formData, setFormData, navigation, onChange }) {
     const auth = useSelector((state) => state.auth);
+    const history = useHistory();
 
     const [acceptTerms, setAcceptTerms] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -31,6 +33,8 @@ export default function Account ({ formData, setFormData, navigation, onChange }
     const checkConfirmation = formData.password !== "" && formData.confirm_password.includes(formData.password);
 
     const dispatch = useDispatch();
+
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     const submit = () => {
         setIsLoading(true);

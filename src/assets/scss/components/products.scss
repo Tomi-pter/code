@@ -870,6 +870,11 @@
             border-radius: 25px;
             background: #CED9DB;
             padding: 24px;
+
+            img {
+                height: 161px;
+                width: 161px;
+            }
         }
 
         .product-image-container:hover {

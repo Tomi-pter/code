@@ -2,6 +2,8 @@
     min-height: 100vh;
     background: #FFFFFF;
     padding: 50px 100px 80px 100px;
+    margin-top: 186.75px;
+
     @include mediaQueries(pad) {
         padding: 40px 15px 40px 15px;
     }

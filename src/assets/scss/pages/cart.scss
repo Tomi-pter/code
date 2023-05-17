@@ -116,7 +116,11 @@
                     background: #E7F7ED;
                 }
                 .product-price {
+                    white-space: nowrap;
                     color: #27AE60;
+                }
+                .product-ndc {
+                    white-space: nowrap;
                 }
             }
         

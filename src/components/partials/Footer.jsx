@@ -6,8 +6,16 @@ import Linkedin from '../../assets/icon/linkedin.svg';
 
 export const Footer = () => {
     return (
-        <div className="container-fluid d-flex flex-column footer">
+        <div className="footer container-fluid d-flex flex-column">
             <span>Join Our Partners and get exclusive assess to new collections</span>
+            <div class="footer-input-container">
+                <input
+                    className="footer-input"
+                    placeholder="example@domain.com"
+                    type="text"
+                />
+                <button>Subscribe</button>
+            </div>
             <div className="logo-container">
                 <img src={Logo} alt="Footer Logo"/>
             </div>

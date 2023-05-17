@@ -113,12 +113,13 @@
         font-family: 'Helvetica Neue LT Pro';
         height: 67px;
         border-radius: 56px;
-        width: 209px;
+        width: 100%;
+        max-width: 210px;
+        padding: 10px 20px;
         background: #EFEFEF;
 
-        padding: 24px 50px;
+        padding: 10px;
         white-space: nowrap;
-        margin-right: 38px;
         flex: 1;
 
         @include mediaQueries(pad) {
@@ -839,9 +840,6 @@
                 background-color: #0D1834;
             }
 
-            @media screen and (max-width: 1510px) and (min-width: 1400px) {
-                width: 106px;
-            }
             @include mediaQueries(padpro) {
                 font-size: 12px;
             }

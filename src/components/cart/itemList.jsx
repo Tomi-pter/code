@@ -207,7 +207,7 @@ export const ItemList = ({ page }) => {
                             }
                             <td className="d-flex flex-column align-items-start justify-content-center">
                                 <span className="product-number">{cartItem.productNumber}</span>
-                                <div className="product-ndc">NDC: {cartItem.ndc}</div>
+                                <div className="product-ndc">{cartItem.ndc}</div>
                             </td>
                             <td>
                                 <span className="product-name">

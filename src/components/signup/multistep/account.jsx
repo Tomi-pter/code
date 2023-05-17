@@ -24,7 +24,6 @@ export default function Account ({ formData, setFormData, navigation, onChange }
     const [isLoading, setIsLoading] = useState(false);
     const [isDisabled, setDisabled] = useState(true);
 
-    
     const checkPasswordLength = formData.password.length >= 8 ? true : false;
     const checkLetters = /^(?=.*[a-z])(?=.*[A-Z])/.test(formData.password);
     const checkNumber = /^(?=.*[0-9])/.test(formData.password);
@@ -96,6 +95,17 @@ export default function Account ({ formData, setFormData, navigation, onChange }
     useEffect(() => {
         validation();
     }, [validation])
+
+    useEffect(() => {
+        setIsLoading(false);
+
+        if (!auth.authData?.message && submitted) {
+            sleep(1000).then(() => history.push('/approval-page'))
+        }
+        else {
+            setSubmitted(false);
+        };
+    }, [auth]);
 
     return (
 		<div className="card mb-0">

@@ -112,51 +112,41 @@
 
     .product-actions {
         .qty-container {
-            width: 130px;
-            height: 40px;
-            border: none;
-            background: #FFFFFF;
-            box-sizing: border-box;
-            border-radius: 20px;
-            font-style: normal;
-            font-weight: normal;
-            color: #4f4f4f;
+            .minus-btn,
+            .plus-btn {
+                padding: 10px 16px;
+                border: #054FF0;
+                background: #054FF0;
+                color: #FFFFFF;
 
-            button {
-              width: 60px;
-              height: 35px;
-              font-size: 37.5px;
-              background: none;
-              border: 0;
-              outline: 0;
-              padding: 0;
-              display: flex;
-              align-items: center;
-              justify-content: center;
+                &:hover {
+                    border: #0D1834;
+                    background: #0D1834;
+                }
             }
-            input {
-                width: 60px;
-                height: 35px;
-                border: 0;
-                font-size: 16px;
-                letter-spacing: 0px;
-                text-align: center;
-                color: #0D1834;
-                margin: 0;
-                outline: 0;
-                background: transparent;
-                -webkit-appearance: none;
-                -moz-appearance: textfield;
+
+            .minus-btn {
+                border-top-left-radius: 40px;
+                border-bottom-left-radius: 40px;
             }
+
+            .plus-btn {
+                border-top-right-radius: 40px;
+                border-bottom-right-radius: 40px;
+            }
+
             input::-webkit-outer-spin-button,
             input::-webkit-inner-spin-button {
-              -webkit-appearance: none;
-              margin: 0;
+                display: none;
             }
 
-            .plus-btn,
-            .minus-btn {
-                color: #054FF0;
+            input[type="number"] {
+                border: none;
+                width: 110px;
+                padding: 10px;
+                background: #FFFFFF;
+                text-align: center;
+                box-shadow: 0px 4px 104px 0px #0000000D;
             }
         }
         .cart-btn {
@@ -169,6 +159,11 @@
             line-height: 21px;
             text-align: center;
             color: #FFFFFF;
+
+            &:hover {
+                border: #0D1834;
+                background: #0D1834;
+            }
         }
     }
 

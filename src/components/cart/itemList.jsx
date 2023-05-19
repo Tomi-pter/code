@@ -155,7 +155,7 @@ export const ItemList = ({ page }) => {
           </div>
         </div>
       ))} */}
-
+        <h2>Cart Items</h2>
         <table className="w-100">
             <thead>
                 <tr className="table-header">

@@ -271,7 +271,7 @@ export default function Basic ({ formData, setFormData, navigation, onChange }) 
                     onChange={apContactChange}
                 />
             </div>
-            <div className="input-wrapper">
+            <div className="method-of-collection input-wrapper">
                 <label>Preferred Collection Method</label>
                 <Dropdown
                     label="Preferred Collection Method"

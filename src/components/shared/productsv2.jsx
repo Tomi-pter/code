@@ -569,8 +569,8 @@ export const Productsv2 = ({
       </div>
       <div className="pagination-products">
         <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
+          previousLabel={""}
+          nextLabel={""}
           breakLabel={"..."}
           breakClassName={"break-me"}
           pageCount={numPages}

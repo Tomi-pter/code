@@ -260,7 +260,7 @@ export const Productv2 = ({
                             }
                         </div>
                         <div className="product-actions d-flex flex-column align-items-start justify-content-between">
-                            <div className="product-price">
+                            <div className="product-price d-flex align-items-center justify-content-center">
                                 {
                                     ((!auth && shopFont) || !auth)
                                     ? <span style={{ fontSize: "12.3295px" }}>
@@ -328,7 +328,6 @@ export const Productv2 = ({
                                 }
                                 <div className={"favorite-btn fadeIn d-flex align-items-center justify-content-center"} onClick={() => setPrefered(product)}>
                                     <img src={product.preferred ? FavoriteFilled : FavoriteOutlined} height={20} width={20} alt=''/>
-                                    {/* <span className="heart-icon"></span> */}
                                 </div>
                             </div>
                         </div>
@@ -346,7 +345,7 @@ export const Productv2 = ({
                     <div className="product-details d-flex flex-column align-items-start w-100">
                         <div className="d-flex flex-row align-items-start justify-content-between w-100">
                             <div className="product-name">{product.name}</div>
-                            <div className="product-price">
+                            <div className="product-price d-flex align-items-center justify-content-center">
                                 <span>{`$ ${formatPrice(product.cost)}`}</span>
                             </div>
                         </div>

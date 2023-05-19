@@ -55,6 +55,8 @@ export const CheckoutInfo = ({
   const [defaultAddress, setDefaultAddress] = useState(null);
   const [defaultAddressBilling, setDefaultAddressBilling] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [avatarPic, setAvatarPic] = useState("");
+  const [avatarLoading, setAvatarLoading] = useState(false);
   const [isDefaultSelected, setIsDefaultSelected] = useState(null);
   const [isDefaultLoading, setIsDefaultLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -249,25 +251,53 @@ export const CheckoutInfo = ({
     validation();
   }, [validation]);
 
+    useEffect(() => {
+        if (account?.avatarData && !Array.isArray(account?.avatarData)) {
+            setAvatarPic(account?.avatarData);
+        }
+    }, [account]);
+
     return <>
         <div className='customer-info mb-4'>
             <div className='personal-info d-flex align-items-center'>
-                <div className='profile-image-container mr-2'>
-                    <img className="profilePic" src={ProfilePic} />
-                </div>
-                <div className='info-container d-flex flex-column'>
-                    <h4>Omar Mike</h4>
-                    <div className='d-flex align-items-center'>
-                        <div className='d-flex align-items-center'>
-                            <label>Email:</label>
-                            <span>myusername@gmail.com</span>
-                        </div>
-                        <div className='divider'/>
-                        <div className='d-flex align-items-center'>
-                            <label>Phone:</label>
-                            <span>+1234567890988</span>
-                        </div>
+                <div className="d-flex align-items-center">
+                    <div className="profile-image-container mr-2">
+                        { avatarLoading && <div className="avatar-loader "></div> }
+
+                        {
+                            avatarPic !== ""
+                            ? <img className="profilePic mr-2" src={avatarPic} />
+                            : <img className="profilePic mr-2" src={ProfilePic} alt="" />
+                        }
                     </div>
+
+                    {
+                        account.accountData.given_name
+                        && <div className='info-container d-flex flex-column'>
+                            <h4>
+                                {account.accountData?.given_name +
+                                " " +
+                                account.accountData?.family_name}{" "}
+                            </h4>
+
+                            <div className="email-container d-flex flex-row">
+                                <div className="d-flex flex-row align-items-center">
+                                    <label>Email: </label>
+                                    <small className="d-flex align-items-center">
+                                        { account.accountData?.email }
+                                    </small>
+
+                                    <div className="divider" />
+
+                                    <label>Phone: </label>
+                                    <small className="d-flex align-items-center">
+                                        { account.accountData?.phone_number }
+                                    </small>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
 
@@ -349,7 +379,7 @@ export const CheckoutInfo = ({
                                     (account?.addressesData.length > 1 ? "show" : "")
                                 }
                             >
-                                <div className='address-list mb-4'>
+                                <div className='address-list'>
                                     {
                                         account?.addressesData?.map(address => <a
                                                 key={`key-${address?.addressId}`}
@@ -448,14 +478,8 @@ export const CheckoutInfo = ({
                                         </a>)
                                     }
                                 </div>
-                                {/* <button
-                                    className="add-btn"
-                                    data-toggle="modal"
-                                    data-target="#addAddressModal"
-                                    onClick={() => handleAddAddress()}
-                                >
-                                    Add New Address
-                                </button> */}
+                                
+                                <hr/>
                                 <div className="d-flex align-items-center justify-content-between">
                                     <button
                                         className="cancel-btn"
@@ -466,13 +490,23 @@ export const CheckoutInfo = ({
                                     >
                                         Cancel
                                     </button>
-                                    <button
-                                        className="save-btn"
-                                        onClick={() => handleSelect("shipping", selectShipping)}
-                                        disabled={!selectShipping}
-                                    >
-                                        Save
-                                    </button>
+                                    <div className="d-flex align-items-center justify-content-center">
+                                        <button
+                                            className="add-btn mr-4"
+                                            data-toggle="modal"
+                                            data-target="#addAddressModal"
+                                            onClick={() => handleAddAddress()}
+                                        >
+                                            Add Address
+                                        </button>
+                                        <button
+                                            className="save-btn"
+                                            onClick={() => handleSelect("shipping", selectShipping)}
+                                            disabled={!selectShipping}
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </>
@@ -661,6 +695,7 @@ export const CheckoutInfo = ({
                                     </a>)
                                 }
                             </div>
+                            <hr/>
                             <div className="d-flex align-items-center justify-content-between">
                                 <button
                                     className="cancel-btn"
@@ -1229,11 +1264,11 @@ export const CheckoutInfo = ({
                                 </div>
                                 : isEdit
                                     ? <>{"Save Changes"}</>
-                                    : <>{"Add"}</>
+                                    : <>{"Save New Address"}</>
                             }
                         </button>
                         <button
-                            className="cancelCardButton close ml-2"
+                            className="cancelCardButton close ml-4"
                             data-dismiss="modal"
                             id="closeAddressModal"
                             aria-label="Close"

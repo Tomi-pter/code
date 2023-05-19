@@ -138,7 +138,7 @@ export const PaymentContainer = () => {
                                 <div className="d-flex flex-column align-items-center justify-content-center">
                                     <div className="d-flex align-items-center justify-content-between w-100 mb-4">
                                         <span className="payment-title">Pay by Terms</span>
-                                        <div className="logo-container">
+                                        <div className="logo-container d-flex align-items-center justify-content-end">
                                             <img src={Mastercard} alt='Master Icon'/>
                                             <img src={Visa} alt='Master Icon'/>
                                         </div>
@@ -159,7 +159,7 @@ export const PaymentContainer = () => {
                                 <div className="d-flex flex-column align-items-center justify-content-center">
                                     <div className="d-flex align-items-center justify-content-between w-100 mb-4">
                                         <span className="payment-title">Paypal</span>
-                                        <div className="logo-container">
+                                        <div className="logo-container d-flex align-items-center justify-content-end">
                                             <img src={Paypal} alt='Paypal Icon'/>
                                         </div>
                                     </div>
@@ -193,8 +193,8 @@ export const PaymentContainer = () => {
                     </div>
                 </div>
             </div>
-            <div className="d-flex flex-column">
-                <div className="total-container">
+            <div className="total-container d-flex flex-column">
+                <div className="total-amount-container">
                     <h1 className="title">Total Amount</h1>
                     <div className="d-flex align-items-end justify-content-center">
                     <p className="amount">

@@ -1090,11 +1090,18 @@
         margin-bottom: 56px;
 
         .product-image-container {
-            height: 284px;
+            max-height: 284px;
             width: 293px;
             border-radius: 25px;
             background: #F6F5F3;
             padding: 39px 43px;
+
+            img {
+                max-width: 207px;
+                max-height: 207px;
+                height: auto;
+                width: 100%;
+            }
         }
 
         .product-image-container:hover {
@@ -1348,65 +1355,83 @@
 .pagination-products,
 .pagination-orders,
 .pagination-logs {
-  margin-top: 40px;
-  margin-bottom: 100px;
+    margin-top: 40px;
+    margin-bottom: 100px;
 
-  ul {
-    display: block;
-    text-align: center;
-    position: relative;
-    &.empty {
-      display: none;
-    }
-    li {
-      display: inline;
-      margin-right: 20px;
-      @include mediaQueries(mobile) {
-        margin-right: 5px;
-      }
-      a {
-        font-size: 13px;
-        padding: 7px 15px;
-        border-radius: 5px;
-        font-weight: bold;
-      }
-      &.active {
-        a {
-          background: #16cfb0;
-          color: #fff;
+    ul {
+        display: block;
+        text-align: center;
+        position: relative;
+
+        &.empty {
+            display: none;
         }
-      }
-      &.disabled {
-        display: none;
-      }
-    }
-    .previous {
-      position: absolute;
-      left: 0;
-      margin-right: 0px;
-      @include mediaQueries(mobile) {
-        display: none;
-      }
-      a {
-        &::before {
-          content: "<";
-          margin-right: 5px;
+    
+        li {
+            display: inline;
+            margin-right: 20px;
+        
+            @include mediaQueries(mobile) {
+                margin-right: 5px;
+            }
+    
+            a {
+                font-size: 13px;
+                padding: 20px;
+                border-radius: 50%;
+                font-weight: bold;
+
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                width: 40px;
+                height: 40px;
+            }
+        
+            &.active {
+                a {
+                    background: #0D1834;
+                    color: #fff;
+                }
+            }
+        
+            &.disabled {
+                display: none;
+            }
         }
-      }
-    }
-    .next {
-      position: absolute;
-      right: 0;
-      margin-right: 0px;
-      @include mediaQueries(mobile) {
-        display: none;
-      }
-      a {
-        &::after {
-          content: ">";
-          margin-left: 5px;
+    
+        .previous {
+            position: absolute;
+            left: 0;
+            margin-right: 0px;
+    
+            @include mediaQueries(mobile) {
+                display: none;
+            }
+        
+            a {
+                &::before {
+                    content: "<";
+                    margin-right: 5px;
+                }
+            }
         }
-      }
+    
+        .next {
+            position: absolute;
+            right: 0;
+            margin-right: 0px;
+
+            @include mediaQueries(mobile) {
+                display: none;
+            }
+    
+            a {
+                &::after {
+                    content: ">";
+                    margin-left: 5px;
+                }
+            }
+        }
     }
-  }
 }

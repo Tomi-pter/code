@@ -46,6 +46,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
+            gap: 20px;
 
             li:first-child {
                 margin-right: 20px;
@@ -83,6 +84,14 @@
                     background: url('../../icon/method-active.svg') no-repeat center;
                 }
 
+                .logo-container {
+                    height: auto;
+
+                    img {
+                        height: 44px;
+                        width: auto;
+                    }
+                }
                 .payment-title {
                     font-size: 18px;
                     text-align: left;
@@ -93,9 +102,6 @@
                     text-align: left;
                     color: #959EAD;
                 }
-            }
-            img {
-                max-width: 136px;
             }
         }
         
@@ -199,7 +205,7 @@
     }
   @include mediaQueries(padpro) {
     .main-content-container {
-      flex-wrap: wrap;
+      flex-direction: column;
     }
     .payments-container {
       order: 2;
@@ -212,7 +218,7 @@
   }
   @include mediaQueries(pad) {
     .main-content-container {
-      flex-wrap: wrap;
+      flex-direction: column;
     }
     .payments-container {
       order: 2;

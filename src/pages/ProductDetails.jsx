@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Modal, Button } from "react-bootstrap";
+import { Helmet } from "react-helmet";
+
 import { HeaderNav } from "../components/partials/HeaderNav";
 import { Footer } from "../components/partials/Footer";
-import ImageProduct from "../assets/img/product-sample.png";
-import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+
 import {
-  getProductv2,
-  requestStock,
-  getFavProductsv2,
-  getRequestPrice,
+    getProductv2,
+    requestStock,
+    getFavProductsv2,
+    getRequestPrice,
 } from "../actions/products";
-import { getCustomProducts } from "../actions/admin";
 import { addCart } from "../actions/cart";
-import NoImage from "../assets/img/unavailable.svg";
-import { Helmet } from "react-helmet";
+import { addPreferred, removePreferred } from "../actions/products";
+
 import { NotificationBanner } from "../components/shared/warningNotification";
-import { Modal, Button } from "react-bootstrap";
+import { getCustomProducts } from "../actions/admin";
+
+import ImageProduct from "../assets/img/product-sample.png";
+import NoImage from "../assets/img/single-product-placeholder.png";
+
 
 export default (props) => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -543,7 +548,6 @@ export default (props) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <button className="favorite-btn"></button>
                                 </div>
                                 {
                                     user

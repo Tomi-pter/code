@@ -92,7 +92,8 @@
 
                 margin-left: 15px;
             }
-            input {
+            input,
+            select {
                 height: 53px;
                 left: 0px;
                 top: 27px;
@@ -110,6 +111,10 @@
                 text-align: left;
                 color: #707784;
             }
+        }
+
+        .method-of-collection {
+            margin-top: 1rem;
         }
 
         .next-btn {

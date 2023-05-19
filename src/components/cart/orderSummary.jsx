@@ -105,7 +105,7 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
                 <li>
                     <div>
                         <p>Shipping Fee</p>
-                        { shipping < 100 && <span>Add ${shippingCounter} for free shipping</span> }
+                        { shipping < 150 && <span>Add ${shippingCounter} for free shipping</span> }
                     </div>
                     <p>${shipping}</p>
                 </li>

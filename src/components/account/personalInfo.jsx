@@ -216,6 +216,15 @@ export const PersonalInfo = ({ account }) => {
                                             height="13"
                                         />
                                     </small>
+
+                                    <div className="divider" />
+
+                                    <label>Phone: </label>
+                                    <small
+                                        className="d-flex align-items-center"
+                                    >
+                                        { account.accountData?.phone_number }
+                                    </small>
                                 </div>
                             }
                         </div>

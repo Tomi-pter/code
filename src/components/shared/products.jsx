@@ -417,10 +417,11 @@ export const Products = ({
               No Product
             </div>
           ) : (
-            customProducts?.map((product) => (
+            customProducts?.map((product, key) => (
               <Product
                 shopFont={shopFont}
                 view={view}
+                index={key}
                 key={product.id}
                 product={product}
                 addCart={handleAddCart}

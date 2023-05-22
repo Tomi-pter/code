@@ -241,10 +241,12 @@ export const Productsv2 = ({
       i++
     ) {
       let product = filteredProducts[i];
+
       rows.push(
         <Productv2
           shopFont={shopFont}
           view={view}
+          index={i}
           key={product.obj.id}
           product={product.obj}
           addCart={handleAddCart}

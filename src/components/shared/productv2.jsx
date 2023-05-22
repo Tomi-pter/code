@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 import NoImage from "../../assets/img/product-placeholder.png";
+import NoImageBlack from "../../assets/img/product-placeholder-black.png"
 import FavoriteOutlined from "../../assets/img/favorite-outline.png";
 import FavoriteFilled from "../../assets/img/favorite-filled.png";
 import moment from "moment/moment";
@@ -101,6 +102,7 @@ const roundToTwo = (num) => {
 
 export const Productv2 = ({
   view,
+  index,
   product,
   addCart,
   requestStock,
@@ -168,10 +170,6 @@ export const Productv2 = ({
   //   }
   // }
 
-  const FavoriteButton = ({ preferred, onClick }) => {
-
-  }
-  console.log(product)
   return (
     <div className={view === "list" ? " col-12" : "col-12 col-md-6 col-lg-3"}>
         <div 
@@ -189,7 +187,13 @@ export const Productv2 = ({
                 view === "list"
                     ? <div className="product-row d-flex align-items-center justify-content-between col-12">
                         <div className="product-image-container  d-flex align-items-center">
-                            <img src={product.imageUrl ? product.imageUrl : NoImage}
+                            <img src={
+                                product.imageUrl
+                                    ? product.imageUrl
+                                    : index % 2 === 0
+                                        ? NoImage
+                                        : NoImageBlack
+                                }
                                 alt=""
                                 onClick={() => viewProduct(product.id)}
                             />
@@ -334,7 +338,13 @@ export const Productv2 = ({
                     </div>
                     : <div className="product-container d-flex flex-column align-items-start justify-content-between">
                     <div className="product-image-container d-flex align-items-center justify-content-center">
-                        <img src={product.imageUrl ? product.imageUrl : NoImage}
+                        <img src={
+                            product.imageUrl
+                                ? product.imageUrl
+                                : index % 2 === 0
+                                    ? NoImage
+                                    : NoImageBlack
+                            }
                             alt=""
                             onClick={() => viewProduct(product.id)}
                         />

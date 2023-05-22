@@ -472,7 +472,25 @@ export default (props) => {
                                         </div>
                                         <div className="price-container d-flex flex-row align-items-center justify-content-start">
                                             <div className="product-price d-flex flex-row align-items-center justify-content-center">
-                                                ${formatPrice(product?.cost)}
+                                                    {
+                                                        user
+                                                            ? <>
+                                                                ${formatPrice(product?.cost)}
+                                                            </>
+                                                            : <span style={{ fontSize: "12.3295px", 'color': '#0D1834' }}>
+                                                                <Link
+                                                                    to="/login"
+                                                                    style={{
+                                                                        textDecoration: "underline",
+                                                                        color: "black",
+                                                                    }}
+                                                                >
+                                                                    Login
+                                                                </Link>
+                                                                {" "}for Price
+                                                            </span>
+                                                    }
+                                                
                                             </div>
                                             <div className="product-ppu d-flex align-items-center justify-content-center">
                                                 <label>&nbsp;{`/ Price per unit:`}&nbsp;</label>

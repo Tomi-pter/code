@@ -121,7 +121,7 @@ export const HeaderNav = () => {
       dispatch(getCart(localUser?.username));
       dispatch(getCount(localUser?.username));
       dispatch(getAvatar(localUser?.username));
-      sendWPData();
+      sendWebflowData();
     }
     setFormData({ ...formData, name: "" });
 
@@ -187,26 +187,30 @@ export const HeaderNav = () => {
     }
   }, []);
 
-  const sendWPData = () => {
-    const cartIFrame = document.getElementById("hidden-iframe");
-    if (location.pathname === "/login" || location.pathname === "/register") {
-      const cartIFrame = document.getElementById("hidden-iframe");
-      cartIFrame.contentWindow.postMessage(
-        null,
-        process.env.REACT_APP_HOMEPAGE_URL
-      );
-    } else {
-      const avatarData =
-        avatar !== "" && !Array.isArray(avatar)
-          ? avatar
-          : `${process.env.REACT_APP_HOMEPAGE_URL}/wp-content/uploads/2021/05/placeholder-dp.svg`;
-      const sendData = { ...user, avatarData, cartCount: itemCount };
-      cartIFrame.contentWindow.postMessage(
-        sendData,
-        process.env.REACT_APP_HOMEPAGE_URL
-      );
-    }
-  };
+    const sendWebflowData = () => {
+        const cartIFrame = document.getElementById("hidden-iframe");
+
+        if (location.pathname === "/login" || location.pathname === "/register") {
+            const cartIFrame = document.getElementById("hidden-iframe");
+
+            cartIFrame.contentWindow.postMessage(
+                null,
+                process.env.REACT_APP_HOMEPAGE_URL
+            );
+        }
+        else {
+            const avatarData = avatar !== "" && !Array.isArray(avatar)
+                ? avatar
+                : `https://stage.premierpharma.com/wp-content/uploads/2021/05/placeholder-dp.svg`;
+
+            const sendData = { ...user, avatarData, cartCount: itemCount };
+
+            cartIFrame.contentWindow.postMessage(
+                sendData,
+                process.env.REACT_APP_HOMEPAGE_URL
+            );
+        }
+    };
 
   return (
     <nav
@@ -222,7 +226,7 @@ export const HeaderNav = () => {
         height="200"
         width="300"
         title="Iframe Example"
-        onLoad={sendWPData}
+        onLoad={sendWebflowData}
       />
       {location.pathname === "/login" || location.pathname === "/register" ? (
         <a href={process.env.REACT_APP_HOMEPAGE_URL}>

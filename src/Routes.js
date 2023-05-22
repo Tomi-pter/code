@@ -19,6 +19,7 @@ import { AdminDashboard } from "./pages/admin";
 // import OrderLogs from "./pages/admin/logs";
 // import OrderLogs2 from "./pages/admin/logs2";
 // import WeeklySpecial from "./pages/admin/weeklySpecial";
+import Auth from "./pages/Auth";
 
 import { ProtectedRoutes } from "./components/protectedRoutes";
 import { AdminProtectedRoutes } from "./components/adminProtectedRoutes";
@@ -26,6 +27,7 @@ import { AdminProtectedRoutes } from "./components/adminProtectedRoutes";
 export default ({ childProps }) => (
   <BrowserRouter basename="/">
     <Switch>
+      <Route exact path="/user-menu" component={Auth} />
       <Route exact path="/">
         <Redirect to="/login" />
       </Route>

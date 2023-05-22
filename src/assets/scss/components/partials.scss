@@ -147,12 +147,12 @@
             border: 2px solid #054FF0;
         }
         .login-btn {
-            height: 54px;
+            max-height: 48px;
             width: auto;
             border-radius: 40px;
             background: #054FF0;
             border: 1px solid #054FF0;
-            padding: 15px 32px;
+            padding: 12px 32px;
 
             font-size: 18px;
             font-weight: 400;
@@ -165,7 +165,7 @@
             align-items: center;
             justify-content: center;
 
-            :hover {
+            &:hover {
                 background-color: #0D1834;
                 border: 1px solid #0D1834;
             }

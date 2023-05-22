@@ -129,7 +129,10 @@ export const HeaderNav = () => {
       ["shop", "search", "product"].includes(location.pathname.split("/")[1]) &&
       !admin?.customProducts
     ) {
-      dispatch(getCustomProducts(localUser?.username));
+
+        if (localUser) {
+            dispatch(getCustomProducts(localUser?.username));
+        }
     }
   }, [location]);
 
@@ -173,19 +176,21 @@ export const HeaderNav = () => {
     };
   }, [searchName]);
 
-  useEffect(() => {
-    const auth = JSON.parse(localStorage.getItem("profile"));
-
-    if (
-      ["shop", "search", "product"].includes(location.pathname.split("/")[1]) &&
-      !productsData.count
-    ) {
-      dispatch(getProductsv2());
-      dispatch(getFavProductsv2(auth?.username));
-      dispatch(getPreferred(auth?.username));
-      dispatch(getShortDated());
-    }
-  }, []);
+    useEffect(() => {
+        const auth = JSON.parse(localStorage.getItem("profile"));
+        
+        if (
+            ["shop", "search", "product"].includes(location.pathname.split("/")[1])
+            && !productsData.count
+        ) {
+            dispatch(getProductsv2());
+            if (auth) {
+                dispatch(getFavProductsv2(auth?.username));
+                dispatch(getPreferred(auth?.username));
+            }
+            dispatch(getShortDated());
+        }
+    }, []);
 
     const sendWebflowData = () => {
         const cartIFrame = document.getElementById("hidden-iframe");

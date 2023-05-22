@@ -17,120 +17,114 @@ import { addCart } from "../actions/cart";
 import { addPreferred, removePreferred } from "../actions/products";
 
 import { NotificationBanner } from "../components/shared/warningNotification";
-import { getCustomProducts } from "../actions/admin";
 
 import ImageProduct from "../assets/img/product-sample.png";
 import NoImage from "../assets/img/single-product-placeholder.png";
 
 
 export default (props) => {
-  const user = JSON.parse(localStorage.getItem("profile"));
-  const cart = useSelector((state) => state.cart);
-  const admin = useSelector((state) => state.admin);
-  const products = useSelector((state) => state.products);
-  const [product, setProduct] = useState(null);
-  const [customProducts, setCustomProducts] = useState([]);
-  const [mainLoading, setMainLoading] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [requestLoading, setRequestLoading] = useState(false);
-  const [requestSent, setRequestSent] = useState(false);
-  const [requestedProductPrice, setRequestedProductPrice] = useState([]);
-  const [quantity, setQuantity] = useState(1);
-  const staging =
-    process.env.REACT_APP_SQUARE_APPLICATION_ID.includes("sandbox");
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const [showModal, setShow] = useState(false);
+    const user = JSON.parse(localStorage.getItem("profile"));
+    const cart = useSelector((state) => state.cart);
+    const admin = useSelector((state) => state.admin);
+    const products = useSelector((state) => state.products);
+    const [product, setProduct] = useState(null);
+    const [customProducts, setCustomProducts] = useState([]);
+    const [mainLoading, setMainLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [requestLoading, setRequestLoading] = useState(false);
+    const [requestSent, setRequestSent] = useState(false);
+    const [requestedProductPrice, setRequestedProductPrice] = useState([]);
+    const [quantity, setQuantity] = useState(1);
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const [showModal, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+    const handleClose = () => setShow(false);
 
-  const incart = () => {
-    const incartCheck = cart?.cartData?.filter(
-      (item) => item.productId === parseInt(product.id)
-    );
-    return incartCheck[0] ? incartCheck[0].quantity : 0;
-  };
+    const incart = () => {
+        const incartCheck = cart?.cartData?.filter((item) => item.productId === parseInt(product.id));
 
-  const handleAddCart = () => {
-    const newProduct = {
-        product: {
-            productId: parseInt(product.id),
-            productName: product.name,
-            productNumber: product.productNumber,
-            price: parseFloat(product.cost),
-            imageUrl: product.imageUrl,
-            quantity,
+        return incartCheck[0] ? incartCheck[0].quantity : 0;
+    };
+
+    const handleAddCart = () => {
+        const newProduct = {
+            product: {
+                productId: parseInt(product.id),
+                productName: product.name,
+                productNumber: product.productNumber,
+                price: parseFloat(product.cost),
+                imageUrl: product.imageUrl,
+                quantity,
+                ndc: product.ndc,
+                bottleSize: product.bottleSize,
+                manufacturer: product.manufacturer,
+                category: product.category,
+                expirationDate: product.expirationDate,
+                lotName: product.lotName,
+            }
+        };
+        setIsLoading(true);
+        dispatch(addCart(user?.username, newProduct));
+    };
+
+    const formatPrice = (price) => {
+        return parseFloat(price).toFixed(2);
+    };
+
+    const handleRequestStock = (product) => {
+        const user = JSON.parse(localStorage.getItem("profile"));
+        const formData = {
             ndc: product.ndc,
-            bottleSize: product.bottleSize,
-            manufacturer: product.manufacturer,
-            category: product.category,
-            expirationDate: product.expirationDate,
-            lotName: product.lotName,
+            productName: product.name
+        };
+        setRequestLoading(true);
+        dispatch(requestStock(user?.username, formData));
+    };
+
+    const handleRequestedCheck = (ndc) => {
+        const requestedCheck = requestedProductPrice.filter((item) => item.ndc === ndc);
+
+        if (requestedCheck[0]) {
+            const lastRequest = new Date(requestedCheck[0]?.lastRequested);
+            const hour = 1000 * 60 * 60;
+            const hourago = Date.now() - hour * 24;
+
+            return lastRequest > hourago;
+        }
+        else {
+            return false;
         }
     };
-    setIsLoading(true);
-    dispatch(addCart(user?.username, newProduct));
-  };
 
-  const formatPrice = (price) => {
-    var n = parseFloat(price).toFixed(2);
-    return n;
-  };
+    const renderActionButton = (
+        product,
+        quantity,
+        setQuantity,
+        handleAddCart,
+        isLoading,
+        handleRequestStock,
+        requestLoading
+    ) => {
+        if (product?.totalquantityonhand <= 0) {
 
-  const handleRequestStock = (product) => {
-    const user = JSON.parse(localStorage.getItem("profile"));
-    const formData = {
-      ndc: product.ndc,
-      productName: product.name,
-    };
-    setRequestLoading(true);
-    dispatch(requestStock(user?.username, formData));
-  };
-
-  const handleRequestedCheck = (ndc) => {
-    const requestedCheck = requestedProductPrice.filter(
-      (item) => item.ndc === ndc
-    );
-    if (requestedCheck[0]) {
-      const lastRequest = new Date(requestedCheck[0]?.lastRequested);
-      const hour = 1000 * 60 * 60;
-      const hourago = Date.now() - hour * 24;
-
-      return lastRequest > hourago;
-    } else {
-      return false;
-    }
-  };
-
-  const renderActionButton = (
-    product,
-    quantity,
-    setQuantity,
-    handleAddCart,
-    isLoading,
-    handleRequestStock,
-    requestLoading
-  ) => {
-    if (product?.totalquantityonhand <= 0) {
-      return (
-        <button
-          className="btn btn-primary"
-          style={{ minWidth: "140px", height: "40px" }}
-          onClick={() => handleRequestStock(product)}
-        >
-          {requestLoading ? (
-            <div
-              className="spinner-border text-primary"
-              style={{ width: "20px", height: "20px" }}
-              role="contact rep"
+        return <button
+                className="btn btn-primary"
+                style={{ minWidth: "140px", height: "40px" }}
+                onClick={() => handleRequestStock(product)}
             >
-              <span className="sr-only">Loading...</span>
-            </div>
-          ) : (
-            "Contact Sales Rep"
-          )}
-        </button>
-      );
+            {
+                requestLoading
+                ? <div
+                    className="spinner-border text-primary"
+                    style={{ width: "20px", height: "20px" }}
+                    role="contact rep"
+                >
+                    <span className="sr-only">Loading...</span>
+                </div>
+                : ("Contact Sales Rep")
+            }
+            </button>
     }
 
     return (
@@ -169,69 +163,75 @@ export default (props) => {
     );
   };
 
-  const getPricePerUnit = (bottleSize, cost) => {
-    if (!bottleSize) {
-      return "";
-    }
+    const getPricePerUnit = (bottleSize, cost) => {
+        if (!bottleSize) {
+            return "";
+        }
 
-    const sizeInString = getIntegerInStringArray(bottleSize);
+        const sizeInString = getIntegerInStringArray(bottleSize);
 
-    if (!sizeInString || sizeInString.length !== 1 || cost === 0) {
-      return "";
-    }
+        if (!sizeInString || sizeInString.length !== 1 || cost === 0) {
+            return "";
+        }
 
-    const ppu = roundToTwo(cost / sizeInString);
+        const ppu = roundToTwo(cost / sizeInString);
 
-    return `$ ${ppu}`;
-  };
+        return `$ ${ppu}`;
+    };
 
-  const getIntegerInStringArray = (string) => {
-    return string.match(/[0-9\.,]+/g);
-  };
+    const getIntegerInStringArray = (string) => {
+        return string.match(/[0-9\.,]+/g);
+    };
 
-  const roundToTwo = (num) => {
-    return +(Math.round(num + "e+3") + "e-3");
-  };
+    const roundToTwo = (num) => {
+        return +(Math.round(num + "e+3") + "e-3");
+    };
 
-  useEffect(() => {
-    setMainLoading(true);
-    let id = props.match.params.id;
-    const { productsv2, favproductv2 } = products;
-    if (productsv2 && favproductv2) {
-      let filterProduct = productsv2?.filter(
-        (prod) => prod.id === parseInt(id)
-      );
-      let favproduct = favproductv2?.filter((prod) => prod.id === parseInt(id));
-      if (filterProduct?.length > 0 && favproduct?.length > 0) {
-        setProduct({
-          ...filterProduct[0],
-          favorite: true,
-          cost: favproduct[0].cost,
-        });
-      } else {
-        setProduct(filterProduct[0]);
-      }
-    }
-    if (products.requestedProductPrice) {
-      setRequestedProductPrice(products.requestedProductPrice);
-    }
-    if (requestLoading) {
-      setShow(true);
-    }
-    setMainLoading(false);
-    setRequestLoading(false);
-  }, [products, location]);
+    useEffect(() => {
+        setMainLoading(true);
+
+        let id = props.match.params.id;
+
+        const { productsv2, favproductv2 } = products;
+
+        if (productsv2) {
+            let filterProduct = productsv2?.filter((prod) => prod.id === parseInt(id));
+            let favproduct = favproductv2?.filter((prod) => prod.id === parseInt(id));
+
+            if (filterProduct?.length > 0 && favproduct?.length > 0) {
+                setProduct({
+                    ...filterProduct[0],
+                    favorite: true,
+                    cost: favproduct[0].cost
+                });
+            }
+            else {
+                setProduct(filterProduct[0]);
+            }
+        }
+
+        if (products.requestedProductPrice) {
+            setRequestedProductPrice(products.requestedProductPrice);
+        }
+
+        if (requestLoading) {
+            setShow(true);
+        }
+
+        setMainLoading(false);
+        setRequestLoading(false);
+    }, [products, location]);
 
   // useEffect(() => {
   //     setMainLoading(true)
   // }, [location]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setQuantity(1);
-      setIsLoading(false);
-    }, 1000);
-  }, [cart]);
+    useEffect(() => {
+        setTimeout(() => {
+            setQuantity(1);
+            setIsLoading(false);
+        }, 1000);
+    }, [cart]);
 
   return (
     <>

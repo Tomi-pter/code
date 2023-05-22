@@ -147,18 +147,28 @@
             border: 2px solid #054FF0;
         }
         .login-btn {
-            width: 123px;
-            height: 42.75px;
-            background: #16cfb0;
-            border-radius: 7.5px;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 15px;
-            line-height: 24px;
+            height: 54px;
+            width: auto;
+            border-radius: 40px;
+            background: #054FF0;
+            border: 1px solid #054FF0;
+            padding: 15px 32px;
+
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 21px;
+            letter-spacing: 0px;
+            text-align: center;
             color: #ffffff;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
+            :hover {
+                background-color: #0D1834;
+                border: 1px solid #0D1834;
+            }
             @include mediaQueries(mobile) {
                 width: 100px;
                 margin-left: 15px;

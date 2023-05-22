@@ -567,7 +567,7 @@ export default (props) => {
                                         </div>
                                     </> 
                                     : <div className="logout-state d-flex justify-content-end">
-                                        <Link to="/login">Login</Link> for price
+                                        <Link to="/login">Login&nbsp;</Link> for price
                                     </div>
                                 }
                             </div>

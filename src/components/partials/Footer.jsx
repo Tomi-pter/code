@@ -23,22 +23,22 @@ export const Footer = () => {
                 <div className="footer-columns d-flex">
                     <div className="footer-column d-flex flex-column">
                         <div className="column-heading">Legal</div>
-                        <a className="footer-link">Terms & Conditions</a>
+                        <a className="footer-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/terms-conditions`}>Terms & Conditions</a>
                         <a className="footer-link">Privacy Policy</a>
                     </div>
 
                     <div className="footer-column d-flex flex-column">
                         <div className="column-heading">Support</div>
-                        <a className="footer-link">FAQs</a>
-                        <a className="footer-link">Contact Us</a>
+                        <a className="footer-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/faq`}>FAQs</a>
+                        <a className="footer-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/contact-us`}>Contact Us</a>
                     </div>
 
                     <div className="footer-column d-flex flex-column">
                         <div className="column-heading">Company</div>
-                        <a className="footer-link">About Us</a>
-                        <a className="footer-link">Products</a>
-                        <a className="footer-link">Consulting</a>
-                        <a className="footer-link">Careers</a>
+                        <a className="footer-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/about-us`}>About Us</a>
+                        <a className="footer-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/shop`}>Products</a>
+                        <a className="footer-link" href={`${process.env.REACT_APP_BACKEND_URL}/consulting`}>Consulting</a>
+                        <a className="footer-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/careers`}>Careers</a>
                     </div>
                 </div>
                 <div className="social-links d-flex flex-column">

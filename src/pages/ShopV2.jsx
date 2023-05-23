@@ -86,9 +86,12 @@ export default (props) => {
             <div className="shop-header container-fluid px-4">
                 <h1>Best Available<br/>Nature-Based Products</h1>
                 <div className="shop-categories container-fluid d-flex">
-                    <button id="favorites-btn" className={"category-button" + (category === "Favorites" ? " active" : "")} onClick={() => setCategory("Favorites")}>
-                        My Favorites
-                    </button>
+                    {
+                        auth
+                        && <button id="favorites-btn" className={"category-button" + (category === "Favorites" ? " active" : "")} onClick={() => setCategory("Favorites")}>
+                            My Favorites
+                        </button>
+                    }
                     <button id="deals-btn" className={"category-button" + (category === "Specials" ? " active" : "")} onClick={() => setCategory("Specials")}>
                         Short Dated
                     </button>

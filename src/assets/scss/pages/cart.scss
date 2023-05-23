@@ -983,6 +983,10 @@
         color: #054FF0;
         border: 2px solid #054FF0;
 
+        &:hover {
+            color: #0D1834;
+            border: 2px solid #0D1834;
+        }
         span {
             margin-left: 5px;
         }

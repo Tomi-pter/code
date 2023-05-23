@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet";
 import Input from "../components/shared/input";
 import decode from "jwt-decode";
 
-import PasswordChangeIcon from "../assets/img/Account/password-change.svg";
+import PasswordChangeIcon from "../assets/img/Account/password.svg";
 import Logo from "../assets/img/logo-white.svg";
 
 const initialState = { email: "", password: "", code: "" };

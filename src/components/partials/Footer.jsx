@@ -24,7 +24,7 @@ export const Footer = () => {
                     <div className="footer-column d-flex flex-column">
                         <div className="column-heading">Legal</div>
                         <a className="footer-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/terms-conditions`}>Terms & Conditions</a>
-                        <a className="footer-link">Privacy Policy</a>
+                        <a className="footer-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/terms-conditions`}>Privacy Policy</a>
                     </div>
 
                     <div className="footer-column d-flex flex-column">

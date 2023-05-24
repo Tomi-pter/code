@@ -6,7 +6,7 @@
     margin-bottom: 0;
     @include mediaQueries(mobile) {
       font-size: 10vw;
-      padding-bottom: 1rem;
+      padding-bottom: 0.75rem;
     }
   }
   .spinner-container {

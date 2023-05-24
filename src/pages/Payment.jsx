@@ -136,15 +136,14 @@ export const PaymentContainer = () => {
                                 onClick={() => setSelectedMethod("terms")}
                             >
                                 <div className="d-flex flex-column align-items-center justify-content-center">
-                                    <div className="d-flex align-items-center justify-content-between w-100 mb-4">
+                                    <div className="d-flex w-100">
                                         <span className="payment-title">Pay by Terms</span>
                                         <div className="logo-container d-flex align-items-center justify-content-end">
-                                            <img src={Mastercard} alt='Master Icon'/>
-                                            <img src={Visa} alt='Master Icon'/>
+                                            {/* <img src={Mastercard} alt='Master Icon'/>
+                                            <img src={Visa} alt='Master Icon'/> */}
                                         </div>
                                     </div>
                                     <span className="payment-description">
-                                        You can use all credit card service. We can accept Visa and Master Card.
                                     </span>
                                 </div>
                             </a>
@@ -157,7 +156,7 @@ export const PaymentContainer = () => {
                                 onClick={() => setSelectedMethod("paypal")}
                             >
                                 <div className="d-flex flex-column align-items-center justify-content-center">
-                                    <div className="d-flex align-items-center justify-content-between w-100 mb-4">
+                                    <div className="d-flex align-items-center justify-content-between w-100">
                                         <span className="payment-title">Paypal</span>
                                         <div className="logo-container d-flex align-items-center justify-content-end">
                                             <img src={Paypal} alt='Paypal Icon'/>

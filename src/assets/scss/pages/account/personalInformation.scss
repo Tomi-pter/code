@@ -414,6 +414,10 @@
                 font-weight: 700;
                 text-align: left;
                 color: #0D1834;
+
+                @include mediaQueries(mobile) {
+                    font-size: 16px;
+                }
             }
             .date-ordered {
                 font-size: 16px;

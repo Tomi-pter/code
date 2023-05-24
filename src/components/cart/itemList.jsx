@@ -233,10 +233,44 @@ export const ItemList = ({ page }) => {
                             </td>
                             <td>
                                 <div className="product-quantity d-flex align-items-center justify-content-center">
-                                    {cartItem.quantity}
+                                {page === "cart" || page === "checkout" ? (
+                                    <div className="d-flex align-items-center qty-action-container">
+                                        <div className="d-flex align-items-center qty-container">
+                                            <button
+                                                className="minus-btn"
+                                                onClick={() => handleQtyUpdate(cartItem, "minus")}
+                                            >
+                                                -
+                                            </button>
+                                            <input
+                                                type="number"
+                                                value={
+                                                    selectedItem?.productId === cartItem.productId
+                                                    ? quantity
+                                                    : cartItem.quantity
+                                                }
+                                                onChange={(e) => handleQtyInput(e, cartItem)}
+                                            />
+                                            <button
+                                                className="plus-btn"
+                                                onClick={() => handleQtyUpdate(cartItem, "add")}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : <>{cartItem.quantity}</>
+                                }
                                 </div>
                             </td>
-                            <td>
+                            <td className="d-flex flex-row align-items-center justify-content-center">
+                                <button className="update-btn mr-4" disabled={
+                                        !((page === "cart" || page === "checkout")
+                                        && selectedItem?.productId === cartItem.productId
+                                        &&!isLoading)
+                                    } onClick={handleUpdate}>
+                                    Update
+                                </button>
                                 <span
                                     className="delete-btn d-flex align-items-center justify-content-center"
                                     onClick={() => handleDelete(cartItem)}

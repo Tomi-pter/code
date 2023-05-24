@@ -22,7 +22,7 @@ export const CartContainer = () => {
                 <title>Cart | Premier Pharmaceuticals</title>
             </Helmet>
             <HeaderNav />
-            <div className="cart-header container-fluid d-flex align-items-center justify-content-between">
+            <div className="cart-header container-fluid d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between justify-content-around">
                 <span>Shopping Cart</span>
                 <Link to="/shop" className='back-btn'>
                     {"<"}

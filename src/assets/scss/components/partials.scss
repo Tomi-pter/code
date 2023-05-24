@@ -213,11 +213,6 @@
         .account-btn {
             margin-left: 15px !important;
         }
-        .burger-btn {
-            a {
-                margin-left: 15px !important;
-            }
-        }
         .logo {
             width: 110px;
             height: 33.59px;
@@ -297,13 +292,20 @@
 }
 
 .footer {
-    height: 839px;
+    min-height: 839px;
     background: #0D1834;
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
-    padding: 96px 110px;
+    padding: 96px 220px;
     color: #F6F5F3;
-    gap: 20px;
+    gap: 42px;
+
+    @include mediaQueries(pad) {
+        padding: 96px 110px;
+    }
+    @include mediaQueries(mobile) {
+        padding: 96px 70px;
+    }
 
     span {
         font-size: 24px;
@@ -320,6 +322,7 @@
         gap: 10px;
 
         .footer-input {
+            width: 100%;
             border: none;
             height: 61px;
             padding: 20px;
@@ -358,27 +361,26 @@
         border-left: none;
     }
 
+    .footer-logo {
+        max-width: 551px;
+        max-height: 80px;
+    }
     .footer-links {
+        gap: 42px;
+
         .footer-columns {
-            & > *:not(:last-child) {
-                margin-right: 42px;
-            }
+            gap: 42px;
 
             .footer-column {
                 font-size: 16px;
-                text-align: left;
+                gap: 18px;
 
                 .column-heading {
                     margin-bottom: 26px;
                 }
 
-                & > .footer-link:not(:last-child) {
-                    margin-bottom: 18px;
-                }
-
                 .footer-link {
                     font-size: 24px;
-                    text-align: left;
                     color: #F6F5F3;
                 }
                 .footer-link:hover {
@@ -389,9 +391,8 @@
         }
 
         .social-links {
-            & > *:not(:last-child) {
-                margin-bottom: 32px;
-            }
+            gap: 32px;
+
             .social-link {
                 img {
                     margin-right: 18px;

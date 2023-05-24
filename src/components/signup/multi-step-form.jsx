@@ -64,7 +64,7 @@ export const MultiStepForm = () => {
 
     switch (id) {
         case "basic":
-            return <div className="d-flex flex-column align-items-center justify-content-center">
+            return <div className="d-flex flex-column align-items-center justify-content-center w-100">
                 <div className="signup-progress d-flex align-items-center justify-content-between">
                     <div className="step d-flex align-items-center justify-content-center">
                         <img height={20} width={20} src={Step1}/>
@@ -88,7 +88,7 @@ export const MultiStepForm = () => {
                 <Basic {...props} />
             </div>
         case "licensing":
-            return <div className="d-flex flex-column align-items-center justify-content-center">
+            return <div className="d-flex flex-column align-items-center justify-content-center w-100">
                     <div className="signup-progress d-flex align-items-center justify-content-between">
                         <div className="step d-flex align-items-center justify-content-center">
                             <img height={20} width={20} src={Done}/>
@@ -112,7 +112,7 @@ export const MultiStepForm = () => {
                     <Licensing {...props} />
                 </div>
         case "account":
-            return <div className="d-flex flex-column align-items-center justify-content-center">
+            return <div className="d-flex flex-column align-items-center justify-content-center w-100">
                 <div className="signup-progress d-flex align-items-center justify-content-between">
                     <div className="step d-flex align-items-center justify-content-center">
                         <img height={20} width={20} src={Done}/>

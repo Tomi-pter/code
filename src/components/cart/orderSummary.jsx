@@ -12,7 +12,7 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
         For orders greater than or equal to $150, free shipping
         Otherwise, shipping fee is 15 of subtotal
     */
-  const FREE_SHIPPING_TOTAL = 100;
+  const FREE_SHIPPING_TOTAL = 150;
   /*
         New Logic:
         Minimum for free shipping $100 (currently $150).
@@ -118,7 +118,7 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
                 {page === "cart" ? (
                     cart.countData?.length > 0 ? (
                         <Link to="checkout" className="btn proceed-btn">
-                            Proceed to Payment
+                            Proceed to Shipping Information
                         </Link>
                     ) : (
                         <Link
@@ -126,7 +126,7 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
                             onClick={(event) => event.preventDefault()}
                             className="btn proceed-btn disabled"
                         >
-                            Proceed to Payment
+                            Proceed to Shipping Information
                         </Link>
                     )
                     ) : (
@@ -146,7 +146,7 @@ export const OrderSummary = ({ selectedShipping, selectedBilling, page }) => {
                             onClick={handleCheckout}
                             disabled={!selectedShipping || !selectedBilling}
                         >
-                            Place Order
+                            Proceed to Payment
                         </button>
                     </>
                 )}

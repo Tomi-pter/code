@@ -53,7 +53,7 @@ export const OrdersHistory = () => {
 
     const renderOrder = (order, index) => {
         return <div key={`key-${index}`} className="card order">
-            <div className="d-flex align-items-start justify-content-between date-status-container">
+            <div className="date-status-container d-flex align-items-center justify-content-between">
                 <div className="order-number-container d-flex flex-row align-items-center">
                     <p className="order-number d-flex m-0">Order #{order.salesOrderNumber}</p>
                     {

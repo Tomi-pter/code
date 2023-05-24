@@ -15,7 +15,8 @@
 
     .signup-progress {
         height: 56px;
-        width: 484px;
+        width: 100%;
+        max-width: 484px;
         border-radius: 80px;
         padding: 0px 24px;
         margin-bottom: 32px;
@@ -37,8 +38,12 @@
         width: 100%;
         min-height: 528px;
         padding: 64px;
-        width: 628px;
+        max-width: 628px;
         gap: 32px;
+
+        @include mediaQueries(mobile) {
+            padding: 32px;
+        }
 
         hr {
             margin: 0;
@@ -152,6 +157,7 @@
                 text-decoration: underline;
             }
         }
+
     }
   // .signup-img {
   //   width: 50%;
@@ -397,10 +403,6 @@
     }
   }
   @include mediaQueries(mobile) {
-    background: url("../../img/signup-mobile-img.png") no-repeat top;
-    .container {
-      padding-top: 300px;
-    }
     .signup-img {
       display: none !important;
     }

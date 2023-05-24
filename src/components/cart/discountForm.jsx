@@ -23,7 +23,7 @@ export const DiscountForm = ({ cart, discountCode, setDiscountCode, discountAmou
 
     return (
         <div className="discount-container">
-            <h2>Have a voucher?</h2>
+            <h2>Enter promo code?</h2>
             <div className="d-flex align-items-center justify-content-between">
                 <div className="input-container">
                     <input type="text" placeholder="Code" value={discountCode} onChange={(e) => setDiscountCode(e.target.value)}  />

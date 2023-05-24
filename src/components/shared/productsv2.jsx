@@ -362,7 +362,7 @@ export const Productsv2 = ({
         className={
           page === "search"
             ? "d-flex justify-content-between top-details align-items-start search-wrapper"
-            : "d-flex justify-content-between top-details align-items-center"
+            : "d-flex justify-content-between top-details"
         }
       >
         {page === "search" ? (
@@ -377,7 +377,7 @@ export const Productsv2 = ({
         //       ? ""
         //       : `Showing ${startCount} - ${totalInPage} of ${filteredProducts.length} products`}
         //   </p>
-          <h2>All Products</h2>
+          <h2>{ category !== "" ? category : "All Products" }</h2>
         )}
         <div className="d-flex align-items-center filter-view-container">
           {page === "shop" && category === "Favorites" && (

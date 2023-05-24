@@ -8,12 +8,31 @@
         h1 {
             font-family: 'Helvetica Neue LT Pro';
             color: #0D1834;
+
+            @include mediaQueries(padpro) {
+                font-size: 90px;
+                line-height: 100px;
+            }
+            @include mediaQueries(pad) {
+                font-size: 80px;
+                line-height: 90px;
+            }
+            @include mediaQueries(mobile) {
+                font-size: 64px;
+                line-height: 80px;
+            }
         }
 
         .shop-categories {
+            gap: 8px;
             padding-bottom: 40px;
 
+            @include mediaQueries(mobile) {
+                flex-wrap: wrap;
+            }
             .category-button {
+                width: 100%;
+                max-width: 180px;
                 height: 48px;
                 border-radius: 40px;
                 padding: 12px 32px 12px 32px;
@@ -27,9 +46,6 @@
                     background-color: #054FF0;
                     border: 2px solid #054FF0;
                 }
-            }
-            .category-button:not(:last-child) {
-                margin-right: 8px;
             }
             .category-button:hover {
                 cursor: pointer;

@@ -10,6 +10,8 @@
         font-weight: 400;
         text-align: left;
         color: #FFFFFF;
+        display: inline-block;
+        line-height: normal;
     }
     .back-btn {
         font-size: 16px;
@@ -59,7 +61,8 @@
             letter-spacing: 0px;
             text-align: left;
             color: #FFFFFF;
-
+            overflow-x: auto;
+            overflow-y: hidden;
             .step {
                 padding: 18px;
                 gap: 12px;
@@ -71,6 +74,7 @@
             padding: 24px;
             background: #FFFFFF;
             box-shadow: 0px 4px 104px 0px #0000000D;
+            overflow-x: auto;
 
             table {
                 font-family: 'Helvetica Neue LT Pro';
@@ -251,83 +255,64 @@
                 color: #4f4f4f;
             }
             .qty-container {
-                width: 210.75px;
-                border: 1px solid #bdbdbd;
-                box-sizing: border-box;
-                border-radius: 10px;
-                font-style: normal;
-                font-weight: normal;
-                color: #4f4f4f;
-                margin-left: 20px;
-                margin-top: 27px;
-                margin-bottom: 30px;
+                .minus-btn,
+                .plus-btn {
+                    padding: 10px 16px;
+                    border: #054FF0;
+                    background: #054FF0;
+                    color: #FFFFFF;
 
-                button {
-                    width: 60px;
-                    height: 60px;
-                    font-size: 37.5px;
-                    line-height: 60px;
-                    background: none;
-                    border: 0;
-                    outline: 0;
-                    padding: 0;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    &:hover {
+                        border: #0D1834;
+                        background: #0D1834;
+                    }
                 }
-                input {
-                    width: 90px;
-                    height: 50px;
-                    border: 0;
-                    border-left: 1px solid #bdbdbd;
-                    border-right: 1px solid #bdbdbd;
-                    font-size: 30px;
-                    line-height: 48px;
-                    margin: 0;
-                    outline: 0;
-                    text-align: center;
-                    -webkit-appearance: none;
-                    -moz-appearance: textfield;
+
+                .minus-btn {
+                    border-top-left-radius: 40px;
+                    border-bottom-left-radius: 40px;
                 }
+
+                .plus-btn {
+                    border-top-right-radius: 40px;
+                    border-bottom-right-radius: 40px;
+                }
+
                 input::-webkit-outer-spin-button,
                 input::-webkit-inner-spin-button {
-                    -webkit-appearance: none;
-                    margin: 0;
+                    display: none;
+                }
+
+                input[type="number"] {
+                    border: none;
+                    width: 60px;
+                    padding: 10px;
+                    background: #FFFFFF;
+                    text-align: center;
+                    box-shadow: 0px 4px 104px 0px #0000000D;
                 }
             }
-            .quantity {
-                font-style: normal;
-                font-weight: 800;
-                font-size: 30px;
-                line-height: 50px;
-                color: #4f4f4f;
-                opacity: 0.5;
-                margin-left: 20px;
-            }
             .update-btn {
-                width: 100px;
-                height: 60px;
-                margin-left: 20px;
-                background: #16cfb0;
-                border-radius: 7.5px;
-                font-style: normal;
-                font-weight: 600;
-                font-size: 15px;
-                line-height: 24px;
+                width: auto;
+                padding: 12px 20px;
+                height: 40px;
+                background: #054FF0;
+                border-radius: 40px;
                 color: #ffffff;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 border: 0;
                 outline: 0;
+
                 &:hover {
-                    background: linear-gradient(
-                        266.19deg,
-                        #16cfb0 -15.44%,
-                        #71d3f4 103.82%
-                    );
+                    background: #0D1834;
+                }
+                &:disabled {
+                    background: gray;
                 }
             }
+            
         }
 
         .customer-info {

@@ -297,7 +297,7 @@ export const HeaderNav = () => {
                     className="dropdown-item"
                     to="/shop?category=Pharmaceuticals"
                   >
-                    Pharmaceutical
+                    Pharmaceuticals
                   </Link>
                   <Link
                     className="dropdown-item"
@@ -340,7 +340,7 @@ export const HeaderNav = () => {
                   <input
                     name="name"
                     value={formData.name || ""}
-                    placeholder="Search Medicine..."
+                    placeholder="Search Products..."
                     onChange={handleChange}
                     autoComplete="off"
                   />
@@ -381,7 +381,7 @@ export const HeaderNav = () => {
                 )}
               </div>
 
-              <div className="divider"></div>
+              <div className="divider d-none d-md-block"></div>
 
               {user ? (
                 <>
@@ -389,7 +389,7 @@ export const HeaderNav = () => {
                         <div className="d-flex flex-row align-items-center justify-content-center">
                             <div className="d-flex flex-row align-items-center justify-content-center">
                                 <img src={Cart} alt="" width="27.5" height="27.5" />
-                                <p className="m-0 ml-3">My Cart</p>
+                                <p className="m-0 ml-3 d-none d-md-none">My Cart</p>
                                 <div className="count ml-3">{itemCount}</div>
                             </div>
                         </div>
@@ -407,7 +407,7 @@ export const HeaderNav = () => {
                       />
                     )}
                   </div>
-                  <Link to="/account" className="account-btn">
+                  <Link to="/account" className="account-btn d-none d-md-block">
                     <div className="profileWrapper d-flex flex-row align-items-center justify-items-center">
                       {avatar !== "" && !Array.isArray(avatar) ? (
                         <img className="profilePic" src={avatar} />
@@ -415,6 +415,15 @@ export const HeaderNav = () => {
                         <img className="profilePic" src={ProfilePic} alt="" />
                       )}
                       <p className="m-0 ml-3">My Account</p>
+                    </div>
+                  </Link>
+                  <Link to="/account" className="account-btn-icon-only d-block d-md-none">
+                    <div className="profileWrapper d-flex flex-row align-items-center justify-items-center">
+                      {avatar !== "" && !Array.isArray(avatar) ? (
+                        <img className="profilePic" src={avatar} />
+                      ) : (
+                        <img className="profilePic" src={ProfilePic} alt="" />
+                      )}
                     </div>
                   </Link>
                 </>
@@ -462,8 +471,9 @@ export const HeaderNav = () => {
                   >
                     About Us
                   </Link>
+                  <hr />
                   <ul>
-                    Products
+                    <p>Products</p>
                     {user && (
                       <li>
                         <Link
@@ -481,7 +491,7 @@ export const HeaderNav = () => {
                         href="#!"
                         to="/shop?category=Pharmaceuticals"
                       >
-                        Pharmaceutical
+                        Pharmaceuticals
                       </Link>
                     </li>
                     <li>
@@ -503,6 +513,7 @@ export const HeaderNav = () => {
                       </Link>
                     </li>
                   </ul>
+                  <hr />
                   <Link
                     className="dropdown-item"
                     href={`${process.env.REACT_APP_HOMEPAGE_URL}/contact-us`}
@@ -528,7 +539,7 @@ export const HeaderNav = () => {
                   <input
                     name="name"
                     value={formData.name || ""}
-                    placeholder="Search Medicine..."
+                    placeholder="Search Products..."
                     ref={searchInput}
                     autoComplete="off"
                     onChange={handleChangeMobile}

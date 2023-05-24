@@ -426,8 +426,7 @@ export default (props) => {
         </div>
       </div> */}
       
-      <div className="product-page">
-        <div className="container-fluid">
+      <div className="product-page container-fluid">
             {
                 mainLoading
                 ? <>
@@ -444,8 +443,8 @@ export default (props) => {
                     {
                         !products.errorGetProducts
                         && product
-                        && <div className="d-flex align-items-start justify-content-center col-12">
-                            <div className="d-flex align-items-center justify-content-center w-100 col-6">
+                        && <div className="single-product-container d-flex flex-lg-row flex-column align-items-md-start align-items-center justify-content-center w-100">
+                            <div className="d-flex align-items-center justify-content-center w-100">
                                 <div className="img-container d-flex align-items-center justify-content-center">
                                     <img
                                         src={product.imageUrl ? product.imageUrl : NoImage}
@@ -453,7 +452,7 @@ export default (props) => {
                                     />
                                 </div>
                             </div>
-                            <div className="d-flex flex-column w-100 col-6">
+                            <div className="d-flex flex-column w-100">
                                 <div className="product-information d-flex mb-3">
                                     <div className="product-header d-flex flex-column w-100">
                                         <h3>{product?.name}</h3>
@@ -597,7 +596,6 @@ export default (props) => {
                     }
                 </>
             }
-        </div>
       </div>
 
       <Footer />

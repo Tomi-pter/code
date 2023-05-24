@@ -7,8 +7,8 @@ import Linkedin from '../../assets/icon/linkedin.svg';
 export const Footer = () => {
     return (
         <div className="footer container-fluid d-flex flex-column">
-            <span>Join Our Partners and get exclusive assess to new collections</span>
-            <div class="footer-input-container">
+            <span className="text-md-left text-center">Join Our Partners and get exclusive access to new collections.</span>
+            <div class="footer-input-container d-flex flex-md-row flex-column align-items-center">
                 <input
                     className="footer-input"
                     placeholder="example@domain.com"
@@ -16,11 +16,9 @@ export const Footer = () => {
                 />
                 <button>Subscribe</button>
             </div>
-            <div className="logo-container">
-                <img src={Logo} alt="Footer Logo"/>
-            </div>
-            <div className="footer-links d-flex align-items-start justify-content-between">
-                <div className="footer-columns d-flex">
+            <img className="footer-logo" src={Logo} alt="Footer Logo"/>
+            <div className="footer-links d-flex flex-md-row flex-column align-items-center justify-content-between">
+                <div className="footer-columns d-flex flex-md-row flex-column align-items-md-start align-items-center text-md-left text-center">
                     <div className="footer-column d-flex flex-column">
                         <div className="column-heading">Legal</div>
                         <a className="footer-link" href={`${process.env.REACT_APP_HOMEPAGE_URL}/terms-conditions`}>Terms & Conditions</a>

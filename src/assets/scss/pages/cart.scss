@@ -361,6 +361,9 @@
             padding: 9px 8px;
             background: #f6f5f3;
             border: 2px solid transparent;
+            @include mediaQueries(mobile) {
+              height: auto;
+            }
             & > * {
               padding: 0;
             }
@@ -379,13 +382,17 @@
               color: #181818;
               width: 270px;
               @include mediaQueries(mobile) {
-                width: auto;
+                width: 100%;
+                max-width: 150px;
               }
               p {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 margin: 0;
+                @include mediaQueries(mobile) {
+                  white-space: pre-wrap;
+                }
               }
             }
             .icon-container {
